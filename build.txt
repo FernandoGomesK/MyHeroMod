@@ -1,0 +1,3 @@
+displayName = My hero Academia mod
+author = KhadaAce
+version = 0.1
