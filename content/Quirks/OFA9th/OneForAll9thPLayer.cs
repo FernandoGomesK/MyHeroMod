@@ -48,60 +48,38 @@ namespace MyHeroMod.content.Quirks.OFA9th
             }
         }
 
+
         private void DoSuperJump(TransformationPlayer mainPlayer)
-            // You can add custom keybind processing here if needed
-            if (KeybindSystem.SkillKey.JustPressed && mainPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+        {
+            bool isDangerous = (mainPlayer.CurrentStage == QuirkStage.Initial) || (!mainPlayer.isTransformationActive);
+
+            if (isDangerous)
             {
-                if (mainPlayer.CurrentStage == QuirkStage.Initial)
+                Player.velocity.Y = -15f;
+                int damageTaken = 25;
+                Player.statLife -= damageTaken;
+
+                if (Player.statLife <= 0)
                 {
-                    Player.velocity.Y -= 25f;
-                    int damageTaken = 25;
-                    Player.statLife -= damageTaken;
+                    var reason = PlayerDeathReason.ByCustomReason(
+                        Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name));
+                    Player.KillMe(reason, damageTaken, 0);
+                }
+                CombatText.NewText(Player.getRect(), Color.Red, "Leg Broken!");
 
-                    if (Player.statLife <= 0)
-                    {
-                        
-                        var reason = PlayerDeathReason.ByCustomReason(
-                            Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name));
-
-                        Player.KillMe(reason, damageTaken, 0);
-                    }
-
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 15; i++)
                 {
                     Dust.NewDust(Player.position, Player.width, Player.height, DustID.Cloud, 0, 5, 100, default, 1.5f);
                 }
+
+
+                
             }
-        }}
-
-        public override void PostUpdateEquips()
-        {
-            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-            if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th && mainPlayer.isTransformationActive)
+            else
             {
-
-                Player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 2);
-
-                float multiplier = (int)mainPlayer.CurrentStage + 1;
-                Player.GetDamage(DamageClass.Generic) += 0.10f * multiplier;
-                Player.statDefense += (int)(5 * multiplier);
-                Player.moveSpeed += 1.00f * multiplier;
-                Player.jumpSpeed += 1.50f * multiplier;
-
-                Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
-
-                if (mainPlayer.CurrentStage == QuirkStage.Initial && Main.rand.NextBool(600))
-                {
-                    Player.GetDamage(DamageClass.Generic) += 0.10f;
-                    Player.statLife -= 5;
-                    CombatText.NewText(Player.getRect(), Color.Red, "-5 HP: Strain!");
-                }
-
+                Main.NewText("Cannot use Super Jump in current state.", Color.Red);
             }
         }
-    }
-}
-
 public class GreenLightningLayer : PlayerDrawLayer
 {
     
