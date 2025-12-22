@@ -1,1 +1,20 @@
-Keybinds.Transformar.DisplayName: Transformar
+Keybinds: {
+	Transformar.DisplayName: Transformar
+	"Use Skill.DisplayName": Use  Skill
+}
+
+Items: {
+	QuirkSelectorItem: {
+		DisplayName: Quirk Selector Item
+		Tooltip: ""
+	}
+}
+
+Buffs: {
+	FullCowlingBuff: {
+		DisplayName: Full Cowling Buff
+		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff.Description
+	}
+}
+
+DeathMessage: "{0} destroyed their own bones!"

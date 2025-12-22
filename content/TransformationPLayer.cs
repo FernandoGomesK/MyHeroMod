@@ -12,7 +12,7 @@ using Terraria.GameInput;
 namespace MyHeroMod.content
 {
     public enum QuirkType{ Quirkless, OneForAll9th }
-    public enum QuirkStage{ Initial, Intermediate, Advanced, Final }
+    public enum QuirkStage{ Initial, Adequation, Intermediate, Advanced, Final }
     public class TransformationPlayer : ModPlayer
     {
         public QuirkType SelectedQuirk = QuirkType.Quirkless;

@@ -5,20 +5,63 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 using Terraria.ID;
 using MyHeroMod.content;
+using MyHeromod.Content.Quirks.OFA9th.Projectiles;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
     public class OneForAll9thPlayer : ModPlayer
     {
+
+        public bool isFullCowlingBuffActive = false;
+
+        public int Fingers = 10;
+
+        public override void OnRespawn(Player player)
+        {
+            Fingers = 10;
+        }
+
+        public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
+        {
+            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+            // You can add custom keybind processing here if needed
+            if (KeybindSystem.SkillKey.JustPressed && mainPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+            {
+                if (mainPlayer.CurrentStage == QuirkStage.Initial)
+                {
+                    Player.velocity.Y -= 25f;
+                    int damageTaken = 25;
+                    Player.statLife -= damageTaken;
+
+                    if (Player.statLife <= 0)
+                    {
+                        
+                        var reason = PlayerDeathReason.ByCustomReason(
+                            Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name));
+
+                        Player.KillMe(reason, damageTaken, 0);
+                    }
+
+                for (int i = 0; i < 10; i++)
+                {
+                    Dust.NewDust(Player.position, Player.width, Player.height, DustID.Cloud, 0, 5, 100, default, 1.5f);
+                }
+            }
+        }}
+
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
             if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th && mainPlayer.isTransformationActive)
             {
+
+                Player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 2);
+
                 float multiplier = (int)mainPlayer.CurrentStage + 1;
                 Player.GetDamage(DamageClass.Generic) += 0.10f * multiplier;
                 Player.statDefense += (int)(5 * multiplier);
-                Player.moveSpeed += 0.10f * multiplier;
+                Player.moveSpeed += 1.00f * multiplier;
+                Player.jumpSpeed += 1.50f * multiplier;
 
                 Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
 
@@ -30,7 +73,6 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 }
 
             }
-             
         }
     }
 }

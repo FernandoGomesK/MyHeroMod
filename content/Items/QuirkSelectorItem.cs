@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content
+namespace MyHeroMod.content.Items
 {
     public class QuirkSelectorItem : ModItem
     {

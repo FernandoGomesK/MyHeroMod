@@ -4,6 +4,8 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
 
+using MyHeroMod.content;
+
 namespace MyHeroMod
 {
     public class UISystem : ModSystem
