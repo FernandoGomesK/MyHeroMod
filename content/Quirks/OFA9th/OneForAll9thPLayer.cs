@@ -16,7 +16,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public int Fingers = 10;
 
-        public override void OnRespawn(Player player)
+
+
+        public override void OnRespawn()
         {
             Fingers = 10;
         }
@@ -24,6 +26,29 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+            {
+                if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(mainPlayer, mainPlayer.Slot1);
+                if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(mainPlayer, mainPlayer.Slot2);
+                if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(mainPlayer, mainPlayer.Slot3);
+            }
+        }
+
+        private void ExecuteSkill(TransformationPlayer mainPlayer, OfaSkills skill)
+        {
+            switch (skill)
+            {
+                case OfaSkills.SuperJump:
+                    DoSuperJump(mainPlayer);
+                    break;
+                case OfaSkills.DelawareSmash:
+                    DoDelawareSmash(mainPlayer);
+                    break;
+            }
+        }
+
+        private void DoSuperJump(TransformationPlayer mainPlayer)
             // You can add custom keybind processing here if needed
             if (KeybindSystem.SkillKey.JustPressed && mainPlayer.SelectedQuirk == QuirkType.OneForAll9th)
             {

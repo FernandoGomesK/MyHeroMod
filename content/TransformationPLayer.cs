@@ -11,6 +11,14 @@ using Terraria.GameInput;
 
 namespace MyHeroMod.content
 {
+     public enum OfaSkills
+        {
+            None,
+            SuperJump,
+            DelawareSmash,
+            DetroitSmash,
+            FullCowling
+        }
     public enum QuirkType{ Quirkless, OneForAll9th }
     public enum QuirkStage{ Initial, Adequation, Intermediate, Advanced, Final }
     public class TransformationPlayer : ModPlayer
@@ -23,6 +31,11 @@ namespace MyHeroMod.content
         {
             if (KeybindSystem.TransformKey.JustPressed && SelectedQuirk != QuirkType.Quirkless)
             {
+                if (CurrentStage != QuirkStage.Initial)
+                {
+                    Terraria.Main.NewText("You cannot transform at this stage.", Microsoft.Xna.Framework.Color.Red);
+                    return;
+                }
                 isTransformationActive = !isTransformationActive;
 
                 string msg = isTransformationActive ? "One For All: Full Cowling 5%" : "Deactvated";
