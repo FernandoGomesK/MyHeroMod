@@ -1,6 +1,10 @@
 Keybinds: {
 	Transformar.DisplayName: Transformar
 	"Use Skill.DisplayName": Use  Skill
+	"Skill Slot 3.DisplayName": Skill  Slot 3
+	"Skill Slot 2.DisplayName": Skill  Slot 2
+	"Skill Slot 1.DisplayName": Skill  Slot 1
+	"Open Skill Menu.DisplayName": Open  Skill  Menu
 }
 
 Items: {
@@ -18,3 +22,4 @@ Buffs: {
 }
 
 DeathMessage: "{0} destroyed their own bones!"
+Projectiles.DelawareSmashProj.DisplayName: Delaware Smash Proj

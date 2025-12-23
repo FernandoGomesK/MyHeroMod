@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using MyHeroMod.content;
 
 namespace MyHeroMod.content.Items
 {
@@ -15,14 +17,36 @@ namespace MyHeroMod.content.Items
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.rare = ItemRarityID.Blue;
         }
+
+        public override bool AltFunctionUse(Player player)
+        {
+            return true;
+        }
         
         public override bool? UseItem(Player player)
         {
             if (Main.myPlayer == player.whoAmI)
             {
+                if (player.altFunctionUse == 2)
+                {
+                    CycleStage(player);
+                }
                 UISystem.ShowUI();
             }
             return true;
         }    
+        private void CycleStage(Player player)
+        {
+            var modPlayer = player.GetModPlayer<TransformationPlayer>();
+
+            modPlayer.CurrentStage++;
+
+            if (modPlayer.CurrentStage > QuirkStage.Final)
+            {
+                modPlayer.CurrentStage = QuirkStage.Initial;
+            }
+
+            Main.NewText($"Current Stage: {modPlayer.CurrentStage}", Color.Green);
+        }
     }
 }

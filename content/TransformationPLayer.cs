@@ -27,11 +27,15 @@ namespace MyHeroMod.content
         public QuirkStage CurrentStage = QuirkStage.Initial;
         public bool isTransformationActive = false;
 
+        public OfaSkills Slot1 = OfaSkills.SuperJump;
+        public OfaSkills Slot2 = OfaSkills.DelawareSmash;
+        public OfaSkills Slot3 = OfaSkills.None;
+
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         {
             if (KeybindSystem.TransformKey.JustPressed && SelectedQuirk != QuirkType.Quirkless)
             {
-                if (CurrentStage != QuirkStage.Initial)
+                if (CurrentStage == QuirkStage.Initial)
                 {
                     Terraria.Main.NewText("You cannot transform at this stage.", Microsoft.Xna.Framework.Color.Red);
                     return;

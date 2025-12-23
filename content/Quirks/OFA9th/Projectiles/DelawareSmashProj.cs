@@ -5,10 +5,11 @@ using Terraria.ID;
 using Microsoft.Build.Evaluation;
 using System.Security.Cryptography.X509Certificates;
 
-namespace MyHeromod.Content.Quirks.OFA9th.Projectiles
+namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 {
     public class DelawareSmashProj : ModProjectile
     {
+        public override string Texture => "Terraria/Images/Projectile_0";
         public override void SetDefaults()
         {
             Projectile.width = 20;

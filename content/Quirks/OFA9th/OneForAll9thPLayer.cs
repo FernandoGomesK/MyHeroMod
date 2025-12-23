@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 using Terraria.ID;
 using MyHeroMod.content;
-using MyHeromod.Content.Quirks.OFA9th.Projectiles;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
@@ -26,6 +26,10 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+            if (KeybindSystem.SkillMenu.JustPressed)
+{
+    UISystem.ToggleSkillMenu();
+}
 
             if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th)
             {
@@ -70,14 +74,78 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 for (int i = 0; i < 15; i++)
                 {
                     Dust.NewDust(Player.position, Player.width, Player.height, DustID.Cloud, 0, 5, 100, default, 1.5f);
-                }
-
-
-                
+                }   
             }
             else
             {
                 Main.NewText("Cannot use Super Jump in current state.", Color.Red);
+            }
+        }
+        private void DoDelawareSmash(TransformationPlayer mainPlayer)
+        {
+            int damage = 60;
+            bool consumeFinger = false;
+            bool hurtPlayer = false;
+
+            if (mainPlayer.CurrentStage == QuirkStage.Initial)
+            {
+                damage = 60; consumeFinger = true; hurtPlayer = true;
+            }
+            else if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+                if (mainPlayer.isTransformationActive)
+                {
+                    damage = 10; consumeFinger = false; hurtPlayer = false;
+                } else
+                {
+                    damage = 60; consumeFinger = true; hurtPlayer = true;
+                }
+            }
+            if (consumeFinger && Fingers <= 0)
+            {
+                CombatText.NewText(Player.getRect(), Color.Red, "No fingers left!");
+                return;
+            }
+
+            if (consumeFinger) Fingers--;
+
+            Vector2 Velocity = Main.MouseWorld - Player.Center;
+            Velocity.Normalize();
+            Velocity *= 15f;
+
+            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Velocity, ModContent.ProjectileType<DelawareSmashProj>(), damage, 2f, Player.whoAmI);
+
+            if (hurtPlayer)
+            {
+                Player.statLife -= 10;
+                if (Player.statLife <= 0)
+                {
+                    var reason = PlayerDeathReason.ByCustomReason(
+                        Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name));
+                    Player.KillMe(reason, damage, 0);
+                }
+            }
+        }
+
+        public override void PostUpdateEquips()
+        {
+            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+            if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th && mainPlayer.isTransformationActive)
+            {
+                isFullCowlingBuffActive = true;
+                Player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 2);
+                float multiplier = (int)mainPlayer.CurrentStage +1;
+                Player.GetDamage(DamageClass.Generic) += 0.05f * multiplier;
+                Player.statDefense += (int)multiplier;
+                Player.moveSpeed += 1.00f * multiplier;
+                Player.jumpSpeed += 1.50f * multiplier;
+
+
+                 Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
+            }
+            else
+            {
+                isFullCowlingBuffActive = false;
             }
         }
 public class GreenLightningLayer : PlayerDrawLayer
@@ -126,3 +194,4 @@ public class GreenLightningLayer : PlayerDrawLayer
         drawInfo.DrawDataCache.Add(drawData);
     }
 }
+    }}
