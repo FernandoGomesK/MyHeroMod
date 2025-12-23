@@ -14,10 +14,12 @@ namespace MyHeroMod.content.UI
 {
     public class SkillMenuUI : UIState
     {
+        private UIText title;
         private UIPanel mainPanel;
         private UIList skillList;
         private UIText descriptionText;
         private OfaSkills selectedSkill = OfaSkills.None; // Qual habilidade está selecionada agora
+
 
         public override void OnInitialize()
         {
@@ -33,7 +35,7 @@ namespace MyHeroMod.content.UI
             mainPanel.BackgroundColor = new Color(33, 43, 79); 
             Append(mainPanel);
 
-            UIText title = new UIText("Skill Assignment", 0.8f, true);
+            title = new UIText("Status", 0.8f, true);
             title.HAlign = 0.5f;
             title.Top.Set(10, 0);
             mainPanel.Append(title);
@@ -83,6 +85,22 @@ namespace MyHeroMod.content.UI
         public override void OnActivate()
         {
             base.OnActivate();
+
+            var modPlayer = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
+
+            string quirkName = modPlayer.SelectedQuirk.ToString();
+
+            if (modPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+            {
+                quirkName = "One For All 9th";
+            }
+            else if (modPlayer.SelectedQuirk == QuirkType.Quirkless)
+            {
+                quirkName = "Quirkless";
+            }
+            string dynamicText = $"{quirkName} - Stage: {modPlayer.CurrentStage}";
+            title.SetText(dynamicText);
+            
             PopulateSkillList(); // Agora é seguro chamar, pois o Player existe!
         }
 

@@ -22,8 +22,7 @@ namespace MyHeroMod
                 MyInterface = new UserInterface();
                 MyQuirkUI = new QuirkSelectionUI();
                 MySkillMenuUI = new SkillMenuUI();
-                MyQuirkUI.Activate();
-                MySkillMenuUI.Activate();
+                
             }
         }
         public override void Unload()
@@ -67,7 +66,7 @@ namespace MyHeroMod
             if (mouseTextIndex != -1)
             {
                 layers.Insert(mouseTextIndex, new LegacyGameInterfaceLayer(
-                    "MyHeroMod: QuirkSelection",
+                    "MyHeroMod: Interfaces",
                     delegate
                     {
                         if (MyInterface?.CurrentState != null)

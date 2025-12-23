@@ -17,7 +17,9 @@ namespace MyHeroMod.content
             SuperJump,
             DelawareSmash,
             DetroitSmash,
-            FullCowling
+            OneForAllFullCowling5,
+            OneForAllFullCowling8,
+            BlackWhipSurge,
         }
     public enum QuirkType{ Quirkless, OneForAll9th }
     public enum QuirkStage{ Initial, Adequation, Intermediate, Advanced, Final }
