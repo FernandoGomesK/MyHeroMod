@@ -8,9 +8,19 @@ Keybinds: {
 }
 
 Items: {
+	AlphaHelmet: {
+		DisplayName: Alpha Suit Helmet
+		Tooltip: Increases Maximum life by 20
+	}
+
 	QuirkSelectorItem: {
-		DisplayName: Quirk Selector Item
 		Tooltip: ""
+		DisplayName: Quirk Selector Item
+	}
+
+	EpsilonHelmet: {
+		DisplayName: Epsilon Suit Helmet
+		Tooltip: Increases Maximum life by 25
 	}
 }
 
@@ -22,4 +32,8 @@ Buffs: {
 }
 
 DeathMessage: "{0} destroyed their own bones!"
-Projectiles.DelawareSmashProj.DisplayName: Delaware Smash Proj
+
+Projectiles: {
+	DelawareSmashProj.DisplayName: Delaware Smash Proj
+	DetroitSmashProj.DisplayName: Detroit Smash Proj
+}

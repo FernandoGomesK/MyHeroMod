@@ -49,10 +49,17 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 case OfaSkills.DelawareSmash:
                     DoDelawareSmash(mainPlayer);
                     break;
+                case OfaSkills.DetroitSmash:
+                    DoDetroitSmash(mainPlayer);
+                    break;
             }
         }
 
-
+        private void DoDetroitSmash(TransformationPlayer mainPlayer)
+        {
+            bool isDangerous = (mainPlayer.CurrentStage == QuirkStage.Initial) || (!mainPlayer.isTransformationActive);
+            
+        }
         private void DoSuperJump(TransformationPlayer mainPlayer)
         {
             bool isDangerous = (mainPlayer.CurrentStage == QuirkStage.Initial) || (!mainPlayer.isTransformationActive);
