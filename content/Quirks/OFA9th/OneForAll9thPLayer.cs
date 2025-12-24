@@ -22,15 +22,16 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public override void OnRespawn()
         {
             Fingers = 10;
+            Player.GetModPlayer<TransformationPlayer>().ActiveForm = OfaSkills.None;
         }
 
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
             if (KeybindSystem.SkillMenu.JustPressed)
-{
-    UISystem.ToggleSkillMenu();
-}
+        {
+        UISystem.ToggleSkillMenu();
+        }
 
             if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th)
             {
@@ -55,39 +56,46 @@ namespace MyHeroMod.content.Quirks.OFA9th
                     DoDetroitSmash(mainPlayer);
                     break;
                 case OfaSkills.OneForAllFullCowling5:
-                    ToggleFullCowling5(mainPlayer);
+                    ToggleForm(mainPlayer, OfaSkills.OneForAllFullCowling5);
                     break;
+                case OfaSkills.OneForAllFullCowling8:
+                    ToggleForm(mainPlayer, OfaSkills.OneForAllFullCowling8);
+                    break;
+            }
+        }
+        private void ToggleForm(TransformationPlayer mainPlayer, OfaSkills targetForm)
+        {
+            if (mainPlayer.ActiveForm == targetForm)
+            {
+                mainPlayer.ActiveForm = OfaSkills.None;
+                Main.NewText("Reverted to normal form.", Color.White);
+            }
+            else
+            {
+                if (targetForm == OfaSkills.OneForAllFullCowling5 && mainPlayer.CurrentStage < QuirkStage.Adequation)
+                {
+                    Main.NewText("You don't quite get how to use Full Cowling yet.", Color.Red);
+                    return;
+                }
+                if (targetForm == OfaSkills.OneForAllFullCowling8 && mainPlayer.CurrentStage < QuirkStage.Intermediate)
+                {
+                    Main.NewText("You haven't mastered Full Cowling 8% yet.", Color.Red);
+                    return;
+                }
+                mainPlayer.ActiveForm = targetForm;
             }
         }
 
         private void DoDetroitSmash(TransformationPlayer mainPlayer)
         {
-            bool isDangerous = (mainPlayer.CurrentStage == QuirkStage.Initial) || (!mainPlayer.isTransformationActive);
+            bool isProtected = mainPlayer.ActiveForm != OfaSkills.None;
+            bool isDangerous = (mainPlayer.CurrentStage == QuirkStage.Initial) || (!isProtected);
             
         }
-        private void ToggleFullCowling5(TransformationPlayer mainPlayer)
-        {
-            if (mainPlayer.CurrentStage < QuirkStage.Adequation)
-            {
-                Main.NewText("You don't quite get how to use Full Cowling yet.", Color.Red);
-                return;
-            }
-            mainPlayer.isTransformationActive = !mainPlayer.isTransformationActive;
-
-            if (mainPlayer.isTransformationActive)
-            {
-                string msg = mainPlayer.isTransformationActive ? "One For All: Full Cowling 5%" : "Deactivated";
-                Main.NewText(msg, mainPlayer.isTransformationActive ? Microsoft.Xna.Framework.Color.LimeGreen : Microsoft.Xna.Framework.Color.White);
-                SoundEngine.PlaySound(SoundID.Item4, Player.position);
-                for (int i = 0; i < 20; i++)
-                {
-                    Dust.NewDust(Player.position, Player.width, Player.height, DustID.GreenTorch, 0, 0, 100, default, 1.5f);
-                }
-            }
-        }
+        
         private void DoSuperJump(TransformationPlayer mainPlayer)
         {
-            bool isDangerous = (mainPlayer.CurrentStage == QuirkStage.Initial) || (!mainPlayer.isTransformationActive);
+            bool isDangerous = (mainPlayer.CurrentStage == QuirkStage.Initial) || (mainPlayer.ActiveForm != OfaSkills.None);
 
             if (isDangerous)
             {
@@ -125,7 +133,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             }
             else if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
             {
-                if (mainPlayer.isTransformationActive)
+                if (mainPlayer.ActiveForm != OfaSkills.None)
                 {
                     damage = 10; consumeFinger = false; hurtPlayer = false;
                 } else
@@ -162,15 +170,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-            if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th && mainPlayer.isTransformationActive)
+            if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th && mainPlayer.ActiveForm != OfaSkills.None)
             {
-                isFullCowlingBuffActive = true;
                 Player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 2);
-                float multiplier = (int)mainPlayer.CurrentStage +1;
-                Player.GetDamage(DamageClass.Generic) += 0.05f * multiplier;
-                Player.statDefense += (int)multiplier;
-                Player.moveSpeed += 1.00f * multiplier;
-                Player.jumpSpeed += 1.50f * multiplier;
 
 
                  Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
@@ -180,50 +182,5 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 isFullCowlingBuffActive = false;
             }
         }
-public class GreenLightningLayer : PlayerDrawLayer
-{
-    
-    public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.ArmOverItem);
 
-    public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) {
-        var mp = drawInfo.drawPlayer.GetModPlayer<TransformationPlayer>();
-        return mp.SelectedQuirk == QuirkType.OneForAll9th && mp.isTransformationActive;
-    }
-
-    protected override void Draw(ref PlayerDrawSet drawInfo) {
-        
-        if (!ModContent.HasAsset("MyHeroMod/Assets/FullCowling")) {
-            return; 
-        }
-
-        Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/Assets/FullCowling").Value;
-
-        // Ajuste o frameCount para o número real de frames que você desenhou
-        int frameCount = 6; 
-        int frameSpeed = 6; 
-        int currentFrame = (int)(Main.GameUpdateCount / frameSpeed) % frameCount;
-
-        int frameHeight = texture.Height / frameCount;
-        Rectangle sourceRect = new Rectangle(0, currentFrame * frameHeight, texture.Width, frameHeight);
-
-        // Centraliza os raios no jogador
-        Vector2 position = drawInfo.Center - Main.screenPosition;
-        
-        // Criando o dado de desenho
-        DrawData drawData = new DrawData(
-            texture,
-            new Vector2((int)position.X, (int)position.Y), 
-            sourceRect,
-            Color.White, 
-            drawInfo.drawPlayer.fullRotation,
-            new Vector2(texture.Width / 2f, frameHeight / 2f),
-            1f,
-            drawInfo.playerEffect,
-            0
-        );
-
-        // Adiciona à lista de desenhos do frame atual
-        drawInfo.DrawDataCache.Add(drawData);
-    }
-}
     }}
