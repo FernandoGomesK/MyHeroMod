@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
+using Terraria.Audio;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
@@ -36,6 +37,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(mainPlayer, mainPlayer.Slot1);
                 if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(mainPlayer, mainPlayer.Slot2);
                 if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(mainPlayer, mainPlayer.Slot3);
+                if (KeybindSystem.TransformKey.JustPressed) ExecuteSkill(mainPlayer, mainPlayer.TransformSlot);
             }
         }
 
@@ -52,6 +54,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 case OfaSkills.DetroitSmash:
                     DoDetroitSmash(mainPlayer);
                     break;
+                case OfaSkills.OneForAllFullCowling5:
+                    ToggleFullCowling5(mainPlayer);
+                    break;
             }
         }
 
@@ -59,6 +64,26 @@ namespace MyHeroMod.content.Quirks.OFA9th
         {
             bool isDangerous = (mainPlayer.CurrentStage == QuirkStage.Initial) || (!mainPlayer.isTransformationActive);
             
+        }
+        private void ToggleFullCowling5(TransformationPlayer mainPlayer)
+        {
+            if (mainPlayer.CurrentStage < QuirkStage.Adequation)
+            {
+                Main.NewText("You don't quite get how to use Full Cowling yet.", Color.Red);
+                return;
+            }
+            mainPlayer.isTransformationActive = !mainPlayer.isTransformationActive;
+
+            if (mainPlayer.isTransformationActive)
+            {
+                string msg = mainPlayer.isTransformationActive ? "One For All: Full Cowling 5%" : "Deactvated";
+                Main.NewText(msg, mainPlayer.isTransformationActive ? Microsoft.Xna.Framework.Color.LimeGreen : Microsoft.Xna.Framework.Color.White);
+                SoundEngine.PlaySound(SoundID.Item4, Player.position);
+                for (int i = 0; i < 20; i++)
+                {
+                    Dust.NewDust(Player.position, Player.width, Player.height, DustID.GreenTorch, 0, 0, 100, default, 1.5f);
+                }
+            }
         }
         private void DoSuperJump(TransformationPlayer mainPlayer)
         {

@@ -67,6 +67,7 @@ namespace MyHeroMod.content.UI
             CreateSlotButton("Slot 1 (Z)", 60, 1);
             CreateSlotButton("Slot 2 (X)", 140, 2);
             CreateSlotButton("Slot 3 (C)", 220, 3);
+            CreateSlotButton("Transform (G)", 300, 4);
 
             // 4. RODAPÉ: Descrição
             UIPanel descPanel = new UIPanel();
@@ -168,6 +169,7 @@ namespace MyHeroMod.content.UI
                 if (slotNum == 1) player.Slot1 = selectedSkill;
                 if (slotNum == 2) player.Slot2 = selectedSkill;
                 if (slotNum == 3) player.Slot3 = selectedSkill;
+                if (slotNum == 4) player.TransformSlot = selectedSkill;
 
                 Main.NewText($"Assigned {SkillData.Skills[selectedSkill].Name} to Slot {slotNum}!", Color.Green);
                 SoundEngine.PlaySound(SoundID.MenuOpen);
