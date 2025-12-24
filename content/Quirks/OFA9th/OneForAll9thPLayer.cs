@@ -76,7 +76,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
             if (mainPlayer.isTransformationActive)
             {
-                string msg = mainPlayer.isTransformationActive ? "One For All: Full Cowling 5%" : "Deactvated";
+                string msg = mainPlayer.isTransformationActive ? "One For All: Full Cowling 5%" : "Deactivated";
                 Main.NewText(msg, mainPlayer.isTransformationActive ? Microsoft.Xna.Framework.Color.LimeGreen : Microsoft.Xna.Framework.Color.White);
                 SoundEngine.PlaySound(SoundID.Item4, Player.position);
                 for (int i = 0; i < 20; i++)
