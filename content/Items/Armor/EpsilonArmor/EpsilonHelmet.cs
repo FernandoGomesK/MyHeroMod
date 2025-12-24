@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Items.Armor
+namespace MyHeroMod.content.Items.Armor.EpsilonArmor
 {
     [AutoloadEquip(EquipType.Head)]
     public class EpsilonHelmet : ModItem

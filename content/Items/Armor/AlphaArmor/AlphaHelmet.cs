@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Items.Armor
+namespace MyHeroMod.content.Items.Armor.AlphaArmor
 {
     [AutoloadEquip(EquipType.Head)]
     public class AlphaHelmet : ModItem
