@@ -21,7 +21,7 @@ namespace MyHeroMod.content
             OneForAllFullCowling8, // Full Cowling 8%
             BlackWhipSurge,
         }
-    public enum QuirkType{ Quirkless, OneForAll9th }
+    public enum QuirkType{ Quirkless, OneForAll9th, Explosion, OneForAll8th }
     public enum QuirkStage{ Initial, Adequation, Intermediate, Advanced, Final }
     public class TransformationPlayer : ModPlayer
     {

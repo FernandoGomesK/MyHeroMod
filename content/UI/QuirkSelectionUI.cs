@@ -29,6 +29,8 @@ namespace MyHeroMod
             MainPanel.Append(title);
 
             CreateButton("One For All 9th", 60f, QuirkType.OneForAll9th, Color.LimeGreen);
+            CreateButton("Explosion", 110f, QuirkType.Explosion, Color.OrangeRed);
+            CreateButton("One For All 8th", 160f, QuirkType.OneForAll8th, Color.YellowGreen);
         }
         private void CreateButton(string text, float top, QuirkType quirk, Color color)
         {
