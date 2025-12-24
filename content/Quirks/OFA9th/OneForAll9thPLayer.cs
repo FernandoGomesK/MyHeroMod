@@ -8,6 +8,7 @@ using MyHeroMod.content;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using Terraria.Audio;
 
+
 namespace MyHeroMod.content.Quirks.OFA9th
 {
     public class OneForAll9thPlayer : ModPlayer
@@ -83,6 +84,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
                     return;
                 }
                 mainPlayer.ActiveForm = targetForm;
+                Main.NewText($"Transformed into {SkillData.Skills[targetForm].Name} form!", Color.LimeGreen);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), Player.position);
             }
         }
 
