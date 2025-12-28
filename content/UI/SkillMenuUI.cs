@@ -6,9 +6,10 @@ using Terraria.UI;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.ID;
-using MyHeroMod.content.Quirks.OFA9th;
+using MyHeroMod.content.Quirks;
 using System.Collections.Generic;
 using MyHeroMod.content;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.UI
 {
@@ -18,7 +19,8 @@ namespace MyHeroMod.content.UI
         private UIPanel mainPanel;
         private UIList skillList;
         private UIText descriptionText;
-        private OfaSkills selectedSkill = OfaSkills.None; // Qual habilidade está selecionada agora
+        private QuirkSkills selectedSkill = QuirkSkills.None; // Qual habilidade está selecionada agora
+    
 
 
         public override void OnInitialize()
@@ -95,6 +97,10 @@ namespace MyHeroMod.content.UI
             {
                 quirkName = "One For All 9th";
             }
+            else if (modPlayer.SelectedQuirk == QuirkType.OneForAll8th)
+            {
+                quirkName = "One For All 8th";
+            }
             else if (modPlayer.SelectedQuirk == QuirkType.Quirkless)
             {
                 quirkName = "Quirkless";
@@ -115,13 +121,13 @@ namespace MyHeroMod.content.UI
 
             var player = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
 
-            foreach (var kvp in SkillData.Skills)
+            foreach (var kvp in SkillData.SkillList)
             {
-                OfaSkills skillType = kvp.Key;
+                QuirkSkills skillType = kvp.Key;
                 SkillInfo info = kvp.Value;
 
                 // Só mostra se o jogador tiver nível suficiente
-                if (player.CurrentStage >= info.MinStage)
+                if (player.CurrentStage >= info.MinStage && info.RelatedQuirks.Contains(player.SelectedQuirk))
                 {
                     UIPanel button = new UIPanel();
                     button.Width.Set(180, 0);
@@ -159,7 +165,7 @@ namespace MyHeroMod.content.UI
             slotBtn.Append(text);
 
             slotBtn.OnLeftClick += (evt, elem) => {
-                if (selectedSkill == OfaSkills.None) {
+                if (selectedSkill == QuirkSkills.None) {
                     Main.NewText("Select a skill first!", Color.Red);
                     return;
                 }
@@ -171,10 +177,10 @@ namespace MyHeroMod.content.UI
                 if (slotNum == 3) player.Slot3 = selectedSkill;
                 if (slotNum == 4) player.TransformSlot = selectedSkill;
 
-                Main.NewText($"Assigned {SkillData.Skills[selectedSkill].Name} to Slot {slotNum}!", Color.Green);
+                Main.NewText($"Assigned {SkillData.SkillList[selectedSkill].Name} to Slot {slotNum}!", Color.Green);
                 SoundEngine.PlaySound(SoundID.MenuOpen);
                 
-                text.SetText($"{label}: {SkillData.Skills[selectedSkill].Name}");
+                text.SetText($"{label}: {SkillData.SkillList[selectedSkill].Name}");
             };
 
             mainPanel.Append(slotBtn);

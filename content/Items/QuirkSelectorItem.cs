@@ -2,12 +2,18 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
 using MyHeroMod.content;
 
 namespace MyHeroMod.content.Items
 {
     public class QuirkSelectorItem : ModItem
     {
+        public override void SetStaticDefaults()
+        {
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(12, 8));
+
+        }
         public override void SetDefaults(){
             Item.width = 20;
             Item.height = 20;

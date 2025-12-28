@@ -22,12 +22,27 @@ Items: {
 		DisplayName: Epsilon Suit Helmet
 		Tooltip: Increases Maximum life by 25
 	}
+
+	EpsilonBreastplate: {
+		DisplayName: Epsilon Breastplate
+		Tooltip: ""
+	}
+
+	EpsilonLeggings: {
+		DisplayName: Epsilon Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {
 	FullCowlingBuff: {
 		DisplayName: Full Cowling Buff
 		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff.Description
+	}
+
+	StockPileBuff: {
+		DisplayName: Stock Pile Buff
+		Description: Mods.MyHeroMod.Buffs.StockPileBuff.Description
 	}
 }
 
@@ -36,4 +51,5 @@ DeathMessage: "{0} destroyed their own bones!"
 Projectiles: {
 	DelawareSmashProj.DisplayName: Delaware Smash Proj
 	DetroitSmashProj.DisplayName: Detroit Smash Proj
+	PrimeDetroitSmashProj.DisplayName: Prime Detroit Smash Proj
 }

@@ -9,11 +9,11 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 {
     public class DetroitSmashProj : ModProjectile
     {
-        public override string Texture => "Terraria/Images/Projectile_0";
+        
         public override void SetDefaults()
         {
-            Projectile.width = 60;
-            Projectile.height = 60;
+            Projectile.width = 80;
+            Projectile.height = 80;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.hostile = false;
@@ -23,7 +23,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             Projectile.light = 0.5f;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = true;
-            Projectile.alpha = 255;
+            Projectile.alpha = 0;
         }
         public override void OnKill(int timeLeft)
         {
@@ -34,6 +34,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
         }
         public override void AI()
         {
+            Projectile.rotation = Projectile.velocity.ToRotation();
             if (Main.rand.NextBool(2))
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Electric, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.5f);

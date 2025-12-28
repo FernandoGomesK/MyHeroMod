@@ -5,20 +5,20 @@ using Terraria.ID;
 using Microsoft.Build.Evaluation;
 using System.Security.Cryptography.X509Certificates;
 
-namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
+namespace MyHeroMod.content.Quirks.OFA8th.Projectiles
 {
-    public class DelawareSmashProj : ModProjectile
+    public class PrimeDetroitSmashProj : ModProjectile
     {
         
         public override void SetDefaults()
         {
-            Projectile.width = 32;
-            Projectile.height = 32;
+            Projectile.width = 80;
+            Projectile.height = 80;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Generic;
-            Projectile.penetrate = 1;
+            Projectile.penetrate = 2;
             Projectile.timeLeft = 60;
             Projectile.light = 0.5f;
             Projectile.ignoreWater = true;
@@ -35,7 +35,6 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
         public override void AI()
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-            
             if (Main.rand.NextBool(2))
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Electric, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.5f);

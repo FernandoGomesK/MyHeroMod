@@ -6,7 +6,9 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
+using MyHeroMod.content.System;
 using Terraria.Audio;
+using System.Collections.Generic;
 
 
 namespace MyHeroMod.content.Quirks.OFA9th
@@ -17,23 +19,59 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public bool isFullCowlingBuffActive = false;
 
         public int Fingers = 10;
+        public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
+        private int ElectricSoundTimer = 0;
 
+        public int ActivationTimer = 0;
+        public int ActivationMaxTime = 40;
+        private QuirkSkills PendingForm = QuirkSkills.None;
 
+        // Resetar no renascer
 
         public override void OnRespawn()
         {
             Fingers = 10;
-            Player.GetModPlayer<TransformationPlayer>().ActiveForm = OfaSkills.None;
+            Player.GetModPlayer<TransformationPlayer>().ActiveForm = QuirkSkills.None;
+            SkillCooldowns.Clear();
+            ElectricSoundTimer = 0;
+            ActivationTimer = 0;
+            PendingForm = QuirkSkills.None;
         }
+
+        public override void PreUpdate()
+        {
+            List<QuirkSkills> keys = new List<QuirkSkills>(SkillCooldowns.Keys);
+            foreach (var skill in keys)
+            {
+                if (SkillCooldowns[skill] > 0)
+                {
+                    SkillCooldowns[skill]--;
+                }
+            }
+            if (ActivationTimer > 0)
+            {
+                ActivationTimer++;
+                Player.velocity *= 0.6f;
+
+                if (ActivationTimer >= ActivationMaxTime)
+                {
+                    var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+                    mainPlayer.ActiveForm = PendingForm;
+
+                    ActivationTimer = 0;
+                    PendingForm = QuirkSkills.None;
+
+
+                }
+            }
+        }
+
+
 
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-            if (KeybindSystem.SkillMenu.JustPressed)
-        {
-        UISystem.ToggleSkillMenu();
-        }
-
+            
             if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th)
             {
                 if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(mainPlayer, mainPlayer.Slot1);
@@ -43,62 +81,132 @@ namespace MyHeroMod.content.Quirks.OFA9th
             }
         }
 
-        private void ExecuteSkill(TransformationPlayer mainPlayer, OfaSkills skill)
+        // Realizar Habilidades
+
+        private void ExecuteSkill(TransformationPlayer mainPlayer, QuirkSkills skill)
         {
+            if (SkillCooldowns.ContainsKey(skill) && SkillCooldowns[skill] > 0)
+            {
+                Main.NewText("On Cooldown.", Color.White);
+                return;
+            }
+
+            bool skillUsed = false;
             switch (skill)
             {
-                case OfaSkills.SuperJump:
+                case QuirkSkills.SuperJump:
                     DoSuperJump(mainPlayer);
+                    skillUsed = true;
+                    SetCooldown(skill, 120);
                     break;
-                case OfaSkills.DelawareSmash:
+                case QuirkSkills.DelawareSmash:
                     DoDelawareSmash(mainPlayer);
+                    skillUsed = true;
+                    SetCooldown(skill, 30);
                     break;
-                case OfaSkills.DetroitSmash:
+                case QuirkSkills.DetroitSmash:
                     DoDetroitSmash(mainPlayer);
+                    skillUsed = true;
+                    SetCooldown(skill, 600);
                     break;
-                case OfaSkills.OneForAllFullCowling5:
-                    ToggleForm(mainPlayer, OfaSkills.OneForAllFullCowling5);
+                case QuirkSkills.OneForAllFullCowling5:
+                    ToggleForm(mainPlayer, QuirkSkills.OneForAllFullCowling5);
+                    skillUsed = true;
+                    SetCooldown(skill, 60);
                     break;
-                case OfaSkills.OneForAllFullCowling8:
-                    ToggleForm(mainPlayer, OfaSkills.OneForAllFullCowling8);
+                case QuirkSkills.OneForAllFullCowling8:
+                    ToggleForm(mainPlayer, QuirkSkills.OneForAllFullCowling8);
+                    skillUsed = true;
+                    SetCooldown(skill, 60);
                     break;
             }
         }
-        private void ToggleForm(TransformationPlayer mainPlayer, OfaSkills targetForm)
+
+        private void SetCooldown(QuirkSkills skill, int timeInTicks)
+        {
+            if (SkillCooldowns.ContainsKey(skill))
+            {
+                SkillCooldowns[skill] = timeInTicks;
+            }
+            else
+            {
+                SkillCooldowns.Add(skill, timeInTicks);
+            }
+        }
+
+        // Transformar 
+
+        private void ToggleForm(TransformationPlayer mainPlayer, QuirkSkills targetForm)
         {
             if (mainPlayer.ActiveForm == targetForm)
             {
-                mainPlayer.ActiveForm = OfaSkills.None;
+                mainPlayer.ActiveForm = QuirkSkills.None;
                 Main.NewText("Reverted to normal form.", Color.White);
             }
             else
             {
-                if (targetForm == OfaSkills.OneForAllFullCowling5 && mainPlayer.CurrentStage < QuirkStage.Adequation)
+                if (targetForm == QuirkSkills.OneForAllFullCowling5 && mainPlayer.CurrentStage < QuirkStage.Adequation)
                 {
                     Main.NewText("You don't quite get how to use Full Cowling yet.", Color.Red);
                     return;
                 }
-                if (targetForm == OfaSkills.OneForAllFullCowling8 && mainPlayer.CurrentStage < QuirkStage.Intermediate)
+                if (targetForm == QuirkSkills.OneForAllFullCowling8 && mainPlayer.CurrentStage < QuirkStage.Intermediate)
                 {
                     Main.NewText("You haven't mastered Full Cowling 8% yet.", Color.Red);
                     return;
                 }
                 mainPlayer.ActiveForm = targetForm;
-                Main.NewText($"Transformed into {SkillData.Skills[targetForm].Name} form!", Color.LimeGreen);
+                Main.NewText($"Transformed into {SkillData.SkillList[targetForm].Name} form!", Color.LimeGreen);
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), Player.position);
             }
         }
 
+        //Detroit Smash
+
         private void DoDetroitSmash(TransformationPlayer mainPlayer)
         {
-            bool isProtected = mainPlayer.ActiveForm != OfaSkills.None;
-            bool isDangerous = (mainPlayer.CurrentStage == QuirkStage.Initial) || (!isProtected);
-            
+            int MaxDamage = 450;
+            int FinalDamage = 0;
+            bool hurtPlayer = false;
+
+            if (mainPlayer.ActiveForm == QuirkSkills.OneForAllFullCowling5)
+            {
+                FinalDamage = (int)(MaxDamage * 0.05f);
+                hurtPlayer = false;
+            }
+            if (mainPlayer.ActiveForm == QuirkSkills.OneForAllFullCowling8)
+            {
+                FinalDamage = (int)(MaxDamage * 0.08f);
+            }
+            else
+            {
+                FinalDamage = MaxDamage;
+                hurtPlayer = true;
+            }
+
+            Vector2 Velocity = Main.MouseWorld - Player.Center;
+            Velocity.Normalize();
+            Velocity *= 15f;
+
+            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Velocity, ModContent.ProjectileType<DetroitSmashProj>(), FinalDamage, 2f, Player.whoAmI);
+
+            if (hurtPlayer)
+            {
+                Player.statLife -= 10;
+                if (Player.statLife <= 0)
+                {
+                    var reason = PlayerDeathReason.ByCustomReason(
+                        Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name));
+                    Player.KillMe(reason, FinalDamage, 0);
+                }
+            }
         }
+        
+        // Super Pulo
         
         private void DoSuperJump(TransformationPlayer mainPlayer)
         {
-            bool isDangerous = (mainPlayer.CurrentStage == QuirkStage.Initial) || (mainPlayer.ActiveForm != OfaSkills.None);
+            bool isDangerous = (mainPlayer.CurrentStage == QuirkStage.Initial) || (mainPlayer.ActiveForm != QuirkSkills.None);
 
             if (isDangerous)
             {
@@ -124,25 +232,33 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 Main.NewText("Cannot use Super Jump in current state.", Color.Red);
             }
         }
+
+        // Delaware Smash
+
         private void DoDelawareSmash(TransformationPlayer mainPlayer)
         {
-            int damage = 60;
+            int MaxDamage = 100;
+            int FinalDamage = 0;
             bool consumeFinger = false;
             bool hurtPlayer = false;
 
-            if (mainPlayer.CurrentStage == QuirkStage.Initial)
+            if (mainPlayer.ActiveForm == QuirkSkills.OneForAllFullCowling5)
             {
-                damage = 60; consumeFinger = true; hurtPlayer = true;
+                FinalDamage = (int)(MaxDamage * 0.05f);
+                hurtPlayer = false;
+                consumeFinger = false;
             }
-            else if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            else if (mainPlayer.ActiveForm == QuirkSkills.OneForAllFullCowling8)
             {
-                if (mainPlayer.ActiveForm != OfaSkills.None)
-                {
-                    damage = 10; consumeFinger = false; hurtPlayer = false;
-                } else
-                {
-                    damage = 60; consumeFinger = true; hurtPlayer = true;
-                }
+                FinalDamage = (int)(MaxDamage * 0.08f);
+                hurtPlayer = false;
+                consumeFinger = false;
+            }
+            else
+            {
+                FinalDamage = MaxDamage;
+                hurtPlayer = true;
+                consumeFinger = true;
             }
             if (consumeFinger && Fingers <= 0)
             {
@@ -156,7 +272,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             Velocity.Normalize();
             Velocity *= 15f;
 
-            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Velocity, ModContent.ProjectileType<DelawareSmashProj>(), damage, 2f, Player.whoAmI);
+            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Velocity, ModContent.ProjectileType<DelawareSmashProj>(), FinalDamage, 2f, Player.whoAmI);
 
             if (hurtPlayer)
             {
@@ -165,7 +281,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 {
                     var reason = PlayerDeathReason.ByCustomReason(
                         Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name));
-                    Player.KillMe(reason, damage, 0);
+                    Player.KillMe(reason, MaxDamage], 0);
                 }
             }
         }
@@ -173,7 +289,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-            if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th && mainPlayer.ActiveForm != OfaSkills.None)
+            if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th && mainPlayer.ActiveForm != QuirkSkills.None)
             {
                 Player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 2);
 

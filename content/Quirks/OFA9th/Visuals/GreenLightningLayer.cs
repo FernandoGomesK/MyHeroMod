@@ -12,7 +12,7 @@ public class GreenLightningLayer : PlayerDrawLayer
 
     public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) {
         var mp = drawInfo.drawPlayer.GetModPlayer<TransformationPlayer>();
-        return mp.SelectedQuirk == QuirkType.OneForAll9th && mp.ActiveForm != OfaSkills.None;
+        return mp.SelectedQuirk == QuirkType.OneForAll9th && mp.ActiveForm != QuirkSkills.None;
     }
 
     protected override void Draw(ref PlayerDrawSet drawInfo) {
