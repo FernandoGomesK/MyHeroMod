@@ -113,6 +113,26 @@ namespace MyHeroMod.content.System
                     QuirkType.OneForAll9th, 
                 }
                 });
+                SkillList.Add(QuirkSkills.OneForAllFullCowling45, new SkillInfo
+                {
+                    Name = "Full Cowling 45%",
+                    Description = "Activate One For All Full Cowling 45%, greatly increasing your overall physical capabilities, but straining your body.",
+                    IconPath = "MyHeroMod/Assets/Skills/OFA9th/FullCowling45Percent",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.OneForAll9th, 
+                }
+                });
+                SkillList.Add(QuirkSkills.BlackWhipHook, new SkillInfo
+                {
+                    Name = "Black Whip Hook",
+                    Description = "Shoot out a black energy whip that can latch onto surfaces and pull you towards them.",
+                    IconPath = "MyHeroMod/Assets/Skills/OFA9th/BlackWhipHook",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.OneForAll9th, 
+                }
+                });
                 SkillList.Add(QuirkSkills.BlackWhipSurge, new SkillInfo
                 {
                     Name = "Black Whip Surge",
@@ -123,6 +143,38 @@ namespace MyHeroMod.content.System
                     QuirkType.OneForAll9th, 
                 }
                 });
+                SkillList.Add(QuirkSkills.Float, new SkillInfo
+                {
+                    Name = "Float",
+                    Description = "Defy gravity and float in the air for a short duration.",
+                    IconPath = "MyHeroMod/Assets/Skills/OFA9th/Float",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.OneForAll9th, 
+                }
+                });
+                SkillList.Add(QuirkSkills.DangerSense, new SkillInfo
+                {
+                    Name = "One For All 4th: Danger Sense",
+                    Description = "Heighten your senses to detect nearby threats and dangers.",
+                    IconPath = "MyHeroMod/Assets/Skills/OFA9th/DangerSense",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.OneForAll9th, 
+                }
+                });
+                SkillList.Add(QuirkSkills.Gearshift, new SkillInfo
+                {
+                    Name = "One For All 2nd: Gearshift",
+                    Description = "Activate Gearshift, greatly increasing your Speed to Superhuman Levels, but straining your body.",
+                    IconPath = "MyHeroMod/Assets/Skills/OFA9th/Gearshift",
+                    MinStage = QuirkStage.Advanced,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.OneForAll9th, 
+                }
+                });
+
+                // 
 
                 // 
                 

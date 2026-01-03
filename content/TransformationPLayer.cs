@@ -30,13 +30,19 @@ namespace MyHeroMod.content
             DetroitSmash,
             OneForAllFullCowling5, // Full Cowling 5%
             OneForAllFullCowling8, // Full Cowling 8%
+            OneForAllFullCowling45, // Full Cowling 45%
+            BlackWhipHook, 
+            OneForAllFullCowling100, // Full Cowling 100%
             BlackWhipSurge,
+            Float,
+            DangerSense,
+            Gearshift,
 
             // Explosion
             ExplosionBlast,
 
         }
-    public enum QuirkType{ Quirkless, OneForAll9th, Explosion, OneForAll8th }
+    public enum QuirkType{ Quirkless, OneForAll9th, OneForAll8th, Explosion, HellFlames, BlueFlames, HalfColdHalfHot }
     public enum QuirkStage{ Initial, Adequation, Intermediate, Advanced, Final }
     public class TransformationPlayer : ModPlayer
     {

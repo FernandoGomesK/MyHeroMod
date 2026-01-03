@@ -2,10 +2,10 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Items.Armor.EpsilonArmor
+namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
 {
     [AutoloadEquip(EquipType.Legs)]
-    public class EpsilonLeggings : ModItem
+    public class AlphaLeggings : ModItem
     {
         
         public override void SetDefaults()

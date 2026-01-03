@@ -32,6 +32,26 @@ Items: {
 		DisplayName: Epsilon Leggings
 		Tooltip: ""
 	}
+
+	FireQuirkAttack: {
+		DisplayName: Fire Quirk Attack
+		Tooltip: ""
+	}
+
+	BlueQuirkAttack: {
+		Tooltip: ""
+		DisplayName: Blue Quirk Attack
+	}
+
+	AlphaBreastplate: {
+		Tooltip: ""
+		DisplayName: Alpha Breastplate
+	}
+
+	AlphaLeggings: {
+		DisplayName: Alpha Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -44,6 +64,16 @@ Buffs: {
 		DisplayName: Stock Pile Buff
 		Description: Mods.MyHeroMod.Buffs.StockPileBuff.Description
 	}
+
+	GearshiftBuff: {
+		Description: Mods.MyHeroMod.Buffs.GearshiftBuff.Description
+		DisplayName: Gearshift Buff
+	}
+
+	DangerSenseBuff: {
+		Description: Mods.MyHeroMod.Buffs.DangerSenseBuff.Description
+		DisplayName: Danger Sense Buff
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -52,4 +82,7 @@ Projectiles: {
 	DelawareSmashProj.DisplayName: Delaware Smash Proj
 	DetroitSmashProj.DisplayName: Detroit Smash Proj
 	PrimeDetroitSmashProj.DisplayName: Prime Detroit Smash Proj
+	BlackWhipProjectile.DisplayName: Black Whip Projectile
+	WeakFireProj.DisplayName: Weak Fire Proj
+	BlueFireProj.DisplayName: Blue Fire Proj
 }

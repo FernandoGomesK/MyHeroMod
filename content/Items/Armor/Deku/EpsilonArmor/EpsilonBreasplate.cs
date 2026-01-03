@@ -3,18 +3,32 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 
-namespace MyHeroMod.content.Items.Armor.EpsilonArmor
+namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
 {
     [AutoloadEquip(EquipType.Body)]
     public class EpsilonBreastplate : ModItem
     {
         public static int FemaleBodySlot;
 
+        public static int CapeSlotID { get; private set; }
+
+        public override void Load()
+        {
+            if (Main.netMode == NetmodeID.Server) return;
+
+            CapeSlotID = EquipLoader.AddEquipTexture(Mod, "MyHeroMod/content/Items/Armor/Deku/EpsilonArmor/Epsilon_Cape", EquipType.Back, this);
+            
+        }
+
+                
+
+
     
     public override void SetStaticDefaults()
         {
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
+            ArmorIDs.Body.Sets.IncludedCapeBack[Item.bodySlot] = CapeSlotID;
         }
     public override void SetMatch(bool male, ref int equipSlot, ref bool robes)
         {

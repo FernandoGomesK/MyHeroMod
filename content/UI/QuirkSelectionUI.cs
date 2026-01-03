@@ -12,6 +12,8 @@ namespace MyHeroMod
     public class QuirkSelectionUI : UIState
     {
         public UIPanel MainPanel;
+        public UIList quirkList;
+        public UIScrollbar scrollbar;
 
         public override void OnInitialize()
         {
@@ -28,17 +30,34 @@ namespace MyHeroMod
             title.Top.Set(10f, 0f);
             MainPanel.Append(title);
 
-            CreateButton("One For All 9th", 60f, QuirkType.OneForAll9th, Color.LimeGreen);
-            CreateButton("Explosion", 110f, QuirkType.Explosion, Color.OrangeRed);
-            CreateButton("One For All 8th", 160f, QuirkType.OneForAll8th, Color.YellowGreen);
+            scrollbar = new UIScrollbar();
+            scrollbar.Height.Set(-50f, 1f);
+            scrollbar.Top.Set(40f, 0f);
+            scrollbar.HAlign = 1f;
+            MainPanel.Append(scrollbar);
+
+            quirkList = new UIList();
+            quirkList.Width.Set(-25f, 1f);
+            quirkList.Height.Set(-50f, 1f);
+            quirkList.Top.Set(40f, 0f);
+            quirkList.HAlign = 0f;
+            quirkList.ListPadding = 5f;
+            MainPanel.Append(quirkList);
+
+            quirkList.SetScrollbar(scrollbar);
+
+            CreateButton("One For All 9th", QuirkType.OneForAll9th, Color.LimeGreen);
+            CreateButton("Explosion", QuirkType.Explosion, Color.OrangeRed);
+            CreateButton("One For All 8th", QuirkType.OneForAll8th, Color.YellowGreen);
+            CreateButton("Hell Flames", QuirkType.HellFlames, Color.Orange);
+            CreateButton("Blue Flames", QuirkType.BlueFlames, Color.CornflowerBlue);
+            CreateButton("Half Cold Half Hot", QuirkType.HalfColdHalfHot, Color.LightBlue);
         }
-        private void CreateButton(string text, float top, QuirkType quirk, Color color)
+        private void CreateButton(string text, QuirkType quirk, Color color)
         {
             UIPanel button = new UIPanel();
-            button.Width.Set(200f, 0f);
+            button.Width.Set(0f, 1f);
             button.Height.Set(40f, 0f);
-            button.Left.Set(30f, 0f);
-            button.Top.Set(top, 0f);
             button.BackgroundColor = color * 0.7f;
 
             button.OnLeftClick += (evt, element) =>
@@ -47,6 +66,22 @@ namespace MyHeroMod
                 var modPlayer = player.GetModPlayer<TransformationPlayer>();
                 modPlayer.SelectedQuirk = quirk;
                 modPlayer.CurrentStage = QuirkStage.Initial;
+                if (quirk == QuirkType.HellFlames || quirk == QuirkType.HalfColdHalfHot )
+    {
+        // Só dá o item se ele já não tiver no inventário
+        if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.FireQuirkAttack>()))
+        {
+            player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.FireQuirkAttack>());
+        }
+    }
+                else if (quirk == QuirkType.BlueFlames)
+                {
+                    // Só dá o item se ele já não tiver no inventário
+                    if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.BlueQuirkAttack>()))
+                    {
+                        player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.BlueQuirkAttack>());
+                    }
+                }
 
                 Main.NewText($"You have selected the quirk: {text}", color);
                 SoundEngine.PlaySound(SoundID.Item4, player.position);
@@ -56,7 +91,7 @@ namespace MyHeroMod
             btnText.HAlign = 0.5f;
             btnText.VAlign = 0.5f;
             button.Append(btnText);
-            MainPanel.Append(button);
+            quirkList.Add(button);
         }
     }
 }

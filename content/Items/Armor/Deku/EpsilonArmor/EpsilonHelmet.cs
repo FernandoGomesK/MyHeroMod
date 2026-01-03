@@ -2,10 +2,10 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Items.Armor.AlphaArmor
+namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
 {
     [AutoloadEquip(EquipType.Head)]
-    public class AlphaHelmet : ModItem
+    public class EpsilonHelmet : ModItem
     {
         
         public override void SetDefaults()

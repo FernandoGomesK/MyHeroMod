@@ -2,10 +2,10 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Items.Armor.EpsilonArmor
+namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
 {
-    [AutoloadEquip(EquipType.Head)]
-    public class EpsilonHelmet : ModItem
+    [AutoloadEquip(EquipType.Legs)]
+    public class EpsilonLeggings : ModItem
     {
         
         public override void SetDefaults()

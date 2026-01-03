@@ -23,7 +23,7 @@ public class GreenLightningLayer : PlayerDrawLayer
 
         Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/Assets/FullCowling").Value;
 
-        // Ajuste o frameCount para o número real de frames que você desenhou
+        
         int frameCount = 6; 
         int frameSpeed = 6; 
         int currentFrame = (int)(Main.GameUpdateCount / frameSpeed) % frameCount;

@@ -6,19 +6,29 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles.BlackWhip;
 using MyHeroMod.content.System;
 using Terraria.Audio;
 using System.Collections.Generic;
+
 
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
     public class OneForAll9thPlayer : ModPlayer
     {
+        public bool isGearshiftActive = false;
+        public bool isGearshiftBuffActive = false;
 
         public bool isFullCowlingBuffActive = false;
 
+        public bool isDangerSenseActive = false;
+
+        public bool isFloatActive = false;
+
         public int Fingers = 10;
+
+        public int ParallelProcessing = 0;
         public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
         private int ElectricSoundTimer = 0;
 
@@ -80,9 +90,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 if (KeybindSystem.TransformKey.JustPressed) ExecuteSkill(mainPlayer, mainPlayer.TransformSlot);
             }
         }
-
         // Realizar Habilidades
-
         private void ExecuteSkill(TransformationPlayer mainPlayer, QuirkSkills skill)
         {
             if (SkillCooldowns.ContainsKey(skill) && SkillCooldowns[skill] > 0)
@@ -90,33 +98,62 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 Main.NewText("On Cooldown.", Color.White);
                 return;
             }
-
-            bool skillUsed = false;
+            if (ActivationTimer > 0)
+            
+                
+                return;
+            
+        
             switch (skill)
             {
                 case QuirkSkills.SuperJump:
                     DoSuperJump(mainPlayer);
-                    skillUsed = true;
+                    
                     SetCooldown(skill, 120);
                     break;
                 case QuirkSkills.DelawareSmash:
                     DoDelawareSmash(mainPlayer);
-                    skillUsed = true;
+                    
                     SetCooldown(skill, 30);
                     break;
                 case QuirkSkills.DetroitSmash:
                     DoDetroitSmash(mainPlayer);
-                    skillUsed = true;
-                    SetCooldown(skill, 600);
+                    
+                    SetCooldown(skill, 450);
                     break;
                 case QuirkSkills.OneForAllFullCowling5:
                     ToggleForm(mainPlayer, QuirkSkills.OneForAllFullCowling5);
-                    skillUsed = true;
+                    
                     SetCooldown(skill, 60);
                     break;
                 case QuirkSkills.OneForAllFullCowling8:
                     ToggleForm(mainPlayer, QuirkSkills.OneForAllFullCowling8);
-                    skillUsed = true;
+                    
+                    SetCooldown(skill, 60);
+                    break;
+                case QuirkSkills.OneForAllFullCowling45:
+                    ToggleForm(mainPlayer, QuirkSkills.OneForAllFullCowling45);
+                    
+                    SetCooldown(skill, 60);
+                    break;
+                case QuirkSkills.BlackWhipHook:
+                    DoBlackWhipHook(mainPlayer);
+                    
+                    SetCooldown(skill, 60);
+                    break;
+                case QuirkSkills.Float:
+                    ToggleFloat(mainPlayer, QuirkSkills.Float);
+                    
+                    SetCooldown(skill, 60);
+                    break;
+                case QuirkSkills.Gearshift:
+                    ToggleGearshift(mainPlayer, QuirkSkills.Gearshift);
+                    
+                    SetCooldown(skill, 120);
+                    break;
+                case QuirkSkills.DangerSense:
+                    ToggleDangerSense(mainPlayer, QuirkSkills.DangerSense);
+                    
                     SetCooldown(skill, 60);
                     break;
             }
@@ -155,10 +192,59 @@ namespace MyHeroMod.content.Quirks.OFA9th
                     Main.NewText("You haven't mastered Full Cowling 8% yet.", Color.Red);
                     return;
                 }
-                mainPlayer.ActiveForm = targetForm;
+                PendingForm = targetForm;
+                ActivationTimer = 1;
                 Main.NewText($"Transformed into {SkillData.SkillList[targetForm].Name} form!", Color.LimeGreen);
+                CombatText.NewText(Player.getRect(), Color.Green, SkillData.SkillList[targetForm].Name);
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), Player.position);
             }
+        }
+        private void ToggleFloat(TransformationPlayer mainPlayer, QuirkSkills targetForm)
+        {
+
+            isFloatActive = !isFloatActive;
+
+            if (isFloatActive)
+            {
+                Main.NewText("One For All 7th: Float Activated!", Color.LimeGreen);
+                CombatText.NewText(Player.getRect(), Color.DeepPink, "One For All 7h: Float");
+            }
+            else
+            {
+                Main.NewText("Float Deactivated!", Color.White);
+            } 
+        }
+
+        private void ToggleGearshift(TransformationPlayer mainPlayer, QuirkSkills targetForm)
+        {
+
+            isGearshiftActive = !isGearshiftActive;
+
+            if (isGearshiftActive)
+            {
+                Main.NewText("One For All 2nd: Gearshift", Color.LimeGreen);
+                CombatText.NewText(Player.getRect(), Color.Blue, "One For All 2nd: Gearshift");
+            }
+            else
+            {
+                Main.NewText("Gearshift Deactivated!", Color.White);
+            } 
+        }
+
+        private void ToggleDangerSense(TransformationPlayer mainPlayer, QuirkSkills targetForm)
+        {
+
+            isDangerSenseActive = !isDangerSenseActive;
+
+            if (isDangerSenseActive)
+            {
+                Main.NewText("One For All 4th: Danger Sense", Color.LimeGreen);
+            }
+            else
+            {
+                Main.NewText("Danger Sense Deactivated!", Color.White);
+                CombatText.NewText(Player.getRect(), Color.Yellow, "One For All 4th: Danger Sense");
+            } 
         }
 
         //Detroit Smash
@@ -174,9 +260,13 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 FinalDamage = (int)(MaxDamage * 0.05f);
                 hurtPlayer = false;
             }
-            if (mainPlayer.ActiveForm == QuirkSkills.OneForAllFullCowling8)
+            else if (mainPlayer.ActiveForm == QuirkSkills.OneForAllFullCowling8)
             {
                 FinalDamage = (int)(MaxDamage * 0.08f);
+            }
+            else if (mainPlayer.ActiveForm == QuirkSkills.OneForAllFullCowling45)
+            {
+                FinalDamage = (int)(MaxDamage * 0.45f);
             }
             else
             {
@@ -184,11 +274,30 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 hurtPlayer = true;
             }
 
-            Vector2 Velocity = Main.MouseWorld - Player.Center;
-            Velocity.Normalize();
-            Velocity *= 15f;
+            
+            Vector2 Direction = Main.MouseWorld - Player.Center;
+            Direction.Normalize();
 
-            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Velocity, ModContent.ProjectileType<DetroitSmashProj>(), FinalDamage, 2f, Player.whoAmI);
+    // 2. Velocidade
+            Vector2 Velocity = Direction * 15f;
+
+    // 3. Posição de Nascimento (Offset)
+    // 90 pixels na frente do "umbigo" do player.
+    // Como agora o projétil desenha pelo centro, isso vai ficar perfeito.
+            Vector2 SpawnLocation = Player.Center + (Direction * 90f);
+
+    // Criação do Projétil
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                SpawnLocation, 
+                Velocity, 
+                ModContent.ProjectileType<DetroitSmashProj>(), 
+                FinalDamage, 
+                2f, 
+                Player.whoAmI
+            );
+
+            
 
             if (hurtPlayer)
             {
@@ -254,6 +363,12 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 hurtPlayer = false;
                 consumeFinger = false;
             }
+            else if (mainPlayer.ActiveForm == QuirkSkills.OneForAllFullCowling45)
+            {
+                FinalDamage = (int)(MaxDamage * 0.45f);
+                hurtPlayer = false;
+                consumeFinger = false;
+            }
             else
             {
                 FinalDamage = MaxDamage;
@@ -272,6 +387,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
             Velocity.Normalize();
             Velocity *= 15f;
 
+            
+
             Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Velocity, ModContent.ProjectileType<DelawareSmashProj>(), FinalDamage, 2f, Player.whoAmI);
 
             if (hurtPlayer)
@@ -281,25 +398,98 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 {
                     var reason = PlayerDeathReason.ByCustomReason(
                         Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name));
-                    Player.KillMe(reason, MaxDamage], 0);
+                        Player.KillMe(reason, FinalDamage, 0);        
                 }
             }
+        }
+
+        private void DoBlackWhipHook(TransformationPlayer mainPlayer)
+        {
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<BlackWhipProjectile>()] >= 2) 
+            {
+            return; 
+            }
+            CombatText.NewText(Player.getRect(), Color.Orange, "One For All 5th: BlackWhip");
+            Vector2 velocity = Main.MouseWorld - Player.Center;
+            velocity.Normalize();
+            velocity *= 18f; // Velocidade do tiro (deve bater com a do projétil)
+
+            // Cria o Gancho
+            // Ganchos nascem no Player.Center para a corrente ficar conectada visualmente
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(), 
+                Player.Center, 
+                velocity, 
+                ModContent.ProjectileType<BlackWhipProjectile>(), 
+                0,  // Dano (0 se for só mobilidade)
+                0f, // Knockback
+                Player.whoAmI
+                
+            );
         }
 
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+            if (isFloatActive && !Player.mount.Active && Player.velocity.Y != 0)
+    {
+        // If holding JUMP, stop falling (Hover)
+        if (Player.controlJump) 
+        {
+            Player.velocity.Y = 0f; 
+            Player.fallStart = (int)(Player.position.Y / 16f); // Prevents fall damage accumulating
+        }
+        // If NOT holding jump, fall very slowly (feather fall)
+        else if (Player.velocity.Y > 0)
+        {
+            Player.velocity.Y *= 0.2f; // Slows down falling speed significantly
+        }
+    }
             if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th && mainPlayer.ActiveForm != QuirkSkills.None)
             {
                 Player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 2);
-
-
                  Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
+                 ElectricSoundTimer++;
+
+                 if (ElectricSoundTimer >= 900 + Main.rand.Next(-120, 120))
+                 {
+                     SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingAura"), Player.position);
+                     ElectricSoundTimer = 0;
+
+                     Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, default, 0.5f);
+                 }
             }
             else
             {
                 isFullCowlingBuffActive = false;
             }
+            if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th && isGearshiftActive)
+            {
+                Player.AddBuff(ModContent.BuffType<GearshiftBuff>(), 2);
+                
+            }
+            else
+            {
+                isGearshiftActive = false;
+                isGearshiftBuffActive = false;
+                
+            }
+        }
+        public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
+        {
+        if (isGearshiftActive)
+        {
+        // This adds a blue tint/glow to the character sprite itself
+        drawInfo.colorArmorBody = Color.RoyalBlue;
+        drawInfo.colorArmorHead = Color.RoyalBlue;
+        drawInfo.colorArmorLegs = Color.RoyalBlue;
+        
+        // This creates a "God Mode" style afterimage trail which looks like a contour
+        Player.armorEffectDrawShadow = true; 
+        Player.armorEffectDrawOutlines = true; // This forces a faint outline
+        }
         }
 
-    }}
+    }
+}
+
