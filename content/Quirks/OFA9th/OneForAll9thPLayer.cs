@@ -10,6 +10,7 @@ using MyHeroMod.content.Quirks.OFA9th.Projectiles.BlackWhip;
 using MyHeroMod.content.System;
 using Terraria.Audio;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 
 
@@ -19,6 +20,10 @@ namespace MyHeroMod.content.Quirks.OFA9th
     {
         public bool isGearshiftActive = false;
         public bool isGearshiftBuffActive = false;
+
+        public int GearshiftTimer = 0;
+
+        public int GearshiftMaxTime = 6000;
 
         public bool isFullCowlingBuffActive = false;
 
@@ -45,6 +50,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             SkillCooldowns.Clear();
             ElectricSoundTimer = 0;
             ActivationTimer = 0;
+            GearshiftTimer = 0;
             PendingForm = QuirkSkills.None;
         }
 
@@ -56,6 +62,16 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 if (SkillCooldowns[skill] > 0)
                 {
                     SkillCooldowns[skill]--;
+                }
+            }
+            if (isGearshiftActive)
+            {
+                GearshiftTimer++;
+                if (GearshiftTimer >= GearshiftMaxTime)
+                {
+                    isGearshiftActive = false;
+                    isGearshiftBuffActive = false;
+                    Main.NewText("Gearshift Deactivated due to limit!", Color.White);
                 }
             }
             if (ActivationTimer > 0)
@@ -70,9 +86,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
                     ActivationTimer = 0;
                     PendingForm = QuirkSkills.None;
-
-
                 }
+                
             }
         }
 
@@ -149,7 +164,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 case QuirkSkills.Gearshift:
                     ToggleGearshift(mainPlayer, QuirkSkills.Gearshift);
                     
-                    SetCooldown(skill, 120);
+                    SetCooldown(skill, 6000);
                     break;
                 case QuirkSkills.DangerSense:
                     ToggleDangerSense(mainPlayer, QuirkSkills.DangerSense);
@@ -224,11 +239,15 @@ namespace MyHeroMod.content.Quirks.OFA9th
             {
                 Main.NewText("One For All 2nd: Gearshift", Color.LimeGreen);
                 CombatText.NewText(Player.getRect(), Color.Blue, "One For All 2nd: Gearshift");
+                GearshiftTimer = 0;
+                GearshiftTimer++;
+                
             }
             else
             {
                 Main.NewText("Gearshift Deactivated!", Color.White);
-            } 
+            }
+
         }
 
         private void ToggleDangerSense(TransformationPlayer mainPlayer, QuirkSkills targetForm)
@@ -239,12 +258,13 @@ namespace MyHeroMod.content.Quirks.OFA9th
             if (isDangerSenseActive)
             {
                 Main.NewText("One For All 4th: Danger Sense", Color.LimeGreen);
+                CombatText.NewText(Player.getRect(), Color.Yellow, "One For All 4th: Danger Sense");
             }
             else
             {
                 Main.NewText("Danger Sense Deactivated!", Color.White);
-                CombatText.NewText(Player.getRect(), Color.Yellow, "One For All 4th: Danger Sense");
-            } 
+                
+            }
         }
 
         //Detroit Smash
@@ -431,8 +451,14 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (isDangerSenseActive)
+            {
+                Player.AddBuff(ModContent.BuffType<DangerSenseBuff>(), 2);
+            }
+
             if (isFloatActive && !Player.mount.Active && Player.velocity.Y != 0)
-    {
+            {
         // If holding JUMP, stop falling (Hover)
         if (Player.controlJump) 
         {
