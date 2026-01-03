@@ -239,6 +239,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             {
                 Main.NewText("One For All 2nd: Gearshift", Color.LimeGreen);
                 CombatText.NewText(Player.getRect(), Color.Blue, "One For All 2nd: Gearshift");
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/GearShiftSound"), Player.position);
                 GearshiftTimer = 0;
                 GearshiftTimer++;
                 
