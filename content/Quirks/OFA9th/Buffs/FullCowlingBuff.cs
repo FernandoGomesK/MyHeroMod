@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
-namespace MyHeroMod.content.Quirks.OFA9th
+namespace MyHeroMod.content.Quirks.OFA9th.Buffs
 {
     public class FullCowlingBuff : ModBuff
     {
