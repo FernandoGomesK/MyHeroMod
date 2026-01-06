@@ -153,6 +153,26 @@ namespace MyHeroMod.content.System
                     QuirkType.OneForAll9th, 
                 }
                 });
+                SkillList.Add(QuirkSkills.SmokeScreen, new SkillInfo
+                {
+                    Name = "One For All 6th: Smokes Screen",
+                    Description = "Create a screen of smoke to obscure vision and hide your movements.",
+                    IconPath = "MyHeroMod/Assets/Skills/OFA9th/SmokesScreen",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.OneForAll9th, 
+                }
+                });
+                SkillList.Add(QuirkSkills.FaJinStore, new SkillInfo
+                {
+                    Name = "One For All 3th: Fa Jin Store",
+                    Description = "Store energy in your body for later use.",
+                    IconPath = "MyHeroMod/Assets/Skills/OFA9th/FaJinStore",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.OneForAll9th, 
+                }
+                });
                 SkillList.Add(QuirkSkills.DangerSense, new SkillInfo
                 {
                     Name = "One For All 4th: Danger Sense",
@@ -171,6 +191,29 @@ namespace MyHeroMod.content.System
                     MinStage = QuirkStage.Advanced,
                     RelatedQuirks = new List<QuirkType> { 
                     QuirkType.OneForAll9th, 
+                }
+                });
+
+                // Hell Flames
+
+                SkillList.Add(QuirkSkills.FlashFireFist, new SkillInfo
+                {
+                    Name = "Flash Fire Fist",
+                    Description = "Raise your fire temperature to its highest level.",
+                    IconPath = "MyHeroMod/Assets/Skills/HellFlames/FlashFireFist",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.HellFlames, 
+                }
+                });
+                SkillList.Add(QuirkSkills.ProminenceBurn, new SkillInfo
+                {
+                    Name = "Proeminence Burn",
+                    Description = "Launch a concentrated Beam of Fire at your Cursor.",
+                    IconPath = "MyHeroMod/Assets/Skills/HellFlames/ProeminenceBurn",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.HellFlames, 
                 }
                 });
 

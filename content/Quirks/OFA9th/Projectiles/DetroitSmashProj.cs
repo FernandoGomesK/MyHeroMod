@@ -20,6 +20,8 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Generic;
             Projectile.penetrate = 2;
+            Projectile.usesLocalNPCImmunity = true;
+            Projectile.localNPCHitCooldown = -1;
             Projectile.timeLeft = 60;
             Projectile.light = 0.5f;
             Projectile.ignoreWater = true;

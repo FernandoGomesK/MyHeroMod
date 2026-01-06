@@ -5,6 +5,7 @@ using Terraria.ID;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles.BlackWhip;
+using MyHeroMod.content.Quirks.OFA9th.Buffs;
 using Terraria.Audio;
 using Terraria.DataStructures;
 
@@ -84,11 +85,20 @@ public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
                 case QuirkSkills.Gearshift:
                     ToggleGearshift(mainPlayer, QuirkSkills.Gearshift);
                     
-                    SetCooldown(skill, 6000);
+                    SetCooldown(skill, 30);
                     break;
                 case QuirkSkills.DangerSense:
                     ToggleDangerSense(mainPlayer, QuirkSkills.DangerSense);
                     
+                    SetCooldown(skill, 60);
+                    break;
+                case QuirkSkills.SmokeScreen:
+                    ToggleSmokesScreen(mainPlayer, QuirkSkills.SmokeScreen);
+
+                    SetCooldown(skill, 60);
+                    break;
+                case QuirkSkills.FaJinStore:
+                    StoreFaJin(mainPlayer, QuirkSkills.FaJinStore);
                     SetCooldown(skill, 60);
                     break;
             }
@@ -153,21 +163,23 @@ public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         private void ToggleGearshift(TransformationPlayer mainPlayer, QuirkSkills targetForm)
         {
 
-            isGearshiftActive = !isGearshiftActive;
+            
 
             if (isGearshiftActive)
             {
-                Main.NewText("One For All 2nd: Gearshift", Color.LimeGreen);
-                CombatText.NewText(Player.getRect(), Color.Blue, "One For All 2nd: Gearshift");
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/GearShiftSound"), Player.position);
+                isGearshiftActive = false;
+                Main.NewText("Gearshift Deactivated!", Color.White);
+                SetCooldown(QuirkSkills.Gearshift, 6000);
+                
+                return;
+            }
+            
+                ActivationTimer = 1;
+                GearActivation = true;
+
                 GearshiftTimer = 0;
                 GearshiftTimer++;
-                
-            }
-            else
-            {
-                Main.NewText("Gearshift Deactivated!", Color.White);
-            }
+            
 
         }
 
@@ -188,36 +200,104 @@ public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
             }
         }
 
+        private void ToggleSmokesScreen(TransformationPlayer mainPlayer, QuirkSkills targetForm)
+        {
+            isSmokeScreenActive = !isSmokeScreenActive;
+
+            if (isSmokeScreenActive)
+            {
+                Main.NewText("One For All 6th: Smoke Screen ", Color.LimeGreen);
+                CombatText.NewText(Player.getRect(), Color.Purple, "One For All 6th: Full Blast!");
+            }
+            else
+            {
+                Main.NewText("Smoke Screen Deactivated!", Color.White);
+            } 
+
+            // Implement smoke screen logic here
+        }
+
+        private void StoreFaJin(TransformationPlayer mainPlayer, QuirkSkills targetForm)
+        {
+            FaJinCharges++;
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinStoringSound"), Player.position);
+            if (FaJinCharges >= MaxFaJinCharges)
+            {
+                FaJinCharges = MaxFaJinCharges;
+                Main.NewText("Fa Jin storage is full!", Color.Red);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinSound"), Player.position);
+                return;
+            }
+            else
+            {
+                Main.NewText($"Stored Fa Jin energy! Current charges: {FaJinCharges}", Color.LimeGreen);
+                CombatText.NewText(Player.getRect(), Color.Orange, $"Fa Jin Charges: {FaJinCharges}");
+            }
+
+            // Implement Fa Jin store logic here
+        }
         //Detroit Smash
 
         private void DoDetroitSmash(TransformationPlayer mainPlayer)
         {
             int MaxDamage = 450;
-            int FinalDamage = 0;
+            float DamageMultiplier = 1f;
             bool hurtPlayer = false;
+            bool usedFaJin = false;
 
-            if (mainPlayer.ActiveForm == QuirkSkills.OneForAllFullCowling5)
+            switch (mainPlayer.ActiveForm)
             {
-                FinalDamage = (int)(MaxDamage * 0.05f);
-                hurtPlayer = false;
-                CombatText.NewText(Player.getRect(), Color.Green, "5% Detroit Smash");
+                case QuirkSkills.OneForAllFullCowling5:
+                    DamageMultiplier = 0.05f;
+                    hurtPlayer = false;
+                    break;
+                case QuirkSkills.OneForAllFullCowling8:
+                    DamageMultiplier = 0.08f;
+                    break;
+                case QuirkSkills.OneForAllFullCowling45:
+                    DamageMultiplier = 0.45f;
+                    break;
+                default:
+                    DamageMultiplier = 1f;
+                    hurtPlayer = true;
+                    break;
             }
-            else if (mainPlayer.ActiveForm == QuirkSkills.OneForAllFullCowling8)
+            if (FaJinStored)
             {
-                FinalDamage = (int)(MaxDamage * 0.08f);
-                CombatText.NewText(Player.getRect(), Color.Green, "8% Detroit Smash");
+                DamageMultiplier += 0.55f; // Increase damage by 25% if Fa Jin is stored
+                FaJinCharges = 0; // Consume all Fa Jin charges
+                FaJinStored = false;
+                Player.ClearBuff(ModContent.BuffType<FaJinBuff>());
+                usedFaJin = true;
             }
-            else if (mainPlayer.ActiveForm == QuirkSkills.OneForAllFullCowling45)
+
+            int FinalDamage = (int)(MaxDamage * DamageMultiplier);
+
+            string attackName = "";
+
+            
+            if (usedFaJin)
             {
-                FinalDamage = (int)(MaxDamage * 0.45f);
-                CombatText.NewText(Player.getRect(), Color.Green, "45% Detroit Smash");
+                attackName += "Faux ";
+            }
+            if (usedFaJin || !hurtPlayer)
+            {
+                attackName += (DamageMultiplier * 100).ToString("0") + "% Detroit Smash";
             }
             else
             {
-                FinalDamage = MaxDamage;
-                hurtPlayer = true;
-                CombatText.NewText(Player.getRect(), Color.Green, "Detroit Smash!");
+                attackName += "Detroit Smash";
             }
+            if (isGearshiftActive)
+            {
+                attackName += ": Quintuple";
+            }
+            else if (!usedFaJin || hurtPlayer)
+            {
+                attackName += "!";
+            }
+            
+            CombatText.NewText(Player.getRect(), Color.LimeGreen, attackName);
 
             
 
@@ -228,6 +308,8 @@ public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
 
             Vector2 BaseSpawnLocation = Player.Center + (Direction * 90f);
 
+            
+            
             int numberOfPunches = isGearshiftActive ? 5 : 1; // 5 hits if Gearshift is active, else 1
 
             for (int i = 0; i < numberOfPunches; i++)
@@ -245,7 +327,18 @@ public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
                     2f, 
                     Player.whoAmI
                 );
+                Projectile.NewProjectile(
+                Player.GetSource_FromThis(), 
+                BaseSpawnLocation, 
+                Velocity, // Use the new speed with spread
+                ModContent.ProjectileType<PunchAttackProj>(), 
+                0,
+                0f, 
+                Player.whoAmI
+            );
  
+            
+            }
             if (hurtPlayer)
             {
                 Player.statLife -= 10;
@@ -255,7 +348,6 @@ public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
                         Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name));
                     Player.KillMe(reason, FinalDamage, 0);
                 }
-            }
         }
         }
         
@@ -334,6 +426,18 @@ public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
             Vector2 Velocity = Main.MouseWorld - Player.Center;
             Velocity.Normalize();
             Velocity *= 15f;
+
+            if (isFloatActive)
+            {
+                float recoil = 2f;
+
+                Player.velocity = -Velocity * recoil;
+
+                for (int i = 0; i < 10; i++)
+        {
+            Dust.NewDust(Player.position, Player.width, Player.height, DustID.Cloud, Velocity.X * 2, Velocity.Y * 2, 0, default, 1f);
+        }
+            }
 
             
 

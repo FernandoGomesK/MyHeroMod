@@ -36,10 +36,18 @@ namespace MyHeroMod.content
             BlackWhipSurge,
             Float,
             DangerSense,
+            FaJinStore,
+            SmokeScreen,
             Gearshift,
+
+            // Hell Flames
+            FlashFireFist,
+            ProminenceBurn,
 
             // Explosion
             ExplosionBlast,
+
+            
 
         }
     public enum QuirkType{ Quirkless, OneForAll9th, OneForAll8th, Explosion, HellFlames, BlueFlames, HalfColdHalfHot }

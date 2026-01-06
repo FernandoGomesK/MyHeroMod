@@ -24,6 +24,10 @@ namespace MyHeroMod.content.Quirks.OFA9th
         }
         public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
         {
+        if (FaJinStored)
+        {
+            drawInfo.colorArmorLegs = Color.Red;
+        }
         if (isGearshiftActive)
         {
         // This adds a blue tint/glow to the character sprite itself
@@ -33,8 +37,12 @@ namespace MyHeroMod.content.Quirks.OFA9th
         
         // This creates a "God Mode" style afterimage trail which looks like a contour
         Player.armorEffectDrawShadow = true; 
-        Player.armorEffectDrawOutlines = true; // This forces a faint outline
+        // Player.armorEffectDrawOutlines = true; // This forces a faint outline
         }
+        if (FaJinStored)
+            {
+                
+            }
         }
     }
 }

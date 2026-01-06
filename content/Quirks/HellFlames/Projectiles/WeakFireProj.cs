@@ -11,8 +11,8 @@ namespace MyHeroMod.content.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 6;
-            Projectile.height = 6;
+            Projectile.width = 30;
+            Projectile.height = 30;
             Projectile.friendly = true;
             Projectile.ignoreWater = false; // Fogo apaga na água
             Projectile.DamageType = DamageClass.Magic; // Ou Generic/Melee dependendo do seu mod

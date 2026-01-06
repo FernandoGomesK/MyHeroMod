@@ -5,11 +5,10 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.OFA9th;
-using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Visuals
 {
-    public class RedVeinLayer : PlayerDrawLayer
+    public class TransmissionLayer : PlayerDrawLayer
     {
         public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.ArmOverItem);
 
@@ -17,13 +16,13 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
         {
             var ModPlayer = drawInfo.drawPlayer.GetModPlayer<OneForAll9thPlayer>();
 
-            return ModPlayer.ActivationTimer > 0 && ModPlayer.PendingForm != QuirkSkills.None;
+            return ModPlayer.ActivationTimer > 0 && ModPlayer.GearActivation;
         }
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
-            if (!ModContent.HasAsset("MyHeroMod/Assets/FullCowlingVeins")) return;
+            if (!ModContent.HasAsset("MyHeroMod/Assets/GearshiftTransmission")) return;
 
-            Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/Assets/FullCowlingVeins").Value;
+            Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/Assets/GearshiftTransmission").Value;
             var ModPlayer = drawInfo.drawPlayer.GetModPlayer<OneForAll9thPlayer>();
 
             int totalframes = 4;
@@ -41,11 +40,13 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
             Vector2 position = drawInfo.Center - Main.screenPosition;
             position = new Vector2((int)position.X, (int)position.Y + drawInfo.drawPlayer.gfxOffY);
 
+            Lighting.AddLight(drawInfo.Center, Color.Cyan.ToVector3() * 1.5f);
+
             DrawData drawData = new DrawData(
                 texture,
-                position,
+                position,   
                 sourceRectangle,
-                Color.White * 0.8f,
+                Color.White ,
                 drawInfo.drawPlayer.fullRotation,
                 new Vector2(texture.Width / 2f, frameHeight / 2f),
                 1f,

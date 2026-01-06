@@ -20,28 +20,47 @@ namespace MyHeroMod.content.Quirks.OFA9th
 {
     public partial class OneForAll9thPlayer : ModPlayer
     {
+
+        // Fa jin
+
+        public int FaJinCharges = 0;
+        public int MaxFaJinCharges = 3;
+        public bool FaJinStored = false;
+
+        // Gearshift
         public bool isGearshiftActive = false;
         public bool isGearshiftBuffActive = false;
-
         public int GearshiftTimer = 0;
-
         public int GearshiftMaxTime = 6000;
+        // Gearshift Buff
+        public bool GearActivation = false;
 
+        // Full Cowling
         public bool isFullCowlingBuffActive = false;
 
+        // Danger Sense
         public bool isDangerSenseActive = false;
+        // Smoke Screen
+        public bool isSmokeScreenActive = false;
 
+        // Float
         public bool isFloatActive = false;
+
+        // Fingers
 
         public int Fingers = 10;
 
+        // Parallel Processing
         public int ParallelProcessing = 0;
+        public int MaxParallelProcessing = 0;
         public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
+
+
         private int ElectricSoundTimer = 0;
 
         public int ActivationTimer = 0;
         public int ActivationMaxTime = 40;
-        private QuirkSkills PendingForm = QuirkSkills.None;
+        public QuirkSkills PendingForm = QuirkSkills.None;
 
         // Resetar no renascer
 
@@ -55,17 +74,16 @@ namespace MyHeroMod.content.Quirks.OFA9th
             GearshiftTimer = 0;
             PendingForm = QuirkSkills.None;
         }
-
         public override void PreUpdate()
         {
+            // Gerenciamento de Cooldown
             List<QuirkSkills> keys = new List<QuirkSkills>(SkillCooldowns.Keys);
             foreach (var skill in keys)
             {
-                if (SkillCooldowns[skill] > 0)
-                {
-                    SkillCooldowns[skill]--;
-                }
+                if (SkillCooldowns[skill] > 0) SkillCooldowns[skill]--;
             }
+
+            // Timer de Duração do Gearshift
             if (isGearshiftActive)
             {
                 GearshiftTimer++;
@@ -74,24 +92,68 @@ namespace MyHeroMod.content.Quirks.OFA9th
                     isGearshiftActive = false;
                     isGearshiftBuffActive = false;
                     Main.NewText("Gearshift Deactivated due to limit!", Color.White);
+                    SetCooldown(QuirkSkills.Gearshift, 6000);
+                    GearshiftTimer = 0;
                 }
             }
+
+            // --- LÓGICA DE TRANSFORMAÇÃO (Full Cowling e Gearshift) ---
             if (ActivationTimer > 0)
             {
                 ActivationTimer++;
-                Player.velocity *= 0.6f;
+                Player.velocity *= 0.6f; // Efeito de "carregar" (freia o jogador)
 
+                // Visual durante o carregamento
+                if (GearActivation)
+                {
+                    // Partículas Ciano para Gearshift
+                    if (Main.rand.NextBool(2))
+                    {
+                        Dust d = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, Color.Cyan, 0.3f);
+                        d.velocity *= 2f;
+                        d.noGravity = true;
+                    }
+                }
+
+                // Transformação Completa
                 if (ActivationTimer >= ActivationMaxTime)
                 {
-                    var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-                    mainPlayer.ActiveForm = PendingForm;
+                    // 1. Se for Full Cowling
+                    if (PendingForm != QuirkSkills.None)
+                    {
+                        var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+                        mainPlayer.ActiveForm = PendingForm;
+                        PendingForm = QuirkSkills.None;
+                        
+                    }
 
+                    // 2. Se for Gearshift
+                    if (GearActivation)
+                    {
+                        isGearshiftActive = true;
+                        GearActivation = false;
+                        GearshiftTimer = 0;
+
+                        // EFEITOS FINAIS DA ATIVAÇÃO
+                        Main.NewText("ONE FOR ALL 2ND - GEARSHIFT: TRANSMISSION !", Color.Cyan);
+                        CombatText.NewText(Player.getRect(), Color.Cyan, "SECOND GEAR");
+                        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/GearShiftSound"), Player.position);
+
+                        // Explosão de partículas
+                        for (int i = 0; i < 20; i++)
+                        {
+                            Vector2 speed = Main.rand.NextVector2Circular(5f, 5f);
+                            Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, speed.X, speed.Y, 0, Color.Cyan, 2f);
+                        }
+                    }
                     ActivationTimer = 0;
-                    PendingForm = QuirkSkills.None;
+
+                    
                 }
-                
             }
         }
+
+        
 
         public override void PostUpdate()
         {
@@ -111,30 +173,75 @@ namespace MyHeroMod.content.Quirks.OFA9th
             }
         }
 
+        public override void ResetEffects()
+        {
+            // 1. Definir o Limite baseado no Estágio da Quirk
+            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
+            // 1. Zera a contagem para recalcular neste frame
+            ParallelProcessing = 0;
+
+            // 2. Conta quantas habilidades passivas estão ativas
+            if (isFloatActive) ParallelProcessing++;
+            if (isDangerSenseActive) ParallelProcessing++;
+            if (isGearshiftActive) ParallelProcessing++;
+            if (isSmokeScreenActive) ParallelProcessing++;
+
+            // 3. Define o Limite Máximo baseado no Estágio (Progresso)
+            if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+            {
+                // AQUI VOCÊ CONTROLA A EVOLUÇÃO
+                if (mainPlayer.CurrentStage == QuirkStage.Initial) 
+                    MaxParallelProcessing = 0; // Nenhuma extra
+                else if (mainPlayer.CurrentStage == QuirkStage.Adequation) 
+                    MaxParallelProcessing = 1; // Consegue manter 1
+                else if (mainPlayer.CurrentStage == QuirkStage.Intermediate) 
+                    MaxParallelProcessing = 2; // Consegue manter 2
+                else if (mainPlayer.CurrentStage == QuirkStage.Advanced) 
+                    MaxParallelProcessing = 4; // Consegue manter 4
+                else if (mainPlayer.CurrentStage >= QuirkStage.Final) 
+                    MaxParallelProcessing = 6; // Consegue manter todas (6)
+            }
+            else
+            {
+                MaxParallelProcessing = 0;
+            }
+        }
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            if (isDangerSenseActive)
+            if (FaJinCharges >= MaxFaJinCharges)
             {
-                Player.AddBuff(ModContent.BuffType<DangerSenseBuff>(), 2);
+                FaJinStored = true;
+                Player.AddBuff(ModContent.BuffType<FaJinBuff>(), 2);
             }
+            else
+            {
+                FaJinStored = false;
+            }
+
+            if (ParallelProcessing > 0)
+            {
+                Player.AddBuff(ModContent.BuffType<ParallelProcessingBuff>(), 2);
+            }
+
+            if (isDangerSenseActive) Player.AddBuff(ModContent.BuffType<DangerSenseBuff>(), 2);
+
+            if (isSmokeScreenActive)
+            {
+                Dust.NewDust(Player.position, Player.width, Player.height, DustID.Smoke, 0f, 0f, 100, Color.MediumPurple, 6.0f);
+            }
+            
 
             
             if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th && mainPlayer.ActiveForm != QuirkSkills.None)
             {
                 Player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 2);
+                HandleFullCowlingEffects();
                 Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
                 ElectricSoundTimer++;
-
-                if (ElectricSoundTimer >= 900 + Main.rand.Next(-120, 120))
-                {
-                    SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingAura"), Player.position);
-                    ElectricSoundTimer = 0;
-
-                    Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, default, 0.5f);
-                }
+           
             }
             else
             {

@@ -52,6 +52,11 @@ Items: {
 		DisplayName: Alpha Leggings
 		Tooltip: ""
 	}
+
+	PunchAttack: {
+		Tooltip: ""
+		DisplayName: Punch Attack
+	}
 }
 
 Buffs: {
@@ -74,6 +79,21 @@ Buffs: {
 		Description: Mods.MyHeroMod.Buffs.DangerSenseBuff.Description
 		DisplayName: Danger Sense Buff
 	}
+
+	ParallelProcessingBuff: {
+		Description: Mods.MyHeroMod.Buffs.ParallelProcessingBuff.Description
+		DisplayName: Parallel Processing Buff
+	}
+
+	FaJinBuff: {
+		Description: Mods.MyHeroMod.Buffs.FaJinBuff.Description
+		DisplayName: Fa Jin Buff
+	}
+
+	FlashFireFistBuff: {
+		Description: Mods.MyHeroMod.Buffs.FlashFireFistBuff.Description
+		DisplayName: Flash Fire Fist Buff
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -85,4 +105,6 @@ Projectiles: {
 	BlackWhipProjectile.DisplayName: Black Whip Projectile
 	WeakFireProj.DisplayName: Weak Fire Proj
 	BlueFireProj.DisplayName: Blue Fire Proj
+	PunchAttackProj.DisplayName: Punch Attack Proj
+	ProminenceBurnProj.DisplayName: Prominence Burn Proj
 }
