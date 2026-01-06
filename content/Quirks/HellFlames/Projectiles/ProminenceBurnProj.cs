@@ -24,32 +24,31 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles
         }
 
         public override void AI()
-{
-    Player player = Main.player[Projectile.owner];
+        {
+            Player player = Main.player[Projectile.owner];
 
-    if (player.dead || !player.active)
-    {
-        Projectile.Kill();
-        return;
-    }
-
+            if (player.dead || !player.active)
+            {
+                Projectile.Kill();
+                return;
+            }
     // 1. Atualizar Mira
-    if (Projectile.owner == Main.myPlayer)
-    {
-        Vector2 diff = Main.MouseWorld - player.MountedCenter;
-        diff.Normalize();
-        Projectile.velocity = diff;
+            if (Projectile.owner == Main.myPlayer)
+        {
+            Vector2 diff = Main.MouseWorld - player.MountedCenter;
+            diff.Normalize();
+            Projectile.velocity = diff;
         
         // Vira o jogador para o lado do mouse
-        player.ChangeDir(Main.MouseWorld.X > player.MountedCenter.X ? 1 : -1);
-        Projectile.direction = player.direction;
-        Projectile.netUpdate = true;
-    }
+            player.ChangeDir(Main.MouseWorld.X > player.MountedCenter.X ? 1 : -1);
+            Projectile.direction = player.direction;
+            Projectile.netUpdate = true;
+        }
 
     // 2. POSICIONAMENTO FINAL (Sem empurrar para frente)
     // Usamos apenas (0, -6f) para subir a origem do umbigo para o peito.
     // Como removemos o "velocity * 40f", ele não vai mais flutuar separado.
-    Projectile.Center = player.MountedCenter + new Vector2(0, -6f);
+    Projectile.Center = player.MountedCenter + new Vector2(0, -4f);
 
     // 3. Rotação
     Projectile.rotation = Projectile.velocity.ToRotation();
@@ -90,28 +89,27 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles
         }
 
         public override bool PreDraw(ref Color lightColor)
-{
-    SpriteBatch spriteBatch = Main.spriteBatch;
-    Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/content/Quirks/HellFlames/Projectiles/ProminenceBurnProj").Value;
+        {
+            SpriteBatch spriteBatch = Main.spriteBatch;
+            Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/content/Quirks/HellFlames/Projectiles/ProminenceBurnProj").Value;
 
-    Vector2 unit = Projectile.velocity;
-    Vector2 drawPos = Projectile.Center - Main.screenPosition;
-    float rotation = Projectile.rotation;
+            Vector2 unit = Projectile.velocity;
+            Vector2 drawPos = Projectile.Center - Main.screenPosition;
+            float rotation = Projectile.rotation;
 
     // IMPORTANTE: Se a textura é horizontal, usamos texture.Width para pular os pedaços
     // Se usar Height aqui, vai desenhar tudo esmagado.
-    for (float i = 0; i < MaxDistance; i += texture.Width) 
-    {
-        spriteBatch.Draw(
-            texture, 
-            drawPos + unit * i, 
-            null, 
-            Color.Orange * 0.8f, 
-            rotation, // Sem +1.57f, pois já está deitado
-            new Vector2(0, texture.Height / 2f), // <--- O SEGREDO: Origem no Meio-Esquerda (0, Metade da Altura)
-            new Vector2(1f, 1f), 
-            SpriteEffects.None, 
-            0f
+            for (float i = 0; i < MaxDistance; i += texture.Width) 
+            {
+                spriteBatch.Draw(
+                 texture, 
+                drawPos + unit * i, 
+                null, 
+                Color.Orange * 0.8f, 
+                rotation, // Sem +1.57f, pois já está deitado
+                new Vector2(0, texture.Height / 2f), // <--- O SEGREDO: Origem no Meio-Esquerda (0, Metade da Altura)
+                new Vector2(1f, 1f), 
+                SpriteEffects.None,                     0f
         );
     }
     return false; 
