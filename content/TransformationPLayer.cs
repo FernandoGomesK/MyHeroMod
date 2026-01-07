@@ -43,6 +43,7 @@ namespace MyHeroMod.content
             // Hell Flames
             FlashFireFist,
             ProminenceBurn,
+            JetBurn,
 
             // Explosion
             ExplosionBlast,

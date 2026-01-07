@@ -46,9 +46,13 @@ namespace MyHeroMod.content.Quirks.HellFlames
                     case QuirkSkills.ProminenceBurn:
                     DoProminenceBurn();
                     break;
+                    case QuirkSkills.JetBurn:
+
+                    DoJetBurn(mainPlayer);
+                    break;
                     
                 
-                //aadsada
+                
 
             }
         }
@@ -79,30 +83,51 @@ namespace MyHeroMod.content.Quirks.HellFlames
 
             // Implementation for Flash Fire Fist
         }
-        private void DoProminenceBurn()
+        private void DoJetBurn(TransformationPlayer mainPlayer)
         {
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.ProminenceBurnProj>()] > 0)
+            // Verifica se já existe um controlador ativo (para não spawnar duplicado)
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.JetBurnController>()] > 0)
                 return;
 
-            Main.NewText("PROMINENCE BURN!", Color.OrangeRed);
-            SoundEngine.PlaySound(SoundID.Item117, Player.position); // Som de laser/fogo forte
-
-            // Calcula a direção do mouse
+            // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
+            // Note que a velocidade aqui define apenas a direção inicial da mira.
             Vector2 direction = Main.MouseWorld - Player.Center;
             direction.Normalize();
 
-            // Lança o projétil que SERÁ o laser
-            // Dano: 100 (ajuste conforme necessário)
             Projectile.NewProjectile(
                 Player.GetSource_FromThis(),
                 Player.Center,
-                direction, // A velocidade define a direção inicial
-                ModContent.ProjectileType<Projectiles.ProminenceBurnProj>(),
-                100, 
-                5f, 
-                Player.whoAmI);
+                direction,
+                ModContent.ProjectileType<Projectiles.JetBurnController>(),
+                0, // O controlador não dá dano direto
+                0f,
+                Player.whoAmI
+            );
+        }
+        private void DoProminenceBurn()
+        {
+            // Evita duplicar se já estiver ativo
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.ProminenceBurnController>()] > 0)
+                return;
+
+            Main.NewText("PROMINENCE BURN!!!", Color.OrangeRed);
             
-            
+            // Som inicial de explosão
+            SoundEngine.PlaySound(SoundID.Item117, Player.position); 
+
+            Vector2 direction = Main.MouseWorld - Player.Center;
+            direction.Normalize();
+
+            // Lança o Controlador
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                direction,
+                ModContent.ProjectileType<Projectiles.ProminenceBurnController>(),
+                0, 
+                0f, 
+                Player.whoAmI
+            );
         }
         
 

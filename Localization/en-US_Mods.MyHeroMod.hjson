@@ -57,6 +57,21 @@ Items: {
 		Tooltip: ""
 		DisplayName: Punch Attack
 	}
+
+	FirstEBreastplate: {
+		Tooltip: ""
+		DisplayName: First E Breastplate
+	}
+
+	FirstELeggings: {
+		Tooltip: ""
+		DisplayName: First E Leggings
+	}
+
+	FirstEHelmet: {
+		Tooltip: ""
+		DisplayName: First E Helmet
+	}
 }
 
 Buffs: {
@@ -107,4 +122,8 @@ Projectiles: {
 	BlueFireProj.DisplayName: Blue Fire Proj
 	PunchAttackProj.DisplayName: Punch Attack Proj
 	ProminenceBurnProj.DisplayName: Prominence Burn Proj
+	JetBurnProj.DisplayName: Jet Burn Proj
+	JetBurnController.DisplayName: Jet Burn Controller
+	ProminenceBurnController.DisplayName: Prominence Burn Controller
+	ProminenceBurnFire.DisplayName: Prominence Burn Fire
 }

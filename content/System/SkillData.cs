@@ -206,6 +206,16 @@ namespace MyHeroMod.content.System
                     QuirkType.HellFlames, 
                 }
                 });
+                SkillList.Add(QuirkSkills.JetBurn, new SkillInfo
+                {
+                    Name = "Jet Burn",
+                    Description = "Launch a concentrated Beam of Fire at your Cursor.",
+                    IconPath = "MyHeroMod/Assets/Skills/HellFlames/JetBurn",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.HellFlames, 
+                }
+                });
                 SkillList.Add(QuirkSkills.ProminenceBurn, new SkillInfo
                 {
                     Name = "Proeminence Burn",
