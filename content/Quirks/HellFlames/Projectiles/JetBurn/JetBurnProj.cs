@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.HellFlames.Projectiles
+namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.JetBurn
 {
     public class JetBurnProj : ModProjectile
     {

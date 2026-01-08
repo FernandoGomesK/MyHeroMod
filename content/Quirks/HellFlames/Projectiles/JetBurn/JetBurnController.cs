@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
-namespace MyHeroMod.content.Quirks.HellFlames.Projectiles
+namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.JetBurn
 {
     public class JetBurnController : ModProjectile
     {
