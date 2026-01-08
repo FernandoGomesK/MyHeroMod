@@ -3,8 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using Microsoft.Build.Evaluation;
-using System.Security.Cryptography.X509Certificates;
+
 
 namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 {

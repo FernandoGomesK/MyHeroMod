@@ -10,14 +10,14 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.HellSpider
         public override void SetDefaults()
         {
             // Tamanho da Hitbox (área que dá dano)
-            Projectile.width = 60; // É gordinho para acertar fácil
-            Projectile.height = 60;
+            Projectile.width = 14; // É gordinho para acertar fácil
+            Projectile.height = 14;
             
             // Comportamento
             Projectile.friendly = true; // Acerta inimigos
             Projectile.hostile = false; 
             Projectile.penetrate = -1; // Atravessa infinitos inimigos
-            Projectile.timeLeft = 60; // Dura 1 segundo (alcance médio)
+            Projectile.timeLeft = 600; //
             
             // Visual
             Projectile.alpha = 255; // Começa invisível (só veremos as partículas)
@@ -29,6 +29,8 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.HellSpider
             // Mas permite que VÁRIOS foguinhos batam no mesmo bicho em sequência.
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10; // Hit a cada 1/6 de segundo por partícula
+
+            Projectile.extraUpdates = 2; // Move mais suave
         }
 
         public override void AI()
@@ -37,21 +39,22 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.HellSpider
             // Gera pó de fogo no centro do projétil
             for (int i = 0; i < 2; i++) // Pode aumentar para 3 se quiser mais denso
             {
+
+                Vector2 position = Projectile.position - Projectile.velocity * (float)i / 2;
                 int dustIndex = Dust.NewDust(
-                    Projectile.position, 
+                    position,
                     Projectile.width, 
                     Projectile.height, 
-                    DustID.Torch, // ID do fogo padrão (6)
-                    Projectile.velocity.X * 0.2f, 
-                    Projectile.velocity.Y * 0.2f, 
+                    DustID.Torch,
+                    0, 0, 
+                    
                     100, 
                     default, 
-                    3f // Tamanho grande
+                    1.2f // Tamanho grande
                 );
                 
-                Main.dust[dustIndex].noGravity = true; // Fogo flutua
-                Main.dust[dustIndex].velocity *= 1.5f; // Fogo se expande um pouco
-                Main.dust[dustIndex].velocity += Projectile.velocity * 0.5f;
+                Main.dust[dustIndex].noGravity = true;
+                Main.dust[dustIndex].velocity *= 0.1f;
             }
         }
     }

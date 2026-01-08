@@ -16,7 +16,6 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.HellSpider
             Projectile.height = 10;
             Projectile.friendly = false; // Ele não dá dano, quem dá dano é o fogo que ele cospe
             Projectile.tileCollide = false;
-            Projectile.penetrate = -1;
             Projectile.timeLeft = 120; // DURAÇÃO DO ATAQUE: 120 ticks = 2 Segundos
             Projectile.hide = true; // Invisível
         }
@@ -61,27 +60,30 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.HellSpider
 
                 if (Projectile.owner == Main.myPlayer)
                 {
-                    // Lança 2 projéteis por vez para espalhar bem
-                    for (int i = 0; i < 2; i++)
+                    int projectilecount = 5;
+                    float totalangle = MathHelper.ToRadians(50); // Ângulo total de dispersão
+
+                    for (int i = 0; i < projectilecount; i++)
                     {
-                        Vector2 shootVel = Projectile.velocity;
-                        
-                        // Velocidade e Espalhamento (Cone)
-                        shootVel *= Main.rand.NextFloat(8f, 13f);
-                        shootVel = shootVel.RotatedByRandom(MathHelper.ToRadians(15)); 
-                        
-                        // Offset para sair da mão (aprox)
-                        Vector2 spawnPos = player.Center + Projectile.velocity * 30f;
+                        // Calcula o ângulo para cada projétil
+                        float fraction = (float)i / (projectilecount - 1);
+                        float angle = MathHelper.Lerp(-totalangle / 2, totalangle / 2, fraction);
+
+                        Vector2 shootVel = Projectile.velocity.RotatedBy(angle);
+                        shootVel *= 14f; // Velocidade do projétil
 
                         Projectile.NewProjectile(
-                            player.GetSource_FromThis(),
-                            spawnPos,
+                            Projectile.GetSource_FromThis(),
+                            Projectile.Center,
                             shootVel,
-                            ModContent.ProjectileType<HellSpiderProj>(), // Chama o foguinho que já criamos
-                            25, // Dano
-                            1f,
-                            player.whoAmI
+                            ModContent.ProjectileType<HellSpiderProj>(),
+                            15, // Dano do fogo
+                            0f,
+                            Projectile.owner
                         );
+                    
+                    
+                        
                     }
                 }
             }

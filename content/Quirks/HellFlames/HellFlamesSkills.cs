@@ -52,9 +52,15 @@ namespace MyHeroMod.content.Quirks.HellFlames
 
                     DoJetBurn(mainPlayer);
                     break;
+
                     case QuirkSkills.IgnitedArrow:
 
                     DoIgnitedArrow(mainPlayer);
+                    break;
+
+                    case QuirkSkills.HellSpider:
+
+                    DoHellSpider(mainPlayer);
                     break;
                     
                 
@@ -87,7 +93,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
             CurrentHeat += 20;
             IsFlashFireFistActive = true;
 
-            // Implementation for Flash Fire Fist
+            
         }
         private void DoJetBurn(TransformationPlayer mainPlayer)
         {
@@ -153,9 +159,27 @@ namespace MyHeroMod.content.Quirks.HellFlames
                 Player.whoAmI
             );
         }
-        
+        private void DoHellSpider(TransformationPlayer mainPlayer)
+        {
+            // Verifica se já existe um controlador ativo (para não spawnar duplicado)
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.HellSpider.HellSpiderController>()] > 0)
+                return;
 
-        
+            // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
+            // Note que a velocidade aqui define apenas a direção inicial da mira.
+            Vector2 direction = Main.MouseWorld - Player.Center;
+            direction.Normalize();
 
-    }
-}
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                direction,
+                ModContent.ProjectileType<Projectiles.HellSpider.HellSpiderController>(),
+                0, // O controlador não dá dano direto
+                0f,
+                Player.whoAmI
+            );
+
+        }
+        }
+        }

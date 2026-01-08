@@ -127,4 +127,6 @@ Projectiles: {
 	ProminenceBurnController.DisplayName: Prominence Burn Controller
 	ProminenceBurnFire.DisplayName: Prominence Burn Fire
 	IgnitedArrowProj.DisplayName: Ignited Arrow Proj
+	HellSpiderController.DisplayName: Hell Spider Controller
+	HellSpiderProj.DisplayName: Hell Spider Proj
 }
