@@ -226,6 +226,26 @@ namespace MyHeroMod.content.System
                     QuirkType.HellFlames, 
                 }
                 });
+                SkillList.Add(QuirkSkills.HellSpider, new SkillInfo
+                {
+                    Name = "Hell Spider",
+                    Description = "Shoot lines of fire from the tip of your fingers.",
+                    IconPath = "MyHeroMod/Assets/Skills/HellFlames/HellSpider",
+                    MinStage = QuirkStage.Advanced,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.HellFlames, 
+                }
+                });
+                SkillList.Add(QuirkSkills.IgnitedArrow, new SkillInfo
+                {
+                    Name = "Ignited Arrow",
+                    Description = "Shoot an arrow engulfed in flames that explodes on impact.",
+                    IconPath = "MyHeroMod/Assets/Skills/HellFlames/IgnitedArrow",
+                    MinStage = QuirkStage.Advanced,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.HellFlames, 
+                }
+                });
 
                 // 
 

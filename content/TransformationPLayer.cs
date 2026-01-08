@@ -44,6 +44,9 @@ namespace MyHeroMod.content
             FlashFireFist,
             ProminenceBurn,
             JetBurn,
+            HellSpider,
+            IgnitedArrow,
+            // Blue Flames
 
             // Explosion
             ExplosionBlast,

@@ -126,4 +126,5 @@ Projectiles: {
 	JetBurnController.DisplayName: Jet Burn Controller
 	ProminenceBurnController.DisplayName: Prominence Burn Controller
 	ProminenceBurnFire.DisplayName: Prominence Burn Fire
+	IgnitedArrowProj.DisplayName: Ignited Arrow Proj
 }

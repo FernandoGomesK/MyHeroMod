@@ -1,3 +1,4 @@
+
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -87,3 +88,5 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.HellSpider
         }
     }
 }
+
+
