@@ -45,7 +45,10 @@ namespace MyHeroMod.content.System
             // POSIÇÃO
             // Essa fórmula alinha o centro do seu sprite 40x56 com o centro do sprite do jogador
             Vector2 drawPos = (drawInfo.Position - Main.screenPosition) + new Vector2(player.width / 2, player.height - player.bodyFrame.Height + 4) + drawInfo.headVect;
-            Vector2 ajuste = new Vector2(-20f, 0f); 
+            drawPos.Y += player.gfxOffY;
+            Vector2 ajuste = new Vector2(-20f, 0f);
+
+
             
             drawPos += ajuste;
             // Cria o dado de desenho
