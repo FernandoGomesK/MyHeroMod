@@ -11,6 +11,7 @@ namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
         public override void SetStaticDefaults()
         {
             ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
+            
         }
         
         public override void SetDefaults()
