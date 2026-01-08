@@ -8,7 +8,9 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.HellFlames;
 using MyHeroMod.content.Quirks.HellFlames.Projectiles;
-using System.Security.Cryptography.Pkcs;
+using MyHeroMod.content.Quirks.HellFlames.Projectiles.IgnitedArrow;
+using MyHeroMod.content.Quirks.HellFlames.Projectiles.JetBurn;
+
 
 namespace MyHeroMod.content.Quirks.HellFlames
 {
@@ -50,6 +52,10 @@ namespace MyHeroMod.content.Quirks.HellFlames
 
                     DoJetBurn(mainPlayer);
                     break;
+                    case QuirkSkills.IgnitedArrow:
+
+                    DoIgnitedArrow(mainPlayer);
+                    break;
                     
                 
                 
@@ -86,7 +92,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
         private void DoJetBurn(TransformationPlayer mainPlayer)
         {
             // Verifica se já existe um controlador ativo (para não spawnar duplicado)
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.JetBurnController>()] > 0)
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.JetBurn.JetBurnController>()] > 0)
                 return;
 
             // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
@@ -98,7 +104,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
                 Player.GetSource_FromThis(),
                 Player.Center,
                 direction,
-                ModContent.ProjectileType<Projectiles.JetBurnController>(),
+                ModContent.ProjectileType<Projectiles.JetBurn.JetBurnController>(),
                 0, // O controlador não dá dano direto
                 0f,
                 Player.whoAmI
@@ -107,7 +113,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
         private void DoProminenceBurn()
         {
             // Evita duplicar se já estiver ativo
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.ProminenceBurnController>()] > 0)
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.ProminenceBurn.ProminenceBurnController>()] > 0)
                 return;
 
             Main.NewText("PROMINENCE BURN!!!", Color.OrangeRed);
@@ -123,9 +129,27 @@ namespace MyHeroMod.content.Quirks.HellFlames
                 Player.GetSource_FromThis(),
                 Player.Center,
                 direction,
-                ModContent.ProjectileType<Projectiles.ProminenceBurnController>(),
+                ModContent.ProjectileType<Projectiles.ProminenceBurn.ProminenceBurnController>(),
                 0, 
                 0f, 
+                Player.whoAmI
+            );
+        }
+        private void DoIgnitedArrow(TransformationPlayer mainPlayer)
+        {
+            // Implementação do Ignited Arrow
+
+            Vector2 Velocity = Main.MouseWorld - Player.Center;
+            Velocity.Normalize();
+            Velocity *= 15f;
+
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                Velocity,
+                ModContent.ProjectileType<IgnitedArrowProj>(),
+                40, 
+                2f, 
                 Player.whoAmI
             );
         }
