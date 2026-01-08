@@ -8,6 +8,7 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.HellFlames;
 using MyHeroMod.content.Quirks.HellFlames.Projectiles;
+usin
 using System.Security.Cryptography.Pkcs;
 
 namespace MyHeroMod.content.Quirks.HellFlames
