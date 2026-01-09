@@ -247,7 +247,50 @@ namespace MyHeroMod.content.System
                 }
                 });
 
-                // 
+                // Explosion
+
+                SkillList.Add(QuirkSkills.StunGrenade, new SkillInfo
+                {
+                    Name = "Stun Grenade",
+                    Description = "Create a sphere blast that blinds anyone close.",
+                    IconPath = "MyHeroMod/Assets/Skills/Explosion/ExplosiveShot",
+                    MinStage = QuirkStage.Initial,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.Explosion, 
+                }
+                });
+
+                SkillList.Add(QuirkSkills.ApShot, new SkillInfo
+                {
+                    Name = "AP Shot",
+                    Description = "Fire an armor-piercing Explosion that can penetrate multiple enemies.",
+                    IconPath = "MyHeroMod/Assets/Skills/Explosion/APShot",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.Explosion, 
+                }
+                });
+                SkillList.Add(QuirkSkills.ApMachineGun, new SkillInfo
+                {
+                    Name = "AP Shot",
+                    Description = "Fire a Barrage of armor-piercing Explosion .",
+                    IconPath = "MyHeroMod/Assets/Skills/Explosion/APShot",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.Explosion, 
+                }
+                });
+
+                SkillList.Add(QuirkSkills.HowitzerImpact, new SkillInfo
+                {
+                    Name = "Howitzer Impact",
+                    Description = "Jump in the Air and come down striking.",
+                    IconPath = "MyHeroMod/Assets/Skills/Explosion/HowitzerImpact",
+                    MinStage = QuirkStage.Adequation,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.Explosion, 
+                }
+                });
 
                 // 
                 

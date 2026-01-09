@@ -72,6 +72,16 @@ Items: {
 		Tooltip: ""
 		DisplayName: First E Helmet
 	}
+
+	FirstBakugoBreastplate: {
+		Tooltip: ""
+		DisplayName: First Bakugo Breastplate
+	}
+
+	FirstBakugoHelmet: {
+		Tooltip: ""
+		DisplayName: First Bakugo Helmet
+	}
 }
 
 Buffs: {
@@ -109,6 +119,11 @@ Buffs: {
 		Description: Mods.MyHeroMod.Buffs.FlashFireFistBuff.Description
 		DisplayName: Flash Fire Fist Buff
 	}
+
+	Heat: {
+		Description: Mods.MyHeroMod.Buffs.Heat.Description
+		DisplayName: Heat
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -129,4 +144,7 @@ Projectiles: {
 	IgnitedArrowProj.DisplayName: Ignited Arrow Proj
 	HellSpiderController.DisplayName: Hell Spider Controller
 	HellSpiderProj.DisplayName: Hell Spider Proj
+	ApShotProj.DisplayName: Ap Shot Proj
+	HowitzerImpactProj.DisplayName: Howitzer Impact Proj
+	StunGrenadeProj.DisplayName: Stun Grenade Proj
 }

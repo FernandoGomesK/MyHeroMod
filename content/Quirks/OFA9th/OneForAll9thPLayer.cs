@@ -207,6 +207,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 MaxParallelProcessing = 0;
             }
         }
+        
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();

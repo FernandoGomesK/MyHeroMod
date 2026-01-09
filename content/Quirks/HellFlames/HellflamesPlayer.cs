@@ -25,6 +25,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
 
         public override void OnRespawn()
         {
+            CurrentHeat = 0;
             SkillCooldowns.Clear();
         }
         public override void PostUpdateEquips()
@@ -35,6 +36,11 @@ namespace MyHeroMod.content.Quirks.HellFlames
             {
                 Player.AddBuff(ModContent.BuffType<Buffs.FlashFireFistBuff>(), 2);
                 
+                
+            }
+            if (CurrentHeat > 0)
+            {
+                Player.AddBuff(ModContent.BuffType<Heat>(), 2);
             }
 
             if (mainPlayer.SelectedQuirk != QuirkType.HellFlames)  

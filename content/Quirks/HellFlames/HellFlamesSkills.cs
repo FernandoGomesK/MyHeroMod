@@ -114,7 +114,9 @@ namespace MyHeroMod.content.Quirks.HellFlames
                 0, // O controlador não dá dano direto
                 0f,
                 Player.whoAmI
+            
             );
+            CurrentHeat += 15;
         }
         private void DoProminenceBurn()
         {
@@ -140,6 +142,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
                 0f, 
                 Player.whoAmI
             );
+            CurrentHeat += 15;
         }
         private void DoIgnitedArrow(TransformationPlayer mainPlayer)
         {
@@ -158,6 +161,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
                 2f, 
                 Player.whoAmI
             );
+            CurrentHeat += 15;
         }
         private void DoHellSpider(TransformationPlayer mainPlayer)
         {
@@ -179,6 +183,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
                 0f,
                 Player.whoAmI
             );
+            CurrentHeat += 15;
 
         }
         }
