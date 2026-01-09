@@ -78,7 +78,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            if (mainPlayer.SelectedQuirk == QuirkType.HellFlames)
+            if (mainPlayer.SelectedQuirk == QuirkType.HellFlames && mainPlayer.CurrentStage >= QuirkStage.Adequation)
             {
                 // CORREÇÃO AQUI: Substituí !Player.onFloor por Player.velocity.Y != 0
                 bool isFlying = (Player.velocity.Y != 0) && (Player.wingTime > 0 || Player.rocketDelay > 0) && !Player.mount.Active;

@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.Audio;
 
 namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
 {
@@ -28,6 +29,7 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
 
         public override void OnKill(int timeLeft)
         {
+            SoundEngine.PlaySound(SoundID.Item62, Projectile.position); 
             for (int i = 0; i < 30; i++)
             {
                 int idx = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 4.0f);

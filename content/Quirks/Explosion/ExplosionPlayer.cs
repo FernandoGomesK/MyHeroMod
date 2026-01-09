@@ -79,6 +79,10 @@ namespace MyHeroMod.content.Quirks.Explosion
         }
         public override void PostUpdate()
         {
+            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (mainPlayer.SelectedQuirk == QuirkType.Explosion && mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
             if (Player.velocity.Y != 0 && !Player.mount.Active)
                 {
                     // Lado Esquerdo (Fogo)
@@ -126,6 +130,7 @@ namespace MyHeroMod.content.Quirks.Explosion
                         Main.dust[dustSmoke2].noGravity = true;
                         Main.dust[dustSmoke2].velocity *= 0.5f;
                     }
+                }
            
             
         }

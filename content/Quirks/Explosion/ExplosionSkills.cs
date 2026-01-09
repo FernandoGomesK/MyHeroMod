@@ -103,16 +103,20 @@ namespace MyHeroMod.content.Quirks.Explosion
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<ApMachineGunProj>()] > 0)
             return;
 
+            Vector2 direction = Main.MouseWorld - Player.Center;
+            direction.Normalize();
+
+            // Lança o Controlador
             Projectile.NewProjectile(
                 Player.GetSource_FromThis(),
                 Player.Center,
-                Vector2.Zero, 
-                ModContent.ProjectileType<ApMachineGunProj>(),
-                20, // Dano alto (Impacto)
-                10f, // Knockback alto
+                direction,
+                ModContent.ProjectileType<Projectiles.ApShot.ApMachineGunProj>(),
+                0, 
+                0f, 
                 Player.whoAmI
 
-             )
+             );
             
         }
 

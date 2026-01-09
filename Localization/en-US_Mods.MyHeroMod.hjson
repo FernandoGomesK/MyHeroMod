@@ -163,4 +163,5 @@ Projectiles: {
 	HowitzerImpactProj.DisplayName: Howitzer Impact Proj
 	StunGrenadeProj.DisplayName: Stun Grenade Proj
 	ExplosionBlastProj.DisplayName: Explosion Blast Proj
+	ApMachineGunProj.DisplayName: Ap Machine Gun Proj
 }

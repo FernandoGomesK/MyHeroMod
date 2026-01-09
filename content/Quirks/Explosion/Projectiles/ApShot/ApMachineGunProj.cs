@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.Audio;
 
 namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
 {
@@ -10,65 +11,86 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
     {
         public override void SetDefaults()
         {
-            Projectile.width = 72;
-            Projectile.height = 32;
-            Projectile.aiStyle = 0;
-            Projectile.friendly = true;
-            Projectile.hostile = false;
-            Projectile.DamageType = DamageClass.Generic;
-            Projectile.penetrate = 1;
-            Projectile.timeLeft = 300;
-            Projectile.light = 0.5f;
-            Projectile.ignoreWater = false;
-            Projectile.tileCollide = true;
-            Projectile.alpha = 0;
-            Projectile.light = 1.0f;
+            Projectile.width = 10;
+            Projectile.height = 10;
+            Projectile.friendly = false;
+            Projectile.tileCollide = false;
+            Projectile.hide = true;
+            // DURAÇÃO DO ATAQUE: 300 ticks = 5 Segundos
+            Projectile.timeLeft = 300; 
             
         }
 
-        public override Color? GetAlpha(Color lightColor)
-        {
-            return Color.White;
-        }
-
-        public override void OnKill(int timeLeft)
-        {
-            for (int i = 0; i < 30; i++)
-            {
-                int idx = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 4.0f);
-                Main.dust[idx].noGravity = true;
-                Main.dust[idx].velocity *= 3f;
-
-                Main.dust[idx].velocity += Projectile.velocity * 0.5f;
-            
-            } 
-            for (int i = 0; i < 10; i++)
-            {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 4.5f);
-            }
-            for (int i = 0; i < 5; i++)
-            {
-
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Ash, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 2.0f );
-            }
-        }   
+         
         public override void AI()
         {
-            Projectile.rotation = Projectile.velocity.ToRotation();
+            Player player = Main.player[Projectile.owner];
             
-            if (Main.rand.NextBool(1))
+            if (!player.active || player.dead)
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 2.5f);
-            }
-            if (Main.rand.NextBool(7))
-            {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 2.0f);
+                Projectile.Kill();
+                return;
             }
 
+            if (Projectile.owner == Main.myPlayer)
+            {
+                Vector2 diff = Main.MouseWorld - player.MountedCenter;
+                diff.Normalize();
+                Projectile.velocity = diff;
+                player.ChangeDir(Main.MouseWorld.X > player.MountedCenter.X ? 1 : -1);
+                Projectile.netUpdate = true;
+            }
+            
+            Projectile.Center = player.MountedCenter;
+            player.heldProj = Projectile.whoAmI;
+            player.itemTime = 2;
+            player.itemAnimation = 2;
+            
+            // Jogador fica quase parado fazendo força
+            player.velocity *= 0.1f; 
+            
+            // Rotação do braço
+            player.itemRotation = (Projectile.velocity * player.direction).ToRotation();
+
+            // 2. DISPARO CONTÍNUO (Gatling Gun de Fogo)
+            Projectile.ai[0]++;
+            
+            
+
+            // Atira a cada 3 frames (MUITO RÁPIDO)
+            if (Projectile.ai[0] % 10 == 0) 
+            {
+                if (Projectile.ai[0] % 10 == 0) // Som não toca todo frame pra não travar áudio
+                    SoundEngine.PlaySound(SoundID.Item14, player.position);
+                    // Som grave e alto
+
+                if (Projectile.owner == Main.myPlayer)
+                {
+                    // Lança 3 projéteis gigantes por vez com espalhamento
+                    for (int i = 0; i < 1; i++)
+                    {
+                        Vector2 shootVel = Projectile.velocity;
+                        
+                        // Velocidade Alta (Canhão)
+                        shootVel *= Main.rand.NextFloat(18f, 24f); 
+                        
+                        // Cone de dispersão menor que o JetBurn (foco no dano)
+                        shootVel = shootVel.RotatedByRandom(MathHelper.ToRadians(12)); 
+
+                        Vector2 spawnPos = player.Center + Projectile.velocity * 40f;
+
+                        Projectile.NewProjectile(
+                            player.GetSource_FromThis(),
+                            spawnPos,
+                            shootVel,
+                            ModContent.ProjectileType<ApShotProj>(), 
+                            30, 
+                            4f,  // KNOCKBACK ALTO
+                            player.whoAmI
+                        );
+                    }
+                }
+            }
         }
-
-        
     }
-
-    
 }

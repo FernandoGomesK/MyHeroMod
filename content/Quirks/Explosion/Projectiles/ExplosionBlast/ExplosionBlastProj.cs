@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Terraria.Audio;
 
 namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ExplosionBlast
 {
@@ -35,6 +36,7 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ExplosionBlast
         {
             for (int i = 0; i < 30; i++)
             {
+                SoundEngine.PlaySound(SoundID.Item62, Projectile.position); 
                 int idx = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 4.0f);
                 Main.dust[idx].noGravity = true;
                 Main.dust[idx].velocity *= 3f;
