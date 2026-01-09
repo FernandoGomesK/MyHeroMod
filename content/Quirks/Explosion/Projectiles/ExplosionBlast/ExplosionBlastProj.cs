@@ -1,23 +1,23 @@
 using Terraria;
-using Terraria.ModLoader;
 using Terraria.ID;
+using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
+namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ExplosionBlast
 {
-    public class ApShotProj : ModProjectile
+    public class ExplosionBlastProj : ModProjectile
     {
         public override void SetDefaults()
         {
-            Projectile.width = 72;
+            Projectile.width = 32;
             Projectile.height = 32;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.DamageType = DamageClass.Generic;
             Projectile.penetrate = 1;
-            Projectile.timeLeft = 300;
+            Projectile.timeLeft = 10;
             Projectile.light = 0.5f;
             Projectile.ignoreWater = false;
             Projectile.tileCollide = true;

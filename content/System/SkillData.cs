@@ -291,6 +291,16 @@ namespace MyHeroMod.content.System
                     QuirkType.Explosion, 
                 }
                 });
+                SkillList.Add(QuirkSkills.Cluster, new SkillInfo
+                {
+                    Name = "Cluster",
+                    Description = "Condensate your blasts, increasing their impact, force and your speed.",
+                    IconPath = "MyHeroMod/Assets/Skills/Explosion/Cluster",
+                    MinStage = QuirkStage.Advanced,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.Explosion, 
+                }
+                });
 
                 // 
                 

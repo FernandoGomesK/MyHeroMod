@@ -7,9 +7,11 @@ using MyHeroMod.content.System;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.Explosion;
+using  MyHeroMod.content.Quirks.Explosion.Buffs;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.StunGrenade;
 using MyHeroMod.content.Quirks.Explosion.Projectiles;
+
 
 
 namespace MyHeroMod.content.Quirks.Explosion
@@ -54,6 +56,11 @@ namespace MyHeroMod.content.Quirks.Explosion
                     DoStunGrenade(mainPlayer);
                     
                     SetCooldown(skill, 300);
+                    break;
+                    case QuirkSkills.Cluster:
+                    ActivateCluster(mainPlayer);
+
+                    SetCooldown(skill, 60);
                     break;
             }
         }
@@ -124,6 +131,21 @@ namespace MyHeroMod.content.Quirks.Explosion
                 Player.whoAmI
             );
             CurrentSweat += 15;
+        }
+        private void ActivateCluster(TransformationPlayer mainPlayer)
+        {
+            if (IsClusterActive)
+            {
+                IsClusterActive = false;
+                Player.ClearBuff(ModContent.BuffType<Buffs.ClusterBuff>());
+                Main.NewText("Flash Fire Fist Deactivated", Color.OrangeRed);   
+                SetCooldown(QuirkSkills.FlashFireFist, 120);
+                return;
+                
+            }
+            
+            IsClusterActive = true;
+            
         }
 }
 }

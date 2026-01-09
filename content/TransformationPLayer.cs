@@ -54,6 +54,7 @@ namespace MyHeroMod.content
             ApShot,
             ApMachineGun,
             HowitzerImpact,
+            Cluster,
 
             
 

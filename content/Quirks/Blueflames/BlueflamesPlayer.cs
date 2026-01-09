@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace MyHeroMod.content.Quirks.Blueflames
 {
-    public class BlueFlames : ModPlayer
+    public partial class BlueFlames : ModPlayer
     {
         public override void PostUpdateEquips()
         {

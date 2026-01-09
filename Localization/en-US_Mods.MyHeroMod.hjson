@@ -82,6 +82,11 @@ Items: {
 		Tooltip: ""
 		DisplayName: First Bakugo Helmet
 	}
+
+	ExplosionQuirkAttack: {
+		DisplayName: Explosion Quirk Attack
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -124,6 +129,16 @@ Buffs: {
 		Description: Mods.MyHeroMod.Buffs.Heat.Description
 		DisplayName: Heat
 	}
+
+	ClusterBuff: {
+		DisplayName: Cluster Buff
+		Description: Mods.MyHeroMod.Buffs.ClusterBuff.Description
+	}
+
+	SweatBuff: {
+		DisplayName: Sweat Buff
+		Description: Mods.MyHeroMod.Buffs.SweatBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -147,4 +162,5 @@ Projectiles: {
 	ApShotProj.DisplayName: Ap Shot Proj
 	HowitzerImpactProj.DisplayName: Howitzer Impact Proj
 	StunGrenadeProj.DisplayName: Stun Grenade Proj
+	ExplosionBlastProj.DisplayName: Explosion Blast Proj
 }
