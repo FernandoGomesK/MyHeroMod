@@ -272,7 +272,7 @@ namespace MyHeroMod.content.System
                 });
                 SkillList.Add(QuirkSkills.ApMachineGun, new SkillInfo
                 {
-                    Name = "AP Shot",
+                    Name = "AP Machine-Gun",
                     Description = "Fire a Barrage of armor-piercing Explosion .",
                     IconPath = "MyHeroMod/Assets/Skills/Explosion/APShot",
                     MinStage = QuirkStage.Intermediate,

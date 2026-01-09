@@ -47,6 +47,11 @@ namespace MyHeroMod.content.Quirks.Explosion
 
                     SetCooldown(skill, 60);
                     break;
+                    case QuirkSkills.ApMachineGun:
+                    DoApMachineGun(mainPlayer);
+
+                    SetCooldown(skill, 60);
+                    break;
                     case QuirkSkills.HowitzerImpact:
                     DoHowitzerImpact(mainPlayer);
                     
@@ -92,6 +97,23 @@ namespace MyHeroMod.content.Quirks.Explosion
                 Player.whoAmI
             );
             CurrentSweat += 15;
+        }
+        private void DoApMachineGun(TransformationPlayer mainPlayer)
+        {
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<ApMachineGunProj>()] > 0)
+            return;
+
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                Vector2.Zero, 
+                ModContent.ProjectileType<ApMachineGunProj>(),
+                20, // Dano alto (Impacto)
+                10f, // Knockback alto
+                Player.whoAmI
+
+             )
+            
         }
 
         private void DoHowitzerImpact(TransformationPlayer mainPlayer)

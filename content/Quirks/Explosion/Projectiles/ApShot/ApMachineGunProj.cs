@@ -6,18 +6,23 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
 {
-    public class ApShotProj : ModProjectile
+    public class ApMachineGunProj : ModProjectile
     {
         public override void SetDefaults()
         {
-            Projectile.width = 32; 
+            Projectile.width = 72;
             Projectile.height = 32;
+            Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.tileCollide = true; 
-            Projectile.penetrate = 1; 
-            Projectile.timeLeft = 120; 
-            Projectile.alpha = 255; // Invisível
+            Projectile.DamageType = DamageClass.Generic;
+            Projectile.penetrate = 1;
+            Projectile.timeLeft = 300;
+            Projectile.light = 0.5f;
+            Projectile.ignoreWater = false;
+            Projectile.tileCollide = true;
+            Projectile.alpha = 0;
+            Projectile.light = 1.0f;
             
         }
 
