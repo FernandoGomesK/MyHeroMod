@@ -13,9 +13,20 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 {
     public partial class HalfColdHalfHotPlayer : ModPlayer
     {
+        public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
+        public int temperature = 0;
+
+        public int maxTemperature = 0;
+        public int MinimumTemperature = 0;
+
+
+
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            
+
 
             if (mainPlayer.SelectedQuirk != QuirkType.HalfColdHalfHot)  
                 return;
