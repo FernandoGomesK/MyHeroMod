@@ -175,4 +175,6 @@ Projectiles: {
 	BlueJetBurnController.DisplayName: Blue Jet Burn Controller
 	BlueHellSpiderProj.DisplayName: Blue Hell Spider Proj
 	BlueHellSpiderController.DisplayName: Blue Hell Spider Controller
+	IceSpikeProj.DisplayName: Ice Spike Proj
+	IceWaveController.DisplayName: Ice Wave Controller
 }

@@ -289,6 +289,52 @@ namespace MyHeroMod.content.System
                     QuirkType.BlueFlames, 
                 }
                 });
+                
+                //HCHH
+                SkillList.Add(QuirkSkills.HeavenPiercingWall, new SkillInfo
+                {
+                    Name = "Heaven Piercing Wall",
+                    Description = "Create a Huge ice wall.",
+                    IconPath = "MyHeroMod/Assets/Skills/BlueFlames/FlashFireFist",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.HalfColdHalfHot, 
+                    
+                }});
+
+                SkillList.Add(QuirkSkills.HCFireFist, new SkillInfo
+                {
+                    Name = "Flash Fire Fist",
+                    Description = "Raise your fire temperature to its highest level.",
+                    IconPath = "MyHeroMod/Assets/Skills/HalfColdHalfHot/HCFireFist",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.HalfColdHalfHot, 
+                }
+                });
+                SkillList.Add(QuirkSkills.HCJetBurn, new SkillInfo
+                {
+                    Name = "Jet Burn",
+                    Description = "Launch a concentrated Beam of Fire at your Cursor.",
+                    IconPath = "MyHeroMod/Assets/Skills/HalfColdHalfHot/HCJetBurn",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.HalfColdHalfHot, 
+                }
+                });
+                
+                SkillList.Add(QuirkSkills.HCHellSpider, new SkillInfo
+                {
+                    Name = "Hell Spider",
+                    Description = "Shoot lines of fire from the tip of your fingers.",
+                    IconPath = "MyHeroMod/Assets/Skills/HalfColdHalfHot/HCHellSpider",
+                    MinStage = QuirkStage.Advanced,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.HalfColdHalfHot, 
+                }
+                });
+
+
 
                 // Explosion
 

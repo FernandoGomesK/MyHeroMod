@@ -52,6 +52,14 @@ namespace MyHeroMod.content
             BlueProminenceBurn,
             BlueJetBurn,
             BlueHellSpider,
+            //HCHH
+            HCFireFist,
+
+            HeavenPiercingWall,
+            HCJetBurn,
+            HCHellSpider,
+
+            
 
             // Explosion
             ExplosionBlast,

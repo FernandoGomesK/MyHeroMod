@@ -19,6 +19,8 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
         public int maxTemperature = 0;
         public int MinimumTemperature = 0;
 
+        public bool IsFlashFireFistActive = false;
+
 
 
         public override void PostUpdateEquips()
