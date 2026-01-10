@@ -11,8 +11,14 @@ using System.Collections.Generic;
 
 namespace MyHeroMod.content.Quirks.Blueflames
 {
-    public partial class BlueFlames : ModPlayer
+    public partial class BlueFlamesPlayer : ModPlayer
     {
+        public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
+
+        public int MaxHeat = 0;
+        public int CurrentHeat = 0;
+
+        public bool IsFlashFireFistActive = false;
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
