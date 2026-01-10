@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.ExplosionBlast;
+using MyHeroMod.content.Quirks.Explosion.Projectiles.StunGrenade;
 
 namespace MyHeroMod.content.Items.Weapons
 {
@@ -24,16 +25,16 @@ namespace MyHeroMod.content.Items.Weapons
             Item.DamageType = DamageClass.Magic; // Tipo de dano
             Item.width = 28;
             Item.height = 30;
-            Item.useTime = 10; 
-            Item.useAnimation = 10;
+            Item.useTime = 20; 
+            Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true; // Não bate com o item, só atira
             Item.knockBack = 0.5f;
             Item.value = 0; // Sem valor de venda (é uma skill)
             Item.rare = ItemRarityID.White;
             Item.autoReuse = true; // Segurar o clique atira contínuo
-            Item.shoot = ModContent.ProjectileType<ExplosionBlastProj>();
-            Item.shootSpeed = 6f; // Velocidade do fogo
+            Item.shoot = ModContent.ProjectileType<StunGrenadeProj>();
+            Item.shootSpeed = 20f; // Velocidade do fogo
             Item.useTurn = true; // Pode virar enquanto atira
 
             Item.noUseGraphic = true; // Não mostra o item ao usar
