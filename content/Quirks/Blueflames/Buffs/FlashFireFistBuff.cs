@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework;
 
 namespace MyHeroMod.content.Quirks.Blueflames.Buffs
 {
-    public class FlashFireFistBuff : ModBuff
+    public class BlueFlashFireFistBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/FlashFireFistBuff";
+        public override string Texture => "MyHeroMod/Assets/BlueFlashFireFistBuff";
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;

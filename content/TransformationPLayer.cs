@@ -6,6 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.GameInput;
+using MyHeroMod;
 
 
 
@@ -47,6 +48,10 @@ namespace MyHeroMod.content
             HellSpider,
             IgnitedArrow,
             // Blue Flames
+            BlueFlashFireFist,
+            BlueProminenceBurn,
+            BlueJetBurn,
+            BlueHellSpider,
 
             // Explosion
             ExplosionBlast,
@@ -94,11 +99,11 @@ namespace MyHeroMod.content
             if (tag.ContainsKey("TransformSlot")) TransformSlot = (QuirkSkills)tag.GetInt("TransformSlot");
         }
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
-{
-    // Agora o menu abre independente da Quirk, e só roda UMA vez por frame.
-    if (KeybindSystem.SkillMenu.JustPressed)
-    {
-        UISystem.ToggleSkillMenu();
+        {
+            // Agora com o "using MyHeroMod;" acima, o UISystem será encontrado.
+            if (KeybindSystem.SkillMenu.JustPressed)
+            {
+                UISystem.ToggleSkillMenu();
     }
 }
     }

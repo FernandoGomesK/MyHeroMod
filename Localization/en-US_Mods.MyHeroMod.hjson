@@ -139,6 +139,11 @@ Buffs: {
 		DisplayName: Sweat Buff
 		Description: Mods.MyHeroMod.Buffs.SweatBuff.Description
 	}
+
+	BlueFlashFireFistBuff: {
+		Description: Mods.MyHeroMod.Buffs.BlueFlashFireFistBuff.Description
+		DisplayName: Blue Flash Fire Fist Buff
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -164,4 +169,10 @@ Projectiles: {
 	StunGrenadeProj.DisplayName: Stun Grenade Proj
 	ExplosionBlastProj.DisplayName: Explosion Blast Proj
 	ApMachineGunProj.DisplayName: Ap Machine Gun Proj
+	BlueProminenceBurnFire.DisplayName: Blue Prominence Burn Fire
+	BlueProminenceBurnController.DisplayName: Blue Prominence Burn Controller
+	BlueJetBurnProj.DisplayName: Blue Jet Burn Proj
+	BlueJetBurnController.DisplayName: Blue Jet Burn Controller
+	BlueHellSpiderProj.DisplayName: Blue Hell Spider Proj
+	BlueHellSpiderController.DisplayName: Blue Hell Spider Controller
 }

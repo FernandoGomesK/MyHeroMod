@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn
+namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.ProminenceBurn
 {
-    public class ProminenceBurnFire : ModProjectile
+    public class BlueProminenceBurnFire : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -37,9 +37,9 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn
                 // Espalha as partículas aleatoriamente dentro da hitbox gigante
                 Vector2 dustPos = Projectile.position + new Vector2(Main.rand.Next(Projectile.width), Main.rand.Next(Projectile.height));
                 
-                int dustID = DustID.Torch;
+                int dustID = DustID.BlueTorch;
                 // Chance de gerar partículas de fumaça ou fogo mais escuro para textura
-                if (Main.rand.NextBool(3)) dustID = DustID.SolarFlare; 
+                if (Main.rand.NextBool(3)) dustID = DustID.Flare_Blue; 
 
                 int idx = Dust.NewDust(dustPos, 0, 0, dustID, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 100, default, 1f);
                 

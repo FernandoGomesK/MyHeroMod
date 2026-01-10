@@ -4,9 +4,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
-namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn
+namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.ProminenceBurn
 {
-    public class ProminenceBurnController : ModProjectile
+    public class BlueProminenceBurnController : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -85,7 +85,7 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn
                             player.GetSource_FromThis(),
                             spawnPos,
                             shootVel,
-                            ModContent.ProjectileType<ProminenceBurnFire>(), 
+                            ModContent.ProjectileType<BlueProminenceBurnFire>(), 
                             30, // DANO ALTO
                             4f,  // KNOCKBACK ALTO
                             player.whoAmI

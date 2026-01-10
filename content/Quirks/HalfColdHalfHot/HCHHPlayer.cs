@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 {
-    public class HalfColdHalfHotPlayer : ModPlayer
+    public partial class HalfColdHalfHotPlayer : ModPlayer
     {
         public override void PostUpdateEquips()
         {
@@ -21,7 +21,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                 return;
 
             // Verifica se a individualidade atual é Half Cold Half Hot
-            if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            if (mainPlayer.CurrentStage >= QuirkStage.Intermediate)
             {
                 // 1. Define o tempo de voo (100 = voo curto/médio)
                 Player.wingTimeMax = 50;

@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.BlueFlames.Projectiles.JetBurn
+namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.JetBurn
 {
-    public class JetBurnProj : ModProjectile
+    public class BlueJetBurnProj : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -41,7 +41,7 @@ namespace MyHeroMod.content.Quirks.BlueFlames.Projectiles.JetBurn
                     Projectile.position, 
                     Projectile.width, 
                     Projectile.height, 
-                    DustID.Torch, // ID do fogo padrão (6)
+                    DustID.BlueTorch, // ID do fogo padrão (6)
                     Projectile.velocity.X * 0.2f, 
                     Projectile.velocity.Y * 0.2f, 
                     100, 

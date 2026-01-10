@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.HellSpider
 {
-    public class HellSpiderProj : ModProjectile
+    public class BlueHellSpiderProj : ModProjectile
     {
         public override void SetDefaults()
         {

@@ -7,7 +7,7 @@ using Terraria.Audio;
 
 namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.HellSpider
 {
-    public class HellSpiderController : ModProjectile
+    public class BlueHellSpiderController : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -76,7 +76,7 @@ namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.HellSpider
                             Projectile.GetSource_FromThis(),
                             Projectile.Center,
                             shootVel,
-                            ModContent.ProjectileType<HellSpiderProj>(),
+                            ModContent.ProjectileType<BlueHellSpiderProj>(),
                             15, // Dano do fogo
                             0f,
                             Projectile.owner

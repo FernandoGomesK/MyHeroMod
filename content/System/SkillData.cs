@@ -247,6 +247,49 @@ namespace MyHeroMod.content.System
                 }
                 });
 
+                // Blueflames
+
+                SkillList.Add(QuirkSkills.BlueFlashFireFist, new SkillInfo
+                {
+                    Name = "Flash Fire Fist",
+                    Description = "Raise your fire temperature to its highest level.",
+                    IconPath = "MyHeroMod/Assets/Skills/BlueFlames/FlashFireFist",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.BlueFlames, 
+                }
+                });
+                SkillList.Add(QuirkSkills.BlueJetBurn, new SkillInfo
+                {
+                    Name = "Jet Burn",
+                    Description = "Launch a concentrated Beam of Fire at your Cursor.",
+                    IconPath = "MyHeroMod/Assets/Skills/BlueFlames/JetBurn",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.BlueFlames, 
+                }
+                });
+                SkillList.Add(QuirkSkills.BlueProminenceBurn, new SkillInfo
+                {
+                    Name = "Proeminence Burn",
+                    Description = "Launch a concentrated Beam of Fire at your Cursor.",
+                    IconPath = "MyHeroMod/Assets/Skills/BlueFlames/ProeminenceBurn",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.BlueFlames, 
+                }
+                });
+                SkillList.Add(QuirkSkills.BlueHellSpider, new SkillInfo
+                {
+                    Name = "Hell Spider",
+                    Description = "Shoot lines of fire from the tip of your fingers.",
+                    IconPath = "MyHeroMod/Assets/Skills/BlueFlames/HellSpider",
+                    MinStage = QuirkStage.Advanced,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.BlueFlames, 
+                }
+                });
+
                 // Explosion
 
                 SkillList.Add(QuirkSkills.StunGrenade, new SkillInfo

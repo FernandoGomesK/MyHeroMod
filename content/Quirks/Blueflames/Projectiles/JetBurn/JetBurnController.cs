@@ -4,9 +4,9 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
-namespace MyHeroMod.content.Quirks.BlueFlames.Projectiles.JetBurn
+namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.JetBurn
 {
-    public class JetBurnController : ModProjectile
+    public class BlueJetBurnController : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -76,7 +76,7 @@ namespace MyHeroMod.content.Quirks.BlueFlames.Projectiles.JetBurn
                             player.GetSource_FromThis(),
                             spawnPos,
                             shootVel,
-                            ModContent.ProjectileType<JetBurnProj>(), // Chama o foguinho que já criamos
+                            ModContent.ProjectileType<BlueJetBurnProj>(), // Chama o foguinho que já criamos
                             25, // Dano
                             1f,
                             player.whoAmI

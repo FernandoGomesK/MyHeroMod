@@ -9,7 +9,7 @@ using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.Blueflames;
 
 
-using MyHeroMod.content.Quirks.BlueFlames.Projectiles.JetBurn;
+
 
 namespace MyHeroMod.content.Quirks.Blueflames
 {
@@ -41,25 +41,20 @@ namespace MyHeroMod.content.Quirks.Blueflames
 
             switch (skill)
             {
-                    case QuirkSkills.FlashFireFist:
+                    case QuirkSkills.BlueFlashFireFist:
                     ActivateFlashFireFist(mainPlayer);
 
                     SetCooldown(skill, 60);
                     break;
-                    case QuirkSkills.ProminenceBurn:
+                    case QuirkSkills.BlueProminenceBurn:
                     DoProminenceBurn();
                     break;
-                    case QuirkSkills.JetBurn:
+                    case QuirkSkills.BlueJetBurn:
 
                     DoJetBurn(mainPlayer);
                     break;
-
-                    case QuirkSkills.IgnitedArrow:
-
-                    DoIgnitedArrow(mainPlayer);
-                    break;
-
-                    case QuirkSkills.HellSpider:
+         
+                    case QuirkSkills.BlueHellSpider:
 
                     DoHellSpider(mainPlayer);
                     break;
@@ -85,7 +80,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
             if (IsFlashFireFistActive)
             {
                 IsFlashFireFistActive = false;
-                Player.ClearBuff(ModContent.BuffType<Buffs.FlashFireFistBuff>());
+                Player.ClearBuff(ModContent.BuffType<Buffs.BlueFlashFireFistBuff>());
                 Main.NewText("Flash Fire Fist Deactivated", Color.OrangeRed);   
                 SetCooldown(QuirkSkills.FlashFireFist, 120);
                 return;
@@ -99,7 +94,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
         private void DoJetBurn(TransformationPlayer mainPlayer)
         {
             // Verifica se já existe um controlador ativo (para não spawnar duplicado)
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.JetBurn.JetBurnController>()] > 0)
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.JetBurn.BlueJetBurnController>()] > 0)
                 return;
 
             // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
@@ -111,7 +106,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
                 Player.GetSource_FromThis(),
                 Player.Center,
                 direction,
-                ModContent.ProjectileType<Projectiles.JetBurn.JetBurnController>(),
+                ModContent.ProjectileType<Projectiles.JetBurn.BlueJetBurnController>(),
                 0, // O controlador não dá dano direto
                 0f,
                 Player.whoAmI
@@ -122,7 +117,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
         private void DoProminenceBurn()
         {
             // Evita duplicar se já estiver ativo
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.ProminenceBurn.ProminenceBurnController>()] > 0)
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.ProminenceBurn.BlueProminenceBurnController>()] > 0)
                 return;
 
             Main.NewText("PROMINENCE BURN!!!", Color.OrangeRed);
@@ -138,36 +133,18 @@ namespace MyHeroMod.content.Quirks.Blueflames
                 Player.GetSource_FromThis(),
                 Player.Center,
                 direction,
-                ModContent.ProjectileType<Projectiles.ProminenceBurn.ProminenceBurnController>(),
+                ModContent.ProjectileType<Projectiles.ProminenceBurn.BlueProminenceBurnController>(),
                 0, 
                 0f, 
                 Player.whoAmI
             );
             CurrentHeat += 15;
         }
-        private void DoIgnitedArrow(TransformationPlayer mainPlayer)
-        {
-            // Implementação do Ignited Arrow
-
-            Vector2 Velocity = Main.MouseWorld - Player.Center;
-            Velocity.Normalize();
-            Velocity *= 15f;
-
-            Projectile.NewProjectile(
-                Player.GetSource_FromThis(),
-                Player.Center,
-                Velocity,
-                ModContent.ProjectileType<IgnitedArrowProj>(),
-                40, 
-                2f, 
-                Player.whoAmI
-            );
-            CurrentHeat += 15;
-        }
+        
         private void DoHellSpider(TransformationPlayer mainPlayer)
         {
             // Verifica se já existe um controlador ativo (para não spawnar duplicado)
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.HellSpider.HellSpiderController>()] > 0)
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.HellSpider.BlueHellSpiderController>()] > 0)
                 return;
 
             // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
@@ -179,7 +156,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
                 Player.GetSource_FromThis(),
                 Player.Center,
                 direction,
-                ModContent.ProjectileType<Projectiles.HellSpider.HellSpiderController>(),
+                ModContent.ProjectileType<Projectiles.HellSpider.BlueHellSpiderController>(),
                 0, // O controlador não dá dano direto
                 0f,
                 Player.whoAmI
