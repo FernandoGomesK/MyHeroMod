@@ -144,6 +144,16 @@ Buffs: {
 		Description: Mods.MyHeroMod.Buffs.BlueFlashFireFistBuff.Description
 		DisplayName: Blue Flash Fire Fist Buff
 	}
+
+	PhosphorBuff: {
+		Description: Mods.MyHeroMod.Buffs.PhosphorBuff.Description
+		DisplayName: Phosphor Buff
+	}
+
+	HCFireFistBuff: {
+		Description: Mods.MyHeroMod.Buffs.HCFireFistBuff.Description
+		DisplayName: H C Fire Fist Buff
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -177,4 +187,9 @@ Projectiles: {
 	BlueHellSpiderController.DisplayName: Blue Hell Spider Controller
 	IceSpikeProj.DisplayName: Ice Spike Proj
 	IceWaveController.DisplayName: Ice Wave Controller
+	HCHellSpiderController.DisplayName: H C Hell Spider Controller
+	HCHellSpiderProj.DisplayName: H C Hell Spider Proj
+	JetKindlingController.DisplayName: Jet Kindling Controller
+	JetKindlingProj.DisplayName: Jet Kindling Proj
+	FlashFreezeProj.DisplayName: Flash Freeze Proj
 }

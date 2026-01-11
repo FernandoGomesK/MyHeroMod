@@ -3,6 +3,10 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HeavenPiercingWall;
+using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider;
+using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling;
+using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.FlashFreezeHeatWave;
+using MyHeroMod.content.Quirks.HalfColdHalfHot.Buffs;
 
 using Microsoft.Xna.Framework;
 
@@ -43,21 +47,39 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 
                     DoHeavenPiercingWall(mainPlayer);
                     break;
-                    // case QuirkSkills.JetBurn:
+                    case QuirkSkills.JetKindling:
 
-                    // DoJetBurn(mainPlayer);
-                    // break;
+                    DoJetKindling(mainPlayer);
+                    break;
 
                     // case QuirkSkills.IgnitedArrow:
 
                     // DoIgnitedArrow(mainPlayer);
                     // break;
 
-                    // case QuirkSkills.HellSpider:
+                    case QuirkSkills.HCHellSpider:
 
-                    // DoHellSpider(mainPlayer);
-                    // break;
-                    
+                    DoHellSpider(mainPlayer);
+                    break;
+                    case QuirkSkills.HCFireFist:
+
+                    ActivateFlashFireFist(mainPlayer);
+                    break;
+
+                    case QuirkSkills.HCPhosphor:
+
+                    ActivatePhosphor(mainPlayer);
+                    break;
+                    case QuirkSkills.FlashFreezeHeatWave:
+                    // AQUI ESTÁ A MUDANÇA:
+                    // Em vez de chamar a lógica inteira, nós apenas ATIVAMOS o modo automático.
+                    if (!IsFlashFreezeActive)
+                    {
+                        IsFlashFreezeActive = true;
+                        FlashFreezeTimer = 0;
+                        SetCooldown(skill, 20); // Exemplo de Cooldown
+                    }
+                    break;
                 
                 
 
@@ -92,114 +114,150 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
             50, // Dano
             5f,
             Player.whoAmI
+
+            
         );
+        temperature -= 15;
 }
-        // private void ActivateFlashFireFist(TransformationPlayer mainPlayer)
-        // {
-        //     if (IsFlashFireFistActive)
-        //     {
-        //         IsFlashFireFistActive = false;
-        //         Player.ClearBuff(ModContent.BuffType<Buffs.FlashFireFistBuff>());
-        //         Main.NewText("Flash Fire Fist Deactivated", Color.OrangeRed);   
-        //         SetCooldown(QuirkSkills.FlashFireFist, 120);
-        //         return;
+
+        private void UpdateFlashFreeze()
+        {
+            
+            FlashFreezeTimer++;
+
+            // Configuração da Posição (Costas do Player)
+            float offsetCostas = 20f; 
+            Vector2 spawnPos = Player.Center - new Vector2(offsetCostas * Player.direction, 0f);
+            spawnPos.Y += Main.rand.NextFloat(-10f, 10f);
+
+            // FASE 1: GELO (0 a 2 segundos)
+            if (FlashFreezeTimer < 120)
+            {
+                int iceDust = Dust.NewDust(spawnPos, 4, 4, DustID.IceTorch, 0, 0, 100, default, 3.5f);
+                Main.dust[iceDust].noGravity = true;
+                Main.dust[iceDust].velocity = new Vector2(-3f * Player.direction, 0f);
+                Player.velocity *= 0.1f; 
+            }
+            // FASE 2: FOGO E DISPARO (Após 2 segundos)
+            else
+            {
+                int fireDust = Dust.NewDust(spawnPos, 4, 4, DustID.Torch, 0, 0, 100, default, 4.5f);
+                Main.dust[fireDust].noGravity = true;
+                Main.dust[fireDust].velocity = new Vector2(-6f * Player.direction, 0f);
+
+                // O DISPARO (Acontece uma única vez no frame 120)
+                if (FlashFreezeTimer == 120)
+                {
+                    
+
+                    if (Player.whoAmI == Main.myPlayer)
+                    {
+                        // Se você não tiver o "FlashFreezeProj", use "IceSpikeProj" ou outro existente
+                        int projType = ModContent.ProjectileType<FlashFreezeProj>(); 
+
+                        Vector2 Velocity = Main.MouseWorld - Player.Center;
+                        Velocity.Normalize();
+                        Velocity *= 15f;
+                        // int projType = ModContent.ProjectileType<FlashFreezeProj>(); 
+
+                        Projectile.NewProjectile(
+                            Player.GetSource_FromThis(),
+                            Player.Center,
+                            Velocity,
+                            projType,   
+                            400, 
+                            5f, 
+                            Player.whoAmI
+                        );
+                    }
+                }
+
+                // DESLIGA SOZINHO (Dá 10 frames de fogo extra e desliga)
+                if (FlashFreezeTimer >= 130)
+                {
+                    IsFlashFreezeActive = false;
+                    FlashFreezeTimer = 0;
+                }
+            }
+        }
+            
+            
+        
+        
+        private void DoJetKindling(TransformationPlayer mainPlayer)
+        {
+            // Verifica se já existe um controlador ativo (para não spawnar duplicado)
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<JetKindlingController>()] > 0)
+                return;
+
+            // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
+            // Note que a velocidade aqui define apenas a direção inicial da mira.
+            Vector2 direction = Main.MouseWorld - Player.Center;
+            direction.Normalize();
+
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                direction,
+                ModContent.ProjectileType<JetKindlingController>(),
+                0, // O controlador não dá dano direto
+                0f,
+                Player.whoAmI
+            
+            );
+            temperature += 15;
+        }
+        
+        
+        private void DoHellSpider(TransformationPlayer mainPlayer)
+        {
+            // Verifica se já existe um controlador ativo (para não spawnar duplicado)
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<HCHellSpiderController>()] > 0)
+                return;
+
+            // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
+            // Note que a velocidade aqui define apenas a direção inicial da mira.
+            Vector2 direction = Main.MouseWorld - Player.Center;
+            direction.Normalize();
+
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                direction,
+                ModContent.ProjectileType<HCHellSpiderController>(),
+                0, // O controlador não dá dano direto
+                0f,
+                Player.whoAmI
+            );
+            temperature += 15;
+
+        }
+        private void ActivatePhosphor(TransformationPlayer mainPlayer)
+        {
+            if (IsPhosphorActive)
+            {
+                IsPhosphorActive = false;
+                Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
+                Main.NewText("Phosphor Deactivated", Color.OrangeRed);   
                 
-        //     }
-        //     CurrentHeat += 20;
-        //     IsFlashFireFistActive = true;
-
+                return;
+                
+            }
             
-        // }
-        // private void DoJetBurn(TransformationPlayer mainPlayer)
-        // {
-        //     // Verifica se já existe um controlador ativo (para não spawnar duplicado)
-        //     if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.JetBurn.JetBurnController>()] > 0)
-        //         return;
-
-        //     // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
-        //     // Note que a velocidade aqui define apenas a direção inicial da mira.
-        //     Vector2 direction = Main.MouseWorld - Player.Center;
-        //     direction.Normalize();
-
-        //     Projectile.NewProjectile(
-        //         Player.GetSource_FromThis(),
-        //         Player.Center,
-        //         direction,
-        //         ModContent.ProjectileType<Projectiles.JetBurn.JetBurnController>(),
-        //         0, // O controlador não dá dano direto
-        //         0f,
-        //         Player.whoAmI
+            IsPhosphorActive = true;
+        }
+        private void ActivateFlashFireFist(TransformationPlayer mainPlayer)
+        {
+            if (IsFlashFireFistActive)
+            {
+                IsFlashFireFistActive = false;
+                Player.ClearBuff(ModContent.BuffType<HCFireFistBuff>());
+                Main.NewText("Flash Fire Fist Deactivated", Color.OrangeRed);   
+                
+                return;
+                
+            }
             
-        //     );
-        //     CurrentHeat += 15;
-        // }
-        // private void DoProminenceBurn()
-        // {
-        //     // Evita duplicar se já estiver ativo
-        //     if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.ProminenceBurn.ProminenceBurnController>()] > 0)
-        //         return;
-
-        //     Main.NewText("PROMINENCE BURN!!!", Color.OrangeRed);
-            
-        //     // Som inicial de explosão
-        //     SoundEngine.PlaySound(SoundID.Item117, Player.position); 
-
-        //     Vector2 direction = Main.MouseWorld - Player.Center;
-        //     direction.Normalize();
-
-        //     // Lança o Controlador
-        //     Projectile.NewProjectile(
-        //         Player.GetSource_FromThis(),
-        //         Player.Center,
-        //         direction,
-        //         ModContent.ProjectileType<Projectiles.ProminenceBurn.ProminenceBurnController>(),
-        //         0, 
-        //         0f, 
-        //         Player.whoAmI
-        //     );
-        //     CurrentHeat += 15;
-        // }
-        // private void DoIgnitedArrow(TransformationPlayer mainPlayer)
-        // {
-        //     // Implementação do Ignited Arrow
-
-        //     Vector2 Velocity = Main.MouseWorld - Player.Center;
-        //     Velocity.Normalize();
-        //     Velocity *= 15f;
-
-        //     Projectile.NewProjectile(
-        //         Player.GetSource_FromThis(),
-        //         Player.Center,
-        //         Velocity,
-        //         ModContent.ProjectileType<IgnitedArrowProj>(),
-        //         40, 
-        //         2f, 
-        //         Player.whoAmI
-        //     );
-        //     CurrentHeat += 15;
-        // }
-        // private void DoHellSpider(TransformationPlayer mainPlayer)
-        // {
-        //     // Verifica se já existe um controlador ativo (para não spawnar duplicado)
-        //     if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.HellSpider.HCHellSpiderController>()] > 0)
-        //         return;
-
-        //     // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
-        //     // Note que a velocidade aqui define apenas a direção inicial da mira.
-        //     Vector2 direction = Main.MouseWorld - Player.Center;
-        //     direction.Normalize();
-
-        //     Projectile.NewProjectile(
-        //         Player.GetSource_FromThis(),
-        //         Player.Center,
-        //         direction,
-        //         ModContent.ProjectileType<Projectiles.HCHellSpider.HellSpiderController>(),
-        //         0, // O controlador não dá dano direto
-        //         0f,
-        //         Player.whoAmI
-        //     );
-        //     CurrentHeat += 15;
-
-        // }
+            IsFlashFireFistActive = true;
     }
-}
+}}

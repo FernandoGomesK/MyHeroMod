@@ -9,6 +9,9 @@ using MyHeroMod.content.System;
 using Terraria.Audio;
 using System.Collections.Generic;
 
+using MyHeroMod.content.Quirks.HalfColdHalfHot.Buffs;
+using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles;
+
 namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 {
     public partial class HalfColdHalfHotPlayer : ModPlayer
@@ -16,10 +19,41 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
         public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
         public int temperature = 0;
 
-        public int maxTemperature = 0;
-        public int MinimumTemperature = 0;
+        public int maxTemperature = 100;
+        public int MinimumTemperature = -100;
+        public bool IsFlashFreezeActive = false;
 
         public bool IsFlashFireFistActive = false;
+        public bool IsPhosphorActive = false;
+
+        // FlashFreeze
+
+        public int FlashFreezeTimer = 0; 
+
+        public int ProjectileTimer = 0;
+
+        public override void OnRespawn()
+        {
+            temperature = 0;
+            IsFlashFireFistActive = false;
+            IsPhosphorActive = false;
+            SkillCooldowns.Clear();
+        }
+
+        public override void PreUpdate()
+{
+    // Cria uma lista temporária das skills em cooldown para poder modificar o dicionário
+    List<QuirkSkills> keys = new List<QuirkSkills>(SkillCooldowns.Keys);
+    
+    foreach (var skill in keys)
+    {
+        // Se o cooldown for maior que 0, diminui 1 a cada frame
+        if (SkillCooldowns[skill] > 0) 
+        {
+            SkillCooldowns[skill]--;
+        }
+    }
+}
 
 
 
@@ -27,7 +61,10 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            
+            if (IsFlashFireFistActive)
+            {
+                Player.AddBuff(ModContent.BuffType<Buffs.HCFireFistBuff>(), 2);
+            }
 
 
             if (mainPlayer.SelectedQuirk != QuirkType.HalfColdHalfHot)  
@@ -55,6 +92,11 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
         public override void PostUpdate()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (IsFlashFreezeActive)
+    {
+        UpdateFlashFreeze();
+    }
 
             if (mainPlayer.SelectedQuirk == QuirkType.HalfColdHalfHot)
             {
@@ -94,5 +136,6 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                 }
             }
         }
+        
     }
 }

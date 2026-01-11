@@ -203,7 +203,7 @@ namespace MyHeroMod.content.System
                     IconPath = "MyHeroMod/Assets/Skills/HellFlames/FlashFireFist",
                     MinStage = QuirkStage.Intermediate,
                     RelatedQuirks = new List<QuirkType> { 
-                    QuirkType.HellFlames, 
+                    QuirkType.HellFlames 
                 }
                 });
                 SkillList.Add(QuirkSkills.JetBurn, new SkillInfo
@@ -213,7 +213,7 @@ namespace MyHeroMod.content.System
                     IconPath = "MyHeroMod/Assets/Skills/HellFlames/JetBurn",
                     MinStage = QuirkStage.Intermediate,
                     RelatedQuirks = new List<QuirkType> { 
-                    QuirkType.HellFlames, 
+                    QuirkType.HellFlames
                 }
                 });
                 SkillList.Add(QuirkSkills.ProminenceBurn, new SkillInfo
@@ -223,7 +223,7 @@ namespace MyHeroMod.content.System
                     IconPath = "MyHeroMod/Assets/Skills/HellFlames/ProeminenceBurn",
                     MinStage = QuirkStage.Intermediate,
                     RelatedQuirks = new List<QuirkType> { 
-                    QuirkType.HellFlames, 
+                    QuirkType.HellFlames 
                 }
                 });
                 SkillList.Add(QuirkSkills.HellSpider, new SkillInfo
@@ -233,7 +233,7 @@ namespace MyHeroMod.content.System
                     IconPath = "MyHeroMod/Assets/Skills/HellFlames/HellSpider",
                     MinStage = QuirkStage.Advanced,
                     RelatedQuirks = new List<QuirkType> { 
-                    QuirkType.HellFlames, 
+                    QuirkType.HellFlames 
                 }
                 });
                 SkillList.Add(QuirkSkills.IgnitedArrow, new SkillInfo
@@ -243,7 +243,7 @@ namespace MyHeroMod.content.System
                     IconPath = "MyHeroMod/Assets/Skills/HellFlames/IgnitedArrow",
                     MinStage = QuirkStage.Advanced,
                     RelatedQuirks = new List<QuirkType> { 
-                    QuirkType.HellFlames, 
+                    QuirkType.HellFlames
                 }
                 });
 
@@ -312,9 +312,9 @@ namespace MyHeroMod.content.System
                     QuirkType.HalfColdHalfHot, 
                 }
                 });
-                SkillList.Add(QuirkSkills.HCJetBurn, new SkillInfo
+                SkillList.Add(QuirkSkills.JetKindling, new SkillInfo
                 {
-                    Name = "Jet Burn",
+                    Name = "Jet Kindling",
                     Description = "Launch a concentrated Beam of Fire at your Cursor.",
                     IconPath = "MyHeroMod/Assets/Skills/HalfColdHalfHot/HCJetBurn",
                     MinStage = QuirkStage.Intermediate,
@@ -333,6 +333,24 @@ namespace MyHeroMod.content.System
                     QuirkType.HalfColdHalfHot, 
                 }
                 });
+                SkillList.Add(QuirkSkills.HCPhosphor, new SkillInfo
+                {
+                    Name = "Phosphor",
+                    Description = "Circulate both halves of your quirk .",
+                    IconPath = "MyHeroMod/Assets/Skills/HalfColdHalfHot/HCPhosphor",
+                    MinStage = QuirkStage.Advanced,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.HalfColdHalfHot, 
+                }
+                });
+                SkillList.Add(QuirkSkills.FlashFreezeHeatWave, new SkillInfo{
+                    Name = "Phosphor",
+                    Description = "Cool the air around you and shoot fire, rapidly expanding it .",
+                    IconPath = "MyHeroMod/Assets/Skills/HalfColdHalfHot/HeatWave",
+                    MinStage = QuirkStage.Adequation,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.HalfColdHalfHot, 
+            }});
 
 
 

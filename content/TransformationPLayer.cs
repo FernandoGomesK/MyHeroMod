@@ -56,8 +56,11 @@ namespace MyHeroMod.content
             HCFireFist,
 
             HeavenPiercingWall,
-            HCJetBurn,
+            FlashFreezeHeatWave,
+            JetKindling,
             HCHellSpider,
+            HCPhosphor,
+
 
             
 
