@@ -154,9 +154,20 @@ Buffs: {
 		Description: Mods.MyHeroMod.Buffs.HCFireFistBuff.Description
 		DisplayName: H C Fire Fist Buff
 	}
+
+	BlueRage: {
+		Description: Mods.MyHeroMod.Buffs.BlueRage.Description
+		DisplayName: Blue Rage
+	}
+
+	BlueHeatBuff: {
+		DisplayName: Blue Heat Buff
+		Description: Mods.MyHeroMod.Buffs.BlueHeatBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
+BlueFireDeathMessage: "{0} cremated Himself to death! "
 
 Projectiles: {
 	DelawareSmashProj.DisplayName: Delaware Smash Proj
@@ -192,4 +203,8 @@ Projectiles: {
 	JetKindlingController.DisplayName: Jet Kindling Controller
 	JetKindlingProj.DisplayName: Jet Kindling Proj
 	FlashFreezeProj.DisplayName: Flash Freeze Proj
+	BlueVanishingFistProj.DisplayName: Blue Vanishing Fist Proj
+	BlueFireBallProj.DisplayName: Blue Fire Ball Proj
+	BlueFlameThrowerProj.DisplayName: Blue Flame Thrower Proj
+	BlueFlamethrowerController.DisplayName: Blue Flamethrower Controller
 }

@@ -7,6 +7,9 @@ using MyHeroMod.content.System;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.Blueflames;
+using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFireBall;
+using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueVanishingFist;
+using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower;
 
 
 
@@ -43,6 +46,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
             {
 
                     case QuirkSkills.BlueRage:
+                    ActivateRage(mainPlayer);
 
 
                     break;
@@ -55,8 +59,28 @@ namespace MyHeroMod.content.Quirks.Blueflames
                     break;
 
                     case QuirkSkills.BluePhosphor:
+                    ActivatePhosphor(mainPlayer);
 
                     break;
+
+                    case QuirkSkills.BlueFireBall:
+                    DoFireBall(mainPlayer);
+                    break;
+
+                    case QuirkSkills.BlueVanishingFist:
+                    DoVanishingFist(mainPlayer);
+                    break;
+
+                    case QuirkSkills.BlueFlamethrower:
+                    if (IsFlashFireFistActive)
+                    {
+                        DoJetBurn(mainPlayer);
+                    }
+                    else{
+                        DoFlameThrower(mainPlayer);}    
+                    break;
+
+
                     
                     case QuirkSkills.BlueJetBurn:
 
@@ -86,10 +110,16 @@ namespace MyHeroMod.content.Quirks.Blueflames
                 SkillCooldowns.Add(skill, timeInTicks);
             }
         }
+
+        private void ActivateRage(TransformationPlayer mainPlayer)
+        {
+            
+        }
         private void ActivateFlashFireFist(TransformationPlayer mainPlayer)
         {
             if (IsFlashFireFistActive)
             {
+                CombatText.NewText(Player.getRect(), Color.Blue, "Flashfire Fist Off");
                 IsFlashFireFistActive = false;
                 Player.ClearBuff(ModContent.BuffType<Buffs.BlueFlashFireFistBuff>());
                 Main.NewText("Flash Fire Fist Deactivated", Color.OrangeRed);   
@@ -97,13 +127,75 @@ namespace MyHeroMod.content.Quirks.Blueflames
                 return;
                 
             }
+            CombatText.NewText(Player.getRect(), Color.Blue, "Flashfire Fist!");
             CurrentHeat += 20;
             IsFlashFireFistActive = true;
 
             
         }
+
+        private void ActivatePhosphor(TransformationPlayer mainPlayer)
+        {
+            
+        }
+
+        private void DoFireBall(TransformationPlayer mainPlayer)
+        {
+             Vector2 Velocity = Main.MouseWorld - Player.Center;
+            Velocity.Normalize();
+            Velocity *= 15f;
+
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                Velocity,
+                ModContent.ProjectileType<BlueFireBallProj>(),
+                40, 
+                2f, 
+                Player.whoAmI);
+        }
+
+        private void DoVanishingFist(TransformationPlayer mainPlayer)
+        {
+            Vector2 Velocity = Main.MouseWorld - Player.Center;
+            Velocity.Normalize();
+            Velocity *= 15f;
+
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                Velocity,
+                ModContent.ProjectileType<BlueVanishingFistProj>(),
+                40, 
+                2f, 
+                Player.whoAmI);
+        }
+            
+        private void DoFlameThrower(TransformationPlayer mainPlayer)
+        {
+            CombatText.NewText(Player.getRect(), Color.Blue, "Flame Thrower!");
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.JetBurn.BlueJetBurnController>()] > 0)
+                return;
+
+            // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
+            // Note que a velocidade aqui define apenas a direção inicial da mira.
+            Vector2 direction = Main.MouseWorld - Player.Center;
+            direction.Normalize();
+
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                direction,
+                ModContent.ProjectileType<BlueFlamethrowerController>(),
+                0, // O controlador não dá dano direto
+                0f,
+                Player.whoAmI);
+            
+        }
+
         private void DoJetBurn(TransformationPlayer mainPlayer)
         {
+            CombatText.NewText(Player.getRect(), Color.Blue, "FlashFire Fist: Jet Burn!");
             // Verifica se já existe um controlador ativo (para não spawnar duplicado)
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.JetBurn.BlueJetBurnController>()] > 0)
                 return;
@@ -149,7 +241,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
                 0f, 
                 Player.whoAmI
             );
-            CurrentHeat += 15;
+            CurrentHeat += 30;
         }
         
         private void DoHellSpider(TransformationPlayer mainPlayer)

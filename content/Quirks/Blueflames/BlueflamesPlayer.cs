@@ -9,6 +9,8 @@ using MyHeroMod.content.System;
 using Terraria.Audio;
 using System.Collections.Generic;
 
+using MyHeroMod.content.Quirks.Blueflames.Buffs;
+
 namespace MyHeroMod.content.Quirks.Blueflames
 {
     public partial class BlueFlamesPlayer : ModPlayer
@@ -17,11 +19,21 @@ namespace MyHeroMod.content.Quirks.Blueflames
 
         public int MaxHeat = 100;
         public int CurrentHeat = 0;
+        public int HeatTimer = 0;
 
         
         public bool IsFlashFireFistActive = false;
         public bool IsRageActive = false;
         public bool IsPhosphorActive = false;
+
+        public override void PreUpdate()
+        {
+            List<QuirkSkills> keys = new List<QuirkSkills>(SkillCooldowns.Keys);
+            foreach (var skill in keys)
+            {
+                if (SkillCooldowns[skill] > 0) SkillCooldowns[skill]--;
+            }
+        }
 
 
 
@@ -31,6 +43,17 @@ namespace MyHeroMod.content.Quirks.Blueflames
 
             if (mainPlayer.SelectedQuirk != QuirkType.BlueFlames)  
                 return;
+
+            if (CurrentHeat > 0)
+            {
+                Player.AddBuff(ModContent.BuffType<BlueHeatBuff>(), 2);
+            }
+        
+            if (CurrentHeat > MaxHeat)
+            {
+                Player.moveSpeed *= 0.5f;
+            }
+            
 
             // Verifica se a individualidade atual é Blue Flames
             if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
@@ -47,6 +70,10 @@ namespace MyHeroMod.content.Quirks.Blueflames
 
                 // 3. Anula dano de queda
                 Player.noFallDmg = true;
+            }
+            if (IsFlashFireFistActive)
+            {
+                Player.AddBuff(ModContent.BuffType<Buffs.BlueFlashFireFistBuff>(), 2);
             }
         }
         
@@ -91,6 +118,37 @@ namespace MyHeroMod.content.Quirks.Blueflames
                         Main.dust[dustIce].velocity *= 0.5f;
                     }
                 }
+
+
+                if (CurrentHeat > 0)
+            {
+                HeatTimer++; // Conta +1 frame
+
+                // 60 frames = 1 segundo
+                if (HeatTimer >= 60)
+                {
+                    HeatTimer = 0; // Reseta
+                    
+                    // 1. Diminui o calor
+                    CurrentHeat -= 1;
+
+                    if (CurrentHeat >= 50)
+                        {
+                            Player.statLife -= 5;
+                            if (Player.statLife <= 0)
+                            {
+                                var reason = PlayerDeathReason.ByCustomReason(
+                                Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.BlueFireDeathMessage", Player.name));
+                                Player.KillMe(reason, 5, 0);
+                            }
+                            
+                        }
+                }
+            }
+            else
+            {
+                HeatTimer = 0; // Garante que o timer não rode se não tiver calor
+            }
             }
         }
     }

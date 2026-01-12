@@ -181,9 +181,6 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
             }
         }
             
-            
-        
-        
         private void DoJetKindling(TransformationPlayer mainPlayer)
         {
             // Verifica se já existe um controlador ativo (para não spawnar duplicado)
