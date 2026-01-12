@@ -41,18 +41,30 @@ namespace MyHeroMod.content
             SmokeScreen,
             Gearshift,
 
-            // Hell Flames
+            // Hell Flames -------------------------------------------------------------------------------------------------------------------
+
             FlashFireFist,
             ProminenceBurn,
             JetBurn,
             HellSpider,
             IgnitedArrow,
-            // Blue Flames
+
+            // Blue Flames ---------------------------------------------------------------------------------------------------------- 
+
             BlueFlashFireFist,
+            BlueRage,
+            BluePhosphor,
+            BlueFireWave,
+            BlueHellMineField,
             BlueProminenceBurn,
+            BlueFireBall,
+            BlueVanishingFist,
+            BlueFlamethrower,
             BlueJetBurn,
             BlueHellSpider,
-            //HCHH
+
+
+            //HCHH -----------------------------------------------------------------------------------------------------------------------
             HCFireFist,
 
             HeavenPiercingWall,

@@ -41,24 +41,35 @@ namespace MyHeroMod.content.Quirks.Blueflames
 
             switch (skill)
             {
+
+                    case QuirkSkills.BlueRage:
+
+
+                    break;
+
+                    
                     case QuirkSkills.BlueFlashFireFist:
                     ActivateFlashFireFist(mainPlayer);
 
                     SetCooldown(skill, 60);
                     break;
-                    case QuirkSkills.BlueProminenceBurn:
-                    DoProminenceBurn();
+
+                    case QuirkSkills.BluePhosphor:
+
                     break;
+                    
                     case QuirkSkills.BlueJetBurn:
 
                     DoJetBurn(mainPlayer);
                     break;
          
                     case QuirkSkills.BlueHellSpider:
-
                     DoHellSpider(mainPlayer);
                     break;
-                    
+
+                    case QuirkSkills.BlueProminenceBurn:
+                    DoProminenceBurn();
+                    break;
                 
                 
 

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.ModLoader;
 using MyHeroMod.content;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace MyHeroMod.content.System
 {
@@ -247,38 +248,81 @@ namespace MyHeroMod.content.System
                 }
                 });
 
-                // Blueflames
+                // Blueflames -----------------------------------------------------------------------------------------------------
 
                 SkillList.Add(QuirkSkills.BlueFlashFireFist, new SkillInfo
                 {
                     Name = "Flash Fire Fist",
                     Description = "Raise your fire temperature to its highest level.",
                     IconPath = "MyHeroMod/Assets/Skills/BlueFlames/FlashFireFist",
-                    MinStage = QuirkStage.Intermediate,
+                    MinStage = QuirkStage.Adequation,
                     RelatedQuirks = new List<QuirkType> { 
                     QuirkType.BlueFlames, 
                 }
                 });
+                SkillList.Add(QuirkSkills.BluePhosphor, new SkillInfo
+                {
+                    Name = "Phosphor",
+                    Description = "Raise your fire temperature to its highest level.",
+                    IconPath = "MyHeroMod/Assets/Skills/BlueFlames/Phosphor",
+                    MinStage = QuirkStage.Advanced,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.BlueFlames, 
+                }
+                });
+
+                SkillList.Add(QuirkSkills.BlueRage, new SkillInfo
+                {
+                    Name = "Rage",
+                    Description = "Fuel your flames with your burning hatred.",
+                    IconPath = "MyHeroMod/Assets/Skills/BlueFlames/Rage",
+                    MinStage = QuirkStage.Initial,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.BlueFlames, 
+                }
+                });
+
+                SkillList.Add(QuirkSkills.BlueFireBall, new SkillInfo{
+                Name = "Fire Ball",
+                Description = "Hurl a fireball at your cursor",
+                IconPath = "MyHeroMod/Assets/Skills/BlueFlames/FireBall",
+                MinStage = QuirkStage.Initial,
+                RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.BlueFlames, 
+                }
+                });
+
+                SkillList.Add(QuirkSkills.BlueFlamethrower, new SkillInfo{
+                Name = "Flamethrower",
+                Description = "Launch a concentrated Stream of Fire at your Cursor.",
+                IconPath = "MyHeroMod/Assets/Skills/BlueFlames/Flamethrower",
+                MinStage = QuirkStage.Initial,
+                RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.BlueFlames, 
+                }
+                });
+
+                SkillList.Add(QuirkSkills.BlueFireWave, new SkillInfo{
+                Name = "Fire Wave",
+                Description = "fire a wave of fire at the direction of your looking.",
+                IconPath = "MyHeroMod/Assets/Skills/BlueFlames/Flamethrower",
+                MinStage = QuirkStage.Initial,
+                RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.BlueFlames, 
+                }
+                });
+
                 SkillList.Add(QuirkSkills.BlueJetBurn, new SkillInfo
                 {
                     Name = "Jet Burn",
                     Description = "Launch a concentrated Beam of Fire at your Cursor.",
                     IconPath = "MyHeroMod/Assets/Skills/BlueFlames/JetBurn",
-                    MinStage = QuirkStage.Intermediate,
+                    MinStage = QuirkStage.Adequation,
                     RelatedQuirks = new List<QuirkType> { 
                     QuirkType.BlueFlames, 
                 }
                 });
-                SkillList.Add(QuirkSkills.BlueProminenceBurn, new SkillInfo
-                {
-                    Name = "Proeminence Burn",
-                    Description = "Launch a concentrated Beam of Fire at your Cursor.",
-                    IconPath = "MyHeroMod/Assets/Skills/BlueFlames/ProeminenceBurn",
-                    MinStage = QuirkStage.Intermediate,
-                    RelatedQuirks = new List<QuirkType> { 
-                    QuirkType.BlueFlames, 
-                }
-                });
+
                 SkillList.Add(QuirkSkills.BlueHellSpider, new SkillInfo
                 {
                     Name = "Hell Spider",
@@ -289,8 +333,43 @@ namespace MyHeroMod.content.System
                     QuirkType.BlueFlames, 
                 }
                 });
+
+                SkillList.Add(QuirkSkills.BlueHellMineField, new SkillInfo
+                {
+                    Name = "Hell Mine Field",
+                    Description = "shoot waves of fire from your feet at the direction your looking.",
+                    IconPath = "MyHeroMod/Assets/Skills/BlueFlames/JetBurn",
+                    MinStage = QuirkStage.Adequation,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.BlueFlames, 
+                }
+                });
+
+                SkillList.Add(QuirkSkills.BlueVanishingFist, new SkillInfo
+                {
+                    Name = "Vanishing Fist",
+                    Description = "shoot a burning fist at your cursor.",
+                    IconPath = "MyHeroMod/Assets/Skills/BlueFlames/VanishingFist",
+                    MinStage = QuirkStage.Adequation,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.BlueFlames, 
+                }
+                });
+
+
+                SkillList.Add(QuirkSkills.BlueProminenceBurn, new SkillInfo
+                {
+                    Name = "Proeminence Burn",
+                    Description = "Launch a concentrated Beam of Fire at your Cursor.",
+                    IconPath = "MyHeroMod/Assets/Skills/BlueFlames/ProeminenceBurn",
+                    MinStage = QuirkStage.Intermediate,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.BlueFlames, 
+                }
+                });
                 
-                //HCHH
+                
+                //HCHH ------------------------------------------------------------------------------------------------
                 SkillList.Add(QuirkSkills.HeavenPiercingWall, new SkillInfo
                 {
                     Name = "Heaven Piercing Wall",

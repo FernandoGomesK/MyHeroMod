@@ -15,10 +15,16 @@ namespace MyHeroMod.content.Quirks.Blueflames
     {
         public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
 
-        public int MaxHeat = 0;
+        public int MaxHeat = 100;
         public int CurrentHeat = 0;
 
+        
         public bool IsFlashFireFistActive = false;
+        public bool IsRageActive = false;
+        public bool IsPhosphorActive = false;
+
+
+
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
