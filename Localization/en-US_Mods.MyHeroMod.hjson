@@ -87,17 +87,32 @@ Items: {
 		DisplayName: Explosion Quirk Attack
 		Tooltip: ""
 	}
+
+	FirstDabiBreastplate: {
+		Tooltip: ""
+		DisplayName: First Dabi Breastplate
+	}
+
+	FirstDabiHelmet: {
+		DisplayName: First Dabi Helmet
+		Tooltip: ""
+	}
+
+	FirstDabiLeggings: {
+		DisplayName: First Dabi Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {
 	FullCowlingBuff: {
 		DisplayName: Full Cowling Buff
-		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff.Description
+		Description: Cowling your whole body with One For All
 	}
 
 	StockPileBuff: {
 		DisplayName: Stock Pile Buff
-		Description: Mods.MyHeroMod.Buffs.StockPileBuff.Description
+		Description: Conjuring the accumulated power of one for all
 	}
 
 	GearshiftBuff: {
@@ -141,8 +156,8 @@ Buffs: {
 	}
 
 	BlueFlashFireFistBuff: {
-		Description: Mods.MyHeroMod.Buffs.BlueFlashFireFistBuff.Description
-		DisplayName: Blue Flash Fire Fist Buff
+		Description: Fire in maximum temperature!
+		DisplayName: Flash Fire Fist
 	}
 
 	PhosphorBuff: {
@@ -156,8 +171,8 @@ Buffs: {
 	}
 
 	BlueRage: {
-		Description: Mods.MyHeroMod.Buffs.BlueRage.Description
-		DisplayName: Blue Rage
+		Description: Enraged
+		DisplayName: Rage
 	}
 
 	BlueHeatBuff: {

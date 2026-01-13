@@ -12,6 +12,7 @@ using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueVanishingFist;
 using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower;
 using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFireWave;
 using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueHellMineField;
+using MyHeroMod.content.Quirks.Blueflames.Buffs;
 
 
 
@@ -128,8 +129,22 @@ namespace MyHeroMod.content.Quirks.Blueflames
 
         private void ActivateRage(TransformationPlayer mainPlayer)
         {
-            
-        }
+            if (IsRageActive)
+            {
+                CombatText.NewText(Player.getRect(), Color.Blue, "Breath...");
+                IsRageActive = false;
+                Player.ClearBuff(ModContent.BuffType<BlueRage>());
+                Main.NewText("Flash Fire Fist Deactivated", Color.OrangeRed);   
+                SetCooldown(QuirkSkills.FlashFireFist, 120);
+                return;
+                
+            }
+            CombatText.NewText(Player.getRect(), Color.Blue, "Die!");
+            CurrentHeat += 10;
+            IsRageActive = true;
+            }
+
+    
         private void ActivateFlashFireFist(TransformationPlayer mainPlayer)
         {
             if (IsFlashFireFistActive)

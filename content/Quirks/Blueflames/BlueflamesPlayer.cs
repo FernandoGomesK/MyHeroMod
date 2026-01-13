@@ -74,6 +74,10 @@ namespace MyHeroMod.content.Quirks.Blueflames
             {
                 Player.AddBuff(ModContent.BuffType<Buffs.BlueFlashFireFistBuff>(), 2);
             }
+            if (IsRageActive)
+            {
+                Player.AddBuff(ModContent.BuffType<Buffs.BlueRage>(), 2);
+            }
         }
         
 
