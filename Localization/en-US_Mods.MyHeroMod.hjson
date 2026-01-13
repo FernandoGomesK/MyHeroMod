@@ -164,6 +164,11 @@ Buffs: {
 		DisplayName: Blue Heat Buff
 		Description: Mods.MyHeroMod.Buffs.BlueHeatBuff.Description
 	}
+
+	Heatstroke: {
+		DisplayName: Heatstroke
+		Description: Mods.MyHeroMod.Buffs.Heatstroke.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -207,4 +212,8 @@ Projectiles: {
 	BlueFireBallProj.DisplayName: Blue Fire Ball Proj
 	BlueFlameThrowerProj.DisplayName: Blue Flame Thrower Proj
 	BlueFlamethrowerController.DisplayName: Blue Flamethrower Controller
+	BlueFireWaveController.DisplayName: Blue Fire Wave Controller
+	BlueFireWaveProj.DisplayName: Blue Fire Wave Proj
+	BlueHellMineFieldController.DisplayName: Blue Hell Mine Field Controller
+	BlueHellMineFieldProj.DisplayName: Blue Hell Mine Field Proj
 }

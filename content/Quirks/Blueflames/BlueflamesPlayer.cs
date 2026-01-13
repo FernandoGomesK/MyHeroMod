@@ -8,6 +8,7 @@ using MyHeroMod.content;
 using MyHeroMod.content.System;
 using Terraria.Audio;
 using System.Collections.Generic;
+using MyHeroMod.content.Debuffs;
 
 using MyHeroMod.content.Quirks.Blueflames.Buffs;
 
@@ -17,11 +18,14 @@ namespace MyHeroMod.content.Quirks.Blueflames
     {
         public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
 
+        // Heat Logic
         public int MaxHeat = 100;
         public int CurrentHeat = 0;
         public int HeatTimer = 0;
-
         
+
+        // Buffs
+
         public bool IsFlashFireFistActive = false;
         public bool IsRageActive = false;
         public bool IsPhosphorActive = false;
@@ -48,12 +52,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
             {
                 Player.AddBuff(ModContent.BuffType<BlueHeatBuff>(), 2);
             }
-        
-            if (CurrentHeat > MaxHeat)
-            {
-                Player.moveSpeed *= 0.5f;
-            }
-            
+             
 
             // Verifica se a individualidade atual é Blue Flames
             if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
@@ -140,6 +139,10 @@ namespace MyHeroMod.content.Quirks.Blueflames
                                 var reason = PlayerDeathReason.ByCustomReason(
                                 Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.BlueFireDeathMessage", Player.name));
                                 Player.KillMe(reason, 5, 0);
+                            }
+                    if (CurrentHeat >= MaxHeat)
+                            {
+                                Player.AddBuff(ModContent.BuffType<Heatstroke>(), 300);
                             }
                             
                         }

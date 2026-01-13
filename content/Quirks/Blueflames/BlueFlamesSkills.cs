@@ -10,6 +10,8 @@ using MyHeroMod.content.Quirks.Blueflames;
 using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFireBall;
 using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueVanishingFist;
 using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower;
+using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFireWave;
+using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueHellMineField;
 
 
 
@@ -45,12 +47,13 @@ namespace MyHeroMod.content.Quirks.Blueflames
             switch (skill)
             {
 
+                    // forms
+
                     case QuirkSkills.BlueRage:
                     ActivateRage(mainPlayer);
 
 
                     break;
-
                     
                     case QuirkSkills.BlueFlashFireFist:
                     ActivateFlashFireFist(mainPlayer);
@@ -63,12 +66,14 @@ namespace MyHeroMod.content.Quirks.Blueflames
 
                     break;
 
+                    // Skills
+
                     case QuirkSkills.BlueFireBall:
                     DoFireBall(mainPlayer);
-                    break;
-
-                    case QuirkSkills.BlueVanishingFist:
-                    DoVanishingFist(mainPlayer);
+                    if (IsFlashFireFistActive)
+                    {
+                        DoVanishingFist(mainPlayer); 
+                    }
                     break;
 
                     case QuirkSkills.BlueFlamethrower:
@@ -77,15 +82,25 @@ namespace MyHeroMod.content.Quirks.Blueflames
                         DoJetBurn(mainPlayer);
                     }
                     else{
-                        DoFlameThrower(mainPlayer);}    
+                        DoFlameThrower(mainPlayer);
+                        }    
                     break;
 
+                    case QuirkSkills.BlueFireWave:
+                    if (mainPlayer.CurrentStage >= QuirkStage.Intermediate)
+                    {
+                        DoHellMineField(mainPlayer);
+                    }
+                    else
+                    {
+                        DoFireWave(mainPlayer);
+                    }
+                    
 
                     
-                    case QuirkSkills.BlueJetBurn:
-
-                    DoJetBurn(mainPlayer);
                     break;
+                    
+                    
          
                     case QuirkSkills.BlueHellSpider:
                     DoHellSpider(mainPlayer);
@@ -141,6 +156,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
 
         private void DoFireBall(TransformationPlayer mainPlayer)
         {
+            CombatText.NewText(Player.getRect(), Color.Blue, "FireBall");
              Vector2 Velocity = Main.MouseWorld - Player.Center;
             Velocity.Normalize();
             Velocity *= 15f;
@@ -173,7 +189,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
             
         private void DoFlameThrower(TransformationPlayer mainPlayer)
         {
-            CombatText.NewText(Player.getRect(), Color.Blue, "Flame Thrower!");
+            CombatText.NewText(Player.getRect(), Color.Blue, "Flame Thrower");
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.JetBurn.BlueJetBurnController>()] > 0)
                 return;
 
@@ -216,6 +232,44 @@ namespace MyHeroMod.content.Quirks.Blueflames
             
             );
             CurrentHeat += 15;
+        }
+        
+        private void DoFireWave(TransformationPlayer mainPlayer)
+        {
+            CombatText.NewText(Player.getRect(), Color.Blue, "Firewave");
+            float direction = Main.MouseWorld.X > Player.Center.X ? 1f : -1f;
+    
+        // Velocidade da onda (Rápida)
+        Vector2 velocity = new Vector2(10f * direction, 0f);
+
+        // Spawna o Controlador um pouco na frente do player
+        Projectile.NewProjectile(
+            Player.GetSource_FromThis(),
+            Player.Center + new Vector2(20f * direction, 0), // Começa um pouco a frente
+            velocity,
+            ModContent.ProjectileType<BlueFireWaveController>(),
+            50, // Dano
+            5f,
+            Player.whoAmI);
+        }
+
+        private void DoHellMineField(TransformationPlayer mainPlayer)
+        {
+            CombatText.NewText(Player.getRect(), Color.Blue, "Hell Minefiel!");
+            float direction = Main.MouseWorld.X > Player.Center.X ? 1f : -1f;
+
+            Vector2 velocity = new Vector2(10f * direction, 0f);
+
+        // Spawna o Controlador um pouco na frente do player
+        Projectile.NewProjectile(
+            Player.GetSource_FromThis(),
+            Player.Center + new Vector2(20f * direction, 0), // Começa um pouco a frente
+            velocity,
+            ModContent.ProjectileType<BlueHellMineFieldController>(),
+            50, // Dano
+            5f,
+            Player.whoAmI);
+            
         }
         private void DoProminenceBurn()
         {
