@@ -102,6 +102,11 @@ Items: {
 		DisplayName: First Dabi Leggings
 		Tooltip: ""
 	}
+
+	YoungBreastplate: {
+		Tooltip: ""
+		DisplayName: Young Breastplate
+	}
 }
 
 Buffs: {
