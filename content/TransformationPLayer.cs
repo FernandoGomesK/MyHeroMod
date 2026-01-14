@@ -22,6 +22,9 @@ namespace MyHeroMod.content
 
             // Ofa 8th
             PrimeDetroitSmash,
+            PrimeCaliforniaSmash,
+            PrimeTexasSmash,
+            PrimeCarolinaSmash,
             StockPile,
             StockPileMaximum,
 

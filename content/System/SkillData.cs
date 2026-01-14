@@ -51,6 +51,37 @@ namespace MyHeroMod.content.System
                     QuirkType.OneForAll8th
                 }
                 });
+                SkillList.Add(QuirkSkills.PrimeCaliforniaSmash, new SkillInfo
+                {
+                    Name = "California Smash",
+                    Description = "Build up speed with a frontal sommersault and punch",
+                    IconPath = "MyHeroMod/Assets/Skills/OFA9th/CaliforniaSmash",
+                    MinStage = QuirkStage.Adequation,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.OneForAll8th
+                }
+                });
+                SkillList.Add(QuirkSkills.PrimeTexasSmash, new SkillInfo
+                {
+                    Name = "Texas Smash",
+                    Description = "A Powerfull Punch that releases a shockwave forward in its most powerfull Version",
+                    IconPath = "MyHeroMod/Assets/Skills/OFA9th/DetroitSmash",
+                    MinStage = QuirkStage.Adequation,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.OneForAll8th
+                    
+                }
+                });
+                SkillList.Add(QuirkSkills.PrimeCarolinaSmash, new SkillInfo
+                {
+                    Name = "Carolina Smash",
+                    Description = "Dash forward while doing a X slashing motion",
+                    IconPath = "MyHeroMod/Assets/Skills/OFA9th/CarolinaSmash",
+                    MinStage = QuirkStage.Adequation,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.OneForAll8th
+                }
+                });
                 SkillList.Add(QuirkSkills.StockPile, new SkillInfo
                 {
                     Name = "Stock Pile",

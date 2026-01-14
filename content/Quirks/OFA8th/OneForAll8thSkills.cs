@@ -6,9 +6,11 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 
-using MyHeroMod.content.Quirks.OFA8th.Projectiles;
+using MyHeroMod.content.Quirks.OFA8th.Projectiles.DetroitSmash;
+
 using MyHeroMod.content.System;
 using System.Collections.Generic;
+using MyHeroMod.content.Quirks.OFA8th.Projectiles.CaliforniaSmash;
 
 namespace MyHeroMod.content.Quirks.OFA8th
 {
@@ -39,11 +41,17 @@ namespace MyHeroMod.content.Quirks.OFA8th
             switch (skill)
             {
 
-                // case QuirkSkills.DetroitSmash:
-                //     DoDetroitSmash(mainPlayer);
-                //     break;
-                // case QuirkSkills.DelawareSmash:
-                //     DoDelawareSmash(mainPlayer);
+                case QuirkSkills.PrimeDetroitSmash:
+                    DoDetroitSmash(mainPlayer);
+                    break;
+                // case QuirkSkills.PrimeTexasSmash:
+                //     DoTexasSmash(mainPlayer);
+                // break;
+                case QuirkSkills.PrimeCaliforniaSmash:
+                    DoCaliforniaSmash(mainPlayer);
+                    break;
+                // case QuirkSkills.PrimeCarolinaSmash:
+                //     DoCarolinaSmash(mainPlayer);
                 //     break;
                 case QuirkSkills.StockPile:
                     ToggleForm(mainPlayer, QuirkSkills.StockPile);
@@ -65,6 +73,52 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 SkillCooldowns.Add(skill, timeInTicks);
             }
         }
+
+        private void DoDetroitSmash(TransformationPlayer mainPlayer)
+        {
+            CombatText.NewText(Player.getRect(), Color.Yellow, "Detroit Smash!");
+             Vector2 Velocity = Main.MouseWorld - Player.Center;
+            Velocity.Normalize();
+            Velocity *= 15f;
+
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                Velocity,
+                ModContent.ProjectileType<PrimeDetroitSmashProj>(),
+                40, 
+                2f, 
+                Player.whoAmI);
+        }
+
+        private void DoCaliforniaSmash(TransformationPlayer mainPlayer)
+        {
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<PrimeCaliforniaSmashController>()] > 0)
+                return;
+
+            // Spawna o projétil que vai controlar o player
+            // A velocidade inicial não importa aqui, pois a AI[0] controla a subida
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                Vector2.Zero, 
+                ModContent.ProjectileType<PrimeCaliforniaSmashController>(),
+                80, // Dano alto (Impacto)
+                10f, // Knockback alto
+                Player.whoAmI
+            
+        );
+        }
+
+        // private void DoTexasSmash(TransformationPlayer mainPlayer)
+        // {
+            
+        // }
+
+        // private void DoCarolinaSmash(TransformationPlayer mainPlayer)
+        // {
+            
+        // }
 
 
             

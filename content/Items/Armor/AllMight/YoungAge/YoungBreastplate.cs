@@ -16,7 +16,7 @@ namespace MyHeroMod.content.Items.Armor.AllMight.YoungAge
         {
             if (Main.netMode == NetmodeID.Server) return;
 
-            
+            CapeSlotID = EquipLoader.AddEquipTexture(Mod, "MyHeroMod/content/Items/Armor/AllMight/YoungAge/Young_Cape", EquipType.Back, this);
             
         }
 
@@ -28,7 +28,7 @@ namespace MyHeroMod.content.Items.Armor.AllMight.YoungAge
         {
 
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-            
+            ArmorIDs.Body.Sets.IncludedCapeBack[Item.bodySlot] = CapeSlotID;
         }
     public override void SetMatch(bool male, ref int equipSlot, ref bool robes)
         {

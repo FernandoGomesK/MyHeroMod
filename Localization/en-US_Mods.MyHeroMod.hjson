@@ -107,6 +107,16 @@ Items: {
 		Tooltip: ""
 		DisplayName: Young Breastplate
 	}
+
+	YoungHelmet: {
+		DisplayName: Young Helmet
+		Tooltip: ""
+	}
+
+	YoungLeggings: {
+		DisplayName: Young Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -236,4 +246,6 @@ Projectiles: {
 	BlueFireWaveProj.DisplayName: Blue Fire Wave Proj
 	BlueHellMineFieldController.DisplayName: Blue Hell Mine Field Controller
 	BlueHellMineFieldProj.DisplayName: Blue Hell Mine Field Proj
+	PrimeCaliforniaSmashController.DisplayName: Prime California Smash Controller
+	PrimeCaliforniaSmashProj.DisplayName: Prime California Smash Proj
 }

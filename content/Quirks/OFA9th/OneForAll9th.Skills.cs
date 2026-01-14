@@ -441,7 +441,13 @@ public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
 
             
 
-            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Velocity, ModContent.ProjectileType<DelawareSmashProj>(), FinalDamage, 2f, Player.whoAmI);
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(), 
+                Player.Center, 
+                Velocity, 
+                ModContent.ProjectileType<DelawareSmashProj>(), 
+                FinalDamage, 2f, 
+                Player.whoAmI);
 
             if (hurtPlayer)
             {
