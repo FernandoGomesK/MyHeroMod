@@ -26,6 +26,13 @@ namespace MyHeroMod.content.Quirks.OFA8th
             public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+            
+
+            if (mainPlayer.SelectedQuirk == QuirkType.OneForAll8th && mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+                Player.moveSpeed += 1.5f;
+                Player.jumpSpeedBoost += 1.5f;
+            }
 
             // Só roda se for o All Might e estiver transformado
             if (mainPlayer.SelectedQuirk == QuirkType.OneForAll8th && mainPlayer.ActiveForm != QuirkSkills.None)

@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using MyHeroMod.content.Quirks.OFA8th.Projectiles.CaliforniaSmash;
 using MyHeroMod.content.Quirks.OFA8th.Projectiles.TexasSmash;
 using MyHeroMod.content.Quirks.OFA8th.Projectiles.CarolinaSmash;
+using Microsoft.Build.Framework;
 
 namespace MyHeroMod.content.Quirks.OFA8th
 {
@@ -78,7 +79,15 @@ namespace MyHeroMod.content.Quirks.OFA8th
 
         private void DoDetroitSmash(TransformationPlayer mainPlayer)
         {
-            CombatText.NewText(Player.getRect(), Color.Yellow, "Detroit Smash!");
+            if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+                CombatText.NewText(Player.getRect(), Color.Yellow, "Detroit Smash!");
+            }
+            else
+            {
+                CombatText.NewText(Player.getRect(), Color.White, "Super Punch!");
+            }
+            
              Vector2 Velocity = Main.MouseWorld - Player.Center;
             Velocity.Normalize();
             Velocity *= 15f;
@@ -87,16 +96,30 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 Player.GetSource_FromThis(),
                 Player.Center,
                 Velocity,
-                ModContent.ProjectileType<PrimeDetroitSmashProj>(),
-                40, 
+                ModContent.ProjectileType<DetroitPunchProj>(),
+                500, 
                 2f, 
                 Player.whoAmI);
+
+                
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2"), Player.position);
+
+            
         }
 
         private void DoCaliforniaSmash(TransformationPlayer mainPlayer)
         {
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<PrimeCaliforniaSmashController>()] > 0)
                 return;
+
+                if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+                CombatText.NewText(Player.getRect(), Color.Yellow, "California Smash!");
+            }
+            else
+            {
+                CombatText.NewText(Player.getRect(), Color.White, "Roll Punch");
+            }
 
             // Spawna o projétil que vai controlar o player
             // A velocidade inicial não importa aqui, pois a AI[0] controla a subida
@@ -109,26 +132,42 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 10f, // Knockback alto
                 Player.whoAmI
             );
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2"), Player.position);
             
         }
 
         private void DoTexasSmash(TransformationPlayer mainPlayer)
         {
+            
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<PrimeTexasSmashProj>()] > 0)
                 return;
+
+                if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+                CombatText.NewText(Player.getRect(), Color.Yellow, "Texas Smash!");
+            }
+            else
+            {
+                CombatText.NewText(Player.getRect(), Color.White, "Air Pressure!");
+            }
+
+            Vector2 Velocity = Main.MouseWorld - Player.Center;
+            Velocity.Normalize();
+            Velocity *= 15f;
 
             // Spawna o projétil que vai controlar o player
             // A velocidade inicial não importa aqui, pois a AI[0] controla a subida
             Projectile.NewProjectile(
                 Player.GetSource_FromThis(),
                 Player.Center,
-                Vector2.Zero, 
+                Velocity, 
                 ModContent.ProjectileType<PrimeTexasSmashProj>(),
-                80, // Dano alto (Impacto)
+                30, // Dano alto (Impacto)
                 10f, // Knockback alto
                 Player.whoAmI
             
         );
+        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1"), Player.position);
             
             
         }
@@ -137,6 +176,15 @@ namespace MyHeroMod.content.Quirks.OFA8th
         {
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<PrimeCarolinaSmashController>()] > 0)
                 return;
+
+                if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+                CombatText.NewText(Player.getRect(), Color.Yellow, "Carolina Smash!");
+            }
+            else
+            {
+                CombatText.NewText(Player.getRect(), Color.White, "Dash Slash!");
+            }
 
             // Spawna o projétil que vai controlar o player
             // A velocidade inicial não importa aqui, pois a AI[0] controla a subida
@@ -148,8 +196,9 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 80, // Dano alto (Impacto)
                 10f, // Knockback alto
                 Player.whoAmI
+                
             );
-             
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1"), Player.position);
             
         }
 
@@ -164,6 +213,7 @@ namespace MyHeroMod.content.Quirks.OFA8th
             }
             else
             {
+                
                 if (targetForm == QuirkSkills.StockPile && mainPlayer.CurrentStage < QuirkStage.Intermediate)
                 {
                     Main.NewText("You don't quite get how to use all of your power yet.", Color.Red);
@@ -176,7 +226,8 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 }
                 mainPlayer.ActiveForm = targetForm;
                 Main.NewText($"Transformed into {SkillData.SkillList[targetForm].Name} form!", Color.Yellow);
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), Player.position);
+                CombatText.NewText(Player.getRect(), Color.Yellow, "Watashi Ga Kita!");
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/watashigakita"), Player.position);
 
                 
                 

@@ -13,14 +13,14 @@ namespace MyHeroMod.content.Quirks.OFA8th.Projectiles.CarolinaSmash
         
         public override void SetDefaults()
         {
-            Projectile.width = 10; 
-            Projectile.height = 10;
+            Projectile.width = 40; 
+            Projectile.height = 40;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.tileCollide = true; 
             Projectile.penetrate = 1; 
             Projectile.timeLeft = 120; 
-            Projectile.alpha = 255; // Invisível
+            Projectile.alpha = 0; // Invisível
         }
 
         public override void AI()
@@ -33,15 +33,25 @@ namespace MyHeroMod.content.Quirks.OFA8th.Projectiles.CarolinaSmash
                 return;
             }
 
+            
+
             Projectile.Center = player.Center;
+
             player.heldProj = Projectile.whoAmI;
+
+            if (player.velocity != Vector2.Zero)
+            {
+                Projectile.rotation = player.velocity.ToRotation();
+            }
             
             // --- FASE 1: SUBIDA (O Pulo) ---
             // Dura 15 frames (0.25 segundos)
             if (Projectile.ai[0] < 15)
             {
                 Projectile.ai[0]++;
+
                 player.ChangeDir(Main.MouseWorld.X > player.MountedCenter.X ? 1 : -1);
+
                 Vector2 dashDirection = Main.MouseWorld - player.Center;
                 dashDirection.Normalize();
 
@@ -53,6 +63,13 @@ namespace MyHeroMod.content.Quirks.OFA8th.Projectiles.CarolinaSmash
                 player.velocity = dashDirection * force;  // Joga o player para CIMA (Aumentei para 15f para subir mais)
                 
                 // Animação de Giro
+
+                if (dashDirection != Vector2.Zero)
+                {
+                    dashDirection.Normalize();
+                    float forca = 25f;
+                    player.velocity = dashDirection * forca;
+                }
                 
                 
                 // Partículas saindo do player enquanto sobe
@@ -93,7 +110,7 @@ namespace MyHeroMod.content.Quirks.OFA8th.Projectiles.CarolinaSmash
             player.velocity = Vector2.Zero;
             player.fullRotation = 0f; 
 
-            SoundEngine.PlaySound(SoundID.Item62, Projectile.position); 
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/whoosh"), Projectile.position); 
 
             // Efeito Visual da Explosão
             for (int i = 0; i < 50; i++)

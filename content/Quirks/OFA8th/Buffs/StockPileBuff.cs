@@ -24,7 +24,7 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 // Apply Full Cowling 5% effects
                 player.moveSpeed += 0.50f; // Increase movement speed by 5%
                 player.statDefense += 2;    // Increase defense by 2
-                player.jumpSpeedBoost += 1.0f; // Increase jump height
+                player.jumpSpeedBoost += 3.0f; // Increase jump height
                 
             }
             else if (transformPlayer.ActiveForm == QuirkSkills.StockPileMaximum)
@@ -32,7 +32,7 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 // Apply Full Cowling 8% effects
                 player.moveSpeed += 0.80f; // Increase movement speed by 8%
                 player.statDefense += 3;    // Increase defense by 3
-                player.jumpSpeedBoost += 1.5f; // Increase jump height
+                player.jumpSpeedBoost += 4.5f; // Increase jump height
                 
             }
         }
