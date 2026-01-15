@@ -47,7 +47,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
                 return;
 
             // Verifica se a individualidade atual é Hell Flames
-            if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.SelectedQuirk == QuirkType.HellFlames)
             {
                 // 1. Define o tempo de voo (100 = voo curto/médio)
                 Player.wingTimeMax = 50;

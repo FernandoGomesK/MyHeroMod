@@ -34,10 +34,14 @@ namespace MyHeroMod.content.Quirks.Explosion
                 Player.AddBuff(ModContent.BuffType<Buffs.SweatBuff>(), 2);
                 
             }
+
+            if (mainPlayer.SelectedQuirk != QuirkType.Explosion)
+                return;
+            
             
 
 
-            if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.SelectedQuirk == QuirkType.Explosion)
             {
                 Player.wingTimeMax = 50;
 

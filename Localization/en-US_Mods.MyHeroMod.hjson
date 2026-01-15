@@ -248,4 +248,7 @@ Projectiles: {
 	BlueHellMineFieldProj.DisplayName: Blue Hell Mine Field Proj
 	PrimeCaliforniaSmashController.DisplayName: Prime California Smash Controller
 	PrimeCaliforniaSmashProj.DisplayName: Prime California Smash Proj
+	PrimeCarolinaSmashController.DisplayName: Prime Carolina Smash Controller
+	PrimeCarolinaSmashProj.DisplayName: Prime Carolina Smash Proj
+	PrimeTexasSmashProj.DisplayName: Prime Texas Smash Proj
 }

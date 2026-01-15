@@ -71,7 +71,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                 return;
 
             // Verifica se a individualidade atual é Half Cold Half Hot
-            if (mainPlayer.CurrentStage >= QuirkStage.Intermediate)
+            if (mainPlayer.CurrentStage >= QuirkStage.Intermediate && mainPlayer.SelectedQuirk == QuirkType.HalfColdHalfHot)
             {
                 // 1. Define o tempo de voo (100 = voo curto/médio)
                 Player.wingTimeMax = 50;

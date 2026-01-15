@@ -11,6 +11,8 @@ using MyHeroMod.content.Quirks.OFA8th.Projectiles.DetroitSmash;
 using MyHeroMod.content.System;
 using System.Collections.Generic;
 using MyHeroMod.content.Quirks.OFA8th.Projectiles.CaliforniaSmash;
+using MyHeroMod.content.Quirks.OFA8th.Projectiles.TexasSmash;
+using MyHeroMod.content.Quirks.OFA8th.Projectiles.CarolinaSmash;
 
 namespace MyHeroMod.content.Quirks.OFA8th
 {
@@ -44,15 +46,15 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 case QuirkSkills.PrimeDetroitSmash:
                     DoDetroitSmash(mainPlayer);
                     break;
-                // case QuirkSkills.PrimeTexasSmash:
-                //     DoTexasSmash(mainPlayer);
-                // break;
+                case QuirkSkills.PrimeTexasSmash:
+                    DoTexasSmash(mainPlayer);
+                break;
                 case QuirkSkills.PrimeCaliforniaSmash:
                     DoCaliforniaSmash(mainPlayer);
                     break;
-                // case QuirkSkills.PrimeCarolinaSmash:
-                //     DoCarolinaSmash(mainPlayer);
-                //     break;
+                case QuirkSkills.PrimeCarolinaSmash:
+                    DoCarolinaSmash(mainPlayer);
+                    break;
                 case QuirkSkills.StockPile:
                     ToggleForm(mainPlayer, QuirkSkills.StockPile);
                     break;
@@ -106,19 +108,50 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 80, // Dano alto (Impacto)
                 10f, // Knockback alto
                 Player.whoAmI
+            );
             
-        );
         }
 
-        // private void DoTexasSmash(TransformationPlayer mainPlayer)
-        // {
-            
-        // }
+        private void DoTexasSmash(TransformationPlayer mainPlayer)
+        {
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<PrimeTexasSmashProj>()] > 0)
+                return;
 
-        // private void DoCarolinaSmash(TransformationPlayer mainPlayer)
-        // {
+            // Spawna o projétil que vai controlar o player
+            // A velocidade inicial não importa aqui, pois a AI[0] controla a subida
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                Vector2.Zero, 
+                ModContent.ProjectileType<PrimeTexasSmashProj>(),
+                80, // Dano alto (Impacto)
+                10f, // Knockback alto
+                Player.whoAmI
             
-        // }
+        );
+            
+            
+        }
+
+        private void DoCarolinaSmash(TransformationPlayer mainPlayer)
+        {
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<PrimeCarolinaSmashController>()] > 0)
+                return;
+
+            // Spawna o projétil que vai controlar o player
+            // A velocidade inicial não importa aqui, pois a AI[0] controla a subida
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                Vector2.Zero, 
+                ModContent.ProjectileType<PrimeCarolinaSmashController>(),
+                80, // Dano alto (Impacto)
+                10f, // Knockback alto
+                Player.whoAmI
+            );
+             
+            
+        }
 
 
             
