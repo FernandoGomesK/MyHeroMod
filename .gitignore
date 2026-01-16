@@ -1,0 +1,34 @@
+# --- Build e Compilação do C# ---
+# Ignora pastas geradas automaticamente pelo compilador
+[Bb]in/
+[Oo]bj/
+
+# --- Arquivos do tModLoader ---
+# Ignora o arquivo final compilado do mod (você não quer versionar o binário, apenas o código)
+*.tmod
+
+# --- Visual Studio ---
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# --- VS Code ---
+.vscode/
+
+# --- Sistema Operacional ---
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+
+# --- Opcional: Arquivos de Arte Fonte ---
+# Descomente abaixo se não quiser subir os arquivos originais de arte (PSDs, Aseprite),
+# mantendo apenas os .png exportados.
+# *.psd
+# *.ase
+# *.aseprite
