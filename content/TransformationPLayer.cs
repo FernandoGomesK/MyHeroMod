@@ -116,6 +116,8 @@ namespace MyHeroMod.content
         }
 
     public override void LoadData(TagCompound tag)
+
+    
         {
             if (tag.ContainsKey("SelectedQuirk")) SelectedQuirk = (QuirkType)tag.GetInt("SelectedQuirk");
             if (tag.ContainsKey("CurrentStage")) CurrentStage = (QuirkStage)tag.GetInt("CurrentStage");
@@ -130,9 +132,39 @@ namespace MyHeroMod.content
             if (KeybindSystem.SkillMenu.JustPressed)
             {
                 UISystem.ToggleSkillMenu();
+            }   
+        }
+        public override void PreUpdate()
+{
+    // Exemplo: Evolução automática baseada em progresso
+    var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+    // Se matou o Moon Lord -> Estágio Final
+    if (NPC.downedMoonlord)
+    {
+        mainPlayer.CurrentStage = QuirkStage.Final;
     }
+    // Se matou Plantera -> Estágio Avançado
+    else if (NPC.downedPlantBoss)
+    {
+        mainPlayer.CurrentStage = QuirkStage.Advanced;
+    }
+    // Se entrou no Hardmode -> Estágio Intermediário
+    else if (Main.hardMode)
+    {
+        mainPlayer.CurrentStage = QuirkStage.Intermediate;
+    }
+    // Padrão -> Adequation
+    else 
+    {
+        mainPlayer.CurrentStage = QuirkStage.Adequation;
+    }
+    
+    // ... resto do seu código ...
 }
     }
+
+    
 }
         
         

@@ -117,6 +117,16 @@ Items: {
 		DisplayName: Young Leggings
 		Tooltip: ""
 	}
+
+	GoldenBreastplate: {
+		Tooltip: ""
+		DisplayName: Golden Breastplate
+	}
+
+	GoldenLeggings: {
+		DisplayName: Golden Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -251,4 +261,5 @@ Projectiles: {
 	PrimeCarolinaSmashController.DisplayName: Prime Carolina Smash Controller
 	PrimeCarolinaSmashProj.DisplayName: Prime Carolina Smash Proj
 	PrimeTexasSmashProj.DisplayName: Prime Texas Smash Proj
+	DetroitPunchProj.DisplayName: Detroit Punch Proj
 }
