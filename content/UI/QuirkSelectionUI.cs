@@ -74,12 +74,20 @@ namespace MyHeroMod
             player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.FireQuirkAttack>());
         }
     }
-                else if (quirk == QuirkType.BlueFlames)
-                {
+        else if (quirk == QuirkType.BlueFlames)
+        {
                     // Só dá o item se ele já não tiver no inventário
-                    if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.BlueQuirkAttack>()))
-                    {
+            if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.BlueQuirkAttack>()))
+            {
                         player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.BlueQuirkAttack>());
+                    }
+                }
+        else if (quirk == QuirkType.OneForAll9th)
+        {
+                    // Só dá o item se ele já não tiver no inventário
+            if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.PunchAttack>()))
+            {
+                        player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.PunchAttack>());
                     }
                 }
 

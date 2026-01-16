@@ -52,17 +52,92 @@ Items: {
 		DisplayName: Alpha Leggings
 		Tooltip: ""
 	}
+
+	PunchAttack: {
+		Tooltip: ""
+		DisplayName: Punch Attack
+	}
+
+	FirstEBreastplate: {
+		Tooltip: ""
+		DisplayName: First E Breastplate
+	}
+
+	FirstELeggings: {
+		Tooltip: ""
+		DisplayName: First E Leggings
+	}
+
+	FirstEHelmet: {
+		Tooltip: ""
+		DisplayName: First E Helmet
+	}
+
+	FirstBakugoBreastplate: {
+		Tooltip: ""
+		DisplayName: First Bakugo Breastplate
+	}
+
+	FirstBakugoHelmet: {
+		Tooltip: ""
+		DisplayName: First Bakugo Helmet
+	}
+
+	ExplosionQuirkAttack: {
+		DisplayName: Explosion Quirk Attack
+		Tooltip: ""
+	}
+
+	FirstDabiBreastplate: {
+		Tooltip: ""
+		DisplayName: First Dabi Breastplate
+	}
+
+	FirstDabiHelmet: {
+		DisplayName: First Dabi Helmet
+		Tooltip: ""
+	}
+
+	FirstDabiLeggings: {
+		DisplayName: First Dabi Leggings
+		Tooltip: ""
+	}
+
+	YoungBreastplate: {
+		Tooltip: ""
+		DisplayName: Young Breastplate
+	}
+
+	YoungHelmet: {
+		DisplayName: Young Helmet
+		Tooltip: ""
+	}
+
+	YoungLeggings: {
+		DisplayName: Young Leggings
+		Tooltip: ""
+	}
+
+	GoldenBreastplate: {
+		Tooltip: ""
+		DisplayName: Golden Breastplate
+	}
+
+	GoldenLeggings: {
+		DisplayName: Golden Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {
 	FullCowlingBuff: {
 		DisplayName: Full Cowling Buff
-		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff.Description
+		Description: Cowling your whole body with One For All
 	}
 
 	StockPileBuff: {
 		DisplayName: Stock Pile Buff
-		Description: Mods.MyHeroMod.Buffs.StockPileBuff.Description
+		Description: Conjuring the accumulated power of one for all
 	}
 
 	GearshiftBuff: {
@@ -74,9 +149,70 @@ Buffs: {
 		Description: Mods.MyHeroMod.Buffs.DangerSenseBuff.Description
 		DisplayName: Danger Sense Buff
 	}
+
+	ParallelProcessingBuff: {
+		Description: Mods.MyHeroMod.Buffs.ParallelProcessingBuff.Description
+		DisplayName: Parallel Processing Buff
+	}
+
+	FaJinBuff: {
+		Description: Mods.MyHeroMod.Buffs.FaJinBuff.Description
+		DisplayName: Fa Jin Buff
+	}
+
+	FlashFireFistBuff: {
+		Description: Mods.MyHeroMod.Buffs.FlashFireFistBuff.Description
+		DisplayName: Flash Fire Fist Buff
+	}
+
+	Heat: {
+		Description: Mods.MyHeroMod.Buffs.Heat.Description
+		DisplayName: Heat
+	}
+
+	ClusterBuff: {
+		DisplayName: Cluster Buff
+		Description: Mods.MyHeroMod.Buffs.ClusterBuff.Description
+	}
+
+	SweatBuff: {
+		DisplayName: Sweat Buff
+		Description: Mods.MyHeroMod.Buffs.SweatBuff.Description
+	}
+
+	BlueFlashFireFistBuff: {
+		Description: Fire in maximum temperature!
+		DisplayName: Flash Fire Fist
+	}
+
+	PhosphorBuff: {
+		Description: Mods.MyHeroMod.Buffs.PhosphorBuff.Description
+		DisplayName: Phosphor Buff
+	}
+
+	HCFireFistBuff: {
+		Description: Mods.MyHeroMod.Buffs.HCFireFistBuff.Description
+		DisplayName: H C Fire Fist Buff
+	}
+
+	BlueRage: {
+		Description: Enraged
+		DisplayName: Rage
+	}
+
+	BlueHeatBuff: {
+		DisplayName: Blue Heat Buff
+		Description: Mods.MyHeroMod.Buffs.BlueHeatBuff.Description
+	}
+
+	Heatstroke: {
+		DisplayName: Heatstroke
+		Description: Mods.MyHeroMod.Buffs.Heatstroke.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
+BlueFireDeathMessage: "{0} cremated Himself to death! "
 
 Projectiles: {
 	DelawareSmashProj.DisplayName: Delaware Smash Proj
@@ -85,4 +221,45 @@ Projectiles: {
 	BlackWhipProjectile.DisplayName: Black Whip Projectile
 	WeakFireProj.DisplayName: Weak Fire Proj
 	BlueFireProj.DisplayName: Blue Fire Proj
+	PunchAttackProj.DisplayName: Punch Attack Proj
+	ProminenceBurnProj.DisplayName: Prominence Burn Proj
+	JetBurnProj.DisplayName: Jet Burn Proj
+	JetBurnController.DisplayName: Jet Burn Controller
+	ProminenceBurnController.DisplayName: Prominence Burn Controller
+	ProminenceBurnFire.DisplayName: Prominence Burn Fire
+	IgnitedArrowProj.DisplayName: Ignited Arrow Proj
+	HellSpiderController.DisplayName: Hell Spider Controller
+	HellSpiderProj.DisplayName: Hell Spider Proj
+	ApShotProj.DisplayName: Ap Shot Proj
+	HowitzerImpactProj.DisplayName: Howitzer Impact Proj
+	StunGrenadeProj.DisplayName: Stun Grenade Proj
+	ExplosionBlastProj.DisplayName: Explosion Blast Proj
+	ApMachineGunProj.DisplayName: Ap Machine Gun Proj
+	BlueProminenceBurnFire.DisplayName: Blue Prominence Burn Fire
+	BlueProminenceBurnController.DisplayName: Blue Prominence Burn Controller
+	BlueJetBurnProj.DisplayName: Blue Jet Burn Proj
+	BlueJetBurnController.DisplayName: Blue Jet Burn Controller
+	BlueHellSpiderProj.DisplayName: Blue Hell Spider Proj
+	BlueHellSpiderController.DisplayName: Blue Hell Spider Controller
+	IceSpikeProj.DisplayName: Ice Spike Proj
+	IceWaveController.DisplayName: Ice Wave Controller
+	HCHellSpiderController.DisplayName: H C Hell Spider Controller
+	HCHellSpiderProj.DisplayName: H C Hell Spider Proj
+	JetKindlingController.DisplayName: Jet Kindling Controller
+	JetKindlingProj.DisplayName: Jet Kindling Proj
+	FlashFreezeProj.DisplayName: Flash Freeze Proj
+	BlueVanishingFistProj.DisplayName: Blue Vanishing Fist Proj
+	BlueFireBallProj.DisplayName: Blue Fire Ball Proj
+	BlueFlameThrowerProj.DisplayName: Blue Flame Thrower Proj
+	BlueFlamethrowerController.DisplayName: Blue Flamethrower Controller
+	BlueFireWaveController.DisplayName: Blue Fire Wave Controller
+	BlueFireWaveProj.DisplayName: Blue Fire Wave Proj
+	BlueHellMineFieldController.DisplayName: Blue Hell Mine Field Controller
+	BlueHellMineFieldProj.DisplayName: Blue Hell Mine Field Proj
+	PrimeCaliforniaSmashController.DisplayName: Prime California Smash Controller
+	PrimeCaliforniaSmashProj.DisplayName: Prime California Smash Proj
+	PrimeCarolinaSmashController.DisplayName: Prime Carolina Smash Controller
+	PrimeCarolinaSmashProj.DisplayName: Prime Carolina Smash Proj
+	PrimeTexasSmashProj.DisplayName: Prime Texas Smash Proj
+	DetroitPunchProj.DisplayName: Detroit Punch Proj
 }

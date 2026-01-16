@@ -1,1 +1,9 @@
-Modify this file with a description of your mod.
+Terraria mod made with the intention of adding some of the quirks from the main show and from vigilantes.
+
+currently contains:
+Explosion
+Half cold Half Hot
+Hellflames
+Blueflames
+All for one 8th
+All for one 9th

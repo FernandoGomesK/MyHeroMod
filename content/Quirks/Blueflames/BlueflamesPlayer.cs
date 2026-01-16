@@ -8,11 +8,39 @@ using MyHeroMod.content;
 using MyHeroMod.content.System;
 using Terraria.Audio;
 using System.Collections.Generic;
+using MyHeroMod.content.Debuffs;
+
+using MyHeroMod.content.Quirks.Blueflames.Buffs;
 
 namespace MyHeroMod.content.Quirks.Blueflames
 {
-    public class BlueFlames : ModPlayer
+    public partial class BlueFlamesPlayer : ModPlayer
     {
+        public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
+
+        // Heat Logic
+        public int MaxHeat = 100;
+        public int CurrentHeat = 0;
+        public int HeatTimer = 0;
+        
+
+        // Buffs
+
+        public bool IsFlashFireFistActive = false;
+        public bool IsRageActive = false;
+        public bool IsPhosphorActive = false;
+
+        public override void PreUpdate()
+        {
+            List<QuirkSkills> keys = new List<QuirkSkills>(SkillCooldowns.Keys);
+            foreach (var skill in keys)
+            {
+                if (SkillCooldowns[skill] > 0) SkillCooldowns[skill]--;
+            }
+        }
+
+
+
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
@@ -20,8 +48,14 @@ namespace MyHeroMod.content.Quirks.Blueflames
             if (mainPlayer.SelectedQuirk != QuirkType.BlueFlames)  
                 return;
 
+            if (CurrentHeat > 0)
+            {
+                Player.AddBuff(ModContent.BuffType<BlueHeatBuff>(), 2);
+            }
+             
+
             // Verifica se a individualidade atual é Blue Flames
-            if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.SelectedQuirk == QuirkType.BlueFlames)
             {
                 // 1. Define o tempo de voo (100 = voo curto/médio)
                 Player.wingTimeMax = 50;
@@ -35,6 +69,14 @@ namespace MyHeroMod.content.Quirks.Blueflames
 
                 // 3. Anula dano de queda
                 Player.noFallDmg = true;
+            }
+            if (IsFlashFireFistActive)
+            {
+                Player.AddBuff(ModContent.BuffType<Buffs.BlueFlashFireFistBuff>(), 2);
+            }
+            if (IsRageActive)
+            {
+                Player.AddBuff(ModContent.BuffType<Buffs.BlueRage>(), 2);
             }
         }
         
@@ -79,6 +121,41 @@ namespace MyHeroMod.content.Quirks.Blueflames
                         Main.dust[dustIce].velocity *= 0.5f;
                     }
                 }
+
+
+                if (CurrentHeat > 0)
+            {
+                HeatTimer++; // Conta +1 frame
+
+                // 60 frames = 1 segundo
+                if (HeatTimer >= 60)
+                {
+                    HeatTimer = 0; // Reseta
+                    
+                    // 1. Diminui o calor
+                    CurrentHeat -= 1;
+
+                    if (CurrentHeat >= 50)
+                        {
+                            Player.statLife -= 5;
+                            if (Player.statLife <= 0)
+                            {
+                                var reason = PlayerDeathReason.ByCustomReason(
+                                Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.BlueFireDeathMessage", Player.name));
+                                Player.KillMe(reason, 5, 0);
+                            }
+                    if (CurrentHeat >= MaxHeat)
+                            {
+                                Player.AddBuff(ModContent.BuffType<Heatstroke>(), 300);
+                            }
+                            
+                        }
+                }
+            }
+            else
+            {
+                HeatTimer = 0; // Garante que o timer não rode se não tiver calor
+            }
             }
         }
     }

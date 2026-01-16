@@ -8,20 +8,46 @@ using MyHeroMod.content;
 using MyHeroMod.content.System;
 using Terraria.Audio;
 using System.Collections.Generic;
+using MyHeroMod.content.Quirks.HellFlames.Buffs;
 
-namespace MyHeroMod.content.Quirks.Hellflames
+namespace MyHeroMod.content.Quirks.HellFlames
 {
-    public class HellFlames : ModPlayer
+    public partial class HellFlamesPlayer : ModPlayer
     {
+        public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
+
+        public int MaxHeat = 100;
+        public int CurrentHeat = 0;
+
+        
+
+        public bool IsFlashFireFistActive = false;
+
+        public override void OnRespawn()
+        {
+            CurrentHeat = 0;
+            SkillCooldowns.Clear();
+        }
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (IsFlashFireFistActive)
+            {
+                Player.AddBuff(ModContent.BuffType<Buffs.FlashFireFistBuff>(), 2);
+                
+                
+            }
+            if (CurrentHeat > 0)
+            {
+                Player.AddBuff(ModContent.BuffType<Heat>(), 2);
+            }
 
             if (mainPlayer.SelectedQuirk != QuirkType.HellFlames)  
                 return;
 
             // Verifica se a individualidade atual é Hell Flames
-            if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.SelectedQuirk == QuirkType.HellFlames)
             {
                 // 1. Define o tempo de voo (100 = voo curto/médio)
                 Player.wingTimeMax = 50;
@@ -37,13 +63,22 @@ namespace MyHeroMod.content.Quirks.Hellflames
                 Player.noFallDmg = true;
             }
         }
+
+        public override void PreUpdate()
+        {
+            List<QuirkSkills> keys = new List<QuirkSkills>(SkillCooldowns.Keys);
+            foreach (var skill in keys)
+            {
+                if (SkillCooldowns[skill] > 0) SkillCooldowns[skill]--;
+            }
+        }
         
 
         public override void PostUpdate()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            if (mainPlayer.SelectedQuirk == QuirkType.HellFlames)
+            if (mainPlayer.SelectedQuirk == QuirkType.HellFlames && mainPlayer.CurrentStage >= QuirkStage.Adequation)
             {
                 // CORREÇÃO AQUI: Substituí !Player.onFloor por Player.velocity.Y != 0
                 bool isFlying = (Player.velocity.Y != 0) && (Player.wingTime > 0 || Player.rocketDelay > 0) && !Player.mount.Active;
@@ -68,15 +103,15 @@ namespace MyHeroMod.content.Quirks.Hellflames
                     // Lado Direito (Fogo tbm)
                     if (Main.rand.NextBool(2))
                     {
-                        int dustIce = Dust.NewDust(
+                        int dustFire2 = Dust.NewDust(
                             Player.position + new Vector2(Player.width / 2, Player.height - 10), 
                             Player.width / 2, 
                             10, 
                             DustID.Torch, 
                             0, 2f, 100, default, 1.5f
                         );
-                        Main.dust[dustIce].noGravity = true;
-                        Main.dust[dustIce].velocity *= 0.5f;
+                        Main.dust[dustFire2].noGravity = true;
+                        Main.dust[dustFire2].velocity *= 0.5f;
                     }
                 }
             }

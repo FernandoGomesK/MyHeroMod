@@ -6,6 +6,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.GameInput;
+using MyHeroMod;
 
 
 
@@ -21,6 +22,9 @@ namespace MyHeroMod.content
 
             // Ofa 8th
             PrimeDetroitSmash,
+            PrimeCaliforniaSmash,
+            PrimeTexasSmash,
+            PrimeCarolinaSmash,
             StockPile,
             StockPileMaximum,
 
@@ -36,10 +40,54 @@ namespace MyHeroMod.content
             BlackWhipSurge,
             Float,
             DangerSense,
+            FaJinStore,
+            SmokeScreen,
             Gearshift,
+
+            // Hell Flames -------------------------------------------------------------------------------------------------------------------
+
+            FlashFireFist,
+            ProminenceBurn,
+            JetBurn,
+            HellSpider,
+            IgnitedArrow,
+
+            // Blue Flames ---------------------------------------------------------------------------------------------------------- 
+
+            BlueFlashFireFist,
+            BlueRage,
+            BluePhosphor,
+            BlueFireWave,
+            BlueHellMineField,
+            BlueProminenceBurn,
+            BlueFireBall,
+            BlueVanishingFist,
+            BlueFlamethrower,
+            BlueJetBurn,
+            BlueHellSpider,
+
+
+            //HCHH -----------------------------------------------------------------------------------------------------------------------
+            HCFireFist,
+
+            HeavenPiercingWall,
+            FlashFreezeHeatWave,
+            JetKindling,
+            HCHellSpider,
+            HCPhosphor,
+
+
+            
 
             // Explosion
             ExplosionBlast,
+            StunGrenade,
+            ApShot,
+            ApMachineGun,
+            HowitzerImpact,
+            Cluster,
+
+            
 
         }
     public enum QuirkType{ Quirkless, OneForAll9th, OneForAll8th, Explosion, HellFlames, BlueFlames, HalfColdHalfHot }
@@ -68,6 +116,8 @@ namespace MyHeroMod.content
         }
 
     public override void LoadData(TagCompound tag)
+
+    
         {
             if (tag.ContainsKey("SelectedQuirk")) SelectedQuirk = (QuirkType)tag.GetInt("SelectedQuirk");
             if (tag.ContainsKey("CurrentStage")) CurrentStage = (QuirkStage)tag.GetInt("CurrentStage");
@@ -77,14 +127,44 @@ namespace MyHeroMod.content
             if (tag.ContainsKey("TransformSlot")) TransformSlot = (QuirkSkills)tag.GetInt("TransformSlot");
         }
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
+        {
+            // Agora com o "using MyHeroMod;" acima, o UISystem será encontrado.
+            if (KeybindSystem.SkillMenu.JustPressed)
+            {
+                UISystem.ToggleSkillMenu();
+            }   
+        }
+        public override void PreUpdate()
 {
-    // Agora o menu abre independente da Quirk, e só roda UMA vez por frame.
-    if (KeybindSystem.SkillMenu.JustPressed)
+    // Exemplo: Evolução automática baseada em progresso
+    var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+    // Se matou o Moon Lord -> Estágio Final
+    if (NPC.downedMoonlord)
     {
-        UISystem.ToggleSkillMenu();
+        mainPlayer.CurrentStage = QuirkStage.Final;
     }
+    // Se matou Plantera -> Estágio Avançado
+    else if (NPC.downedPlantBoss)
+    {
+        mainPlayer.CurrentStage = QuirkStage.Advanced;
+    }
+    // Se entrou no Hardmode -> Estágio Intermediário
+    else if (Main.hardMode)
+    {
+        mainPlayer.CurrentStage = QuirkStage.Intermediate;
+    }
+    // Padrão -> Adequation
+    else 
+    {
+        mainPlayer.CurrentStage = QuirkStage.Adequation;
+    }
+    
+    // ... resto do seu código ...
 }
     }
+
+    
 }
         
         

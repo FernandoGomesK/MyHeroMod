@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.OFA9th;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Visuals
 {
@@ -16,7 +17,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
         {
             var ModPlayer = drawInfo.drawPlayer.GetModPlayer<OneForAll9thPlayer>();
 
-            return ModPlayer.ActivationTimer > 0;
+            return ModPlayer.ActivationTimer > 0 && ModPlayer.PendingForm != QuirkSkills.None;
         }
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
