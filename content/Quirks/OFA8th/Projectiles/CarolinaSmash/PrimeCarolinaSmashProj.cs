@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
@@ -35,9 +36,43 @@ namespace MyHeroMod.content.Quirks.OFA8th.Projectiles.CarolinaSmash
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Main.rand.NextBool(2))
+
+            if (Projectile.scale < 3.0f)
+            {
+                Projectile.scale += 0.05f;
+                Vector2 oldCenter = Projectile.Center;
+                Projectile.width = (int)(50 * Projectile.scale);
+                Projectile.height = (int)(50 * Projectile.scale);
+                Projectile.Center = oldCenter;
+            }
+
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Electric, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.5f);
             }
+        }
+
+         public override bool PreDraw(ref Color lightColor)
+        {
+            // Pega a textura do projétil
+            Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
+
+            // Calcula o CENTRO da imagem (Largura / 2, Altura / 2)
+            Vector2 origin = texture.Size() / 2f;
+
+            // Desenha a imagem centralizada na posição do projétil
+            Main.EntitySpriteDraw(
+                texture,
+                Projectile.Center - Main.screenPosition, // Posição na tela
+                null,
+                lightColor,
+                Projectile.rotation, // Rotação correta
+                origin,              // Pivô no centro!
+                Projectile.scale,
+                SpriteEffects.None,
+                0
+            );
+
+            return false;
         }
     }
 }

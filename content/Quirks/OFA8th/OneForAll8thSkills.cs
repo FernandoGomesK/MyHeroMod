@@ -153,7 +153,7 @@ namespace MyHeroMod.content.Quirks.OFA8th
 
             Vector2 Velocity = Main.MouseWorld - Player.Center;
             Velocity.Normalize();
-            Velocity *= 15f;
+            Velocity *= 30f;
 
             // Spawna o projétil que vai controlar o player
             // A velocidade inicial não importa aqui, pois a AI[0] controla a subida
@@ -162,8 +162,8 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 Player.Center,
                 Velocity, 
                 ModContent.ProjectileType<PrimeTexasSmashProj>(),
-                30, // Dano alto (Impacto)
-                10f, // Knockback alto
+                10, // Dano alto (Impacto)
+                30f, // Knockback alto
                 Player.whoAmI
             
         );

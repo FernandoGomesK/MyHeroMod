@@ -12,8 +12,8 @@ namespace MyHeroMod.content.Quirks.OFA8th.Projectiles.DetroitSmash
         
         public override void SetDefaults()
         {
-            Projectile.width = 30;
-            Projectile.height = 30;
+            Projectile.width = 50;
+            Projectile.height = 50;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.hostile = false;
@@ -63,8 +63,8 @@ namespace MyHeroMod.content.Quirks.OFA8th.Projectiles.DetroitSmash
             {
                 Projectile.scale += 0.05f;
                 Vector2 oldCenter = Projectile.Center;
-                Projectile.width = (int)(150 * Projectile.scale);
-                Projectile.height = (int)(150 * Projectile.scale);
+                Projectile.width = (int)(50 * Projectile.scale);
+                Projectile.height = (int)(50 * Projectile.scale);
                 Projectile.Center = oldCenter;
             }
 
