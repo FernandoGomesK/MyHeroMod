@@ -262,4 +262,5 @@ Projectiles: {
 	PrimeCarolinaSmashProj.DisplayName: Prime Carolina Smash Proj
 	PrimeTexasSmashProj.DisplayName: Prime Texas Smash Proj
 	DetroitPunchProj.DisplayName: Detroit Punch Proj
+	PunchAnimProj.DisplayName: Punch Anim Proj
 }
