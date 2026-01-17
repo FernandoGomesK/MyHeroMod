@@ -127,6 +127,11 @@ Items: {
 		DisplayName: Golden Leggings
 		Tooltip: ""
 	}
+
+	DebugStageChanger: {
+		DisplayName: Debug Stage Changer
+		Tooltip: ""
+	}
 }
 
 Buffs: {
