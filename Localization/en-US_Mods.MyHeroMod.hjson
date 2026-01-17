@@ -127,6 +127,16 @@ Items: {
 		DisplayName: Golden Leggings
 		Tooltip: ""
 	}
+
+	FirstTodorokiLeggings: {
+		Tooltip: ""
+		DisplayName: First Todoroki Leggings
+	}
+
+	FirstTodorokiBreastplate: {
+		Tooltip: ""
+		DisplayName: First Todoroki Breastplate
+	}
 }
 
 Buffs: {
