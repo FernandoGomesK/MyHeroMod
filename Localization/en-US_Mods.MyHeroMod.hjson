@@ -136,6 +136,9 @@ Items: {
 	FirstTodorokiBreastplate: {
 		Tooltip: ""
 		DisplayName: First Todoroki Breastplate
+	DebugStageChanger: {
+		DisplayName: Debug Stage Changer
+		Tooltip: ""
 	}
 }
 

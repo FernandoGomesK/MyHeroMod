@@ -96,6 +96,8 @@ namespace MyHeroMod.content
     {
         public QuirkType SelectedQuirk = QuirkType.Quirkless;
         public QuirkStage CurrentStage = QuirkStage.Initial;
+
+        public bool ManualStageOverride = false;
         
         public QuirkSkills ActiveForm = QuirkSkills.None;
 
@@ -139,6 +141,10 @@ namespace MyHeroMod.content
     // Exemplo: Evolução automática baseada em progresso
     var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
+    if (!mainPlayer.ManualStageOverride)
+    {
+                
+           
     // Se matou o Moon Lord -> Estágio Final
     if (NPC.downedMoonlord)
     {
@@ -159,6 +165,7 @@ namespace MyHeroMod.content
     {
         mainPlayer.CurrentStage = QuirkStage.Adequation;
     }
+     }
     
     // ... resto do seu código ...
 }
