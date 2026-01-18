@@ -403,7 +403,7 @@ namespace MyHeroMod.content.System
                 //HCHH ------------------------------------------------------------------------------------------------
                 SkillList.Add(QuirkSkills.HeavenPiercingWall, new SkillInfo
                 {
-                    Name = "Heaven Piercing Wall",
+                    Name = "Heaven Piercing Wall/ Great Glacial Aegir",
                     Description = "Create a Huge ice wall.",
                     IconPath = "MyHeroMod/Assets/Skills/BlueFlames/FlashFireFist",
                     MinStage = QuirkStage.Intermediate,
@@ -424,7 +424,7 @@ namespace MyHeroMod.content.System
                 });
                 SkillList.Add(QuirkSkills.JetKindling, new SkillInfo
                 {
-                    Name = "Jet Kindling",
+                    Name = "Ice Wave / Jet Kindling",
                     Description = "Launch a concentrated Beam of Fire at your Cursor.",
                     IconPath = "MyHeroMod/Assets/Skills/HalfColdHalfHot/HCJetBurn",
                     MinStage = QuirkStage.Intermediate,
@@ -435,7 +435,7 @@ namespace MyHeroMod.content.System
                 
                 SkillList.Add(QuirkSkills.HCHellSpider, new SkillInfo
                 {
-                    Name = "Hell Spider",
+                    Name = "Ice Spike / Hell Spider",
                     Description = "Shoot lines of fire from the tip of your fingers.",
                     IconPath = "MyHeroMod/Assets/Skills/HalfColdHalfHot/HCHellSpider",
                     MinStage = QuirkStage.Advanced,
@@ -446,7 +446,7 @@ namespace MyHeroMod.content.System
                 SkillList.Add(QuirkSkills.HCPhosphor, new SkillInfo
                 {
                     Name = "Phosphor",
-                    Description = "Circulate both halves of your quirk .",
+                    Description = "Circulate both halves of your quirk through your whole body .",
                     IconPath = "MyHeroMod/Assets/Skills/HalfColdHalfHot/HCPhosphor",
                     MinStage = QuirkStage.Advanced,
                     RelatedQuirks = new List<QuirkType> { 
@@ -454,7 +454,7 @@ namespace MyHeroMod.content.System
                 }
                 });
                 SkillList.Add(QuirkSkills.FlashFreezeHeatWave, new SkillInfo{
-                    Name = "Phosphor",
+                    Name = "Flash Freeze Heat Wave/ ColdFlame PaleBlaze",
                     Description = "Cool the air around you and shoot fire, rapidly expanding it .",
                     IconPath = "MyHeroMod/Assets/Skills/HalfColdHalfHot/HeatWave",
                     MinStage = QuirkStage.Adequation,

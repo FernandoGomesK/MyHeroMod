@@ -86,7 +86,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
         private void SpawnFireDust(Vector2 position, float centerX)
         {
             // Cor baseada no lado (Verde na esquerda, Vermelho na direita)
-            int dustID = (position.X < centerX) ? DustID.CoralTorch : DustID.Torch;
+            int dustID = (position.X < centerX) ? DustID.IceTorch : DustID.Torch;
 
             // Cria a partícula em uma área pequena (4x4 pixels)
             // Usamos NewDust normal para ele ter um pouco de variação natural

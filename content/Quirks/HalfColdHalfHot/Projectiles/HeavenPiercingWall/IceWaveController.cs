@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HeavenPiercingWall;
 
 namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HeavenPiercingWall
@@ -79,8 +80,12 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HeavenPiercingWal
             // Isso evita que a onda pare no primeiro degrau
             Collision.StepUp(ref Projectile.position, ref Projectile.velocity, Projectile.width, Projectile.height, ref Projectile.stepSpeed, ref Projectile.gfxOffY);
         }
+
+       
         
         // Permite subir blocos sem morrer
         public override bool OnTileCollide(Vector2 oldVelocity) { return false; }
     }
+
+    
 }

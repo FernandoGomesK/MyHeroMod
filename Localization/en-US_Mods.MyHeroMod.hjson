@@ -136,6 +136,8 @@ Items: {
 	FirstTodorokiBreastplate: {
 		Tooltip: ""
 		DisplayName: First Todoroki Breastplate
+	}
+
 	DebugStageChanger: {
 		DisplayName: Debug Stage Changer
 		Tooltip: ""
@@ -255,6 +257,7 @@ Projectiles: {
 	BlueHellSpiderProj.DisplayName: Blue Hell Spider Proj
 	BlueHellSpiderController.DisplayName: Blue Hell Spider Controller
 	IceSpikeProj.DisplayName: Ice Spike Proj
+	IceSpike.DisplayName: Ice Spike
 	IceWaveController.DisplayName: Ice Wave Controller
 	HCHellSpiderController.DisplayName: H C Hell Spider Controller
 	HCHellSpiderProj.DisplayName: H C Hell Spider Proj
@@ -276,4 +279,8 @@ Projectiles: {
 	PrimeTexasSmashProj.DisplayName: Prime Texas Smash Proj
 	DetroitPunchProj.DisplayName: Detroit Punch Proj
 	PunchAnimProj.DisplayName: Punch Anim Proj
+	GreatGlacialAegirController.DisplayName: Great Glacial Aegir Controller
+	IceThrowerController.DisplayName: Ice Thrower Controller
+	IceShotProj.DisplayName: Ice Shot Proj
+	IceThrowerProj.DisplayName: Ice Thrower Proj
 }

@@ -6,9 +6,14 @@ using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HeavenPiercingWall;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.FlashFreezeHeatWave;
+using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.GreatGlacialAegir;
+using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceShot;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Buffs;
 
+using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower;
+
 
 namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 {
@@ -38,29 +43,42 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 
             switch (skill)
             {
-                    // case QuirkSkills.FlashFireFist:
-                    // ActivateFlashFireFist(mainPlayer);
-
-                    // SetCooldown(skill, 60);
-                    // break;
+                    
                     case QuirkSkills.HeavenPiercingWall:
-
-                    DoHeavenPiercingWall(mainPlayer);
+                    if (IsPhosphorActive)
+                    {
+                        DoGreatGlacialAegir(mainPlayer);
+                    }
+                    else{
+                        DoHeavenPiercingWall(mainPlayer);
+                    }
                     break;
+
+
                     case QuirkSkills.JetKindling:
-
-                    DoJetKindling(mainPlayer);
+                    if (IsFlashFireFistActive)
+                    {
+                    DoJetKindling(mainPlayer); 
+                    }
+                    else{
+                        DoIceWave(mainPlayer);
+                    }
                     break;
 
-                    // case QuirkSkills.IgnitedArrow:
-
-                    // DoIgnitedArrow(mainPlayer);
-                    // break;
+                    
 
                     case QuirkSkills.HCHellSpider:
-
-                    DoHellSpider(mainPlayer);
+                    if (IsFlashFireFistActive)
+                    {
+                    DoHellSpider(mainPlayer); 
+                    }
+                    else{
+                        DoIceSpike(mainPlayer);
+                    }
                     break;
+
+                
+
                     case QuirkSkills.HCFireFist:
 
                     ActivateFlashFireFist(mainPlayer);
@@ -70,6 +88,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 
                     ActivatePhosphor(mainPlayer);
                     break;
+
                     case QuirkSkills.FlashFreezeHeatWave:
                     // AQUI ESTÁ A MUDANÇA:
                     // Em vez de chamar a lógica inteira, nós apenas ATIVAMOS o modo automático.
@@ -86,6 +105,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
             }
         }
         private void SetCooldown(QuirkSkills skill, int timeInTicks)
+
         {
             if (SkillCooldowns.ContainsKey(skill))
             {
@@ -97,8 +117,57 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
             }
         }
 
+        private void DoIceSpike(TransformationPlayer mainPlayer)
+        {
+            Vector2 Velocity = Main.MouseWorld - Player.Center;
+            Velocity.Normalize();
+            Velocity *= 15f;
+
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                Velocity,
+                ModContent.ProjectileType<IceShotProj>(),
+                40, 
+                2f, 
+                Player.whoAmI);
+        }
+
+        private void DoIceWave(TransformationPlayer mainPlayer)
+        {
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<IceThrowerController>()] > 0)
+                return;
+
+            // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
+            // Note que a velocidade aqui define apenas a direção inicial da mira.
+            Vector2 direction = Main.MouseWorld - Player.Center;
+            direction.Normalize();
+
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                direction,
+                ModContent.ProjectileType<IceThrowerController>(),
+                0, // O controlador não dá dano direto
+                0f,
+                Player.whoAmI
+            
+            );
+            temperature += 15; 
+        }
+            
+        
         private void DoHeavenPiercingWall(TransformationPlayer mainPlayer)
         {
+
+        if (Player.ownedProjectileCounts[ModContent.ProjectileType<IceWaveController>()] > 0)
+                return;
+
+        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/TodorokiIce"), Player.position);
+
+        
+
+
         // Define a direção (Esquerda ou Direita baseado no mouse)
         float direction = Main.MouseWorld.X > Player.Center.X ? 1f : -1f;
     
@@ -118,7 +187,24 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
             
         );
         temperature -= 15;
-}
+        }
+
+        private void DoGreatGlacialAegir(TransformationPlayer mainPlayer)
+        {
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<GreatGlacialAegirController>()] > 0)
+                return;
+
+            // Spawna o projétil que vai controlar o player
+            // A velocidade inicial não importa aqui, pois a AI[0] controla a subida
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                Vector2.Zero, 
+                ModContent.ProjectileType<GreatGlacialAegirController>(),
+                80, // Dano alto (Impacto)
+                10f, // Knockback alto
+                Player.whoAmI);
+        }
 
         private void UpdateFlashFreeze()
         {
