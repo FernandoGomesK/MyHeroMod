@@ -24,6 +24,14 @@ namespace MyHeroMod.content.Items
             Item.rare = ItemRarityID.Blue;
         }
 
+        public override void AddRecipes()
+{
+    CreateRecipe()
+        .AddIngredient(ItemID.FallenStar, 5) // 5 Estrelas Cadentes
+        .AddTile(TileID.WorkBenches)         // Precisa estar perto de uma Bancada de Trabalho
+        .Register();                         // Salva a receita no jogo
+}
+
         public override bool AltFunctionUse(Player player)
         {
             return true;
