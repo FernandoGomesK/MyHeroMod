@@ -21,6 +21,8 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 
         public int maxTemperature = 100;
         public int MinimumTemperature = -100;
+
+        public int temperatureTimer = 0;
         public bool IsFlashFreezeActive = false;
 
         public bool IsFlashFireFistActive = false;
@@ -32,12 +34,25 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 
         public int ProjectileTimer = 0;
 
+        public bool IsCombatVestAlphaOn = false;
+
+        public bool IsCombatVestBetaOn = false;
+        public bool IsSurgeArmGauntletsOn = false;
+
+
         public override void OnRespawn()
         {
             temperature = 0;
             IsFlashFireFistActive = false;
             IsPhosphorActive = false;
             SkillCooldowns.Clear();
+        }
+
+        public override void ResetEffects()
+        {
+            IsCombatVestAlphaOn = false;
+            IsCombatVestBetaOn = false;
+            IsSurgeArmGauntletsOn = false;
         }
 
         public override void PreUpdate()
@@ -65,6 +80,24 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
             {
                 Player.AddBuff(ModContent.BuffType<Buffs.HCFireFistBuff>(), 2);
             }
+
+            if (temperature > 0)
+            {
+            Player.AddBuff(ModContent.BuffType<Buffs.TemperatureBuff>(), 2);
+            }
+
+            if (temperature < 0)
+                {
+                Player.AddBuff(ModContent.BuffType<Buffs.TemperatureBuff>(), 2);
+                }
+            if (temperature >= maxTemperature)
+                {
+                    Player.AddBuff(ModContent.BuffType<Debuffs.Heatstroke>(), 2);
+                }
+                if (temperature <= MinimumTemperature)
+                {
+                    Player.AddBuff(ModContent.BuffType<Debuffs.FrostBite>(), 2);
+                }
 
 
             if (mainPlayer.SelectedQuirk != QuirkType.HalfColdHalfHot)  
@@ -134,6 +167,43 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                         Main.dust[dustIce].velocity *= 0.5f;
                     }
                 }
+
+                if (temperature != 0)
+{
+    temperatureTimer++;
+
+    
+    if (temperatureTimer >= 60)
+    {
+        temperatureTimer = 0;
+        
+        
+        int recoveryRate = 1;
+
+        
+        if (IsCombatVestAlphaOn) recoveryRate += 1; 
+        if (IsCombatVestBetaOn)  recoveryRate += 5; 
+
+        
+        if (temperature < 0) 
+        {
+            temperature += recoveryRate;
+           
+            if (temperature > 0) temperature = 0;
+        }
+        else if (temperature > 0)
+        {
+            temperature -= recoveryRate;
+            
+            if (temperature < 0) temperature = 0;
+        }
+    }
+}
+else
+{
+    temperatureTimer = 0;
+}
+                
             }
         }
         

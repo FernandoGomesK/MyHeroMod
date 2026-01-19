@@ -142,6 +142,21 @@ Items: {
 		DisplayName: Debug Stage Changer
 		Tooltip: ""
 	}
+
+	CombatVestAlpha: {
+		Tooltip: ""
+		DisplayName: Combat Vest Alpha
+	}
+
+	SurgeArmGauntlets: {
+		Tooltip: ""
+		DisplayName: Surge Arm Gauntlets
+	}
+
+	CombatVestBeta: {
+		Tooltip: ""
+		DisplayName: Combat Vest Beta
+	}
 }
 
 Buffs: {
@@ -223,6 +238,16 @@ Buffs: {
 	Heatstroke: {
 		DisplayName: Heatstroke
 		Description: Mods.MyHeroMod.Buffs.Heatstroke.Description
+	}
+
+	TemperatureBuff: {
+		Description: Mods.MyHeroMod.Buffs.TemperatureBuff.Description
+		DisplayName: Temperature Buff
+	}
+
+	FrostBite: {
+		Description: Mods.MyHeroMod.Buffs.FrostBite.Description
+		DisplayName: Frost Bite
 	}
 }
 

@@ -13,6 +13,7 @@ using MyHeroMod.content.Quirks.HalfColdHalfHot.Buffs;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower;
+using System.Security.Cryptography.X509Certificates;
 
 
 namespace MyHeroMod.content.Quirks.HalfColdHalfHot
@@ -119,6 +120,19 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 
         private void DoIceSpike(TransformationPlayer mainPlayer)
         {
+
+            int IceDamage = 40;
+            float multiplier = 1f;
+            
+
+             
+            if (IsSurgeArmGauntletsOn)
+            {
+                multiplier += 1f;
+            }
+            int FinalDamage = (int)(IceDamage * multiplier); // IceDamage + multiplier;
+
+
             Vector2 Velocity = Main.MouseWorld - Player.Center;
             Velocity.Normalize();
             Velocity *= 15f;
@@ -128,10 +142,13 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                 Player.Center,
                 Velocity,
                 ModContent.ProjectileType<IceShotProj>(),
-                40, 
+                FinalDamage, 
                 2f, 
                 Player.whoAmI);
+
+                temperature -= 25;
         }
+
 
         private void DoIceWave(TransformationPlayer mainPlayer)
         {
@@ -153,7 +170,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                 Player.whoAmI
             
             );
-            temperature += 15; 
+            temperature -= 25; 
         }
             
         
@@ -186,7 +203,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 
             
         );
-        temperature -= 15;
+        temperature -= 45;
         }
 
         private void DoGreatGlacialAegir(TransformationPlayer mainPlayer)
@@ -269,6 +286,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
             
         private void DoJetKindling(TransformationPlayer mainPlayer)
         {
+            
             // Verifica se já existe um controlador ativo (para não spawnar duplicado)
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<JetKindlingController>()] > 0)
                 return;
@@ -288,7 +306,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                 Player.whoAmI
             
             );
-            temperature += 15;
+            temperature += 25;
         }
         
         
@@ -312,7 +330,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                 0f,
                 Player.whoAmI
             );
-            temperature += 15;
+            temperature += 35;
 
         }
         private void ActivatePhosphor(TransformationPlayer mainPlayer)
@@ -340,7 +358,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                 return;
                 
             }
-            
+            temperature += 15;
             IsFlashFireFistActive = true;
     }
 }}

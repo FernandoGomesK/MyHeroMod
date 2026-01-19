@@ -68,6 +68,8 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling
                         // Velocidade e Espalhamento (Cone)
                         shootVel *= Main.rand.NextFloat(8f, 13f);
                         shootVel = shootVel.RotatedByRandom(MathHelper.ToRadians(15)); 
+    
+                        
                         
                         // Offset para sair da mão (aprox)
                         Vector2 spawnPos = player.Center + Projectile.velocity * 30f;
