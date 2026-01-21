@@ -20,11 +20,17 @@ namespace MyHeroMod.content.Quirks.Explosion
         public int MaxSweat = 0;
         public int CurrentSweat = 0;
 
+        public bool IsGrenadierBracersOn = false;
+        public bool IsStrafePanzerOn = false;
+
+
         public override void OnRespawn()
         {
             IsClusterActive = false;
             SkillCooldowns.Clear();
         }
+
+        
 
         public override void PostUpdateEquips()
         {
@@ -71,6 +77,8 @@ namespace MyHeroMod.content.Quirks.Explosion
                 // "Player" é a referência correta ao jogador dono deste ModPlayer
                 Player.noFallDmg = true; 
             }
+            IsGrenadierBracersOn = false;
+            IsStrafePanzerOn = false;
         }
         
         public override void PreUpdate()

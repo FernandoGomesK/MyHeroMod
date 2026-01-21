@@ -8,7 +8,7 @@ namespace MyHeroMod.content.Quirks.Explosion.Buffs;
 
 public class SweatBuff : ModBuff
 {
-    public override string Texture => "MyHeroMod/Assets/Sweat";
+    public override string Texture => "MyHeroMod/Assets/SweatBuff";
 
     public override void SetStaticDefaults()
     {

@@ -88,6 +88,11 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity = -player.velocity * 0.5f; 
                 }
+
+                
+                int d2 =Dust.NewDust(player.position, player.width, player.height, DustID.Ash, 0, 0, 100, default, 6f);
+                Main.dust[d2].noGravity = true;
+                Main.dust[d2].velocity = player.velocity;
             }
         }
 
