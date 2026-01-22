@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using MyHeroMod.content.Quirks.HellFlames;
 
 namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.JetBurn
 {
@@ -30,6 +31,9 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.JetBurn
                 Projectile.Kill();
                 return;
             }
+
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+            var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
 
             // 2. Grudar no Jogador e Mirar
             if (Projectile.owner == Main.myPlayer)
@@ -66,18 +70,55 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.JetBurn
                         Vector2 shootVel = Projectile.velocity;
                         
                         // Velocidade e Espalhamento (Cone)
-                        shootVel *= Main.rand.NextFloat(8f, 13f);
+                        shootVel *= Main.rand.NextFloat(18f, 25f);
                         shootVel = shootVel.RotatedByRandom(MathHelper.ToRadians(15)); 
                         
                         // Offset para sair da mão (aprox)
                         Vector2 spawnPos = player.Center + Projectile.velocity * 30f;
+
+                         int BaseDamage = 0;
+
+                        switch(transPlayer.CurrentStage){
+                        case QuirkStage.Initial:
+                        BaseDamage = 2;
+                        break;
+                    
+                        case QuirkStage.Adequation:
+                        BaseDamage = 3;
+                        break;
+                
+                        case QuirkStage.Intermediate:
+                        BaseDamage =  5;
+                        break;
+                    
+                        case QuirkStage.Advanced:
+                        BaseDamage = 8;
+                        break;
+                
+                        case QuirkStage.Final:
+                        BaseDamage = 10;
+                        break;
+                
+                        default:
+                        BaseDamage =2;
+                        break;
+                    
+                        }
+        
+                        float ModifiedDamage = 1;
+
+                        if (hellPlayer.IsFlashFireFistActive){
+         
+                        ModifiedDamage += 1.5f;        
+                        }
+                        int FinalDamage = (int)(BaseDamage * ModifiedDamage);
 
                         Projectile.NewProjectile(
                             player.GetSource_FromThis(),
                             spawnPos,
                             shootVel,
                             ModContent.ProjectileType<JetBurnProj>(), // Chama o foguinho que já criamos
-                            25, // Dano
+                            FinalDamage, // Dano
                             1f,
                             player.whoAmI
                         );

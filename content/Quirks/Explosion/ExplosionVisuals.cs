@@ -4,6 +4,7 @@ using Terraria.ID;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework;
 using Humanizer;
+using MyHeroMod.content.Dusts;
 
 namespace MyHeroMod.content.Quirks.Explosion
 {
@@ -14,26 +15,31 @@ namespace MyHeroMod.content.Quirks.Explosion
             
 
             if (IsClusterActive)
-            {
-                // Add a fiery glow effect to the player when Flash Fire Fist is active
-                drawInfo.colorArmorBody = Color.Orange;
-                drawInfo.colorArmorHead = Color.Orange;
-                drawInfo.colorArmorLegs = Color.Orange;
+{
+    // Efeitos visuais no corpo (Armadura laranja)
+    
 
-                // Create a light effect around the player
-                Lighting.AddLight(Player.Center, Color.Orange.ToVector3() * 0.8f);
+    // Luz ao redor
+    Lighting.AddLight(Player.Center, Color.Orange.ToVector3() * 0.8f);
 
-                if (Main.rand.NextBool(5)){
-                
-                    int fire = Dust.NewDust(Player.position, Player.width, Player.height, DustID.YellowStarDust, 0f, 0f, 100, Color.Orange, 1.5f);
-                    Main.dust[fire].noGravity = true;
-                    Main.dust[fire].velocity *= 1.5f;
-                    Main.dust[fire].velocity += Player.velocity * 0.5f;
-                }
-                
+    // CRIAÇÃO DA PARTÍCULA (DUST)
+    // NextBool(5) significa 20% de chance por frame (para não ficar pesado)
+    Vector2 randomPos = Player.Center + Main.rand.NextVector2Circular(20f, 20f);
+    if (Main.rand.NextBool(25)) 
+    {
+        // Dust.NewDust retorna o índice da partícula criada na lista Main.dust
+        int dust = Dust.NewDust(
+        randomPos, 
+        0, 0, // Largura/Altura 0 porque já calculamos a posição exata acima
+        ModContent.DustType<ClusterDust>(),
+        0f, 0f, 
+        0, default, 1.5f
+    );
+        Main.dust[dust].noGravity = true;
+        Main.dust[dust].velocity = Player.velocity;        
                 
             }
                 
         }
     }
-}
+    }}

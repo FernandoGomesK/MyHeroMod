@@ -11,6 +11,7 @@ using  MyHeroMod.content.Quirks.Explosion.Buffs;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.StunGrenade;
 using MyHeroMod.content.Quirks.Explosion.Projectiles;
+using MyHeroMod.content.Quirks.Explosion.Projectiles.FullPower;
 
 
 
@@ -42,6 +43,16 @@ namespace MyHeroMod.content.Quirks.Explosion
 
             switch (skill)
             {
+                    case QuirkSkills.StunGrenade:
+                    DoStunGrenade(mainPlayer);
+                    
+                    SetCooldown(skill, 300);
+                    break;
+
+                    case QuirkSkills.FullPowerBlast:
+                    DoFullPowerBlast(mainPlayer);
+
+                    break;
                     case QuirkSkills.ApShot:
                     DoApShot(mainPlayer);
 
@@ -57,11 +68,7 @@ namespace MyHeroMod.content.Quirks.Explosion
                     
                     SetCooldown(skill, 300);
                     break;
-                    case QuirkSkills.StunGrenade:
-                    DoStunGrenade(mainPlayer);
                     
-                    SetCooldown(skill, 300);
-                    break;
                     case QuirkSkills.Cluster:
                     ActivateCluster(mainPlayer);
 
@@ -83,6 +90,7 @@ namespace MyHeroMod.content.Quirks.Explosion
 
         private void DoApShot(TransformationPlayer mainPlayer)
         {
+            CombatText.NewText(Player.getRect(), Color.Orange, "AP-SHOT!");
             Vector2 Velocity = Main.MouseWorld - Player.Center;
             Velocity.Normalize();
             Velocity *= 15f;
@@ -97,6 +105,54 @@ namespace MyHeroMod.content.Quirks.Explosion
                 Player.whoAmI
             );
             CurrentSweat += 15;
+        }
+
+        private void DoFullPowerBlast(TransformationPlayer mainPlayer)
+        {
+
+        int BaseDamage = 80; 
+           
+        float ModifiedDamage = 1;
+
+        if (IsGrenadierBracersOn && CurrentSweat > MaxSweat){
+        CurrentSweat -= 30;    
+        ModifiedDamage += 1f;        
+        }
+        int FinalDamage = (int)(BaseDamage * ModifiedDamage);
+
+        CombatText.NewText(Player.getRect(), Color.Orange, "DIE!");
+            
+
+
+
+         Vector2 Velocity = Main.MouseWorld - Player.Center;
+            Velocity.Normalize();
+            Velocity *= 15f;
+
+            Projectile.NewProjectile(
+                Player.GetSource_FromThis(),
+                Player.Center,
+                Velocity,
+                ModContent.ProjectileType<FullPowerProj>(),
+                FinalDamage, 
+                2f, 
+                Player.whoAmI
+            );
+
+            if (IsGrenadierBracersOn != true)
+            {
+                Player.statLife -= 5;
+            if (Player.statLife <= 0)
+            {
+                var reason = PlayerDeathReason.ByCustomReason(
+                Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.BlueFireDeathMessage", Player.name));
+                Player.KillMe(reason, 5, 0);
+            }
+                
+            }
+
+            
+            CurrentSweat += 15;   
         }
         private void DoApMachineGun(TransformationPlayer mainPlayer)
         {
@@ -122,9 +178,62 @@ namespace MyHeroMod.content.Quirks.Explosion
 
         private void DoHowitzerImpact(TransformationPlayer mainPlayer)
         {
-            // Evita usar se já estiver usando
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<HowitzerImpactProj>()] > 0)
                 return;
+
+
+            int BaseDamage = 0;
+
+            switch(mainPlayer.CurrentStage){
+                case QuirkStage.Initial:
+                BaseDamage = 200;
+                break;
+            
+                case QuirkStage.Adequation:
+                BaseDamage = 250;
+                break;
+          
+                case QuirkStage.Intermediate:
+                BaseDamage = 300;
+                break;
+            
+                case QuirkStage.Advanced:
+                BaseDamage = 450;
+                break;
+          
+                case QuirkStage.Final:
+                BaseDamage = 700;
+                break;
+        
+                default:
+                BaseDamage =100;
+                break;
+                    
+            }
+        
+            
+
+             
+           
+        float ModifiedDamage = 1;
+
+        if (IsClusterActive){
+         
+        ModifiedDamage += 2.5f;        
+        }
+        int FinalDamage = (int)(BaseDamage * ModifiedDamage);
+
+
+
+            
+
+            if (IsClusterActive){
+                CombatText.NewText(Player.getRect(), Color.Orange, "HOWITZER IMPACT: CLUSTER!");
+            }
+            else
+            {
+                CombatText.NewText(Player.getRect(), Color.Orange, "HOWITZER IMPACT!");
+            }
 
             // Spawna o projétil que vai controlar o player
             // A velocidade inicial não importa aqui, pois a AI[0] controla a subida
@@ -133,7 +242,7 @@ namespace MyHeroMod.content.Quirks.Explosion
                 Player.Center,
                 Vector2.Zero, 
                 ModContent.ProjectileType<HowitzerImpactProj>(),
-                80, // Dano alto (Impacto)
+                FinalDamage, // Dano alto (Impacto)
                 10f, // Knockback alto
                 Player.whoAmI
             );
@@ -142,6 +251,7 @@ namespace MyHeroMod.content.Quirks.Explosion
 
         private void DoStunGrenade(TransformationPlayer mainPlayer)
         {
+            CombatText.NewText(Player.getRect(), Color.Orange, "STUN GRENADE!");
             // Evita usar se já estiver usando
             Vector2 Velocity = Main.MouseWorld - Player.Center;
             Velocity.Normalize();
@@ -169,7 +279,7 @@ namespace MyHeroMod.content.Quirks.Explosion
                 return;
                 
             }
-            
+            CombatText.NewText(Player.getRect(), Color.Orange, "CLUSTER!");
             IsClusterActive = true;
             
         }

@@ -82,6 +82,7 @@ namespace MyHeroMod.content
             // Explosion
             ExplosionBlast,
             StunGrenade,
+            FullPowerBlast,
             ApShot,
             ApMachineGun,
             HowitzerImpact,

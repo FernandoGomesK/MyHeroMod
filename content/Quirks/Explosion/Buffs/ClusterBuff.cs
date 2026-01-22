@@ -24,7 +24,7 @@ namespace MyHeroMod.content.Quirks.Explosion.Buffs
             {
                 // Apply Flash Fire Fist effects
                 player.GetDamage(DamageClass.Melee) += 0.20f; // Increase melee damage by 20%
-                player.moveSpeed += 2.0f; // Increase movement speed by 20%
+                player.moveSpeed += 3.0f; // Increase movement speed by 20%
             }
             
             

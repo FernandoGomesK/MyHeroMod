@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using MyHeroMod.content.Quirks.HellFlames;
 
 namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn
 {
@@ -29,6 +30,9 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn
                 Projectile.Kill();
                 return;
             }
+
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+            var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
 
             // 1. Grudar e Mirar
             if (Projectile.owner == Main.myPlayer)
@@ -81,12 +85,49 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn
 
                         Vector2 spawnPos = player.Center + Projectile.velocity * 40f;
 
+                        int BaseDamage = 0;
+
+                        switch(transPlayer.CurrentStage){
+                        case QuirkStage.Initial:
+                        BaseDamage = 2;
+                        break;
+                    
+                        case QuirkStage.Adequation:
+                        BaseDamage = 3;
+                        break;
+                
+                        case QuirkStage.Intermediate:
+                        BaseDamage =  5;
+                        break;
+                    
+                        case QuirkStage.Advanced:
+                        BaseDamage = 8;
+                        break;
+                
+                        case QuirkStage.Final:
+                        BaseDamage = 10;
+                        break;
+                
+                        default:
+                        BaseDamage =2;
+                        break;
+                    
+                        }
+        
+                        float ModifiedDamage = 1;
+
+                        if (hellPlayer.IsFlashFireFistActive){
+         
+                        ModifiedDamage += 1.5f;        
+                        }
+                        int FinalDamage = (int)(BaseDamage * ModifiedDamage);
+
                         Projectile.NewProjectile(
                             player.GetSource_FromThis(),
                             spawnPos,
                             shootVel,
                             ModContent.ProjectileType<ProminenceBurnFire>(), 
-                            30, // DANO ALTO
+                            FinalDamage, // DANO ALTO
                             4f,  // KNOCKBACK ALTO
                             player.whoAmI
                         );

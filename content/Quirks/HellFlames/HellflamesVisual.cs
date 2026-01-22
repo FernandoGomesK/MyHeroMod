@@ -33,7 +33,19 @@ namespace MyHeroMod.content.Quirks.HellFlames
                 // }
                 
             }
+
+            if (Main.rand.NextBool(5)){
+                
             
+            if (CurrentHeat >= MaxHeat)
+            {
+                int steam = Dust.NewDust(Player.position, Player.width, Player.height, DustID.SteampunkSteam, 0f, 0f, 100, Color.WhiteSmoke, 1f);
+                Main.dust[steam].noGravity = false;
+                Main.dust[steam].velocity *= 1f;
+                Main.dust[steam].velocity += Player.velocity * 0.5f;
+            }
+            }
+
         }
     }
 }

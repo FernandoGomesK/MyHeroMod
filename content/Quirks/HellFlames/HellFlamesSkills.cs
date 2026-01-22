@@ -11,6 +11,7 @@ using MyHeroMod.content.Quirks.HellFlames.Projectiles;
 
 using MyHeroMod.content.Quirks.HellFlames.Projectiles.IgnitedArrow;
 using MyHeroMod.content.Quirks.HellFlames.Projectiles.JetBurn;
+using MyHeroMod.content.Quirks.HellFlames.Buffs;
 
 namespace MyHeroMod.content.Quirks.HellFlames
 {
@@ -116,7 +117,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
                 Player.whoAmI
             
             );
-            CurrentHeat += 15;
+            CurrentHeat += 35;
         }
         private void DoProminenceBurn()
         {
@@ -142,11 +143,50 @@ namespace MyHeroMod.content.Quirks.HellFlames
                 0f, 
                 Player.whoAmI
             );
-            CurrentHeat += 15;
+            CurrentHeat += 60;
         }
         private void DoIgnitedArrow(TransformationPlayer mainPlayer)
         {
             // Implementação do Ignited Arrow
+            int BaseDamage = 0;
+
+            switch(mainPlayer.CurrentStage){
+                case QuirkStage.Initial:
+                BaseDamage = 20;
+                break;
+            
+                case QuirkStage.Adequation:
+                BaseDamage = 40;
+                break;
+          
+                case QuirkStage.Intermediate:
+                BaseDamage =  45;
+                break;
+            
+                case QuirkStage.Advanced:
+                BaseDamage = 60;
+                break;
+          
+                case QuirkStage.Final:
+                BaseDamage = 80;
+                break;
+        
+                default:
+                BaseDamage =20;
+                break;
+                    
+            }
+        
+        float ModifiedDamage = 1;
+
+        if (IsFlashFireFistActive){
+         
+        ModifiedDamage += 1.5f;        
+        }
+        int FinalDamage = (int)(BaseDamage * ModifiedDamage);
+
+
+
 
             Vector2 Velocity = Main.MouseWorld - Player.Center;
             Velocity.Normalize();
@@ -157,7 +197,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
                 Player.Center,
                 Velocity,
                 ModContent.ProjectileType<IgnitedArrowProj>(),
-                40, 
+                FinalDamage, 
                 2f, 
                 Player.whoAmI
             );

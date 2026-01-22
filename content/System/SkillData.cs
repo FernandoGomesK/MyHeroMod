@@ -104,7 +104,7 @@ namespace MyHeroMod.content.System
                 });
                 
             
-                // One For All 9th
+                // One For All 9th ------------------------------------------------------------------------------------------------------
                 SkillList.Add(QuirkSkills.DetroitSmash, new SkillInfo
                 {
                     Name = "Detroit Smash",
@@ -226,7 +226,7 @@ namespace MyHeroMod.content.System
                 }
                 });
 
-                // Hell Flames
+                // Hell Flames ------------------------------------------------------------------------------------------------------------
 
                 SkillList.Add(QuirkSkills.FlashFireFist, new SkillInfo
                 {
@@ -301,7 +301,6 @@ namespace MyHeroMod.content.System
                     QuirkType.BlueFlames, 
                 }
                 });
-
                 SkillList.Add(QuirkSkills.BlueRage, new SkillInfo
                 {
                     Name = "Rage",
@@ -474,6 +473,18 @@ namespace MyHeroMod.content.System
                     MinStage = QuirkStage.Initial,
                     RelatedQuirks = new List<QuirkType> { 
                     QuirkType.Explosion, 
+                }
+                });
+
+                SkillList.Add(QuirkSkills.FullPowerBlast, new SkillInfo
+                {
+                    Name = "Full Power Blast",
+                    Description = "Unleash your maximum power in a single explosion, Hurts if not using Grenadier Bracers.",
+                    IconPath = "MyHeroMod/Assets/Skills/Explosion/FullPower",
+                    MinStage = QuirkStage.Initial,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.Explosion, 
+                    
                 }
                 });
 

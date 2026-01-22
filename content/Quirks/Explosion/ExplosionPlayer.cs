@@ -8,6 +8,8 @@ using MyHeroMod.content;
 using MyHeroMod.content.System;
 using Terraria.Audio;
 using System.Collections.Generic;
+using MyHeroMod.content.Dusts;
+using MyHeroMod.content.Quirks.Explosion.Buffs;
 
 namespace MyHeroMod.content.Quirks.Explosion
 {
@@ -17,7 +19,7 @@ namespace MyHeroMod.content.Quirks.Explosion
 
         public bool IsClusterActive = false;
 
-        public int MaxSweat = 0;
+        public int MaxSweat = 100;  
         public int CurrentSweat = 0;
 
         public bool IsGrenadierBracersOn = false;
@@ -44,12 +46,25 @@ namespace MyHeroMod.content.Quirks.Explosion
             if (mainPlayer.SelectedQuirk != QuirkType.Explosion)
                 return;
             
-            
-
-
-            if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.SelectedQuirk == QuirkType.Explosion)
+            if (IsClusterActive)
             {
-                Player.wingTimeMax = 50;
+                Player.AddBuff(ModContent.BuffType<ClusterBuff>(),2 );
+            }
+
+            if (mainPlayer.CurrentStage >= QuirkStage.Advanced && mainPlayer.SelectedQuirk == QuirkType.Explosion && IsClusterActive)
+            {
+                Player.wingTimeMax = 150;
+
+                if (Player.wingsLogic == 0)
+                {
+                    Player.wingsLogic = 29;
+                    Player.wings = -1;
+                }
+                Player.noFallDmg = true;
+            }
+            else if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.SelectedQuirk == QuirkType.Explosion)
+            {
+                Player.wingTimeMax = 30;
 
                 if (Player.wingsLogic == 0)
                 {
@@ -59,6 +74,8 @@ namespace MyHeroMod.content.Quirks.Explosion
 
                 Player.noFallDmg = true;
             }
+            
+           
         }
 
         
@@ -131,7 +148,7 @@ namespace MyHeroMod.content.Quirks.Explosion
                             0, 2f, 100, default, 3.5f
                         );
                         int dustSmoke2 = Dust.NewDust(
-                            Player.position + new Vector2(Player.width / 2, Player.height - 10), 
+                            Player.position + new Vector2(Player.width / -5, Player.height - 10), 
                             Player.width / 2, 
                             10, 
                             DustID.Ash, 
@@ -141,6 +158,29 @@ namespace MyHeroMod.content.Quirks.Explosion
                         Main.dust[dustFire2].velocity *= 0.5f;
                         Main.dust[dustSmoke2].noGravity = true;
                         Main.dust[dustSmoke2].velocity *= 0.5f;
+                    }
+                    // cluster
+                    if (Main.rand.NextBool(6) && IsClusterActive)
+                    {
+                         int dustFire2 = Dust.NewDust(
+                            Player.position + new Vector2(Player.width / 2, Player.height - 10), 
+                            Player.width / 2, 
+                            10, 
+                            ModContent.DustType<ClusterDust>(), 
+                            0, 2f, 100, default, 2.5f
+                        );
+                        int dustSmoke2 = Dust.NewDust(
+                            Player.position + new Vector2(Player.width / -5, Player.height - 10), 
+                            Player.width / 2, 
+                            10, 
+                            ModContent.DustType<ClusterDust>(), 
+                            0, 2f, 100, default, 2.5f 
+                        );
+                        Main.dust[dustFire2].noGravity = true;
+                        Main.dust[dustFire2].velocity *= 0.5f;
+                        Main.dust[dustSmoke2].noGravity = true;
+                        Main.dust[dustSmoke2].velocity *= 0.5f;
+                        
                     }
                 }
            

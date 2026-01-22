@@ -9,6 +9,8 @@ using MyHeroMod.content.System;
 using Terraria.Audio;
 using System.Collections.Generic;
 using MyHeroMod.content.Quirks.HellFlames.Buffs;
+using MyHeroMod.content.Debuffs;
+using MyHeroMod.content.Items.Support;
 
 namespace MyHeroMod.content.Quirks.HellFlames
 {
@@ -18,6 +20,10 @@ namespace MyHeroMod.content.Quirks.HellFlames
 
         public int MaxHeat = 100;
         public int CurrentHeat = 0;
+        public int temperatureTimer = 0;
+
+        public bool IsCombatVestAlphaOn = false;
+        public bool IsCombatVestBetaOn = false;
 
         
 
@@ -32,19 +38,26 @@ namespace MyHeroMod.content.Quirks.HellFlames
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
+            if (mainPlayer.SelectedQuirk != QuirkType.HellFlames)  
+                return;
+
             if (IsFlashFireFistActive)
             {
                 Player.AddBuff(ModContent.BuffType<Buffs.FlashFireFistBuff>(), 2);
-                
-                
             }
+                
+            if (CurrentHeat >= MaxHeat)
+            {
+                Player.AddBuff(ModContent.BuffType<Heatstroke>(), 2);
+            }
+                
+           
             if (CurrentHeat > 0)
             {
                 Player.AddBuff(ModContent.BuffType<Heat>(), 2);
             }
 
-            if (mainPlayer.SelectedQuirk != QuirkType.HellFlames)  
-                return;
+            
 
             // Verifica se a individualidade atual é Hell Flames
             if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.SelectedQuirk == QuirkType.HellFlames)
@@ -115,6 +128,35 @@ namespace MyHeroMod.content.Quirks.HellFlames
                     }
                 }
             }
+             if (CurrentHeat != 0)
+{
+    temperatureTimer++;
+
+    
+    if (temperatureTimer >= 60)
+    {
+        temperatureTimer = 0;
+        
+        
+        int recoveryRate = 1;
+
+        
+        if (IsCombatVestAlphaOn) recoveryRate += 1; 
+        if (IsCombatVestBetaOn)  recoveryRate += 5; 
+
+        
+        if (CurrentHeat > 0)
+        {
+            CurrentHeat -= recoveryRate;
+            
+            if (CurrentHeat < 0) CurrentHeat = 0;
+        }
+    }
+}
+else
+{
+    temperatureTimer = 0;
+}
         }
     }
 }

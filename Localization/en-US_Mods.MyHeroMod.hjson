@@ -157,6 +157,16 @@ Items: {
 		Tooltip: ""
 		DisplayName: Combat Vest Beta
 	}
+
+	GrenadierBracers: {
+		DisplayName: Grenadier Bracers
+		Tooltip: ""
+	}
+
+	FirstBakugoLeggings: {
+		DisplayName: First Bakugo Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -308,4 +318,5 @@ Projectiles: {
 	IceThrowerController.DisplayName: Ice Thrower Controller
 	IceShotProj.DisplayName: Ice Shot Proj
 	IceThrowerProj.DisplayName: Ice Thrower Proj
+	FullPowerProj.DisplayName: Full Power Proj
 }

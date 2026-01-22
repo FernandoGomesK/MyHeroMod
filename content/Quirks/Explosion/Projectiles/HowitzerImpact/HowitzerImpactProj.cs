@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using MyHeroMod.content.Dusts;
 
 // 1. Simplifiquei o namespace para ficar fácil de achar
 namespace MyHeroMod.content.Quirks.Explosion.Projectiles
@@ -93,6 +94,17 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
                 int d2 =Dust.NewDust(player.position, player.width, player.height, DustID.Ash, 0, 0, 100, default, 6f);
                 Main.dust[d2].noGravity = true;
                 Main.dust[d2].velocity = player.velocity;
+
+
+
+                var quirkPlayer = player.GetModPlayer<ExplosionPlayer>();
+        
+                if (quirkPlayer.IsClusterActive == true){
+
+                int d3 =Dust.NewDust(player.position, player.width, player.height, ModContent.DustType<ClusterDust>(), 0, 0, 100, default, 6f);
+                Main.dust[d2].noGravity = true;
+                Main.dust[d2].velocity = player.velocity;
+                }
             }
         }
 
