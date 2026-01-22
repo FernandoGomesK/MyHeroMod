@@ -39,7 +39,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
             
             if (CurrentHeat >= MaxHeat)
             {
-                int steam = Dust.NewDust(Player.position, Player.width, Player.height, DustID.SteampunkSteam, 0f, 0f, 100, Color.WhiteSmoke, 1f);
+                int steam = Dust.NewDust(Player.position, Player.width, Player.height, DustID.SteampunkSteam, 0f, 0f, 100, Color.White, 1f);
                 Main.dust[steam].noGravity = false;
                 Main.dust[steam].velocity *= 1f;
                 Main.dust[steam].velocity += Player.velocity * 0.5f;
