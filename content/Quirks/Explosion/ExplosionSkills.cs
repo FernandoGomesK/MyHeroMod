@@ -159,6 +159,15 @@ namespace MyHeroMod.content.Quirks.Explosion
             if (Player.ownedProjectileCounts[ModContent.ProjectileType<ApMachineGunProj>()] > 0)
             return;
 
+            if (Player.GetModPlayer<TransformationPlayer>().CurrentStage >= QuirkStage.Advanced)
+            {
+                CombatText.NewText(Player.getRect(), Color.Orange, "AP MACHINE GUN!");
+            }
+            else
+            {
+                CombatText.NewText(Player.getRect(), Color.Orange, "AP-SHOT: AUTO-CANNON!");
+            }
+
             Vector2 direction = Main.MouseWorld - Player.Center;
             direction.Normalize();
 

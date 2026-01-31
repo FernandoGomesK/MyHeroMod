@@ -16,6 +16,7 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
             Projectile.friendly = false;
             Projectile.tileCollide = false;
             Projectile.hide = true;
+            Projectile.alpha = 255;
             // DURAÇÃO DO ATAQUE: 300 ticks = 5 Segundos
             Projectile.timeLeft = 300; 
             
@@ -25,6 +26,8 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
+             var transPlayer = player.GetModPlayer<TransformationPlayer>();
+            var explodePlayer = player.GetModPlayer<ExplosionPlayer>();
             
             if (!player.active || player.dead)
             {
@@ -55,10 +58,19 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
             // 2. DISPARO CONTÍNUO (Gatling Gun de Fogo)
             Projectile.ai[0]++;
             
-            
+            int shootSpeed = 0;
+            if (transPlayer.CurrentStage >= QuirkStage.Advanced)
+            {
+                shootSpeed = 5;
+            }
+            else
+            {
+                shootSpeed = 10;
+            }
 
             // Atira a cada 3 frames (MUITO RÁPIDO)
-            if (Projectile.ai[0] % 10 == 0) 
+
+            if (Projectile.ai[0] % shootSpeed == 0) 
             {
                 if (Projectile.ai[0] % 10 == 0) // Som não toca todo frame pra não travar áudio
                     SoundEngine.PlaySound(SoundID.Item14, player.position);

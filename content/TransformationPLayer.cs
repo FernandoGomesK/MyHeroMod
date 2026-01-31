@@ -91,7 +91,7 @@ namespace MyHeroMod.content
             
 
         }
-    public enum QuirkType{ Quirkless, OneForAll9th, OneForAll8th, Explosion, HellFlames, BlueFlames, HalfColdHalfHot }
+    public enum QuirkType{ Quirkless, OneForAll9th, OneForAll8th, Explosion, HellFlames, BlueFlames, HalfColdHalfHot, Float, Gearshift, FaJin }
     public enum QuirkStage{ Initial, Adequation, Intermediate, Advanced, Final }
     public class TransformationPlayer : ModPlayer
     {
