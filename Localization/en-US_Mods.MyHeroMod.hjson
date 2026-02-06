@@ -167,6 +167,16 @@ Items: {
 		DisplayName: First Bakugo Leggings
 		Tooltip: ""
 	}
+
+	UAShirt: {
+		DisplayName: U A Shirt
+		Tooltip: ""
+	}
+
+	UAPants: {
+		DisplayName: U A Pants
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -259,6 +269,11 @@ Buffs: {
 		Description: Mods.MyHeroMod.Buffs.FrostBite.Description
 		DisplayName: Frost Bite
 	}
+
+	OvertimeBuff: {
+		DisplayName: Overtime Buff
+		Description: Mods.MyHeroMod.Buffs.OvertimeBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -319,4 +334,5 @@ Projectiles: {
 	IceShotProj.DisplayName: Ice Shot Proj
 	IceThrowerProj.DisplayName: Ice Thrower Proj
 	FullPowerProj.DisplayName: Full Power Proj
+	KickAttackProj.DisplayName: Kick Attack Proj
 }

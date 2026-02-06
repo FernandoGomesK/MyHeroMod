@@ -87,11 +87,13 @@ namespace MyHeroMod.content
             ApMachineGun,
             HowitzerImpact,
             Cluster,
+            // Danger Sense-----------------------------------------------------------------------------------------------------
+            DangerActivate,
 
             
 
         }
-    public enum QuirkType{ Quirkless, OneForAll9th, OneForAll8th, Explosion, HellFlames, BlueFlames, HalfColdHalfHot, Float, Gearshift, FaJin }
+    public enum QuirkType{ Quirkless, OneForAll9th, OneForAll8th, Explosion, HellFlames, BlueFlames, HalfColdHalfHot, Float, Gearshift, FaJin, SmokeScreen, DangerSense }
     public enum QuirkStage{ Initial, Adequation, Intermediate, Advanced, Final }
     public class TransformationPlayer : ModPlayer
     {
@@ -106,6 +108,37 @@ namespace MyHeroMod.content
         public QuirkSkills Slot2 = QuirkSkills.DelawareSmash;
         public QuirkSkills Slot3 = QuirkSkills.None;
         public QuirkSkills TransformSlot = QuirkSkills.OneForAllFullCowling5;
+
+        public float DodgeChance = 0f;
+
+        public override void ResetEffects()
+        {
+            DodgeChance = 0f;
+        }
+
+        public override bool FreeDodge(Player.HurtInfo info)
+        {
+            if (DodgeChance > 0)
+            {
+                if (Main.rand.NextFloat() < DodgeChance)
+                {
+                    Player.SetImmuneTimeForAllTypes(80); // Invencibilidade longa
+                
+                // Fumaça
+                for (int i = 0; i < 20; i++)
+                {
+                    int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Smoke, 0, 0, 100, default, 2f);
+                    Main.dust[d].velocity *= 2f;
+                }
+                
+                CombatText.NewText(Player.getRect(), Color.LightGreen, "DANGER SENSE!", true);
+
+                return true; // Retornar TRUE bloqueia o dano
+                }
+            }
+            return false;
+
+        }
     
 
     public override void SaveData(TagCompound tag)

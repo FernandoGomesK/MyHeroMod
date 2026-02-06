@@ -32,9 +32,10 @@ namespace MyHeroMod.content.Items.Weapons
             Item.rare = ItemRarityID.White;
             Item.autoReuse = true;  // Segurar bate continuamente
             
-            
-            // Removemos o projétil de fogo
+             
             Item.shoot = ModContent.ProjectileType<PunchAttackProj>(); 
+                
+            
             Item.shootSpeed = 25f;
 
             Item.useTurn = true;    // Pode virar enquanto bate

@@ -530,9 +530,19 @@ namespace MyHeroMod.content.System
                 }
                 });
 
-                // 
+                // Danger Sense
+                SkillList.Add(QuirkSkills.DangerActivate, new SkillInfo
+                {
+                    Name = "Danger Sense / Overtime",
+                    Description = "Heighten your senses.",
+                    IconPath = "MyHeroMod/Assets/Skills/DangerSense/DangerActivate",
+                    MinStage = QuirkStage.Initial,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.DangerSense, 
+                }
                 
-            }
+                
+            });
+            }}}
 
-    }
-}
+    

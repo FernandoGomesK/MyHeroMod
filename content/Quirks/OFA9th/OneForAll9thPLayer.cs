@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.OFA9th.Buffs;
+using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles.BlackWhip;
 using MyHeroMod.content.System;
