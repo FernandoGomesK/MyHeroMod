@@ -40,6 +40,34 @@ namespace MyHeroMod.content.Quirks.FaJin;
                 FaJinStored = false;
             }
         }
+        public override void PostUpdateMiscEffects()
+{
+   
+    if (FaJinStored) 
+    {
+        
+        if (Player.controlJump && Player.velocity.Y == 0 && Player.releaseJump)
+        {
+            
+            Player.velocity.Y = -25f; 
+
+           
+            FaJinCharges = 0;
+            FaJinStored = false;
+
+            
+            Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Item14, Player.position); 
+            CombatText.NewText(Player.getRect(), Microsoft.Xna.Framework.Color.Red, "FA JIN!");
+            
+            for (int i = 0; i < 30; i++)
+            {
+                int d = Dust.NewDust(Player.position + new Microsoft.Xna.Framework.Vector2(0, Player.height - 5), Player.width, 10, Terraria.ID.DustID.RedTorch, 0, 0, 100, default, 2f);
+                Main.dust[d].velocity *= 3f; 
+                Main.dust[d].noGravity = true;
+            }
+        }
+    }
+}
 
         
 
