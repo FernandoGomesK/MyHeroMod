@@ -24,6 +24,9 @@ namespace MyHeroMod.content.Quirks.DangerSense;
 
         public int overtimeTimer = 0;
         public int overtimeMaxTimer = 220;
+        
+        public int VisualTimer = 0;
+        public int VisualMaxTimer = 8;
 
         
 
@@ -58,13 +61,6 @@ namespace MyHeroMod.content.Quirks.DangerSense;
             {
                 Player.AddBuff(ModContent.BuffType<DangerSenseBuff>(),10 );
             }
-
-            
-            
-
-            
-            
-           
         }
 
         
@@ -76,6 +72,10 @@ namespace MyHeroMod.content.Quirks.DangerSense;
 
             // Verifica se é Explosão e se o estágio é Adequation ou maior
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            if ( transPlayer.SelectedQuirk == QuirkType.DangerSense && transPlayer.CurrentStage >= QuirkStage.Adequation)
+        {
+            IsDangerSenseActive = true;
+        }
 
             // Verifica se é Explosão e se o estágio é Adequation ou maior
             
@@ -88,10 +88,20 @@ namespace MyHeroMod.content.Quirks.DangerSense;
             {
                 if (SkillCooldowns[skill] > 0) SkillCooldowns[skill]--;
             }
+            if (VisualTimer > 0)
+            {
+                VisualTimer--;
+            }
         }
         public override void PostUpdate()
         {
+            
            
+        }
+
+        public void triggerVisual()
+    {
+        VisualTimer = VisualMaxTimer;
     }
     }
     

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Fernando Gomes\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MyHeroMod\\MyHeroMod.csproj": {}
+    "H:\\Users\\ferna\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MyHeroMod\\MyHeroMod.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Fernando Gomes\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MyHeroMod\\MyHeroMod.csproj": {
+    "H:\\Users\\ferna\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MyHeroMod\\MyHeroMod.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Fernando Gomes\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MyHeroMod\\MyHeroMod.csproj",
+        "projectUniqueName": "H:\\Users\\ferna\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MyHeroMod\\MyHeroMod.csproj",
         "projectName": "MyHeroMod",
-        "projectPath": "C:\\Users\\Fernando Gomes\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MyHeroMod\\MyHeroMod.csproj",
-        "packagesPath": "C:\\Users\\Fernando Gomes\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Fernando Gomes\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MyHeroMod\\obj\\",
+        "projectPath": "H:\\Users\\ferna\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MyHeroMod\\MyHeroMod.csproj",
+        "packagesPath": "C:\\Users\\ferna\\.nuget\\packages\\",
+        "outputPath": "H:\\Users\\ferna\\Documents\\My Games\\Terraria\\tModLoader\\ModSources\\MyHeroMod\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Fernando Gomes\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\ferna\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

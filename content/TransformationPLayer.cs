@@ -7,6 +7,9 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.GameInput;
 using MyHeroMod;
+using MyHeroMod.content.Quirks.DangerSense;
+using Terraria.Audio;
+using MyHeroMod.content.Quirks.OFA9th.Visuals;
 
 
 
@@ -122,16 +125,15 @@ namespace MyHeroMod.content
             {
                 if (Main.rand.NextFloat() < DodgeChance)
                 {
-                    Player.SetImmuneTimeForAllTypes(80); // Invencibilidade longa
+                    Player.SetImmuneTimeForAllTypes(40); // Invencibilidade longa
                 
                 // Fumaça
-                for (int i = 0; i < 20; i++)
-                {
-                    int d = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Smoke, 0, 0, 100, default, 2f);
-                    Main.dust[d].velocity *= 2f;
-                }
                 
-                CombatText.NewText(Player.getRect(), Color.LightGreen, "DANGER SENSE!", true);
+
+                Player.GetModPlayer<DangerSensePlayer>().triggerVisual();
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound"), Player.position);
+                
+            
 
                 return true; // Retornar TRUE bloqueia o dano
                 }
