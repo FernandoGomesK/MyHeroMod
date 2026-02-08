@@ -203,6 +203,7 @@ namespace MyHeroMod.content.System
                     MinStage = QuirkStage.Intermediate,
                     RelatedQuirks = new List<QuirkType> { 
                     QuirkType.OneForAll9th, 
+                    QuirkType.FaJin
                 }
                 });
                 SkillList.Add(QuirkSkills.DangerSense, new SkillInfo
