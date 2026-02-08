@@ -223,7 +223,8 @@ namespace MyHeroMod.content.System
                     IconPath = "MyHeroMod/Assets/Skills/OFA9th/Gearshift",
                     MinStage = QuirkStage.Advanced,
                     RelatedQuirks = new List<QuirkType> { 
-                    QuirkType.OneForAll9th, 
+                    QuirkType.OneForAll9th,
+                    QuirkType.Gearshift 
                 }
                 });
 
