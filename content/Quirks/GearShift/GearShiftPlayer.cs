@@ -162,7 +162,20 @@ namespace MyHeroMod.content.Quirks.Gearshift;
         {
         }
 
-        
+        public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+{
+    // Verifica se o Buff do Gearshift está ativo
+    if (isGearshiftBuffActive)
+    {
+        // AUMENTAR VELOCIDADE
+        // Multiplica por 2.5x (MUITO rápido, como o Gearshift deve ser)
+        velocity *= 2.5f; 
+
+        // AUMENTAR DANO
+        // Aumenta o dano base do projétil em +30%
+        damage = (int)(damage * 1.3f); 
+    }
+}
 
         
     }
