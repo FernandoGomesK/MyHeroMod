@@ -9,8 +9,8 @@ using Terraria.GameInput;
 using MyHeroMod;
 using MyHeroMod.content.Quirks.DangerSense;
 using Terraria.Audio;
-using System.Collections.Generic; // Necessário para List<>
-using MyHeroMod.content.System;   // Necessário para acessar SkillData
+using System.Collections.Generic; 
+using MyHeroMod.content.System;   
 
 namespace MyHeroMod.content
 {
@@ -58,10 +58,10 @@ namespace MyHeroMod.content
         
         public QuirkSkills ActiveForm = QuirkSkills.None;
 
-        public QuirkSkills Slot1 = QuirkSkills.SuperJump;
-        public QuirkSkills Slot2 = QuirkSkills.DelawareSmash;
+        public QuirkSkills Slot1 = QuirkSkills.None;
+        public QuirkSkills Slot2 = QuirkSkills.None;
         public QuirkSkills Slot3 = QuirkSkills.None;
-        public QuirkSkills TransformSlot = QuirkSkills.OneForAllFullCowling5;
+        public QuirkSkills TransformSlot = QuirkSkills.None;
 
         // Lista de skills desbloqueadas
         public List<QuirkSkills> UnlockedSkills = new List<QuirkSkills>();
@@ -93,14 +93,14 @@ namespace MyHeroMod.content
                     // Se eu sou o usuário de Gearshift Puro
                     if (this.SelectedQuirk == QuirkType.Gearshift && skillId == QuirkSkills.Gearshift)
                     {
-                        UnlockedSkills.Add(skillId);
+                        UnlockedSkills.Add(QuirkSkills.Gearshift);
                         continue; 
                     }
                     
                     // Se eu sou o usuário de Danger Sense Puro
                     if (this.SelectedQuirk == QuirkType.DangerSense && skillId == QuirkSkills.DangerActivate)
                     {
-                         UnlockedSkills.Add(skillId);
+                         UnlockedSkills.Add(QuirkSkills.DangerActivate);
                          continue;
                     }
 
