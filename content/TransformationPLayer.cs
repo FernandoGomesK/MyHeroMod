@@ -9,95 +9,46 @@ using Terraria.GameInput;
 using MyHeroMod;
 using MyHeroMod.content.Quirks.DangerSense;
 using Terraria.Audio;
-using MyHeroMod.content.Quirks.OFA9th.Visuals;
-
-
-
+using System.Collections.Generic; // Necessário para List<>
+using MyHeroMod.content.System;   // Necessário para acessar SkillData
 
 namespace MyHeroMod.content
 {
-    
-     public enum QuirkSkills
-        {
-            None,
-            // Ofa
-            SuperJump,
+    // --- ENUMS ---
+    public enum QuirkSkills
+    {
+        None,
+        // Ofa
+        SuperJump,
 
-            // Ofa 8th
-            PrimeDetroitSmash,
-            PrimeCaliforniaSmash,
-            PrimeTexasSmash,
-            PrimeCarolinaSmash,
-            StockPile,
-            StockPileMaximum,
+        // Ofa 8th
+        PrimeDetroitSmash, PrimeCaliforniaSmash, PrimeTexasSmash, PrimeCarolinaSmash, StockPile, StockPileMaximum,
 
+        // Ofa 9th
+        DelawareSmash, DetroitSmash, OneForAllFullCowling5, OneForAllFullCowling8, OneForAllFullCowling45,
+        BlackWhipHook, OneForAllFullCowling100, BlackWhipSurge, Float, DangerSense, FaJinStore, SmokeScreen, Gearshift,
 
-            // Ofa 9th
-            DelawareSmash,
-            DetroitSmash,
-            OneForAllFullCowling5, // Full Cowling 5%
-            OneForAllFullCowling8, // Full Cowling 8%
-            OneForAllFullCowling45, // Full Cowling 45%
-            BlackWhipHook, 
-            OneForAllFullCowling100, // Full Cowling 100%
-            BlackWhipSurge,
-            Float,
-            DangerSense,
-            FaJinStore,
-            SmokeScreen,
-            Gearshift,
+        // Hell Flames
+        FlashFireFist, ProminenceBurn, JetBurn, HellSpider, IgnitedArrow,
 
-            // Hell Flames -------------------------------------------------------------------------------------------------------------------
+        // Blue Flames
+        BlueFlashFireFist, BlueRage, BluePhosphor, BlueFireWave, BlueHellMineField, BlueProminenceBurn,
+        BlueFireBall, BlueVanishingFist, BlueFlamethrower, BlueJetBurn, BlueHellSpider,
 
-            FlashFireFist,
-            ProminenceBurn,
-            JetBurn,
-            HellSpider,
-            IgnitedArrow,
+        // HCHH
+        HCFireFist, HeavenPiercingWall, FlashFreezeHeatWave, JetKindling, HCHellSpider, HCPhosphor,
 
-            // Blue Flames ---------------------------------------------------------------------------------------------------------- 
+        // Explosion
+        ExplosionBlast, StunGrenade, FullPowerBlast, ApShot, ApMachineGun, HowitzerImpact, Cluster,
 
-            BlueFlashFireFist,
-            BlueRage,
-            BluePhosphor,
-            BlueFireWave,
-            BlueHellMineField,
-            BlueProminenceBurn,
-            BlueFireBall,
-            BlueVanishingFist,
-            BlueFlamethrower,
-            BlueJetBurn,
-            BlueHellSpider,
+        // Danger Sense
+        DangerActivate
+    }
 
+    public enum QuirkType { Quirkless, OneForAll9th, OneForAll8th, Explosion, HellFlames, BlueFlames, HalfColdHalfHot, Float, Gearshift, FaJin, SmokeScreen, DangerSense }
+    public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 
-            //HCHH -----------------------------------------------------------------------------------------------------------------------
-            HCFireFist,
-
-            HeavenPiercingWall,
-            FlashFreezeHeatWave,
-            JetKindling,
-            HCHellSpider,
-            HCPhosphor,
-
-
-            
-
-            // Explosion
-            ExplosionBlast,
-            StunGrenade,
-            FullPowerBlast,
-            ApShot,
-            ApMachineGun,
-            HowitzerImpact,
-            Cluster,
-            // Danger Sense-----------------------------------------------------------------------------------------------------
-            DangerActivate,
-
-            
-
-        }
-    public enum QuirkType{ Quirkless, OneForAll9th, OneForAll8th, Explosion, HellFlames, BlueFlames, HalfColdHalfHot, Float, Gearshift, FaJin, SmokeScreen, DangerSense }
-    public enum QuirkStage{ Initial, Adequation, Intermediate, Advanced, Final }
+    // --- CLASSE DO JOGADOR ---
     public class TransformationPlayer : ModPlayer
     {
         public QuirkType SelectedQuirk = QuirkType.Quirkless;
@@ -112,11 +63,54 @@ namespace MyHeroMod.content
         public QuirkSkills Slot3 = QuirkSkills.None;
         public QuirkSkills TransformSlot = QuirkSkills.OneForAllFullCowling5;
 
+        // Lista de skills desbloqueadas
+        public List<QuirkSkills> UnlockedSkills = new List<QuirkSkills>();
+
         public float DodgeChance = 0f;
 
         public override void ResetEffects()
         {
             DodgeChance = 0f;
+        }
+
+        // --- MÉTODO DE ATUALIZAR SKILLS (Agora dentro da classe!) ---
+        public void UpdateUnlockedSkills()
+        {
+            // Limpa skills antigas
+            UnlockedSkills.Clear();
+
+            // Percorre todas as skills do jogo
+            foreach (var skillEntry in SkillData.SkillList)
+            {
+                var skillId = skillEntry.Key;
+                var info = skillEntry.Value;
+
+                // 1. Verifica se a Quirk do jogador bate com a skill
+                if (info.RelatedQuirks.Contains(this.SelectedQuirk))
+                {
+                    // 2. LÓGICA DE EXCEÇÃO (Desbloqueio Antecipado)
+                    
+                    // Se eu sou o usuário de Gearshift Puro
+                    if (this.SelectedQuirk == QuirkType.Gearshift && skillId == QuirkSkills.Gearshift)
+                    {
+                        UnlockedSkills.Add(skillId);
+                        continue; 
+                    }
+                    
+                    // Se eu sou o usuário de Danger Sense Puro
+                    if (this.SelectedQuirk == QuirkType.DangerSense && skillId == QuirkSkills.DangerActivate)
+                    {
+                         UnlockedSkills.Add(skillId);
+                         continue;
+                    }
+
+                    // 3. Verificação Padrão por Estágio
+                    if (this.CurrentStage >= info.MinStage)
+                    {
+                        UnlockedSkills.Add(skillId);
+                    }
+                }
+            }
         }
 
         public override bool FreeDodge(Player.HurtInfo info)
@@ -127,23 +121,21 @@ namespace MyHeroMod.content
                 {
                     Player.SetImmuneTimeForAllTypes(40); // Invencibilidade longa
                 
-                // Fumaça
-                
+                    // Tenta chamar o efeito visual do Danger Sense (se o ModPlayer existir)
+                    try {
+                        // Player.GetModPlayer<DangerSensePlayer>().triggerVisual(); // Descomente se tiver esse método
+                    } catch { /* Ignora se der erro */ }
 
-                Player.GetModPlayer<DangerSensePlayer>().triggerVisual();
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound"), Player.position);
-                
-            
-
-                return true; // Retornar TRUE bloqueia o dano
+                    SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound"), Player.position);
+                    
+                    return true; // Retornar TRUE bloqueia o dano
                 }
             }
             return false;
-
         }
-    
 
-    public override void SaveData(TagCompound tag)
+        // --- SAVE & LOAD ---
+        public override void SaveData(TagCompound tag)
         {
             tag["SelectedQuirk"] = (int)SelectedQuirk;
             tag["CurrentStage"] = (int)CurrentStage;
@@ -153,9 +145,7 @@ namespace MyHeroMod.content
             tag["TransformSlot"] = (int)TransformSlot;
         }
 
-    public override void LoadData(TagCompound tag)
-
-    
+        public override void LoadData(TagCompound tag)
         {
             if (tag.ContainsKey("SelectedQuirk")) SelectedQuirk = (QuirkType)tag.GetInt("SelectedQuirk");
             if (tag.ContainsKey("CurrentStage")) CurrentStage = (QuirkStage)tag.GetInt("CurrentStage");
@@ -163,56 +153,55 @@ namespace MyHeroMod.content
             if (tag.ContainsKey("Slot2")) Slot2 = (QuirkSkills)tag.GetInt("Slot2");
             if (tag.ContainsKey("Slot3")) Slot3 = (QuirkSkills)tag.GetInt("Slot3");
             if (tag.ContainsKey("TransformSlot")) TransformSlot = (QuirkSkills)tag.GetInt("TransformSlot");
+            
+            // Recalcula o que está desbloqueado ao entrar no mundo
+            UpdateUnlockedSkills();
         }
+
+        // --- INPUTS (Menu de Skills) ---
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         {
-            // Agora com o "using MyHeroMod;" acima, o UISystem será encontrado.
             if (KeybindSystem.SkillMenu.JustPressed)
             {
                 UISystem.ToggleSkillMenu();
             }   
         }
+
+        // --- ATUALIZAÇÃO (Evolução Automática) ---
         public override void PreUpdate()
-{
-    // Exemplo: Evolução automática baseada em progresso
-    var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+        {
+            // O próprio Player já é 'Player', não precisa pegar GetModPlayer de si mesmo para variáveis locais
+            // Mas para garantir que estamos a mexer na instância certa:
+            
+            if (!ManualStageOverride)
+            {
+                // Guarda o estágio antigo para ver se mudou
+                var oldStage = CurrentStage;
 
-    if (!mainPlayer.ManualStageOverride)
-    {
-                
-           
-    // Se matou o Moon Lord -> Estágio Final
-    if (NPC.downedMoonlord)
-    {
-        mainPlayer.CurrentStage = QuirkStage.Final;
+                // Lógica de Evolução
+                if (NPC.downedMoonlord)
+                {
+                    CurrentStage = QuirkStage.Final;
+                }
+                else if (NPC.downedPlantBoss)
+                {
+                    CurrentStage = QuirkStage.Advanced;
+                }
+                else if (Main.hardMode)
+                {
+                    CurrentStage = QuirkStage.Intermediate;
+                }
+                else 
+                {
+                    CurrentStage = QuirkStage.Adequation;
+                }
+
+                // Se o estágio mudou, recalcula as skills
+                if (oldStage != CurrentStage)
+                {
+                    UpdateUnlockedSkills();
+                }
+            }
+        }
     }
-    // Se matou Plantera -> Estágio Avançado
-    else if (NPC.downedPlantBoss)
-    {
-        mainPlayer.CurrentStage = QuirkStage.Advanced;
-    }
-    // Se entrou no Hardmode -> Estágio Intermediário
-    else if (Main.hardMode)
-    {
-        mainPlayer.CurrentStage = QuirkStage.Intermediate;
-    }
-    // Padrão -> Adequation
-    else 
-    {
-        mainPlayer.CurrentStage = QuirkStage.Adequation;
-    }
-     }
-    
-    // ... resto do seu código ...
 }
-    }
-
-    
-}
-        
-        
-    
-    
-    
-
-  

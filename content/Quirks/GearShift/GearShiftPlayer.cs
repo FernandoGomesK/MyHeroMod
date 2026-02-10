@@ -5,179 +5,109 @@ using System.Collections.Generic;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.System;
 
-
-namespace MyHeroMod.content.Quirks.Gearshift;
-
+namespace MyHeroMod.content.Quirks.Gearshift
+{
+    // PARTE 1: DADOS E LÓGICA
     public partial class GearshiftPlayer : ModPlayer
     {
-        public bool isGearshiftActive = false;
-        public bool isGearshiftBuffActive = false;
-        public int GearshiftTimer = 0;
-        public int GearshiftMaxTime = 6000;
-        // Gearshift Buff
-        public bool GearActivation = false;
-
-        public int ActivationTimer = 0;
-        public int ActivationMaxTime = 40;
-
+        // Variáveis de Estado
         
+        public bool isGearshiftActive = false;
+        public bool isGearshiftBuffActive = false; // Controlado pelo Buff
+        
+        // Variáveis de Carregamento (Nomes compatíveis com OverdriveLayer)
+        public bool GearActivation = false; // Substitui isCharging
+        public int ActivationTimer = 0;     // Substitui chargeTimer
+        public int ActivationMaxTime = 40;  
+
         public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
 
-       
-        
+        public override void OnRespawn() => ResetAll();
 
-
-        public override void OnRespawn()
+        public void ResetAll()
         {
-            
-            GearshiftTimer = 0;
+            isGearshiftActive = false;
+            isGearshiftBuffActive = false;
+            GearActivation = false;
             ActivationTimer = 0;
+            SkillCooldowns.Clear();
         }
-
-        
-
-        public override void PostUpdateEquips()
-        {
-            
-        }
-        
-        
-    
-
-
-        
 
         public override void ResetEffects()
         {
-            
-            var ModPlayer = Player.GetModPlayer<TransformationPlayer>();
-
-            // Verifica se é Explosão e se o estágio é Adequation ou maior
-            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-            
+            // Reseta todo frame. O GearshiftBuff.cs vai colocar como true se estiver ativo.
+            isGearshiftBuffActive = false; 
         }
-        
+
         public override void PreUpdate()
-        {
-            
+        { 
+            // 1. Gerencia Cooldowns
             List<QuirkSkills> keys = new List<QuirkSkills>(SkillCooldowns.Keys);
             foreach (var skill in keys)
             {
                 if (SkillCooldowns[skill] > 0) SkillCooldowns[skill]--;
             }
-
-             if (ActivationTimer > 0)
+            // 2. Lógica de Carregamento
+            if (GearActivation)
             {
                 ActivationTimer++;
-                Player.velocity *= 0.6f; // Efeito de "carregar" (freia o jogador)
-
-                // Visual durante o carregamento
-                if (GearActivation)
+                Player.velocity *= 0.8f; // Freia o jogador
+                
+                // Partículas durante o carregamento
+                if (Main.rand.NextBool(2))
                 {
-                    // Partículas Ciano para Gearshift
-                    if (Main.rand.NextBool(2))
-                    {
-                        Dust d = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, Color.Cyan, 0.3f);
-                        d.velocity *= 2f;
-                        d.noGravity = true;
-                    }
+                    Dust d = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, Color.Cyan, 0.5f);
+                    d.noGravity = true;
+                    d.velocity *= 0.5f;   
                 }
 
-                // Transformação Completa
+                // Terminou de carregar?
                 if (ActivationTimer >= ActivationMaxTime)
                 {
-                   int buffTime = 0;
-                   var transformPlayer = Player.GetModPlayer<TransformationPlayer>();
-                   var gearPlayer = Player.GetModPlayer<GearshiftPlayer>();
-            
-            
-            
-            
-
-            switch(transformPlayer.CurrentStage){
-                case QuirkStage.Initial:
-                
-                buffTime = 187; 
-                break;
-            
-                case QuirkStage.Adequation:
-                buffTime = 375; 
-                break;
-          
-                case QuirkStage.Intermediate:
-                buffTime = 750; 
-                break;
-            
-                case QuirkStage.Advanced:
-                buffTime = 1500; 
-                break;
-          
-                case QuirkStage.Final:
-                buffTime = 3000; 
-                break;
-        
-                default:
-                buffTime = 6000;
-                break;
-                    
-            }
-
-                   
-                    
-
-                    // 2. Se for Gearshift
-                    if (GearActivation)
-                    {
-                        isGearshiftActive = true;
-                        GearActivation = false;
-                        GearshiftTimer = 0;
-
-                        // EFEITOS FINAIS DA ATIVAÇÃO
-                        Main.NewText("ONE FOR ALL 2ND - GEARSHIFT: TRANSMISSION !", Color.Cyan);
-                        CombatText.NewText(Player.getRect(), Color.Cyan, "SECOND GEAR");
-                        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/GearShiftSound"), Player.position);
-
-                        // Explosão de partículas
-                        for (int i = 0; i < 20; i++)
-                        {
-                            Vector2 speed = Main.rand.NextVector2Circular(5f, 5f);
-                            Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, speed.X, speed.Y, 0, Color.Cyan, 2f);
-                        }
-
-
-
-                        Player.AddBuff(ModContent.BuffType<GearshiftBuff>(), buffTime);
-
-
-                    }
+                    ActivateGearshift();
+                    GearActivation = false;
                     ActivationTimer = 0;
-
-                    
                 }
             }
-           
         }
-        public override void PostUpdate()
+        private void ActivateGearshift()
         {
+            var transformPlayer = Player.GetModPlayer<TransformationPlayer>();
+            int buffDuration = 180;
+
+            switch(transformPlayer.CurrentStage)
+            {
+                case QuirkStage.Initial: buffDuration = 187; break;
+                case QuirkStage.Adequation: buffDuration = 375; break;
+                case QuirkStage.Intermediate: buffDuration = 750; break;
+                case QuirkStage.Advanced: buffDuration = 1500; break;
+                case QuirkStage.Final: buffDuration = 3000; break;
+                default: buffDuration = 6000; break;
+            }
+
+            // Adiciona o Buff e Toca os Efeitos
+            Player.AddBuff(ModContent.BuffType<GearshiftBuff>(), buffDuration);
+            Main.NewText("ONE FOR ALL 2ND - GEARSHIFT: TRANSMISSION!", Color.Cyan);
+            CombatText.NewText(Player.getRect(), Color.Cyan, "SECOND GEAR");
+            
+
+            // Explosão de partículas
+            for (int i = 0; i < 20; i++)
+            {
+                Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
+                Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, speed.X, speed.Y, 0, Color.Cyan, 2f);
+            }
         }
 
         public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-{
-    // Verifica se o Buff do Gearshift está ativo
-    if (isGearshiftBuffActive)
-    {
-        // AUMENTAR VELOCIDADE
-        // Multiplica por 2.5x (MUITO rápido, como o Gearshift deve ser)
-        velocity *= 2.5f; 
-
-        // AUMENTAR DANO
-        // Aumenta o dano base do projétil em +30%
-        damage = (int)(damage * 1.3f); 
+        {
+            if (isGearshiftBuffActive)
+            {
+                velocity *= 2.5f; 
+                damage = (int)(damage * 1.3f); 
+            }
+        }
     }
 }
-
-        
-    }
-    
-

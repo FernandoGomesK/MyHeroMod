@@ -2,30 +2,25 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.Audio;
-
 
 namespace MyHeroMod.content.Quirks.Gearshift
 {
+    // PARTE 3: VISUAIS
     public partial class GearshiftPlayer : ModPlayer
     {
-        
         public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
         {
-        
-        if (isGearshiftActive)
-        {
-        // This adds a blue tint/glow to the character sprite itself
-        drawInfo.colorArmorBody = Color.RoyalBlue;
-        drawInfo.colorArmorHead = Color.RoyalBlue;
-        drawInfo.colorArmorLegs = Color.RoyalBlue;
-        
-        // This creates a "God Mode" style afterimage trail which looks like a contour
-        Player.armorEffectDrawShadow = true; 
-        // Player.armorEffectDrawOutlines = true; // This forces a faint outline
-        }
-        
+            // Usa isGearshiftBuffActive para só aparecer quando a skill está realmente ligada
+            if (isGearshiftBuffActive)
+            {
+                // Tinge o jogador de Azul
+                drawInfo.colorArmorBody = Color.RoyalBlue;
+                drawInfo.colorArmorHead = Color.RoyalBlue;
+                drawInfo.colorArmorLegs = Color.RoyalBlue;
+                
+                // Cria o efeito de rastro "God Mode"
+                Player.armorEffectDrawShadow = true; 
+            }
         }
     }
 }

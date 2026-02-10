@@ -23,18 +23,17 @@ namespace MyHeroMod.content.Buffs
             gearshiftPlayer.isGearshiftBuffActive = true;
             ofaPlayer.isGearshiftBuffActive = true;
 
+            player.moveSpeed += 1.0f; // Increase movement speed by 10%
+            player.accRunSpeed += 5.0f; // Increase run speed
+            player.maxRunSpeed += 5.0f; // Increase max run speed
+            player.jumpSpeedBoost += 2.0f; // Increase jump speed
+            player.noFallDmg = true;
+
             
 
            
 
-            if (ofaPlayer.isGearshiftActive)
-            {
-                // Apply Gearshift effects
-                player.moveSpeed += 1.0f; // Increase movement speed by 10%
-                player.accRunSpeed += 3.0f; // Increase run speed
-                player.maxRunSpeed += 3.0f; // Increase max run speed
-                player.noFallDmg = true;
-            }
+           
         }
     }
 }

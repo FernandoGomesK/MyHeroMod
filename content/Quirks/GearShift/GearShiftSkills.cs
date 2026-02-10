@@ -2,16 +2,14 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content;
-using Terraria.ID;
 using MyHeroMod.content.System;
 using Terraria.Audio;
-using Terraria.DataStructures;
+using Terraria.ID;
 using MyHeroMod.content.Buffs;
-
-
 
 namespace MyHeroMod.content.Quirks.Gearshift
 {
+    // PARTE 2: INPUTS E SKILLS
     public partial class GearshiftPlayer : ModPlayer
     {
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
@@ -32,56 +30,52 @@ namespace MyHeroMod.content.Quirks.Gearshift
             if (SkillCooldowns.ContainsKey(skill) && SkillCooldowns[skill] > 0)
             {
                 Main.NewText("On cooldown!", Color.White);
-                // Skill is on cooldown
                 return;
             }
 
             switch (skill)
             {
-                
-
-                    case QuirkSkills.Gearshift:
-                    ToggleGearshift(mainPlayer, QuirkSkills.Gearshift);
-                    
+                case QuirkSkills.Gearshift:
+                    ToggleGearshift(mainPlayer);
                     SetCooldown(skill, 30);
                     break;
             }
         }
+
         private void SetCooldown(QuirkSkills skill, int timeInTicks)
         {
-            if (SkillCooldowns.ContainsKey(skill))
-            {
-                SkillCooldowns[skill] = timeInTicks;
-            }
-            else
-            {
-                SkillCooldowns.Add(skill, timeInTicks);
-            }
+            if (SkillCooldowns.ContainsKey(skill)) SkillCooldowns[skill] = timeInTicks;
+            else SkillCooldowns.Add(skill, timeInTicks);
         }
 
-       private void ToggleGearshift(TransformationPlayer mainPlayer, QuirkSkills targetForm)
+        private void ToggleGearshift(TransformationPlayer mainPlayer)
         {
-
-            
-
-            if (isGearshiftActive)
+            // 1. DESLIGA se tiver o Buff ativo
+            if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
             {
-                isGearshiftActive = false;
-                Main.NewText("Gearshift Deactivated!", Color.White);
-                SetCooldown(QuirkSkills.Gearshift, 6000);
+                Player.ClearBuff(ModContent.BuffType<GearshiftBuff>());
                 
+                Main.NewText("Gearshift Deactivated!", Color.White);
+                SetCooldown(QuirkSkills.Gearshift, 600); // 10s cooldown
+                
+                GearActivation = false;
+                ActivationTimer = 0;
                 return;
             }
-            
-                ActivationTimer = 1;
+            // 2. CANCELA se estiver carregando
+            else if (GearActivation)
+            {
+                GearActivation = false;
+                ActivationTimer = 0;
+                Main.NewText("Cancelled.", Color.Gray);
+            }
+            // 3. LIGA (Começa a carregar)
+            else
+            {
+                ActivationTimer = 0;
                 GearActivation = true;
-
-                GearshiftTimer = 0;
-                GearshiftTimer++;
-            
-
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/GearShiftSound") with { Volume = 0.20f }, Player.position);
+            }
         }
-    }}
-        
-        
-
+    }
+}
