@@ -7,6 +7,7 @@ using MyHeroMod.content.System;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.GeneralSkills1;
 
 
 
@@ -17,6 +18,7 @@ namespace MyHeroMod.content.Quirks.FaJin
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         {
             var MainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
 
             if (MainPlayer.SelectedQuirk == QuirkType.FaJin) 
             {
@@ -29,6 +31,8 @@ namespace MyHeroMod.content.Quirks.FaJin
 
         private void ExecuteSkill(TransformationPlayer mainPlayer, QuirkSkills skill)
         {
+            var generalSkills = Player.GetModPlayer<GeneralSkills>();
+
             if (SkillCooldowns.ContainsKey(skill) && SkillCooldowns[skill] > 0)
             {
                 Main.NewText("On cooldown!", Color.White);
@@ -43,10 +47,12 @@ namespace MyHeroMod.content.Quirks.FaJin
                     StoreFaJin(mainPlayer, QuirkSkills.FaJinStore);
                     SetCooldown(skill, 60);
                     break;
-                    // case QuirkSkills.DangerActivate:
-                    // DangerActivate(mainPlayer);
-                    // SetCooldown(skill, 120);
-                    // break;
+
+                    case QuirkSkills.Dash:
+                    generalSkills.Dash(20f);
+                    dashvfx(); 
+                    break;
+                    
             }
         }
         private void SetCooldown(QuirkSkills skill, int timeInTicks)
@@ -78,9 +84,20 @@ namespace MyHeroMod.content.Quirks.FaJin
                 Main.NewText($"Stored Fa Jin energy! Current charges: {FaJinCharges}", Color.LimeGreen);
                 CombatText.NewText(Player.getRect(), Color.Orange, $"Fa Jin Charges: {FaJinCharges}");
             }
-
-            // Implement Fa Jin store logic here
         }
+        
+        private void dashvfx()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                Vector2 dustPosition = Player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
+                Dust.NewDust(dustPosition, 0, 0, DustID.Smoke, Player.velocity.X * -0.5f, Player.velocity.Y * -0.5f);
+            }
+
+        
+        }
+
+
 
         
             

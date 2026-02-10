@@ -18,6 +18,9 @@ namespace MyHeroMod.content
     public enum QuirkSkills
     {
         None,
+        // General Skills (These Are Can be used with any of the quirks or the support ones)
+
+        Jump, Punch, Dash,
         // Ofa
         SuperJump,
 
