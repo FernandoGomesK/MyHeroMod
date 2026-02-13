@@ -6,7 +6,7 @@ namespace MyHeroMod.content
     public class KeybindSystem : ModSystem
     {
         
-        // Variável estática para acessarmos a tecla em outros arquivos
+    
         public static ModKeybind TransformKey { get; private set; }
         public static ModKeybind SkillSlot1 { get; private set; }
         public static ModKeybind SkillSlot2 { get; private set; }

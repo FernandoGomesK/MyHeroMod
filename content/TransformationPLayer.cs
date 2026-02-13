@@ -99,12 +99,24 @@ namespace MyHeroMod.content
                         UnlockedSkills.Add(QuirkSkills.Gearshift);
                         continue; 
                     }
+
+                    if (this.SelectedQuirk == QuirkType.Float && skillId == QuirkSkills.Float)
+                    {
+                        UnlockedSkills.Add(QuirkSkills.Float);
+                        continue; 
+                    }
+
+                    if (this.SelectedQuirk == QuirkType.FaJin && skillId == QuirkSkills.FaJinStore)
+                    {
+                        UnlockedSkills.Add(QuirkSkills.FaJinStore);
+                        continue; 
+                    }
                     
                     // Se eu sou o usuário de Danger Sense Puro
                     if (this.SelectedQuirk == QuirkType.DangerSense && skillId == QuirkSkills.DangerActivate)
                     {
-                         UnlockedSkills.Add(QuirkSkills.DangerActivate);
-                         continue;
+                        UnlockedSkills.Add(QuirkSkills.DangerActivate);
+                        continue;
                     }
 
                     // 3. Verificação Padrão por Estágio

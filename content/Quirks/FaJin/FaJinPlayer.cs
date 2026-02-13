@@ -1,9 +1,10 @@
 using Terraria;
 using Terraria.ModLoader;
 using System.Collections.Generic;
-
+using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.OFA9th.Buffs;
+using Terraria.Audio;
 
 
 namespace MyHeroMod.content.Quirks.FaJin;
@@ -11,7 +12,7 @@ namespace MyHeroMod.content.Quirks.FaJin;
     public partial class FaJinPlayer : ModPlayer
     {
         public int FaJinCharges = 0;
-        public int MaxFaJinCharges = 3;
+        public int MaxFaJinCharges = 5;
         public bool FaJinStored = false;
         public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
 
@@ -43,31 +44,16 @@ namespace MyHeroMod.content.Quirks.FaJin;
         public override void PostUpdateMiscEffects()
 {
    
-    if (FaJinStored) 
+    if (!FaJinStored) 
     {
         
         if (Player.controlJump && Player.velocity.Y == 0 && Player.releaseJump)
         {
-            
-            Player.velocity.Y = -25f; 
-
-           
-            FaJinCharges = 0;
-            FaJinStored = false;
-
-            
-            Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.Item14, Player.position); 
-            CombatText.NewText(Player.getRect(), Microsoft.Xna.Framework.Color.Red, "FA JIN!");
-            
-            for (int i = 0; i < 30; i++)
-            {
-                int d = Dust.NewDust(Player.position + new Microsoft.Xna.Framework.Vector2(0, Player.height - 5), Player.width, 10, Terraria.ID.DustID.RedTorch, 0, 0, 100, default, 2f);
-                Main.dust[d].velocity *= 3f; 
-                Main.dust[d].noGravity = true;
-            }
+            chargeFaJin();
+        }
         }
     }
-}
+
 
         
 
@@ -76,7 +62,7 @@ namespace MyHeroMod.content.Quirks.FaJin;
             
             var ModPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            // Verifica se é Explosão e se o estágio é Adequation ou maior
+            
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             
         }
@@ -91,7 +77,28 @@ namespace MyHeroMod.content.Quirks.FaJin;
            
         }
         public override void PostUpdate()
+    {
+        
+        
+    }
+    public void fullChargeFaJin()
         {
+                FaJinCharges = MaxFaJinCharges;
+                Main.NewText("Fa Jin storage is full!", Color.Red);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinSound"), Player.position);
+                return;
+        }
+
+    public void chargeFaJin()
+        {
+            FaJinCharges++;
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinStoringSound"), Player.position);
+            Main.NewText($"Stored Fa Jin energy! Current charges: {FaJinCharges}", Color.LimeGreen);
+            CombatText.NewText(Player.getRect(), Color.Orange, $"Fa Jin Charges: {FaJinCharges}");
+            if (FaJinCharges >= MaxFaJinCharges)
+            {
+                fullChargeFaJin();
+            }
         }
 
         

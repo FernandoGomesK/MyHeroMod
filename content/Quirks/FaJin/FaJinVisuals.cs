@@ -17,6 +17,7 @@ namespace MyHeroMod.content.Quirks.FaJin
         {
             drawInfo.colorArmorLegs = Color.Red;
             drawInfo.colorArmorBody = Color.Red;
+            
         }
         
         if (FaJinStored)

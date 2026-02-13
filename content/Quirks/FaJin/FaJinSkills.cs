@@ -1,12 +1,11 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using MyHeroMod.content;
+
 using Terraria.ID;
-using MyHeroMod.content.System;
+
 using Terraria.Audio;
-using Terraria.DataStructures;
-using MyHeroMod.content.Buffs;
+
 using MyHeroMod.content.GeneralSkills1;
 
 
@@ -49,8 +48,21 @@ namespace MyHeroMod.content.Quirks.FaJin
                     break;
 
                     case QuirkSkills.Dash:
-                    generalSkills.Dash(20f);
+                    if (!FaJinStored)
+                    {
+                        generalSkills.Dash();
+                        chargeFaJin();
+                        SetCooldown(skill, 60);
+                    }
+                    else
+                    {
+                        generalSkills.Dash(25f);
+                    FaJinCharges = 0;
+                    FaJinStored = false;
+                    SetCooldown(skill, 60);
                     dashvfx(); 
+                    
+                    }
                     break;
                     
             }
@@ -70,30 +82,24 @@ namespace MyHeroMod.content.Quirks.FaJin
 
         private void StoreFaJin(TransformationPlayer mainPlayer, QuirkSkills targetForm)
         {
-            FaJinCharges++;
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinStoringSound"), Player.position);
-            if (FaJinCharges >= MaxFaJinCharges)
-            {
-                FaJinCharges = MaxFaJinCharges;
-                Main.NewText("Fa Jin storage is full!", Color.Red);
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinSound"), Player.position);
-                return;
-            }
-            else
-            {
-                Main.NewText($"Stored Fa Jin energy! Current charges: {FaJinCharges}", Color.LimeGreen);
-                CombatText.NewText(Player.getRect(), Color.Orange, $"Fa Jin Charges: {FaJinCharges}");
-            }
+            chargeFaJin();
         }
         
         private void dashvfx()
         {
-            for (int i = 0; i < 4; i++)
-            {
-                Vector2 dustPosition = Player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
-                Dust.NewDust(dustPosition, 0, 0, DustID.Smoke, Player.velocity.X * -0.5f, Player.velocity.Y * -0.5f);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1"), Player.position);
+                for (int i = 0; i < 4; i++)
+                {
+                    Vector2 dustPosition = Player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
+                    Dust.NewDust(dustPosition, 0, 0, DustID.Smoke, Player.velocity.X * -0.5f, Player.velocity.Y * -0.5f);
+                }
+                for (int i = 0; i < 15; i++)
+                {
+                    Vector2 dustPosition = Player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
+                    Dust.NewDust(dustPosition, 0, 0, DustID.RedTorch, Player.velocity.X * -0.5f, Player.velocity.Y * -0.5f, 0, default, 6f);
+                }
             }
-
+ 
         
         }
 
@@ -111,4 +117,4 @@ namespace MyHeroMod.content.Quirks.FaJin
 
         
         
-}
+

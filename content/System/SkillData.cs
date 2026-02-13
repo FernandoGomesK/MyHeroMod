@@ -39,6 +39,20 @@ namespace MyHeroMod.content.System
                 }
                 });
 
+                SkillList.Add(QuirkSkills.Dash, new SkillInfo
+                {
+                    Name = "Dash",
+                    Description = "A quick burst of speed that allows the user to quickly close the distance between themselves and their target.",
+                    IconPath = "MyHeroMod/Assets/Skills/OFA9th/Dash",
+                    MinStage = QuirkStage.Initial,
+                    RelatedQuirks = new List<QuirkType> { 
+                    QuirkType.OneForAll9th, 
+                    QuirkType.OneForAll8th,
+                    QuirkType.Gearshift,
+                    QuirkType.FaJin
+                }
+                });
+
                 //One For All 8th
 
                 SkillList.Add(QuirkSkills.PrimeDetroitSmash, new SkillInfo

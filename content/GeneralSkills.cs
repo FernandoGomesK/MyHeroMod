@@ -31,7 +31,7 @@ namespace MyHeroMod.content.GeneralSkills1
             Player.velocity = dashDirection * force; 
 
            
-            Player.SetImmuneTimeForAllTypes(10);
+            Player.SetImmuneTimeForAllTypes(05);
         }
     }
 }
