@@ -30,6 +30,7 @@ namespace MyHeroMod.content.Quirks.FaJin;
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+            if (mainPlayer.SelectedQuirk != QuirkType.FaJin) return;
 
             if (FaJinCharges >= MaxFaJinCharges)
             {
@@ -43,7 +44,8 @@ namespace MyHeroMod.content.Quirks.FaJin;
         }
         public override void PostUpdateMiscEffects()
 {
-   
+    var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+    if (mainPlayer.SelectedQuirk != QuirkType.FaJin) return;
     if (!FaJinStored) 
     {
         

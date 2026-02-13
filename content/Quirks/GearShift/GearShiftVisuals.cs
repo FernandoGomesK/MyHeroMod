@@ -20,6 +20,10 @@ namespace MyHeroMod.content.Quirks.Gearshift
                 
                 // Cria o efeito de rastro "God Mode"
                 Player.armorEffectDrawShadow = true; 
+                Player.armorEffectDrawOutlines = true;
+
+                Lighting.AddLight(Player.Center, Color.RoyalBlue.ToVector3() );
+                
             }
         }
     }

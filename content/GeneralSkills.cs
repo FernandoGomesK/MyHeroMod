@@ -14,7 +14,7 @@ namespace MyHeroMod.content.GeneralSkills1
             Player.velocity.Y = -force; 
         }
 
-        public void Dash(float force = 10f) 
+        public void Dash(float force = 15f) 
         {
             
             Vector2 dashDirection = Main.MouseWorld - Player.Center;
