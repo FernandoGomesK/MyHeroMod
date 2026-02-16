@@ -209,7 +209,8 @@ namespace MyHeroMod.content.System
                     IconPath = "MyHeroMod/Assets/Skills/OFA9th/SmokesScreen",
                     MinStage = QuirkStage.Intermediate,
                     RelatedQuirks = new List<QuirkType> { 
-                    QuirkType.OneForAll9th, 
+                    QuirkType.OneForAll9th,
+                    QuirkType.SmokeScreen 
                 }
                 });
                 SkillList.Add(QuirkSkills.FaJinStore, new SkillInfo

@@ -279,6 +279,11 @@ Buffs: {
 		DisplayName: Float Buff
 		Description: Mods.MyHeroMod.Buffs.FloatBuff.Description
 	}
+
+	SmokescreenBuff: {
+		DisplayName: Smokescreen Buff
+		Description: Mods.MyHeroMod.Buffs.SmokescreenBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"

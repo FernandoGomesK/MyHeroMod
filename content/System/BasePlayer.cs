@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 
-namespace MyHeroMod.content.Quirks.Smokescreen
+namespace MyHeroMod.content.System.BasePlayer
 {
-    public partial class SmokescreenPlayer : ModPlayer
+    public partial class BasePlayer : ModPlayer
     {
-        public bool isSmokescreenActive = false;
+        
 
         public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
 
@@ -17,19 +17,18 @@ namespace MyHeroMod.content.Quirks.Smokescreen
 
         public void ResetAll()
         {
-            isSmokescreenActive = false;
+            
             SkillCooldowns.Clear();
         }
 
         public override void ResetEffects()
         {
             
-            isSmokescreenActive = false;
+           
         }
 
         public override void PostUpdate()
         {
-            // Só funciona se o buff estiver ativo, não estiver em montaria e não estiver no chão
             
         }
 
@@ -41,9 +40,7 @@ namespace MyHeroMod.content.Quirks.Smokescreen
             foreach (var skill in keys)
             {
                 if (SkillCooldowns[skill] > 0) SkillCooldowns[skill]--;
-            }
-            // 2. Lógica de Carregamento
-            
+            }        
         }
         
 

@@ -48,7 +48,10 @@ namespace MyHeroMod.content
         DangerActivate
     }
 
-    public enum QuirkType { Quirkless, OneForAll9th, OneForAll8th, Explosion, HellFlames, BlueFlames, HalfColdHalfHot, Float, Gearshift, FaJin, SmokeScreen, DangerSense, BlackWhip }
+    public enum QuirkType { Quirkless, OneForAll9th, OneForAll8th,
+                            Explosion, HellFlames, BlueFlames, HalfColdHalfHot,
+                            Float, Gearshift, FaJin, SmokeScreen, DangerSense,
+                            BlackWhip }
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 
     // --- CLASSE DO JOGADOR ---
@@ -93,7 +96,13 @@ namespace MyHeroMod.content
                 {
                     // 2. LÓGICA DE EXCEÇÃO (Desbloqueio Antecipado)
                     
-                    // Se eu sou o usuário de Gearshift Puro
+                    
+                    if (this.SelectedQuirk == QuirkType.SmokeScreen && skillId == QuirkSkills.SmokeScreen)
+                    {
+                        UnlockedSkills.Add(QuirkSkills.SmokeScreen);
+                        continue; 
+                    }
+
                     if (this.SelectedQuirk == QuirkType.Gearshift && skillId == QuirkSkills.Gearshift)
                     {
                         UnlockedSkills.Add(QuirkSkills.Gearshift);
