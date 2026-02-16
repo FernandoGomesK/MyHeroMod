@@ -274,6 +274,11 @@ Buffs: {
 		DisplayName: Overtime Buff
 		Description: Mods.MyHeroMod.Buffs.OvertimeBuff.Description
 	}
+
+	FloatBuff: {
+		DisplayName: Float Buff
+		Description: Mods.MyHeroMod.Buffs.FloatBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"

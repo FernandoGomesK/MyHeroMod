@@ -49,7 +49,8 @@ namespace MyHeroMod.content.System
                     QuirkType.OneForAll9th, 
                     QuirkType.OneForAll8th,
                     QuirkType.Gearshift,
-                    QuirkType.FaJin
+                    QuirkType.FaJin,
+                    QuirkType.Float
                 }
                 });
 
@@ -196,7 +197,8 @@ namespace MyHeroMod.content.System
                     IconPath = "MyHeroMod/Assets/Skills/OFA9th/Float",
                     MinStage = QuirkStage.Intermediate,
                     RelatedQuirks = new List<QuirkType> { 
-                    QuirkType.OneForAll9th, 
+                    QuirkType.OneForAll9th,
+                    QuirkType.Float 
                 }
                 });
                 SkillList.Add(QuirkSkills.SmokeScreen, new SkillInfo

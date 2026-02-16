@@ -2,10 +2,9 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using System.Collections.Generic;
-using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
-using MyHeroMod.content.System;
+
 
 namespace MyHeroMod.content.Quirks.Gearshift
 {

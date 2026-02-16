@@ -1,8 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
-using MyHeroMod.content;
-using MyHeroMod.content.System;
 using Terraria.Audio;
 using Terraria.ID;
 using MyHeroMod.content.Buffs;
@@ -115,7 +113,7 @@ namespace MyHeroMod.content.Quirks.Gearshift
 
         private void dashvfx()
         {
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1"), Player.position);
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.15f }, Player.position);
                 for (int i = 0; i < 4; i++)
                 {
                     Vector2 dustPosition = Player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
