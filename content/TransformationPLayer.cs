@@ -48,7 +48,7 @@ namespace MyHeroMod.content
         DangerActivate
     }
 
-    public enum QuirkType { Quirkless, OneForAll9th, OneForAll8th, Explosion, HellFlames, BlueFlames, HalfColdHalfHot, Float, Gearshift, FaJin, SmokeScreen, DangerSense }
+    public enum QuirkType { Quirkless, OneForAll9th, OneForAll8th, Explosion, HellFlames, BlueFlames, HalfColdHalfHot, Float, Gearshift, FaJin, SmokeScreen, DangerSense, BlackWhip }
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 
     // --- CLASSE DO JOGADOR ---
@@ -116,6 +116,12 @@ namespace MyHeroMod.content
                     if (this.SelectedQuirk == QuirkType.DangerSense && skillId == QuirkSkills.DangerActivate)
                     {
                         UnlockedSkills.Add(QuirkSkills.DangerActivate);
+                        continue;
+                    }
+
+                    if (this.SelectedQuirk == QuirkType.BlackWhip && (skillId == QuirkSkills.BlackWhipHook || skillId == QuirkSkills.BlackWhipSurge))
+                    {
+                        UnlockedSkills.Add(skillId);
                         continue;
                     }
 

@@ -340,4 +340,5 @@ Projectiles: {
 	IceThrowerProj.DisplayName: Ice Thrower Proj
 	FullPowerProj.DisplayName: Full Power Proj
 	KickAttackProj.DisplayName: Kick Attack Proj
+	BlackWhipProjectileUnique.DisplayName: Black Whip Projectile Unique
 }

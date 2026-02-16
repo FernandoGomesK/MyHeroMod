@@ -485,7 +485,7 @@ public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
                 0f, // Knockback
                 Player.whoAmI
                 
-            );
+            );  
         }
     }
     }
