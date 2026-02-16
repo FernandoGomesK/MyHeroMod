@@ -4,49 +4,20 @@ using Terraria.ID;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.System.BasePlayer;
 
 namespace MyHeroMod.content.Quirks.Smokescreen
 {
-    public partial class SmokescreenPlayer : ModPlayer
+    public partial class SmokescreenPlayer : BasePlayer
     {
         public bool isSmokescreenActive = false;
-
-        public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
-
-        public override void OnRespawn() => ResetAll();
-
-        public void ResetAll()
-        {
-            isSmokescreenActive = false;
-            SkillCooldowns.Clear();
-        }
 
         public override void ResetEffects()
         {
             
             isSmokescreenActive = false;
-        }
-
-        public override void PostUpdate()
-        {
-            // Só funciona se o buff estiver ativo, não estiver em montaria e não estiver no chão
-            
-        }
-
-
-        public override void PreUpdate()
-        { 
-            // 1. Gerencia Cooldowns
-            List<QuirkSkills> keys = new List<QuirkSkills>(SkillCooldowns.Keys);
-            foreach (var skill in keys)
-            {
-                if (SkillCooldowns[skill] > 0) SkillCooldowns[skill]--;
-            }
-            // 2. Lógica de Carregamento
-            
-        }
-        
+        }   
 
         
-        }
     }
+}   

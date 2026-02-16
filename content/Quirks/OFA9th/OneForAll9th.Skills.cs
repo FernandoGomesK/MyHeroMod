@@ -92,8 +92,8 @@ public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
                     
                     SetCooldown(skill, 60);
                     break;
-                case QuirkSkills.SmokeScreen:
-                    ToggleSmokesScreen(mainPlayer, QuirkSkills.SmokeScreen);
+                case QuirkSkills.Smokescreen:
+                    ToggleSmokesScreen(mainPlayer, QuirkSkills.Smokescreen);
 
                     SetCooldown(skill, 60);
                     break;

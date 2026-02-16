@@ -4,11 +4,12 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.ID;
 using MyHeroMod.content.Buffs;
-using MyHeroMod.content.GeneralSkills1; // Certifique-se que o namespace do GeneralSkills está certo
+using MyHeroMod.content.GeneralSkills1;
+using MyHeroMod.content.System.BasePlayer; // Certifique-se que o namespace do GeneralSkills está certo
 
 namespace MyHeroMod.content.Quirks.Float
 {
-    public partial class FloatPlayer : ModPlayer
+    public partial class FloatPlayer : BasePlayer
     {
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         {
@@ -26,6 +27,11 @@ namespace MyHeroMod.content.Quirks.Float
 
         private void ExecuteSkill(TransformationPlayer mainPlayer, QuirkSkills skill)
         {
+            var skillData = SkillLibrary.GetSkill(skill);
+            if (skillData != null && skillData.CanUse(Player)) {
+            skillData.OnUse(Player);
+            SetCooldown(skill, skillData.BaseCooldown);
+            }
             var generalSkills = Player.GetModPlayer<GeneralSkills1.GeneralSkills>(); // Caminho completo para evitar confusão
 
             if (SkillCooldowns.ContainsKey(skill) && SkillCooldowns[skill] > 0)
@@ -34,41 +40,8 @@ namespace MyHeroMod.content.Quirks.Float
                 return;
             }
 
-            switch (skill)
-            {
-                case QuirkSkills.Float:
-                    ToggleFloat();
-                    SetCooldown(skill, 30); // Pequeno cooldown para não spammar
-                    break;
-
-                case QuirkSkills.Dash:
-                    
-                    generalSkills.Dash();
-                    SetCooldown(skill, 60);
-                    break;
-            }
+            
         }
-
-        private void SetCooldown(QuirkSkills skill, int timeInTicks)
-        {
-            if (SkillCooldowns.ContainsKey(skill)) SkillCooldowns[skill] = timeInTicks;
-            else SkillCooldowns.Add(skill, timeInTicks);
-        }
-
-        private void ToggleFloat()
-        {
-            // Se já tem o buff -> Remove
-            if (Player.HasBuff(ModContent.BuffType<FloatBuff>()))
-            {
-                Player.ClearBuff(ModContent.BuffType<FloatBuff>());
-                CombatText.NewText(Player.getRect(), Color.Cyan, "Float OFF");
-            }
-            // Se não tem -> Adiciona (Tempo infinito/longo)
-            else
-            {
-                Player.AddBuff(ModContent.BuffType<FloatBuff>(), 3600); // 1 minuto (o buff deve ser infinito se tiver Main.buffNoTimeDisplay)
-                CombatText.NewText(Player.getRect(), Color.Cyan, "Float ON");
-            }
-        }
+       
     }
 }

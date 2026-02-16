@@ -202,9 +202,9 @@ namespace MyHeroMod.content.System
                     QuirkType.Float 
                 }
                 });
-                SkillList.Add(QuirkSkills.SmokeScreen, new SkillInfo
+                SkillList.Add(QuirkSkills.Smokescreen, new SkillInfo
                 {
-                    Name = "One For All 6th: Smokes Screen",
+                    Name = "Smoke Screen",
                     Description = "Create a screen of smoke to obscure vision and hide your movements.",
                     IconPath = "MyHeroMod/Assets/Skills/OFA9th/SmokesScreen",
                     MinStage = QuirkStage.Intermediate,
@@ -215,7 +215,7 @@ namespace MyHeroMod.content.System
                 });
                 SkillList.Add(QuirkSkills.FaJinStore, new SkillInfo
                 {
-                    Name = "One For All 3th: Fa Jin Store",
+                    Name = "Fa Jin Store",
                     Description = "Store energy in your body for later use.",
                     IconPath = "MyHeroMod/Assets/Skills/OFA9th/FaJinStore",
                     MinStage = QuirkStage.Intermediate,
