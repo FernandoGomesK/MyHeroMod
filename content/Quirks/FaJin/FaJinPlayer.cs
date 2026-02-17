@@ -5,107 +5,49 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.OFA9th.Buffs;
 using Terraria.Audio;
+using MyHeroMod.content.System.BasePlayer;
 
 
 namespace MyHeroMod.content.Quirks.FaJin;
 
-    public partial class FaJinPlayer : ModPlayer
+    public partial class FajinPlayer : BasePlayer
     {
+        
         public int FaJinCharges = 0;
         public int MaxFaJinCharges = 5;
-        public bool FaJinStored = false;
-        public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
-
-       
-        
-
+        public bool FaJinStored => FaJinCharges >= MaxFaJinCharges;
 
         public override void OnRespawn()
         {
             
         }
 
-        
-
         public override void PostUpdateEquips()
         {
-            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-            if (mainPlayer.SelectedQuirk != QuirkType.FaJin) return;
-
-            if (FaJinCharges >= MaxFaJinCharges)
-            {
-                FaJinStored = true;
-                Player.AddBuff(ModContent.BuffType<FaJinBuff>(), 2);
-            }
-            else
-            {
-                FaJinStored = false;
+            if (FaJinStored) {
+            Player.AddBuff(ModContent.BuffType<FaJinBuff>(), 2);
             }
         }
-        public override void PostUpdateMiscEffects()
-{
-    var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-    if (mainPlayer.SelectedQuirk != QuirkType.FaJin) return;
-    if (!FaJinStored) 
-    {
-        
-        if (Player.controlJump && Player.velocity.Y == 0 && Player.releaseJump)
-        {
-            chargeFaJin();
-        }
-        }
-    }
-
-
-        
-
-        public override void ResetEffects()
-        {
-            
-            var ModPlayer = Player.GetModPlayer<TransformationPlayer>();
-
-            
-            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-            
-        }
-        
-        public override void PreUpdate()
-        {
-            List<QuirkSkills> keys = new List<QuirkSkills>(SkillCooldowns.Keys);
-            foreach (var skill in keys)
-            {
-                if (SkillCooldowns[skill] > 0) SkillCooldowns[skill]--;
+       public override void PostUpdateMiscEffects() {
+            // Lógica passiva: Ganhar carga ao pular no chão
+            if (!FaJinStored && Player.controlJump && Player.velocity.Y == 0 && Player.releaseJump) {
+                ChargeFajin();
             }
-           
-        }
-        public override void PostUpdate()
-    {
-        
-        
-    }
-    public void fullChargeFaJin()
-        {
-                FaJinCharges = MaxFaJinCharges;
-                Main.NewText("Fa Jin storage is full!", Color.Red);
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinSound"), Player.position);
-                return;
         }
 
-    public void chargeFaJin()
-        {
+        public void ChargeFajin() {
             FaJinCharges++;
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinStoringSound"), Player.position);
-            Main.NewText($"Stored Fa Jin energy! Current charges: {FaJinCharges}", Color.LimeGreen);
-            CombatText.NewText(Player.getRect(), Color.Orange, $"Fa Jin Charges: {FaJinCharges}");
-            if (FaJinCharges >= MaxFaJinCharges)
-            {
-                fullChargeFaJin();
+            CombatText.NewText(Player.getRect(), Color.Orange, $"Fa Jin: {FaJinCharges}/{MaxFaJinCharges}");
+
+            if (FaJinCharges >= MaxFaJinCharges) {
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinSound"), Player.position);
+                Main.NewText("Fa Jin storage is full!", Color.Red);
             }
-        }
-
         
 
         
+    }
     }
     
 

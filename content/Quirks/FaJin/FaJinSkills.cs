@@ -7,12 +7,13 @@ using Terraria.ID;
 using Terraria.Audio;
 
 using MyHeroMod.content.GeneralSkills1;
+using MyHeroMod.content.System.BasePlayer;
 
 
 
 namespace MyHeroMod.content.Quirks.FaJin
 {
-    public partial class FaJinPlayer : ModPlayer
+    public partial class FajinPlayer : BasePlayer
     {
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         {
@@ -30,60 +31,26 @@ namespace MyHeroMod.content.Quirks.FaJin
 
         private void ExecuteSkill(TransformationPlayer mainPlayer, QuirkSkills skill)
         {
-            var generalSkills = Player.GetModPlayer<GeneralSkills>();
+            var skillData = SkillLibrary.GetSkill(skill);
+            if (skillData != null && skillData.CanUse(Player)) {
+            skillData.OnUse(Player);
+            SetCooldown(skill, skillData.BaseCooldown);
+            }
+            var generalSkills = Player.GetModPlayer<GeneralSkills1.GeneralSkills>(); // Caminho completo para evitar confusão
 
             if (SkillCooldowns.ContainsKey(skill) && SkillCooldowns[skill] > 0)
             {
                 Main.NewText("On cooldown!", Color.White);
-                // Skill is on cooldown
                 return;
             }
 
-            switch (skill)
-            {
-                
-                    case QuirkSkills.FaJinStore:
-                    StoreFaJin(mainPlayer, QuirkSkills.FaJinStore);
-                    SetCooldown(skill, 60);
-                    break;
+            
+        
+   }   
 
-                    case QuirkSkills.Dash:
-                    if (!FaJinStored)
-                    {
-                        generalSkills.Dash();
-                        chargeFaJin();
-                        SetCooldown(skill, 60);
-                    }
-                    else
-                    {
-                        generalSkills.Dash(25f);
-                    FaJinCharges = 0;
-                    FaJinStored = false;
-                    SetCooldown(skill, 60);
-                    dashvfx(); 
-                    
-                    }
-                    break;
-                    
-            }
-        }
-        private void SetCooldown(QuirkSkills skill, int timeInTicks)
-        {
-            if (SkillCooldowns.ContainsKey(skill))
-            {
-                SkillCooldowns[skill] = timeInTicks;
-            }
-            else
-            {
-                SkillCooldowns.Add(skill, timeInTicks);
-            }
-        }
+            
 
 
-        private void StoreFaJin(TransformationPlayer mainPlayer, QuirkSkills targetForm)
-        {
-            chargeFaJin();
-        }
         
         private void dashvfx()
         {

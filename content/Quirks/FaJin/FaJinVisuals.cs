@@ -1,29 +1,26 @@
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
 using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.Audio;
+using MyHeroMod.content.System.BasePlayer;
 
 
 namespace MyHeroMod.content.Quirks.FaJin
 {
-    public partial class FaJinPlayer : ModPlayer
+    public partial class FajinPlayer : BasePlayer
     {
-       
         public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
         {
-        if (FaJinStored)
-        {
-            drawInfo.colorArmorLegs = Color.Red;
-            drawInfo.colorArmorBody = Color.Red;
+       if (FaJinStored)
+       {
+
+       
+        
+            
+            drawInfo.colorArmorLegs = Color.OrangeRed * 1.2f;
+            drawInfo.colorArmorBody = Color.OrangeRed * 1.2f;
+            
+        
             
         }
-        
-        if (FaJinStored)
-            {
-                
-            }
-        }
     }
-}
+    }
+    }
