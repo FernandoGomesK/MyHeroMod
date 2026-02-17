@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using MyHeroMod.content.Quirks.Smokescreen; // Adiciona os namespaces das tuas skills
+using MyHeroMod.content.Quirks.Smokescreen; 
 using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
 
 
@@ -14,9 +14,21 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             { QuirkSkills.Dash, new DashSkill() },
 
 
-            
+            // Smokescreen 
+
             { QuirkSkills.Smokescreen, new SmokescreenSkill() },
+
+            // Float
             { QuirkSkills.Float, new FloatSkill() }, 
+
+            // DangerSense
+            
+            { QuirkSkills.DangerSense, new DangerSenseSkill() },
+
+
+             
+
+        
         };
 
         public static QuirkSkill GetSkill(QuirkSkills id)

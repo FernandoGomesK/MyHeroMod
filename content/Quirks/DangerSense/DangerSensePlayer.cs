@@ -1,24 +1,16 @@
 using Terraria;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
 using Terraria.ModLoader;
-using Terraria.ID;
-using MyHeroMod.content;
-using MyHeroMod.content.System;
-using Terraria.Audio;
 using System.Collections.Generic;
-using MyHeroMod.content.Dusts;
-using MyHeroMod.content.Quirks.DangerSense;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.System.BasePlayer;
 
 
 namespace MyHeroMod.content.Quirks.DangerSense;
 
-    public partial class DangerSensePlayer : ModPlayer
+    public partial class DangerSensePlayer : BasePlayer
     {
-        public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
-
+        
+        
         public bool IsDangerSenseActive = false;
         public bool IsOvertimeActive = false;
 
@@ -27,10 +19,9 @@ namespace MyHeroMod.content.Quirks.DangerSense;
         
         public int VisualTimer = 0;
         public int VisualMaxTimer = 8;
+        public QuirkStage CurrentStage => Player.GetModPlayer<TransformationPlayer>().CurrentStage;
 
         
-
-
         public override void OnRespawn()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
@@ -70,39 +61,29 @@ namespace MyHeroMod.content.Quirks.DangerSense;
             
             var ModPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            // Verifica se é Explosão e se o estágio é Adequation ou maior
+            
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             if ( transPlayer.SelectedQuirk == QuirkType.DangerSense && transPlayer.CurrentStage >= QuirkStage.Adequation)
         {
             IsDangerSenseActive = true;
         }
 
-            // Verifica se é Explosão e se o estágio é Adequation ou maior
             
         }
         
         public override void PreUpdate()
         {
-            List<QuirkSkills> keys = new List<QuirkSkills>(SkillCooldowns.Keys);
-            foreach (var skill in keys)
-            {
-                if (SkillCooldowns[skill] > 0) SkillCooldowns[skill]--;
-            }
             if (VisualTimer > 0)
             {
                 VisualTimer--;
             }
         }
-        public override void PostUpdate()
-        {
-            
-           
-        }
+        
 
         public void triggerVisual()
-    {
-        VisualTimer = VisualMaxTimer;
-    }
+        {
+            VisualTimer = VisualMaxTimer;
+        }
     }
     
 

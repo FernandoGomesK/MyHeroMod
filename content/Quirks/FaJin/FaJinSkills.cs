@@ -43,10 +43,7 @@ namespace MyHeroMod.content.Quirks.FaJin
                 Main.NewText("On cooldown!", Color.White);
                 return;
             }
-
-            
-        
-   }   
+        }   
 
             
 

@@ -7,12 +7,13 @@ using MyHeroMod.content.System;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.System.BasePlayer;
 
 
 
 namespace MyHeroMod.content.Quirks.DangerSense
 {
-    public partial class DangerSensePlayer : ModPlayer
+    public partial class DangerSensePlayer : BasePlayer
     {
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         {
@@ -29,34 +30,20 @@ namespace MyHeroMod.content.Quirks.DangerSense
 
         private void ExecuteSkill(TransformationPlayer mainPlayer, QuirkSkills skill)
         {
+            var skillData = SkillLibrary.GetSkill(skill);
+            if (skillData != null && skillData.CanUse(Player)) {
+            skillData.OnUse(Player);
+            SetCooldown(skill, skillData.BaseCooldown);
+            }
+            var generalSkills = Player.GetModPlayer<GeneralSkills1.GeneralSkills>(); // Caminho completo para evitar confusão
+
             if (SkillCooldowns.ContainsKey(skill) && SkillCooldowns[skill] > 0)
             {
                 Main.NewText("On cooldown!", Color.White);
-                // Skill is on cooldown
                 return;
-            }
-
-            switch (skill)
-            {
-                
-
-                    case QuirkSkills.DangerActivate:
-                    DangerActivate(mainPlayer);
-                    SetCooldown(skill, 120);
-                    break;
-            }
-        }
-        private void SetCooldown(QuirkSkills skill, int timeInTicks)
-        {
-            if (SkillCooldowns.ContainsKey(skill))
-            {
-                SkillCooldowns[skill] = timeInTicks;
-            }
-            else
-            {
-                SkillCooldowns.Add(skill, timeInTicks);
-            }
-        }
+            }   
+        } 
+    
 
         private void DangerActivate(TransformationPlayer mainPlayer)
         {
@@ -80,9 +67,9 @@ namespace MyHeroMod.content.Quirks.DangerSense
 
         private void ToggleDangerSense()
         {
-            IsDangerSenseActive = !IsDangerSenseActive;
             
-            if (IsDangerSenseActive)
+            
+            if (!IsDangerSenseActive)
             {
                 CombatText.NewText(Player.getRect(), Color.Orange, "Danger Sense: ON");
                 SoundEngine.PlaySound(SoundID.Item4, Player.position);

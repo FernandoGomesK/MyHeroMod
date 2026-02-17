@@ -29,10 +29,17 @@ namespace MyHeroMod.content.Quirks.FaJin;
             }
         }
        public override void PostUpdateMiscEffects() {
-            // Lógica passiva: Ganhar carga ao pular no chão
+
+
+    var transformationPlayer = Player.GetModPlayer<TransformationPlayer>();
+    if (transformationPlayer.SelectedQuirk == QuirkType.FaJin) 
+    {
+            
+        
             if (!FaJinStored && Player.controlJump && Player.velocity.Y == 0 && Player.releaseJump) {
-                ChargeFajin();
+                ChargeFajin( );
             }
+        }
         }
 
         public void ChargeFajin() {

@@ -16,8 +16,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
         {
             var modPlayer = drawInfo.drawPlayer.GetModPlayer<DangerSensePlayer>();
             
-            // Só desenha se o timer visual estiver rodando (> 0)
-            // E se o jogo não estiver pausado (para não travar a animação)
+            
             return modPlayer.VisualTimer > 0 && !drawInfo.drawPlayer.dead;
         }
 
