@@ -1,13 +1,6 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
-using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.GameInput;
-using MyHeroMod;
-using MyHeroMod.content.Quirks.DangerSense;
 using Terraria.Audio;
 using System.Collections.Generic; 
 using MyHeroMod.content.System;   
@@ -21,6 +14,7 @@ namespace MyHeroMod.content
                             Explosion, HellFlames, BlueFlames, HalfColdHalfHot,
                             Float, Gearshift, FaJin, SmokeScreen, DangerSense,
                             BlackWhip }
+                            
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 
     // --- CLASSE DO JOGADOR ---

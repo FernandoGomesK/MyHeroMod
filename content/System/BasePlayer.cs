@@ -3,12 +3,38 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using System.Collections.Generic;
 using MyHeroMod.content.System.BasePlayer; // Importa a classe BasePlayer para acessar os
+using Terraria.Audio;
 
 namespace MyHeroMod.content.System.BasePlayer
 {
    
     public abstract class BasePlayer : ModPlayer
     {
+        public TransformationPlayer TransPlayer => Player.GetModPlayer<TransformationPlayer>();
+        public QuirkSkills Slot1 = QuirkSkills.None;
+        public QuirkSkills Slot2 = QuirkSkills.None;
+        public QuirkSkills Slot3 = QuirkSkills.None;
+        public QuirkSkills TransformSlot = QuirkSkills.None;
+
+        public float DodgeChance = 0f;
+
+        public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet) {
+            // Centraliza o uso das skills
+            if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
+            if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(Slot2);
+            if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(Slot3);
+            if (KeybindSystem.TransformKey.JustPressed) ExecuteSkill(TransformSlot);
+        }
+
+    // A lógica de esquiva genérica
+        public override bool FreeDodge(Player.HurtInfo info) {
+            if (DodgeChance > 0 && Main.rand.NextFloat() < DodgeChance) {
+                Player.SetImmuneTimeForAllTypes(40);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound"), Player.position);
+                return true;
+            }
+            return false;
+        }
         public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
 
         public int GetCooldown(QuirkSkills skill) {
