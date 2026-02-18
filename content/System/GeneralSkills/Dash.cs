@@ -17,23 +17,20 @@ namespace MyHeroMod.content.System
             float speed = 14f;
             bool isEnhanced = false;
 
-            // 1. Verifica se tem Fa Jin estocado para melhorar o Dash
+            
             if (fajinPlayer.FaJinStored)
             {
                 speed = 25f;
                 isEnhanced = true;
-                fajinPlayer.FaJinCharges = 0; // Consome as cargas
-                // Aqui você pode adicionar o som de impacto maior
+                fajinPlayer.FaJinCharges = 0; 
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1"), player.position);
             }
             else 
             {
-                // Dash normal gera uma carga (conforme seu código antigo)
                 fajinPlayer.ChargeFajin(); 
                 SoundEngine.PlaySound(SoundID.Item14, player.position);
             }
 
-            // 2. Lógica de Direção
             Vector2 dashDirection = Main.MouseWorld - player.Center;
             if (dashDirection != Vector2.Zero)
             {
@@ -41,7 +38,8 @@ namespace MyHeroMod.content.System
                 player.velocity = dashDirection * speed;
             }
 
-            // 3. Efeitos Visuais (VFX)
+
+            // 3.Efeitos Visuais (VFX)
             ApplyDashVfx(player, isEnhanced);
             
             player.SetImmuneTimeForAllTypes(10); // Pequena invulnerabilidade

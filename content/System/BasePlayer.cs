@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using System.Collections.Generic;
-using MyHeroMod.content.System.BasePlayer; // Importa a classe BasePlayer para acessar os
 using Terraria.Audio;
 
 namespace MyHeroMod.content.System.BasePlayer
@@ -10,22 +9,11 @@ namespace MyHeroMod.content.System.BasePlayer
    
     public abstract class BasePlayer : ModPlayer
     {
-        public TransformationPlayer TransPlayer => Player.GetModPlayer<TransformationPlayer>();
-        public QuirkSkills Slot1 = QuirkSkills.None;
-        public QuirkSkills Slot2 = QuirkSkills.None;
-        public QuirkSkills Slot3 = QuirkSkills.None;
-        public QuirkSkills TransformSlot = QuirkSkills.None;
+       
 
         public float DodgeChance = 0f;
 
-        public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet) {
-            // Centraliza o uso das skills
-            if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
-            if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(Slot2);
-            if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(Slot3);
-            if (KeybindSystem.TransformKey.JustPressed) ExecuteSkill(TransformSlot);
-        }
-
+        
     // A lógica de esquiva genérica
         public override bool FreeDodge(Player.HurtInfo info) {
             if (DodgeChance > 0 && Main.rand.NextFloat() < DodgeChance) {
@@ -55,8 +43,7 @@ namespace MyHeroMod.content.System.BasePlayer
         }
 
         public override void PreUpdate() { 
-            // Gerencia Cooldowns
-            // Criamos uma lista temporária para evitar erros de "coleção modificada" ao iterar
+            
             var keys = new List<QuirkSkills>(SkillCooldowns.Keys);
             foreach (var skillId in keys) {
                 if (SkillCooldowns[skillId] > 0) 
@@ -64,8 +51,11 @@ namespace MyHeroMod.content.System.BasePlayer
             }        
         }
 
+        // parte das Skills
+
+
         public virtual void ExecuteSkill(QuirkSkills skillId) {
-            // Busca a lógica da skill na biblioteca central
+            
             var skill = SkillLibrary.GetSkill(skillId);
 
             if (skill != null && skill.CanUse(Player) && GetCooldown(skillId) <= 0) {
@@ -76,6 +66,23 @@ namespace MyHeroMod.content.System.BasePlayer
                 SetCooldown(skillId, skill.BaseCooldown);
             }
         }
+
+         public TransformationPlayer TransPlayer => Player.GetModPlayer<TransformationPlayer>();
+        public QuirkSkills Slot1 = QuirkSkills.None;
+        public QuirkSkills Slot2 = QuirkSkills.None;
+        public QuirkSkills Slot3 = QuirkSkills.None;
+        public QuirkSkills TransformSlot = QuirkSkills.None;
+
+        public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet) {
+            // Centraliza o uso das skills
+            if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
+            if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(Slot2);
+            if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(Slot3);
+            if (KeybindSystem.TransformKey.JustPressed) ExecuteSkill(TransformSlot);
+        }
+
     }
+
+    
 }
     
