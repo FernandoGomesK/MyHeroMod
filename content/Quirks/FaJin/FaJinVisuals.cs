@@ -7,16 +7,15 @@ namespace MyHeroMod.content.Quirks.FaJin
 {
     public partial class FajinPlayer : BasePlayer
     {
+
+        
         public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
         {
+            
        if (FaJinStored)
        {
-
-       
-        
-            
-            drawInfo.colorArmorLegs = Color.OrangeRed * 1.2f;
-            drawInfo.colorArmorBody = Color.OrangeRed * 1.2f;
+            drawInfo.colorArmorLegs = Color.Red * 1.2f;
+            drawInfo.colorArmorBody = Color.Red * 1.2f;
             
         
             

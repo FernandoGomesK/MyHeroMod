@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using System.Collections.Generic;
 using Terraria.Audio;
+using Microsoft.Xna.Framework;
 
 namespace MyHeroMod.content.System.BasePlayer
 {
@@ -42,44 +43,35 @@ namespace MyHeroMod.content.System.BasePlayer
             SkillCooldowns.Clear();
         }
 
+
         public override void PreUpdate() { 
-            
-            var keys = new List<QuirkSkills>(SkillCooldowns.Keys);
-            foreach (var skillId in keys) {
-                if (SkillCooldowns[skillId] > 0) 
-                    SkillCooldowns[skillId]--;
-            }        
+    
+        var skills = new List<QuirkSkills>(SkillCooldowns.Keys);
+    
+        foreach (var skillId in skills) {
+            if (SkillCooldowns[skillId] > 0) {
+                SkillCooldowns[skillId]--;
+        }
+        }        
         }
 
         // parte das Skills
 
 
-        public virtual void ExecuteSkill(QuirkSkills skillId) {
-            
-            var skill = SkillLibrary.GetSkill(skillId);
+       public virtual void ExecuteSkill(QuirkSkills skillId) {
+        if (skillId == QuirkSkills.None) return;
+        var skill = SkillLibrary.GetSkill(skillId);
+        if (skill == null) return;
 
-            if (skill != null && skill.CanUse(Player) && GetCooldown(skillId) <= 0) {
-                // Executa a lógica (OnUse)
-                skill.OnUse(Player);
-
-                // Define o cooldown automaticamente baseado na classe da skill
-                SetCooldown(skillId, skill.BaseCooldown);
-            }
+        if (GetCooldown(skillId) <= 0 && skill.CanUse(Player)) {
+            skill.OnUse(Player);
+            SetCooldown(skillId, skill.BaseCooldown);
         }
+    }
+        public TransformationPlayer TransPlayer => Player.GetModPlayer<TransformationPlayer>();
+       
 
-         public TransformationPlayer TransPlayer => Player.GetModPlayer<TransformationPlayer>();
-        public QuirkSkills Slot1 = QuirkSkills.None;
-        public QuirkSkills Slot2 = QuirkSkills.None;
-        public QuirkSkills Slot3 = QuirkSkills.None;
-        public QuirkSkills TransformSlot = QuirkSkills.None;
-
-        public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet) {
-            // Centraliza o uso das skills
-            if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
-            if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(Slot2);
-            if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(Slot3);
-            if (KeybindSystem.TransformKey.JustPressed) ExecuteSkill(TransformSlot);
-        }
+        
 
     }
 

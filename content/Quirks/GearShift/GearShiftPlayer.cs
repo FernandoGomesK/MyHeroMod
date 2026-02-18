@@ -4,57 +4,39 @@ using Terraria.ID;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.System.BasePlayer;
 
 
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     // PARTE 1: DADOS E LÓGICA
-    public partial class GearshiftPlayer : ModPlayer
+    public partial class GearshiftPlayer : BasePlayer
     {
         // Variáveis de Estado
         
-        public bool isGearshiftActive = false;
-        public bool isGearshiftBuffActive = false; // Controlado pelo Buff
         
-        // Variáveis de Carregamento (Nomes compatíveis com OverdriveLayer)
-        public bool GearActivation = false; // Substitui isCharging
-        public int ActivationTimer = 0;     // Substitui chargeTimer
+        public bool isGearshiftBuffActive = false;
+        
+        
+        public bool GearActivation = false; 
+        public int ActivationTimer = 0;     
         public int ActivationMaxTime = 40;  
 
-        public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
 
         public override void OnRespawn() => ResetAll();
 
-        public void ResetAll()
-        {
-            isGearshiftActive = false;
-            isGearshiftBuffActive = false;
-            GearActivation = false;
-            ActivationTimer = 0;
-            SkillCooldowns.Clear();
-        }
-
         public override void ResetEffects()
         {
-            // Reseta todo frame. O GearshiftBuff.cs vai colocar como true se estiver ativo.
             isGearshiftBuffActive = false; 
         }
 
         public override void PreUpdate()
         { 
-            // 1. Gerencia Cooldowns
-            List<QuirkSkills> keys = new List<QuirkSkills>(SkillCooldowns.Keys);
-            foreach (var skill in keys)
-            {
-                if (SkillCooldowns[skill] > 0) SkillCooldowns[skill]--;
-            }
-            // 2. Lógica de Carregamento
             if (GearActivation)
             {
                 ActivationTimer++;
-                Player.velocity *= 0.8f; // Freia o jogador
-                
-                // Partículas durante o carregamento
+                Player.velocity *= 0.8f; 
+
                 if (Main.rand.NextBool(2))
                 {
                     Dust d = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, Color.Cyan, 0.5f);
@@ -62,10 +44,10 @@ namespace MyHeroMod.content.Quirks.Gearshift
                     d.velocity *= 0.5f;   
                 }
 
-                // Terminou de carregar?
                 if (ActivationTimer >= ActivationMaxTime)
                 {
                     ActivateGearshift();
+                    ApplyBuffByStage();
                     GearActivation = false;
                     ActivationTimer = 0;
                 }
@@ -107,6 +89,19 @@ namespace MyHeroMod.content.Quirks.Gearshift
                 velocity *= 2.5f; 
                 damage = (int)(damage * 1.3f); 
             }
+        }
+
+        private void ApplyBuffByStage()
+        {
+            int duration = TransPlayer.CurrentStage switch
+            {
+                QuirkStage.Initial => 187,
+                QuirkStage.Adequation => 375,
+                QuirkStage.Intermediate => 75,
+                QuirkStage.Advanced => 1500,
+                _ => 3000
+            };
+            Player.AddBuff(ModContent.BuffType<GearshiftBuff>(), duration);
         }
     }
 }

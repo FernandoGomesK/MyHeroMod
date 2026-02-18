@@ -16,12 +16,12 @@ namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FloatPlayer>().isFloatActive = true;
+            player.GetModPlayer<FloatPlayer>().isFloatActive = true; 
 
 
-            if (player.GetModPlayer<FloatPlayer>().isFloatActive && !player.mount.Active && player.velocity.Y != 0)
+            if (player.GetModPlayer<FloatPlayer>().isFloatActive && !player.mount.Active && player.velocity.Y != 0 )
             {
-                
+                    
                 if (player.controlJump) 
                 {
                     player.velocity.Y = -0.5f; 

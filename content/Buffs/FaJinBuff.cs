@@ -31,10 +31,10 @@ namespace MyHeroMod.content.Quirks.OFA9th.Buffs
                 return;
             }
 
-            // 3. Efeito Visual: Partículas de "energia estocada" (Fogo laranja/laranja avermelhado)
-            if (Main.rand.NextBool(3)) // 33% de chance a cada frame
+            
+            if (Main.rand.NextBool(3)) 
             {
-                Dust dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.Flare, 0f, 0f, 100, default, 1.2f);
+                Dust dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.RedTorch, 0f, 0f, 100, default, 2.0f);
                 dust.noGravity = true;
                 dust.velocity *= 0.5f;
             }

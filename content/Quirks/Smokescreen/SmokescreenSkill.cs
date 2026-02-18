@@ -17,7 +17,7 @@ namespace MyHeroMod.content.Quirks.Smokescreen
         {
             var MainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            // Verifica se tem a Quirk certa (Float ou One For All)
+        
             if (MainPlayer.SelectedQuirk == QuirkType.SmokeScreen || MainPlayer.SelectedQuirk == QuirkType.OneForAll9th) 
             {
                 if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(MainPlayer, MainPlayer.Slot1);

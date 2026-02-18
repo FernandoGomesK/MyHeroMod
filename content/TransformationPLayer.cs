@@ -3,7 +3,8 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 using Terraria.Audio;
 using System.Collections.Generic; 
-using MyHeroMod.content.System;   
+using MyHeroMod.content.System;
+using MyHeroMod.content.System.BasePlayer;
 
 namespace MyHeroMod.content
 {
@@ -14,11 +15,13 @@ namespace MyHeroMod.content
                             Explosion, HellFlames, BlueFlames, HalfColdHalfHot,
                             Float, Gearshift, FaJin, SmokeScreen, DangerSense,
                             BlackWhip }
+
+   
                             
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 
     // --- CLASSE DO JOGADOR ---
-    public class TransformationPlayer : ModPlayer
+    public class TransformationPlayer : BasePlayer
     {
         public QuirkType SelectedQuirk = QuirkType.Quirkless;
         public QuirkStage CurrentStage = QuirkStage.Initial;
@@ -35,76 +38,15 @@ namespace MyHeroMod.content
         // Lista de skills desbloqueadas
         public List<QuirkSkills> UnlockedSkills = new List<QuirkSkills>();
 
-        public float DodgeChance = 0f;
+        // public float DodgeChance = 0f;
 
         public override void ResetEffects()
         {
             DodgeChance = 0f;
         }
 
-        // --- MÉTODO DE ATUALIZAR SKILLS (Agora dentro da classe!) ---
-        public void UpdateUnlockedSkills()
-        {
-            // Limpa skills antigas
-            UnlockedSkills.Clear();
-
-            // Percorre todas as skills do jogo
-            foreach (var skillEntry in SkillData.SkillList)
-            {
-                var skillId = skillEntry.Key;
-                var info = skillEntry.Value;
-
-                // 1. Verifica se a Quirk do jogador bate com a skill
-                if (info.RelatedQuirks.Contains(this.SelectedQuirk))
-                {
-                    // 2. LÓGICA DE EXCEÇÃO (Desbloqueio Antecipado)
-                    
-                    
-                    if (this.SelectedQuirk == QuirkType.SmokeScreen && skillId == QuirkSkills.Smokescreen)
-                    {
-                        UnlockedSkills.Add(QuirkSkills.Smokescreen);
-                        continue; 
-                    }
-
-                    if (this.SelectedQuirk == QuirkType.Gearshift && skillId == QuirkSkills.Gearshift)
-                    {
-                        UnlockedSkills.Add(QuirkSkills.Gearshift);
-                        continue; 
-                    }
-
-                    if (this.SelectedQuirk == QuirkType.Float && skillId == QuirkSkills.Float)
-                    {
-                        UnlockedSkills.Add(QuirkSkills.Float);
-                        continue; 
-                    }
-
-                    if (this.SelectedQuirk == QuirkType.FaJin && skillId == QuirkSkills.FaJinStore)
-                    {
-                        UnlockedSkills.Add(QuirkSkills.FaJinStore);
-                        continue; 
-                    }
-                    
-                    // Se eu sou o usuário de Danger Sense Puro
-                    if (this.SelectedQuirk == QuirkType.DangerSense && skillId == QuirkSkills.DangerActivate)
-                    {
-                        UnlockedSkills.Add(QuirkSkills.DangerActivate);
-                        continue;
-                    }
-
-                    if (this.SelectedQuirk == QuirkType.BlackWhip && (skillId == QuirkSkills.BlackWhipHook || skillId == QuirkSkills.BlackWhipSurge))
-                    {
-                        UnlockedSkills.Add(skillId);
-                        continue;
-                    }
-
-                    // 3. Verificação Padrão por Estágio
-                    if (this.CurrentStage >= info.MinStage)
-                    {
-                        UnlockedSkills.Add(skillId);
-                    }
-                }
-            }
-        }
+    
+        
 
         public override bool FreeDodge(Player.HurtInfo info)
         {
@@ -153,48 +95,38 @@ namespace MyHeroMod.content
 
         // --- INPUTS (Menu de Skills) ---
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
+{
+    // 1. LÓGICA DO MENU
+        if (KeybindSystem.SkillMenu.JustPressed)
         {
-            if (KeybindSystem.SkillMenu.JustPressed)
-            {
-                UISystem.ToggleSkillMenu();
-            }   
+            UISystem.ToggleSkillMenu();
         }
 
-        // --- ATUALIZAÇÃO (Evolução Automática) ---
-        public override void PreUpdate()
-        {
-            // O próprio Player já é 'Player', não precisa pegar GetModPlayer de si mesmo para variáveis locais
-            // Mas para garantir que estamos a mexer na instância certa:
-            
-            if (!ManualStageOverride)
-            {
-                // Guarda o estágio antigo para ver se mudou
-                var oldStage = CurrentStage;
+        // 2. LÓGICA DAS SKILLS (Centralizada aqui)
+        // Aqui usamos as variáveis locais Slot1, Slot2, etc., que estão salvas nesta classe.
+        if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
+        if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(Slot2);
+        if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(Slot3);
+        if (KeybindSystem.TransformKey.JustPressed) ExecuteSkill(TransformSlot);
+    }
 
-                // Lógica de Evolução
-                if (NPC.downedMoonlord)
-                {
-                    CurrentStage = QuirkStage.Final;
-                }
-                else if (NPC.downedPlantBoss)
-                {
-                    CurrentStage = QuirkStage.Advanced;
-                }
-                else if (Main.hardMode)
-                {
-                    CurrentStage = QuirkStage.Intermediate;
-                }
-                else 
-                {
-                    CurrentStage = QuirkStage.Adequation;
-                }
+        public override void OnEnterWorld() {
+        UpdateUnlockedSkills();
+}
 
-                // Se o estágio mudou, recalcula as skills
-                if (oldStage != CurrentStage)
-                {
-                    UpdateUnlockedSkills();
-                }
+        public void UpdateUnlockedSkills() {
+        UnlockedSkills.Clear();
+
+    
+        foreach (var skillId in SkillLibrary.GetAllIds()) {
+            var skill = SkillLibrary.GetSkill(skillId);
+            if (skill != null && skill.CheckUnlock(this)) {
+            UnlockedSkills.Add(skillId);
             }
-        }
     }
 }
+
+        
+    
+    }
+    }
