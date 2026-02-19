@@ -4,6 +4,7 @@ using Terraria.ID;
 using System.Collections.Generic;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using MyHeroMod.content.Quirks.DangerSense;
 
 namespace MyHeroMod.content.System.BasePlayer
 {
@@ -15,15 +16,8 @@ namespace MyHeroMod.content.System.BasePlayer
         public float DodgeChance = 0f;
 
         
-    // A lógica de esquiva genérica
-        public override bool FreeDodge(Player.HurtInfo info) {
-            if (DodgeChance > 0 && Main.rand.NextFloat() < DodgeChance) {
-                Player.SetImmuneTimeForAllTypes(40);
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound"), Player.position);
-                return true;
-            }
-            return false;
-        }
+    
+        
         public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
 
         public int GetCooldown(QuirkSkills skill) {
@@ -43,6 +37,24 @@ namespace MyHeroMod.content.System.BasePlayer
             SkillCooldowns.Clear();
         }
 
+        public override void ResetEffects()
+        {
+            DodgeChance = 0f;
+        }
+
+    
+        public override bool FreeDodge(Player.HurtInfo info) {
+            if (DodgeChance > 0 && Main.rand.NextFloat() < DodgeChance) {
+                Player.SetImmuneTimeForAllTypes(40);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound"), Player.position);
+
+                if (Player.TryGetModPlayer<DangerSensePlayer>(out var dsPlayer)) {
+                dsPlayer.triggerVisual(); 
+                }
+                return true;
+            }
+            return false;
+        }
 
         public override void PreUpdate() { 
     

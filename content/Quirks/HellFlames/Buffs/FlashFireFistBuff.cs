@@ -6,7 +6,7 @@ namespace MyHeroMod.content.Quirks.HellFlames.Buffs
 {
     public class FlashFireFistBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/FlashFireFistBuff";
+        public override string Texture => "MyHeroMod/Assets/BuffImage/FlashFireFistBuff";
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;

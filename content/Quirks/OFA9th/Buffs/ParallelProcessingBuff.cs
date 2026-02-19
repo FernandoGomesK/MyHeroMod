@@ -8,13 +8,13 @@ namespace MyHeroMod.content.Quirks.OFA9th.Buffs
 {
     public class ParallelProcessingBuff : ModBuff
     {
-        // Use uma textura de ícone apropriada (pode ser um cérebro ou chips)
-        public override string Texture => "MyHeroMod/Assets/ParallelProcessingBuff"; 
+       
+        public override string Texture => "MyHeroMod/Assets/BuffImage/ParallelProcessingBuff"; 
 
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;
-            Main.buffNoTimeDisplay[Type] = true; // Não mostra timer, pois é um estad
+            Main.buffNoTimeDisplay[Type] = true; 
             Main.debuff[Type] = false;
         }
 

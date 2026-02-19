@@ -23,25 +23,25 @@ public class DangerSenseSkill : QuirkSkill
 
     public override void OnUse(Player player)
     {
-        var dsPlayer = player.GetModPlayer<DangerSensePlayer>();
+        var dsPlayer = player.GetModPlayer<DangerSensePlayer>();    
 
         
 
-            if (dsPlayer.CurrentStage >= MyHeroMod.content.QuirkStage.Adequation)
+            if (dsPlayer.CurrentStage >= QuirkStage.Adequation)
             {
                 player.AddBuff(ModContent.BuffType<OvertimeBuff>(), 300);
                 dsPlayer.IsOvertimeActive = true;
-                dsPlayer.IsDangerSenseActive = true; // Ativa automaticamente no overtime
+                dsPlayer.IsDangerSenseActive = true; 
                 CombatText.NewText(player.getRect(), Color.Yellow, "Overtime!");
             }
             else
             {
-                // Alterna o estado (Toggle)
+                
                 ToggleDangerSense(player, dsPlayer);
             }
         }
 
-        // 3. Método auxiliar (corrigido para fora do OnUse)
+    
         private void ToggleDangerSense(Player player, DangerSensePlayer dsPlayer)
         {
             dsPlayer.IsDangerSenseActive = !dsPlayer.IsDangerSenseActive;

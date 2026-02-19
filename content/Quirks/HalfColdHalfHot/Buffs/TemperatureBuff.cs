@@ -9,7 +9,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Buffs
     public class TemperatureBuff : ModBuff
     {
         // Use uma textura de ícone apropriada (pode ser um cérebro ou chips)
-        public override string Texture => "MyHeroMod/Assets/TemperatureBuff"; 
+        public override string Texture => "MyHeroMod/Assets/BuffImage/TemperatureBuff"; 
 
         public override void SetStaticDefaults()
         {

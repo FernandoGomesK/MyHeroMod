@@ -6,7 +6,7 @@ namespace MyHeroMod.content.Quirks.Blueflames.Buffs
 {
     public class BlueRage : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BlueRage";
+        public override string Texture => "MyHeroMod/Assets/BuffImage/BlueRage";
         
         public override void SetStaticDefaults()
         {

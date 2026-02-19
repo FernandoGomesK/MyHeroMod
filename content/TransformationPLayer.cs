@@ -38,36 +38,8 @@ namespace MyHeroMod.content
         // Lista de skills desbloqueadas
         public List<QuirkSkills> UnlockedSkills = new List<QuirkSkills>();
 
-        // public float DodgeChance = 0f;
 
-        public override void ResetEffects()
-        {
-            DodgeChance = 0f;
-        }
-
-    
         
-
-        public override bool FreeDodge(Player.HurtInfo info)
-        {
-            if (DodgeChance > 0)
-            {
-                if (Main.rand.NextFloat() < DodgeChance)
-                {
-                    Player.SetImmuneTimeForAllTypes(40); // Invencibilidade longa
-                
-                    // Tenta chamar o efeito visual do Danger Sense (se o ModPlayer existir)
-                    try {
-                        // Player.GetModPlayer<DangerSensePlayer>().triggerVisual(); // Descomente se tiver esse método
-                    } catch { /* Ignora se der erro */ }
-
-                    SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound"), Player.position);
-                    
-                    return true; // Retornar TRUE bloqueia o dano
-                }
-            }
-            return false;
-        }
 
         // --- SAVE & LOAD ---
         public override void SaveData(TagCompound tag)

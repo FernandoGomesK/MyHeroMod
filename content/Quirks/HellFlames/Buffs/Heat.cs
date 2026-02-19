@@ -9,7 +9,7 @@ namespace MyHeroMod.content.Quirks.HellFlames.Buffs
     public class Heat : ModBuff
     {
         // Use uma textura de ícone apropriada (pode ser um cérebro ou chips)
-        public override string Texture => "MyHeroMod/Assets/HeatBuff"; 
+        public override string Texture => "MyHeroMod/Assets/BuffImage/HeatBuff"; 
 
         public override void SetStaticDefaults()
         {

@@ -6,7 +6,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Buffs
 {
     public class FullCowlingBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/OneForAllFullCowling5Percent";
+        public override string Texture => "MyHeroMod/Assets/BuffImage/OneForAllFullCowling5Percent";
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;

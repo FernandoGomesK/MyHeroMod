@@ -9,7 +9,7 @@ namespace MyHeroMod.content.Quirks.Blueflames.Buffs
     public class BlueHeatBuff : ModBuff
     {
         // Use uma textura de ícone apropriada (pode ser um cérebro ou chips)
-        public override string Texture => "MyHeroMod/Assets/BlueHeatBuff"; 
+        public override string Texture => "MyHeroMod/Assets/BuffImage/BlueHeatBuff"; 
 
         public override void SetStaticDefaults()
         {

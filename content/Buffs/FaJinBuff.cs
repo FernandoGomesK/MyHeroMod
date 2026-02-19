@@ -9,7 +9,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Buffs
 {
     public class FaJinBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/FaJinBuff";
+        public override string Texture => "MyHeroMod/Assets/BuffImage/FaJinBuff";
 
         public override void SetStaticDefaults()
         {

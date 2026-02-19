@@ -8,7 +8,8 @@ namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
 {
     public class SmokescreenBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/SmokescreenBuff";
+        public override string Texture => "MyHeroMod/Assets/BuffImage/SmokescreenBuff";
+        
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true; 

@@ -2,12 +2,14 @@ using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.DangerSense;
+using MyHeroMod.content.System.BasePlayer;
 
 namespace MyHeroMod.content.Buffs
 {
     public class DangerSenseBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/DangerSenseBuff";
+        public override string Texture => "MyHeroMod/Assets/BuffImage/DangerSenseBuff";
+        
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;
@@ -16,52 +18,34 @@ namespace MyHeroMod.content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            var transformPlayer = player.GetModPlayer<TransformationPlayer>();
-            var dangerPlayer = player.GetModPlayer<DangerSensePlayer>();
-            
-            player.detectCreature = true;
-            player.dangerSense = true;
-            
-            float currentChance = 0.05f;    
-
-            switch(transformPlayer.CurrentStage){
-                case QuirkStage.Initial:
-                
-                currentChance = 0.05f; // 5% de chance de esquiva
-                break;
-            
-                case QuirkStage.Adequation:
-                currentChance = 0.10f; // 10% de chance de esquiva
-                break;
-          
-                case QuirkStage.Intermediate:
-                currentChance = 0.15f; // 15% de chance de esquiva
-                break;
-            
-                case QuirkStage.Advanced:
-                currentChance = 0.25f; // 25% de chance de esquiva
-                break;
-          
-                case QuirkStage.Final:
-                currentChance = 0.50f; // 20% de chance de esquiva
-                break;
-        
-                default:
-                currentChance = 0.05f; // Chance de esquiva padrão
-                break;
-                    
-            }
-
-            if (dangerPlayer.IsOvertimeActive)
+            // Tenta pegar o DangerSensePlayer (o BasePlayer aqui nem é necessário para a lógica do dodge)
+            if (!player.TryGetModPlayer<TransformationPlayer>(out var transformPlayer) ||
+                !player.TryGetModPlayer<DangerSensePlayer>(out var dangerPlayer))
             {
-                currentChance *= 1.5f;
+                return;
             }
+
+            // Garante que o player tenha visão especial (efeito visual de ver fios/perigos do Terraria)
+            player.dangerSense = true;
+
+            float currentChance = 0.05f; 
+
+            // Lógica de estágios...
+            switch(transformPlayer.CurrentStage) {
+                case QuirkStage.Initial: currentChance = 0.05f; break;
+                case QuirkStage.Adequation: currentChance = 0.15f; break;
+                case QuirkStage.Intermediate: currentChance = 0.25f; break;
+                case QuirkStage.Advanced: currentChance = 0.35f; break;
+                case QuirkStage.Final: currentChance = 0.50f; break;
+            }
+
+            if (dangerPlayer.IsOvertimeActive) currentChance *= 1.5f;
             if (currentChance > 0.9f) currentChance = 0.9f;
 
-            transformPlayer.DodgeChance += currentChance;
-
+            // --- CORREÇÃO AQUI ---
+            // Aplica a chance DIRETAMENTE no DangerSensePlayer.
+            // É ele que roda o FreeDodge, então é ele que precisa saber a chance.
+            dangerPlayer.DodgeChance = currentChance; 
         }
     }
 }
-
-            

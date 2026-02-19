@@ -6,7 +6,7 @@ namespace MyHeroMod.content.Quirks.OFA8th
 {
     public class StockPileBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/OneForAllStockPile";
+        public override string Texture => "MyHeroMod/Assets/BuffImage/OneForAllStockPile";
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;

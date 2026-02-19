@@ -14,22 +14,26 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
 
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
-            var modPlayer = drawInfo.drawPlayer.GetModPlayer<DangerSensePlayer>();
-            
-            
+            if (drawInfo.drawPlayer == null || !drawInfo.drawPlayer.active) return false;
+
+            if (!drawInfo.drawPlayer.TryGetModPlayer<DangerSensePlayer>(out var modPlayer))
+                return false;
+
             return modPlayer.VisualTimer > 0 && !drawInfo.drawPlayer.dead;
         }
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
-            if (!ModContent.HasAsset("MyHeroMod/Assets/DangerSenseEffect")) return;
+            if (!drawInfo.drawPlayer.TryGetModPlayer<DangerSensePlayer>(out var modPlayer)) return;
+    
+            if (!ModContent.HasAsset("MyHeroMod/Assets/Effects/DangerSenseEffect")) return;
 
-            Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/Assets/DangerSenseEffect").Value;
-            var modPlayer = drawInfo.drawPlayer.GetModPlayer<DangerSensePlayer>();
+            Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/Assets/Effects/DangerSenseEffect").Value;
+        
 
             // CONFIGURAÇÃO DA ANIMAÇÃO
-            int totalFrames = 8; // Quantos frames tem sua imagem
-            int timer = modPlayer.VisualMaxTimer - modPlayer.VisualTimer; // Inverte para contar de 0 pra cima
+            int totalFrames = 8; 
+            int timer = modPlayer.VisualMaxTimer - modPlayer.VisualTimer; 
             int frameDuration = modPlayer.VisualMaxTimer / totalFrames;
             
             if (frameDuration < 1) frameDuration = 1;
@@ -41,12 +45,10 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
             int frameHeight = texture.Height / totalFrames;
             Rectangle sourceRectangle = new Rectangle(0, currentFrame * frameHeight, texture.Width, frameHeight);
 
-            // POSIÇÃO (Acima da Cabeça)
-            // drawInfo.Center é o umbigo do player.
-            // Subtraímos Y para subir (Terraria Y cresce pra baixo).
+            
             Vector2 drawPos = drawInfo.Center - Main.screenPosition;
-            drawPos.Y -= 25f; // Sobe 40 pixels (ajuste conforme necessário)
-            drawPos.Y += drawInfo.drawPlayer.gfxOffY; // Compensa movimento de montaria/pulo
+            drawPos.Y -= 50f; 
+            drawPos.Y += drawInfo.drawPlayer.gfxOffY; 
 
             // Cor e Luz
             Lighting.AddLight(drawInfo.Center, Color.Cyan.ToVector3() * 0.8f);
@@ -55,11 +57,11 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
                 texture,
                 drawPos,
                 sourceRectangle,
-                Color.White, // Use drawInfo.colorArmorBody se quiser que escureça à noite
+                Color.White, 
                 0f, // Rotação
-                new Vector2(texture.Width / 2f, frameHeight / 2f), // Origem (Centro da imagem)
+                new Vector2(texture.Width / 2f, frameHeight / 2f), 
                 1f, // Escala
-                drawInfo.playerEffect, // Espelhar se o player virar
+                drawInfo.playerEffect, 
                 0
             );
 
