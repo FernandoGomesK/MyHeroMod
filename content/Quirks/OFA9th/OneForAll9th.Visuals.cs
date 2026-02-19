@@ -35,9 +35,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
         drawInfo.colorArmorHead = Color.RoyalBlue;
         drawInfo.colorArmorLegs = Color.RoyalBlue;
         
-        // This creates a "God Mode" style afterimage trail which looks like a contour
+        
         Player.armorEffectDrawShadow = true; 
-        // Player.armorEffectDrawOutlines = true; // This forces a faint outline
+        
         }
         if (FaJinStored)
             {

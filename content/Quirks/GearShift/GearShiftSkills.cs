@@ -4,8 +4,6 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.ID;
 using MyHeroMod.content.Buffs;
-using My
-
 using MyHeroMod.content.System.BasePlayer;
 using MyHeroMod.content.System;
 
@@ -197,5 +195,4 @@ namespace MyHeroMod.content.Quirks.Gearshift
         //         SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/GearShiftSound") with { Volume = 0.20f }, Player.position);
         //     }
         // }
-    }
-}
+    

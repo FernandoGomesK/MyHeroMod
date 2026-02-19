@@ -31,10 +31,10 @@ public class GreenLightningLayer : PlayerDrawLayer
         int frameHeight = texture.Height / frameCount;
         Rectangle sourceRect = new Rectangle(0, currentFrame * frameHeight, texture.Width, frameHeight);
 
-        // Centraliza os raios no jogador
+        
         Vector2 position = drawInfo.Center - Main.screenPosition;
         
-        // Criando o dado de desenho
+        
         DrawData drawData = new DrawData(
             texture,
             new Vector2((int)position.X, (int)position.Y), 
@@ -47,7 +47,7 @@ public class GreenLightningLayer : PlayerDrawLayer
             0
         );
 
-        // Adiciona à lista de desenhos do frame atual
+        
         drawInfo.DrawDataCache.Add(drawData);
     }
 }

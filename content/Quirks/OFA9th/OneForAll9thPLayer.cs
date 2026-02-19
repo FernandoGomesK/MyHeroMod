@@ -8,7 +8,6 @@ using MyHeroMod.content;
 using MyHeroMod.content.Quirks.OFA9th.Buffs;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
-using MyHeroMod.content.Quirks.OFA9th.Projectiles.BlackWhip;
 using MyHeroMod.content.System;
 using Terraria.Audio;
 using System.Collections.Generic;
@@ -25,7 +24,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         // Fa jin
 
         public int FaJinCharges = 0;
-        public int MaxFaJinCharges = 3;
+        public int MaxFaJinCharges = 5;
         public bool FaJinStored = false;
 
         // Gearshift
