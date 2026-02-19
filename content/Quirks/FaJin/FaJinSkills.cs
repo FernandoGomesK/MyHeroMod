@@ -6,7 +6,7 @@ using Terraria.ID;
 
 using Terraria.Audio;
 
-using MyHeroMod.content.GeneralSkills1;
+
 using MyHeroMod.content.System.BasePlayer;
 
 
@@ -15,26 +15,48 @@ namespace MyHeroMod.content.Quirks.FaJin
 {
     public partial class FajinPlayer : BasePlayer
     {
-        
-        
-        
-        private void dashvfx()
+
+
+        public override void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash)
         {
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1"), Player.position);
-                for (int i = 0; i < 4; i++)
+            var transformationPlayer = Player.GetModPlayer<TransformationPlayer>();
+            var fajinPlayer = Player.GetModPlayer<FajinPlayer>();
+            if (transformationPlayer.SelectedQuirk == QuirkType.FaJin) {
+                if (fajinPlayer.FaJinStored)
                 {
-                    Vector2 dustPosition = Player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
-                    Dust.NewDust(dustPosition, 0, 0, DustID.Smoke, Player.velocity.X * -0.5f, Player.velocity.Y * -0.5f);
+                speed = 25f;
+                isEnhanced = true;
+                fajinPlayer.FaJinCharges = 0; 
                 }
-                for (int i = 0; i < 15; i++)
-                {
-                    Vector2 dustPosition = Player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
-                    Dust.NewDust(dustPosition, 0, 0, DustID.RedTorch, Player.velocity.X * -0.5f, Player.velocity.Y * -0.5f, 0, default, 6f);
+                else{
+                ChargeFajin();
+                isEnhanced = true;  
                 }
-            }
+
+    }   }
+    }
+    }
+        
+
+
+       
+        // private void dashvfx()
+        // {
+        //         SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1"), Player.position);
+        //         for (int i = 0; i < 4; i++)
+        //         {
+        //             Vector2 dustPosition = Player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
+        //             Dust.NewDust(dustPosition, 0, 0, DustID.Smoke, Player.velocity.X * -0.5f, Player.velocity.Y * -0.5f);
+        //         }
+        //         for (int i = 0; i < 15; i++)
+        //         {
+        //             Vector2 dustPosition = Player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
+        //             Dust.NewDust(dustPosition, 0, 0, DustID.RedTorch, Player.velocity.X * -0.5f, Player.velocity.Y * -0.5f, 0, default, 6f);
+        //         }
+        //     }
  
         
-        }
+        // }
 
 
 
@@ -46,7 +68,7 @@ namespace MyHeroMod.content.Quirks.FaJin
 
              
             
-        }
+        
 
         
         

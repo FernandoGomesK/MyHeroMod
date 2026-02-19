@@ -47,17 +47,17 @@ namespace MyHeroMod
             quirkList.SetScrollbar(scrollbar);
 
             CreateButton("One For All 9th", QuirkType.OneForAll9th, Color.LimeGreen);
-            CreateButton("Explosion", QuirkType.Explosion, Color.OrangeRed);
-            CreateButton("One For All 8th", QuirkType.OneForAll8th, Color.YellowGreen);
-            CreateButton("Hell Flames", QuirkType.HellFlames, Color.Orange);
-            CreateButton("Blue Flames", QuirkType.BlueFlames, Color.CornflowerBlue);
-            CreateButton("Half Cold Half Hot", QuirkType.HalfColdHalfHot, Color.LightBlue);
+            // CreateButton("Explosion", QuirkType.Explosion, Color.OrangeRed);
+            // CreateButton("One For All 8th", QuirkType.OneForAll8th, Color.YellowGreen);
+            // CreateButton("Hell Flames", QuirkType.HellFlames, Color.Orange);
+            // CreateButton("Blue Flames", QuirkType.BlueFlames, Color.CornflowerBlue);
+            // CreateButton("Half Cold Half Hot", QuirkType.HalfColdHalfHot, Color.LightBlue);
             CreateButton("Float", QuirkType.Float, Color.LightSkyBlue);
             CreateButton("Gearshift", QuirkType.Gearshift, Color.Blue);
             CreateButton("Fa Jin", QuirkType.FaJin, Color.MediumPurple);
             CreateButton("Smoke Screen", QuirkType.SmokeScreen, Color.Gray);
             CreateButton("Danger Sense", QuirkType.DangerSense, Color.Red);
-            CreateButton("Black Whip", QuirkType.BlackWhip, Color.Black);
+            CreateButton("Black Whip", QuirkType.BlackWhip, Color.Black);   
         }
         private void CreateButton(string text, QuirkType quirk, Color color)
         {
@@ -74,7 +74,7 @@ namespace MyHeroMod
                 modPlayer.CurrentStage = QuirkStage.Initial;
                 if (quirk == QuirkType.HellFlames || quirk == QuirkType.HalfColdHalfHot )
     {
-        // Só dá o item se ele já não tiver no inventário
+        //i
         if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.FireQuirkAttack>()))
         {
             player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.FireQuirkAttack>());
@@ -82,7 +82,7 @@ namespace MyHeroMod
     }
         else if (quirk == QuirkType.BlueFlames)
         {
-                    // Só dá o item se ele já não tiver no inventário
+                    // if not on inventary, gives the item
             if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.BlueQuirkAttack>()))
             {
                         player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.BlueQuirkAttack>());
@@ -90,7 +90,7 @@ namespace MyHeroMod
                 }
         else if (quirk == QuirkType.OneForAll9th)
         {
-                    // Só dá o item se ele já não tiver no inventário
+                    // if not on inventary, gives the item
             if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.PunchAttack>()))
             {
                         player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.PunchAttack>());

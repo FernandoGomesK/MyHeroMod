@@ -4,8 +4,10 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.ID;
 using MyHeroMod.content.Buffs;
-using MyHeroMod.content.GeneralSkills1;
+using My
+
 using MyHeroMod.content.System.BasePlayer;
+using MyHeroMod.content.System;
 
 
 namespace MyHeroMod.content.Quirks.Gearshift
@@ -13,6 +15,26 @@ namespace MyHeroMod.content.Quirks.Gearshift
     // PARTE 2: INPUTS E SKILLS
     public partial class GearshiftPlayer : BasePlayer
     {
+
+
+        public override void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash)
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            // Se o Gearshift for a Quirk selecionada e o Buff estiver ativo
+            if (transPlayer.SelectedQuirk == QuirkType.Gearshift && Player.HasBuff(ModContent.BuffType<GearshiftBuff>())) 
+            {
+                hideNormalDash = true; // Cancela o movimento físico
+
+                // Executa o teleporte que está no DashSkill
+                var dashSkill = (DashSkill)SkillLibrary.GetSkill(QuirkSkills.Dash);
+                if (dashSkill != null) {
+                    dashSkill.TeleportDash(Player); 
+                }
+            }
+        }
+    }
+}
         // public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         // {
         //     var MainPlayer = Player.GetModPlayer<TransformationPlayer>();

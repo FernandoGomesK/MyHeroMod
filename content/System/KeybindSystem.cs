@@ -14,7 +14,7 @@ namespace MyHeroMod.content
         public static ModKeybind SkillMenu { get; private set; }
 
         public override void Load() {
-            // "Transformar" é o nome que aparecerá nos controles do Terraria
+            // what appears on terraria keys
             TransformKey = KeybindLoader.RegisterKeybind(Mod, "Transformar", "G");
             SkillSlot1 = KeybindLoader.RegisterKeybind(Mod, "Skill Slot 1", "Z");
             SkillSlot2 = KeybindLoader.RegisterKeybind(Mod, "Skill Slot 2", "X");

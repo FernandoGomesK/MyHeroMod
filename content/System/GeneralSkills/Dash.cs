@@ -4,6 +4,8 @@ using Terraria.Audio;
 using Terraria.ID;
 using MyHeroMod.content.Quirks.FaJin;
 using MyHeroMod.content.Quirks.Gearshift;
+using MyHeroMod.content.System.BasePlayer;
+using HeroBase = MyHeroMod.content.System.BasePlayer.BasePlayer;
 
 namespace MyHeroMod.content.System
 {
@@ -29,42 +31,33 @@ namespace MyHeroMod.content.System
 
         public override void OnUse(Player player)
         {
-            var fajinPlayer = player.GetModPlayer<FajinPlayer>();
-            var gearshiftPlayer = player.GetModPlayer<GearshiftPlayer>();
-            var transPlayer = player.GetModPlayer<TransformationPlayer>();
             float speed = 14f;
             bool isEnhanced = false;
+            bool hideNormalDash = false;
+            
 
-            if (gearshiftPlayer.isGearshiftBuffActive)
+            foreach (var modPlayer in player.ModPlayers)
+    {
+        // Usamos o nome completo da classe para evitar erro de namespace
+        foreach (var modPlayer1 in player.ModPlayers)
             {
-                ApplyDashMovement(player);
-                return;
-            }
-            else if (fajinPlayer.FaJinStored)
-            {
-                speed = 25f;
-                isEnhanced = true;
-                fajinPlayer.FaJinCharges = 0; 
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1"), player.position);
-
-                executeDash(player, speed, isEnhanced);
-            }          
-            else if (transPlayer.SelectedQuirk == QuirkType.FaJin)
+                if (modPlayer1 is HeroBase hero) 
                 {
-                    fajinPlayer.ChargeFajin(); 
-                    SoundEngine.PlaySound(SoundID.Item14, player.position);
-                    executeDash(player, speed, isEnhanced);
+                    hero.ModifyDash(ref speed, ref isEnhanced, ref hideNormalDash);
                 }
-            else 
-            {
-                
-                SoundEngine.PlaySound(SoundID.Item14, player.position);
-                executeDash(player, speed, isEnhanced);
             }
 
-             
+        if (hideNormalDash) return; 
+
+        executeDash(player, speed, isEnhanced);
+        player.SetImmuneTimeForAllTypes(10);
         }
 
+                
+    }
+
+
+        
         private void executeDash(Player player, float speed, bool isEnhanced)
         {
             Vector2 dashDirection = Main.MouseWorld - player.Center;
@@ -78,6 +71,7 @@ namespace MyHeroMod.content.System
             
             player.SetImmuneTimeForAllTypes(10);
         }
+        public void TeleportDash(Player player) => ApplyDashMovement(player);
 
         private void ApplyDashMovement(Player player)
         {
@@ -157,6 +151,30 @@ namespace MyHeroMod.content.System
                 dust.velocity *= 0.5f;
                 if (enhanced) dust.noGravity = true;
             }
-        }
-    }
-}
+        }}}
+    
+
+
+//     if (gearshiftPlayer.isGearshiftBuffActive)
+        //     {
+        //         ApplyDashMovement(player);
+        //         return;
+        //     }
+            
+        //     else if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+        //     {
+        //         speed = 30f;
+        //         isEnhanced = true;
+        //         SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1"), player.position);
+
+        //         executeDash(player, speed, isEnhanced);
+        //     }
+        //     else 
+        //     {
+                
+        //         SoundEngine.PlaySound(SoundID.Item14, player.position);
+        //         executeDash(player, speed, isEnhanced);
+        //     }
+
+             
+        // }

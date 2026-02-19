@@ -30,6 +30,8 @@ namespace MyHeroMod.content.System.BasePlayer
             else
                 SkillCooldowns.Add(skill, ticks);
         }
+        
+        public virtual void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash) { }
 
         public override void OnRespawn() => ResetAll();
 
@@ -80,6 +82,8 @@ namespace MyHeroMod.content.System.BasePlayer
             SetCooldown(skillId, skill.BaseCooldown);
         }
     }
+        
+        
         public TransformationPlayer TransPlayer => Player.GetModPlayer<TransformationPlayer>();
        
 

@@ -52,6 +52,8 @@ namespace MyHeroMod.content
             tag["TransformSlot"] = (int)TransformSlot;
         }
 
+        
+
         public override void LoadData(TagCompound tag)
         {
             if (tag.ContainsKey("SelectedQuirk")) SelectedQuirk = (QuirkType)tag.GetInt("SelectedQuirk");

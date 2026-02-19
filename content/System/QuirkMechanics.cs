@@ -8,14 +8,14 @@ namespace MyHeroMod.content.System
     public static class QuirkMechanics
     {
         /// <summary>
-        /// Verifica o superaquecimento e aplica a insolação se necessário.
+        /// verifies the current Heat
         /// </summary>
-        /// <param name="player">O Jogador atual</param>
-        /// <param name="currentTemp">Temperatura/Calor atual</param>
-        /// <param name="maxTemp">Temperatura Máxima permitida</param>
+        /// <param name="player">Currente Player</param>
+        /// <param name="currentTemp">Current Temperature</param>
+        /// <param name="maxTemp">Max Temperature allowed</param>
         public static void CheckHeatstroke(Player player, int currentTemp, int maxTemp)
         {
-            // Se a temperatura passou do limite
+            // if current Temp > mas temp
             if (currentTemp > maxTemp)
             {
                 
