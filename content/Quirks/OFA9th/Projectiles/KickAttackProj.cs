@@ -9,6 +9,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 {
     public class KickAttackProj : ModProjectile
     {
+        public override string Texture => "MyHeroMod/Assets/Projectiles/KickAttackProj";
         public override void SetDefaults()
         {
             Projectile.width = 32;
@@ -31,6 +32,8 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false; // Zenith atravessa paredes. Se quiser que bata na parede, mude para true.
             Projectile.alpha = 0;
+
+            
         }
 
         public override void OnKill(int timeLeft)

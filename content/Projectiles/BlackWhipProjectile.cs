@@ -9,6 +9,8 @@ namespace MyHeroMod.content.Projectiles
     // Renomeei para BlackWhipProjectile para evitar conflitos
     public class BlackWhipProjectile : ModProjectile
     {
+        public override string Texture => "MyHeroMod/Assets/Projectiles/BlackWhipProjectile";
+
         public override void SetDefaults()
         {
             

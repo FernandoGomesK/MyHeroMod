@@ -4,7 +4,6 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.ID;
 using MyHeroMod.content.Buffs;
-using MyHeroMod.content.GeneralSkills1;
 using MyHeroMod.content.System.BasePlayer; //
 using MyHeroMod.content.System;
 
@@ -34,7 +33,6 @@ namespace MyHeroMod.content.Quirks.Smokescreen
             skillData.OnUse(Player);
             SetCooldown(skill, skillData.BaseCooldown);
             }
-            var generalSkills = Player.GetModPlayer<GeneralSkills1.GeneralSkills>(); // Caminho completo para evitar confusão
 
             if (SkillCooldowns.ContainsKey(skill) && SkillCooldowns[skill] > 0)
             {

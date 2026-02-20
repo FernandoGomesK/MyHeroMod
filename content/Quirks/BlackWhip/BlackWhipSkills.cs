@@ -5,7 +5,6 @@ using Terraria.Audio;
 using Terraria.ID;
 using MyHeroMod.content.Buffs;
 
-using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip;
 using MyHeroMod.content.System.BasePlayer;
 
 namespace MyHeroMod.content.Quirks.BlackWhip

@@ -284,6 +284,21 @@ Buffs: {
 		DisplayName: Smokescreen Buff
 		Description: Mods.MyHeroMod.Buffs.SmokescreenBuff.Description
 	}
+
+	FullCowlingBuff10: {
+		DisplayName: Full Cowling Buff10
+		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff10.Description
+	}
+
+	FullCowlingBuff45: {
+		DisplayName: Full Cowling Buff45
+		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff45.Description
+	}
+
+	FullCowlingBuff5: {
+		DisplayName: Full Cowling Buff5
+		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff5.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"

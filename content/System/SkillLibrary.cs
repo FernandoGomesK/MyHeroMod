@@ -30,6 +30,14 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
 
             { QuirkSkills.Gearshift, new GearShiftSkill() },
 
+            {QuirkSkills.DelawareSmash, new DelawareSmashSkill() },
+
+            {QuirkSkills.DetroitSmash, new DetroitSmashSkill() },
+
+            {QuirkSkills.OneForAllFullCowling5, new FullCowling5() },
+
+            {QuirkSkills.OneForAllFullCowling8, new FullCowling10() },
+
 
              
 

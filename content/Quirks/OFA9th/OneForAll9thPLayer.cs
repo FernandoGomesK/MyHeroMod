@@ -76,26 +76,21 @@ namespace MyHeroMod.content.Quirks.OFA9th
         }
         public override void PreUpdate()
         {
-            // Gerenciamento de Cooldown
-            List<QuirkSkills> keys = new List<QuirkSkills>(SkillCooldowns.Keys);
-            foreach (var skill in keys)
-            {
-                if (SkillCooldowns[skill] > 0) SkillCooldowns[skill]--;
-            }
+            
 
             // Timer de Duração do Gearshift
-            if (isGearshiftActive)
-            {
-                GearshiftTimer++;
-                if (GearshiftTimer >= GearshiftMaxTime)
-                {
-                    isGearshiftActive = false;
-                    isGearshiftBuffActive = false;
-                    Main.NewText("Gearshift Deactivated due to limit!", Color.White);
-                    SetCooldown(QuirkSkills.Gearshift, 6000);
-                    GearshiftTimer = 0;
-                }
-            }
+            // if (isGearshiftActive)
+            // {
+            //     GearshiftTimer++;
+            //     if (GearshiftTimer >= GearshiftMaxTime)
+            //     {
+            //         isGearshiftActive = false;
+            //         isGearshiftBuffActive = false;
+            //         Main.NewText("Gearshift Deactivated due to limit!", Color.White);
+            //         SetCooldown(QuirkSkills.Gearshift, 6000);
+            //         GearshiftTimer = 0;
+            //     }
+            // }
 
             // --- LÓGICA DE TRANSFORMAÇÃO (Full Cowling e Gearshift) ---
             if (ActivationTimer > 0)
@@ -155,23 +150,6 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         
 
-        public override void PostUpdate()
-        {
-            if (isFloatActive && !Player.mount.Active && Player.velocity.Y != 0)
-            {
-            // If holding JUMP, stop falling (Hover)
-            if (Player.controlJump) 
-            {
-            Player.velocity.Y = 0f; 
-            Player.fallStart = (int)(Player.position.Y / 16f); // Prevents fall damage accumulating
-            }
-        // If NOT holding jump, fall very slowly (feather fall)
-            else if (Player.velocity.Y > 0)
-            {
-            Player.velocity.Y *= 0.2f; // Slows down falling speed significantly
-            }
-            }
-        }
 
         public override void ResetEffects()
         {
@@ -187,20 +165,20 @@ namespace MyHeroMod.content.Quirks.OFA9th
             if (isGearshiftActive) ParallelProcessing++;
             if (isSmokeScreenActive) ParallelProcessing++;
 
-            // 3. Define o Limite Máximo baseado no Estágio (Progresso)
+            
             if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th)
             {
                 // AQUI VOCÊ CONTROLA A EVOLUÇÃO
                 if (mainPlayer.CurrentStage == QuirkStage.Initial) 
-                    MaxParallelProcessing = 0; // Nenhuma extra
+                    MaxParallelProcessing = 0; 
                 else if (mainPlayer.CurrentStage == QuirkStage.Adequation) 
-                    MaxParallelProcessing = 1; // Consegue manter 1
+                    MaxParallelProcessing = 1; 
                 else if (mainPlayer.CurrentStage == QuirkStage.Intermediate) 
-                    MaxParallelProcessing = 2; // Consegue manter 2
+                    MaxParallelProcessing = 2; 
                 else if (mainPlayer.CurrentStage == QuirkStage.Advanced) 
-                    MaxParallelProcessing = 4; // Consegue manter 4
+                    MaxParallelProcessing = 4; 
                 else if (mainPlayer.CurrentStage >= QuirkStage.Final) 
-                    MaxParallelProcessing = 6; // Consegue manter todas (6)
+                    MaxParallelProcessing = 6; 
             }
             else
             {
@@ -211,6 +189,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+            var player = Player.GetModPlayer<OneForAll9thPlayer>();
 
             if (FaJinCharges >= MaxFaJinCharges)
             {
@@ -235,30 +214,40 @@ namespace MyHeroMod.content.Quirks.OFA9th
             }
             
 
-            
-            if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th && mainPlayer.ActiveForm != QuirkSkills.None)
+            bool hasAnyFullCowling = Player.HasBuff(ModContent.BuffType<FullCowlingBuff5>()) || 
+                            Player.HasBuff(ModContent.BuffType<FullCowlingBuff10>()) || 
+                            Player.HasBuff(ModContent.BuffType<FullCowlingBuff45>());
+
+            if (hasAnyFullCowling)
             {
-                Player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 2);
-                HandleFullCowlingEffects();
+                isFullCowlingBuffActive = true;
+                HandleFullCowlingEffects(); // Chama os raios
                 Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
                 ElectricSoundTimer++;
-           
             }
             else
             {
                 isFullCowlingBuffActive = false;
             }
-            if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th && isGearshiftActive)
-            {
-                Player.AddBuff(ModContent.BuffType<GearshiftBuff>(), 2);
+
+
+
+            
+            // else
+            // {
+            //     isFullCowlingBuffActive = false;
+            // }
+            // if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th && isGearshiftActive)
+            // {
+            //     Player.AddBuff(ModContent.BuffType<GearshiftBuff>(), 2);
                 
-            }
-            else
-            {
-                isGearshiftActive = false;
-                isGearshiftBuffActive = false;
+            // }
+            // else
+            // {
+            //     isGearshiftActive = false;
+            //     isGearshiftBuffActive = false;
                 
-            }
+            // }
         }
         
 

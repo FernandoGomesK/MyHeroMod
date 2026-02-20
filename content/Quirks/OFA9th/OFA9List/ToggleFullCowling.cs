@@ -37,7 +37,7 @@ public abstract class FullCowlingBase : QuirkSkill
         {
             if (ActivationTimer > 0){
                 ActivationTimer++;
-                player.moveSpeed *= 0.6;
+                player.moveSpeed -= 2f;
 
                 if (ActivationTimer >= ActivationMaxTime)
                 {

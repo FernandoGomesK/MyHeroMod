@@ -6,10 +6,12 @@ using Terraria.ModLoader;
 using Terraria.ID;
 
 
+
 namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 {
     public class DetroitSmashProj : ModProjectile
     {
+        public override string Texture => "MyHeroMod/Assets/Projectiles/DetroitSmashProj";
         
         public override void SetDefaults()
         {
@@ -38,6 +40,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
         }
         public override void AI()
         {
+            
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Main.rand.NextBool(2))
             {
