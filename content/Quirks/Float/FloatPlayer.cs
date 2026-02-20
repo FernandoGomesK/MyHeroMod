@@ -8,13 +8,13 @@ using MyHeroMod.content.System.BasePlayer;
 
 namespace MyHeroMod.content.Quirks.Float
 {
-    public partial class FloatPlayer : BasePlayer
+    public partial class FloatPlayer : ModPlayer
     {
         public bool isFloatActive = false;
 
        
 
-        public override void OnRespawn() => ResetAll();
+        // public override void OnRespawn() => ResetAll();
 
         
 

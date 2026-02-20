@@ -5,7 +5,7 @@ using MyHeroMod.content.System.BasePlayer;
 
 namespace MyHeroMod.content.Quirks.Float
 {
-    public partial class FloatPlayer : BasePlayer
+    public partial class FloatPlayer : ModPlayer
     {
         
     }

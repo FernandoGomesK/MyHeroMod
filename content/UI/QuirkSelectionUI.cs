@@ -75,19 +75,19 @@ namespace MyHeroMod
                 if (quirk == QuirkType.HellFlames || quirk == QuirkType.HalfColdHalfHot )
     {
         //i
-        if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.FireQuirkAttack>()))
-        {
-            player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.FireQuirkAttack>());
-        }
+        // if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.FireQuirkAttack>()))
+        // {
+        //     player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.FireQuirkAttack>());
+        // }
     }
-        else if (quirk == QuirkType.BlueFlames)
-        {
-                    // if not on inventary, gives the item
-            if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.BlueQuirkAttack>()))
-            {
-                        player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.BlueQuirkAttack>());
-                    }
-                }
+        // else if (quirk == QuirkType.BlueFlames)
+        // {
+        //             // if not on inventary, gives the item
+        //     if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.BlueQuirkAttack>()))
+        //     {
+        //                 player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.BlueQuirkAttack>());
+        //             }
+        //         }
         else if (quirk == QuirkType.OneForAll9th)
         {
                     // if not on inventary, gives the item

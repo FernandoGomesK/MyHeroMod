@@ -10,7 +10,7 @@ using MyHeroMod.content.System.BasePlayer;
 
 namespace MyHeroMod.content.Quirks.FaJin;
 
-    public partial class FajinPlayer : BasePlayer
+    public partial class FajinPlayer : ModPlayer
     {
         
         public int FaJinCharges = 0;

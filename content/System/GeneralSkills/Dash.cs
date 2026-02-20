@@ -2,10 +2,7 @@ using Terraria;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
 using Terraria.ID;
-using MyHeroMod.content.Quirks.FaJin;
-using MyHeroMod.content.Quirks.Gearshift;
 using MyHeroMod.content.System.BasePlayer;
-using HeroBase = MyHeroMod.content.System.BasePlayer.BasePlayer;
 
 namespace MyHeroMod.content.System
 {
@@ -34,16 +31,17 @@ namespace MyHeroMod.content.System
             float speed = 14f;
             bool isEnhanced = false;
             bool hideNormalDash = false;
+
+            Main.NewText("SKILL EXECUTADA!");
             
 
-            foreach (var modPlayer in player.ModPlayers)
-    {
-        // Usamos o nome completo da classe para evitar erro de namespace
-        foreach (var modPlayer1 in player.ModPlayers)
+            
+    
+        foreach (var modPlayer in player.ModPlayers)
             {
-                if (modPlayer1 is HeroBase hero) 
+                if (modPlayer is IHeroDashModifier dashModifier) 
                 {
-                    hero.ModifyDash(ref speed, ref isEnhanced, ref hideNormalDash);
+                    dashModifier.ModifyDash(ref speed, ref isEnhanced, ref hideNormalDash);
                 }
             }
 
@@ -54,7 +52,7 @@ namespace MyHeroMod.content.System
         }
 
                 
-    }
+    
 
 
         

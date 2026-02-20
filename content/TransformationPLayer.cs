@@ -33,13 +33,11 @@ namespace MyHeroMod.content
         public QuirkSkills Slot1 = QuirkSkills.None;
         public QuirkSkills Slot2 = QuirkSkills.None;
         public QuirkSkills Slot3 = QuirkSkills.None;
-        public QuirkSkills TransformSlot = QuirkSkills.None;
+        public QuirkSkills Slot4 = QuirkSkills.None;
 
         // Lista de skills desbloqueadas
         public List<QuirkSkills> UnlockedSkills = new List<QuirkSkills>();
 
-
-        
 
         // --- SAVE & LOAD ---
         public override void SaveData(TagCompound tag)
@@ -49,7 +47,7 @@ namespace MyHeroMod.content
             tag["Slot1"] = (int)Slot1;
             tag["Slot2"] = (int)Slot2;
             tag["Slot3"] = (int)Slot3;
-            tag["TransformSlot"] = (int)TransformSlot;
+            tag["Slot4"] = (int)Slot4;
         }
 
         
@@ -61,13 +59,13 @@ namespace MyHeroMod.content
             if (tag.ContainsKey("Slot1")) Slot1 = (QuirkSkills)tag.GetInt("Slot1");
             if (tag.ContainsKey("Slot2")) Slot2 = (QuirkSkills)tag.GetInt("Slot2");
             if (tag.ContainsKey("Slot3")) Slot3 = (QuirkSkills)tag.GetInt("Slot3");
-            if (tag.ContainsKey("TransformSlot")) TransformSlot = (QuirkSkills)tag.GetInt("TransformSlot");
+            if (tag.ContainsKey("Slot4")) Slot4 = (QuirkSkills)tag.GetInt("Slot4");
             
-            // Recalcula o que está desbloqueado ao entrar no mundo
+            
             UpdateUnlockedSkills();
         }
 
-        // --- INPUTS (Menu de Skills) ---
+        
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
 {
     // 1. LÓGICA DO MENU
@@ -76,12 +74,14 @@ namespace MyHeroMod.content
             UISystem.ToggleSkillMenu();
         }
 
-        // 2. LÓGICA DAS SKILLS (Centralizada aqui)
-        // Aqui usamos as variáveis locais Slot1, Slot2, etc., que estão salvas nesta classe.
-        if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
+        
+        // if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
         if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(Slot2);
         if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(Slot3);
-        if (KeybindSystem.TransformKey.JustPressed) ExecuteSkill(TransformSlot);
+        if (KeybindSystem.SkillSlot4.JustPressed) ExecuteSkill(Slot4);
+        if (KeybindSystem.SkillSlot1.JustPressed) { Main.NewText("BOTÃO APERTADO!"); ExecuteSkill(Slot1); }
+
+        
     }
 
         public override void OnEnterWorld() {

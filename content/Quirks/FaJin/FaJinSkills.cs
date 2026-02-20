@@ -1,32 +1,32 @@
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using MyHeroMod.content.System.BasePlayer;
 
 using Terraria.ID;
 
 using Terraria.Audio;
 
 
-using MyHeroMod.content.System.BasePlayer;
 
 
 
 namespace MyHeroMod.content.Quirks.FaJin
 {
-    public partial class FajinPlayer : BasePlayer
+    public partial class FajinPlayer : ModPlayer
     {
 
 
-        public override void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash)
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash)
         {
             var transformationPlayer = Player.GetModPlayer<TransformationPlayer>();
             var fajinPlayer = Player.GetModPlayer<FajinPlayer>();
             if (transformationPlayer.SelectedQuirk == QuirkType.FaJin) {
-                if (fajinPlayer.FaJinStored)
+                if (FaJinStored)
                 {
                 speed = 25f;
                 isEnhanced = true;
-                fajinPlayer.FaJinCharges = 0; 
+                FaJinCharges = 0; 
                 }
                 else{
                 ChargeFajin();

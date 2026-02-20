@@ -1,11 +1,12 @@
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using MyHeroMod.content.System.BasePlayer;
+using Terraria.ModLoader;
 
 
 namespace MyHeroMod.content.Quirks.FaJin
 {
-    public partial class FajinPlayer : BasePlayer
+    public partial class FajinPlayer : ModPlayer
     {
 
         

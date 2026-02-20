@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
-using MyHeroMod.content.Quirks.DangerSense;
 using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;

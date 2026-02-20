@@ -4,7 +4,7 @@ using Terraria.ID;
 using System.Collections.Generic;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.DangerSense;
+// using MyHeroMod.content.Quirks.DangerSense;
 
 namespace MyHeroMod.content.System.BasePlayer
 {
@@ -30,8 +30,8 @@ namespace MyHeroMod.content.System.BasePlayer
             else
                 SkillCooldowns.Add(skill, ticks);
         }
-        
-        public virtual void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash) { }
+
+    //     
 
         public override void OnRespawn() => ResetAll();
 
@@ -45,18 +45,18 @@ namespace MyHeroMod.content.System.BasePlayer
         }
 
     
-        public override bool FreeDodge(Player.HurtInfo info) {
-            if (DodgeChance > 0 && Main.rand.NextFloat() < DodgeChance) {
-                Player.SetImmuneTimeForAllTypes(40);
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound"), Player.position);
+        // public override bool FreeDodge(Player.HurtInfo info) {
+        //     if (DodgeChance > 0 && Main.rand.NextFloat() < DodgeChance) {
+        //         Player.SetImmuneTimeForAllTypes(40);
+        //         SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound"), Player.position);
 
-                if (Player.TryGetModPlayer<DangerSensePlayer>(out var dsPlayer)) {
-                dsPlayer.triggerVisual(); 
-                }
-                return true;
-            }
-            return false;
-        }
+        //         if (Player.TryGetModPlayer<DangerSensePlayer>(out var dsPlayer)) {
+        //         dsPlayer.triggerVisual(); 
+        //         }
+        //         return true;
+        //     }
+        //     return false;
+        // }
 
         public override void PreUpdate() { 
     
@@ -69,10 +69,10 @@ namespace MyHeroMod.content.System.BasePlayer
         }        
         }
 
-        // parte das Skills
-
 
        public virtual void ExecuteSkill(QuirkSkills skillId) {
+        Main.NewText($"[DEBUG] Skill chamada por: {this.GetType().Name}", Microsoft.Xna.Framework.Color.Yellow);
+        Main.NewText($"[DEBUG] Classe: {this.GetType().Name} | ID: {this.GetHashCode()} | CD: {GetCooldown(skillId)}", Color.Red);
         if (skillId == QuirkSkills.None) return;
         var skill = SkillLibrary.GetSkill(skillId);
         if (skill == null) return;
@@ -82,12 +82,7 @@ namespace MyHeroMod.content.System.BasePlayer
             SetCooldown(skillId, skill.BaseCooldown);
         }
     }
-        
-        
-        public TransformationPlayer TransPlayer => Player.GetModPlayer<TransformationPlayer>();
-       
-
-        
+           
 
     }
 

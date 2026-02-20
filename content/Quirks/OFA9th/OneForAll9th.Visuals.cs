@@ -4,14 +4,18 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Audio;
+using MyHeroMod.content.System.BasePlayer;
 
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
-    public partial class OneForAll9thPlayer
+    public partial class OneForAll9thPlayer: ModPlayer
     {
         private void HandleFullCowlingEffects()
         {
+            
+
+
             Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
             ElectricSoundTimer++;
 

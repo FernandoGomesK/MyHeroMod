@@ -9,7 +9,7 @@ using MyHeroMod.content.System.BasePlayer;
 
 namespace MyHeroMod.content.Quirks.BlackWhip
 {
-    public partial class BlackWhipPlayer : BasePlayer
+    public partial class BlackWhipPlayer : ModPlayer
     {
         
         

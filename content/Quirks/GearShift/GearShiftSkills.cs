@@ -11,11 +11,11 @@ using MyHeroMod.content.System;
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     // PARTE 2: INPUTS E SKILLS
-    public partial class GearshiftPlayer : BasePlayer
+    public partial class GearshiftPlayer : ModPlayer
     {
 
 
-        public override void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash)
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 

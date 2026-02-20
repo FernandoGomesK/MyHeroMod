@@ -10,6 +10,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
     public class PunchAttackProj : ModProjectile
     {
         public override string Texture => "MyHeroMod/Assets/Projectiles/PunchAttackProj";
+    
         public override void SetDefaults()
         {
             Projectile.width = 32;
@@ -50,7 +51,8 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             
             // Define o caminho base. 
             // IMPORTANTE: Certifique-se que essas imagens existem ou altere os nomes abaixo!
-            string texturePath = "MyHeroMod/content/Assets/Projectiles/PunchAttackProj";
+            string texturePath = "MyHeroMod/Assets/Projectiles/PunchAttackProj";
+                                 
 
             // Se for estilo 1 ou 2, tenta carregar a variante. Se não existir, usa a padrão.
             if (style == 1 && ModContent.HasAsset(texturePath + "2")) 

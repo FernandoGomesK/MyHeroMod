@@ -1,340 +1,340 @@
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
-using MyHeroMod.content;
-using Terraria.ID;
-using MyHeroMod.content.System;
-using Terraria.Audio;
-using Terraria.DataStructures;
-using MyHeroMod.content.Quirks.Blueflames;
-using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFireBall;
-using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueVanishingFist;
-using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower;
-using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFireWave;
-using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueHellMineField;
-using MyHeroMod.content.Quirks.Blueflames.Buffs;
+// using Microsoft.Xna.Framework;
+// using Terraria;
+// using Terraria.ModLoader;
+// using MyHeroMod.content;
+// using Terraria.ID;
+// using MyHeroMod.content.System;
+// using Terraria.Audio;
+// using Terraria.DataStructures;
+// using MyHeroMod.content.Quirks.Blueflames;
+// using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFireBall;
+// using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueVanishingFist;
+// using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower;
+// using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFireWave;
+// using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueHellMineField;
+// using MyHeroMod.content.Quirks.Blueflames.Buffs;
 
 
 
 
-namespace MyHeroMod.content.Quirks.Blueflames
-{
-    public partial class BlueFlamesPlayer : ModPlayer
-    {
+// namespace MyHeroMod.content.Quirks.Blueflames
+// {
+//     public partial class BlueFlamesPlayer : ModPlayer
+//     {
         
 
-        public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
-        {
-            var MainPlayer = Player.GetModPlayer<TransformationPlayer>();
+//         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
+//         {
+//             var MainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            if (MainPlayer.SelectedQuirk == QuirkType.BlueFlames) 
-            {
-                if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(MainPlayer, MainPlayer.Slot1);
-                if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(MainPlayer, MainPlayer.Slot2);
-                if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(MainPlayer, MainPlayer.Slot3);
-                if (KeybindSystem.TransformKey.JustPressed) ExecuteSkill(MainPlayer, MainPlayer.TransformSlot);
-            }      
-        }
+//             if (MainPlayer.SelectedQuirk == QuirkType.BlueFlames) 
+//             {
+//                 if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(MainPlayer, MainPlayer.Slot1);
+//                 if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(MainPlayer, MainPlayer.Slot2);
+//                 if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(MainPlayer, MainPlayer.Slot3);
+//                 if (KeybindSystem.TransformKey.JustPressed) ExecuteSkill(MainPlayer, MainPlayer.TransformSlot);
+//             }      
+//         }
 
-        private void ExecuteSkill(TransformationPlayer mainPlayer, QuirkSkills skill)
-        {
-            if (SkillCooldowns.ContainsKey(skill) && SkillCooldowns[skill] > 0)
-            {
-                Main.NewText("On cooldown!", Color.White);
-                // Skill is on cooldown
-                return;
-            }
+//         private void ExecuteSkill(TransformationPlayer mainPlayer, QuirkSkills skill)
+//         {
+//             if (SkillCooldowns.ContainsKey(skill) && SkillCooldowns[skill] > 0)
+//             {
+//                 Main.NewText("On cooldown!", Color.White);
+//                 // Skill is on cooldown
+//                 return;
+//             }
 
-            switch (skill)
-            {
+//             switch (skill)
+//             {
 
-                    // forms
+//                     // forms
 
-                    case QuirkSkills.BlueRage:
-                    ActivateRage(mainPlayer);
+//                     case QuirkSkills.BlueRage:
+//                     ActivateRage(mainPlayer);
 
 
-                    break;
+//                     break;
                     
-                    case QuirkSkills.BlueFlashFireFist:
-                    ActivateFlashFireFist(mainPlayer);
+//                     case QuirkSkills.BlueFlashFireFist:
+//                     ActivateFlashFireFist(mainPlayer);
 
-                    SetCooldown(skill, 60);
-                    break;
+//                     SetCooldown(skill, 60);
+//                     break;
 
-                    case QuirkSkills.BluePhosphor:
-                    ActivatePhosphor(mainPlayer);
+//                     case QuirkSkills.BluePhosphor:
+//                     ActivatePhosphor(mainPlayer);
 
-                    break;
+//                     break;
 
-                    // Skills
+//                     // Skills
 
-                    case QuirkSkills.BlueFireBall:
-                    DoFireBall(mainPlayer);
-                    if (IsFlashFireFistActive)
-                    {
-                        DoVanishingFist(mainPlayer); 
-                    }
-                    break;
+//                     case QuirkSkills.BlueFireBall:
+//                     DoFireBall(mainPlayer);
+//                     if (IsFlashFireFistActive)
+//                     {
+//                         DoVanishingFist(mainPlayer); 
+//                     }
+//                     break;
 
-                    case QuirkSkills.BlueFlamethrower:
-                    if (IsFlashFireFistActive)
-                    {
-                        DoJetBurn(mainPlayer);
-                    }
-                    else{
-                        DoFlameThrower(mainPlayer);
-                        }    
-                    break;
+//                     case QuirkSkills.BlueFlamethrower:
+//                     if (IsFlashFireFistActive)
+//                     {
+//                         DoJetBurn(mainPlayer);
+//                     }
+//                     else{
+//                         DoFlameThrower(mainPlayer);
+//                         }    
+//                     break;
 
-                    case QuirkSkills.BlueFireWave:
-                    if (mainPlayer.CurrentStage >= QuirkStage.Intermediate)
-                    {
-                        DoHellMineField(mainPlayer);
-                    }
-                    else
-                    {
-                        DoFireWave(mainPlayer);
-                    }
+//                     case QuirkSkills.BlueFireWave:
+//                     if (mainPlayer.CurrentStage >= QuirkStage.Intermediate)
+//                     {
+//                         DoHellMineField(mainPlayer);
+//                     }
+//                     else
+//                     {
+//                         DoFireWave(mainPlayer);
+//                     }
                     
 
                     
-                    break;
+//                     break;
                     
                     
          
-                    case QuirkSkills.BlueHellSpider:
-                    DoHellSpider(mainPlayer);
-                    break;
+//                     case QuirkSkills.BlueHellSpider:
+//                     DoHellSpider(mainPlayer);
+//                     break;
 
-                    case QuirkSkills.BlueProminenceBurn:
-                    DoProminenceBurn();
-                    break;
+//                     case QuirkSkills.BlueProminenceBurn:
+//                     DoProminenceBurn();
+//                     break;
                 
                 
 
-            }
-        }
-        private void SetCooldown(QuirkSkills skill, int timeInTicks)
-        {
-            if (SkillCooldowns.ContainsKey(skill))
-            {
-                SkillCooldowns[skill] = timeInTicks;
-            }
-            else
-            {
-                SkillCooldowns.Add(skill, timeInTicks);
-            }
-        }
+//             }
+//         }
+//         private void SetCooldown(QuirkSkills skill, int timeInTicks)
+//         {
+//             if (SkillCooldowns.ContainsKey(skill))
+//             {
+//                 SkillCooldowns[skill] = timeInTicks;
+//             }
+//             else
+//             {
+//                 SkillCooldowns.Add(skill, timeInTicks);
+//             }
+//         }
 
-        private void ActivateRage(TransformationPlayer mainPlayer)
-        {
-            if (IsRageActive)
-            {
-                CombatText.NewText(Player.getRect(), Color.Blue, "Breath...");
-                IsRageActive = false;
-                Player.ClearBuff(ModContent.BuffType<BlueRage>());
-                Main.NewText("Flash Fire Fist Deactivated", Color.OrangeRed);   
-                SetCooldown(QuirkSkills.FlashFireFist, 120);
-                return;
+//         private void ActivateRage(TransformationPlayer mainPlayer)
+//         {
+//             if (IsRageActive)
+//             {
+//                 CombatText.NewText(Player.getRect(), Color.Blue, "Breath...");
+//                 IsRageActive = false;
+//                 Player.ClearBuff(ModContent.BuffType<BlueRage>());
+//                 Main.NewText("Flash Fire Fist Deactivated", Color.OrangeRed);   
+//                 SetCooldown(QuirkSkills.FlashFireFist, 120);
+//                 return;
                 
-            }
-            CombatText.NewText(Player.getRect(), Color.Blue, "Die!");
-            CurrentHeat += 10;
-            IsRageActive = true;
-            }
+//             }
+//             CombatText.NewText(Player.getRect(), Color.Blue, "Die!");
+//             CurrentHeat += 10;
+//             IsRageActive = true;
+//             }
 
     
-        private void ActivateFlashFireFist(TransformationPlayer mainPlayer)
-        {
-            if (IsFlashFireFistActive)
-            {
-                CombatText.NewText(Player.getRect(), Color.Blue, "Flashfire Fist Off");
-                IsFlashFireFistActive = false;
-                Player.ClearBuff(ModContent.BuffType<Buffs.BlueFlashFireFistBuff>());
-                Main.NewText("Flash Fire Fist Deactivated", Color.OrangeRed);   
-                SetCooldown(QuirkSkills.FlashFireFist, 120);
-                return;
+//         private void ActivateFlashFireFist(TransformationPlayer mainPlayer)
+//         {
+//             if (IsFlashFireFistActive)
+//             {
+//                 CombatText.NewText(Player.getRect(), Color.Blue, "Flashfire Fist Off");
+//                 IsFlashFireFistActive = false;
+//                 Player.ClearBuff(ModContent.BuffType<Buffs.BlueFlashFireFistBuff>());
+//                 Main.NewText("Flash Fire Fist Deactivated", Color.OrangeRed);   
+//                 SetCooldown(QuirkSkills.FlashFireFist, 120);
+//                 return;
                 
-            }
-            CombatText.NewText(Player.getRect(), Color.Blue, "Flashfire Fist!");
-            CurrentHeat += 20;
-            IsFlashFireFistActive = true;
+//             }
+//             CombatText.NewText(Player.getRect(), Color.Blue, "Flashfire Fist!");
+//             CurrentHeat += 20;
+//             IsFlashFireFistActive = true;
 
             
-        }
+//         }
 
-        private void ActivatePhosphor(TransformationPlayer mainPlayer)
-        {
+//         private void ActivatePhosphor(TransformationPlayer mainPlayer)
+//         {
             
-        }
+//         }
 
-        private void DoFireBall(TransformationPlayer mainPlayer)
-        {
-            CombatText.NewText(Player.getRect(), Color.Blue, "FireBall");
-             Vector2 Velocity = Main.MouseWorld - Player.Center;
-            Velocity.Normalize();
-            Velocity *= 15f;
+//         private void DoFireBall(TransformationPlayer mainPlayer)
+//         {
+//             CombatText.NewText(Player.getRect(), Color.Blue, "FireBall");
+//              Vector2 Velocity = Main.MouseWorld - Player.Center;
+//             Velocity.Normalize();
+//             Velocity *= 15f;
 
-            Projectile.NewProjectile(
-                Player.GetSource_FromThis(),
-                Player.Center,
-                Velocity,
-                ModContent.ProjectileType<BlueFireBallProj>(),
-                40, 
-                2f, 
-                Player.whoAmI);
-        }
+//             Projectile.NewProjectile(
+//                 Player.GetSource_FromThis(),
+//                 Player.Center,
+//                 Velocity,
+//                 ModContent.ProjectileType<BlueFireBallProj>(),
+//                 40, 
+//                 2f, 
+//                 Player.whoAmI);
+//         }
 
-        private void DoVanishingFist(TransformationPlayer mainPlayer)
-        {
-            Vector2 Velocity = Main.MouseWorld - Player.Center;
-            Velocity.Normalize();
-            Velocity *= 15f;
+//         private void DoVanishingFist(TransformationPlayer mainPlayer)
+//         {
+//             Vector2 Velocity = Main.MouseWorld - Player.Center;
+//             Velocity.Normalize();
+//             Velocity *= 15f;
 
-            Projectile.NewProjectile(
-                Player.GetSource_FromThis(),
-                Player.Center,
-                Velocity,
-                ModContent.ProjectileType<BlueVanishingFistProj>(),
-                40, 
-                2f, 
-                Player.whoAmI);
-        }
+//             Projectile.NewProjectile(
+//                 Player.GetSource_FromThis(),
+//                 Player.Center,
+//                 Velocity,
+//                 ModContent.ProjectileType<BlueVanishingFistProj>(),
+//                 40, 
+//                 2f, 
+//                 Player.whoAmI);
+//         }
             
-        private void DoFlameThrower(TransformationPlayer mainPlayer)
-        {
-            CombatText.NewText(Player.getRect(), Color.Blue, "Flame Thrower");
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.JetBurn.BlueJetBurnController>()] > 0)
-                return;
+//         private void DoFlameThrower(TransformationPlayer mainPlayer)
+//         {
+//             CombatText.NewText(Player.getRect(), Color.Blue, "Flame Thrower");
+//             if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.JetBurn.BlueJetBurnController>()] > 0)
+//                 return;
 
-            // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
-            // Note que a velocidade aqui define apenas a direção inicial da mira.
-            Vector2 direction = Main.MouseWorld - Player.Center;
-            direction.Normalize();
+//             // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
+//             // Note que a velocidade aqui define apenas a direção inicial da mira.
+//             Vector2 direction = Main.MouseWorld - Player.Center;
+//             direction.Normalize();
 
-            Projectile.NewProjectile(
-                Player.GetSource_FromThis(),
-                Player.Center,
-                direction,
-                ModContent.ProjectileType<BlueFlamethrowerController>(),
-                0, // O controlador não dá dano direto
-                0f,
-                Player.whoAmI);
+//             Projectile.NewProjectile(
+//                 Player.GetSource_FromThis(),
+//                 Player.Center,
+//                 direction,
+//                 ModContent.ProjectileType<BlueFlamethrowerController>(),
+//                 0, // O controlador não dá dano direto
+//                 0f,
+//                 Player.whoAmI);
             
-        }
+//         }
 
-        private void DoJetBurn(TransformationPlayer mainPlayer)
-        {
-            CombatText.NewText(Player.getRect(), Color.Blue, "FlashFire Fist: Jet Burn!");
-            // Verifica se já existe um controlador ativo (para não spawnar duplicado)
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.JetBurn.BlueJetBurnController>()] > 0)
-                return;
+//         private void DoJetBurn(TransformationPlayer mainPlayer)
+//         {
+//             CombatText.NewText(Player.getRect(), Color.Blue, "FlashFire Fist: Jet Burn!");
+//             // Verifica se já existe um controlador ativo (para não spawnar duplicado)
+//             if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.JetBurn.BlueJetBurnController>()] > 0)
+//                 return;
 
-            // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
-            // Note que a velocidade aqui define apenas a direção inicial da mira.
-            Vector2 direction = Main.MouseWorld - Player.Center;
-            direction.Normalize();
+//             // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
+//             // Note que a velocidade aqui define apenas a direção inicial da mira.
+//             Vector2 direction = Main.MouseWorld - Player.Center;
+//             direction.Normalize();
 
-            Projectile.NewProjectile(
-                Player.GetSource_FromThis(),
-                Player.Center,
-                direction,
-                ModContent.ProjectileType<Projectiles.JetBurn.BlueJetBurnController>(),
-                0, // O controlador não dá dano direto
-                0f,
-                Player.whoAmI
+//             Projectile.NewProjectile(
+//                 Player.GetSource_FromThis(),
+//                 Player.Center,
+//                 direction,
+//                 ModContent.ProjectileType<Projectiles.JetBurn.BlueJetBurnController>(),
+//                 0, // O controlador não dá dano direto
+//                 0f,
+//                 Player.whoAmI
             
-            );
-            CurrentHeat += 15;
-        }
+//             );
+//             CurrentHeat += 15;
+//         }
         
-        private void DoFireWave(TransformationPlayer mainPlayer)
-        {
-            CombatText.NewText(Player.getRect(), Color.Blue, "Firewave");
-            float direction = Main.MouseWorld.X > Player.Center.X ? 1f : -1f;
+//         private void DoFireWave(TransformationPlayer mainPlayer)
+//         {
+//             CombatText.NewText(Player.getRect(), Color.Blue, "Firewave");
+//             float direction = Main.MouseWorld.X > Player.Center.X ? 1f : -1f;
     
-        // Velocidade da onda (Rápida)
-        Vector2 velocity = new Vector2(10f * direction, 0f);
+//         // Velocidade da onda (Rápida)
+//         Vector2 velocity = new Vector2(10f * direction, 0f);
 
-        // Spawna o Controlador um pouco na frente do player
-        Projectile.NewProjectile(
-            Player.GetSource_FromThis(),
-            Player.Center + new Vector2(20f * direction, 0), // Começa um pouco a frente
-            velocity,
-            ModContent.ProjectileType<BlueFireWaveController>(),
-            50, // Dano
-            5f,
-            Player.whoAmI);
-        }
+//         // Spawna o Controlador um pouco na frente do player
+//         Projectile.NewProjectile(
+//             Player.GetSource_FromThis(),
+//             Player.Center + new Vector2(20f * direction, 0), // Começa um pouco a frente
+//             velocity,
+//             ModContent.ProjectileType<BlueFireWaveController>(),
+//             50, // Dano
+//             5f,
+//             Player.whoAmI);
+//         }
 
-        private void DoHellMineField(TransformationPlayer mainPlayer)
-        {
-            CombatText.NewText(Player.getRect(), Color.Blue, "Hell Minefiel!");
-            float direction = Main.MouseWorld.X > Player.Center.X ? 1f : -1f;
+//         private void DoHellMineField(TransformationPlayer mainPlayer)
+//         {
+//             CombatText.NewText(Player.getRect(), Color.Blue, "Hell Minefiel!");
+//             float direction = Main.MouseWorld.X > Player.Center.X ? 1f : -1f;
 
-            Vector2 velocity = new Vector2(10f * direction, 0f);
+//             Vector2 velocity = new Vector2(10f * direction, 0f);
 
-        // Spawna o Controlador um pouco na frente do player
-        Projectile.NewProjectile(
-            Player.GetSource_FromThis(),
-            Player.Center + new Vector2(20f * direction, 0), // Começa um pouco a frente
-            velocity,
-            ModContent.ProjectileType<BlueHellMineFieldController>(),
-            50, // Dano
-            5f,
-            Player.whoAmI);
+//         // Spawna o Controlador um pouco na frente do player
+//         Projectile.NewProjectile(
+//             Player.GetSource_FromThis(),
+//             Player.Center + new Vector2(20f * direction, 0), // Começa um pouco a frente
+//             velocity,
+//             ModContent.ProjectileType<BlueHellMineFieldController>(),
+//             50, // Dano
+//             5f,
+//             Player.whoAmI);
             
-        }
-        private void DoProminenceBurn()
-        {
-            // Evita duplicar se já estiver ativo
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.ProminenceBurn.BlueProminenceBurnController>()] > 0)
-                return;
+//         }
+//         private void DoProminenceBurn()
+//         {
+//             // Evita duplicar se já estiver ativo
+//             if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.ProminenceBurn.BlueProminenceBurnController>()] > 0)
+//                 return;
 
-            Main.NewText("PROMINENCE BURN!!!", Color.OrangeRed);
+//             Main.NewText("PROMINENCE BURN!!!", Color.OrangeRed);
             
-            // Som inicial de explosão
-            SoundEngine.PlaySound(SoundID.Item117, Player.position); 
+//             // Som inicial de explosão
+//             SoundEngine.PlaySound(SoundID.Item117, Player.position); 
 
-            Vector2 direction = Main.MouseWorld - Player.Center;
-            direction.Normalize();
+//             Vector2 direction = Main.MouseWorld - Player.Center;
+//             direction.Normalize();
 
-            // Lança o Controlador
-            Projectile.NewProjectile(
-                Player.GetSource_FromThis(),
-                Player.Center,
-                direction,
-                ModContent.ProjectileType<Projectiles.ProminenceBurn.BlueProminenceBurnController>(),
-                0, 
-                0f, 
-                Player.whoAmI
-            );
-            CurrentHeat += 30;
-        }
+//             // Lança o Controlador
+//             Projectile.NewProjectile(
+//                 Player.GetSource_FromThis(),
+//                 Player.Center,
+//                 direction,
+//                 ModContent.ProjectileType<Projectiles.ProminenceBurn.BlueProminenceBurnController>(),
+//                 0, 
+//                 0f, 
+//                 Player.whoAmI
+//             );
+//             CurrentHeat += 30;
+//         }
         
-        private void DoHellSpider(TransformationPlayer mainPlayer)
-        {
-            // Verifica se já existe um controlador ativo (para não spawnar duplicado)
-            if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.HellSpider.BlueHellSpiderController>()] > 0)
-                return;
+//         private void DoHellSpider(TransformationPlayer mainPlayer)
+//         {
+//             // Verifica se já existe um controlador ativo (para não spawnar duplicado)
+//             if (Player.ownedProjectileCounts[ModContent.ProjectileType<Projectiles.HellSpider.BlueHellSpiderController>()] > 0)
+//                 return;
 
-            // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
-            // Note que a velocidade aqui define apenas a direção inicial da mira.
-            Vector2 direction = Main.MouseWorld - Player.Center;
-            direction.Normalize();
+//             // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
+//             // Note que a velocidade aqui define apenas a direção inicial da mira.
+//             Vector2 direction = Main.MouseWorld - Player.Center;
+//             direction.Normalize();
 
-            Projectile.NewProjectile(
-                Player.GetSource_FromThis(),
-                Player.Center,
-                direction,
-                ModContent.ProjectileType<Projectiles.HellSpider.BlueHellSpiderController>(),
-                0, // O controlador não dá dano direto
-                0f,
-                Player.whoAmI
-            );
-            CurrentHeat += 15;
+//             Projectile.NewProjectile(
+//                 Player.GetSource_FromThis(),
+//                 Player.Center,
+//                 direction,
+//                 ModContent.ProjectileType<Projectiles.HellSpider.BlueHellSpiderController>(),
+//                 0, // O controlador não dá dano direto
+//                 0f,
+//                 Player.whoAmI
+//             );
+//             CurrentHeat += 15;
 
-        }
-        }
-        }
+//         }
+//         }
+//         }

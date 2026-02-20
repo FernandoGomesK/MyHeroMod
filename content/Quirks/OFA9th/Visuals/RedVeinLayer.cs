@@ -17,7 +17,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
         {
             var ModPlayer = drawInfo.drawPlayer.GetModPlayer<OneForAll9thPlayer>();
 
-            return ModPlayer.ActivationTimer > 0 && ModPlayer.PendingForm != QuirkSkills.None;
+            return ModPlayer.ActivationTimer > 0;
         }
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {

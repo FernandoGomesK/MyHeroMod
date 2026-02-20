@@ -5,12 +5,13 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.BasePlayer;
+using Mono.Cecil.Cil;
 
 
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     // PARTE 1: DADOS E LÓGICA
-    public partial class GearshiftPlayer : BasePlayer
+    public partial class GearshiftPlayer : ModPlayer
     {
         // Variáveis de Estado
         
@@ -21,9 +22,13 @@ namespace MyHeroMod.content.Quirks.Gearshift
         public bool GearActivation = false; 
         public int ActivationTimer = 0;     
         public int ActivationMaxTime = 40;  
+        
 
 
-        public override void OnRespawn() => ResetAll();
+         public override void OnRespawn()
+        {
+            // resetAll();
+        }
 
         public override void ResetEffects()
         {
@@ -93,6 +98,8 @@ namespace MyHeroMod.content.Quirks.Gearshift
 
         private void ApplyBuffByStage()
         {
+            var TransPlayer = Player.GetModPlayer<TransformationPlayer>();
+
             int duration = TransPlayer.CurrentStage switch
             {
                 QuirkStage.Initial => 187,
