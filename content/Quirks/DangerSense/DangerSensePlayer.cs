@@ -1,106 +1,112 @@
-// using Terraria;
-// using Terraria.ModLoader;
-// using System.Collections.Generic;
-// using MyHeroMod.content.Buffs;
-// using MyHeroMod.content.System.BasePlayer;
-// using Terraria.Audio;
+using Terraria;
+using Terraria.ModLoader;
+using System.Collections.Generic;
+using MyHeroMod.content.Buffs;
+using MyHeroMod.content.System.BasePlayer;
+using Terraria.Audio;
+using MyHeroMod.content.System;
 
 
-// namespace MyHeroMod.content.Quirks.DangerSense;
+namespace MyHeroMod.content.Quirks.DangerSense;
 
-//     public partial class DangerSensePlayer : BasePlayer
-//     {
+    public partial class DangerSensePlayer : ModPlayer, IHeroDodgeModifier
+    {
         
         
-//         public bool IsDangerSenseActive = false;
-//         public bool IsOvertimeActive = false;
+        public bool IsDangerSenseActive = false;
+        public bool IsOvertimeActive = false;
 
-//         public int overtimeTimer = 0;
-//         public int overtimeMaxTimer = 220;
+        public int overtimeTimer = 0;
+        public int overtimeMaxTimer = 220;
         
-//         public int VisualTimer = 0;
-//         public int VisualMaxTimer = 8;
-//         public QuirkStage CurrentStage => Player.GetModPlayer<TransformationPlayer>().CurrentStage;
+        public int VisualTimer = 0;
+        public int VisualMaxTimer = 8;
 
-//         public override void OnRespawn()
-//         {
-//             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-//             if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
-//             {
-//                 IsDangerSenseActive = true;
-//             }
-//             else
-//             {
-//                 IsDangerSenseActive = false; 
-//             }
+        public float dodgeChance = 0;
+        public QuirkStage CurrentStage => Player.GetModPlayer<TransformationPlayer>().CurrentStage;
+
+        public override void OnRespawn()
+        {
+            var mainPlayer = Player.GetModPlayer<DangerSensePlayer>();
+            if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+                IsDangerSenseActive = true;
+            }
+            else
+            {
+                IsDangerSenseActive = false; 
+            }
             
-//             IsOvertimeActive = false;
-//             SkillCooldowns.Clear();
-//         }
+            IsOvertimeActive = false;
+           
 
-//         // Este método sobrescreve o do BasePlayer. É este que o TModLoader vai chamar.
-//         public override bool FreeDodge(Player.HurtInfo info) 
-//         {
-//             // Agora 'DodgeChance' terá o valor correto vindo do Buff
-//             if (DodgeChance > 0 && Main.rand.NextFloat() < DodgeChance) 
-//             {
-//                 Player.SetImmuneTimeForAllTypes(80); // Aumentei um pouco para dar tempo de reagir
+        }
+
+        
+        public bool TryDodge(Player.HurtInfo info) 
+        {
+           
+            
+            if (Main.rand.NextFloat() < dodgeChance)
+            {
+               {
+            Player.SetImmuneTimeForAllTypes(80); 
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound"), Player.position);
+            triggerVisual(); 
+            return true; 
+        }
+        }
+            return false;
+        }
+                 
                 
-//                 // Toca o som característico
-//                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound"), Player.position);
-
-//                 // Ativa o visual (raios na cabeça, etc)
-//                 triggerVisual(); 
                 
-//                 return true; // SUCESSO! O dano é anulado.
-//             }
-//             return false;
-//         }
+        
 
-//         public override void PostUpdateEquips()
-//         {
-//             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+        public override void PostUpdateEquips()
+        {
+            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-//             if (mainPlayer.SelectedQuirk != QuirkType.DangerSense) return;
+            if (mainPlayer.SelectedQuirk != QuirkType.DangerSense) return;
   
-//             if (IsDangerSenseActive)
-//             {
-//                 Player.AddBuff(ModContent.BuffType<DangerSenseBuff>(), 10);
-//             }
-//         }
+            if (IsDangerSenseActive)
+            {
+                Player.AddBuff(ModContent.BuffType<DangerSenseBuff>(), 10);
+            }
+        }
 
         
 
-//         public override void ResetEffects()
-//         {
+        public override void ResetEffects()
+        {
             
-//             var ModPlayer = Player.GetModPlayer<TransformationPlayer>();
+            var ModPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             
-//             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-//             if ( transPlayer.SelectedQuirk == QuirkType.DangerSense && transPlayer.CurrentStage >= QuirkStage.Adequation)
-//         {
-//             IsDangerSenseActive = true;
-//         }
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            if ( transPlayer.SelectedQuirk == QuirkType.DangerSense && transPlayer.CurrentStage >= QuirkStage.Adequation)
+        {
+            IsDangerSenseActive = true;
+        }
 
             
-//         }
+        }
         
-//         public override void PreUpdate()
-//         {
-//             base.PreUpdate();
+        public override void PreUpdate()
+        {
+            base.PreUpdate();
             
-//             if (VisualTimer > 0)
-//             {
-//                 VisualTimer--;
-//             }
-//         }
+            if (VisualTimer > 0)
+            {
+                VisualTimer--;
+            }
+        }
         
 
-//         public void triggerVisual()
-//         {
-//             VisualTimer = VisualMaxTimer;
-//         }
-//     }
+        public void triggerVisual()
+        {
+            VisualTimer = VisualMaxTimer;
+        }
+    }
     
 
