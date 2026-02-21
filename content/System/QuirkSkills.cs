@@ -11,7 +11,7 @@
             PrimeDetroitSmash, PrimeCaliforniaSmash, PrimeTexasSmash, PrimeCarolinaSmash, StockPile, StockPileMaximum,
 
             // Ofa 9th
-            DelawareSmash, DetroitSmash, OneForAllFullCowling5, OneForAllFullCowling8, OneForAllFullCowling45,
+            DelawareSmash, DetroitSmash, ManchesterSmash, STLouisSmash, OneForAllFullCowling5, OneForAllFullCowling8, OneForAllFullCowling45,
             BlackWhipHook, OneForAllFullCowling100, BlackWhipSurge, Float, DangerSense, FaJinStore, Smokescreen, Gearshift,
 
             // Hell Flames

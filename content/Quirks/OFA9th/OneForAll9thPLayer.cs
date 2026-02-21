@@ -58,6 +58,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public int ActivationTimer = 0;
         public int ActivationMaxTime = 40;
+        public int percentage = 0;
+        public int pendingPercentage = 0;
+        public bool Activating = false; 
         
 
         
@@ -70,9 +73,49 @@ namespace MyHeroMod.content.Quirks.OFA9th
             // GearshiftTimer = 0;
             
         }
+
+        
         public override void PreUpdate()
         {
+            if (Activating)
+            {
+                ActivationTimer++;
+                Player.velocity *= 0.6f; 
+
+                if (Main.rand.NextBool(2))
+                {
+                    Dust d = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, Color.Green, 0.5f);
+                    d.noGravity = true;
+                    d.velocity *= 0.5f;   
+                }
+
+                if (ActivationTimer >= ActivationMaxTime)
+                {
+                    ActivateFullCowling();
+                    Activating = false;
+                    ActivationTimer = 0;
+                }
+        }}
+        private void ActivateFullCowling()
+        {
+            var transformPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            percentage = pendingPercentage;
+        
+            Player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 3600000);
+            Main.NewText("ONE FOR ALL Full Cowling", Color.Cyan);
+            CombatText.NewText(Player.getRect(), Color.Cyan, "Full Cowling!");
+            
+            
+
+            // Explosão de partículas
+            for (int i = 0; i < 20; i++)
+            {
+                Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
+                Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, speed.X, speed.Y, 0, Color.Green, 2f);
+            }
         }
+        
             
 
         
@@ -178,9 +221,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         //     }
             
 
-            bool hasAnyFullCowling = Player.HasBuff(ModContent.BuffType<FullCowlingBuff5>()) || 
-                            Player.HasBuff(ModContent.BuffType<FullCowlingBuff10>()) || 
-                            Player.HasBuff(ModContent.BuffType<FullCowlingBuff45>());
+            bool hasAnyFullCowling = Player.HasBuff(ModContent.BuffType<FullCowlingBuff>());
 
             if (hasAnyFullCowling)
             {

@@ -21,10 +21,7 @@ namespace MyHeroMod.content.Buffs
             // ofaPlayer.isFullCowlingBuffActive = true;
 
             
-                player.moveSpeed += 0.80f; 
-                player.statDefense += 3;    
-                player.jumpSpeedBoost += 3f; 
-                player.noFallDmg = true;
+                
             
 }
 }}

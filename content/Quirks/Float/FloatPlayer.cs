@@ -14,7 +14,7 @@ namespace MyHeroMod.content.Quirks.Float
 
        
 
-        // public override void OnRespawn() => ResetAll();
+        
 
         
 

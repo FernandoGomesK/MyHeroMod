@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MyHeroMod.content.Quirks.Explosion.Projectiles;
 using MyHeroMod.content.Quirks.Smokescreen; 
 using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
 
@@ -13,6 +14,11 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
 
             
             { QuirkSkills.Dash, new DashSkill() },
+
+            //BlackWhip
+            { QuirkSkills.BlackWhipHook, new BlackWhipHookSkill() },
+
+            
 
 
             // Smokescreen 
@@ -30,13 +36,21 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
 
             { QuirkSkills.Gearshift, new GearShiftSkill() },
 
+            // One For All 9th
+
             {QuirkSkills.DelawareSmash, new DelawareSmashSkill() },
 
             {QuirkSkills.DetroitSmash, new DetroitSmashSkill() },
+            {QuirkSkills.ManchesterSmash, new ManchesterSmashSkill()  },
+            {QuirkSkills.STLouisSmash, new StLouisSmashSkill() },   
+            
 
             {QuirkSkills.OneForAllFullCowling5, new FullCowling5() },
 
             {QuirkSkills.OneForAllFullCowling8, new FullCowling10() },
+            {QuirkSkills.OneForAllFullCowling45, new FullCowling45() },
+
+
 
 
              

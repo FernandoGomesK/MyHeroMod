@@ -8,7 +8,7 @@ using MyHeroMod.content.System.BasePlayer;
 
 namespace MyHeroMod.content.Quirks.Smokescreen
 {
-    public partial class SmokescreenPlayer : BasePlayer
+    public partial class SmokescreenPlayer : ModPlayer
     {
         public bool isSmokescreenActive = false;
 

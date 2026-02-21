@@ -11,7 +11,7 @@ using MyHeroMod.content.System;
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     // PARTE 2: INPUTS E SKILLS
-    public partial class GearshiftPlayer : ModPlayer
+    public partial class GearshiftPlayer : ModPlayer, IHeroDashModifier
     {
 
 
@@ -22,9 +22,9 @@ namespace MyHeroMod.content.Quirks.Gearshift
             // Se o Gearshift for a Quirk selecionada e o Buff estiver ativo
             if (transPlayer.SelectedQuirk == QuirkType.Gearshift && Player.HasBuff(ModContent.BuffType<GearshiftBuff>())) 
             {
-                hideNormalDash = true; // Cancela o movimento físico
+                hideNormalDash = true; 
 
-                // Executa o teleporte que está no DashSkill
+                
                 var dashSkill = (DashSkill)SkillLibrary.GetSkill(QuirkSkills.Dash);
                 if (dashSkill != null) {
                     dashSkill.TeleportDash(Player); 

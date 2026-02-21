@@ -25,6 +25,20 @@ namespace MyHeroMod.content.System
     
     if (IsDefaultSkill) return true;
 
+    if (player.SelectedQuirk == QuirkType.OneForAll9th)
+            {
+                bool isOfaSubQuirk = RequiredQuirk == QuirkType.BlackWhip || 
+                RequiredQuirk == QuirkType.FaJin ||
+                RequiredQuirk == QuirkType.Gearshift ||
+                RequiredQuirk == QuirkType.DangerSense ||
+                RequiredQuirk == QuirkType.Float ||
+                RequiredQuirk == QuirkType.SmokeScreen;
+            if (isOfaSubQuirk) 
+                return player.CurrentStage >= RequiredStage;
+
+            }
+
+
     
     if (IsBaseQuirk && player.SelectedQuirk == RequiredQuirk) return true;
     

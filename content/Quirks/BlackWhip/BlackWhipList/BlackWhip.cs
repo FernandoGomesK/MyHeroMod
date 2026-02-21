@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework;
 
     public class BlackWhipHookSkill : QuirkSkill
     {
-         public override string Name => "DangerSense";
+         public override string Name => "Black Whip Hook";
     public override string Description => "Shoot a hook made from blackwhip at you cursor and pull yourself towards it";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
 

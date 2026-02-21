@@ -1,4 +1,4 @@
- using Terraria;
+using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
@@ -41,13 +41,13 @@ public class DetroitSmashSkill : QuirkSkill
 
             
 
-            if (player.HasBuff(ModContent.BuffType<FullCowlingBuff45>())) {
+            if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 45) {
                 DamageMultiplier = 0.45f; 
             }
-            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff10>())) {
+            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 10) {
                 DamageMultiplier = 0.010f;
             }
-            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff5>())) {
+            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 5) {
                 DamageMultiplier = 0.05f; 
             }
             else {
@@ -128,6 +128,8 @@ public class DetroitSmashSkill : QuirkSkill
                 0f, 
                 player.whoAmI
             );
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
+        
  
             
             }

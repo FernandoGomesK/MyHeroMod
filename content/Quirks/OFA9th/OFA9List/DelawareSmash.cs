@@ -38,19 +38,19 @@ public class DelawareSmashSkill : QuirkSkill
             bool consumeFinger = false;
             bool hurtPlayer = false;
 
-            if  (player.HasBuff(ModContent.BuffType<FullCowlingBuff5>()))
+            if  (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 5)
             {
                 FinalDamage = (int)(MaxDamage * 0.05f);
                 hurtPlayer = false;
                 consumeFinger = false;
             }
-            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff10>()))
+            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 10)
             {
                 FinalDamage = (int)(MaxDamage * 0.10f);
                 hurtPlayer = false;
                 consumeFinger = false;
             }
-            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff45>()))
+            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 45)
             {
                 FinalDamage = (int)(MaxDamage * 0.45f);
                 hurtPlayer = false;
@@ -95,6 +95,7 @@ public class DelawareSmashSkill : QuirkSkill
                 ModContent.ProjectileType<DelawareSmashProj>(), 
                 FinalDamage, 2f, 
                 player.whoAmI);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.8f }, player.position);
 
             if (hurtPlayer)
             {

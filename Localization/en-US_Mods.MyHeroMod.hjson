@@ -178,6 +178,11 @@ Items: {
 		DisplayName: U A Pants
 		Tooltip: ""
 	}
+
+	IronSoles: {
+		DisplayName: Iron Soles
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -300,6 +305,11 @@ Buffs: {
 		DisplayName: Full Cowling Buff5
 		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff5.Description
 	}
+
+	FingersBuff: {
+		DisplayName: Fingers Buff
+		Description: Mods.MyHeroMod.Buffs.FingersBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -362,4 +372,6 @@ Projectiles: {
 	FullPowerProj.DisplayName: Full Power Proj
 	KickAttackProj.DisplayName: Kick Attack Proj
 	BlackWhipProjectileUnique.DisplayName: Black Whip Projectile Unique
+	ManchesterSmashController.DisplayName: Manchester Smash Controller
+	STLouisSmashController.DisplayName: S T Louis Smash Controller
 }

@@ -6,12 +6,13 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.BasePlayer;
 using Mono.Cecil.Cil;
+using MyHeroMod.content.System;
 
 
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     // PARTE 1: DADOS E LÓGICA
-    public partial class GearshiftPlayer : ModPlayer
+    public partial class GearshiftPlayer : ModPlayer, IHeroDashModifier
     {
         // Variáveis de Estado
         

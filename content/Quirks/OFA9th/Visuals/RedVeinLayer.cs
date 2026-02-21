@@ -21,9 +21,9 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
         }
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
-            if (!ModContent.HasAsset("MyHeroMod/Assets/FullCowlingVeins")) return;
+            if (!ModContent.HasAsset("MyHeroMod/Assets/Effects/FullCowlingVeins")) return;
 
-            Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/Assets/FullCowlingVeins").Value;
+            Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/Assets/Effects/FullCowlingVeins").Value;
             var ModPlayer = drawInfo.drawPlayer.GetModPlayer<OneForAll9thPlayer>();
 
             int totalframes = 4;

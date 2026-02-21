@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Buffs
 {
-    public class ParallelProcessingBuff : ModBuff
+    public class FingersBuff : ModBuff
     {
        
         public override string Texture => "MyHeroMod/Assets/BuffImage/ParallelProcessingBuff"; 
@@ -29,10 +29,10 @@ namespace MyHeroMod.content.Quirks.OFA9th.Buffs
             var modPlayer = player.GetModPlayer<OneForAll9thPlayer>();
 
             // Atualiza o nome e a descrição dinamicamente
-            buffName = "Parallel Processing";
+            buffName = "Remaining Fingers";
             
             // Mostra: "Quirks Ativas: 2 / 3"
-            tip = $"Mental Capacity: {modPlayer.ParallelProcessing} / {modPlayer.MaxParallelProcessing}\n" +
+            tip = $"Mental Capacity: {modPlayer.Fingers} / {modPlayer.Fingers}\n" +
                   $"Active skills consume mental capacity.";
         }
 
@@ -41,9 +41,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Buffs
     var modPlayer = Main.LocalPlayer.GetModPlayer<OneForAll9thPlayer>();
     string text = $"{modPlayer.ParallelProcessing}/{modPlayer.MaxParallelProcessing}";
 
-    // Ajuste da Posição:
-    // X = 16 (Metade de 32, para centralizar)
-    // Y = 34 (Um pouco mais que 32, para ficar EMBAIXO do ícone e não dentro)
+    
     Vector2 drawPos = drawParams.Position + new Vector2(16, 34);
 
     Color color = modPlayer.ParallelProcessing >= modPlayer.MaxParallelProcessing ? Color.Red : Color.White;

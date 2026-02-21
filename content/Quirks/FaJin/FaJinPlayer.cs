@@ -6,11 +6,12 @@ using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.OFA9th.Buffs;
 using Terraria.Audio;
 using MyHeroMod.content.System.BasePlayer;
+using MyHeroMod.content.System;
 
 
 namespace MyHeroMod.content.Quirks.FaJin;
 
-    public partial class FajinPlayer : ModPlayer
+    public partial class FajinPlayer : ModPlayer, IHeroDashModifier
     {
         
         public int FaJinCharges = 0;
@@ -42,6 +43,8 @@ namespace MyHeroMod.content.Quirks.FaJin;
         }
         }
 
+        
+
         public void ChargeFajin() {
             FaJinCharges++;
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinStoringSound"), Player.position);
@@ -55,6 +58,11 @@ namespace MyHeroMod.content.Quirks.FaJin;
 
         
     }
+
+
+      
     }
+
+
     
 
