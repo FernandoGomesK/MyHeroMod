@@ -20,7 +20,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
     public partial class OneForAll9thPlayer : ModPlayer
     {
 
-
+        public bool isAirForceOn = false;
         public int FaJinCharges = 0;
         public int MaxFaJinCharges = 5;
         public bool FaJinStored = false;
