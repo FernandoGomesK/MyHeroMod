@@ -21,7 +21,7 @@ namespace MyHeroMod.content.Items.Support
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            // Pega o Player do Todoroki e liga o colete
+        
             var quirkPlayer = player.GetModPlayer<OneForAll9thPlayer>();
             quirkPlayer.isAirForceOn = true;
             
