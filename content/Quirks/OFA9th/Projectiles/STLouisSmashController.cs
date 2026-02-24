@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using MyHeroMod.content.Dusts;
 using MyHeroMod.content.Quirks.OFA9th;
+using MyHeroMod.content.Buffs;
 
 // 1. Simplifiquei o namespace para ficar fácil de achar
 namespace MyHeroMod.content.Quirks.Explosion.Projectiles
@@ -43,9 +44,10 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
             {
                 Projectile.ai[0]++;
 
-                // Aqui é onde ele "PULA"
-                player.velocity.X *= 0.9f; // Freia o movimento lateral
-                player.velocity.Y = -15f;  // Joga o player para CIMA (Aumentei para 15f para subir mais)
+                Projectile.width = 5;
+                Projectile.height = 5;
+                player.velocity.X *= 0.9f; 
+                player.velocity.Y = -15f; 
                 
                 // Animação de Giro
                 
@@ -60,13 +62,14 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
             else if (Projectile.ai[0] == 15)
             {
                 Projectile.ai[0]++;
-                
+                Projectile.width = 80;
+                Projectile.height = 80;
                 // Aqui ele descobre onde está o mouse para descer
                 Vector2 dashDirection = Main.MouseWorld - player.Center;
                 dashDirection.Normalize();
                 
                 // VELOCIDADE DO DASH
-                float speed = 25f; 
+                float speed = 20f; 
                 Projectile.velocity = dashDirection * speed;
                 player.velocity = Projectile.velocity; // Aplica no player
 
@@ -75,12 +78,15 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
             // --- FASE 3: O DASH/DESCIDA (Frame 16+) ---
             else
             {
-                // Mantém o player preso na velocidade do projétil
+                
                 player.velocity = Projectile.velocity;
                 
-                // Gira o sprite na direção do movimento (cabeça para frente)
-                player.fullRotation = - player.velocity.ToRotation() + MathHelper.PiOver2;
+                
+                // player.fullRotation = - player.velocity.ToRotation() + MathHelper.PiOver2;
+                player.fullRotation = (player.velocity.ToRotation() + MathHelper.PiOver2) + MathHelper.Pi;
                 player.fullRotationOrigin = player.Size / 2;
+
+            
 
                 // Rastro de fogo
                 // for (int i = 0; i < 3; i++)
@@ -121,7 +127,7 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
             // Efeito Visual da Explosão
             for (int i = 0; i < 50; i++)
             {
-                int fire = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0, 0, 100, default, 4f);
+                int fire = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.GreenTorch, 0, 0, 100, default, 4f);
                 Main.dust[fire].velocity *= 6f;
                 Main.dust[fire].noGravity = true;
 

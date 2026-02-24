@@ -9,7 +9,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
 {
     public class DangerSenseEffect : PlayerDrawLayer
     {
-        // Define que desenha depois da cabeça/capacete
+        
         public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
 
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)

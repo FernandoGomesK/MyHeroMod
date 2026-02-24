@@ -5,6 +5,8 @@ using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.BasePlayer;
 using Terraria.Audio;
 using MyHeroMod.content.System;
+using Terraria.GameContent.Bestiary;
+using MyHeroMod.content.Quirks.OFA9th;
 
 
 namespace MyHeroMod.content.Quirks.DangerSense;
@@ -13,7 +15,7 @@ namespace MyHeroMod.content.Quirks.DangerSense;
     {
         
         
-        public bool IsDangerSenseActive = false;
+        public bool isDangerSenseActive = false;
         public bool IsOvertimeActive = false;
 
         public int overtimeTimer = 0;
@@ -25,21 +27,28 @@ namespace MyHeroMod.content.Quirks.DangerSense;
         public float dodgeChance = 0;
         public QuirkStage CurrentStage => Player.GetModPlayer<TransformationPlayer>().CurrentStage;
 
+        public bool HasDangerSenseAccess()
+        {
+        var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+        
+        if (transPlayer.SelectedQuirk == QuirkType.DangerSense)
+        {
+            return true;
+        }
+
+        if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+        {
+            var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>();
+            if (ofaPlayer.HasInternalQuirk(QuirkType.DangerSense))
+            return true;
+        }
+        return false;
+        }
+
         public override void OnRespawn()
         {
-            var mainPlayer = Player.GetModPlayer<DangerSensePlayer>();
-            if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
-            {
-                IsDangerSenseActive = true;
-            }
-            else
-            {
-                IsDangerSenseActive = false; 
-            }
-            
+            isDangerSenseActive = false;
             IsOvertimeActive = false;
-           
-
         }
 
         
@@ -51,7 +60,7 @@ namespace MyHeroMod.content.Quirks.DangerSense;
             {
                {
             Player.SetImmuneTimeForAllTypes(80); 
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound"), Player.position);
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound") with { Volume = 1.2f }, Player.position);
             triggerVisual(); 
             return true; 
         }
@@ -60,36 +69,35 @@ namespace MyHeroMod.content.Quirks.DangerSense;
         }
                  
                 
-                
-        
 
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            if (mainPlayer.SelectedQuirk != QuirkType.DangerSense) return;
+        if (!HasDangerSenseAccess()) return;
   
-            if (IsDangerSenseActive)
-            {
-                Player.AddBuff(ModContent.BuffType<DangerSenseBuff>(), 10);
-            }
+        if (isDangerSenseActive)
+        {
+            Player.AddBuff(ModContent.BuffType<DangerSenseBuff>(), 10);
         }
-
-        
+}
 
         public override void ResetEffects()
         {
             
-            var ModPlayer = Player.GetModPlayer<TransformationPlayer>();
+        
 
-            
-            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-            if ( transPlayer.SelectedQuirk == QuirkType.DangerSense && transPlayer.CurrentStage >= QuirkStage.Adequation)
-        {
-            IsDangerSenseActive = true;
-        }
+            if (!HasDangerSenseAccess())
+            {
+                isDangerSenseActive = false;
+                return;
+            }   
 
-            
+            if (!isDangerSenseActive)
+            {
+                dodgeChance = 0f;
+            }
+
         }
         
         public override void PreUpdate()

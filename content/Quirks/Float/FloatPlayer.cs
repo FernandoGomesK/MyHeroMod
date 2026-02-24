@@ -12,11 +12,7 @@ namespace MyHeroMod.content.Quirks.Float
     {
         public bool isFloatActive = false;
 
-       
-
-        
-
-        
+    
 
         public override void ResetEffects()
         {

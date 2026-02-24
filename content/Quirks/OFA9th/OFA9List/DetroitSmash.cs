@@ -15,7 +15,7 @@ using MyHeroMod.content.Quirks.OFA9th.Buffs;
 
 public class DetroitSmashSkill : QuirkSkill
 {
-    public override string Name => "Delaware Smash";
+    public override string Name => "Detroit Smash";
     public override string Description => "Propel air forward with a flick of your fingers";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
@@ -102,7 +102,7 @@ public class DetroitSmashSkill : QuirkSkill
 
             
             
-            int numberOfPunches = ofaPlayer.isGearshiftActive ? 5 : 1; // 5 hits if Gearshift is active, else 1
+            int numberOfPunches = ofaPlayer.isGearshiftActive ? 5 : 1; 
 
             for (int i = 0; i < numberOfPunches; i++)
             {
@@ -113,7 +113,7 @@ public class DetroitSmashSkill : QuirkSkill
                 Projectile.NewProjectile(
                     player.GetSource_FromThis(), 
                     currentSpawn, 
-                    Velocity, // Use the new speed with spread
+                    Velocity, 
                     ModContent.ProjectileType<DetroitSmashProj>(), 
                     FinalDamage, 
                     2f, 
@@ -122,7 +122,7 @@ public class DetroitSmashSkill : QuirkSkill
                 Projectile.NewProjectile(
                 player.GetSource_FromThis(), 
                 BaseSpawnLocation, 
-                Velocity, // Use the new speed with spread
+                Velocity, 
                 ModContent.ProjectileType<PunchAttackProj>(), 
                 0,
                 0f, 

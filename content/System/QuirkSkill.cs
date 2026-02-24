@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
+using MyHeroMod.content.Quirks.OFA9th;
 
 
 namespace MyHeroMod.content.System
@@ -26,18 +27,13 @@ namespace MyHeroMod.content.System
     if (IsDefaultSkill) return true;
 
     if (player.SelectedQuirk == QuirkType.OneForAll9th)
-            {
-                bool isOfaSubQuirk = RequiredQuirk == QuirkType.BlackWhip || 
-                RequiredQuirk == QuirkType.FaJin ||
-                RequiredQuirk == QuirkType.Gearshift ||
-                RequiredQuirk == QuirkType.DangerSense ||
-                RequiredQuirk == QuirkType.Float ||
-                RequiredQuirk == QuirkType.SmokeScreen;
-            if (isOfaSubQuirk) 
-                return player.CurrentStage >= RequiredStage;
-
-            }
-
+    {
+        var ofaPlayer = player.Player.GetModPlayer<OneForAll9thPlayer>();
+        if (ofaPlayer.HasInternalQuirk(RequiredQuirk))
+        {
+            return true; 
+        }
+    }
 
     
     if (IsBaseQuirk && player.SelectedQuirk == RequiredQuirk) return true;

@@ -12,7 +12,7 @@
 
             // Ofa 9th
             DelawareSmash, DetroitSmash, ManchesterSmash, STLouisSmash, OneForAllFullCowling5, OneForAllFullCowling8, OneForAllFullCowling45,
-            BlackWhipHook, OneForAllFullCowling100, BlackWhipSurge, Float, DangerSense, FaJinStore, Smokescreen, Gearshift,
+            BlackWhipHook, OneForAllFullCowling100, BlackWhipSurge, Float, DangerSense, ToggleDangerSense, FaJinStore, Smokescreen, Gearshift,
 
             // Hell Flames
             FlashFireFist, ProminenceBurn, JetBurn, HellSpider, IgnitedArrow,

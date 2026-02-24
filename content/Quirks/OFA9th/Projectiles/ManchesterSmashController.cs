@@ -5,6 +5,8 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using MyHeroMod.content.Dusts;
 using MyHeroMod.content.Quirks.OFA9th;
+using MyHeroMod.content.Buffs;
+using Microsoft.Build.Evaluation;
 
 // 1. Simplifiquei o namespace para ficar fácil de achar
 namespace MyHeroMod.content.Quirks.Explosion.Projectiles
@@ -43,15 +45,16 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
             {
                 Projectile.ai[0]++;
 
-                // Aqui é onde ele "PULA"
-                player.velocity.X *= 0.9f; // Freia o movimento lateral
-                player.velocity.Y = -15f;  // Joga o player para CIMA (Aumentei para 15f para subir mais)
                 
-                // Animação de Giro
+                player.velocity.Y = -15f; 
+                player.velocity.X *= 0.9f; 
+                Projectile.width = 5;
+                Projectile.height = 5;
+                
                 player.fullRotation += 0.4f * player.direction;
                 player.fullRotationOrigin = player.Size / 2;
                 
-                // Partículas saindo do player enquanto sobe
+                
                 if (Main.rand.NextBool(3))
                 {
                     Dust.NewDust(player.position, player.width, player.height, DustID.Smoke, 0, 0, 100, default, 1f);
@@ -62,50 +65,45 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
             {
                 Projectile.ai[0]++;
                 
-                // Aqui ele descobre onde está o mouse para descer
+                Projectile.width = 80;
+                Projectile.height = 80;
                 Vector2 dashDirection = Main.MouseWorld - player.Center;
                 dashDirection.Normalize();
                 
                 // VELOCIDADE DO DASH
-                float speed = 25f; 
-                Projectile.velocity = dashDirection * speed;
-                player.velocity = Projectile.velocity; // Aplica no player
+                
+                float speed = 25f;
+                if (Projectile.ai[1] == 1f)     
+                {
+                    speed = 40f;
+                }
 
-                SoundEngine.PlaySound(SoundID.Item14, player.position); // Som de disparo
+
+                Projectile.velocity = dashDirection * speed;
+                player.velocity = Projectile.velocity;
+
+                SoundEngine.PlaySound(SoundID.Item14, player.position); 
             }
-            // --- FASE 3: O DASH/DESCIDA (Frame 16+) ---
+        
             else
             {
-                // Mantém o player preso na velocidade do projétil
+                
                 player.velocity = Projectile.velocity;
                 
-                // Gira o sprite na direção do movimento (cabeça para frente)
-                player.fullRotation = player.velocity.ToRotation() + MathHelper.PiOver2;
+                
+                player.fullRotation = (player.velocity.ToRotation() + MathHelper.PiOver2) + MathHelper.Pi;
                 player.fullRotationOrigin = player.Size / 2;
 
-                // Rastro de fogo
-                // for (int i = 0; i < 3; i++)
-                // {
-                //     int d = Dust.NewDust(player.position, player.width, player.height, DustID.Torch, 0, 0, 100, default, 2f);
-                //     Main.dust[d].noGravity = true;
-                //     Main.dust[d].velocity = -player.velocity * 0.5f; 
-                // }
-
+                if (Projectile.ai[1] == 1f)
+                {
                 
-                // int d2 =Dust.NewDust(player.position, player.width, player.height, DustID.Ash, 0, 0, 100, default, 6f);
-                // Main.dust[d2].noGravity = true;
-                // Main.dust[d2].velocity = player.velocity;
+                    int d = Dust.NewDust(player.position, player.width, player.height, DustID.RedTorch, 0, 0, 100, Color.Red, 4f);
+                Main.dust[d].noGravity = true;
+                Main.dust[d].velocity *= 0.5f;
+                }
 
+            
 
-
-                // var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
-        
-                // if (ofaPlayer.IsClusterActive == true){
-
-                // int d3 =Dust.NewDust(player.position, player.width, player.height, ModContent.DustType<ClusterDust>(), 0, 0, 100, default, 6f);
-                // Main.dust[d2].noGravity = true;
-                // Main.dust[d2].velocity = player.velocity;
-                // }
             }
         }
 
@@ -113,24 +111,28 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
         {
             Player player = Main.player[Projectile.owner];
             
-            // Para o player e reseta a rotação ao bater
+            
             player.velocity = Vector2.Zero;
             player.fullRotation = 0f; 
 
             SoundEngine.PlaySound(SoundID.Item62, Projectile.position); 
 
-            // Efeito Visual da Explosão
+            if (Projectile.ai[1] == 1f)
+                {
+                    int smoke = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.RedTorch, 0, 0, 100, default, 3f);
+                    Main.dust[smoke].velocity *= 4f;
+                }
+
+
             for (int i = 0; i < 50; i++)
             {
-                int fire = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0, 0, 100, default, 4f);
+                int fire = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Electric, 0, 0, 100, Color.Green, 4f);
                 Main.dust[fire].velocity *= 6f;
                 Main.dust[fire].noGravity = true;
 
                 int smoke = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0, 0, 100, default, 3f);
                 Main.dust[smoke].velocity *= 4f;
             }
-            
-            // Dica: Adicione dano em área aqui criando outro projétil de explosão se quiser
         }
         
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

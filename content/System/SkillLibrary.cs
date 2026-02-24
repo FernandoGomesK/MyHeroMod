@@ -31,6 +31,7 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             // DangerSense
             
             { QuirkSkills.DangerSense, new DangerSenseSkill() },
+            {QuirkSkills.ToggleDangerSense, new ToggleDangerSenseSkill() },
 
             // GearShift
 

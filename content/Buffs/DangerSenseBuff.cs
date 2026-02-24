@@ -18,7 +18,7 @@ namespace MyHeroMod.content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            // Tenta pegar o DangerSensePlayer (o BasePlayer aqui nem é necessário para a lógica do dodge)
+           
             if (!player.TryGetModPlayer<TransformationPlayer>(out var transformPlayer) ||
                 !player.TryGetModPlayer<DangerSensePlayer>(out var dangerPlayer))
             {
@@ -27,6 +27,7 @@ namespace MyHeroMod.content.Buffs
 
             
             player.dangerSense = true;
+        
 
             float currentChance = 0.05f; 
 
