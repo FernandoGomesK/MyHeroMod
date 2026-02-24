@@ -10,7 +10,7 @@ using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Quirks.Smokescreen
 {
-    public partial class SmokescreenPlayer : BasePlayer
+    public partial class SmokescreenPlayer : ModPlayer
     {
         
 

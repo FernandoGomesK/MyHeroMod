@@ -23,10 +23,7 @@ namespace MyHeroMod.content.Buffs
             // if (transformPlayer.ActiveForm == QuirkSkills.OneForAllFullCowling5)
             // {
                 
-                player.moveSpeed += 0.50f; 
-                player.statDefense += 2;    
-                player.jumpSpeedBoost += 2.0f;
-                player.noFallDmg = true;
+                
             // }
             // else if (transformPlayer.ActiveForm == QuirkSkills.OneForAllFullCowling8)
             // {

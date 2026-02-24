@@ -1,20 +1,20 @@
-// using Microsoft.Xna.Framework;
-// using Terraria;
-// using Terraria.ModLoader;
-// using Terraria.ID;
-// using MyHeroMod.content.System;
-// using MyHeroMod.content.Quirks.OFA9th.Projectiles;
-// using MyHeroMod.content.Quirks.OFA9th.Buffs;
-// using Terraria.Audio;
-// using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ModLoader;
+using Terraria.ID;
+using MyHeroMod.content.System;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles;
+using MyHeroMod.content.Quirks.OFA9th.Buffs;
+using Terraria.Audio;
+using Terraria.DataStructures;
 
-// namespace MyHeroMod.content.Quirks.OFA9th
-// {
-//     public partial class OneForAll9thPlayer : ModPlayer
-//     {
+namespace MyHeroMod.content.Quirks.OFA9th
+{
+    public partial class OneForAll9thPlayer : ModPlayer
+    {
         
 
-//     }
+    }}
 
         
 

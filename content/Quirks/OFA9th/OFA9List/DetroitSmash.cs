@@ -1,4 +1,4 @@
- using Terraria;
+using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
@@ -15,7 +15,7 @@ using MyHeroMod.content.Quirks.OFA9th.Buffs;
 
 public class DetroitSmashSkill : QuirkSkill
 {
-    public override string Name => "Delaware Smash";
+    public override string Name => "Detroit Smash";
     public override string Description => "Propel air forward with a flick of your fingers";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
@@ -41,13 +41,13 @@ public class DetroitSmashSkill : QuirkSkill
 
             
 
-            if (player.HasBuff(ModContent.BuffType<FullCowlingBuff45>())) {
+            if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 45) {
                 DamageMultiplier = 0.45f; 
             }
-            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff10>())) {
+            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 10) {
                 DamageMultiplier = 0.010f;
             }
-            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff5>())) {
+            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 5) {
                 DamageMultiplier = 0.05f; 
             }
             else {
@@ -102,7 +102,7 @@ public class DetroitSmashSkill : QuirkSkill
 
             
             
-            int numberOfPunches = ofaPlayer.isGearshiftActive ? 5 : 1; // 5 hits if Gearshift is active, else 1
+            int numberOfPunches = ofaPlayer.isGearshiftActive ? 5 : 1; 
 
             for (int i = 0; i < numberOfPunches; i++)
             {
@@ -113,7 +113,7 @@ public class DetroitSmashSkill : QuirkSkill
                 Projectile.NewProjectile(
                     player.GetSource_FromThis(), 
                     currentSpawn, 
-                    Velocity, // Use the new speed with spread
+                    Velocity, 
                     ModContent.ProjectileType<DetroitSmashProj>(), 
                     FinalDamage, 
                     2f, 
@@ -122,12 +122,14 @@ public class DetroitSmashSkill : QuirkSkill
                 Projectile.NewProjectile(
                 player.GetSource_FromThis(), 
                 BaseSpawnLocation, 
-                Velocity, // Use the new speed with spread
+                Velocity, 
                 ModContent.ProjectileType<PunchAttackProj>(), 
                 0,
                 0f, 
                 player.whoAmI
             );
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
+        
  
             
             }

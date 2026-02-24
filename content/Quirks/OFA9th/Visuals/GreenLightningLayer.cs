@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using MyHeroMod.content;
+using MyHeroMod.content.Quirks.OFA9th;
 
 public class GreenLightningLayer : PlayerDrawLayer
 {
@@ -11,17 +12,19 @@ public class GreenLightningLayer : PlayerDrawLayer
     public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.ArmOverItem);
 
     public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) {
+        var player = drawInfo.drawPlayer.GetModPlayer<OneForAll9thPlayer>();
         var mp = drawInfo.drawPlayer.GetModPlayer<TransformationPlayer>();
-        return mp.SelectedQuirk == QuirkType.OneForAll9th && mp.ActiveForm != QuirkSkills.None;
+        return mp.SelectedQuirk == QuirkType.OneForAll9th && player.isFullCowlingBuffActive && !drawInfo.drawPlayer.dead;
     }
 
     protected override void Draw(ref PlayerDrawSet drawInfo) {
         
-        if (!ModContent.HasAsset("MyHeroMod/Assets/FullCowling")) {
+        if (!ModContent.HasAsset("MyHeroMod/Assets/Effects/FullCowling")) {
             return; 
         }
 
-        Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/Assets/FullCowling").Value;
+        Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/Assets/Effects/FullCowling").Value;
+       
 
         
         int frameCount = 6; 

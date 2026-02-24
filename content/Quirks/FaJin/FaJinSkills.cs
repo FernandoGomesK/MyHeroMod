@@ -2,40 +2,44 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System.BasePlayer;
+using MyHeroMod.content.Buffs;
 
 using Terraria.ID;
 
 using Terraria.Audio;
-
-
-
+using MyHeroMod.content.System;
 
 
 namespace MyHeroMod.content.Quirks.FaJin
 {
-    public partial class FajinPlayer : ModPlayer
+    public partial class FajinPlayer : ModPlayer, IHeroDashModifier
     {
-
-
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash)
+public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash)
+{
+    var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+    
+    // 1. Checa se o jogador tem o Fa Jin PURO ou o One For All 9th
+    bool hasFajinAccess = transPlayer.SelectedQuirk == QuirkType.FaJin || transPlayer.SelectedQuirk == QuirkType.OneForAll9th;
+    if (hasFajinAccess) 
+    {
+        if (FaJinStored) // Se estiver carregado
         {
-            var transformationPlayer = Player.GetModPlayer<TransformationPlayer>();
-            var fajinPlayer = Player.GetModPlayer<FajinPlayer>();
-            if (transformationPlayer.SelectedQuirk == QuirkType.FaJin) {
-                if (FaJinStored)
-                {
-                speed = 25f;
-                isEnhanced = true;
-                FaJinCharges = 0; 
-                }
-                else{
-                ChargeFajin();
-                isEnhanced = true;  
-                }
+            speed = 25f;
+            isEnhanced = true;  
+            Player.ClearBuff(ModContent.BuffType<FaJinBuff>());
+            FaJinCharges = 0;  
+        }
+        else 
+        {
+            ChargeFajin();
+            isEnhanced = true;  
+        }
+        
+    }
+}
+      
 
-    }   }
-    }
-    }
+}}
         
 
 

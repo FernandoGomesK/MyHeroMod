@@ -4,6 +4,7 @@ using Terraria.ID;
 using System.Collections.Generic;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using MyHeroMod.content.Quirks.DangerSense;
 // using MyHeroMod.content.Quirks.DangerSense;
 
 namespace MyHeroMod.content.System.BasePlayer
@@ -45,18 +46,21 @@ namespace MyHeroMod.content.System.BasePlayer
         }
 
     
-        // public override bool FreeDodge(Player.HurtInfo info) {
-        //     if (DodgeChance > 0 && Main.rand.NextFloat() < DodgeChance) {
-        //         Player.SetImmuneTimeForAllTypes(40);
-        //         SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound"), Player.position);
+        public override bool FreeDodge(Player.HurtInfo info) {
+            if (DodgeChance > 0 && Main.rand.NextFloat() < DodgeChance) {
+                return true;
+            }
 
-        //         if (Player.TryGetModPlayer<DangerSensePlayer>(out var dsPlayer)) {
-        //         dsPlayer.triggerVisual(); 
-        //         }
-        //         return true;
-        //     }
-        //     return false;
-        // }
+            foreach (var modPlayer in Player.ModPlayers) {
+                if(modPlayer is IHeroDodgeModifier dodgeClass) {
+                    if (dodgeClass.TryDodge(info)) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        // 
 
         public override void PreUpdate() { 
     

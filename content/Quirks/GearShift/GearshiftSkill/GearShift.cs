@@ -35,14 +35,14 @@ public class GearShiftSkill : QuirkSkill
                 gearshiftPlayer.ActivationTimer = 0;
                 return;
             }
-            // 2. CANCELA se estiver carregando
+            
             else if (gearshiftPlayer.GearActivation)
             {
                 gearshiftPlayer.GearActivation = false;
                 gearshiftPlayer.ActivationTimer = 0;
                 Main.NewText("Cancelled.", Color.Gray);
             }
-            // 3. LIGA (Começa a carregar)
+            
             else
             {
                 gearshiftPlayer.ActivationTimer = 0;

@@ -20,10 +20,19 @@ namespace MyHeroMod.content.Quirks.OFA9th
     public partial class OneForAll9thPlayer : ModPlayer
     {
 
+<<<<<<< HEAD
         public bool isAirForceOn = false;
+=======
+
+        public bool isIronSolesOn = false;
+>>>>>>> Testbranch
         public int FaJinCharges = 0;
         public int MaxFaJinCharges = 5;
         public bool FaJinStored = false;
+
+
+
+    
 
         // Gearshift
         public bool isGearshiftActive = false;
@@ -37,7 +46,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public bool isFullCowlingBuffActive = false;
 
         // Danger Sense
-        public bool isDangerSenseActive = false;
+        
         // Smoke Screen
         public bool isSmokeScreenActive = false;
 
@@ -51,13 +60,15 @@ namespace MyHeroMod.content.Quirks.OFA9th
         // Parallel Processing
         public int ParallelProcessing = 0;
         public int MaxParallelProcessing = 0;
-        
 
-
+    
         private int ElectricSoundTimer = 0;
 
         public int ActivationTimer = 0;
         public int ActivationMaxTime = 40;
+        public int percentage = 0;
+        public int pendingPercentage = 0;
+        public bool Activating = false; 
         
 
         
@@ -70,58 +81,103 @@ namespace MyHeroMod.content.Quirks.OFA9th
             // GearshiftTimer = 0;
             
         }
+        
+
+        
         public override void PreUpdate()
         {
+            if (Activating)
+            {
+                ActivationTimer++;
+                Player.velocity *= 0.6f; 
+
+                if (Main.rand.NextBool(2))
+                {
+                    Dust d = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, Color.Green, 0.5f);
+                    d.noGravity = true;
+                    d.velocity *= 0.5f;   
+                }
+
+                if (ActivationTimer >= ActivationMaxTime)
+                {   
+                    ActivateFullCowling();
+                    Activating = false;
+                    ActivationTimer = 0;
+                }
+
+                
         }
+        
+        
+                }
+        private void ActivateFullCowling()
+        {
+            var transformPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            percentage = pendingPercentage;
+        
+            Player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 3600000);
+            Main.NewText("ONE FOR ALL Full Cowling", Color.Cyan);
+            CombatText.NewText(Player.getRect(), Color.Cyan, "Full Cowling!");
+            
             
 
+            // Explosão de partículas
+            for (int i = 0; i < 20; i++)
+            {
+                Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
+                Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, speed.X, speed.Y, 0, Color.Green, 2f);
+            }
+        }
+
+
+        public List<QuirkType> InternalQuirks = new List<QuirkType>();
         
-            // if (ActivationTimer > 0)
-            // {
-            //     ActivationTimer++;
-            //     Player.velocity *= 0.6f; 
+            
 
-                
+        public void UnlockQuirks(){
+        var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-                
-                // if (ActivationTimer >= ActivationMaxTime)
-                // {
-                    
-                
-                
-                    // if (GearActivation)
-                    // {
-                    //     isGearshiftActive = true;
-                    //     GearActivation = false;
-                    //     GearshiftTimer = 0;
 
-                    //     Main.NewText("ONE FOR ALL 2ND - GEARSHIFT: TRANSMISSION !", Color.Cyan);
-                    //     CombatText.NewText(Player.getRect(), Color.Cyan, "SECOND GEAR");
-                    //     SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/GearShiftSound"), Player.position);
+        if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+    {
+        // Evolução baseada no estágio (Stage)
+        if (transPlayer.CurrentStage >= QuirkStage.Initial)
+            InternalQuirks.Add(QuirkType.OneForAll9th); 
 
-                    //     // Explosão de partículas
-                    //     for (int i = 0; i < 20; i++)
-                    //     {
-                    //         Vector2 speed = Main.rand.NextVector2Circular(5f, 5f);
-                    //         Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, speed.X, speed.Y, 0, Color.Cyan, 2f);
-                    //     }
-                    // }
-                    // ActivationTimer = 0;
+        if (transPlayer.CurrentStage >= QuirkStage.Adequation)
+            InternalQuirks.Add(QuirkType.BlackWhip);
 
-                    
-        //         }
-        //     }
-        // }
+        if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
+            InternalQuirks.Add(QuirkType.DangerSense);
 
+        if (transPlayer.CurrentStage >= QuirkStage.Advanced)
+        {
+            InternalQuirks.Add(QuirkType.Float);
+            InternalQuirks.Add(QuirkType.SmokeScreen);
+        }
+
+        if (transPlayer.CurrentStage >= QuirkStage.Final)
+        {
+            InternalQuirks.Add(QuirkType.FaJin);
+            InternalQuirks.Add(QuirkType.Gearshift);
+        }
+    }
+
+    
+        }
+
+        public bool HasInternalQuirk(QuirkType type)
+{
+    return InternalQuirks.Contains(type);
+}
         
-
 
         public override void ResetEffects()
         {
-            
-        //     var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            
+            UnlockQuirks();
+
         //     ParallelProcessing = 0;
 
             
@@ -150,37 +206,14 @@ namespace MyHeroMod.content.Quirks.OFA9th
         //     }
         // }
         
-        // public override void PostUpdateEquips()
-        // {
-        //     var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-        //     var player = Player.GetModPlayer<OneForAll9thPlayer>();
-
-        //     if (FaJinCharges >= MaxFaJinCharges)
-        //     {
-        //         FaJinStored = true;
-        //         Player.AddBuff(ModContent.BuffType<FaJinBuff>(), 2);
-        //     }
-        //     else
-        //     {
-        //         FaJinStored = false;
-        //     }
-
+       
         //     if (ParallelProcessing > 0)
         //     {
         //         Player.AddBuff(ModContent.BuffType<ParallelProcessingBuff>(), 2);
         //     }
 
-        //     if (isDangerSenseActive) Player.AddBuff(ModContent.BuffType<DangerSenseBuff>(), 2);
-
-        //     if (isSmokeScreenActive)
-        //     {
-        //         Dust.NewDust(Player.position, Player.width, Player.height, DustID.Smoke, 0f, 0f, 100, Color.MediumPurple, 6.0f);
-        //     }
-            
-
-            bool hasAnyFullCowling = Player.HasBuff(ModContent.BuffType<FullCowlingBuff5>()) || 
-                            Player.HasBuff(ModContent.BuffType<FullCowlingBuff10>()) || 
-                            Player.HasBuff(ModContent.BuffType<FullCowlingBuff45>());
+        //    
+            bool hasAnyFullCowling = Player.HasBuff(ModContent.BuffType<FullCowlingBuff>());
 
             if (hasAnyFullCowling)
             {

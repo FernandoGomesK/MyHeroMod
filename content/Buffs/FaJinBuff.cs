@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.FaJin; 
 using Terraria.ID;
 
-namespace MyHeroMod.content.Quirks.OFA9th.Buffs
+namespace MyHeroMod.content.Buffs
 {
     public class FaJinBuff : ModBuff
     {

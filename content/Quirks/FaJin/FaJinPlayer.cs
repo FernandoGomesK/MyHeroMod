@@ -6,11 +6,13 @@ using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.OFA9th.Buffs;
 using Terraria.Audio;
 using MyHeroMod.content.System.BasePlayer;
+using MyHeroMod.content.System;
+using MyHeroMod.content.Quirks.OFA9th;
 
 
 namespace MyHeroMod.content.Quirks.FaJin;
 
-    public partial class FajinPlayer : ModPlayer
+    public partial class FajinPlayer : ModPlayer, IHeroDashModifier
     {
         
         public int FaJinCharges = 0;
@@ -22,6 +24,24 @@ namespace MyHeroMod.content.Quirks.FaJin;
             
         }
 
+        public bool HasFaJinAccess()
+        {
+        var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+        
+        if (transPlayer.SelectedQuirk == QuirkType.FaJin)
+        {
+            return true;
+        }
+
+        if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+        {
+            var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>();
+            if (ofaPlayer.HasInternalQuirk(QuirkType.FaJin))
+            return true;
+        }
+        return false;
+        }
+
         public override void PostUpdateEquips()
         {
             if (FaJinStored) {
@@ -31,16 +51,17 @@ namespace MyHeroMod.content.Quirks.FaJin;
        public override void PostUpdateMiscEffects() {
 
 
-    var transformationPlayer = Player.GetModPlayer<TransformationPlayer>();
-    if (transformationPlayer.SelectedQuirk == QuirkType.FaJin) 
-    {
-            
-        
+        var transformationPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+        if (HasFaJinAccess()) 
+        {
             if (!FaJinStored && Player.controlJump && Player.velocity.Y == 0 && Player.releaseJump) {
                 ChargeFajin( );
             }
         }
         }
+
+    
 
         public void ChargeFajin() {
             FaJinCharges++;
@@ -55,6 +76,11 @@ namespace MyHeroMod.content.Quirks.FaJin;
 
         
     }
+
+
+      
     }
+
+
     
 
