@@ -1,9 +1,17 @@
 Terraria mod made with the intention of adding some of the quirks from the main show and from vigilantes.
 
 currently contains:
+
+All for one 9th
+Float
+Gearshift
+Smoke Screen
+Fa Jin
+
+
+W.I.P
 Explosion
 Half cold Half Hot
 Hellflames
 Blueflames
 All for one 8th
-All for one 9th
