@@ -16,6 +16,7 @@ namespace MyHeroMod.content
                             Float, Gearshift, FaJin, SmokeScreen, DangerSense,
                             BlackWhip }
 
+    // Waiting Implementation 
    
                             
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }

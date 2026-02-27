@@ -11,6 +11,7 @@ using MyHeroMod.content.Quirks.OFA9th;
 using Terraria.DataStructures;
 using Mono.Cecil.Cil;
 using MyHeroMod.content.Quirks.OFA9th.Buffs;
+using MyHeroMod.content.Quirks.FaJin;
 
 
 public class DetroitSmashSkill : QuirkSkill
@@ -31,6 +32,7 @@ public class DetroitSmashSkill : QuirkSkill
     {
  
         var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
+        var FaJinPlayer = player.GetModPlayer<FajinPlayer>();
 
             int MaxDamage = 450;
             float DamageMultiplier = 1f;
@@ -57,8 +59,7 @@ public class DetroitSmashSkill : QuirkSkill
             if  (player.HasBuff(ModContent.BuffType<FaJinBuff>()))
             {
                 DamageMultiplier += 0.55f; // Increase damage by 25% if Fa Jin is stored
-                ofaPlayer.FaJinCharges = 0; // Consume all Fa Jin charges
-                ofaPlayer.FaJinStored = false;
+                FaJinPlayer.FaJinCharges = 0; // Consume all Fa Jin charges
                 player.ClearBuff(ModContent.BuffType<FaJinBuff>());
                 usedFaJin = true;
             }
@@ -102,7 +103,7 @@ public class DetroitSmashSkill : QuirkSkill
 
             
             
-            int numberOfPunches = ofaPlayer.isGearshiftActive ? 5 : 1; 
+            int numberOfPunches = player.HasBuff(ModContent.BuffType<GearshiftBuff>()) ? 5 : 1; 
 
             for (int i = 0; i < numberOfPunches; i++)
             {

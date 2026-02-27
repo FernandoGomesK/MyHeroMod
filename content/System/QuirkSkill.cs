@@ -29,9 +29,10 @@ namespace MyHeroMod.content.System
     if (player.SelectedQuirk == QuirkType.OneForAll9th)
     {
         var ofaPlayer = player.Player.GetModPlayer<OneForAll9thPlayer>();
+
         if (ofaPlayer.HasInternalQuirk(RequiredQuirk))
         {
-            return true; 
+            return player.CurrentStage >= RequiredStage; 
         }
     }
 

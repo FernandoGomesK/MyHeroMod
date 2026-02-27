@@ -3,11 +3,11 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
-using MyHeroMod.content;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items
 {
-    public class QuirkSelectorItem : ModItem
+    public class RandomQuirkItem : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -27,40 +27,22 @@ namespace MyHeroMod.content.Items
         public override void AddRecipes()
 {
     CreateRecipe()
-        .AddIngredient(ItemID.FallenStar, 5) 
+        .AddIngredient(ItemID.FallenStar, 1) 
         .AddTile(TileID.WorkBenches)         
         .Register();                         
 }
 
-        public override bool AltFunctionUse(Player player)
-        {
-            return true;
-        }
+    
         
+
         public override bool? UseItem(Player player)
         {
             if (Main.myPlayer == player.whoAmI)
             {
-                if (player.altFunctionUse == 2)
-                {
-                    CycleStage(player);
-                }
-                UISystem.ShowUI();
+                RandomQuirkSelection.SelectRandomQuirk();
             }
             return true;
         }    
-        private void CycleStage(Player player)
-        {
-            var modPlayer = player.GetModPlayer<TransformationPlayer>();
-
-            modPlayer.CurrentStage++;
-
-            if (modPlayer.CurrentStage > QuirkStage.Final)
-            {
-                modPlayer.CurrentStage = QuirkStage.Initial;
-            }
-
-            Main.NewText($"Current Stage: {modPlayer.CurrentStage}", Color.Green);
-        }
+        
     }
 }
