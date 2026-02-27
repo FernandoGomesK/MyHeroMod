@@ -11,6 +11,7 @@ using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using Terraria.Audio;
 using System.Collections.Generic;
 using MyHeroMod.content.System.BasePlayer;
+using rail;
 
 
 
@@ -20,47 +21,24 @@ namespace MyHeroMod.content.Quirks.OFA9th
     public partial class OneForAll9thPlayer : ModPlayer
     {
 
-<<<<<<< HEAD
         public bool isAirForceOn = false;
-=======
 
         public bool isIronSolesOn = false;
->>>>>>> Testbranch
-        public int FaJinCharges = 0;
-        public int MaxFaJinCharges = 5;
-        public bool FaJinStored = false;
-
-
-
-    
-
-        // Gearshift
-        public bool isGearshiftActive = false;
-        public bool isGearshiftBuffActive = false;
-        public int GearshiftTimer = 0;
-        public int GearshiftMaxTime = 6000;
-        // Gearshift Buff   
-        public bool GearActivation = false;
 
         // Full Cowling
         public bool isFullCowlingBuffActive = false;
 
-        // Danger Sense
-        
-        // Smoke Screen
-        public bool isSmokeScreenActive = false;
-
-        // Float
-        public bool isFloatActive = false;
 
         // Fingers
 
-        public int Fingers = 10;
+        public int currentFingers = 10;
+        public int MaxFingers = 10;
 
         // Parallel Processing
         public int ParallelProcessing = 0;
         public int MaxParallelProcessing = 0;
 
+        // Activations
     
         private int ElectricSoundTimer = 0;
 
@@ -75,10 +53,10 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public override void OnRespawn()
         {
-            // Fingers = 10;
-            // ElectricSoundTimer = 0;
-            // ActivationTimer = 0;
-            // GearshiftTimer = 0;
+            currentFingers = 10;
+            ElectricSoundTimer = 0;
+            ActivationTimer = 0;
+            
             
         }
         
@@ -104,15 +82,12 @@ namespace MyHeroMod.content.Quirks.OFA9th
                     Activating = false;
                     ActivationTimer = 0;
                 }
-
-                
-        }
+            }
         
         
                 }
         private void ActivateFullCowling()
         {
-            var transformPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             percentage = pendingPercentage;
         
@@ -122,7 +97,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             
             
 
-            // Explosão de partículas
+            
             for (int i = 0; i < 20; i++)
             {
                 Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
@@ -141,7 +116,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
     {
-        // Evolução baseada no estágio (Stage)
+        
         if (transPlayer.CurrentStage >= QuirkStage.Initial)
             InternalQuirks.Add(QuirkType.OneForAll9th); 
 
@@ -175,44 +150,52 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public override void ResetEffects()
         {
+            var ofaPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             UnlockQuirks();
 
-        //     ParallelProcessing = 0;
+            ParallelProcessing = 0;
+
+            if (Player.HasBuff(ModContent.BuffType<FloatBuff>()))
+            {
+                ParallelProcessing++;
+            }
+            if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
+            {
+                ParallelProcessing++;
+            }
+            if (Player.HasBuff(ModContent.BuffType<DangerSenseBuff>()))
+            {
+                ParallelProcessing++;
+            }
 
             
-        //     if (isFloatActive) ParallelProcessing++;
-        //     if (isDangerSenseActive) ParallelProcessing++;
-        //     if (isGearshiftActive) ParallelProcessing++;
-        //     if (isSmokeScreenActive) ParallelProcessing++;
-
             
-        //     if (mainPlayer.SelectedQuirk == QuirkType.OneForAll9th)
-        //     {
-        //         if (mainPlayer.CurrentStage == QuirkStage.Initial) 
-        //             MaxParallelProcessing = 0; 
-        //         else if (mainPlayer.CurrentStage == QuirkStage.Adequation) 
-        //             MaxParallelProcessing = 1; 
-        //         else if (mainPlayer.CurrentStage == QuirkStage.Intermediate) 
-        //             MaxParallelProcessing = 2; 
-        //         else if (mainPlayer.CurrentStage == QuirkStage.Advanced) 
-        //             MaxParallelProcessing = 4; 
-        //         else if (mainPlayer.CurrentStage >= QuirkStage.Final) 
-        //             MaxParallelProcessing = 6; 
-        //     }
-        //     else
-        //     {
-        //         MaxParallelProcessing = 0;
-        //     }
-        // }
+            if (ofaPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+            {
+                if (ofaPlayer.CurrentStage == QuirkStage.Initial) 
+                    MaxParallelProcessing = 0; 
+                else if (ofaPlayer.CurrentStage == QuirkStage.Adequation) 
+                    MaxParallelProcessing = 1; 
+                else if (ofaPlayer.CurrentStage == QuirkStage.Intermediate) 
+                    MaxParallelProcessing = 2; 
+                else if (ofaPlayer.CurrentStage == QuirkStage.Advanced) 
+                    MaxParallelProcessing = 4; 
+                else if (ofaPlayer.CurrentStage >= QuirkStage.Final) 
+                    MaxParallelProcessing = 6; 
+            }
+            else
+            {
+                MaxParallelProcessing = 0;
+            }
         
-       
-        //     if (ParallelProcessing > 0)
-        //     {
-        //         Player.AddBuff(ModContent.BuffType<ParallelProcessingBuff>(), 2);
-        //     }
 
-        //    
+            if (ParallelProcessing > 0)
+            {
+                Player.AddBuff(ModContent.BuffType<ParallelProcessingBuff>(), 2);
+            }
+
+       
             bool hasAnyFullCowling = Player.HasBuff(ModContent.BuffType<FullCowlingBuff>());
 
             if (hasAnyFullCowling)
@@ -225,6 +208,11 @@ namespace MyHeroMod.content.Quirks.OFA9th
             else
             {
                 isFullCowlingBuffActive = false;
+            }
+
+            if (currentFingers < MaxFingers)
+            {
+                Player.AddBuff(ModContent.BuffType<FingersBuff>(), 2);
             }
 
 

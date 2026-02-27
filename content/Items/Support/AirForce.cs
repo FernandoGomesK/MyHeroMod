@@ -1,33 +1,33 @@
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
-using MyHeroMod.content.Quirks.OFA9th;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+// using MyHeroMod.content.Quirks.HalfColdHalfHot;
+// using MyHeroMod.content.Quirks.OFA9th;
+// using Terraria;
+// using Terraria.ID;
+// using Terraria.ModLoader;
 
 
-namespace MyHeroMod.content.Items.Support
-{
-    public class AirForce : ModItem
-    {
-        public override void SetDefaults()
-        {
-            Item.width = 24;
-            Item.height = 24;
-            Item.accessory = true;
-            Item.rare = ItemRarityID.Green;
-            Item.value = Item.sellPrice(gold: 1);
+// namespace MyHeroMod.content.Items.Support
+// {
+//     public class AirForce : ModItem
+//     {
+//         public override void SetDefaults()
+//         {
+//             Item.width = 24;
+//             Item.height = 24;
+//             Item.accessory = true;
+//             Item.rare = ItemRarityID.Green;
+//             Item.value = Item.sellPrice(gold: 1);
             
-        }
+//         }
 
-        public override void UpdateAccessory(Player player, bool hideVisual)
-        {
+//         public override void UpdateAccessory(Player player, bool hideVisual)
+//         {
         
-            var quirkPlayer = player.GetModPlayer<OneForAll9thPlayer>();
-            quirkPlayer.isAirForceOn = true;
+//             var quirkPlayer = player.GetModPlayer<OneForAll9thPlayer>();
+//             quirkPlayer.isAirForceOn = true;
             
-            // Opcional: Bônus genéricos
+//             // Opcional: Bônus genéricos
             
-        }
+//         }
         
-        }
-        }
+//         }
+//         }

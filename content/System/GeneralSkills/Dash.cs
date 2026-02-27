@@ -45,14 +45,19 @@ namespace MyHeroMod.content.System
                 }
             }
 
-        if (hideNormalDash) return; 
+        if (hideNormalDash)
+            {
+                TeleportDash(player);
+            }
 
-        executeDash(player, speed, isEnhanced);
+            else
+            {
+                executeDash(player, speed, isEnhanced);
         player.SetImmuneTimeForAllTypes(10);
-        }
+            }
 
-                
-    
+        
+        }
 
 
         
@@ -84,8 +89,7 @@ namespace MyHeroMod.content.System
                     dir *= maxDist;
                     distance = maxDist;
                 }
-
-            
+    
                 Vector2 safePos = player.Center;
                 float stepSize = 16f; 
                 bool hitWall = false;
@@ -104,7 +108,7 @@ namespace MyHeroMod.content.System
                 }
 
                 Vector2 startPos = player.Center;
-                int dustCount = (int)(Vector2.Distance(startPos, safePos) / 5); // 1 partícula a cada 5 pixels
+                int dustCount = (int)(Vector2.Distance(startPos, safePos) / 5); 
                 for (int i = 0; i < dustCount; i++)
                 {
                     Vector2 dustPos = Vector2.Lerp(startPos, safePos, (float)i / dustCount);
@@ -153,26 +157,4 @@ namespace MyHeroMod.content.System
     
 
 
-//     if (gearshiftPlayer.isGearshiftBuffActive)
-        //     {
-        //         ApplyDashMovement(player);
-        //         return;
-        //     }
-            
-        //     else if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
-        //     {
-        //         speed = 30f;
-        //         isEnhanced = true;
-        //         SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1"), player.position);
-
-        //         executeDash(player, speed, isEnhanced);
-        //     }
-        //     else 
-        //     {
-                
-        //         SoundEngine.PlaySound(SoundID.Item14, player.position);
-        //         executeDash(player, speed, isEnhanced);
-        //     }
-
-             
-        // }
+//    

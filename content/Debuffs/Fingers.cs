@@ -28,12 +28,12 @@ namespace MyHeroMod.content.Quirks.OFA9th.Buffs
             Player player = Main.LocalPlayer;
             var modPlayer = player.GetModPlayer<OneForAll9thPlayer>();
 
-            // Atualiza o nome e a descrição dinamicamente
+            
             buffName = "Remaining Fingers";
             
-            // Mostra: "Quirks Ativas: 2 / 3"
-            tip = $"Mental Capacity: {modPlayer.Fingers} / {modPlayer.Fingers}\n" +
-                  $"Active skills consume mental capacity.";
+            
+            tip = $"Mental Capacity: {modPlayer.currentFingers} / {modPlayer.MaxFingers}\n" +
+                  $"Your fingers are Broken.";
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
@@ -44,9 +44,9 @@ namespace MyHeroMod.content.Quirks.OFA9th.Buffs
     
     Vector2 drawPos = drawParams.Position + new Vector2(16, 34);
 
-    Color color = modPlayer.ParallelProcessing >= modPlayer.MaxParallelProcessing ? Color.Red : Color.White;
+    Color color = modPlayer.ParallelProcessing >= modPlayer.MaxFingers ? Color.Red : Color.White;
 
-    // Desenha centralizado (0.5f no X) e ancorado no topo do texto (0f no Y)
+    
     Utils.DrawBorderString(spriteBatch, text, drawPos, color, 0.8f, 0.5f, 0f);
 }
     }
