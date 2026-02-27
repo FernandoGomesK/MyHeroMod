@@ -9,7 +9,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Buffs
     public class FingersBuff : ModBuff
     {
        
-        public override string Texture => "MyHeroMod/Assets/BuffImage/ParallelProcessingBuff"; 
+        public override string Texture => "MyHeroMod/Assets/BuffImage/FingersBuff"; 
 
         public override void SetStaticDefaults()
         {
@@ -26,25 +26,25 @@ namespace MyHeroMod.content.Quirks.OFA9th.Buffs
         public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {
             Player player = Main.LocalPlayer;
-            var modPlayer = player.GetModPlayer<OneForAll9thPlayer>();
+            var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
 
             
             buffName = "Remaining Fingers";
             
             
-            tip = $"Mental Capacity: {modPlayer.currentFingers} / {modPlayer.MaxFingers}\n" +
+            tip = $"Remaining Fingers: {ofaPlayer.currentFingers} / {ofaPlayer.MaxFingers}\n" +
                   $"Your fingers are Broken.";
         }
 
         public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
 {
-    var modPlayer = Main.LocalPlayer.GetModPlayer<OneForAll9thPlayer>();
-    string text = $"{modPlayer.ParallelProcessing}/{modPlayer.MaxParallelProcessing}";
+    var ofaPlayer = Main.LocalPlayer.GetModPlayer<OneForAll9thPlayer>();
+    string text = $"{ofaPlayer.currentFingers}/{ofaPlayer.MaxFingers}";
 
     
     Vector2 drawPos = drawParams.Position + new Vector2(16, 34);
 
-    Color color = modPlayer.ParallelProcessing >= modPlayer.MaxFingers ? Color.Red : Color.White;
+    Color color = ofaPlayer.currentFingers >= ofaPlayer.MaxFingers ? Color.Red : Color.White;
 
     
     Utils.DrawBorderString(spriteBatch, text, drawPos, color, 0.8f, 0.5f, 0f);

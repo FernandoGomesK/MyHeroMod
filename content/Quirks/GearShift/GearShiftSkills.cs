@@ -20,7 +20,7 @@ namespace MyHeroMod.content.Quirks.Gearshift
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             // Se o Gearshift for a Quirk selecionada e o Buff estiver ativo
-            if (transPlayer.SelectedQuirk == QuirkType.Gearshift && Player.HasBuff(ModContent.BuffType<GearshiftBuff>())) 
+            if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>())) 
             {
                 hideNormalDash = true; 
 

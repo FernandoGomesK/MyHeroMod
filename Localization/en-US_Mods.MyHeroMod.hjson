@@ -183,6 +183,11 @@ Items: {
 		DisplayName: Iron Soles
 		Tooltip: ""
 	}
+
+	RandomQuirkItem: {
+		DisplayName: Random Quirk Item
+		Tooltip: ""
+	}
 }
 
 Buffs: {

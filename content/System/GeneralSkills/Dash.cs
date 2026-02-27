@@ -48,6 +48,7 @@ namespace MyHeroMod.content.System
         if (hideNormalDash)
             {
                 TeleportDash(player);
+                Main.NewText("Teleporte!");
             }
 
             else
@@ -119,11 +120,13 @@ namespace MyHeroMod.content.System
 
                 
                 player.Center = safePos;
-                player.velocity = Vector2.Zero; 
+                // player.velocity = Vector2.Zero; 
                 if (hitWall) 
                 {
                     player.velocity = -Vector2.Normalize(dir) * 2f; 
                 }
+
+                dashvfx(player);
         }
 
         private void dashvfx(Player player)

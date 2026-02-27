@@ -21,7 +21,7 @@ namespace MyHeroMod.content.Buffs
             var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
             var gearshiftPlayer = player.GetModPlayer<GearshiftPlayer>();
             gearshiftPlayer.isGearshiftBuffActive = true;
-            ofaPlayer.isGearshiftBuffActive = true;
+            // ofaPlayer.isGearshiftBuffActive = true;
 
             player.moveSpeed += 1.0f; // Increase movement speed by 10%
             player.accRunSpeed += 5.0f; // Increase run speed

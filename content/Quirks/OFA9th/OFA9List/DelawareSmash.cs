@@ -62,13 +62,13 @@ public class DelawareSmashSkill : QuirkSkill
                 hurtPlayer = true;
                 consumeFinger = true;
             }
-            if (consumeFinger && ofaPlayer.Fingers <= 0)
+            if (consumeFinger && ofaPlayer.currentFingers <= 0)
             {
                 CombatText.NewText(player.getRect(), Color.Red, "No fingers left!");
                 return;
             }
 
-            if (consumeFinger) ofaPlayer.Fingers--;
+            if (consumeFinger) ofaPlayer.currentFingers--;
 
             Vector2 Velocity = Main.MouseWorld - player.Center;
             Velocity.Normalize();
