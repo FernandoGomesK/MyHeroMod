@@ -1,4 +1,3 @@
-
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
@@ -8,7 +7,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 {
     public class DelawareSmashProj : ModProjectile
     {
-        
+        public override string Texture => "MyHeroMod/Assets/Projectiles/DelawareSmashProj";
         public override void SetDefaults()
         {
             Projectile.width = 32;

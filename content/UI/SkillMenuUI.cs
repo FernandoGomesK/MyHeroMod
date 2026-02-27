@@ -19,16 +19,13 @@ namespace MyHeroMod.content.UI
         private UIPanel mainPanel;
         private UIList skillList;
         private UIText descriptionText;
-        private QuirkSkills selectedSkill = QuirkSkills.None; // Qual habilidade está selecionada agora
-    
-
+        private QuirkSkills selectedSkill = QuirkSkills.None; 
 
         public override void OnInitialize()
         {
-            // Garante que os dados estão carregados
-            SkillData.Load();
+            
 
-            // 1. Painel Principal (Fundo Azul Escuro)
+            // 1. Painel Principal
             mainPanel = new UIPanel();
             mainPanel.Width.Set(600, 0);
             mainPanel.Height.Set(450, 0);
@@ -59,17 +56,15 @@ namespace MyHeroMod.content.UI
             var scrollbar = new UIScrollbar();
             scrollbar.SetView(100f, 1000f);
             scrollbar.Height.Set(0, 1f);
-            scrollbar.Left.Set(0, 0.9f); // Canto direito do painel
+            scrollbar.Left.Set(0, 0.9f); 
             listPanel.Append(scrollbar);
             skillList.SetScrollbar(scrollbar);
 
-            // Popula a lista com as skills
-
-            // 3. LADO DIREITO: Slots (Z, X, C)
+            // 3. LADO DIREITO: Slots (Z, X, C, G)
             CreateSlotButton("Slot 1 (Z)", 60, 1);
             CreateSlotButton("Slot 2 (X)", 140, 2);
             CreateSlotButton("Slot 3 (C)", 220, 3);
-            CreateSlotButton("Transform (G)", 300, 4);
+            CreateSlotButton("Slot 4 (v)", 300, 4);
 
             // 4. RODAPÉ: Descrição
             UIPanel descPanel = new UIPanel();
@@ -90,58 +85,61 @@ namespace MyHeroMod.content.UI
             base.OnActivate();
 
             var modPlayer = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
+            
+            // Garante que a lista de desbloqueios está atualizada antes de abrir o menu
+            modPlayer.UpdateUnlockedSkills();
 
             string quirkName = modPlayer.SelectedQuirk.ToString();
+            
+            // Título Bonito
+            if (modPlayer.SelectedQuirk == QuirkType.OneForAll9th) quirkName = "One For All 9th";
+            else if (modPlayer.SelectedQuirk == QuirkType.OneForAll8th) quirkName = "One For All 8th";
+            else if (modPlayer.SelectedQuirk == QuirkType.Quirkless) quirkName = "Quirkless";
+            else if (modPlayer.SelectedQuirk == QuirkType.Gearshift) quirkName = "Gearshift";
 
-            if (modPlayer.SelectedQuirk == QuirkType.OneForAll9th)
-            {
-                quirkName = "One For All 9th";
-            }
-            else if (modPlayer.SelectedQuirk == QuirkType.OneForAll8th)
-            {
-                quirkName = "One For All 8th";
-            }
-            else if (modPlayer.SelectedQuirk == QuirkType.Quirkless)
-            {
-                quirkName = "Quirkless";
-            }
             string dynamicText = $"{quirkName} - Stage: {modPlayer.CurrentStage}";
             title.SetText(dynamicText);
             
-            PopulateSkillList(); // Agora é seguro chamar, pois o Player existe!
+            PopulateSkillList(); 
         }
-
 
         private void PopulateSkillList()
         {
-            skillList.Clear(); // Limpa a lista anterior para não duplicar botões
-            
-            // Verificação de segurança: Se não tiver player (ex: menu principal), não faz nada
+            skillList.Clear();    
             if (Main.LocalPlayer == null || !Main.LocalPlayer.active) return;
 
             var player = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
 
-            foreach (var kvp in SkillData.SkillList)
+            foreach (var skillId in SkillLibrary.GetAllIds())
             {
-                QuirkSkills skillType = kvp.Key;
-                SkillInfo info = kvp.Value;
+                var skillInstance = SkillLibrary.GetSkill(skillId);
+                if (skillInstance == null) continue;
 
-                // Só mostra se o jogador tiver nível suficiente
-                if (player.CurrentStage >= info.MinStage && info.RelatedQuirks.Contains(player.SelectedQuirk))
+                // --- MUDANÇA CRUCIAL AQUI ---
+                // Antes: Verificava o estágio manualmente (O que quebrava sua lógica de exceção)
+                // if (player.CurrentStage >= info.MinStage && ...)
+                
+                // Agora: Verifica se está na lista de desbloqueios do Player
+                // A lista UnlockedSkills já tem a lógica de exceção aplicada!
+                if (skillInstance.CheckUnlock(player))
                 {
                     UIPanel button = new UIPanel();
                     button.Width.Set(180, 0);
                     button.Height.Set(40, 0);
                     button.BackgroundColor = new Color(60, 60, 100);
 
-                    UIText text = new UIText(info.Name, 0.7f);
+                    UIText text = new UIText(skillInstance.Name, 0.7f);
                     text.HAlign = 0.5f;
                     text.VAlign = 0.5f;
                     button.Append(text);
 
+                    // Hover (Opcional, muda a cor quando passa o mouse)
+                    button.OnMouseOver += (evt, elem) => button.BackgroundColor = new Color(80, 80, 140);
+                    button.OnMouseOut += (evt, elem) => button.BackgroundColor = new Color(60, 60, 100);
+
                     button.OnLeftClick += (evt, elem) => {
-                        selectedSkill = skillType;
-                        descriptionText.SetText(info.Description);
+                        selectedSkill = skillId;
+                        descriptionText.SetText(skillInstance.Description);
                         SoundEngine.PlaySound(SoundID.MenuTick);
                     };
 
@@ -159,10 +157,10 @@ namespace MyHeroMod.content.UI
             slotBtn.Top.Set(top, 0);
             slotBtn.BackgroundColor = Color.DarkSlateBlue;
 
-            UIText text = new UIText(label);
-            text.HAlign = 0.5f;
-            text.VAlign = 0.5f;
-            slotBtn.Append(text);
+            UIText slotText = new UIText(label);
+            slotText.HAlign = 0.5f;
+            slotText.VAlign = 0.5f;
+            slotBtn.Append(slotText);
 
             slotBtn.OnLeftClick += (evt, elem) => {
                 if (selectedSkill == QuirkSkills.None) {
@@ -171,16 +169,19 @@ namespace MyHeroMod.content.UI
                 }
 
                 var player = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
+                var skillInstance = SkillLibrary.GetSkill(selectedSkill); // Puxa da Library
                 
                 if (slotNum == 1) player.Slot1 = selectedSkill;
                 if (slotNum == 2) player.Slot2 = selectedSkill;
                 if (slotNum == 3) player.Slot3 = selectedSkill;
-                if (slotNum == 4) player.TransformSlot = selectedSkill;
+                if (slotNum == 4) player.Slot4 = selectedSkill;
 
-                Main.NewText($"Assigned {SkillData.SkillList[selectedSkill].Name} to Slot {slotNum}!", Color.Green);
-                SoundEngine.PlaySound(SoundID.MenuOpen);
                 
-                text.SetText($"{label}: {SkillData.SkillList[selectedSkill].Name}");
+                Main.NewText($"Assigned {skillInstance.Name} to Slot {slotNum}!", Color.Green);
+                slotText.SetText($"{label}: {skillInstance.Name}");
+                
+                // Atualiza o texto do botão para mostrar o que está equipado
+                SoundEngine.PlaySound(SoundID.MenuOpen);
             };
 
             mainPanel.Append(slotBtn);

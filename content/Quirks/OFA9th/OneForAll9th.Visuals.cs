@@ -4,20 +4,24 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Audio;
+using MyHeroMod.content.System.BasePlayer;
 
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
-    public partial class OneForAll9thPlayer
+    public partial class OneForAll9thPlayer: ModPlayer
     {
         private void HandleFullCowlingEffects()
         {
+            
+
+
             Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
             ElectricSoundTimer++;
 
             if (ElectricSoundTimer >= 900 + Main.rand.Next(-120, 120))
             {
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingAura"), Player.position);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingAura") with { Volume = 0.2f }, Player.position);
                 ElectricSoundTimer = 0;
                 Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, default, 0.5f);
             }
@@ -35,9 +39,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
         drawInfo.colorArmorHead = Color.RoyalBlue;
         drawInfo.colorArmorLegs = Color.RoyalBlue;
         
-        // This creates a "God Mode" style afterimage trail which looks like a contour
+        
         Player.armorEffectDrawShadow = true; 
-        // Player.armorEffectDrawOutlines = true; // This forces a faint outline
+        
         }
         if (FaJinStored)
             {

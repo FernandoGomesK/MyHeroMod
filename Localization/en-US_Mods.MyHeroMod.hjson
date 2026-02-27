@@ -5,6 +5,7 @@ Keybinds: {
 	"Skill Slot 2.DisplayName": Skill  Slot 2
 	"Skill Slot 1.DisplayName": Skill  Slot 1
 	"Open Skill Menu.DisplayName": Open  Skill  Menu
+	"Skill Slot 4.DisplayName": Skill  Slot 4
 }
 
 Items: {
@@ -127,6 +128,61 @@ Items: {
 		DisplayName: Golden Leggings
 		Tooltip: ""
 	}
+
+	FirstTodorokiLeggings: {
+		Tooltip: ""
+		DisplayName: First Todoroki Leggings
+	}
+
+	FirstTodorokiBreastplate: {
+		Tooltip: ""
+		DisplayName: First Todoroki Breastplate
+	}
+
+	DebugStageChanger: {
+		DisplayName: Debug Stage Changer
+		Tooltip: ""
+	}
+
+	CombatVestAlpha: {
+		Tooltip: ""
+		DisplayName: Combat Vest Alpha
+	}
+
+	SurgeArmGauntlets: {
+		Tooltip: ""
+		DisplayName: Surge Arm Gauntlets
+	}
+
+	CombatVestBeta: {
+		Tooltip: ""
+		DisplayName: Combat Vest Beta
+	}
+
+	GrenadierBracers: {
+		DisplayName: Grenadier Bracers
+		Tooltip: ""
+	}
+
+	FirstBakugoLeggings: {
+		DisplayName: First Bakugo Leggings
+		Tooltip: ""
+	}
+
+	UAShirt: {
+		DisplayName: U A Shirt
+		Tooltip: ""
+	}
+
+	UAPants: {
+		DisplayName: U A Pants
+		Tooltip: ""
+	}
+
+	IronSoles: {
+		DisplayName: Iron Soles
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -209,6 +265,51 @@ Buffs: {
 		DisplayName: Heatstroke
 		Description: Mods.MyHeroMod.Buffs.Heatstroke.Description
 	}
+
+	TemperatureBuff: {
+		Description: Mods.MyHeroMod.Buffs.TemperatureBuff.Description
+		DisplayName: Temperature Buff
+	}
+
+	FrostBite: {
+		Description: Mods.MyHeroMod.Buffs.FrostBite.Description
+		DisplayName: Frost Bite
+	}
+
+	OvertimeBuff: {
+		DisplayName: Overtime Buff
+		Description: Mods.MyHeroMod.Buffs.OvertimeBuff.Description
+	}
+
+	FloatBuff: {
+		DisplayName: Float Buff
+		Description: Mods.MyHeroMod.Buffs.FloatBuff.Description
+	}
+
+	SmokescreenBuff: {
+		DisplayName: Smokescreen Buff
+		Description: Mods.MyHeroMod.Buffs.SmokescreenBuff.Description
+	}
+
+	FullCowlingBuff10: {
+		DisplayName: Full Cowling Buff10
+		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff10.Description
+	}
+
+	FullCowlingBuff45: {
+		DisplayName: Full Cowling Buff45
+		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff45.Description
+	}
+
+	FullCowlingBuff5: {
+		DisplayName: Full Cowling Buff5
+		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff5.Description
+	}
+
+	FingersBuff: {
+		DisplayName: Fingers Buff
+		Description: Mods.MyHeroMod.Buffs.FingersBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -242,6 +343,7 @@ Projectiles: {
 	BlueHellSpiderProj.DisplayName: Blue Hell Spider Proj
 	BlueHellSpiderController.DisplayName: Blue Hell Spider Controller
 	IceSpikeProj.DisplayName: Ice Spike Proj
+	IceSpike.DisplayName: Ice Spike
 	IceWaveController.DisplayName: Ice Wave Controller
 	HCHellSpiderController.DisplayName: H C Hell Spider Controller
 	HCHellSpiderProj.DisplayName: H C Hell Spider Proj
@@ -262,4 +364,14 @@ Projectiles: {
 	PrimeCarolinaSmashProj.DisplayName: Prime Carolina Smash Proj
 	PrimeTexasSmashProj.DisplayName: Prime Texas Smash Proj
 	DetroitPunchProj.DisplayName: Detroit Punch Proj
+	PunchAnimProj.DisplayName: Punch Anim Proj
+	GreatGlacialAegirController.DisplayName: Great Glacial Aegir Controller
+	IceThrowerController.DisplayName: Ice Thrower Controller
+	IceShotProj.DisplayName: Ice Shot Proj
+	IceThrowerProj.DisplayName: Ice Thrower Proj
+	FullPowerProj.DisplayName: Full Power Proj
+	KickAttackProj.DisplayName: Kick Attack Proj
+	BlackWhipProjectileUnique.DisplayName: Black Whip Projectile Unique
+	ManchesterSmashController.DisplayName: Manchester Smash Controller
+	STLouisSmashController.DisplayName: S T Louis Smash Controller
 }

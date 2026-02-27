@@ -32,9 +32,11 @@ namespace MyHeroMod.content.Items.Weapons
             Item.rare = ItemRarityID.White;
             Item.autoReuse = true;  // Segurar bate continuamente
             
-            // Removemos o projétil de fogo
+             
             Item.shoot = ModContent.ProjectileType<PunchAttackProj>(); 
-            Item.shootSpeed = 15f;
+                
+            
+            Item.shootSpeed = 25f;
 
             Item.useTurn = true;    // Pode virar enquanto bate
             Item.noUseGraphic = true; // O item (ícone) fica invisível, parecendo que é a mão do player
@@ -72,6 +74,19 @@ namespace MyHeroMod.content.Items.Weapons
                     player.whoAmI, 
                     textureStyle // Passa o estilo no ai[0]
                 );
+
+                if (player.ownedProjectileCounts[ModContent.ProjectileType<PunchAnimProj>()] < 1)
+    {
+        Projectile.NewProjectile(
+            source,
+            player.Center, // Grudado no player
+            velocity,      // Direção do mouse (para rotação)
+            ModContent.ProjectileType<PunchAnimProj>(), // O projétil visual
+            0,             // DANO ZERO
+            0,             // SEM KNOCKBACK
+            player.whoAmI
+        );
+    }
             
 
             return false;
@@ -99,7 +114,7 @@ namespace MyHeroMod.content.Items.Weapons
             if (modPlayer.CurrentStage >= QuirkStage.Intermediate)
             {
                 damage += 0.5f; // +50%
-            }
+            
             if (modPlayer.CurrentStage >= QuirkStage.Final)
             {
                 damage += 1.0f; // +100% (Dano total triplicado base)
@@ -108,4 +123,5 @@ namespace MyHeroMod.content.Items.Weapons
         
     }
 }
-    
+}
+
