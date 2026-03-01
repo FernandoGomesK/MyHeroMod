@@ -18,7 +18,9 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             //BlackWhip
             { QuirkSkills.BlackWhipHook, new BlackWhipHookSkill() },
 
-            
+            // FaJin
+
+            {QuirkSkills.FaJinStore, new FajinSkill( )},
 
 
             // Smokescreen 

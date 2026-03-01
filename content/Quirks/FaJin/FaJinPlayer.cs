@@ -17,11 +17,13 @@ namespace MyHeroMod.content.Quirks.FaJin;
         
         public int FaJinCharges = 0;
         public int MaxFaJinCharges = 5;
+        public bool isFaJinActive = false;
         public bool FaJinStored => FaJinCharges >= MaxFaJinCharges;
 
         public override void OnRespawn()
         {
-            
+            FaJinCharges = 0;
+            isFaJinActive = false;
         }
 
         public bool HasFaJinAccess()
@@ -55,8 +57,13 @@ namespace MyHeroMod.content.Quirks.FaJin;
 
         if (HasFaJinAccess()) 
         {
+            if (isFaJinActive)
+            {
+                
+            
             if (!FaJinStored && Player.controlJump && Player.velocity.Y == 0 && Player.releaseJump) {
                 ChargeFajin( );
+            }
             }
         }
         }
