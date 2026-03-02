@@ -12,6 +12,7 @@ using Terraria.DataStructures;
 using Mono.Cecil.Cil;
 using MyHeroMod.content.Quirks.OFA9th.Buffs;
 using MyHeroMod.content.Quirks.FaJin;
+using MyHeroMod.content.Quirks.OFA8th;
 
 
 public class DetroitSmashSkill : QuirkSkill
@@ -27,11 +28,21 @@ public class DetroitSmashSkill : QuirkSkill
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => false;
 
+    public override bool CheckUnlock(TransformationPlayer player)
+    {
+        if (player.SelectedQuirk == QuirkType.OneForAll8th) 
+            return player.CurrentStage >= QuirkStage.Initial;
+
+
+        return false;
+    }
+
 
     public override void OnUse(Player player)
     {
  
         var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
         var FaJinPlayer = player.GetModPlayer<FajinPlayer>();
 
             int MaxDamage = 450;
@@ -39,8 +50,8 @@ public class DetroitSmashSkill : QuirkSkill
             bool hurtPlayer = false;
             bool usedFaJin = false;
 
-
-
+            if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+        {
             
 
             if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 45) {
@@ -53,7 +64,7 @@ public class DetroitSmashSkill : QuirkSkill
                 DamageMultiplier = 0.05f; 
             }
             else {
-                DamageMultiplier = 2.0f; // Sem Full Cowling é o soco suicida (100%)
+                DamageMultiplier = 1.0f; 
                 hurtPlayer = true;
             }
             if  (player.HasBuff(ModContent.BuffType<FaJinBuff>()))
@@ -136,7 +147,7 @@ public class DetroitSmashSkill : QuirkSkill
             }
             if (hurtPlayer)
             {
-                player.statLife -= 10;
+                player.statLife -= 40;
                 if (player.statLife <= 0)
                 {
                     var reason = PlayerDeathReason.ByCustomReason(
@@ -144,4 +155,64 @@ public class DetroitSmashSkill : QuirkSkill
                     player.KillMe(reason, FinalDamage, 0);
                 }
         }
-        }}
+        }
+        
+        else if (transPlayer.SelectedQuirk == QuirkType.OneForAll8th)
+        {
+            if (transPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+                CombatText.NewText(player.getRect(), Color.Yellow, "Detroit Smash!");
+            }
+            else
+            {
+                CombatText.NewText(player.getRect(), Color.White, "Super Punch!");
+            }
+
+            
+
+            Vector2 Direction = Main.MouseWorld - player.Center;
+            Direction.Normalize();
+            Vector2 Velocity = Direction * 15f;
+
+            Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
+            
+            Vector2 spacing = Direction * 25f;
+            Vector2 currentSpawn = BaseSpawnLocation - spacing;
+
+            if (player.HasBuff(ModContent.BuffType<StockPileBuff>())) {
+                DamageMultiplier = 1.5f; 
+            }
+            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>())) {
+                DamageMultiplier = 2.0f;
+            }
+
+             int FinalDamage = (int)(MaxDamage * DamageMultiplier);
+                
+    
+                Projectile.NewProjectile(
+                    player.GetSource_FromThis(), 
+                    currentSpawn, 
+                    Velocity, 
+                    ModContent.ProjectileType<DetroitSmashProj>(), 
+                    FinalDamage, 
+                    2f,     
+                    player.whoAmI
+                );
+                Projectile.NewProjectile(
+                player.GetSource_FromThis(), 
+                BaseSpawnLocation, 
+                Velocity, 
+                ModContent.ProjectileType<PunchAttackProj>(), 
+                0,
+                0f, 
+                player.whoAmI
+            );
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
+
+            
+//         }
+        } 
+        
+        }
+        
+        }

@@ -76,11 +76,11 @@ namespace MyHeroMod.content
         }
 
         
-        // if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
+        if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
         if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(Slot2);
         if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(Slot3);
         if (KeybindSystem.SkillSlot4.JustPressed) ExecuteSkill(Slot4);
-        if (KeybindSystem.SkillSlot1.JustPressed) { Main.NewText("BOTÃO APERTADO!"); ExecuteSkill(Slot1); }
+        // if (KeybindSystem.SkillSlot1.JustPressed) { Main.NewText("BOTÃO APERTADO!"); ExecuteSkill(Slot1); }
 
         
     }

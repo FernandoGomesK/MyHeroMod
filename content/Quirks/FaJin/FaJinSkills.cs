@@ -18,11 +18,11 @@ public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormal
 {
     var transPlayer = Player.GetModPlayer<TransformationPlayer>();
     
-    // 1. Checa se o jogador tem o Fa Jin PURO ou o One For All 9th
+
     bool hasFajinAccess = transPlayer.SelectedQuirk == QuirkType.FaJin || transPlayer.SelectedQuirk == QuirkType.OneForAll9th;
     if (hasFajinAccess) 
     {
-        if (FaJinStored) // Se estiver carregado
+        if (FaJinStored) 
         {
             speed = 25f;
             isEnhanced = true;  
@@ -31,8 +31,12 @@ public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormal
         }
         else 
         {
-            ChargeFajin();
-            isEnhanced = true;  
+            if (isFaJinActive)
+                    {
+                        ChargeFajin();
+            isEnhanced = true; 
+                    }
+             
         }
         
     }

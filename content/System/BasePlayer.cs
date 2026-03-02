@@ -75,8 +75,8 @@ namespace MyHeroMod.content.System.BasePlayer
 
 
        public virtual void ExecuteSkill(QuirkSkills skillId) {
-        Main.NewText($"[DEBUG] Skill chamada por: {this.GetType().Name}", Microsoft.Xna.Framework.Color.Yellow);
-        Main.NewText($"[DEBUG] Classe: {this.GetType().Name} | ID: {this.GetHashCode()} | CD: {GetCooldown(skillId)}", Color.Red);
+        // Main.NewText($"[DEBUG] Skill chamada por: {this.GetType().Name}", Microsoft.Xna.Framework.Color.Yellow);
+        // Main.NewText($"[DEBUG] Classe: {this.GetType().Name} | ID: {this.GetHashCode()} | CD: {GetCooldown(skillId)}", Color.Red);
         if (skillId == QuirkSkills.None) return;
         var skill = SkillLibrary.GetSkill(skillId);
         if (skill == null) return;

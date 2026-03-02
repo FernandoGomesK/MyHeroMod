@@ -79,33 +79,7 @@
 
 //         private void DoDetroitSmash(TransformationPlayer mainPlayer)
 //         {
-//             if (mainPlayer.CurrentStage >= QuirkStage.Adequation)
-//             {
-//                 CombatText.NewText(Player.getRect(), Color.Yellow, "Detroit Smash!");
-//             }
-//             else
-//             {
-//                 CombatText.NewText(Player.getRect(), Color.White, "Super Punch!");
-//             }
-            
-//              Vector2 Velocity = Main.MouseWorld - Player.Center;
-//             Velocity.Normalize();
-//             Velocity *= 15f;
-
-//             Projectile.NewProjectile(
-//                 Player.GetSource_FromThis(),
-//                 Player.Center,
-//                 Velocity,
-//                 ModContent.ProjectileType<DetroitPunchProj>(),
-//                 500, 
-//                 2f, 
-//                 Player.whoAmI);
-
-                
-//                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2"), Player.position);
-
-            
-//         }
+//             
 
 //         private void DoCaliforniaSmash(TransformationPlayer mainPlayer)
 //         {

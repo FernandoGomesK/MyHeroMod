@@ -150,12 +150,17 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public override void ResetEffects()
         {
-            var ofaPlayer = Player.GetModPlayer<TransformationPlayer>();
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>();
 
             UnlockQuirks();
 
             ParallelProcessing = 0;
 
+            if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+            {
+                
+            
             if (Player.HasBuff(ModContent.BuffType<FloatBuff>()))
             {
                 ParallelProcessing++;
@@ -168,20 +173,22 @@ namespace MyHeroMod.content.Quirks.OFA9th
             {
                 ParallelProcessing++;
             }
+            }
+
 
             
             
-            if (ofaPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+            if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
             {
-                if (ofaPlayer.CurrentStage == QuirkStage.Initial) 
+                if (transPlayer.CurrentStage == QuirkStage.Initial) 
                     MaxParallelProcessing = 0; 
-                else if (ofaPlayer.CurrentStage == QuirkStage.Adequation) 
+                else if (transPlayer.CurrentStage == QuirkStage.Adequation) 
                     MaxParallelProcessing = 1; 
-                else if (ofaPlayer.CurrentStage == QuirkStage.Intermediate) 
+                else if (transPlayer.CurrentStage == QuirkStage.Intermediate) 
                     MaxParallelProcessing = 2; 
-                else if (ofaPlayer.CurrentStage == QuirkStage.Advanced) 
+                else if (transPlayer.CurrentStage == QuirkStage.Advanced) 
                     MaxParallelProcessing = 4; 
-                else if (ofaPlayer.CurrentStage >= QuirkStage.Final) 
+                else if (transPlayer.CurrentStage >= QuirkStage.Final) 
                     MaxParallelProcessing = 6; 
             }
             else

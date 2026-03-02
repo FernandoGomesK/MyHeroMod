@@ -32,7 +32,7 @@ namespace MyHeroMod.content.System
             bool isEnhanced = false;
             bool hideNormalDash = false;
 
-            Main.NewText("SKILL EXECUTADA!");
+            // Main.NewText("SKILL EXECUTADA!");
             
 
             

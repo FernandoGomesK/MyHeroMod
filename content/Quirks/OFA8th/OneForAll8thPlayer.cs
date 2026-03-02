@@ -15,12 +15,12 @@
 // {
 //     public partial class OneForAll8thPlayer : ModPlayer
 //     {
-//         public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
+       
+//        public int form = 0;
 
 //         public override void OnRespawn()
 //         {
-//             Player.GetModPlayer<TransformationPlayer>().ActiveForm = QuirkSkills.None;
-//             SkillCooldowns.Clear();
+//             Player.GetModPlayer<TransformationPlayer>().ActiveForm = QuirkSkills.None;    
 //         }
 
 //             public override void PostUpdateEquips()
@@ -34,14 +34,9 @@
 //                 Player.jumpSpeedBoost += 1.5f;
 //             }
 
-//             // Só roda se for o All Might e estiver transformado
 //             if (mainPlayer.SelectedQuirk == QuirkType.OneForAll8th && mainPlayer.ActiveForm != QuirkSkills.None)
 //             {
-//                 // 1. Aplica o Buff de Status (Defesa/Dano)
-//                 Player.AddBuff(ModContent.BuffType<StockPileBuff>(), 2);
-
-                
-                
+//                 Player.AddBuff(ModContent.BuffType<StockPileBuff>(), 2);       
 //             }
 //         }
 //     }
