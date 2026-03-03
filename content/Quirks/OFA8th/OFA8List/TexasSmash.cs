@@ -47,15 +47,14 @@ public class TexasSmashSkill : QuirkSkill
             Velocity.Normalize();
             Velocity *= 30f;
 
-            // Spawna o projétil que vai controlar o player
-            // A velocidade inicial não importa aqui, pois a AI[0] controla a subida
+        
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
                 Velocity, 
                 ModContent.ProjectileType<PrimeTexasSmashProj>(),
-                10, // Dano alto (Impacto)
-                30f, // Knockback alto
+                10, 
+                30f, 
                 player.whoAmI);
 
 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1"), player.position);
