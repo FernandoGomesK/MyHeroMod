@@ -14,14 +14,14 @@ using MyHeroMod.content.Quirks.OFA8th.Projectiles.CarolinaSmash;
 
 public class CarolinaSmashSkill : QuirkSkill
 {
-    public override string Name => "Delaware Smash";
+    public override string Name => "Carolina Smash";
     public override string Description => "Propel air forward with a flick of your fingers";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
-    public override int BaseCooldown => 120;
+    public override int BaseCooldown => 200;
 
-    public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
-    public override QuirkStage RequiredStage => QuirkStage.Initial;
+    public override QuirkType RequiredQuirk => QuirkType.OneForAll8th;
+    public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => false;
 

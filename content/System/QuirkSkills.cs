@@ -8,7 +8,7 @@
             SuperJump,
 
             // Ofa 8th
-            PrimeDetroitSmash, PrimeCaliforniaSmash, PrimeTexasSmash, PrimeCarolinaSmash, StockPile, StockPileMaximum,
+            PrimeDetroitSmash, CaliforniaSmash, TexasSmash, CarolinaSmash, StockPile, StockPileMaximum,
 
             // Ofa 9th
             DelawareSmash, DetroitSmash, ManchesterSmash, STLouisSmash, OneForAllFullCowling5, OneForAllFullCowling8, OneForAllFullCowling45,

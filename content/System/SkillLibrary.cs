@@ -39,6 +39,14 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
 
             { QuirkSkills.Gearshift, new GearShiftSkill() },
 
+            // One For All 8th
+
+            { QuirkSkills.CaliforniaSmash, new CaliforniaSmashSkill() },
+            { QuirkSkills.TexasSmash, new TexasSmashSkill() },
+            { QuirkSkills.CarolinaSmash, new CarolinaSmashSkill() },
+            { QuirkSkills.StockPile, new StockPile() },
+            { QuirkSkills.StockPileMaximum, new StockPileMaximum() },
+
             // One For All 9th
 
             {QuirkSkills.DelawareSmash, new DelawareSmashSkill() },

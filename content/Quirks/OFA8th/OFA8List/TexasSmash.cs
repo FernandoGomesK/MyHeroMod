@@ -14,14 +14,14 @@ using MyHeroMod.content.Quirks.OFA8th.Projectiles.TexasSmash;
 
 public class TexasSmashSkill : QuirkSkill
 {
-    public override string Name => "Delaware Smash";
+    public override string Name => "Texas Smash";
     public override string Description => "Propel air forward with a flick of your fingers";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
-    public override int BaseCooldown => 120;
+    public override int BaseCooldown => 300;
 
-    public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
-    public override QuirkStage RequiredStage => QuirkStage.Initial;
+    public override QuirkType RequiredQuirk => QuirkType.OneForAll8th;
+    public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => false;
 

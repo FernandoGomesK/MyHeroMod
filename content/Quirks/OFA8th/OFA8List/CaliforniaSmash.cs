@@ -14,14 +14,14 @@ using MyHeroMod.content.Quirks.OFA8th.Projectiles.CaliforniaSmash;
 
 public class CaliforniaSmashSkill : QuirkSkill
 {
-    public override string Name => "Delaware Smash";
+    public override string Name => "California Smash";
     public override string Description => "Propel air forward with a flick of your fingers";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
     public override int BaseCooldown => 120;
 
-    public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
-    public override QuirkStage RequiredStage => QuirkStage.Initial;
+    public override QuirkType RequiredQuirk => QuirkType.OneForAll8th;
+    public override QuirkStage RequiredStage => QuirkStage.Adequation;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => false;
 
