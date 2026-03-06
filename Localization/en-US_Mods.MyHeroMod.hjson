@@ -385,3 +385,20 @@ Projectiles: {
 	ManchesterSmashController.DisplayName: Manchester Smash Controller
 	STLouisSmashController.DisplayName: S T Louis Smash Controller
 }
+
+NPCs: {
+	SupportVendor: {
+		DisplayName: Support Vendor
+
+		TownNPCMood: {
+			Content: Estou contente.
+			NoHome: Odeio não ter uma casa.
+			FarFromHome: Estou muito longe de casa.
+			LoveSpace: Eu adoro este lugar, tem tanto espaço.
+			DislikeCrowded: Não gosto deste lugar, está muito cheio.
+			HateCrowded: Odeio este lugar, está muito cheio.
+			LikeNPC_Princess: Eu gosto de {NPCName}.
+			Princess_LovesNPC: Eu gosto de {NPCName}.
+		}
+	}
+}
