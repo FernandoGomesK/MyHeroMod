@@ -13,8 +13,8 @@ namespace MyHeroMod.content.Items.Support
         
         public override void SetDefaults()
         {
-            Item.width = 24;
-            Item.height = 24;
+            Item.width = 28;
+            Item.height = 32;
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(gold: 1);
