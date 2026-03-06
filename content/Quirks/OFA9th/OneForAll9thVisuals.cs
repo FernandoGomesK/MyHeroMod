@@ -11,7 +11,7 @@ using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
-    public partial class OneForAll9thPlayer: ModPlayer, IQuirkResetter
+    public partial class OneForAll9thPlayer: ModPlayer, IQuirkResetter, IHeroDashModifier
     {
         private void HandleFullCowlingEffects()
         {

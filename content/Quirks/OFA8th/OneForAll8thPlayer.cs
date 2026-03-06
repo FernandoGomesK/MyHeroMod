@@ -13,11 +13,14 @@ using System.Collections.Generic;
 
 namespace MyHeroMod.content.Quirks.OFA8th
 {
-    public partial class OneForAll8thPlayer : ModPlayer
+    public partial class OneForAll8thPlayer : ModPlayer, IQuirkResetter
     {
        
        public int form = 0;
-
+        public void FullReset()
+        {
+            form = 0;
+        }
         public override void OnRespawn()
         {
             Player.GetModPlayer<TransformationPlayer>().ActiveForm = QuirkSkills.None;    

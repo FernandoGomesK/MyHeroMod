@@ -19,7 +19,7 @@ using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
-    public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter
+    public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter, IHeroDashModifier
     {
 
         public bool isAirForceOn = false;
@@ -102,7 +102,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 }
             }
 
-            if (currentFingers <= 10)
+            if (currentFingers < MaxFingers)
             {
                 fingerRegen++;
             }
@@ -110,6 +110,10 @@ namespace MyHeroMod.content.Quirks.OFA9th
             {
                 currentFingers++;
                 Main.NewText("Finger Regenerated", Color.White);
+                fingerRegen = 0;
+            }
+            else
+            {
                 fingerRegen = 0;
             }
         
