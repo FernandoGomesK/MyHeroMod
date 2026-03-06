@@ -1,5 +1,4 @@
-// using MyHeroMod.content.Quirks.Explosion;
-// using MyHeroMod.content.Quirks.HalfColdHalfHot;
+
 using MyHeroMod.content.Quirks.OFA9th;
 using Terraria;
 using Terraria.ID;
@@ -22,14 +21,12 @@ namespace MyHeroMod.content.Items.Support
             
         }
 
-        public override void UpdateAccessory(Player player,     bool hideVisual)
-        {
-            
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        { 
             var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
             ofaPlayer.isIronSolesOn = true;
-            
-
         }
+
         public override void AddRecipes()
         {
             CreateRecipe()

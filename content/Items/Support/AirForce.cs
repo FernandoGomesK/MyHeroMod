@@ -1,33 +1,46 @@
 // using MyHeroMod.content.Quirks.HalfColdHalfHot;
-// using MyHeroMod.content.Quirks.OFA9th;
-// using Terraria;
-// using Terraria.ID;
-// using Terraria.ModLoader;
+using MyHeroMod.content.Quirks.OFA9th;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 
-// namespace MyHeroMod.content.Items.Support
-// {
-//     public class AirForce : ModItem
-//     {
-//         public override void SetDefaults()
-//         {
-//             Item.width = 24;
-//             Item.height = 24;
-//             Item.accessory = true;
-//             Item.rare = ItemRarityID.Green;
-//             Item.value = Item.sellPrice(gold: 1);
-            
-//         }
-
-//         public override void UpdateAccessory(Player player, bool hideVisual)
-//         {
+namespace MyHeroMod.content.Items.Support
+{
+    [AutoloadEquip(EquipType.HandsOn, EquipType.HandsOff)]
+    public class AirForce : ModItem
+    {
         
-//             var quirkPlayer = player.GetModPlayer<OneForAll9thPlayer>();
-//             quirkPlayer.isAirForceOn = true;
+        public override void SetDefaults()
+        {
+            Item.width = 24;
+            Item.height = 24;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Green;
+            Item.value = Item.sellPrice(gold: 1);
             
-//             // Opcional: Bônus genéricos
-            
-//         }
+            Item.handOnSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOn);
+            Item.handOffSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOff);
+        }
+
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
         
-//         }
-//         }
+            var quirkPlayer = player.GetModPlayer<OneForAll9thPlayer>();
+            quirkPlayer.isAirForceOn = true;
+            
+            
+            
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+            .AddIngredient(ItemID.IronBar, 12)
+            .AddTile(TileID.Anvils)
+            .Register();
+        }
+        
+        
+        }
+        }

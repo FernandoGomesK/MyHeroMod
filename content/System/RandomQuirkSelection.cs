@@ -2,6 +2,7 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using MyHeroMod;
 
 namespace MyHeroMod.content.System
 {
@@ -23,8 +24,15 @@ namespace MyHeroMod.content.System
             while ( quirkType == QuirkType.Quirkless || quirkType == QuirkType.OneForAll8th || quirkType == QuirkType.HellFlames ||
                     quirkType == QuirkType.BlueFlames || quirkType == QuirkType.HalfColdHalfHot || quirkType == QuirkType.Explosion );
 
+            var transPlayer = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
 
-            Main.LocalPlayer.GetModPlayer<TransformationPlayer>().SelectedQuirk = quirkType;
+
+            transPlayer.ResetSlot();
+            transPlayer.CompleteReset();
+            transPlayer.SelectedQuirk = quirkType;
+
+            
+            
             
         
             Main.NewText($"You awakened: {quirkType}!", Color.Yellow);

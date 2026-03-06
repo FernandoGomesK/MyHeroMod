@@ -6,11 +6,12 @@ using Terraria.ID;
 using Terraria.Audio;
 using MyHeroMod.content.System.BasePlayer;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.System;
 
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
-    public partial class OneForAll9thPlayer: ModPlayer
+    public partial class OneForAll9thPlayer: ModPlayer, IQuirkResetter
     {
         private void HandleFullCowlingEffects()
         {

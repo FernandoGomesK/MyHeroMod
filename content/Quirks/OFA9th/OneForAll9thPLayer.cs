@@ -12,13 +12,14 @@ using Terraria.Audio;
 using System.Collections.Generic;
 using MyHeroMod.content.System.BasePlayer;
 using rail;
+using MyHeroMod.content.System;
 
 
 
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
-    public partial class OneForAll9thPlayer : ModPlayer
+    public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter
     {
 
         public bool isAirForceOn = false;
@@ -33,6 +34,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public int currentFingers = 10;
         public int MaxFingers = 10;
+        public int fingerRegen = 0;
+        public int fingerTimer = 450;
 
         // Parallel Processing
         public int ParallelProcessing = 0;
@@ -49,15 +52,30 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public bool Activating = false; 
         
 
-        
+        public void FullReset()
+        {
+            currentFingers = 10;
+            ParallelProcessing = 0;
+            ElectricSoundTimer = 0;
+            ActivationTimer = 0;
+            ActivationMaxTime = 40;
+            percentage = 0;
+            pendingPercentage = 0;
+            Activating = false; 
+            isFullCowlingBuffActive = false;
+
+        }
 
         public override void OnRespawn()
         {
             currentFingers = 10;
             ElectricSoundTimer = 0;
             ActivationTimer = 0;
-            
-            
+            ActivationMaxTime = 40;
+            percentage = 0;
+            pendingPercentage = 0;
+            Activating = false; 
+            isFullCowlingBuffActive = false;
         }
         
 
@@ -83,6 +101,17 @@ namespace MyHeroMod.content.Quirks.OFA9th
                     ActivationTimer = 0;
                 }
             }
+
+            if (currentFingers <= 10)
+            {
+                fingerRegen++;
+            }
+            if (fingerRegen >= fingerTimer)
+            {
+                currentFingers++;
+                Main.NewText("Finger Regenerated", Color.White);
+                fingerRegen = 0;
+            }
         
         
                 }
@@ -95,8 +124,6 @@ namespace MyHeroMod.content.Quirks.OFA9th
             Main.NewText("ONE FOR ALL Full Cowling", Color.Cyan);
             CombatText.NewText(Player.getRect(), Color.Cyan, "Full Cowling!");
             
-            
-
             
             for (int i = 0; i < 20; i++)
             {

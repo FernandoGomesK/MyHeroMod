@@ -10,7 +10,7 @@ using Terraria.DataStructures;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
-    public partial class OneForAll9thPlayer : ModPlayer
+    public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter
     {
         
 
