@@ -35,23 +35,36 @@ public class DelawareSmashSkill : QuirkSkill
         
             int MaxDamage = 100;
             int FinalDamage = 0;
+            float airForceMod = 10f;
             bool consumeFinger = false;
             bool hurtPlayer = false;
 
-            if  (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 5)
+            
+
+            if(player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 5)
             {
+                
+                if (ofaPlayer.isAirForceOn){
+                FinalDamage = (int)(MaxDamage * 0.10f);
+                }
                 FinalDamage = (int)(MaxDamage * 0.05f);
                 hurtPlayer = false;
                 consumeFinger = false;
             }
             else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 10)
             {
+                if (ofaPlayer.isAirForceOn){
+                FinalDamage = (int)(MaxDamage * 0.25f);
+                }
                 FinalDamage = (int)(MaxDamage * 0.10f);
                 hurtPlayer = false;
                 consumeFinger = false;
             }
             else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 45)
             {
+                if (ofaPlayer.isAirForceOn){
+                FinalDamage = (int)(MaxDamage * 0.60f);
+                }
                 FinalDamage = (int)(MaxDamage * 0.45f);
                 hurtPlayer = false;
                 consumeFinger = false;
@@ -72,7 +85,20 @@ public class DelawareSmashSkill : QuirkSkill
 
             Vector2 Velocity = Main.MouseWorld - player.Center;
             Velocity.Normalize();
-            Velocity *= 15f;
+
+            if (hurtPlayer)
+            {   
+                Velocity *= 30f;
+            }
+            else if (ofaPlayer.isAirForceOn)
+            {
+             Velocity *= 15f + airForceMod;
+            }
+            else
+            {
+                Velocity *= 15f;
+            }
+            
 
             if (player.HasBuff(ModContent.BuffType<FloatBuff>()))
             {

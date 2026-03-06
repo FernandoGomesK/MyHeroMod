@@ -188,6 +188,11 @@ Items: {
 		DisplayName: Random Quirk Item
 		Tooltip: ""
 	}
+
+	AirForce: {
+		DisplayName: Air Force
+		Tooltip: ""
+	}
 }
 
 Buffs: {

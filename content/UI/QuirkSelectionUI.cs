@@ -68,8 +68,11 @@ namespace MyHeroMod
 
             button.OnLeftClick += (evt, element) =>
             {
+
                 Player player = Main.LocalPlayer;
                 var modPlayer = player.GetModPlayer<TransformationPlayer>();
+                modPlayer.CompleteReset();
+                modPlayer.ResetSlot();
                 modPlayer.SelectedQuirk = quirk;
                 modPlayer.CurrentStage = QuirkStage.Initial;
                 if (quirk == QuirkType.HellFlames || quirk == QuirkType.HalfColdHalfHot )

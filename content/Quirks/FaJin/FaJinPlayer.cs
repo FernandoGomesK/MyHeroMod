@@ -12,7 +12,7 @@ using MyHeroMod.content.Quirks.OFA9th;
 
 namespace MyHeroMod.content.Quirks.FaJin;
 
-    public partial class FajinPlayer : ModPlayer, IHeroDashModifier
+    public partial class FajinPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter
     {
         
         public int FaJinCharges = 0;
@@ -25,6 +25,12 @@ namespace MyHeroMod.content.Quirks.FaJin;
             FaJinCharges = 0;
             isFaJinActive = false;
         }
+
+        public void FullReset()
+    {
+        FaJinCharges = 0; 
+        isFaJinActive = false;
+    }
 
         public bool HasFaJinAccess()
         {

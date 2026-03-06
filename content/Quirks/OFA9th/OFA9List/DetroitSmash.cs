@@ -23,14 +23,14 @@ public class DetroitSmashSkill : QuirkSkill
 
     public override int BaseCooldown => 120;
 
-    public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
+    public override QuirkType RequiredQuirk => QuirkType.Quirkless;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => false;
 
     public override bool CheckUnlock(TransformationPlayer player)
     {
-        if (player.SelectedQuirk == QuirkType.OneForAll8th) 
+        if (player.SelectedQuirk == QuirkType.OneForAll8th ||player.SelectedQuirk ==  QuirkType.OneForAll9th) 
             return player.CurrentStage >= QuirkStage.Initial;
 
 
@@ -69,8 +69,8 @@ public class DetroitSmashSkill : QuirkSkill
             }
             if  (player.HasBuff(ModContent.BuffType<FaJinBuff>()))
             {
-                DamageMultiplier += 0.55f; // Increase damage by 25% if Fa Jin is stored
-                FaJinPlayer.FaJinCharges = 0; // Consume all Fa Jin charges
+                DamageMultiplier += 0.55f; 
+                FaJinPlayer.FaJinCharges = 0; 
                 player.ClearBuff(ModContent.BuffType<FaJinBuff>());
                 usedFaJin = true;
             }

@@ -11,7 +11,7 @@ using MyHeroMod.content.Quirks.OFA9th;
 
 namespace MyHeroMod.content.Quirks.DangerSense;
 
-    public partial class DangerSensePlayer : ModPlayer, IHeroDodgeModifier
+    public partial class DangerSensePlayer : ModPlayer, IHeroDodgeModifier, IQuirkResetter
     {
         
         
@@ -26,6 +26,14 @@ namespace MyHeroMod.content.Quirks.DangerSense;
 
         public float dodgeChance = 0;
         public QuirkStage CurrentStage => Player.GetModPlayer<TransformationPlayer>().CurrentStage;
+
+        public void FullReset()
+    {
+     overtimeTimer = 0;
+     isDangerSenseActive = false;
+     isDangerSenseActive = false;
+     VisualTimer = 0;   
+    }
 
         public bool HasDangerSenseAccess()
         {

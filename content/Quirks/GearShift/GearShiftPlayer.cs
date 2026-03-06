@@ -12,7 +12,7 @@ using MyHeroMod.content.System;
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     // PARTE 1: DADOS E LÓGICA
-    public partial class GearshiftPlayer : ModPlayer, IHeroDashModifier
+    public partial class GearshiftPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter
     {
         // Variáveis de Estado
         
@@ -25,7 +25,11 @@ namespace MyHeroMod.content.Quirks.Gearshift
         public int ActivationMaxTime = 40;  
         
 
-
+        public void FullReset()
+        {
+            isGearshiftBuffActive = false;
+            ActivationTimer = 0;
+        }
          public override void OnRespawn()
         {
             // resetAll();

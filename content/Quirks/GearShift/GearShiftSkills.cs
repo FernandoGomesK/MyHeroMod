@@ -11,7 +11,7 @@ using MyHeroMod.content.System;
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     
-    public partial class GearshiftPlayer : ModPlayer, IHeroDashModifier
+    public partial class GearshiftPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter
     {
 
 

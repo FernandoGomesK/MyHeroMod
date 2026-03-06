@@ -13,7 +13,7 @@ using MyHeroMod.content.System.BasePlayer;
 
 namespace MyHeroMod.content.Quirks.DangerSense
 {
-    public partial class DangerSensePlayer : ModPlayer, IHeroDodgeModifier
+    public partial class DangerSensePlayer : ModPlayer, IHeroDodgeModifier, IQuirkResetter
     {
         
 

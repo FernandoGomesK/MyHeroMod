@@ -51,6 +51,14 @@ namespace MyHeroMod.content
             tag["Slot4"] = (int)Slot4;
         }
 
+        public void ResetSlot()
+        {
+            Slot1 = QuirkSkills.None;
+            Slot2 = QuirkSkills.None;
+            Slot3 = QuirkSkills.None;
+            Slot4 = QuirkSkills.None;
+        }
+
         
 
         public override void LoadData(TagCompound tag)
@@ -88,6 +96,17 @@ namespace MyHeroMod.content
         public override void OnEnterWorld() {
         UpdateUnlockedSkills();
 }
+
+        public void CompleteReset()
+        {
+            foreach (var modPlayer in Player.ModPlayers)
+            {
+                if ( modPlayer is IQuirkResetter quirkResetter)
+                {
+                    quirkResetter.FullReset();
+                }
+            }
+        }
 
         public void UpdateUnlockedSkills() {
         UnlockedSkills.Clear();
