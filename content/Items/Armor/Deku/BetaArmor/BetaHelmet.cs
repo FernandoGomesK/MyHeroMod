@@ -20,7 +20,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.BetaArmor
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 5; // Defesa do capacete
+            Item.defense = 6; // Defesa do capacete
         }
         public override void UpdateEquip(Player player)
         {
@@ -30,9 +30,9 @@ namespace MyHeroMod.content.Items.Armor.Deku.BetaArmor
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.DirtBlock, 1)
-            .AddTile(TileID.WorkBenches)
-            .Register();
+                .AddIngredient(ItemID.PlatinumBar, 10) // Exemplo
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
 }

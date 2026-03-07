@@ -14,19 +14,19 @@ namespace MyHeroMod.content.Items.Armor.Deku.BetaArmor
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 5; // Defesa do capacete
+            Item.defense = 6; // Defesa do capacete
         }
         public override void UpdateEquip(Player player)
         {
             // Aumenta a vida máxima em 20 quando equipado
-            player.statLifeMax2 += 20;
+            
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.DirtBlock, 1)
-            .AddTile(TileID.WorkBenches)
-            .Register();
+                .AddIngredient(ItemID.PlatinumBar, 15) // Exemplo
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
 }

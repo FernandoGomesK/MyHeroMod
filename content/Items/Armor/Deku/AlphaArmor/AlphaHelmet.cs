@@ -14,18 +14,19 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 5; // Defesa do capacete
+            Item.defense = 2; // Defesa do capacete
         }
         public override void UpdateEquip(Player player)
         {
             // Aumenta a vida máxima em 20 quando equipado
-            player.statLifeMax2 += 20;
+           
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.DirtBlock, 1)
-            .AddTile(TileID.WorkBenches)
+            .AddIngredient(ItemID.Silk, 10)
+            .AddIngredient(ItemID.IronBar, 5)
+            .AddTile(TileID.Loom)
             .Register();
         }
     }

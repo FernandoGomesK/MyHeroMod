@@ -43,7 +43,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
             Item.height = 18;
             Item.value = Item.sellPrice(gold: 1);
             Item.rare = ItemRarityID.Yellow;
-            Item.defense = 20; 
+            Item.defense = 4; 
         }
         public override void UpdateEquip(Player player)
         {
@@ -54,9 +54,10 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.IronBar, 20) // Exemplo
-                .AddTile(TileID.Anvils)
-                .Register();
+            .AddIngredient(ItemID.Silk, 10)
+            .AddIngredient(ItemID.IronBar, 10)
+            .AddTile(TileID.Loom)
+            .Register();
         }
 
 }

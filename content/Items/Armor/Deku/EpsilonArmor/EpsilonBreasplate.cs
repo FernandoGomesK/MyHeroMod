@@ -8,7 +8,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
     [AutoloadEquip(EquipType.Body)]
     public class EpsilonBreastplate : ModItem
     {
-        public static int FemaleBodySlot;
+        
 
         public static int CapeSlotID { get; private set; }
 
@@ -30,20 +30,14 @@ namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             ArmorIDs.Body.Sets.IncludedCapeBack[Item.bodySlot] = CapeSlotID;
         }
-    public override void SetMatch(bool male, ref int equipSlot, ref bool robes)
-        {
-            if (!male && FemaleBodySlot != -1)
-            {
-                equipSlot = FemaleBodySlot;
-            }
-        }
+    
         public override void SetDefaults()
         {
             Item.width = 18; // Tamanho do item no chão/inventário
             Item.height = 18;
             Item.value = Item.sellPrice(gold: 1);
             Item.rare = ItemRarityID.Yellow;
-            Item.defense = 20; 
+            Item.defense = 24; 
         }
         public override void UpdateEquip(Player player)
         {
@@ -54,7 +48,8 @@ namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.IronBar, 20) // Exemplo
+                .AddIngredient(ItemID.ChlorophyteBar, 1) 
+                .AddIngredient(ItemID.Ectoplasm, 5)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

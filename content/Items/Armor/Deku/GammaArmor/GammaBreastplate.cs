@@ -8,9 +8,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.GammaArmor
     [AutoloadEquip(EquipType.Body)]
     public class GammaBreastplate : ModItem
     {
-        public static int FemaleBodySlot;
-
-        public static int CapeSlotID { get; private set; }
+    
 
         public override void Load()
         {
@@ -30,20 +28,14 @@ namespace MyHeroMod.content.Items.Armor.Deku.GammaArmor
             CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
             
         }
-    public override void SetMatch(bool male, ref int equipSlot, ref bool robes)
-        {
-            if (!male && FemaleBodySlot != -1)
-            {
-                equipSlot = FemaleBodySlot;
-            }
-        }
+
         public override void SetDefaults()
         {
             Item.width = 18; // Tamanho do item no chão/inventário
             Item.height = 18;
             Item.value = Item.sellPrice(gold: 1);
             Item.rare = ItemRarityID.Yellow;
-            Item.defense = 20; 
+            Item.defense = 16; 
         }
         public override void UpdateEquip(Player player)
         {
@@ -54,7 +46,8 @@ namespace MyHeroMod.content.Items.Armor.Deku.GammaArmor
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.IronBar, 20) // Exemplo
+                .AddIngredient(ItemID.Bone, 20)
+                .AddIngredient(ItemID.HellstoneBar, 15)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

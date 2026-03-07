@@ -14,19 +14,20 @@ namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 5; // Defesa do capacete
+            Item.defense = 22; // Defesa do capacete
         }
         public override void UpdateEquip(Player player)
         {
             // Aumenta a vida máxima em 20 quando equipado
-            player.statLifeMax2 += 20;
+           
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.DirtBlock, 1)
-            .AddTile(TileID.WorkBenches)
-            .Register();
+                .AddIngredient(ItemID.ChlorophyteBar, 1) 
+                .AddIngredient(ItemID.Ectoplasm, 5)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
 }
