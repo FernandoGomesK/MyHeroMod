@@ -193,6 +193,51 @@ Items: {
 		DisplayName: Air Force
 		Tooltip: ""
 	}
+
+	BetaBreastplate: {
+		DisplayName: Beta Breastplate
+		Tooltip: ""
+	}
+
+	BetaHelmet: {
+		DisplayName: Beta Helmet
+		Tooltip: ""
+	}
+
+	BetaLeggings: {
+		DisplayName: Beta Leggings
+		Tooltip: ""
+	}
+
+	DeltaBreastplate: {
+		DisplayName: Delta Breastplate
+		Tooltip: ""
+	}
+
+	DeltaHelmet: {
+		DisplayName: Delta Helmet
+		Tooltip: ""
+	}
+
+	DeltaLeggings: {
+		DisplayName: Delta Leggings
+		Tooltip: ""
+	}
+
+	GammaBreastplate: {
+		DisplayName: Gamma Breastplate
+		Tooltip: ""
+	}
+
+	GammaHelmet: {
+		DisplayName: Gamma Helmet
+		Tooltip: ""
+	}
+
+	GammaLeggings: {
+		DisplayName: Gamma Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {

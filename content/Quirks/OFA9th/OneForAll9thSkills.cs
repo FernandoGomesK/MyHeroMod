@@ -21,7 +21,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
     
     isEnhanced = false;
     
-    if (transPlayer.CurrentStage == QuirkStage.Initial) 
+    if (transPlayer.CurrentStage == QuirkStage.Initial && transPlayer.SelectedQuirk == QuirkType.OneForAll9th) 
     {
         speed = 40;
         

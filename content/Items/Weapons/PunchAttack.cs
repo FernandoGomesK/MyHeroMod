@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
 using Terraria.DataStructures;
+using Terraria.Audio;
 
 namespace MyHeroMod.content.Items.Weapons
 {
@@ -64,6 +65,8 @@ namespace MyHeroMod.content.Items.Weapons
                 // Passaremos esse número como 'ai0' para o projétil saber qual desenho usar
                 int textureStyle = Main.rand.Next(1); 
 
+               
+
                 Projectile.NewProjectile(
                     source, 
                     perturbedPosition, // Usa a nova posição deslocada
@@ -76,6 +79,7 @@ namespace MyHeroMod.content.Items.Weapons
                 );
 
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<PunchAnimProj>()] < 1)
+                
     {
         Projectile.NewProjectile(
             source,
@@ -85,11 +89,22 @@ namespace MyHeroMod.content.Items.Weapons
             0,             // DANO ZERO
             0,             // SEM KNOCKBACK
             player.whoAmI
+
+            
         );
+
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/punchbarrage") 
+        { 
+            Volume = 0.50f,
+            MaxInstances = 1, // Permite apenas 1 cópia desse som tocando ao mesmo tempo
+            SoundLimitBehavior = SoundLimitBehavior.IgnoreNew // Ignora novos pedidos para tocar enquanto o atual não terminar
+        }, player.position);
     }
             
 
             return false;
+
+            
         }
 
         // --- SISTEMA DE RESTRIÇÃO ---

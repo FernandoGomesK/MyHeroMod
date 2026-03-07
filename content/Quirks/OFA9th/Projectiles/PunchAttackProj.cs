@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
-
+using Terraria.Audio;
 namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 {
     public class PunchAttackProj : ModProjectile
