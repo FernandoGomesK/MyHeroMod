@@ -5,33 +5,33 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
-namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.HellSpider
+namespace MyHeroMod.content.Projectiles.HellSpider
 {
     public class HellSpiderController : ModProjectile
     {
         public override void SetDefaults()
         {
-            // Este projétil é invisível e intangível, serve apenas para gerenciar o ataque
+            
             Projectile.width = 10;
             Projectile.height = 10;
-            Projectile.friendly = false; // Ele não dá dano, quem dá dano é o fogo que ele cospe
+            Projectile.friendly = false; 
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 120; // DURAÇÃO DO ATAQUE: 120 ticks = 2 Segundos
-            Projectile.hide = true; // Invisível
+            Projectile.timeLeft = 120; // Duration
+            Projectile.hide = true;
         }
 
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
 
-            // 1. Manter vivo apenas se o jogador estiver vivo
+            
             if (player.dead || !player.active)
             {
                 Projectile.Kill();
                 return;
             }
 
-            // 2. Grudar no Jogador e Mirar
+            
             if (Projectile.owner == Main.myPlayer)
             {
                 Vector2 diff = Main.MouseWorld - player.MountedCenter;
@@ -46,16 +46,16 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.HellSpider
             player.itemTime = 2;
             player.itemAnimation = 2;
             
-            // Rotação do braço
+        
             player.itemRotation = (Projectile.velocity * player.direction).ToRotation();
 
-            // 3. DISPARAR O FOGO (A cada 5 frames)
-            // Projectile.ai[0] é um contador interno automático
+            // shoot flame each 5 frames
+            
             Projectile.ai[0]++; 
 
-            if (Projectile.ai[0] % 5 == 0) // Atira a cada 5 ticks (rápido)
+            if (Projectile.ai[0] % 5 == 0) // 
             {
-                // Toca o som (com pitch variado para ficar natural)
+                // plays the sound weith varied pitch
                 SoundEngine.PlaySound(SoundID.Item34 with { PitchVariance = 0.2f }, player.position);
 
                 if (Projectile.owner == Main.myPlayer)
@@ -87,6 +87,11 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.HellSpider
                     }
                 }
             }
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            return false;
         }
     }
 }

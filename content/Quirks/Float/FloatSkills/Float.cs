@@ -17,6 +17,7 @@ public class FloatSkill : QuirkSkill
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => true;
 
+
     public override void OnUse(Player player)
     {
         if (player.HasBuff(ModContent.BuffType<FloatBuff>()))

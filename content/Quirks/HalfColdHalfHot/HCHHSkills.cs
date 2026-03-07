@@ -13,7 +13,7 @@
 // using Terraria.Audio;
 // using Microsoft.Xna.Framework;
 // using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower;
-// using System.Security.Cryptography.X509Certificates;
+
 
 
 // namespace MyHeroMod.content.Quirks.HalfColdHalfHot
@@ -310,55 +310,12 @@
 //         }
         
         
-//         private void DoHellSpider(TransformationPlayer mainPlayer)
-//         {
-//             // Verifica se já existe um controlador ativo (para não spawnar duplicado)
-//             if (Player.ownedProjectileCounts[ModContent.ProjectileType<HCHellSpiderController>()] > 0)
-//                 return;
-
-//             // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
-//             // Note que a velocidade aqui define apenas a direção inicial da mira.
-//             Vector2 direction = Main.MouseWorld - Player.Center;
-//             direction.Normalize();
-
-//             Projectile.NewProjectile(
-//                 Player.GetSource_FromThis(),
-//                 Player.Center,
-//                 direction,
-//                 ModContent.ProjectileType<HCHellSpiderController>(),
-//                 0, // O controlador não dá dano direto
-//                 0f,
-//                 Player.whoAmI
-//             );
-//             temperature += 35;
+//         
 
 //         }
-//         private void ActivatePhosphor(TransformationPlayer mainPlayer)
-//         {
-//             if (IsPhosphorActive)
-//             {
-//                 IsPhosphorActive = false;
-//                 Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
-//                 Main.NewText("Phosphor Deactivated", Color.OrangeRed);   
-                
-//                 return;
-                
-//             }
+//         
             
-//             IsPhosphorActive = true;
-//         }
-//         private void ActivateFlashFireFist(TransformationPlayer mainPlayer)
-//         {
-//             if (IsFlashFireFistActive)
-//             {
-//                 IsFlashFireFistActive = false;
-//                 Player.ClearBuff(ModContent.BuffType<HCFireFistBuff>());
-//                 Main.NewText("Flash Fire Fist Deactivated", Color.OrangeRed);   
-                
-//                 return;
-                
-//             }
-//             temperature += 15;
-//             IsFlashFireFistActive = true;
-//     }
+//            
+//         
+//   
 // }}

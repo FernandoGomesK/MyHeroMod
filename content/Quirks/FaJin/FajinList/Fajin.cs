@@ -23,30 +23,28 @@ public class FajinSkill : QuirkSkill
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => true;
 
-    public override void OnUse(Player player)
-    {
-        var FajinPlayer = player.GetModPlayer<FajinPlayer>();   
 
-        
-        if (FajinPlayer.HasFaJinAccess())
-        {
-            FajinPlayer.isFaJinActive = !FajinPlayer.isFaJinActive;
+                    public override void OnUse(Player player)
+            {
+                var FajinPlayer = player.GetModPlayer<FajinPlayer>();  
+                if (player.HasBuff(ModContent.BuffType<FaJinActiveBuff>()))
+                {
+                    player.ClearBuff(ModContent.BuffType<FaJinActiveBuff>());
+                    CombatText.NewText(player.getRect(), Color.Gray, "Fa jin: OFF");
+                    FajinPlayer.FaJinCharges = 0;
+                    SoundEngine.PlaySound(SoundID.Item4, player.position);
+                }
+                else
+                {
+                    player.AddBuff(ModContent.BuffType<FaJinActiveBuff>(), 3600);
+                    CombatText.NewText(player.getRect(), Color.Orange, "Fa jin: ON");
+                    SoundEngine.PlaySound(SoundID.Item4, player.position);
+                    
+                }
+            }
+                
+            }
 
-            if (FajinPlayer.isFaJinActive)
-            {
-                CombatText.NewText(player.getRect(), Color.Orange, "Fa jin: ON");
-                SoundEngine.PlaySound(SoundID.Item4, player.position);
-            }
-            else
-            {
-                CombatText.NewText(player.getRect(), Color.Gray, "Fa jin: OFF");
-                SoundEngine.PlaySound(SoundID.Item4, player.position);
-                FajinPlayer.isFaJinActive = false;
-                FajinPlayer.FaJinCharges = 0;
-            }
-        }
-    }
-}   
             
             
 

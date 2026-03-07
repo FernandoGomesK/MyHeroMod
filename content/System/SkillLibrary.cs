@@ -12,7 +12,14 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
         {
             // General Skills
 
-            
+            // HcHh
+
+            { QuirkSkills.HCFireFist, new FlashFireFistSkill() },
+            { QuirkSkills.HCPhosphor, new TogglePhosphorSkill() },
+            {QuirkSkills.JetKindling, new  iceThrowerJetKindling() },
+            {QuirkSkills.HCHellSpider, new iceSpikeHellSpider() },
+
+
             { QuirkSkills.Dash, new DashSkill() },
 
             //BlackWhip

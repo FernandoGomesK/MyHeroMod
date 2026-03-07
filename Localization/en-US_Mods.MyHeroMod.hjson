@@ -365,6 +365,11 @@ Buffs: {
 		DisplayName: Fingers Buff
 		Description: Mods.MyHeroMod.Buffs.FingersBuff.Description
 	}
+
+	FaJinActiveBuff: {
+		DisplayName: Fa Jin Active Buff
+		Description: Mods.MyHeroMod.Buffs.FaJinActiveBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"

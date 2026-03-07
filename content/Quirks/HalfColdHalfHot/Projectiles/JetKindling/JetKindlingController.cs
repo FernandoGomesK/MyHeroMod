@@ -87,5 +87,9 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling
                 }
             }
         }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            return false;
+        }
     }
 }

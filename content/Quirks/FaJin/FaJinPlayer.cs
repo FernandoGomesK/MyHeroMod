@@ -24,13 +24,27 @@ namespace MyHeroMod.content.Quirks.FaJin;
         {
             FaJinCharges = 0;
             isFaJinActive = false;
+            Player.ClearBuff(ModContent.BuffType<FaJinBuff>());
+            Player.ClearBuff(ModContent.BuffType<FaJinActiveBuff>());
+
+        }
+
+
+        public override void ResetEffects()
+        {
+            
+            isFaJinActive = false;
         }
 
         public void FullReset()
     {
         FaJinCharges = 0; 
         isFaJinActive = false;
+        Player.ClearBuff(ModContent.BuffType<FaJinBuff>());
+        Player.ClearBuff(ModContent.BuffType<FaJinActiveBuff>());
     }
+
+        
 
         public bool HasFaJinAccess()
         {

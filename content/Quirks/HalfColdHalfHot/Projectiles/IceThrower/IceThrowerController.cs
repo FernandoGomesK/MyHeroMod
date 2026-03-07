@@ -84,6 +84,12 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower
                     }
                 }
             }
+
+            
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            return false;
         }
     }
 }

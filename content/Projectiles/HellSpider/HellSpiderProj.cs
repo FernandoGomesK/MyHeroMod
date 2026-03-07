@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.HellSpider
+namespace MyHeroMod.content.Projectiles.HellSpider
 {
     public class HellSpiderProj : ModProjectile
     {
@@ -29,6 +29,7 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.HellSpider
             // Mas permite que VÁRIOS foguinhos batam no mesmo bicho em sequência.
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10; // Hit a cada 1/6 de segundo por partícula
+            Projectile.hide = true;
 
             Projectile.extraUpdates = 2; // Move mais suave
         }

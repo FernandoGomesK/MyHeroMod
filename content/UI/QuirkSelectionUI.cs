@@ -51,7 +51,7 @@ namespace MyHeroMod
             CreateButton("One For All 8th", QuirkType.OneForAll8th, Color.YellowGreen);
             // CreateButton("Hell Flames", QuirkType.HellFlames, Color.Orange);
             // CreateButton("Blue Flames", QuirkType.BlueFlames, Color.CornflowerBlue);
-            // CreateButton("Half Cold Half Hot", QuirkType.HalfColdHalfHot, Color.LightBlue);
+            CreateButton("Half Cold Half Hot", QuirkType.HalfColdHalfHot, Color.LightBlue);
             CreateButton("Float", QuirkType.Float, Color.LightSkyBlue);
             CreateButton("Gearshift", QuirkType.Gearshift, Color.Blue);
             CreateButton("Fa Jin", QuirkType.FaJin, Color.MediumPurple);
