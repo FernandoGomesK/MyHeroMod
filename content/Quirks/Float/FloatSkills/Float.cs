@@ -12,7 +12,7 @@ public class FloatSkill : QuirkSkill
     public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
 
     public override int BaseCooldown => 30;
-     public override QuirkType RequiredQuirk => QuirkType.Float ;
+    public override QuirkType RequiredQuirk => QuirkType.Float ;
     public override QuirkStage RequiredStage => QuirkStage.Advanced;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => true;

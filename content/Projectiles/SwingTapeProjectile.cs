@@ -10,6 +10,8 @@ namespace MyHeroMod.content.Projectiles
 {
     public class SwingTapeProjectile : ModProjectile
     {
+
+        public override string Texture => "MyHeroMod/Assets/Projectiles/SwingTapeProjectile";
         private bool isStuck = false;
         private float ropeLength = 0f;
         private Vector2 stuckPosition;
@@ -26,75 +28,79 @@ namespace MyHeroMod.content.Projectiles
         }
 
         public override void AI()
-        {
-            Player player = Main.player[Projectile.owner];
+{
+    Player player = Main.player[Projectile.owner];
 
-            // Se o jogador morrer, cancelar o buff ou soltar o clique (se for uma skill segurada), destrói a fita
-            if (player.dead || !player.active || player.controlJump)
-            {
-                Projectile.Kill();
-                return;
-            }
-
-            // FASE 1: Voando até achar um bloco
-            if (!isStuck)
-            {
-                // Gira o sprite da ponta da fita para a direção que está voando
-                Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-
-                // Checa colisão com blocos sólidos manualmente
-                Vector2 checkPos = Projectile.position + Projectile.velocity;
-                if (Collision.SolidCollision(checkPos, Projectile.width, Projectile.height))
-                {
-                    isStuck = true; // Grudou!
-                    stuckPosition = Projectile.Center; // Salva o exato pixel onde grudou
-                    Projectile.velocity = Vector2.Zero; // Para de voar
-                    
-                    // Salva a distância exata entre o jogador e a parede (o tamanho da corda)
-                    ropeLength = Vector2.Distance(player.Center, stuckPosition);
-                    
-                    SoundEngine.PlaySound(SoundID.Tink, Projectile.position); // Som de bater
-                }
-            }
-            // FASE 2: Grudado e Balançando 
-            else
-            {
-                // Trava o projétil na parede para ele não cair
-                Projectile.Center = stuckPosition;
-
-                // Calcula a direção e a distância atual do jogador para o gancho
-                Vector2 playerToHook = stuckPosition - player.Center;
-                float currentDistance = playerToHook.Length();
-
-                // Se o jogador tentar ir mais longe do que a corda permite...
-                if (currentDistance > ropeLength)
-                {
-                    playerToHook.Normalize(); // Pega apenas a direção
-
-                    // 1. Puxa o jogador de volta para a borda do círculo (mantém a corda esticada)
-                    player.Center = stuckPosition - (playerToHook * ropeLength);
-
-                    // 2. Física de Pêndulo: Cancela a velocidade que está "rasgando" a corda, 
-                    // mas mantém a velocidade que está indo para os lados!
-                    Vector2 pullVelocity = Vector2.Dot(player.velocity, playerToHook) * playerToHook;
-                    if (Vector2.Dot(player.velocity, playerToHook) < 0)
-                    {
-                        player.velocity -= pullVelocity;
-                    }
-                }
-
-                // Permite que o jogador use A e D para pegar embalo enquanto balança!
-                if (player.controlLeft) player.velocity.X -= 0.5f;
-                if (player.controlRight) player.velocity.X += 0.5f;
-
-                // Avisa ao Terraria que o jogador está pendurado (evita dano de queda e reseta o pulo)
-                player.fallStart = (int)(player.position.Y / 16f);
-                
-                
-                // player.fullRotation = playerToHook.ToRotation() - MathHelper.PiOver2;
-                // player.fullRotationOrigin = player.Hitbox.Size() / 2f;
-            }
+    if (player.dead || !player.active || player.controlJump)
+    {
+        // Impulso ao soltar: mantém a velocidade tangencial atual (já está correta)
+        // Mas remove o "freio" artificial que o Terraria aplica ao matar projéteis
+        
+        Projectile.Kill();
+        return;
     }
+
+    if (!isStuck)
+{
+    Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+
+    Vector2 nextPos = Projectile.position + Projectile.velocity;
+
+    bool hitSolid = Collision.SolidCollision(nextPos, Projectile.width, Projectile.height);
+
+    // Checa plataformas manualmente via tile
+    bool hitPlatform = false;
+    int tileX = (int)((nextPos.X + Projectile.width / 2) / 16);
+    int tileY = (int)((nextPos.Y + Projectile.height / 2) / 16);
+    
+    if (WorldGen.InWorld(tileX, tileY))
+    {
+        Tile tile = Main.tile[tileX, tileY];
+        hitPlatform = tile.HasTile && 
+                      TileID.Sets.Platforms[tile.TileType] && 
+                      tile.IsActuated == false;
+    }
+
+    if (hitSolid || hitPlatform)
+    {
+        isStuck = true;
+        stuckPosition = Projectile.Center;
+        Projectile.velocity = Vector2.Zero;
+        ropeLength = Vector2.Distance(player.Center, stuckPosition);
+        SoundEngine.PlaySound(SoundID.Tink, Projectile.position);
+    }
+}
+    else
+    {
+        Projectile.Center = stuckPosition;
+
+        Vector2 playerToHook = stuckPosition - player.Center;
+        float currentDistance = playerToHook.Length();
+
+        float gravity = player.gravity > 0 ? player.gravity : 0.4f;
+        player.velocity.Y += gravity;
+
+        if (currentDistance > ropeLength)
+        {
+            Vector2 ropeDir = playerToHook;
+            ropeDir.Normalize();
+
+            player.Center = stuckPosition - (ropeDir * ropeLength);
+
+            float radialComponent = Vector2.Dot(player.velocity, ropeDir);
+            if (radialComponent < 0)
+                player.velocity -= radialComponent * ropeDir;
+
+            player.velocity *= 0.995f;
+        }
+
+        if (player.controlLeft) player.velocity.X -= 0.5f;
+        if (player.controlRight) player.velocity.X += 0.5f;
+
+        player.velocity = Vector2.Clamp(player.velocity, new Vector2(-18f, -18f), new Vector2(18f, 18f));
+        player.fallStart = (int)(player.position.Y / 16f);
+    }
+}
     public override bool PreDraw(ref Color lightColor)
         {
             
@@ -115,7 +121,7 @@ namespace MyHeroMod.content.Projectiles
             float rotation = vectorToPlayer.ToRotation() - 1.57f;
             bool chainConnected = true;
 
-            // Loop para desenhar os elos
+            
             while (chainConnected)
             {
                 float length = vectorToPlayer.Length();
@@ -136,6 +142,6 @@ namespace MyHeroMod.content.Projectiles
                     Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color, rotation, origin, 1f, SpriteEffects.None, 0);
                 }
             }
-            return false; 
+            return true; 
         }
 }}

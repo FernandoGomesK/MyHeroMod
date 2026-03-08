@@ -32,7 +32,11 @@
 
             // tape
 
-            ShootSwingingTape
+            ShootSwingingTape, PullTape,
+
+            // Overclock
+
+            Overclock
 
 
         }

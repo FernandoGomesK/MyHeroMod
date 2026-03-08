@@ -370,6 +370,11 @@ Buffs: {
 		DisplayName: Fa Jin Active Buff
 		Description: Mods.MyHeroMod.Buffs.FaJinActiveBuff.Description
 	}
+
+	OverclockBuff: {
+		DisplayName: Overclock Buff
+		Description: Mods.MyHeroMod.Buffs.OverclockBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -434,6 +439,8 @@ Projectiles: {
 	BlackWhipProjectileUnique.DisplayName: Black Whip Projectile Unique
 	ManchesterSmashController.DisplayName: Manchester Smash Controller
 	STLouisSmashController.DisplayName: S T Louis Smash Controller
+	SwingTapeProjectile.DisplayName: Swing Tape Projectile
+	PullTapeProjectile.DisplayName: Pull Tape Projectile
 }
 
 NPCs: {

@@ -31,6 +31,7 @@ namespace MyHeroMod.content.System
             float speed = 14f;
             bool isEnhanced = false;
             bool hideNormalDash = false;
+            var explosionColor = Color.Yellow;
 
             // Main.NewText("SKILL EXECUTADA!");
             
@@ -41,13 +42,13 @@ namespace MyHeroMod.content.System
             {
                 if (modPlayer is IHeroDashModifier dashModifier) 
                 {
-                    dashModifier.ModifyDash(ref speed, ref isEnhanced, ref hideNormalDash);
+                    dashModifier.ModifyDash(ref speed, ref isEnhanced, ref hideNormalDash, ref explosionColor);
                 }
             }
 
         if (hideNormalDash)
             {
-                TeleportDash(player);
+                TeleportDash(player, explosionColor);
                 Main.NewText("Teleporte!");
             }
 
@@ -75,9 +76,9 @@ namespace MyHeroMod.content.System
             
             player.SetImmuneTimeForAllTypes(10);
         }
-        public void TeleportDash(Player player) => ApplyDashMovement(player);
+        public void TeleportDash(Player player, Color explosionColor) => ApplyDashMovement(player, explosionColor);
 
-        private void ApplyDashMovement(Player player)
+        private void ApplyDashMovement(Player player, Color explosionColor)
         {
             Vector2 targetPos = Main.MouseWorld;
                 Vector2 dir = targetPos - player.Center;
@@ -113,7 +114,7 @@ namespace MyHeroMod.content.System
                 for (int i = 0; i < dustCount; i++)
                 {
                     Vector2 dustPos = Vector2.Lerp(startPos, safePos, (float)i / dustCount);
-                    int d = Dust.NewDust(dustPos, 0, 0, DustID.Electric, 0, 0, 100, Color.Cyan, 1.5f);
+                    int d = Dust.NewDust(dustPos, 0, 0, DustID.Electric, 0, 0, 100, explosionColor, 1.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 0.5f;
                 }

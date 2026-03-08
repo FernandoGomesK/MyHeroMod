@@ -3,12 +3,13 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.Gearshift;
+using MyHeroMod.content.Quirks.Overclock;
 
 namespace MyHeroMod.content.Buffs
 {
-    public class GearshiftBuff : ModBuff
+    public class OverclockBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/GearshiftBuff";
+        public override string Texture => "MyHeroMod/Assets/BuffImage/OverclockBuff";
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;
@@ -18,15 +19,15 @@ namespace MyHeroMod.content.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             
+           
+            var overclockPlayer = player.GetModPlayer<OverclockPlayer>();
             
-            var gearshiftPlayer = player.GetModPlayer<GearshiftPlayer>();
-            gearshiftPlayer.isGearshiftBuffActive = true;
-            
+            overclockPlayer.isOverclockBuffActive = true;
 
-            player.moveSpeed += 1.0f; // Increase movement speed by 10%
-            player.accRunSpeed += 5.0f; // Increase run speed
-            player.maxRunSpeed += 5.0f; // Increase max run speed
-            player.jumpSpeedBoost += 2.0f; // Increase jump speed
+            player.moveSpeed += 4.0f; 
+            player.accRunSpeed += 8.0f; 
+            player.maxRunSpeed += 8.0f; 
+            player.jumpSpeedBoost += 4.0f; 
             player.noFallDmg = true;
 
             

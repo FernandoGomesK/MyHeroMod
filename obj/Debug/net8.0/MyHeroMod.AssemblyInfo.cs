@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MyHeroMod")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+007e7acfece495353102df0a08c5379b0aa436e2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1f9905b43a3dad92e08a4aaee1e9a82748663037")]
 [assembly: System.Reflection.AssemblyProductAttribute("MyHeroMod")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MyHeroMod")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

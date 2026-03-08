@@ -6,6 +6,7 @@ using Terraria.ID;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.BasePlayer;
 using MyHeroMod.content.System;
+using Microsoft.Xna.Framework.Graphics;
 
 
 namespace MyHeroMod.content.Quirks.Gearshift
@@ -15,20 +16,21 @@ namespace MyHeroMod.content.Quirks.Gearshift
     {
 
 
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash)
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash ,ref Color explosionColor)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             // Se o Gearshift for a Quirk selecionada e o Buff estiver ativo
             if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>())) 
             {
-                hideNormalDash = true; 
+                hideNormalDash = true;
+                explosionColor = Color.Cyan; 
 
                 
-                var dashSkill = (DashSkill)SkillLibrary.GetSkill(QuirkSkills.Dash);
-                if (dashSkill != null) {
-                    dashSkill.TeleportDash(Player); 
-                }
+                // var dashSkill = (DashSkill)SkillLibrary.GetSkill(QuirkSkills.Dash);
+                // if (dashSkill != null) {
+                //     dashSkill.TeleportDash(Player, explosionColor); 
+                // }
             }
         }
     }

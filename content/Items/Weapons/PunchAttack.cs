@@ -114,7 +114,9 @@ namespace MyHeroMod.content.Items.Weapons
 
             // Verifica se é usuário do OFA
             bool isPunchUser = modPlayer.SelectedQuirk == QuirkType.OneForAll9th || 
-                               modPlayer.SelectedQuirk == QuirkType.OneForAll8th;
+                               modPlayer.SelectedQuirk == QuirkType.OneForAll8th || 
+                               modPlayer.SelectedQuirk == QuirkType.Gearshift || 
+                               modPlayer.SelectedQuirk == QuirkType.Overclock;
 
             return isPunchUser; 
         }

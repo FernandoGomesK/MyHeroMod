@@ -71,6 +71,11 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             // Tape
 
             {QuirkSkills.ShootSwingingTape, new ShootTapeSkill() },
+            {QuirkSkills.PullTape, new PullTapeSkill() },
+
+            // OverClock
+
+            {QuirkSkills.Overclock, new OverclockSkill() },
 
 
 

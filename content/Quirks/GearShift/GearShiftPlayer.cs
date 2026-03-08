@@ -57,7 +57,6 @@ namespace MyHeroMod.content.Quirks.Gearshift
                 if (ActivationTimer >= ActivationMaxTime)
                 {
                     ActivateGearshift();
-                    ApplyBuffByStage();
                     GearActivation = false;
                     ActivationTimer = 0;
                 }
@@ -78,7 +77,7 @@ namespace MyHeroMod.content.Quirks.Gearshift
                 default: buffDuration = 6000; break;
             }
 
-            // Adiciona o Buff e Toca os Efeitos
+            
             Player.AddBuff(ModContent.BuffType<GearshiftBuff>(), buffDuration);
             Main.NewText("ONE FOR ALL 2ND - GEARSHIFT: TRANSMISSION!", Color.Cyan);
             CombatText.NewText(Player.getRect(), Color.Cyan, "SECOND GEAR");
@@ -101,19 +100,6 @@ namespace MyHeroMod.content.Quirks.Gearshift
             }
         }
 
-        private void ApplyBuffByStage()
-        {
-            var TransPlayer = Player.GetModPlayer<TransformationPlayer>();
-
-            int duration = TransPlayer.CurrentStage switch
-            {
-                QuirkStage.Initial => 187,
-                QuirkStage.Adequation => 375,
-                QuirkStage.Intermediate => 75,
-                QuirkStage.Advanced => 1500,
-                _ => 3000
-            };
-            Player.AddBuff(ModContent.BuffType<GearshiftBuff>(), duration);
-        }
+        
     }
 }

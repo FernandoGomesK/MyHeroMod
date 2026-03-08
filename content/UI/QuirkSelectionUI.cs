@@ -59,6 +59,7 @@ namespace MyHeroMod
             CreateButton("Danger Sense", QuirkType.DangerSense, Color.Red);
             CreateButton("Black Whip", QuirkType.BlackWhip, Color.Black);
             CreateButton("Tape", QuirkType.Tape, Color.White);
+            CreateButton("Overclock", QuirkType.Overclock, Color.Yellow);
         }
         private void CreateButton(string text, QuirkType quirk, Color color)
         {

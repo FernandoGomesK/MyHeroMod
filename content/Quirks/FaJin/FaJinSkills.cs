@@ -14,7 +14,7 @@ namespace MyHeroMod.content.Quirks.FaJin
 {
     public partial class FajinPlayer : ModPlayer, IHeroDashModifier
     {
-public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash)
+public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor)
 {
     var transPlayer = Player.GetModPlayer<TransformationPlayer>();
     

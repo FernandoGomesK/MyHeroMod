@@ -9,9 +9,9 @@ using Microsoft.Xna.Framework;
 
     
 
-    public class ShootTapeSkill : QuirkSkill
+    public class PullTapeSkill : QuirkSkill
     {
-         public override string Name => "Swinging Tape";
+         public override string Name => "Pulling Tape";
     public override string Description => "Shoot a hook made from blackwhip at you cursor and pull yourself towards it";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
 
@@ -25,11 +25,11 @@ using Microsoft.Xna.Framework;
     public override void OnUse(Player player)
     {
 
-        if (player.ownedProjectileCounts[ModContent.ProjectileType<SwingTapeProjectile>()] >= 1) 
+        if (player.ownedProjectileCounts[ModContent.ProjectileType<PullTapeProjectile>()] >= 2) 
             {
             return; 
             }
-            CombatText.NewText(player.getRect(), Color.Orange, "Swing!");
+            CombatText.NewText(player.getRect(), Color.Orange, "Pull");
             Vector2 velocity = Main.MouseWorld - player.Center;
             velocity.Normalize();
             velocity *= 18f;
@@ -39,7 +39,7 @@ using Microsoft.Xna.Framework;
                 player.GetSource_FromThis(), 
                 player.Center, 
                 velocity, 
-                ModContent.ProjectileType<SwingTapeProjectile>(), 
+                ModContent.ProjectileType<PullTapeProjectile>(), 
                 0,  
                 0f, 
                 player.whoAmI);

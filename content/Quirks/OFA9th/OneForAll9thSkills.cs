@@ -6,6 +6,7 @@ using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Buffs;
 using Terraria.Audio;
 using Terraria.DataStructures;
+using Microsoft.Xna.Framework;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
@@ -13,7 +14,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
     {
     
     
-    public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash)
+    public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash,  ref Color explosionColor)
     {
     var transPlayer = Player.GetModPlayer<TransformationPlayer>();
     var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>();
