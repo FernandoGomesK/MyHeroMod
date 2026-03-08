@@ -68,6 +68,10 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             {QuirkSkills.OneForAllFullCowling8, new FullCowling10() },
             {QuirkSkills.OneForAllFullCowling45, new FullCowling45() },
 
+            // Tape
+
+            {QuirkSkills.ShootSwingingTape, new ShootTapeSkill() },
+
 
 
 

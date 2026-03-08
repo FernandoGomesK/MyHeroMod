@@ -57,7 +57,8 @@ namespace MyHeroMod
             CreateButton("Fa Jin", QuirkType.FaJin, Color.MediumPurple);
             CreateButton("Smoke Screen", QuirkType.SmokeScreen, Color.Gray);
             CreateButton("Danger Sense", QuirkType.DangerSense, Color.Red);
-            CreateButton("Black Whip", QuirkType.BlackWhip, Color.Black);   
+            CreateButton("Black Whip", QuirkType.BlackWhip, Color.Black);
+            CreateButton("Tape", QuirkType.Tape, Color.White);
         }
         private void CreateButton(string text, QuirkType quirk, Color color)
         {

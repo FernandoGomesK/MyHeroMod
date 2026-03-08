@@ -28,5 +28,11 @@
             ExplosionBlast, StunGrenade, FullPowerBlast, ApShot, ApMachineGun, HowitzerImpact, Cluster,
 
             // Danger Sense
-            DangerActivate
+            DangerActivate,
+
+            // tape
+
+            ShootSwingingTape
+
+
         }
