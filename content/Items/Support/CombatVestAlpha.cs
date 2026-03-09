@@ -27,6 +27,12 @@ namespace MyHeroMod.content.Items.Support
             
             
         }
-        
+        public override void AddRecipes()
+        {   
+            CreateRecipe()
+            .AddIngredient(ItemID.IronBar, 20)       
+            .AddTile(TileID.Anvils)
+            .Register();
+            }
         }
         }

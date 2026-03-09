@@ -27,6 +27,13 @@ namespace MyHeroMod.content.Items.Support
             // Opcional: Bônus genéricos
             
         }
-        
+        public override void AddRecipes()
+        {   
+            CreateRecipe()
+            .AddIngredient(ItemID.TissueSample, 10) 
+            .AddIngredient(ItemID.ShadowScale, 10) 
+            .AddTile(TileID.Anvils)
+            .Register();
+            }
         }
         }

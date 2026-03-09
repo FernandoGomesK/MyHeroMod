@@ -20,7 +20,7 @@ namespace MyHeroMod.content.Quirks.Overclock
         if (Player.HasBuff(ModContent.BuffType<OverclockBuff>()))
         {
             hideNormalDash = true;
-            explosionColor = Color.Yellow;
+            explosionColor = Color.LightYellow;
         }
     }
     }

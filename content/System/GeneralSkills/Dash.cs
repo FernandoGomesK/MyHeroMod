@@ -49,7 +49,7 @@ namespace MyHeroMod.content.System
         if (hideNormalDash)
             {
                 TeleportDash(player, explosionColor);
-                Main.NewText("Teleporte!");
+                // Main.NewText("Teleporte!");
             }
 
             else
@@ -127,10 +127,10 @@ namespace MyHeroMod.content.System
                     player.velocity = -Vector2.Normalize(dir) * 2f; 
                 }
 
-                dashvfx(player);
+                dashvfx(player, explosionColor);
         }
 
-        private void dashvfx(Player player)
+        private void dashvfx(Player player, Color explosionColor)
         {
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.15f }, player.position);
                 for (int i = 0; i < 4; i++)
@@ -141,7 +141,7 @@ namespace MyHeroMod.content.System
                 for (int i = 0; i < 15; i++)
                 {
                     Vector2 dustPosition = player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
-                    Dust.NewDust(dustPosition, 0, 0, DustID.BlueTorch, player.velocity.X * -1f, player.velocity.Y * -1f, 0, default, 6f);
+                    Dust.NewDust(dustPosition, 0, 0, DustID.BlueTorch, player.velocity.X * -1f, player.velocity.Y * -1f, 0, explosionColor, 6f);
                 }
         }
 
