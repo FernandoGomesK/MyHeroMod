@@ -14,7 +14,7 @@ using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles;
 
 namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 {
-    public partial class HalfColdHalfHotPlayer : ModPlayer
+    public partial class HalfColdHalfHotPlayer : ModPlayer, IQuirkResetter
     {
         public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
         public int temperature = 0;
@@ -54,6 +54,17 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
             SkillCooldowns.Clear();
         }
 
+        public void FullReset()
+        {
+            IsCombatVestAlphaOn = false;
+            IsCombatVestBetaOn = false;
+            IsSurgeArmGauntletsOn = false;
+            IsFlashFireFistActive = false;
+            IsPhosphorActive = false;
+            Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
+            Player.ClearBuff(ModContent.BuffType<FlashFireFistBuff>());
+        }
+
 
         public override void ResetEffects()
         {
@@ -86,6 +97,11 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                 }
             }
 
+            if (Player.HasBuff<PhosphorBuff>())
+            {
+                temperature = 0;
+            }
+
 }
 
 
@@ -94,11 +110,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            // if (IsFlashFireFistActive)
-            // {
-            //     Player.AddBuff(ModContent.BuffType<Buffs.HCFireFistBuff>(), 2);
-            // }
-
+            
             if (temperature > 0)
             {
             Player.AddBuff(ModContent.BuffType<Buffs.TemperatureBuff>(), 2);
@@ -144,10 +156,10 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-    //         if (IsFlashFreezeActive)
-    // {
-    //     UpdateFlashFreeze();
-    // }
+            if (IsFlashFreezeActive)
+    {
+        UpdateFlashFreeze();
+    }
 
             if (mainPlayer.SelectedQuirk == QuirkType.HalfColdHalfHot)
             {

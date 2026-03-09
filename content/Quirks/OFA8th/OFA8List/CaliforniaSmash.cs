@@ -53,7 +53,7 @@ public class CaliforniaSmashSkill : QuirkSkill
                 10f, // Knockback alto
                 player.whoAmI
             );
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2"), player.position);
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
             
         }
     }

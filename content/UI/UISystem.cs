@@ -54,10 +54,26 @@ namespace MyHeroMod
             var system = ModContent.GetInstance<UISystem>();
             system.MyInterface?.SetState(null);
         }
+
+        public static bool IsUiOpen()
+        {
+            var system = ModContent.GetInstance<UISystem>();
+            return system.MyInterface?.CurrentState != null;
+        }
         public override void UpdateUI(GameTime gameTime)
         {
-            if (MyInterface?.CurrentState != null) {
-                MyInterface.Update(gameTime);
+           if (MyInterface?.CurrentState != null) 
+            {
+                // if the player presses esc the inventory closes
+                if (Terraria.GameInput.PlayerInput.Triggers.JustPressed.Inventory)
+                {
+                    HideUI();
+                    Terraria.Audio.SoundEngine.PlaySound(Terraria.ID.SoundID.MenuClose);
+                }
+                else
+                {
+                    MyInterface.Update(gameTime);
+                }
             }
         }
     public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)

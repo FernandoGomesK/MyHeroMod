@@ -17,6 +17,9 @@ namespace MyHeroMod
 
         public override void OnInitialize()
         {
+            
+
+
             MainPanel = new UIPanel();
             MainPanel.Width.Set(400f, 0f);
             MainPanel.Height.Set(300f, 0f);
@@ -51,15 +54,34 @@ namespace MyHeroMod
             CreateButton("One For All 8th", QuirkType.OneForAll8th, Color.YellowGreen);
             // CreateButton("Hell Flames", QuirkType.HellFlames, Color.Orange);
             // CreateButton("Blue Flames", QuirkType.BlueFlames, Color.CornflowerBlue);
-            // CreateButton("Half Cold Half Hot", QuirkType.HalfColdHalfHot, Color.LightBlue);
+            CreateButton("Half Cold Half Hot", QuirkType.HalfColdHalfHot, Color.LightBlue);
             CreateButton("Float", QuirkType.Float, Color.LightSkyBlue);
             CreateButton("Gearshift", QuirkType.Gearshift, Color.Blue);
             CreateButton("Fa Jin", QuirkType.FaJin, Color.MediumPurple);
             CreateButton("Smoke Screen", QuirkType.SmokeScreen, Color.Gray);
             CreateButton("Danger Sense", QuirkType.DangerSense, Color.Red);
             CreateButton("Black Whip", QuirkType.BlackWhip, Color.Black);
-            // CreateButton("Tape", QuirkType.Tape, Color.White);
-            // CreateButton("Overclock", QuirkType.Overclock, Color.Yellow);
+            CreateButton("Tape", QuirkType.Tape, Color.White);
+            CreateButton("Overclock", QuirkType.Overclock, Color.Yellow);
+
+
+            // red X to close
+            UIText closeButton = new UIText("X", 1.2f); 
+            closeButton.HAlign = 0.98f; 
+            closeButton.Top.Set(10f, 0f);
+            closeButton.TextColor = Color.LightGray;
+            
+            
+            closeButton.OnMouseOver += (evt, elem) => closeButton.TextColor = Color.Red;
+            closeButton.OnMouseOut += (evt, elem) => closeButton.TextColor = Color.LightGray;
+            
+            
+            closeButton.OnLeftClick += (evt, elem) => {
+                SoundEngine.PlaySound(SoundID.MenuClose);
+                UISystem.HideUI();
+            };
+            MainPanel.Append(closeButton);
+
         }
         private void CreateButton(string text, QuirkType quirk, Color color)
         {
@@ -112,5 +134,7 @@ namespace MyHeroMod
             button.Append(btnText);
             quirkList.Add(button);
         }
+
+       
     }
 }

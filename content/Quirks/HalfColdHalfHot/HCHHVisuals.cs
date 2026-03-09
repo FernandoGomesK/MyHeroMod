@@ -4,10 +4,11 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Audio;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 {
-    public partial class HalfColdHalfHotPlayer : ModPlayer
+    public partial class HalfColdHalfHotPlayer : ModPlayer, IQuirkResetter
     {
         
         public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)

@@ -18,6 +18,10 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             { QuirkSkills.HCPhosphor, new TogglePhosphorSkill() },
             {QuirkSkills.JetKindling, new  iceThrowerJetKindling() },
             {QuirkSkills.HCHellSpider, new iceSpikeHellSpider() },
+            {QuirkSkills.HeavenPiercingWall, new HeavenPiercingGreatGlacial()},
+            {QuirkSkills.FlashFreezeHeatWave, new FlashFreezeSkill( )},
+
+            // Common Skills
 
 
             { QuirkSkills.Dash, new DashSkill() },

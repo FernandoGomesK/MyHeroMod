@@ -24,6 +24,16 @@ namespace MyHeroMod.content.Items
             Item.rare = ItemRarityID.Blue;
         }
 
+         public override bool CanUseItem(Player player)
+        {
+            if (UISystem.IsUiOpen())
+            {
+                return false;
+            }
+            return true;
+        }
+
+
         public override void AddRecipes()
 {
     CreateRecipe()

@@ -7,7 +7,7 @@ namespace MyHeroMod.content.Buffs
 {
     public class FlashFireFistBuff : ModBuff
     {
-        public override string Texture => "Terraria/Images/Buff_1";
+        public override string Texture => "MyHeroMod/Assets/BuffImage/HCFireFistBuff";
         public override void SetStaticDefaults()
         {
             Main.buffNoTimeDisplay[Type] = true;

@@ -18,7 +18,7 @@ using JetBrains.Annotations;
 public class ManchesterSmashSkill : QuirkSkill
 {
     public override string Name => "Manchester Smash";
-    public override string Description => "Propel air forward with a flick of your fingers";
+    public override string Description => "Jump and do a kick at your cursor";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
     public override int BaseCooldown => 120;

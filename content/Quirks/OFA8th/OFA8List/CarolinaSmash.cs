@@ -54,7 +54,7 @@ public class CarolinaSmashSkill : QuirkSkill
                 player.whoAmI
                 
             );
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1"), player.position);
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.8f }, player.position);
             
     }
 }

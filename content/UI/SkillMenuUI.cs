@@ -27,8 +27,8 @@ namespace MyHeroMod.content.UI
 
             // 1. Painel Principal
             mainPanel = new UIPanel();
-            mainPanel.Width.Set(600, 0);
-            mainPanel.Height.Set(450, 0);
+            mainPanel.Width.Set(700, 0);
+            mainPanel.Height.Set(550, 0);
             mainPanel.HAlign = 0.5f;
             mainPanel.VAlign = 0.5f;
             mainPanel.BackgroundColor = new Color(33, 43, 79); 
@@ -41,8 +41,8 @@ namespace MyHeroMod.content.UI
 
             // 2. LADO ESQUERDO: Lista de Skills
             UIPanel listPanel = new UIPanel();
-            listPanel.Width.Set(220, 0);
-            listPanel.Height.Set(300, 0);
+            listPanel.Width.Set(300, 0);
+            listPanel.Height.Set(350, 0);
             listPanel.Left.Set(20, 0);
             listPanel.Top.Set(50, 0);
             listPanel.BackgroundColor = new Color(20, 20, 40);
@@ -69,8 +69,8 @@ namespace MyHeroMod.content.UI
             // 4. RODAPÉ: Descrição
             UIPanel descPanel = new UIPanel();
             descPanel.Width.Set(540, 0);
-            descPanel.Height.Set(70, 0);
-            descPanel.Top.Set(360, 0);
+            descPanel.Height.Set(100, 0);
+            descPanel.Top.Set(410, 0);
             descPanel.HAlign = 0.5f;
             mainPanel.Append(descPanel);
 
@@ -124,7 +124,7 @@ namespace MyHeroMod.content.UI
                 if (skillInstance.CheckUnlock(player))
                 {
                     UIPanel button = new UIPanel();
-                    button.Width.Set(180, 0);
+                    button.Width.Set(250, 0);
                     button.Height.Set(40, 0);
                     button.BackgroundColor = new Color(60, 60, 100);
 
@@ -151,9 +151,9 @@ namespace MyHeroMod.content.UI
         private void CreateSlotButton(string label, float top, int slotNum)
         {
             UIPanel slotBtn = new UIPanel();
-            slotBtn.Width.Set(250, 0);
+            slotBtn.Width.Set(320, 0);
             slotBtn.Height.Set(60, 0);
-            slotBtn.Left.Set(280, 0); 
+            slotBtn.Left.Set(335, 0); 
             slotBtn.Top.Set(top, 0);
             slotBtn.BackgroundColor = Color.DarkSlateBlue;
 
@@ -185,6 +185,23 @@ namespace MyHeroMod.content.UI
             };
 
             mainPanel.Append(slotBtn);
+
+            // red X to close
+            UIText closeButton = new UIText("X", 1.2f); 
+            closeButton.HAlign = 0.98f; 
+            closeButton.Top.Set(10f, 0f);
+            closeButton.TextColor = Color.LightGray;
+            
+            
+            closeButton.OnMouseOver += (evt, elem) => closeButton.TextColor = Color.Red;
+            closeButton.OnMouseOut += (evt, elem) => closeButton.TextColor = Color.LightGray;
+            
+            
+            closeButton.OnLeftClick += (evt, elem) => {
+                SoundEngine.PlaySound(SoundID.MenuClose);
+                UISystem.HideUI();
+            };
+            mainPanel.Append(closeButton);
         }
     }
 }

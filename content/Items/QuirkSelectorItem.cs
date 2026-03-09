@@ -24,13 +24,14 @@ namespace MyHeroMod.content.Items
             Item.rare = ItemRarityID.Blue;
         }
 
-//         public override void AddRecipes()
-// {
-//     CreateRecipe()
-//         .AddIngredient(ItemID.FallenStar, 5) 
-//         .AddTile(TileID.WorkBenches)         
-//         .Register();                         
-// }
+        public override bool CanUseItem(Player player)
+        {
+            if (UISystem.IsUiOpen())
+            {
+                return false;
+            }
+            return true;
+        }
 
         public override bool AltFunctionUse(Player player)
         {

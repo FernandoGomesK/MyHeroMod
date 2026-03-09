@@ -1,32 +1,32 @@
-// using MyHeroMod.content.Quirks.HalfColdHalfHot;
-// using Terraria;
-// using Terraria.ID;
-// using Terraria.ModLoader;
+using MyHeroMod.content.Quirks.HalfColdHalfHot;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 
-// namespace MyHeroMod.content.Items.Support
-// {
-//     public class CombatVestBeta : ModItem
-//     {
-//         public override void SetDefaults()
-//         {
-//             Item.width = 24;
-//             Item.height = 24;
-//             Item.accessory = true;
-//             Item.rare = ItemRarityID.Green;
-//             Item.value = Item.sellPrice(gold: 1);
+namespace MyHeroMod.content.Items.Support
+{
+    public class CombatVestBeta : ModItem
+    {
+        public override void SetDefaults()
+        {
+            Item.width = 24;
+            Item.height = 24;
+            Item.accessory = true;
+            Item.rare = ItemRarityID.Green;
+            Item.value = Item.sellPrice(gold: 1);
             
-//         }
+        }
 
-//         public override void UpdateAccessory(Player player, bool hideVisual)
-//         {
-//             // Pega o Player do Todoroki e liga o colete
-//             var quirkPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
-//             quirkPlayer.IsCombatVestBetaOn = true;
+        public override void UpdateAccessory(Player player, bool hideVisual)
+        {
+            // Pega o Player do Todoroki e liga o colete
+            var quirkPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+            quirkPlayer.IsCombatVestBetaOn = true;
             
-//             // Opcional: Bônus genéricos
+            // Opcional: Bônus genéricos
             
-//         }
+        }
         
-//         }
-//         }
+        }
+        }
