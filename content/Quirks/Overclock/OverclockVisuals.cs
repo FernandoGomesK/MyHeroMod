@@ -39,7 +39,7 @@ namespace MyHeroMod.content.Quirks.Overclock
             {
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingAura") with { Volume = 0.2f }, Player.position);
                 ElectricSoundTimer = 0;
-                Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, default, 0.5f);
+                Dust.NewDust(Player.position, Player.width, Player.height, DustID.YellowTorch, 0, 0, 100, default, 0.5f);
             }
         }
         // if (FaJinStored)

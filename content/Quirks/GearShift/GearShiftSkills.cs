@@ -16,7 +16,7 @@ namespace MyHeroMod.content.Quirks.Gearshift
     {
 
 
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash ,ref Color explosionColor)
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash ,ref Color explosionColor, ref int dustType)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
@@ -25,6 +25,7 @@ namespace MyHeroMod.content.Quirks.Gearshift
             {
                 hideNormalDash = true;
                 explosionColor = Color.Cyan; 
+                dustType = DustID.BlueTorch;
 
                 
                 // var dashSkill = (DashSkill)SkillLibrary.GetSkill(QuirkSkills.Dash);

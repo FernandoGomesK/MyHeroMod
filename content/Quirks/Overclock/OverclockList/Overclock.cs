@@ -13,8 +13,8 @@ using Terraria.Audio;
 
 public class OverclockSkill : QuirkSkill
 {
-    public override string Name => "Gearshift";
-    public override string Description => "Changes the user's gear to fit the situation.";
+    public override string Name => "Overclock";
+    public override string Description => "Speed yourself up for a limited time.";
     public override string IconPath => "Quirks/GearShift/Gearshift";
     public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.Overclock;
@@ -53,7 +53,7 @@ public class OverclockSkill : QuirkSkill
             for (int i = 0; i < 20; i++)
             {
                 Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
-                Dust.NewDust(player.position, player.width, player.height, DustID.Electric, speed.X, speed.Y, 0, Color.Yellow, 2f);
+                Dust.NewDust(player.position, player.width, player.height, DustID.YellowTorch, speed.X, speed.Y, 0, Color.Yellow, 2f);
             }
             
              

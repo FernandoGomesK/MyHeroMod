@@ -31,7 +31,8 @@ namespace MyHeroMod.content.System
             float speed = 14f;
             bool isEnhanced = false;
             bool hideNormalDash = false;
-            var explosionColor = Color.Yellow;
+            var explosionColor = Color.Cyan;
+            int choiceDust = DustID.BlueTorch;
 
             // Main.NewText("SKILL EXECUTADA!");
             
@@ -42,13 +43,13 @@ namespace MyHeroMod.content.System
             {
                 if (modPlayer is IHeroDashModifier dashModifier) 
                 {
-                    dashModifier.ModifyDash(ref speed, ref isEnhanced, ref hideNormalDash, ref explosionColor);
-                }
+                    dashModifier.ModifyDash(ref speed, ref isEnhanced, ref hideNormalDash, ref explosionColor, ref choiceDust);
+        }
             }
 
         if (hideNormalDash)
             {
-                TeleportDash(player, explosionColor);
+                TeleportDash(player, explosionColor, choiceDust);
                 // Main.NewText("Teleporte!");
             }
 
@@ -76,9 +77,9 @@ namespace MyHeroMod.content.System
             
             player.SetImmuneTimeForAllTypes(10);
         }
-        public void TeleportDash(Player player, Color explosionColor) => ApplyDashMovement(player, explosionColor);
+        public void TeleportDash(Player player, Color explosionColor, int choiceDust) => ApplyDashMovement(player, explosionColor, choiceDust);
 
-        private void ApplyDashMovement(Player player, Color explosionColor)
+        private void ApplyDashMovement(Player player, Color explosionColor, int choiceDust)
         {
             Vector2 targetPos = Main.MouseWorld;
                 Vector2 dir = targetPos - player.Center;
@@ -114,7 +115,7 @@ namespace MyHeroMod.content.System
                 for (int i = 0; i < dustCount; i++)
                 {
                     Vector2 dustPos = Vector2.Lerp(startPos, safePos, (float)i / dustCount);
-                    int d = Dust.NewDust(dustPos, 0, 0, DustID.Electric, 0, 0, 100, explosionColor, 1.5f);
+                    int d = Dust.NewDust(dustPos, 0, 0, choiceDust, 0, 0, 100, explosionColor, 1.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 0.5f;
                 }
@@ -127,10 +128,10 @@ namespace MyHeroMod.content.System
                     player.velocity = -Vector2.Normalize(dir) * 2f; 
                 }
 
-                dashvfx(player, explosionColor);
+                dashvfx(player, explosionColor, choiceDust);
         }
 
-        private void dashvfx(Player player, Color explosionColor)
+        private void dashvfx(Player player, Color explosionColor, int choiceDust)
         {
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.15f }, player.position);
                 for (int i = 0; i < 4; i++)
@@ -141,7 +142,7 @@ namespace MyHeroMod.content.System
                 for (int i = 0; i < 15; i++)
                 {
                     Vector2 dustPosition = player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
-                    Dust.NewDust(dustPosition, 0, 0, DustID.BlueTorch, player.velocity.X * -1f, player.velocity.Y * -1f, 0, explosionColor, 6f);
+                    Dust.NewDust(dustPosition, 0, 0, choiceDust, player.velocity.X * -1f, player.velocity.Y * -1f, 0, explosionColor, 6f);
                 }
         }
 

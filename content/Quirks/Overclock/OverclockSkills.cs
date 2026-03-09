@@ -15,17 +15,17 @@ namespace MyHeroMod.content.Quirks.Overclock
     {
 
 
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor)
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType)
+{
+    if (Player.HasBuff(ModContent.BuffType<OverclockBuff>()))
     {
-        if (Player.HasBuff(ModContent.BuffType<OverclockBuff>()))
-        {
-            hideNormalDash = true;
-            explosionColor = Color.LightYellow;
-        }
+        hideNormalDash = true;
+        explosionColor = Color.Yellow; 
+        dustType = DustID.YellowTorch; 
     }
     }
 }
-        
+}
       
 
        

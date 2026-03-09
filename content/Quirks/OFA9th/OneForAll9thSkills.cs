@@ -14,7 +14,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
     {
     
     
-    public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash,  ref Color explosionColor)
+    public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash,  ref Color explosionColor, ref int dustType)
     {
     var transPlayer = Player.GetModPlayer<TransformationPlayer>();
     var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>();
