@@ -22,7 +22,7 @@ namespace MyHeroMod.content.System
                 quirkType = (QuirkType)quirksArray.GetValue(randomIndex);
             }
             while ( quirkType == QuirkType.Quirkless || quirkType == QuirkType.OneForAll8th || quirkType == QuirkType.HellFlames ||
-                    quirkType == QuirkType.BlueFlames || quirkType == QuirkType.HalfColdHalfHot || quirkType == QuirkType.Explosion );
+                    quirkType == QuirkType.BlueFlames || quirkType == QuirkType.HalfColdHalfHot || quirkType == QuirkType.Explosion ||quirkType == QuirkType.Overclock || quirkType ==QuirkType.Tape );
 
             var transPlayer = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
 

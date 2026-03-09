@@ -51,15 +51,15 @@ namespace MyHeroMod
             CreateButton("One For All 8th", QuirkType.OneForAll8th, Color.YellowGreen);
             // CreateButton("Hell Flames", QuirkType.HellFlames, Color.Orange);
             // CreateButton("Blue Flames", QuirkType.BlueFlames, Color.CornflowerBlue);
-            CreateButton("Half Cold Half Hot", QuirkType.HalfColdHalfHot, Color.LightBlue);
+            // CreateButton("Half Cold Half Hot", QuirkType.HalfColdHalfHot, Color.LightBlue);
             CreateButton("Float", QuirkType.Float, Color.LightSkyBlue);
             CreateButton("Gearshift", QuirkType.Gearshift, Color.Blue);
             CreateButton("Fa Jin", QuirkType.FaJin, Color.MediumPurple);
             CreateButton("Smoke Screen", QuirkType.SmokeScreen, Color.Gray);
             CreateButton("Danger Sense", QuirkType.DangerSense, Color.Red);
             CreateButton("Black Whip", QuirkType.BlackWhip, Color.Black);
-            CreateButton("Tape", QuirkType.Tape, Color.White);
-            CreateButton("Overclock", QuirkType.Overclock, Color.Yellow);
+            // CreateButton("Tape", QuirkType.Tape, Color.White);
+            // CreateButton("Overclock", QuirkType.Overclock, Color.Yellow);
         }
         private void CreateButton(string text, QuirkType quirk, Color color)
         {
