@@ -14,6 +14,7 @@ namespace MyHeroMod.content.Items
             Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(12, 8));
 
         }
+
         public override void SetDefaults(){
             Item.width = 20;
             Item.height = 20;

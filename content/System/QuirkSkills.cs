@@ -7,6 +7,10 @@
             // Ofa
             SuperJump,
 
+            // All For One
+
+            StealQuirk,
+
             // Ofa 8th
             PrimeDetroitSmash, CaliforniaSmash, TexasSmash, CarolinaSmash, StockPile, StockPileMaximum,
 

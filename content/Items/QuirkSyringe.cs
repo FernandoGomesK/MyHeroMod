@@ -7,21 +7,23 @@ using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items
 {
-    public class RandomQuirkItem : ModItem
+    public class QuirkSyringe : ModItem
     {
         public override void SetStaticDefaults()
         {
-            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(12, 8));
+            
 
         }
         public override void SetDefaults(){
             Item.width = 20;
             Item.height = 20;
-            Item.maxStack = 1;
+            Item.maxStack = 120;
             Item.useTime = 20;
             Item.useAnimation = 20;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.rare = ItemRarityID.Blue;
+            Item.consumable = true;
+            Item.UseSound = SoundID.Item3;
         }
 
          public override bool CanUseItem(Player player)
@@ -37,7 +39,8 @@ namespace MyHeroMod.content.Items
         public override void AddRecipes()
 {
     CreateRecipe()
-        .AddIngredient(ItemID.FallenStar, 1) 
+        .AddIngredient(ModContent.ItemType<Items.QuirkGene>(), 1) 
+        .AddIngredient(ModContent.ItemType<Items.EmptySyringe>(), 1) 
         .AddTile(TileID.WorkBenches)         
         .Register();                         
 }
@@ -50,6 +53,7 @@ namespace MyHeroMod.content.Items
             if (Main.myPlayer == player.whoAmI)
             {
                 RandomQuirkSelection.SelectRandomQuirk();
+                player.QuickSpawnItem(player.GetSource_ItemUse(Item), ModContent.ItemType<EmptySyringe>());
             }
             return true;
         }    

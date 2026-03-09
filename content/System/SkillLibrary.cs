@@ -12,6 +12,10 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
         {
             // General Skills
 
+            // All for One
+
+            {QuirkSkills.StealQuirk, new StealQuirkSkill() },
+
             // HcHh
 
             { QuirkSkills.HCFireFist, new FlashFireFistSkill() },

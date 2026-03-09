@@ -185,7 +185,7 @@ Items: {
 	}
 
 	RandomQuirkItem: {
-		DisplayName: Random Quirk Item
+		DisplayName: Quirk Syringe
 		Tooltip: ""
 	}
 
@@ -236,6 +236,21 @@ Items: {
 
 	GammaLeggings: {
 		DisplayName: Gamma Leggings
+		Tooltip: ""
+	}
+
+	QuirkGene: {
+		DisplayName: Quirk Gene
+		Tooltip: ""
+	}
+
+	EmptySyringe: {
+		DisplayName: Empty Syringe
+		Tooltip: ""
+	}
+
+	QuirkSyringe: {
+		DisplayName: Quirk Syringe
 		Tooltip: ""
 	}
 }
@@ -441,6 +456,7 @@ Projectiles: {
 	STLouisSmashController.DisplayName: S T Louis Smash Controller
 	SwingTapeProjectile.DisplayName: Swing Tape Projectile
 	PullTapeProjectile.DisplayName: Pull Tape Projectile
+	HandProj.DisplayName: Hand Proj
 }
 
 NPCs: {
