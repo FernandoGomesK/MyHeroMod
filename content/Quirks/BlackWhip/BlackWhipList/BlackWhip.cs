@@ -11,9 +11,6 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip;
 
 
-
-
-
 public class BlackWhipHookSkill : QuirkSkill
     {
          public override string Name => "Black Whip Hook";
