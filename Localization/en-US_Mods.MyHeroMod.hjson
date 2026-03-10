@@ -267,27 +267,27 @@ Buffs: {
 	}
 
 	GearshiftBuff: {
-		Description: Mods.MyHeroMod.Buffs.GearshiftBuff.Description
+		Description: Shifting the atoms in your body to move faster
 		DisplayName: Gearshift Buff
 	}
 
 	DangerSenseBuff: {
-		Description: Mods.MyHeroMod.Buffs.DangerSenseBuff.Description
+		Description: Sensing danger near you
 		DisplayName: Danger Sense Buff
 	}
 
 	ParallelProcessingBuff: {
-		Description: Mods.MyHeroMod.Buffs.ParallelProcessingBuff.Description
+		Description: How many quirks you can use at the same time
 		DisplayName: Parallel Processing Buff
 	}
 
 	FaJinBuff: {
-		Description: Mods.MyHeroMod.Buffs.FaJinBuff.Description
+		Description: Accumulating kinectic energy
 		DisplayName: Fa Jin Buff
 	}
 
 	FlashFireFistBuff: {
-		Description: Mods.MyHeroMod.Buffs.FlashFireFistBuff.Description
+		Description: Fire in maximum temperature!
 		DisplayName: Flash Fire Fist Buff
 	}
 
@@ -298,12 +298,12 @@ Buffs: {
 
 	ClusterBuff: {
 		DisplayName: Cluster Buff
-		Description: Mods.MyHeroMod.Buffs.ClusterBuff.Description
+		Description: Compressing your sweat in tiny particles
 	}
 
 	SweatBuff: {
 		DisplayName: Sweat Buff
-		Description: Mods.MyHeroMod.Buffs.SweatBuff.Description
+		Description: Acumulatting nitroglyceryn like sweat
 	}
 
 	BlueFlashFireFistBuff: {
@@ -312,83 +312,83 @@ Buffs: {
 	}
 
 	PhosphorBuff: {
-		Description: Mods.MyHeroMod.Buffs.PhosphorBuff.Description
+		Description: Uniting the two halves of your quirk
 		DisplayName: Phosphor Buff
 	}
 
 	HCFireFistBuff: {
-		Description: Mods.MyHeroMod.Buffs.HCFireFistBuff.Description
+		Description: Raising you fire's temperature
 		DisplayName: H C Fire Fist Buff
 	}
 
 	BlueRage: {
-		Description: Enraged
+		Description: Show them.
 		DisplayName: Rage
 	}
 
 	BlueHeatBuff: {
 		DisplayName: Blue Heat Buff
-		Description: Mods.MyHeroMod.Buffs.BlueHeatBuff.Description
+		Description: Monitoring your temperature
 	}
 
 	Heatstroke: {
 		DisplayName: Heatstroke
-		Description: Mods.MyHeroMod.Buffs.Heatstroke.Description
+		Description: You are Burning!
 	}
 
 	TemperatureBuff: {
-		Description: Mods.MyHeroMod.Buffs.TemperatureBuff.Description
+		Description: Monitoring your temperature
 		DisplayName: Temperature Buff
 	}
 
 	FrostBite: {
-		Description: Mods.MyHeroMod.Buffs.FrostBite.Description
+		Description: You are freezing!
 		DisplayName: Frost Bite
 	}
 
 	OvertimeBuff: {
 		DisplayName: Overtime Buff
-		Description: Mods.MyHeroMod.Buffs.OvertimeBuff.Description
+		Description: DangerSense working overtime!
 	}
 
 	FloatBuff: {
 		DisplayName: Float Buff
-		Description: Mods.MyHeroMod.Buffs.FloatBuff.Description
+		Description: currently Floating
 	}
 
 	SmokescreenBuff: {
 		DisplayName: Smokescreen Buff
-		Description: Mods.MyHeroMod.Buffs.SmokescreenBuff.Description
+		Description: Generating Smoke
 	}
 
 	FullCowlingBuff10: {
 		DisplayName: Full Cowling Buff10
-		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff10.Description
+		Description: Cowling yourself with 10% of your full power
 	}
 
 	FullCowlingBuff45: {
 		DisplayName: Full Cowling Buff45
-		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff45.Description
+		Description: Cowling yourself with 45% of your full power
 	}
 
 	FullCowlingBuff5: {
 		DisplayName: Full Cowling Buff5
-		Description: Mods.MyHeroMod.Buffs.FullCowlingBuff5.Description
+		Description: Cowling yourself with 5% of your full power
 	}
 
 	FingersBuff: {
 		DisplayName: Fingers Buff
-		Description: Mods.MyHeroMod.Buffs.FingersBuff.Description
+		Description: your fingers are broken
 	}
 
 	FaJinActiveBuff: {
 		DisplayName: Fa Jin Active Buff
-		Description: Mods.MyHeroMod.Buffs.FaJinActiveBuff.Description
+		Description: Fs jin active, storing energy
 	}
 
 	OverclockBuff: {
 		DisplayName: Overclock Buff
-		Description: Mods.MyHeroMod.Buffs.OverclockBuff.Description
+		Description: speeding yourself up
 	}
 }
 
