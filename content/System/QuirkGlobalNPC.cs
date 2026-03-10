@@ -46,13 +46,14 @@ namespace MyHeroMod.content.System
                     case 7: AssignedQuirk = QuirkType.Gearshift; break;
                     case 8: AssignedQuirk = QuirkType.FaJin; break;
                     case 9: AssignedQuirk = QuirkType.SmokeScreen; break;
+                    case 10: AssignedQuirk = QuirkType.Explosion; break;
 
                 }
                 
                 
-                npc.lifeMax = (int)(npc.lifeMax * 2.5f); 
+                npc.lifeMax = (int)(npc.lifeMax * 4f); 
                 npc.life = npc.lifeMax;
-                npc.damage = (int)(npc.damage * 2.2f);
+                npc.damage = (int)(npc.damage * 3f);
             }
         }
 
@@ -79,6 +80,7 @@ namespace MyHeroMod.content.System
                     if (AssignedQuirk == QuirkType.Gearshift) dustType = DustID.WhiteTorch;
                     if (AssignedQuirk == QuirkType.FaJin) dustType = DustID.WhiteTorch;
                     if (AssignedQuirk == QuirkType.SmokeScreen) dustType = DustID.WhiteTorch;
+                    if (AssignedQuirk == QuirkType.Explosion) dustType = DustID.OrangeTorch;
 
                     
                     Dust d = Dust.NewDustDirect(npc.position, npc.width, npc.height, dustType);
