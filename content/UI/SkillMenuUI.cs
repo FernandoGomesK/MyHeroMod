@@ -115,12 +115,7 @@ namespace MyHeroMod.content.UI
                 var skillInstance = SkillLibrary.GetSkill(skillId);
                 if (skillInstance == null) continue;
 
-                // --- MUDANÇA CRUCIAL AQUI ---
-                // Antes: Verificava o estágio manualmente (O que quebrava sua lógica de exceção)
-                // if (player.CurrentStage >= info.MinStage && ...)
                 
-                // Agora: Verifica se está na lista de desbloqueios do Player
-                // A lista UnlockedSkills já tem a lógica de exceção aplicada!
                 if (skillInstance.CheckUnlock(player))
                 {
                     UIPanel button = new UIPanel();

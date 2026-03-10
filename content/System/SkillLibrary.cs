@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using MyHeroMod.content.Quirks.AllForOne.AllForOneList;
 using MyHeroMod.content.Quirks.Explosion.Projectiles;
 using MyHeroMod.content.Quirks.Smokescreen; 
 using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
@@ -15,6 +16,7 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             // All for One
 
             {QuirkSkills.StealQuirk, new StealQuirkSkill() },
+            {QuirkSkills.SeeQuirks, new SeeQuirksSkill() },
 
             // HcHh
 

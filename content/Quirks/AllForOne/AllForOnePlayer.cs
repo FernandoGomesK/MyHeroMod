@@ -12,10 +12,21 @@ using Terraria.ModLoader.IO;
 
 namespace MyHeroMod.content.Quirks.AllForOne;
 
-    public partial class AllForOnePlayer : ModPlayer
+    public partial class AllForOnePlayer : ModPlayer, IQuirkResetter
+
+
 {
 
+    public void FullReset() => InternalQuirks.Clear();
     public List<QuirkType> InternalQuirks = new List<QuirkType>();
+
+    // public void listQuirks()
+    // {
+    //     foreach (var quirk in InternalQuirks)
+    //     {
+    //         Main.NewText(quirk.ToString());
+    //     }
+    // }
 
     public void UnlockQuirks(){
         var transPlayer = Player.GetModPlayer<TransformationPlayer>();

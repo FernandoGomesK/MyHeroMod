@@ -14,15 +14,22 @@ namespace MyHeroMod
         internal UserInterface MyInterface;
         internal QuirkSelectionUI MyQuirkUI;
         internal SkillMenuUI MySkillMenuUI;
+        internal AllForOneQuirksUI SeeQuirkUI;
 
         public override void Load()
         {
             if (!Main.dedServ)
             {
                 MyInterface = new UserInterface();
-                MyQuirkUI = new QuirkSelectionUI();
-                MySkillMenuUI = new SkillMenuUI();
                 
+                MyQuirkUI = new QuirkSelectionUI();
+                // MyQuirkUI.Activate(); 
+                
+                MySkillMenuUI = new SkillMenuUI();
+                // MySkillMenuUI.Activate();
+                
+                SeeQuirkUI = new AllForOneQuirksUI();
+                SeeQuirkUI.Activate();
             }
         }
         public override void Unload()
@@ -30,6 +37,7 @@ namespace MyHeroMod
                 MyInterface = null;
                 MyQuirkUI = null;
                 MySkillMenuUI = null;
+                SeeQuirkUI = null;
             
         }
         public static void ToggleSkillMenu()
@@ -48,6 +56,17 @@ namespace MyHeroMod
         {
             var system = ModContent.GetInstance<UISystem>();
             system.MyInterface?.SetState(system.MyQuirkUI);
+        }
+
+        public static void ShowSeeQuirksUI()
+        {
+            var system = ModContent.GetInstance<UISystem>();
+
+            
+            
+            
+            system.SeeQuirkUI.PopulateSkillList();
+            system.MyInterface?.SetState(system.SeeQuirkUI);
         }
         public static void HideUI()
         {

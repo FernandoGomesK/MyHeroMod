@@ -9,7 +9,7 @@
 
             // All For One
 
-            StealQuirk,
+            StealQuirk, SeeQuirks,
 
             // Ofa 8th
             PrimeDetroitSmash, CaliforniaSmash, TexasSmash, CarolinaSmash, StockPile, StockPileMaximum,

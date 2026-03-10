@@ -5,6 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.OFA9th;
+using MyHeroMod.content.Quirks.AllForOne;
 
 public class GreenLightningLayer : PlayerDrawLayer
 {
@@ -13,8 +14,9 @@ public class GreenLightningLayer : PlayerDrawLayer
 
     public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) {
         var player = drawInfo.drawPlayer.GetModPlayer<OneForAll9thPlayer>();
+        var afoPlayer = drawInfo.drawPlayer.GetModPlayer<AllForOnePlayer>();
         var mp = drawInfo.drawPlayer.GetModPlayer<TransformationPlayer>();
-        return mp.SelectedQuirk == QuirkType.OneForAll9th && player.isFullCowlingBuffActive && !drawInfo.drawPlayer.dead;
+        return mp.SelectedQuirk == QuirkType.OneForAll9th && player.isFullCowlingBuffActive && !drawInfo.drawPlayer.dead  || (mp.SelectedQuirk == QuirkType.AllForOne && afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th) && player.isFullCowlingBuffActive);
     }
 
     protected override void Draw(ref PlayerDrawSet drawInfo) {
