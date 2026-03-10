@@ -38,13 +38,14 @@ namespace MyHeroMod.content.System
                     case 0: AssignedQuirk = QuirkType.HalfColdHalfHot; break;
                     // case 2: AssignedQuirk = QuirkType.BlueFlames; break;
                     case 1: AssignedQuirk = QuirkType.OneForAll9th; break;
-                    case 2: AssignedQuirk = QuirkType.Overclock; break;
-                    case 3: AssignedQuirk = QuirkType.Float; break;
-                    case 4: AssignedQuirk = QuirkType.DangerSense; break;
-                    case 5: AssignedQuirk = QuirkType.BlackWhip; break;
-                    case 6: AssignedQuirk = QuirkType.Gearshift; break;
-                    case 7: AssignedQuirk = QuirkType.FaJin; break;
-                    case 8: AssignedQuirk = QuirkType.SmokeScreen; break;
+                    case 2: AssignedQuirk = QuirkType.OneForAll8th; break;
+                    case 3: AssignedQuirk = QuirkType.Overclock; break;
+                    case 4: AssignedQuirk = QuirkType.Float; break;
+                    case 5: AssignedQuirk = QuirkType.DangerSense; break;
+                    case 6: AssignedQuirk = QuirkType.BlackWhip; break;
+                    case 7: AssignedQuirk = QuirkType.Gearshift; break;
+                    case 8: AssignedQuirk = QuirkType.FaJin; break;
+                    case 9: AssignedQuirk = QuirkType.SmokeScreen; break;
 
                 }
                 
@@ -69,7 +70,8 @@ namespace MyHeroMod.content.System
                     if (AssignedQuirk == QuirkType.HellFlames) dustType = DustID.Torch; 
                     if (AssignedQuirk == QuirkType.BlueFlames) dustType = DustID.BlueTorch; 
                     if (AssignedQuirk == QuirkType.HalfColdHalfHot) dustType = DustID.IceTorch; 
-                    if (AssignedQuirk == QuirkType.OneForAll9th) dustType = DustID.GreenTorch; 
+                    if (AssignedQuirk == QuirkType.OneForAll9th) dustType = DustID.GreenTorch;
+                    if (AssignedQuirk == QuirkType.OneForAll8th) dustType = DustID.YellowTorch; 
                     if (AssignedQuirk == QuirkType.Overclock) dustType = DustID.YellowTorch;
                     if (AssignedQuirk == QuirkType.Float) dustType = DustID.WhiteTorch;
                     if (AssignedQuirk == QuirkType.DangerSense) dustType = DustID.WhiteTorch;

@@ -13,6 +13,7 @@ using Mono.Cecil.Cil;
 using MyHeroMod.content.Quirks.OFA9th.Buffs;
 using MyHeroMod.content.Quirks.FaJin;
 using MyHeroMod.content.Quirks.OFA8th;
+using MyHeroMod.content.Quirks.AllForOne;
 
 
 public class DetroitSmashSkill : QuirkSkill
@@ -30,8 +31,17 @@ public class DetroitSmashSkill : QuirkSkill
 
     public override bool CheckUnlock(TransformationPlayer player)
     {
-        if (player.SelectedQuirk == QuirkType.OneForAll8th ||player.SelectedQuirk ==  QuirkType.OneForAll9th) 
+        var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
+
+        if (player.SelectedQuirk == QuirkType.OneForAll8th ||player.SelectedQuirk ==  QuirkType.OneForAll9th ) 
             return player.CurrentStage >= QuirkStage.Initial;
+
+        if (player.SelectedQuirk == QuirkType.AllForOne && (afoPlayer.HasInternalQuirk(QuirkType.OneForAll8th) || afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th)))
+        {
+            return true;
+        }
+
+
 
 
         return false;
@@ -42,15 +52,19 @@ public class DetroitSmashSkill : QuirkSkill
     {
  
         var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
+        var afoPlayer = player.GetModPlayer<AllForOnePlayer>();
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
         var FaJinPlayer = player.GetModPlayer<FajinPlayer>();
+
+        bool isOFA9th = transPlayer.SelectedQuirk == QuirkType.OneForAll9th  || (transPlayer.SelectedQuirk == QuirkType.AllForOne && afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th));
+        bool isOFA8th = transPlayer.SelectedQuirk == QuirkType.OneForAll8th || (transPlayer.SelectedQuirk == QuirkType.AllForOne && afoPlayer.HasInternalQuirk(QuirkType.OneForAll8th) && !isOFA9th);
 
             int MaxDamage = 450;
             float DamageMultiplier = 1f;
             bool hurtPlayer = false;
             bool usedFaJin = false;
 
-            if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+            if (isOFA9th)
         {
             
 
@@ -157,7 +171,7 @@ public class DetroitSmashSkill : QuirkSkill
         }
         }
         
-        else if (transPlayer.SelectedQuirk == QuirkType.OneForAll8th)
+        else if (isOFA8th)
         {
             if (transPlayer.CurrentStage >= QuirkStage.Adequation)
             {
