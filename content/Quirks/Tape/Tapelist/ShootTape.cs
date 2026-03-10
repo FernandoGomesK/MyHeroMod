@@ -4,12 +4,14 @@ using MyHeroMod.content.System;
 using MyHeroMod.content;
 using MyHeroMod.content.Projectiles;
 using Microsoft.Xna.Framework;
+using MyHeroMod.content.Quirks.Tape;
+using MyHeroMod.content.Quirks.Tape.Projectiles;
 
 
 
-    
 
-    public class ShootTapeSkill : QuirkSkill
+
+public class ShootTapeSkill : QuirkSkill
     {
          public override string Name => "Swinging Tape";
     public override string Description => "Shoot a hook made from blackwhip at you cursor and pull yourself towards it";

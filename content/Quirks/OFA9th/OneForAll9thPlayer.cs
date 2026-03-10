@@ -82,6 +82,11 @@ namespace MyHeroMod.content.Quirks.OFA9th
         
         public override void PreUpdate()
         {
+
+            if (!Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th))
+            {
+                return; 
+            } 
             if (Activating)
             {
                 ActivationTimer++;
@@ -181,6 +186,10 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public override void ResetEffects()
         {
+            if (!Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th))
+            {
+                return; 
+            }
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>();
 

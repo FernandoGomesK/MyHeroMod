@@ -38,6 +38,12 @@ namespace MyHeroMod.content.Quirks.Explosion
 
         public override void PostUpdateEquips()
         {
+            if (!Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.Explosion))
+            {
+                return; 
+            }
+
+
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
              if (CurrentSweat > 0) {
@@ -108,6 +114,11 @@ namespace MyHeroMod.content.Quirks.Explosion
         }
         public override void PostUpdate()
         {
+            if (!Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.Explosion))
+            {
+                return; 
+            }   
+            
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             if (mainPlayer.SelectedQuirk == QuirkType.Explosion && mainPlayer.CurrentStage >= QuirkStage.Adequation)

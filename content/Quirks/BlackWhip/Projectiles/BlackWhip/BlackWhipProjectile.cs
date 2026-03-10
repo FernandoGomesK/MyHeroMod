@@ -4,12 +4,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Projectiles
+namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
 {
     // Renomeei para BlackWhipProjectile para evitar conflitos
-    public class PullTapeProjectile : ModProjectile
+    public class BlackWhipProjectile : ModProjectile
     {
-        public override string Texture => "MyHeroMod/Assets/Projectiles/SwingTapeProjectile";
+        
 
         public override void SetDefaults()
         {
@@ -17,6 +17,11 @@ namespace MyHeroMod.content.Projectiles
             Projectile.CloneDefaults(ProjectileID.GemHookAmethyst);
             Projectile.width = 18;
             Projectile.height = 18;
+            Projectile.penetrate = 1; 
+            Projectile.friendly = true; 
+            Projectile.hostile = false;
+            Projectile.damage = 40; 
+            Projectile.DamageType = DamageClass.Magic; 
             
         }
         
@@ -29,11 +34,16 @@ namespace MyHeroMod.content.Projectiles
         
         public override void GrappleRetreatSpeed(Player player, ref float speed) => speed = 18f;
 
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.Frozen, 120);  
+        }
+
         
         public override bool PreDraw(ref Color lightColor)
         {
             
-            string chainTexturePath = "MyHeroMod/Assets/Projectiles/SwingTapeChain";
+            string chainTexturePath = "MyHeroMod/Content/BlackWhip/Projectiles/BlackWhip/BlackWhipChain";
 
             
             if (!ModContent.HasAsset(chainTexturePath)) return false;

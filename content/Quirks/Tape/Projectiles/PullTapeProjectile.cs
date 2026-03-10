@@ -4,11 +4,14 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
+namespace MyHeroMod.content.Quirks.Tape.Projectiles
 {
-    
-    public class BlackWhipProjectileUnique : ModProjectile
+    // Renomeei para BlackWhipProjectile para evitar conflitos
+    public class PullTapeProjectile : ModProjectile
     {
+        public override string Texture => "MyHeroMod/content/Quirks/Tape/Projectiles/SwingTapeProjectile";
+        
+
         public override void SetDefaults()
         {
             
@@ -17,8 +20,8 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
             Projectile.height = 18;
             
         }
-
-       
+        
+        
         public override float GrappleRange() => 600f; 
 
         
@@ -31,7 +34,7 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
         public override bool PreDraw(ref Color lightColor)
         {
             
-            string chainTexturePath = "MyHeroMod/Assetts/Projectiles/BlackWhipChain";
+            string chainTexturePath = "MyHeroMod/content/Quirks/Tape/Projectiles/SwingTapeChain";
 
             
             if (!ModContent.HasAsset(chainTexturePath)) return false;
@@ -48,11 +51,10 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
             float rotation = vectorToPlayer.ToRotation() - 1.57f;
             bool chainConnected = true;
 
-            
+            // Loop para desenhar os elos
             while (chainConnected)
             {
                 float length = vectorToPlayer.Length();
-                
                 if (length < textureHeight + 1)
                 {
                     chainConnected = false;
@@ -64,7 +66,7 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
                     position += nextLink * textureHeight;
                     vectorToPlayer = mountedCenter - position;
                     
-                  
+                    
                     Color color = Lighting.GetColor((int)position.X / 16, (int)(position.Y / 16.0));
                     
                     Main.EntitySpriteDraw(texture, position - Main.screenPosition, sourceRectangle, color, rotation, origin, 1f, SpriteEffects.None, 0);

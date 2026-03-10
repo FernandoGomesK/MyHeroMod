@@ -8,12 +8,13 @@ using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
+using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip;
 
 
 
-    
 
-    public class BlackWhipHookSkill : QuirkSkill
+
+public class BlackWhipHookSkill : QuirkSkill
     {
          public override string Name => "Black Whip Hook";
     public override string Description => "Shoot a hook made from blackwhip at you cursor and pull yourself towards it";

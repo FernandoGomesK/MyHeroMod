@@ -6,12 +6,12 @@ using Terraria.ID;
 using System;
 using Terraria.Audio;
 
-namespace MyHeroMod.content.Projectiles
+namespace MyHeroMod.content.Quirks.Tape.Projectiles
 {
     public class SwingTapeProjectile : ModProjectile
     {
 
-        public override string Texture => "MyHeroMod/Assets/Projectiles/SwingTapeProjectile";
+        
         private bool isStuck = false;
         private float ropeLength = 0f;
         private Vector2 stuckPosition;
@@ -104,7 +104,7 @@ namespace MyHeroMod.content.Projectiles
     public override bool PreDraw(ref Color lightColor)
         {
             
-            string chainTexturePath = "MyHeroMod/Assets/Projectiles/SwingTapeChain";
+            string chainTexturePath = "MyHeroMod/content/Quirks/Tape/Projectiles/SwingTapeChain";
 
             
             if (!ModContent.HasAsset(chainTexturePath)) return false;
