@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.OFA9th;
+using MyHeroMod.content.Quirks.AllForOne;
 
 
 namespace MyHeroMod.content.System
@@ -29,6 +30,16 @@ namespace MyHeroMod.content.System
     if (player.SelectedQuirk == QuirkType.OneForAll9th)
     {
         var ofaPlayer = player.Player.GetModPlayer<OneForAll9thPlayer>();
+
+        if (ofaPlayer.HasInternalQuirk(RequiredQuirk))
+        {
+            return player.CurrentStage >= RequiredStage; 
+        }
+    }
+
+    if (player.SelectedQuirk == QuirkType.AllForOne)
+    {
+        var ofaPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
 
         if (ofaPlayer.HasInternalQuirk(RequiredQuirk))
         {
