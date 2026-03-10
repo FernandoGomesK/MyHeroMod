@@ -5,6 +5,8 @@ using Terraria.Audio;
 using System.Collections.Generic; 
 using MyHeroMod.content.System;
 using MyHeroMod.content.System.BasePlayer;
+using MyHeroMod.content.Quirks.AllForOne;
+using MyHeroMod.content.Quirks.OFA9th;
 
 namespace MyHeroMod.content
 {
@@ -92,6 +94,25 @@ namespace MyHeroMod.content
 
         
     }
+
+        public bool HasActiveQuirk(QuirkType typeToCheck)
+        {
+        
+            if (SelectedQuirk == typeToCheck) return true;
+
+            
+            var afoPlayer = Player.GetModPlayer<AllForOnePlayer>();
+            var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>(); 
+
+            if ((SelectedQuirk == QuirkType.AllForOne && afoPlayer.HasInternalQuirk(typeToCheck)) || 
+                (SelectedQuirk == QuirkType.OneForAll9th && ofaPlayer.HasInternalQuirk(typeToCheck)))
+            {
+                return true;
+            }
+
+            return false;
+        }
+        
 
         public override void OnEnterWorld() {
         UpdateUnlockedSkills();
