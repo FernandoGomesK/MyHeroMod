@@ -22,6 +22,7 @@ namespace MyHeroMod.content.Quirks.Explosion
 
         public int MaxSweat = 100;  
         public int CurrentSweat = 0;
+        public int sweatTimer = 0;
 
         public bool IsGrenadierBracersOn = false;
         public bool IsStrafePanzerOn = false;
@@ -110,7 +111,36 @@ namespace MyHeroMod.content.Quirks.Explosion
         
         public override void PreUpdate()
         {
-            
+             if (CurrentSweat > 0)
+{
+    sweatTimer++;
+
+    
+    if (sweatTimer >= 60)
+    {
+        sweatTimer = 0;
+        
+        
+        int recoveryRate = 1;
+
+        
+        // if (IsCombatVestAlphaOn) recoveryRate += 1; 
+        // if (IsCombatVestBetaOn)  recoveryRate += 5; 
+
+        
+        if (CurrentSweat > 0) 
+        {
+            CurrentSweat -= recoveryRate;
+           
+            if (CurrentSweat < 0) CurrentSweat = 0;
+        }
+        
+    }
+}
+else
+{
+    sweatTimer = 0;
+}
         }
         public override void PostUpdate()
         {
