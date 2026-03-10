@@ -25,6 +25,15 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             {QuirkSkills.HeavenPiercingWall, new HeavenPiercingGreatGlacial()},
             {QuirkSkills.FlashFreezeHeatWave, new FlashFreezeSkill( )},
 
+            // Explosion
+
+            {QuirkSkills.Cluster , new Clusterkill()},
+            {QuirkSkills.ApShot , new ApShotSkill()},
+            {QuirkSkills.ApMachineGun , new ApMachineGunSkill()},
+            {QuirkSkills.FullPowerBlast , new FullPowerBlastSkill()},
+            {QuirkSkills.HowitzerImpact , new HowitzerImpactSkill()},
+            {QuirkSkills.StunGrenade , new StunGrenadeSkill()},
+
             // Common Skills
 
 
