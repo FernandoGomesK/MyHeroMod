@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.AllForOne;
+using MyHeroMod.content.Debuffs;
 
 
 namespace MyHeroMod.content.System
@@ -22,7 +23,19 @@ namespace MyHeroMod.content.System
         public virtual bool IsDefaultSkill => false;
         public virtual bool IsBaseQuirk => false;
 
+        public virtual bool CheckErasure(Player player)
+        {
+            
+            if (IsDefaultSkill) return true;
 
+            
+            if (player.HasBuff(ModContent.BuffType<QuirkErased>()))
+            {
+                return false; 
+            }
+
+            return true;
+        }
 
         public virtual bool CheckUnlock(TransformationPlayer player)
 {
@@ -61,7 +74,8 @@ namespace MyHeroMod.content.System
         public virtual bool CanUse(Player player) 
         {
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
-            return CheckUnlock(transPlayer); 
+            return CheckUnlock(transPlayer) && CheckErasure(player); 
+
         }
 
         
