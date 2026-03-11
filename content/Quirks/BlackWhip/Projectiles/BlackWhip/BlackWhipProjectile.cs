@@ -43,7 +43,8 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
         public override bool PreDraw(ref Color lightColor)
         {
             
-            string chainTexturePath = "MyHeroMod/Content/BlackWhip/Projectiles/BlackWhip/BlackWhipChain";
+            
+            string chainTexturePath = "MyHeroMod/contentQuirks/BlackWhip/Projectiles/BlackWhip/BlackWhipChain";
 
             
             if (!ModContent.HasAsset(chainTexturePath)) return false;

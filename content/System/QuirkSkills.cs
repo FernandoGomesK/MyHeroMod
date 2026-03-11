@@ -11,6 +11,18 @@
 
             StealQuirk, SeeQuirks,
 
+            // Flight 
+
+            Flight,
+
+            // Slide and glide / Flight
+
+            SaGFlight,
+
+            //Erasure
+
+            Erase,
+
             // Ofa 8th
             PrimeDetroitSmash, CaliforniaSmash, TexasSmash, CarolinaSmash, StockPile, StockPileMaximum,
 
