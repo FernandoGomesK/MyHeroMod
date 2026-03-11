@@ -6,15 +6,24 @@ using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Items.Support
 {
+    [AutoloadEquip(EquipType.Front)]
     public class CombatVestAlpha : ModItem
     {
+
+        
+        
         public override void SetDefaults()
         {
+            
+
+
             Item.width = 24;
             Item.height = 24;
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(gold: 1);
+
+            Item.frontSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.Front);
             
         }
 

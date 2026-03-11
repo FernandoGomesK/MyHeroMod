@@ -2,10 +2,10 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Items.Armor.Todoroki.FirstTodorokiCostume
+namespace MyHeroMod.content.Items.Armor.Todoroki.SecondTodorokiCostume
 {
     [AutoloadEquip(EquipType.Legs)]
-    public class FirstTodorokiLeggings : ModItem
+    public class SecondTodorokiLeggings : ModItem
     {
         
         public override void SetDefaults()

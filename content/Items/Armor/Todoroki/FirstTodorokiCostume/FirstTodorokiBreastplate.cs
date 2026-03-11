@@ -54,8 +54,8 @@ namespace MyHeroMod.content.Items.Armor.Todoroki.FirstTodorokiCostume
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.IronBar, 20) // Exemplo
-                .AddTile(TileID.Anvils)
+                .AddIngredient(ItemID.Silk, 10) // Exemplo
+                .AddTile(TileID.Loom)
                 .Register();
         }
 

@@ -34,9 +34,11 @@ namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.DirtBlock, 1)
-            .AddTile(TileID.WorkBenches)
-            .Register();
+                .AddIngredient(ItemID.Silk, 10)
+                .AddIngredient(ItemID.IronBar, 10) 
+                .AddIngredient(ItemID.Torch, 5)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
 }

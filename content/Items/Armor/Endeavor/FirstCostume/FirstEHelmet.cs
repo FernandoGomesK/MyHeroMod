@@ -40,7 +40,7 @@ namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.DirtBlock, 1)
+            .AddIngredient(ItemID.Torch, 20)
             .AddTile(TileID.WorkBenches)
             .Register();
         }

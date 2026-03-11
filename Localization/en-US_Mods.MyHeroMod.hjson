@@ -253,6 +253,21 @@ Items: {
 		DisplayName: Quirk Syringe
 		Tooltip: ""
 	}
+
+	SecondTodorokiBreastplate: {
+		DisplayName: Second Todoroki Breastplate
+		Tooltip: ""
+	}
+
+	ThirdTodorokiBreastplate: {
+		DisplayName: Third Todoroki Breastplate
+		Tooltip: ""
+	}
+
+	SecondTodorokiLeggings: {
+		DisplayName: Second Todoroki Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {

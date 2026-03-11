@@ -2,12 +2,11 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
-using Microsoft.Xna.Framework;
 
-namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
+namespace MyHeroMod.content.Items.Armor.Todoroki.SecondTodorokiCostume
 {
     [AutoloadEquip(EquipType.Body)]
-    public class FirstEBreastplate : ModItem
+    public class SecondTodorokiBreastplate : ModItem
     {
         public static int FemaleBodySlot;
 
@@ -50,27 +49,16 @@ namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
         {
             // Seus buffs aqui (ex: +Dano, +Velocidade)
             // player.GetDamage(DamageClass.Generic) += 0.10f; 
-            Lighting.AddLight(player.Center, Color.OrangeRed.ToVector3() * 0.4f);
-
-            if (Main.rand.NextBool(10))
-            {
-                int fire = Dust.NewDust(player.position, player.width, player.height, DustID.Torch, 0f, 0f, 100, default, 1.5f);
-                Main.dust[fire].noGravity = true;
-                Main.dust[fire].velocity *= 2f;
-                Main.dust[fire].velocity += player.velocity * 0.5f;
-            }
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.Silk, 10)
-                .AddIngredient(ItemID.IronBar, 10) // 
-                .AddIngredient(ItemID.Torch, 5)
+                .AddIngredient(ItemID.Silk, 10) // Exemplo
+                .AddIngredient(ItemID.IronBar, 10)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
-    
 
 }
 }
