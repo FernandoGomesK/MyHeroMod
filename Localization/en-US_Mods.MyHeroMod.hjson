@@ -405,6 +405,16 @@ Buffs: {
 		DisplayName: Overclock Buff
 		Description: speeding yourself up
 	}
+
+	QuirkErased: {
+		DisplayName: Quirk Erased
+		Description: Mods.MyHeroMod.Buffs.QuirkErased.Description
+	}
+
+	ErasingBuff: {
+		DisplayName: Erasing Buff
+		Description: Mods.MyHeroMod.Buffs.ErasingBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -472,6 +482,7 @@ Projectiles: {
 	SwingTapeProjectile.DisplayName: Swing Tape Projectile
 	PullTapeProjectile.DisplayName: Pull Tape Projectile
 	HandProj.DisplayName: Hand Proj
+	ErasureController.DisplayName: Erasure Controller
 }
 
 NPCs: {

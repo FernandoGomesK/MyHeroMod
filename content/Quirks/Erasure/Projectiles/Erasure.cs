@@ -1,95 +1,97 @@
-// using Microsoft.Xna.Framework;
-// using Terraria;
-// using Terraria.ID;
-// using Terraria.ModLoader;
-// using Terraria.Audio;
+using Microsoft.Xna.Framework;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using MyHeroMod.content.System;
+using MyHeroMod.content.Quirks.FaJin;
 
-// namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower
-// {
-//     public class IceThrowerController : ModProjectile
-//     {
-//         public override void SetDefaults()
-//         {
-//             // Este projétil é invisível e intangível, serve apenas para gerenciar o ataque
-//             Projectile.width = 10;
-//             Projectile.height = 10;
-//             Projectile.friendly = false; // Ele não dá dano, quem dá dano é o fogo que ele cospe
-//             Projectile.tileCollide = false;
-//             Projectile.penetrate = -1;
-//             Projectile.timeLeft = 120; // DURAÇÃO DO ATAQUE: 120 ticks = 2 Segundos
-//             Projectile.hide = true; // Invisível
-//         }
+namespace MyHeroMod.content.Quirks.Erasure.Projectiles
+{
+    public class ErasureController : ModProjectile
+    {
+        public override string Texture => "MyHeroMod/Assets/Projectiles/HandProj"; // Coloque qualquer textura transparente ou minúscula, ele não vai aparecer
 
-//         public override void AI()
-//         {
-//             Player player = Main.player[Projectile.owner];
+        public override void SetDefaults()
+        {
+            Projectile.width = 10;
+            Projectile.height = 10;
+            Projectile.friendly = true; 
+            Projectile.hostile = false;
+            Projectile.tileCollide = false;
+            Projectile.penetrate = -1;
+            Projectile.hide = true; // Invisível!
+        }
 
-//             // 1. Manter vivo apenas se o jogador estiver vivo
-//             if (player.dead || !player.active)
-//             {
-//                 Projectile.Kill();
-//                 return;
-//             }
+        public override void AI()
+        {
+            Player player = Main.player[Projectile.owner];
+            var erasurePlayer = player.GetModPlayer<ErasurePlayer>();
 
-//             // 2. Grudar no Jogador e Mirar
-//             if (Projectile.owner == Main.myPlayer)
-//             {
-//                 Vector2 diff = Main.MouseWorld - player.MountedCenter;
-//                 diff.Normalize();
-//                 Projectile.velocity = diff;
-//                 player.ChangeDir(Main.MouseWorld.X > player.MountedCenter.X ? 1 : -1);
-//                 Projectile.netUpdate = true;
-//             }
+            // erasurePlayer.eyeTimer <= 0
+
+            // 1. Morre se o jogador morrer, se a skill for desligada, ou se o tempo de piscar acabar
+            if (player.dead || !player.active || !erasurePlayer.isErasureActive)
+            {
+                erasurePlayer.isErasureActive = false;
+                Projectile.Kill();
+                return;
+            }
+
+            // 2. Gruda no Jogador
+            Projectile.Center = player.Center;
+            Projectile.timeLeft = 2; // Mantém vivo para o próximo frame
             
-//             Projectile.Center = player.MountedCenter;
-//             player.heldProj = Projectile.whoAmI;
-//             player.itemTime = 2;
-//             player.itemAnimation = 2;
+            // Opcional: Efeito visual sutil de olho vermelho flutuando na cara do jogador
+            if (Main.rand.NextBool(3))
+            {
+                Dust d = Dust.NewDustDirect(player.Top - new Vector2(0, 10), player.width, 10, DustID.RedTorch);
+                d.noGravity = true;
+                d.velocity *= 0.1f;
+            }
+
+            // 3. A Lógica do Cone de Visão
+            Vector2 aimDirection = Main.MouseWorld - player.Center;
+            aimDirection.Normalize();
+
+            float visionRange = 600f; // 600 pixels de alcance (Quase a tela toda)
             
-//             // Rotação do braço
-//             player.itemRotation = (Projectile.velocity * player.direction).ToRotation();
+            // Varre TODOS os NPCs próximos
+            foreach (NPC npc in Main.ActiveNPCs)
+            {
+                if (npc.friendly || npc.townNPC) continue;
 
-//             // 3. DISPARAR O FOGO (A cada 5 frames)
-//             // Projectile.ai[0] é um contador interno automático
-//             Projectile.ai[0]++; 
+                float distance = Vector2.Distance(player.Center, npc.Center);
+                
+                if (distance < visionRange)
+                {
+                    // Descobre a direção entre o player e o monstro
+                    Vector2 directionToNpc = npc.Center - player.Center;
+                    directionToNpc.Normalize();
 
-//             if (Projectile.ai[0] % 5 == 0) // Atira a cada 5 ticks (rápido)
-//             {
-//                 // Toca o som (com pitch variado para ficar natural)
-//                 SoundEngine.PlaySound(SoundID.Item34 with { PitchVariance = 0.2f }, player.position);
+                    // O Dot Product checa o ângulo. 
+                    // 1 = Exatamente na frente. 0 = Do lado. -1 = Nas costas.
+                    // 0.8f dá um "cone" bem razoável na frente do personagem!
+                    float angleDifference = Vector2.Dot(aimDirection, directionToNpc);
 
-//                 if (Projectile.owner == Main.myPlayer)
-//                 {
-//                     // Lança 2 projéteis por vez para espalhar bem
-//                     for (int i = 0; i < 2; i++)
-//                     {
-//                         Vector2 shootVel = Projectile.velocity;
-                        
-//                         // Velocidade e Espalhamento (Cone)
-//                         shootVel *= Main.rand.NextFloat(8f, 13f);
-//                         shootVel = shootVel.RotatedByRandom(MathHelper.ToRadians(15)); 
-                        
-//                         // Offset para sair da mão (aprox)
-//                         Vector2 spawnPos = player.Center + Projectile.velocity * 30f;
-
-//                         Projectile.NewProjectile(
-//                             player.GetSource_FromThis(),
-//                             spawnPos,
-//                             shootVel,
-//                             ModContent.ProjectileType<IceThrowerProj>(), // Chama o foguinho que já criamos
-//                             25, // Dano
-//                             1f,
-//                             player.whoAmI
-//                         );
-//                     }
-//                 }
-//             }
-
-            
-//         }
-//         public override bool PreDraw(ref Color lightColor)
-//         {
-//             return false;
-//         }
-//     }
-// }
+                    // Se estiver no cone (maior que 0.8) E tiver linha de visão (sem paredes na frente)
+                    if (angleDifference > 0.8f && Collision.CanHitLine(player.position, player.width, player.height, npc.position, npc.width, npc.height))
+                    {
+                        // APLICA O DEBUFF DE APAGAR QUIRK!
+                        var globalNPC = npc.GetGlobalNPC<QuirkGlobalNPC>();
+                        if (globalNPC.HasQuirk)
+                        {
+                            globalNPC.IsQuirkErased = true; // Você precisa criar essa variável lá no seu QuirkGlobalNPC!
+                            
+                            // Efeito visual no monstro avisando que ele perdeu a Quirk
+                            if (Main.rand.NextBool(5))
+                            {
+                                Dust d = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Wraith); // Fumacinha preta
+                                d.velocity *= 0.5f;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using MyHeroMod.content.Quirks.AllForOne.AllForOneList;
+using MyHeroMod.content.Quirks.Erasure.ErasureList;
 using MyHeroMod.content.Quirks.Explosion.Projectiles;
 using MyHeroMod.content.Quirks.Smokescreen; 
 using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
@@ -35,6 +36,10 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             {QuirkSkills.FullPowerBlast , new FullPowerBlastSkill()},
             {QuirkSkills.HowitzerImpact , new HowitzerImpactSkill()},
             {QuirkSkills.StunGrenade , new StunGrenadeSkill()},
+
+            // Erasure
+
+            { QuirkSkills.Erase, new ToggleEraseSkill() },
 
             // Common Skills
 

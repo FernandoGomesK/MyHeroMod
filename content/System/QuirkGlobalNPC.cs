@@ -12,7 +12,7 @@ namespace MyHeroMod.content.System
         
         public override bool InstancePerEntity => true;
 
-        
+        public bool IsQuirkErased = false;
         public bool HasQuirk = false;
         public QuirkType AssignedQuirk = QuirkType.Quirkless;
 
@@ -56,6 +56,11 @@ namespace MyHeroMod.content.System
                 npc.damage = (int)(npc.damage * 3f);
             }
         }
+
+        public override void ResetEffects(NPC npc)
+{
+    IsQuirkErased = false;
+}
 
         // 3. Efeitos Visuais (O Brilho!)
         public override void DrawEffects(NPC npc, ref Color drawColor)

@@ -16,7 +16,7 @@ namespace MyHeroMod.content
     public enum QuirkType { Quirkless, AllForOne, OneForAll9th, OneForAll8th,
                             Explosion, HellFlames, BlueFlames, HalfColdHalfHot,
                             Float, Gearshift, FaJin, SmokeScreen, DangerSense,
-                            BlackWhip, Tape, Overclock }
+                            BlackWhip, Tape, Overclock, Erasure }
 
     // Waiting Implementation 
    
