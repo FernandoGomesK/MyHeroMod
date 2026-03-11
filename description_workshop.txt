@@ -1,17 +1,24 @@
 Terraria mod made with the intention of adding some of the quirks from the main show and from vigilantes.
 
+To get started you need to collect one iron and get a Quirk gene from any mob!
+
+
 currently contains:
 
-All for one 9th
+One for All 9th
+One for All 8th
+Explosion
 Float
 Gearshift
 Smoke Screen
 Fa Jin
+BlackWhip
+Half cold Half Hot
+Tape
+Overclock(W.I.P)
 
 
 W.I.P
-Explosion
-Half cold Half Hot
+
 Hellflames
 Blueflames
-All for one 8th
