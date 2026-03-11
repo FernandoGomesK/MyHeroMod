@@ -6,10 +6,18 @@ public static class ProgressionSystem {
         if (player.ManualStageOverride) return;
 
         QuirkStage targetStage = QuirkStage.Initial;
-        if (NPC.downedMoonlord) targetStage = QuirkStage.Final;
-        else if (NPC.downedPlantBoss) targetStage = QuirkStage.Advanced;
-        else if (Main.hardMode) targetStage = QuirkStage.Intermediate;
-        else targetStage = QuirkStage.Adequation;
+
+        
+        if (NPC.downedMoonlord) 
+            targetStage = QuirkStage.Final;
+        else if (NPC.downedPlantBoss) 
+            targetStage = QuirkStage.Advanced;
+        else if (Main.hardMode) 
+            targetStage = QuirkStage.Intermediate;
+        else if (NPC.downedBoss1) 
+            targetStage = QuirkStage.Adequation;
+        else 
+            targetStage = QuirkStage.Initial;
 
         if (player.CurrentStage != targetStage) {
             player.CurrentStage = targetStage;
