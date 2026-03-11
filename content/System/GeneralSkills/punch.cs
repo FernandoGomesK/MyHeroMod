@@ -54,7 +54,7 @@ namespace MyHeroMod.content.System
 
             Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
 
-        
+            
         
             
         for (int i = 0; i < numberOfPunches; i++)
@@ -71,6 +71,7 @@ namespace MyHeroMod.content.System
                 baseDamage, 
                 2f, 
                 player.whoAmI);
+                SoundEngine.PlaySound(SoundID.Item1, player.position);
 
                 if (isSuperPunch == true)
             { 

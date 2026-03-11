@@ -35,7 +35,7 @@ namespace MyHeroMod.content.Quirks.OFA8th
             {
                 Player.moveSpeed += 1.5f;
                 Player.jumpSpeedBoost += 1.5f;
-                player.noFallDmg = true;
+                Player.noFallDmg = true;
             }
 
             // if (form == 2)
