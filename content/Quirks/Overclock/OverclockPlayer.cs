@@ -12,7 +12,7 @@ using MyHeroMod.content.System;
 namespace MyHeroMod.content.Quirks.Overclock
 {
     // PARTE 1: DADOS E LÓGICA
-    public partial class OverclockPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter
+    public partial class OverclockPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter, IHeroPunchModifier
     {
         // Variáveis de Estado
         

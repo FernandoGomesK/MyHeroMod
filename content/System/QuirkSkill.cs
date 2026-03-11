@@ -22,6 +22,7 @@ namespace MyHeroMod.content.System
         public virtual bool IsDefaultSkill => false;
         public virtual bool IsBaseQuirk => false;
 
+
         public virtual bool CheckUnlock(TransformationPlayer player)
 {
     

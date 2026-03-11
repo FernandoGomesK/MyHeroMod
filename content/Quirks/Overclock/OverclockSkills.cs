@@ -11,7 +11,7 @@ using MyHeroMod.content.System;
 namespace MyHeroMod.content.Quirks.Overclock
 {
     
-    public partial class OverclockPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter
+    public partial class OverclockPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter, IHeroPunchModifier
     {
 
 
@@ -24,6 +24,18 @@ namespace MyHeroMod.content.Quirks.Overclock
         dustType = DustID.YellowTorch; 
     }
     }
+
+        public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref bool isSuperPunch, ref int numberOfPunches)
+        {
+            if (Player.HasBuff(ModContent.BuffType<OverclockBuff>()))
+    {
+       projSpeed = 30;
+            baseDamage = 20;
+            isSuperPunch = false;
+            numberOfPunches = 8;
+    }
+
+        }
 }
 }
       

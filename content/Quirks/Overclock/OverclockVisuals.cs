@@ -11,7 +11,7 @@ using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Quirks.Overclock
 {
-    public partial class OverclockPlayer: ModPlayer, IQuirkResetter, IHeroDashModifier
+    public partial class OverclockPlayer: ModPlayer, IQuirkResetter, IHeroDashModifier, IHeroPunchModifier
     {
         private void HandleFullCowlingEffects()
         {

@@ -40,6 +40,7 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
 
 
             { QuirkSkills.Dash, new DashSkill() },
+            {QuirkSkills.Punch, new PunchSkill( )},
 
             //BlackWhip
             { QuirkSkills.BlackWhipHook, new BlackWhipHookSkill() },
