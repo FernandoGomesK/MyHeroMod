@@ -12,7 +12,7 @@ using Microsoft.Xna.Framework.Graphics;
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     
-    public partial class GearshiftPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter
+    public partial class GearshiftPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter, IHeroPunchModifier
     {
 
 
@@ -26,13 +26,19 @@ namespace MyHeroMod.content.Quirks.Gearshift
                 hideNormalDash = true;
                 explosionColor = Color.Cyan; 
                 dustType = DustID.BlueTorch;
-
-                
-                // var dashSkill = (DashSkill)SkillLibrary.GetSkill(QuirkSkills.Dash);
-                // if (dashSkill != null) {
-                //     dashSkill.TeleportDash(Player, explosionColor); 
-                // }
             }
+        }
+
+        public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref bool isSuperPunch, ref int numberOfPunches)
+        {
+            if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
+    {
+       projSpeed = 25;
+            baseDamage = 20;
+            isSuperPunch = false;
+            numberOfPunches = 5;
+    }
+
         }
     }
 }

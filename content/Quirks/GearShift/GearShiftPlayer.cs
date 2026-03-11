@@ -12,7 +12,7 @@ using MyHeroMod.content.System;
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     // PARTE 1: DADOS E LÓGICA
-    public partial class GearshiftPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter
+    public partial class GearshiftPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter, IHeroPunchModifier
     {
         // Variáveis de Estado
         
