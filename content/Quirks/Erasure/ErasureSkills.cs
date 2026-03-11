@@ -23,17 +23,6 @@ namespace MyHeroMod.content.Quirks.Erasure;
         var erasePlayer = Player.GetModPlayer<ErasurePlayer>();
 
 
-        if (Player.HasBuff(ModContent.BuffType<ErasingBuff>()))
-        {
-            Projectile.NewProjectile(
-                    Player.GetSource_FromThis(),
-                    Player.Center,
-                    Vector2.Zero, 
-                    ModContent.ProjectileType<ErasureController>(),
-                    0, 
-                    0f,
-                    Player.whoAmI
-                );
-        }
+        
     }
 }

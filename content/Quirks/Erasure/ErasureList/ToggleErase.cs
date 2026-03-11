@@ -35,6 +35,7 @@ namespace MyHeroMod.content.Quirks.Erasure.ErasureList
             }
             else
             {
+                player.AddBuff(ModContent.BuffType<ErasingBuff>(), 3600);
                 SoundEngine.PlaySound(SoundID.Item121, player.position); 
                 CombatText.NewText(player.getRect(), Color.Red, "Erasure: ON!");
             }

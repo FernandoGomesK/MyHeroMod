@@ -3,13 +3,13 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
-using MyHeroMod.content.Quirks.FaJin;
+using MyHeroMod.content.Buffs;
 
 namespace MyHeroMod.content.Quirks.Erasure.Projectiles
 {
     public class ErasureController : ModProjectile
     {
-        public override string Texture => "MyHeroMod/Assets/Projectiles/HandProj"; // Coloque qualquer textura transparente ou minúscula, ele não vai aparecer
+        public override string Texture => "MyHeroMod/Assets/Projectiles/HandProj"; 
 
         public override void SetDefaults()
         {
@@ -19,7 +19,7 @@ namespace MyHeroMod.content.Quirks.Erasure.Projectiles
             Projectile.hostile = false;
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
-            Projectile.hide = true; // Invisível!
+            Projectile.hide = true; 
         }
 
         public override void AI()
@@ -27,66 +27,74 @@ namespace MyHeroMod.content.Quirks.Erasure.Projectiles
             Player player = Main.player[Projectile.owner];
             var erasurePlayer = player.GetModPlayer<ErasurePlayer>();
 
-            // erasurePlayer.eyeTimer <= 0
-
-            // 1. Morre se o jogador morrer, se a skill for desligada, ou se o tempo de piscar acabar
-            if (player.dead || !player.active || !erasurePlayer.isErasureActive)
+            
+            if (player.dead || !player.active || !player.HasBuff(ModContent.BuffType<ErasingBuff>()))
             {
-                erasurePlayer.isErasureActive = false;
                 Projectile.Kill();
                 return;
             }
 
-            // 2. Gruda no Jogador
-            Projectile.Center = player.Center;
-            Projectile.timeLeft = 2; // Mantém vivo para o próximo frame
             
-            // Opcional: Efeito visual sutil de olho vermelho flutuando na cara do jogador
-            if (Main.rand.NextBool(3))
+            Projectile.Center = player.Center;
+            Projectile.timeLeft = 2;
+
+            
+            if (Projectile.owner == Main.myPlayer)
             {
-                Dust d = Dust.NewDustDirect(player.Top - new Vector2(0, 10), player.width, 10, DustID.RedTorch);
-                d.noGravity = true;
-                d.velocity *= 0.1f;
+                // Descobre a direção do mouse
+                Vector2 diff = Main.MouseWorld - player.Center;
+                diff.Normalize();
+                Projectile.velocity = diff;
+                
+                
+                Projectile.rotation = Projectile.velocity.ToRotation();
+                
+                
+                player.ChangeDir(Main.MouseWorld.X > player.Center.X ? 1 : -1); 
+                Projectile.netUpdate = true;
             }
 
-            // 3. A Lógica do Cone de Visão
-            Vector2 aimDirection = Main.MouseWorld - player.Center;
-            aimDirection.Normalize();
-
-            float visionRange = 600f; // 600 pixels de alcance (Quase a tela toda)
             
+            float visionLength = 600f; 
+            float visionWidth = 80f; 
+
+            
+            Vector2 startPoint = player.Center;
+            Vector2 endPoint = player.Center + (Projectile.velocity * visionLength);
+
+            
+            if (Main.rand.NextBool(3))
+            {
+                Dust.NewDustPerfect(startPoint + (Projectile.velocity * Main.rand.NextFloat(0, visionLength)), DustID.RedTorch, Vector2.Zero).noGravity = true;
+            }
+
             // Varre TODOS os NPCs próximos
             foreach (NPC npc in Main.ActiveNPCs)
             {
                 if (npc.friendly || npc.townNPC) continue;
 
-                float distance = Vector2.Distance(player.Center, npc.Center);
                 
-                if (distance < visionRange)
+                float collisionPoint = 0f;
+                
+            
+                if (Collision.CheckAABBvLineCollision(npc.position, npc.Size, startPoint, endPoint, visionWidth, ref collisionPoint))
                 {
-                    // Descobre a direção entre o player e o monstro
-                    Vector2 directionToNpc = npc.Center - player.Center;
-                    directionToNpc.Normalize();
-
-                    // O Dot Product checa o ângulo. 
-                    // 1 = Exatamente na frente. 0 = Do lado. -1 = Nas costas.
-                    // 0.8f dá um "cone" bem razoável na frente do personagem!
-                    float angleDifference = Vector2.Dot(aimDirection, directionToNpc);
-
-                    // Se estiver no cone (maior que 0.8) E tiver linha de visão (sem paredes na frente)
-                    if (angleDifference > 0.8f && Collision.CanHitLine(player.position, player.width, player.height, npc.position, npc.width, npc.height))
+                    
+                    if (Collision.CanHitLine(player.position, player.width, player.height, npc.position, npc.width, npc.height))
                     {
-                        // APLICA O DEBUFF DE APAGAR QUIRK!
+                        
                         var globalNPC = npc.GetGlobalNPC<QuirkGlobalNPC>();
                         if (globalNPC.HasQuirk)
                         {
-                            globalNPC.IsQuirkErased = true; // Você precisa criar essa variável lá no seu QuirkGlobalNPC!
+                            globalNPC.IsQuirkErased = true; 
                             
-                            // Efeito visual no monstro avisando que ele perdeu a Quirk
-                            if (Main.rand.NextBool(5))
+                        
+                            if (Main.rand.NextBool(10))
                             {
-                                Dust d = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Wraith); // Fumacinha preta
+                                Dust d = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Wraith); 
                                 d.velocity *= 0.5f;
+                                d.noGravity = true;
+                                
                             }
                         }
                     }

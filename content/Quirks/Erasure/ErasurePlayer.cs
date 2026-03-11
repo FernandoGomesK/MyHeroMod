@@ -9,6 +9,7 @@ using MyHeroMod.content.System.BasePlayer;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.OFA9th;
 using Humanizer;
+using MyHeroMod.content.Quirks.Erasure.Projectiles;
 
 
 namespace MyHeroMod.content.Quirks.Erasure;
@@ -42,7 +43,26 @@ namespace MyHeroMod.content.Quirks.Erasure;
 
         public override void ResetEffects()
         {
+            if (Player.HasBuff(ModContent.BuffType<ErasingBuff>()))
+        {
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<ErasureController>()] >= 1) 
+            {
+            return; 
+            }
+            else
+            {
+               Projectile.NewProjectile(
+                    Player.GetSource_FromThis(),
+                    Player.Center,
+                    Vector2.Zero, 
+                    ModContent.ProjectileType<ErasureController>(),
+                    0, 
+                    0f,
+                    Player.whoAmI
+                ); 
+            }
             
+        }
             // isErasureActive = false;
         }
 
