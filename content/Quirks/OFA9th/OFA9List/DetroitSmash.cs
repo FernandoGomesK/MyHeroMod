@@ -59,7 +59,40 @@ public class DetroitSmashSkill : QuirkSkill
         bool isOFA9th = transPlayer.SelectedQuirk == QuirkType.OneForAll9th  || (transPlayer.SelectedQuirk == QuirkType.AllForOne && afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th));
         bool isOFA8th = transPlayer.SelectedQuirk == QuirkType.OneForAll8th || (transPlayer.SelectedQuirk == QuirkType.AllForOne && afoPlayer.HasInternalQuirk(QuirkType.OneForAll8th) && !isOFA9th);
 
-            int MaxDamage = 450;
+        
+            
+
+
+            int MaxDamage = 150;
+
+            switch(transPlayer.CurrentStage){
+                case QuirkStage.Initial:
+                MaxDamage = 150;
+                break;
+            
+                case QuirkStage.Adequation:
+                MaxDamage = 400;
+                break;
+          
+                case QuirkStage.Intermediate:
+                MaxDamage = 600;
+                break;
+            
+                case QuirkStage.Advanced:
+                MaxDamage = 1100;
+                break;
+          
+                case QuirkStage.Final:
+                MaxDamage = 2500;
+                break;
+        
+                default:
+                MaxDamage =150;
+                break;
+                    
+            }
+
+
             float DamageMultiplier = 1f;
             bool hurtPlayer = false;
             bool usedFaJin = false;
@@ -161,7 +194,7 @@ public class DetroitSmashSkill : QuirkSkill
             }
             if (hurtPlayer)
             {
-                player.statLife -= 40;
+                player.statLife -= (int)(0.25f * player.statLifeMax2);
                 if (player.statLife <= 0)
                 {
                     var reason = PlayerDeathReason.ByCustomReason(

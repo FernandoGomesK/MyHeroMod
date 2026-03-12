@@ -32,8 +32,36 @@ public class StLouisSmashSkill : QuirkSkill
 
         var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
         var FaJinPlayer = player.GetModPlayer<FajinPlayer>();
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            int MaxDamage = 450;
+            int MaxDamage = 130;
+
+            switch(transPlayer.CurrentStage){
+                case QuirkStage.Initial:
+                MaxDamage = 130;
+                break;
+            
+                case QuirkStage.Adequation:
+                MaxDamage = 350;
+                break;
+          
+                case QuirkStage.Intermediate:
+                MaxDamage = 500;
+                break;
+            
+                case QuirkStage.Advanced:
+                MaxDamage = 950;
+                break;
+          
+                case QuirkStage.Final:
+                MaxDamage = 2200;
+                break;
+        
+                default:
+                MaxDamage =130;
+                break;
+                    
+            }
             float DamageMultiplier = 1f;
             bool hurtPlayer = false;
             bool usedFaJin = false;

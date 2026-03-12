@@ -34,10 +34,38 @@ public class ManchesterSmashSkill : QuirkSkill
 
         var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
         var FaJinPlayer = player.GetModPlayer<FajinPlayer>();
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
         
 
-        int MaxDamage = 450;
+        int MaxDamage = 180;
+
+            switch(transPlayer.CurrentStage){
+                case QuirkStage.Initial:
+                MaxDamage = 180;
+                break;
+            
+                case QuirkStage.Adequation:
+                MaxDamage = 450;
+                break;
+          
+                case QuirkStage.Intermediate:
+                MaxDamage = 700;
+                break;
+            
+                case QuirkStage.Advanced:
+                MaxDamage = 1300;
+                break;
+          
+                case QuirkStage.Final:
+                MaxDamage = 2800;
+                break;
+        
+                default:
+                MaxDamage =180;
+                break;
+                    
+            }
         float DamageMultiplier = 1f;
         bool hurtPlayer = false;
         bool usedFaJin = false;

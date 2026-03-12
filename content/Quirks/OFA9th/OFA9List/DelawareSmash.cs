@@ -29,56 +29,66 @@ public class DelawareSmashSkill : QuirkSkill
     {
 
         var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
-
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
 
         
-            int MaxDamage = 100;
+            
+
+            int MaxDamage = 50;
+
+            switch(transPlayer.CurrentStage){
+                case QuirkStage.Initial:
+                MaxDamage = 50;
+                break;
+            
+                case QuirkStage.Adequation:
+                MaxDamage = 150;
+                break;
+          
+                case QuirkStage.Intermediate:
+                MaxDamage = 300;
+                break;
+            
+                case QuirkStage.Advanced:
+                MaxDamage = 550;
+                break;
+          
+                case QuirkStage.Final:
+                MaxDamage = 1200;
+                break;
+        
+                default:
+                MaxDamage =150;
+                break;
+                    
+            }
             int FinalDamage = 0;
             float airForceMod = 10f;
             bool consumeFinger = false;
             bool hurtPlayer = false;
+            float DamageMultiplier = 1f;
 
             
 
-            if(player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 5)
+            if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()))
             {
-                
-                if (ofaPlayer.isAirForceOn){
-                FinalDamage = (int)(MaxDamage * 0.10f);
-                }
-                FinalDamage = (int)(MaxDamage * 0.05f);
-                hurtPlayer = false;
-                consumeFinger = false;
-            }
-            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 10)
-            {
-                if (ofaPlayer.isAirForceOn){
-                FinalDamage = (int)(MaxDamage * 0.25f);
-                }
-                FinalDamage = (int)(MaxDamage * 0.10f);
-                hurtPlayer = false;
-                consumeFinger = false;
-            }
-            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 45)
-            {
-                if (ofaPlayer.isAirForceOn){
-                FinalDamage = (int)(MaxDamage * 0.60f);
-                }
-                FinalDamage = (int)(MaxDamage * 0.45f);
-                hurtPlayer = false;
-                consumeFinger = false;
+                if (ofaPlayer.percentage == 45) DamageMultiplier = ofaPlayer.isAirForceOn ? 0.60f : 0.45f;
+                else if (ofaPlayer.percentage == 10) DamageMultiplier = ofaPlayer.isAirForceOn ? 0.25f : 0.10f;
+                else if (ofaPlayer.percentage == 5) DamageMultiplier = ofaPlayer.isAirForceOn ? 0.10f : 0.05f;
             }
             else
             {
-                FinalDamage = MaxDamage;
                 hurtPlayer = true;
                 consumeFinger = true;
             }
+
+            FinalDamage = (int)(MaxDamage * DamageMultiplier);
+
             if (consumeFinger && ofaPlayer.currentFingers <= 0)
             {
                 CombatText.NewText(player.getRect(), Color.Red, "No fingers left!");
-                return;
+                return; 
             }
 
             if (consumeFinger) ofaPlayer.currentFingers--;
@@ -125,7 +135,7 @@ public class DelawareSmashSkill : QuirkSkill
 
             if (hurtPlayer)
             {
-                player.statLife -= 10;
+                player.statLife -= (int)(player.statLifeMax2 * 0.05f);
                 if (player.statLife <= 0)
                 {
                     var reason = PlayerDeathReason.ByCustomReason(
