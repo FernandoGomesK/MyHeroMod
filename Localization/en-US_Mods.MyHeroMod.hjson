@@ -483,6 +483,8 @@ Projectiles: {
 	PullTapeProjectile.DisplayName: Pull Tape Projectile
 	HandProj.DisplayName: Hand Proj
 	ErasureController.DisplayName: Erasure Controller
+	PaleflameController.DisplayName: Paleflame Controller
+	PaleflameProj.DisplayName: Paleflame Proj
 }
 
 NPCs: {

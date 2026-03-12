@@ -32,10 +32,49 @@ namespace MyHeroMod.content.System
 
         public override void OnUse(Player player)
         {
-            int baseDamage = 20;
+        
+
+            
             float projSpeed = 15f;
             bool isSuperPunch = false;
             int numberOfPunches = 1;
+
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+        
+
+                 
+
+
+        
+        int baseDamage = 20;
+         
+
+            switch(transPlayer.CurrentStage){
+                case QuirkStage.Initial:
+                baseDamage = 20;
+                break;
+            
+                case QuirkStage.Adequation:
+                baseDamage = 35;
+                break;
+          
+                case QuirkStage.Intermediate:
+                baseDamage = 55;
+                break;
+            
+                case QuirkStage.Advanced:
+                baseDamage = 85;
+                break;
+          
+                case QuirkStage.Final:
+                baseDamage = 100;
+                break;
+        
+                default:
+                baseDamage =20;
+                break;
+                    
+            }
 
             foreach (var modPlayer in player.ModPlayers)
             {

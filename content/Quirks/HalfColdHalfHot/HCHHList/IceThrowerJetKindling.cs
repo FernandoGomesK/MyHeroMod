@@ -11,6 +11,7 @@ using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceShot;
 using MyHeroMod.content.Projectiles.HellSpider;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower;
+using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.ColdflamesPaleblade;
 
 
 public class iceThrowerJetKindling : QuirkSkill
@@ -34,13 +35,33 @@ public class iceThrowerJetKindling : QuirkSkill
     {
         var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
 
-        if (hchhPlayer.IsFlashFireFistActive)
+        if (hchhPlayer.IsPhosphorActive)
+        {
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<PaleflameController>()] > 0)
+                return;
+
+            
+            Vector2 direction = Main.MouseWorld - player.Center;
+            direction.Normalize();
+
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                player.Center,
+                direction,
+                ModContent.ProjectileType<PaleflameController>(),
+                0, 
+                0f,
+                player.whoAmI
+            
+            );
+        
+        }
+        else if(hchhPlayer.IsFlashFireFistActive)
         {
             if (player.ownedProjectileCounts[ModContent.ProjectileType<JetKindlingController>()] > 0)
                 return;
 
-            // Apenas spawna o CONTROLADOR. Ele cuidará de atirar o fogo.
-            // Note que a velocidade aqui define apenas a direção inicial da mira.
+            
             Vector2 direction = Main.MouseWorld - player.Center;
             direction.Normalize();
 
@@ -49,7 +70,7 @@ public class iceThrowerJetKindling : QuirkSkill
                 player.Center,
                 direction,
                 ModContent.ProjectileType<JetKindlingController>(),
-                0, // O controlador não dá dano direto
+                0, 
                 0f,
                 player.whoAmI
             
@@ -70,7 +91,7 @@ public class iceThrowerJetKindling : QuirkSkill
                 player.Center,
                 direction,
                 ModContent.ProjectileType<IceThrowerController>(),
-                0, // O controlador não dá dano direto
+                0, 
                 0f,
                 player.whoAmI
             
