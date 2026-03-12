@@ -28,7 +28,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower
             // Isso impede que o mesmo foguinho bata 60 vezes por segundo no mesmo bicho.
             // Mas permite que VÁRIOS foguinhos batam no mesmo bicho em sequência.
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 6;
+            Projectile.localNPCHitCooldown = 200;
         }
 
         public override void AI()

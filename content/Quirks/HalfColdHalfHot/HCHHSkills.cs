@@ -181,9 +181,26 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                 {
                     
 
+                    var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+                    
+                        float multiplier = 1.0f;
+                        if (IsSurgeArmGauntletsOn) multiplier += 0.5f;
+
+
                     if (Player.whoAmI == Main.myPlayer)
                     {
-                        // Se você não tiver o "FlashFreezeProj", use "IceSpikeProj" ou outro existente
+                        
+                        
+                        int iceDamage = 120;
+            switch(transPlayer.CurrentStage) {
+                case QuirkStage.Initial: iceDamage = 120; break;
+                case QuirkStage.Adequation: iceDamage = 120; break;
+                case QuirkStage.Intermediate: iceDamage = 250; break;
+                case QuirkStage.Advanced: iceDamage = 550; break;
+                case QuirkStage.Final: iceDamage = 1100; break;
+            }
+            int finalDamage = (int)(iceDamage * multiplier);
+                        
                         int projType = ModContent.ProjectileType<FlashFreezeProj>(); 
 
                         Vector2 Velocity = Main.MouseWorld - Player.Center;
@@ -196,7 +213,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                             Player.Center,
                             Velocity,
                             projType,   
-                            400, 
+                            finalDamage, 
                             5f, 
                             Player.whoAmI
                         );

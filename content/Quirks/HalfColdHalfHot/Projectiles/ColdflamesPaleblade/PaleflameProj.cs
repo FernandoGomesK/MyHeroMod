@@ -29,7 +29,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.ColdflamesPalebla
             // Mas permite que VÁRIOS foguinhos batam no mesmo bicho em sequência.
            
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 6;
+            Projectile.localNPCHitCooldown = 15;
         }
 
         public override void AI()

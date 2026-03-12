@@ -22,13 +22,11 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling
             // Visual
             Projectile.alpha = 255; // Começa invisível (só veremos as partículas)
             Projectile.ignoreWater = false; // Apaga na água (comportamento clássico)
-            Projectile.tileCollide = true; // Bate nas paredes
+            Projectile.tileCollide = true; 
             
-            // IMUNIDADE (O Segredo do Dano)
-            // Isso impede que o mesmo foguinho bata 60 vezes por segundo no mesmo bicho.
-            // Mas permite que VÁRIOS foguinhos batam no mesmo bicho em sequência.
+            
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 6;
+            Projectile.localNPCHitCooldown = 40;
         }
 
         public override void AI()

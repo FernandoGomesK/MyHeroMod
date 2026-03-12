@@ -33,11 +33,24 @@ public class HeavenPiercingGreatGlacial: QuirkSkill
     public override void OnUse(Player player)
     {
         var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+        float multiplier = 1.0f;
+        if (hchhPlayer.IsSurgeArmGauntletsOn) multiplier += 0.5f;
 
         if (hchhPlayer.IsPhosphorActive)
         {
             if (player.ownedProjectileCounts[ModContent.ProjectileType<GreatGlacialAegirController>()] > 0)
                 return;
+
+            int iceDamage = 1000;
+            switch(transPlayer.CurrentStage) {
+                case QuirkStage.Initial: iceDamage = 1000; break;
+                case QuirkStage.Adequation: iceDamage = 1000; break;
+                case QuirkStage.Intermediate: iceDamage = 1000; break;
+                case QuirkStage.Advanced: iceDamage = 1000; break;
+                case QuirkStage.Final: iceDamage = 1500; break;
+            }
+            int finalDamage = (int)(iceDamage * multiplier);
 
             // Spawna o projétil que vai controlar o player
             // A velocidade inicial não importa aqui, pois a AI[0] controla a subida
@@ -46,7 +59,7 @@ public class HeavenPiercingGreatGlacial: QuirkSkill
                 player.Center,
                 Vector2.Zero, 
                 ModContent.ProjectileType<GreatGlacialAegirController>(),
-                80, // Dano alto (Impacto)
+                finalDamage, // Dano alto (Impacto)
                 10f, // Knockback alto
                 player.whoAmI);
         }
@@ -57,7 +70,15 @@ public class HeavenPiercingGreatGlacial: QuirkSkill
 
         SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/TodorokiIce"), player.position);
 
-        
+        int iceDamage = 80;
+            switch(transPlayer.CurrentStage) {
+                case QuirkStage.Initial: iceDamage = 80; break;
+                case QuirkStage.Adequation: iceDamage = 150; break;
+                case QuirkStage.Intermediate: iceDamage = 300; break;
+                case QuirkStage.Advanced: iceDamage = 500; break;
+                case QuirkStage.Final: iceDamage = 750; break;
+            }
+            int finalDamage = (int)(iceDamage * multiplier);
 
 
         // Define a direção (Esquerda ou Direita baseado no mouse)
@@ -72,7 +93,7 @@ public class HeavenPiercingGreatGlacial: QuirkSkill
             player.Center + new Vector2(20f * direction, 0), // Começa um pouco a frente
             velocity,
             ModContent.ProjectileType<IceWaveController>(),
-            50, // Dano
+            finalDamage, // Dano
             5f,
             player.whoAmI
 

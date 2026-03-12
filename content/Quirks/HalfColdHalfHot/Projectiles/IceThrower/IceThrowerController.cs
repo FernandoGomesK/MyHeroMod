@@ -53,7 +53,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower
             // Projectile.ai[0] é um contador interno automático
             Projectile.ai[0]++; 
 
-            if (Projectile.ai[0] % 5 == 0) // Atira a cada 5 ticks (rápido)
+            if (Projectile.ai[0] % 22 == 0) // Atira a cada 5 ticks (rápido)
             {
                 // Toca o som (com pitch variado para ficar natural)
                 SoundEngine.PlaySound(SoundID.Item34 with { PitchVariance = 0.2f }, player.position);
