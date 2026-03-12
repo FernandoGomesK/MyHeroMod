@@ -28,7 +28,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling
             // Isso impede que o mesmo foguinho bata 60 vezes por segundo no mesmo bicho.
             // Mas permite que VÁRIOS foguinhos batam no mesmo bicho em sequência.
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10; // Hit a cada 1/6 de segundo por partícula
+            Projectile.localNPCHitCooldown = 6;
         }
 
         public override void AI()

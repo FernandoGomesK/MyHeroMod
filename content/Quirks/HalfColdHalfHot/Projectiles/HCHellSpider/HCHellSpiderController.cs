@@ -1,10 +1,8 @@
-
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider;
 
 namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider
 {
@@ -12,27 +10,26 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider
     {
         public override void SetDefaults()
         {
-            // Este projétil é invisível e intangível, serve apenas para gerenciar o ataque
             Projectile.width = 10;
             Projectile.height = 10;
-            Projectile.friendly = false; // Ele não dá dano, quem dá dano é o fogo que ele cospe
+            Projectile.friendly = false; 
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 120; // DURAÇÃO DO ATAQUE: 120 ticks = 2 Segundos
-            Projectile.hide = true; // Invisível
+            Projectile.timeLeft = 25;
+            Projectile.hide = true;
         }
 
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
 
-            // 1. Manter vivo apenas se o jogador estiver vivo
+            // Apenas morre se o jogador morrer
             if (player.dead || !player.active)
             {
                 Projectile.Kill();
                 return;
             }
 
-            // 2. Grudar no Jogador e Mirar
+            // Grudar no Jogador e Mirar
             if (Projectile.owner == Main.myPlayer)
             {
                 Vector2 diff = Main.MouseWorld - player.MountedCenter;
@@ -43,53 +40,40 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider
             }
             
             Projectile.Center = player.MountedCenter;
-            player.heldProj = Projectile.whoAmI;
-            player.itemTime = 2;
-            player.itemAnimation = 2;
-            
-            // Rotação do braço
-            player.itemRotation = (Projectile.velocity * player.direction).ToRotation();
 
-            // 3. DISPARAR O FOGO (A cada 5 frames)
-            // Projectile.ai[0] é um contador interno automático
+            // DISPARAR O FOGO
             Projectile.ai[0]++; 
-
-            if (Projectile.ai[0] % 5 == 0) // Atira a cada 5 ticks (rápido)
+            if (Projectile.ai[0] % 5 == 0) // Atira a cada 5 ticks
             {
-                // Toca o som (com pitch variado para ficar natural)
                 SoundEngine.PlaySound(SoundID.Item34 with { PitchVariance = 0.2f }, player.position);
 
-                if (Projectile.owner == Main.myPlayer)
+                if (Projectile.owner == Main.myPlayer)  
                 {
                     int projectilecount = 5;
-                    float totalangle = MathHelper.ToRadians(50); // Ângulo total de dispersão
+                    float totalangle = MathHelper.ToRadians(50);
+
+                    // Pega o Dano Total que a Skill mandou e divide pelos 5 projéteis!
+                    int damagePerSpider = Projectile.damage / projectilecount; 
 
                     for (int i = 0; i < projectilecount; i++)
                     {
-                        // Calcula o ângulo para cada projétil
                         float fraction = (float)i / (projectilecount - 1);
                         float angle = MathHelper.Lerp(-totalangle / 2, totalangle / 2, fraction);
 
-                        Vector2 shootVel = Projectile.velocity.RotatedBy(angle);
-                        shootVel *= 14f; // Velocidade do projétil
+                        Vector2 shootVel = Projectile.velocity.RotatedBy(angle) * 14f;
 
                         Projectile.NewProjectile(
                             Projectile.GetSource_FromThis(),
                             Projectile.Center,
                             shootVel,
                             ModContent.ProjectileType<HCHellSpiderProj>(),
-                            15, // Dano do fogo
+                            damagePerSpider, // Dano exato da teia
                             0f,
                             Projectile.owner
                         );
-                    
-                    
-                        
                     }
                 }
             }
         }
     }
 }
-
-

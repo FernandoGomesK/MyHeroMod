@@ -77,7 +77,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower
                             spawnPos,
                             shootVel,
                             ModContent.ProjectileType<IceThrowerProj>(), // Chama o foguinho que já criamos
-                            25, // Dano
+                            Projectile.damage, // Dano
                             1f,
                             player.whoAmI
                         );

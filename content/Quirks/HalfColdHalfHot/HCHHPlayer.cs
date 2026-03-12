@@ -77,6 +77,11 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 
         public override void PreUpdate()
 {
+    if (Player.statLife <= 0.75 * Player.statLifeMax2)
+            {
+                Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
+                IsPhosphorActive = false;
+            }
     if (Activating)
             {
                 ActivationTimer++;

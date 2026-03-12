@@ -79,7 +79,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.ColdflamesPalebla
                             spawnPos,
                             shootVel,
                             ModContent.ProjectileType<PaleflameProj>(), // Chama o foguinho que já criamos
-                            25, // Dano
+                            Projectile.damage, // Dano
                             1f,
                             player.whoAmI
                         );

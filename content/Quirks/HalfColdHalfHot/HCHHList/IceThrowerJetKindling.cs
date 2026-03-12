@@ -34,70 +34,77 @@ public class iceThrowerJetKindling : QuirkSkill
     public override void OnUse(Player player)
     {
         var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
+        // Multiplicador da Luva
+        float multiplier = 1.0f;
+        if (hchhPlayer.IsSurgeArmGauntletsOn) multiplier += 0.5f;
+
+        Vector2 direction = Main.MouseWorld - player.Center;
+        direction.Normalize();
+
+        
         if (hchhPlayer.IsPhosphorActive)
         {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<PaleflameController>()] > 0)
-                return;
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<PaleflameController>()] > 0) return;
 
             
-            Vector2 direction = Main.MouseWorld - player.Center;
-            direction.Normalize();
+            int phosDamage = transPlayer.CurrentStage == QuirkStage.Final ? 550 : 180;
+
+            int finalDamage = (int)(phosDamage * multiplier);
 
             Projectile.NewProjectile(
-                player.GetSource_FromThis(),
-                player.Center,
-                direction,
-                ModContent.ProjectileType<PaleflameController>(),
-                0, 
-                0f,
-                player.whoAmI
-            
+                player.GetSource_FromThis(), player.Center, direction,
+                ModContent.ProjectileType<PaleflameController>(), finalDamage, 0f, player.whoAmI
             );
-        
+            
+            
         }
+        
+        
         else if(hchhPlayer.IsFlashFireFistActive)
         {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<JetKindlingController>()] > 0)
-                return;
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<JetKindlingController>()] > 0) return;
 
-            
-            Vector2 direction = Main.MouseWorld - player.Center;
-            direction.Normalize();
-
-            Projectile.NewProjectile(
-                player.GetSource_FromThis(),
-                player.Center,
-                direction,
-                ModContent.ProjectileType<JetKindlingController>(),
-                0, 
-                0f,
-                player.whoAmI
-            
-            );
-            hchhPlayer.temperature += 25;
-        }
-        else
-        {
-            if (player.ownedProjectileCounts[ModContent.ProjectileType<IceThrowerController>()] > 0)
-                return;
-
-            
-            Vector2 direction = Main.MouseWorld - player.Center;
-            direction.Normalize();
+            int fireDamage = 20;
+            switch(transPlayer.CurrentStage) {
+                case QuirkStage.Initial: fireDamage = 12; break;
+                case QuirkStage.Adequation: fireDamage = 22; break;
+                case QuirkStage.Intermediate: fireDamage = 55; break;
+                case QuirkStage.Advanced: fireDamage = 130; break;
+                case QuirkStage.Final: fireDamage = 350; break;
+            }
+            int finalDamage = (int)(fireDamage * multiplier);
 
             Projectile.NewProjectile(
-                player.GetSource_FromThis(),
-                player.Center,
-                direction,
-                ModContent.ProjectileType<IceThrowerController>(),
-                0, 
-                0f,
-                player.whoAmI
-            
+                player.GetSource_FromThis(), player.Center, direction,
+                ModContent.ProjectileType<JetKindlingController>(), finalDamage, 0f, player.whoAmI
             );
-            hchhPlayer.temperature -= 25; 
+            
+            hchhPlayer.temperature += 25; 
         }
         
+        
+        else
+        {
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<IceThrowerController>()] > 0) return;
+
+            int iceDamage = 15;
+            switch(transPlayer.CurrentStage) {
+                case QuirkStage.Initial: iceDamage = 8; break;
+                case QuirkStage.Adequation: iceDamage = 15; break;
+                case QuirkStage.Intermediate: iceDamage = 35; break;
+                case QuirkStage.Advanced: iceDamage = 90; break;
+                case QuirkStage.Final: iceDamage = 220; break;
+            }
+            int finalDamage = (int)(iceDamage * multiplier);
+
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(), player.Center, direction,
+                ModContent.ProjectileType<IceThrowerController>(), finalDamage, 0f, player.whoAmI
+            );
+            
+            hchhPlayer.temperature -= 25; 
         }
-        }
+    }
+}
