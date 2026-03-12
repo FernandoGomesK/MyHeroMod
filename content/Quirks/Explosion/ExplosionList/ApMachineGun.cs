@@ -16,7 +16,7 @@ public class ApMachineGunSkill : QuirkSkill
     public override string Description => "Shoot a concentrated penetrating Projectile";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
 
-    public override int BaseCooldown => 30;
+    public override int BaseCooldown => 300;
 
     public override QuirkType RequiredQuirk => QuirkType.Explosion;
     public override QuirkStage RequiredStage => QuirkStage.Intermediate;

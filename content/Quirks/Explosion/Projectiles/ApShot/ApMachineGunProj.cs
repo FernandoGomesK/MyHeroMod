@@ -4,6 +4,8 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
+using Terraria.Graphics;
+using MyHeroMod.Buffs;
 
 namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
 {
@@ -17,8 +19,8 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
             Projectile.tileCollide = false;
             Projectile.hide = true;
             Projectile.alpha = 255;
-            // DURAÇÃO DO ATAQUE: 300 ticks = 5 Segundos
-            Projectile.timeLeft = 300; 
+            
+            Projectile.timeLeft = 60; 
             
         }
 
@@ -27,7 +29,49 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
         {
             Player player = Main.player[Projectile.owner];
              var transPlayer = player.GetModPlayer<TransformationPlayer>();
-            var explodePlayer = player.GetModPlayer<ExplosionPlayer>();
+
+                var explodePlayer = player.GetModPlayer<ExplosionPlayer>();
+
+                 
+
+
+        float damageMultiplier = 1.0f;
+        int MaxDamage = 45;
+         
+
+            switch(transPlayer.CurrentStage){
+                case QuirkStage.Initial:
+                MaxDamage = 45;
+                break;
+            
+                case QuirkStage.Adequation:
+                MaxDamage = 45;
+                break;
+          
+                case QuirkStage.Intermediate:
+                MaxDamage = 60;
+                break;
+            
+                case QuirkStage.Advanced:
+                MaxDamage = 90;
+                break;
+          
+                case QuirkStage.Final:
+                MaxDamage = 180;
+                break;
+        
+                default:
+                MaxDamage =45;
+                break;
+                    
+            }
+
+            if (player.HasBuff(ModContent.BuffType<ClusterBuff>())) {
+                damageMultiplier = 2.5f; 
+            }
+            
+
+            var finalDamage = (int)(damageMultiplier * MaxDamage);
             
             if (!player.active || player.dead)
             {
@@ -96,7 +140,7 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
                             spawnPos,
                             shootVel,
                             ModContent.ProjectileType<ApShotProj>(), 
-                            30, 
+                            finalDamage, 
                             4f,  // KNOCKBACK ALTO
                             player.whoAmI
                         );

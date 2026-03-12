@@ -27,6 +27,50 @@ namespace MyHeroMod.content.Quirks.OFA8th.Projectiles.CaliforniaSmash
         {
             Player player = Main.player[Projectile.owner];
 
+        var ofa8Player = player.GetModPlayer<OneForAll8thPlayer>();
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+
+        float damageMultiplier = 1.0f;
+        int MaxDamage = 50;
+         
+
+            switch(transPlayer.CurrentStage){
+                case QuirkStage.Initial:
+                MaxDamage = 50;
+                break;
+            
+                case QuirkStage.Adequation:
+                MaxDamage = 50;
+                break;
+          
+                case QuirkStage.Intermediate:
+                MaxDamage = 110;
+                break;
+            
+                case QuirkStage.Advanced:
+                MaxDamage = 250;
+                break;
+          
+                case QuirkStage.Final:
+                MaxDamage = 700;
+                break;
+        
+                default:
+                MaxDamage =50;
+                break;
+                    
+            }
+
+            if (player.HasBuff(ModContent.BuffType<StockPileBuff>()) || ofa8Player.form == 1) {
+                damageMultiplier = 1.5f; 
+            }
+            else if (player.HasBuff(ModContent.BuffType<StockPileBuff>() ) || ofa8Player.form == 2)  {
+                damageMultiplier = 2.5f;
+            }
+
+            var finalDamage = (int)(damageMultiplier * MaxDamage);
+
             if (player.dead || !player.active)
             {
                 Projectile.Kill();
@@ -67,7 +111,7 @@ namespace MyHeroMod.content.Quirks.OFA8th.Projectiles.CaliforniaSmash
                 player.Center,
                 Velocity,
                 ModContent.ProjectileType<PrimeCaliforniaSmashProj>(),
-                40, 
+                finalDamage, 
                 2f, 
                 player.whoAmI); // Aplica no player
 

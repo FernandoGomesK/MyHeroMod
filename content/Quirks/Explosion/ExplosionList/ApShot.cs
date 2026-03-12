@@ -9,6 +9,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Explosion;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
+using MyHeroMod.Buffs;
 
 public class ApShotSkill : QuirkSkill
 {
@@ -27,7 +28,49 @@ public class ApShotSkill : QuirkSkill
                     public override void OnUse(Player player)
             {
 
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
                 var explodePlayer = player.GetModPlayer<ExplosionPlayer>();
+
+                 
+
+
+        float damageMultiplier = 1.0f;
+        int MaxDamage = 45;
+         
+
+            switch(transPlayer.CurrentStage){
+                case QuirkStage.Initial:
+                MaxDamage = 45;
+                break;
+            
+                case QuirkStage.Adequation:
+                MaxDamage = 45;
+                break;
+          
+                case QuirkStage.Intermediate:
+                MaxDamage = 60;
+                break;
+            
+                case QuirkStage.Advanced:
+                MaxDamage = 90;
+                break;
+          
+                case QuirkStage.Final:
+                MaxDamage = 180;
+                break;
+        
+                default:
+                MaxDamage =45;
+                break;
+                    
+            }
+
+            if (player.HasBuff(ModContent.BuffType<ClusterBuff>())) {
+                damageMultiplier = 2.5f; 
+            }
+
+            var finalDamage = (int)(damageMultiplier * MaxDamage);
 
 CombatText.NewText(player.getRect(), Color.Orange, "AP-SHOT!");
             Vector2 Velocity = Main.MouseWorld - player.Center;
@@ -39,9 +82,10 @@ CombatText.NewText(player.getRect(), Color.Orange, "AP-SHOT!");
                 player.Center,
                 Velocity,
                 ModContent.ProjectileType<ApShotProj>(),
-                40, 
+                finalDamage, 
                 2f, 
                 player.whoAmI
             );
             explodePlayer.CurrentSweat += 15;
         }}
+        

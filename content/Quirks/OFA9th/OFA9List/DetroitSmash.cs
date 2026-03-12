@@ -53,6 +53,7 @@ public class DetroitSmashSkill : QuirkSkill
  
         var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
         var afoPlayer = player.GetModPlayer<AllForOnePlayer>();
+        var ofa8Player = player.GetModPlayer<OneForAll8thPlayer>();
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
         var FaJinPlayer = player.GetModPlayer<FajinPlayer>();
 
@@ -206,6 +207,34 @@ public class DetroitSmashSkill : QuirkSkill
         
         else if (isOFA8th)
         {
+            
+
+            switch(transPlayer.CurrentStage){
+                case QuirkStage.Initial:
+                MaxDamage = 35;
+                break;
+            
+                case QuirkStage.Adequation:
+                MaxDamage = 65;
+                break;
+          
+                case QuirkStage.Intermediate:
+                MaxDamage = 130;
+                break;
+            
+                case QuirkStage.Advanced:
+                MaxDamage = 280;
+                break;
+          
+                case QuirkStage.Final:
+                MaxDamage = 850;
+                break;
+        
+                default:
+                MaxDamage =35;
+                break;
+                    
+            }
             if (transPlayer.CurrentStage >= QuirkStage.Adequation)
             {
                 CombatText.NewText(player.getRect(), Color.Yellow, "Detroit Smash!");
@@ -226,11 +255,11 @@ public class DetroitSmashSkill : QuirkSkill
             Vector2 spacing = Direction * 25f;
             Vector2 currentSpawn = BaseSpawnLocation - spacing;
 
-            if (player.HasBuff(ModContent.BuffType<StockPileBuff>())) {
+            if (player.HasBuff(ModContent.BuffType<StockPileBuff>()) || ofa8Player.form == 1) {
                 DamageMultiplier = 1.5f; 
             }
-            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>())) {
-                DamageMultiplier = 2.0f;
+            else if (player.HasBuff(ModContent.BuffType<StockPileBuff>() ) || ofa8Player.form == 2)  {
+                DamageMultiplier = 2.5f;
             }
 
              int FinalDamage = (int)(MaxDamage * DamageMultiplier);

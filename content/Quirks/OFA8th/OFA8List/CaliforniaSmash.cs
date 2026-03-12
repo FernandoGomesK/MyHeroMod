@@ -10,6 +10,7 @@ using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.OFA9th;
 using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.OFA8th.Projectiles.CaliforniaSmash;
+using MyHeroMod.content.Quirks.OFA8th;
 
 
 public class CaliforniaSmashSkill : QuirkSkill
@@ -28,12 +29,54 @@ public class CaliforniaSmashSkill : QuirkSkill
 
     public override void OnUse(Player player)
     {
-        var ofaPlayer = player.GetModPlayer<TransformationPlayer>();
+        var ofa8Player = player.GetModPlayer<OneForAll8thPlayer>();
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+
+        float damageMultiplier = 1.0f;
+        int MaxDamage = 50;
+         
+
+            switch(transPlayer.CurrentStage){
+                case QuirkStage.Initial:
+                MaxDamage = 50;
+                break;
+            
+                case QuirkStage.Adequation:
+                MaxDamage = 50;
+                break;
+          
+                case QuirkStage.Intermediate:
+                MaxDamage = 110;
+                break;
+            
+                case QuirkStage.Advanced:
+                MaxDamage = 250;
+                break;
+          
+                case QuirkStage.Final:
+                MaxDamage = 700;
+                break;
+        
+                default:
+                MaxDamage =50;
+                break;
+                    
+            }
+
+            if (player.HasBuff(ModContent.BuffType<StockPileBuff>()) || ofa8Player.form == 1) {
+                damageMultiplier = 1.5f; 
+            }
+            else if (player.HasBuff(ModContent.BuffType<StockPileBuff>() ) || ofa8Player.form == 2)  {
+                damageMultiplier = 2.5f;
+            }
+
+            var finalDamage = (int)(damageMultiplier * MaxDamage);
         
          if (player.ownedProjectileCounts[ModContent.ProjectileType<PrimeCaliforniaSmashController>()] > 0)
                 return;
 
-                if (ofaPlayer.CurrentStage >= QuirkStage.Adequation)
+                if (transPlayer.CurrentStage >= QuirkStage.Adequation)
             {
                 CombatText.NewText(player.getRect(), Color.Yellow, "California Smash!");
             }
@@ -49,7 +92,7 @@ public class CaliforniaSmashSkill : QuirkSkill
                 player.Center,
                 Vector2.Zero, 
                 ModContent.ProjectileType<PrimeCaliforniaSmashController>(),
-                80, // Dano alto (Impacto)
+                finalDamage, // Dano alto (Impacto)
                 10f, // Knockback alto
                 player.whoAmI
             );

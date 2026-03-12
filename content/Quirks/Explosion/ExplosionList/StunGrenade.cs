@@ -14,6 +14,7 @@ using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.Explosion.Projectiles;
 using System.Diagnostics;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.StunGrenade;
+using MyHeroMod.Buffs;
 
 
 public class StunGrenadeSkill : QuirkSkill
@@ -33,7 +34,52 @@ public class StunGrenadeSkill : QuirkSkill
 
             public override void OnUse(Player player)
     {
+           var transPlayer = player.GetModPlayer<TransformationPlayer>();
             var explodePlayer = player.GetModPlayer<ExplosionPlayer>();
+
+                 
+
+
+        float damageMultiplier = 1.0f;
+        int MaxDamage = 45;
+         
+
+            switch(transPlayer.CurrentStage){
+                case QuirkStage.Initial:
+                MaxDamage = 25;
+                break;
+            
+                case QuirkStage.Adequation:
+                MaxDamage = 55;
+                break;
+          
+                case QuirkStage.Intermediate:
+                MaxDamage = 90;
+                break;
+            
+                case QuirkStage.Advanced:
+                MaxDamage = 160;
+                break;
+          
+                case QuirkStage.Final:
+                MaxDamage = 320;
+                break;
+        
+                default:
+                MaxDamage =45;
+                break;
+                    
+            }
+
+            if (player.HasBuff(ModContent.BuffType<ClusterBuff>())) {
+                damageMultiplier = 2.5f; 
+            
+
+            
+            }
+            var finalDamage = (int)(damageMultiplier * MaxDamage);
+
+
 
 
             CombatText.NewText(player.getRect(), Color.Orange, "STUN GRENADE!");
@@ -47,7 +93,7 @@ public class StunGrenadeSkill : QuirkSkill
                 player.Center,
                 Velocity,
                 ModContent.ProjectileType<StunGrenadeProj>(),
-                40, 
+                finalDamage, 
                 2f, 
                 player.whoAmI
             );

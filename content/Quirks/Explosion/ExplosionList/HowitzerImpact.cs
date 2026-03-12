@@ -20,7 +20,7 @@ public class HowitzerImpactSkill : QuirkSkill
     public override string Description => "Shoot a concentrated penetrating Projectile";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
 
-    public override int BaseCooldown => 30;
+    public override int BaseCooldown => 520;
 
     public override QuirkType RequiredQuirk => QuirkType.Explosion;
     public override QuirkStage RequiredStage => QuirkStage.Adequation;
@@ -37,15 +37,15 @@ public class HowitzerImpactSkill : QuirkSkill
                 return;
 
 
-            int BaseDamage = 0;
+            int BaseDamage = 150;
 
             switch(transPlayer.CurrentStage){
                 case QuirkStage.Initial:
-                BaseDamage = 200;
+                BaseDamage = 1500;
                 break;
             
                 case QuirkStage.Adequation:
-                BaseDamage = 250;
+                BaseDamage = 150;
                 break;
           
                 case QuirkStage.Intermediate:
@@ -53,15 +53,15 @@ public class HowitzerImpactSkill : QuirkSkill
                 break;
             
                 case QuirkStage.Advanced:
-                BaseDamage = 450;
+                BaseDamage = 650;
                 break;
           
                 case QuirkStage.Final:
-                BaseDamage = 700;
+                BaseDamage = 1500;
                 break;
         
                 default:
-                BaseDamage =100;
+                BaseDamage =150;
                 break;
                     
             }
