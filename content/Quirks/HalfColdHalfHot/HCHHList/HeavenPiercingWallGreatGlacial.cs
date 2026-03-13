@@ -52,8 +52,7 @@ public class HeavenPiercingGreatGlacial: QuirkSkill
             }
             int finalDamage = (int)(iceDamage * multiplier);
 
-            // Spawna o projétil que vai controlar o player
-            // A velocidade inicial não importa aqui, pois a AI[0] controla a subida
+            
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
