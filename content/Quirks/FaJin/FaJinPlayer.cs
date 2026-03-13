@@ -12,7 +12,7 @@ using MyHeroMod.content.Quirks.OFA9th;
 
 namespace MyHeroMod.content.Quirks.FaJin;
 
-    public partial class FajinPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter
+    public partial class FajinPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter, IHeroPunchModifier
     {
         
         public int FaJinCharges = 0;

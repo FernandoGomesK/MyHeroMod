@@ -12,7 +12,7 @@ using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Quirks.FaJin
 {
-    public partial class FajinPlayer : ModPlayer, IHeroDashModifier
+    public partial class FajinPlayer : ModPlayer, IHeroDashModifier, IHeroPunchModifier, IQuirkResetter
     {
 public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType)
 {
@@ -41,9 +41,29 @@ public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormal
         
     }
 }
-      
 
-}}
+public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref bool isSuperPunch, ref int numberOfPunches)
+        {
+            if (FaJinStored)
+    {
+       projSpeed = 30;
+            baseDamage = 15;
+            isSuperPunch = true;
+            numberOfPunches = 1;
+            Player.ClearBuff(ModContent.BuffType<FaJinBuff>());
+            FaJinCharges = 0; 
+    }
+            else
+            {
+                if (isFaJinActive)
+                    {
+                        ChargeFajin();
+            }
+        
+
+        }
+
+}}}
         
 
 
