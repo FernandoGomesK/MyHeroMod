@@ -34,7 +34,11 @@ namespace MyHeroMod.content.Projectiles
             
             if (globalNPC.HasQuirk && globalNPC.AssignedQuirk != QuirkType.Quirkless)
             {
-                
+                if (afoPlayer.CurrentQuirkCount >= afoPlayer.maxQuirks) 
+                {
+                    CombatText.NewText(target.getRect(), Color.Orange, "Capacity Full!");
+                    return;
+                }
                 if (!afoPlayer.HasInternalQuirk(globalNPC.AssignedQuirk))
                 {
                     
@@ -46,7 +50,7 @@ namespace MyHeroMod.content.Projectiles
 
                     
                     CombatText.NewText(target.getRect(), Color.DarkRed, "QUIRK STOLEN!");
-                    SoundEngine.PlaySound(SoundID.Item74, target.position); // Som meio macabro
+                    SoundEngine.PlaySound(SoundID.Item74, target.position);
 
                     
                     var transPlayer = player.GetModPlayer<TransformationPlayer>();

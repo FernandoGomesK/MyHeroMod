@@ -19,25 +19,33 @@ namespace MyHeroMod.content.Quirks.Erasure;
         
         public bool isErasureActive = false;
         
-        // public int eyeTimer = 0;
+        public int eyeTimer = 0;
 
-        // public int maxEyeTimer = 120;
+        public int maxEyeTimer = 180;
 
         public override void OnRespawn()
         {
-            // isErasureActive = false;
-            // eyeTimer = 0;
+            isErasureActive = false;
+            eyeTimer = 0;
             
         }
 
+
         public override void PostUpdate()
 {
-    // if (isErasureActive)
-    // {
-    //     eyeTimer--;
+    if (isErasureActive)
+    {
+        eyeTimer++;
         
-    //     if (eyeTimer == 30) CombatText.NewText(Player.getRect(), Color.Orange, "Blinking soon!");
-    // }
+        if (eyeTimer ==  160) CombatText.NewText(Player.getRect(), Color.Orange, "Blinking soon!");
+    }
+    if (eyeTimer == maxEyeTimer)
+    {
+        isErasureActive = false;
+        Player.ClearBuff(ModContent.BuffType<ErasingBuff>());
+        CombatText.NewText(Player.getRect(), Color.Red, "BLINK!");
+        eyeTimer = 0;
+    }
 }
 
 

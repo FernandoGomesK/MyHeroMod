@@ -16,7 +16,7 @@ namespace MyHeroMod.content.Quirks.Erasure.ErasureList
         public override string Description => "Look at enemies to erase their quirks. Blinking cancels the effect.";
         public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense"; // Mude depois para um ícone de Olho Vermelho
 
-        public override int BaseCooldown => 30;
+        public override int BaseCooldown => 250;
 
         public override QuirkType RequiredQuirk => QuirkType.Erasure;
         public override QuirkStage RequiredStage => QuirkStage.Initial;
@@ -36,7 +36,7 @@ namespace MyHeroMod.content.Quirks.Erasure.ErasureList
             else
             {
                 player.AddBuff(ModContent.BuffType<ErasingBuff>(), 3600);
-                SoundEngine.PlaySound(SoundID.Item121, player.position); 
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/ErasureSoundEffect") with { Volume = 1.5f }, player.position);  
                 CombatText.NewText(player.getRect(), Color.Red, "Erasure: ON!");
             }
 

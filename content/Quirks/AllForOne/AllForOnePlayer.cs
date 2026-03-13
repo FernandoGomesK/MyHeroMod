@@ -13,20 +13,15 @@ using Terraria.ModLoader.IO;
 namespace MyHeroMod.content.Quirks.AllForOne;
 
     public partial class AllForOnePlayer : ModPlayer, IQuirkResetter
-
-
 {
+    public int quirkCounter = 0;   
+    public int maxQuirks = 0;
+
+    
 
     public void FullReset() => InternalQuirks.Clear();
     public List<QuirkType> InternalQuirks = new List<QuirkType>();
-
-    // public void listQuirks()
-    // {
-    //     foreach (var quirk in InternalQuirks)
-    //     {
-    //         Main.NewText(quirk.ToString());
-    //     }
-    // }
+    
 
     public void UnlockQuirks(){
         var transPlayer = Player.GetModPlayer<TransformationPlayer>();
@@ -39,20 +34,20 @@ namespace MyHeroMod.content.Quirks.AllForOne;
     
     
         }
-        public bool HasInternalQuirk(QuirkType type)
-    {
-        return InternalQuirks.Contains(type);
-}
-
-public override void SaveData(TagCompound tag)
+            public bool HasInternalQuirk(QuirkType type)
         {
-            List<int> savedQuirks = new List<int>();
-            foreach (var quirk in InternalQuirks)
-            {
-                savedQuirks.Add((int)quirk); // Converte o Enum para Número para poder salvar
-            }
-            tag["AfoStolenQuirks"] = savedQuirks;
-        }
+            return InternalQuirks.Contains(type);
+    }
+
+        public override void SaveData(TagCompound tag)
+                {
+                    List<int> savedQuirks = new List<int>();
+                    foreach (var quirk in InternalQuirks)
+                    {
+                        savedQuirks.Add((int)quirk); // Converte o Enum para Número para poder salvar
+                    }
+                    tag["AfoStolenQuirks"] = savedQuirks;
+                }
 
         
         public override void LoadData(TagCompound tag)
@@ -65,6 +60,37 @@ public override void SaveData(TagCompound tag)
                 {
                     InternalQuirks.Add((QuirkType)quirkId); // Converte o Número de volta para Enum
                 }
+            }}
+            public int CurrentQuirkCount => InternalQuirks.Count;
+
+            public override void PreUpdate()
+            {
+                var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+                    maxQuirks = transPlayer.CurrentStage switch
+            {
+                QuirkStage.Initial => 2,
+                QuirkStage.Adequation => 3,
+                QuirkStage.Intermediate => 5,
+                QuirkStage.Advanced => 8,
+                QuirkStage.Final => 10,
+                _ => 15, // Default
+            };
+                    
+                    
             }
-}}
+
+        // public void quirkCount(){
+        //     foreach (var quirk in InternalQuirks)
+        // {
+        //     quirkCounter++;
+        // }}
+
+        
+
+        
+        
+
+        
+    }
         

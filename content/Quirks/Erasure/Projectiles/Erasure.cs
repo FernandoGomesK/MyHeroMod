@@ -56,17 +56,17 @@ namespace MyHeroMod.content.Quirks.Erasure.Projectiles
 
             
             float visionLength = 600f; 
-            float visionWidth = 80f; 
+            float visionWidth = 100f; 
 
             
             Vector2 startPoint = player.Center;
             Vector2 endPoint = player.Center + (Projectile.velocity * visionLength);
 
             
-            if (Main.rand.NextBool(3))
-            {
-                Dust.NewDustPerfect(startPoint + (Projectile.velocity * Main.rand.NextFloat(0, visionLength)), DustID.RedTorch, Vector2.Zero).noGravity = true;
-            }
+            // if (Main.rand.NextBool(3))
+            // {
+            //     Dust.NewDustPerfect(startPoint + (Projectile.velocity * Main.rand.NextFloat(0, visionLength)), DustID.RedTorch, Vector2.Zero).noGravity = true;
+            // }
 
             
             foreach (NPC npc in Main.ActiveNPCs)
@@ -91,7 +91,7 @@ namespace MyHeroMod.content.Quirks.Erasure.Projectiles
                             
                             if (Main.rand.NextBool(10))
                             {
-                                Dust d = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Wraith); 
+                                Dust d = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.RedMoss); 
                                 d.velocity *= 0.5f;
                                 d.noGravity = true;
                                 

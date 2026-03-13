@@ -91,7 +91,7 @@ namespace MyHeroMod.content.System
             Direction.Normalize();
             Vector2 Velocity = Direction * projSpeed;
 
-            Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
+            Vector2 BaseSpawnLocation = player.Center + (Direction * 20f);
 
             
         

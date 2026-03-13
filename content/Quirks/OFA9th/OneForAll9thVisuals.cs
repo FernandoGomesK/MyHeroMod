@@ -36,7 +36,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         }
         if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
         {
-        // This adds a blue tint/glow to the character sprite itself
+        
         drawInfo.colorArmorBody = Color.RoyalBlue;
         drawInfo.colorArmorHead = Color.RoyalBlue;
         drawInfo.colorArmorLegs = Color.RoyalBlue;

@@ -34,7 +34,7 @@ public class StealQuirkSkill : QuirkSkill
                 player.Center,
                 Velocity,
                 ModContent.ProjectileType<HandProj>(),
-                50, 
+                15, 
                 2f, 
                 player.whoAmI);
 
