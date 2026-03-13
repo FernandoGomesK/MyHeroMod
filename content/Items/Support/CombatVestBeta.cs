@@ -34,7 +34,9 @@ namespace MyHeroMod.content.Items.Support
         {   
             CreateRecipe()
             .AddIngredient(ItemID.TissueSample, 10) 
-            .AddIngredient(ItemID.ShadowScale, 10) 
+            .AddIngredient(ItemID.ShadowScale, 10)
+            .AddIngredient(ItemID.HellstoneBar, 5)
+            .AddIngredient(ItemID.IceBlock, 5) 
             .AddTile(TileID.Anvils)
             .Register();
             }

@@ -20,6 +20,7 @@ namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
         public override void Update(Player player, ref int buffIndex)
         {
             player.GetModPlayer<SmokescreenPlayer>().isSmokescreenActive = true;
+            player.GetModPlayer<SmokescreenPlayer>().dodgeChance = 0.25f;
             Dust.NewDust(player.position, player.width, player.height, DustID.Smoke, 0f, 0f, 100, Color.MediumPurple, 6.0f);
         }
     }
