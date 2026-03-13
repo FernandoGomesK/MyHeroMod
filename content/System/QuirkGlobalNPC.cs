@@ -4,17 +4,38 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.System; // Para acessar o QuirkType
 using Terraria.DataStructures;
+using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceShot;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles;
+using MyHeroMod.content.Quirks.OFA8th.Projectiles.TexasSmash;
+using Microsoft.Xna.Framework.Graphics;
+using ReLogic.Content;
 
 namespace MyHeroMod.content.System
 {
     public class QuirkGlobalNPC : GlobalNPC
     {
-        
         public override bool InstancePerEntity => true;
 
-        public bool IsQuirkErased = false;
+        public int ErasureTimer = 0;
+
+        
         public bool HasQuirk = false;
         public QuirkType AssignedQuirk = QuirkType.Quirkless;
+
+                private static Asset<Texture2D> fullCowlingTexture;
+
+
+        public override void Load()
+        {
+            if (!Main.dedServ) // Evita rodar no servidor dedicado, onde não há gráficos
+            {
+                fullCowlingTexture = ModContent.Request<Texture2D>("MyHeroMod/Assets/Effects/FullCowling");
+            }
+        }
+        public override void Unload()
+        {
+            fullCowlingTexture = null;
+        }
 
         
         public override void OnSpawn(NPC npc, IEntitySource source)
@@ -47,6 +68,7 @@ namespace MyHeroMod.content.System
                     case 8: AssignedQuirk = QuirkType.FaJin; break;
                     case 9: AssignedQuirk = QuirkType.SmokeScreen; break;
                     case 10: AssignedQuirk = QuirkType.Explosion; break;
+                    case 11: AssignedQuirk = QuirkType.SuperRegeneration; break;
 
                 }
                 
@@ -59,24 +81,61 @@ namespace MyHeroMod.content.System
 
         public override void ResetEffects(NPC npc)
 {
-    IsQuirkErased = false;
+    
 }
 
-        // 3. Efeitos Visuais (O Brilho!)
+        
+        public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+        {
+            
+            if (HasQuirk && ErasureTimer == 0 && AssignedQuirk == QuirkType.OneForAll9th)
+            {
+                if (fullCowlingTexture == null || !fullCowlingTexture.IsLoaded) return;
+
+                Texture2D texture = fullCowlingTexture.Value;
+
+                int frameCount = 6; 
+                int frameSpeed = 6; 
+                int currentFrame = (int)(Main.GameUpdateCount / frameSpeed) % frameCount;
+
+                int frameHeight = texture.Height / frameCount;
+                Rectangle sourceRect = new Rectangle(0, currentFrame * frameHeight, texture.Width, frameHeight);
+
+                
+                Vector2 drawPos = npc.Center - screenPos;
+                
+                
+                SpriteEffects effects = npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+            
+                spriteBatch.Draw(
+                    texture,
+                    drawPos,
+                    sourceRect,
+                    Color.White, 
+                    npc.rotation,
+                    new Vector2(texture.Width / 2f, frameHeight / 2f),
+                    1.2f, 
+                    effects,
+                    0f
+                );
+            }
+        }
+
+        // 2. DESENHA AS PARTÍCULAS (POEYRA)
         public override void DrawEffects(NPC npc, ref Color drawColor)
         {
-            if (HasQuirk)
+            
+            if (HasQuirk && ErasureTimer == 0)
             {
-                
-                if (Main.rand.NextBool(3)) 
+                if (Main.GameUpdateCount % 3 == 0)
                 {
                     int dustType = DustID.MagicMirror; 
 
-                    // Podemos fazer a cor da poeira mudar dependendo da Quirk que ele tirou!
                     if (AssignedQuirk == QuirkType.HellFlames) dustType = DustID.Torch; 
                     if (AssignedQuirk == QuirkType.BlueFlames) dustType = DustID.BlueTorch; 
                     if (AssignedQuirk == QuirkType.HalfColdHalfHot) dustType = DustID.IceTorch; 
-                    if (AssignedQuirk == QuirkType.OneForAll9th) dustType = DustID.GreenTorch;
+                    
                     if (AssignedQuirk == QuirkType.OneForAll8th) dustType = DustID.YellowTorch; 
                     if (AssignedQuirk == QuirkType.Overclock) dustType = DustID.YellowTorch;
                     if (AssignedQuirk == QuirkType.Float) dustType = DustID.WhiteTorch;
@@ -87,7 +146,6 @@ namespace MyHeroMod.content.System
                     if (AssignedQuirk == QuirkType.SmokeScreen) dustType = DustID.WhiteTorch;
                     if (AssignedQuirk == QuirkType.Explosion) dustType = DustID.OrangeTorch;
 
-                    
                     Dust d = Dust.NewDustDirect(npc.position, npc.width, npc.height, dustType);
                     d.velocity *= 0.5f;
                     d.noGravity = true; 
@@ -95,7 +153,6 @@ namespace MyHeroMod.content.System
                 }
             }
         }
-
         public override void OnKill(NPC npc)
         {
             if (HasQuirk && Main.rand.NextBool(2))
@@ -104,6 +161,129 @@ namespace MyHeroMod.content.System
             }
         }
 
+        public int quirkTimer = 0; 
+
+        
+        public override void AI(NPC npc)
+        {
+            if (ErasureTimer > 0) 
+            {
+                ErasureTimer--;
+            }
+            
+            if (!HasQuirk || ErasureTimer > 0 || npc.friendly || npc.townNPC) return;
+
+            quirkTimer++;
+
+        
+            npc.TargetClosest(true);
+            if (npc.HasValidTarget)
+            {
+                Player target = Main.player[npc.target];
+                Vector2 directionToPlayer = (target.Center - npc.Center).SafeNormalize(Vector2.Zero);
+
+                // 3. A Lógica de cada Quirk
+                switch (AssignedQuirk)
+                {
+                    case QuirkType.HalfColdHalfHot:
+                    
+                        if (quirkTimer % 180 == 0)
+                        {
+                            
+                            int projType = Main.rand.NextBool() ? ModContent.ProjectileType<IceShotProj>() : ProjectileID.GreekFire1; 
+                            
+                            Vector2 velocity = directionToPlayer * 10f; 
+                            int damage = npc.damage / 2; 
+
+                            
+                            int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, projType, damage, 0f, Main.myPlayer);
+                            
+                            
+                            Main.projectile[p].friendly = false;
+                            Main.projectile[p].hostile = true;
+                        }
+                        break;
+
+                    case QuirkType.OneForAll9th:
+                    if (quirkTimer % 180 == 0)
+
+                        {
+                            int projType = ModContent.ProjectileType<DelawareSmashProj>();
+                            
+                            Vector2 velocity = directionToPlayer * 10f; 
+                            int damage = npc.damage / 2; 
+
+                            
+                            int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, projType, damage, 0f, Main.myPlayer);
+                            
+                            
+                            Main.projectile[p].friendly = false;
+                            Main.projectile[p].hostile = true;
+                        }
+
+                        break;
+                    case QuirkType.OneForAll8th:
+                    if (quirkTimer % 180 == 0)
+
+                        {
+                            int projType = ModContent.ProjectileType<PrimeTexasSmashProj>();
+                            
+                            Vector2 velocity = directionToPlayer * 10f; 
+                            int damage = npc.damage / 2; 
+
+                            
+                            int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, projType, damage, 0f, Main.myPlayer);
+                            
+                            
+                            Main.projectile[p].friendly = false;
+                            Main.projectile[p].hostile = true;
+                        }
+
+                        break;
+
+                    case QuirkType.Overclock:
+                    case QuirkType.Gearshift:
+                       
+                        if (npc.Distance(target.Center) < 2000f)
+                        {
+                            Vector2 extraSpeed = npc.velocity * 2.5f;
+
+                        Vector2 safeMovement = Collision.TileCollision(npc.position, extraSpeed, npc.width, npc.height);
+
+                        // 3. Agora sim, adiciona à posição de forma segura
+                        npc.position += safeMovement;
+                        }
+                        
+
+                        // EFEITOS VISUAIS
+                        // O Terraria desenha a poeira direto na posição do monstro
+                        // if (Main.rand.NextBool(3)) // 1 em 3 chances por frame de sair uma faísca
+                        // {
+                            
+                        //     int dustType = AssignedQuirk == QuirkType.Overclock ? DustID.Electric : DustID.GemRuby; 
+                            
+                        //     Dust d = Dust.NewDustDirect(npc.position, npc.width, npc.height, dustType);
+                        //     d.noGravity = true;
+                        //     d.velocity *= 0.5f; 
+                        // }
+                        break;
+                    
+                    case QuirkType.Explosion:
+                        // Atira a cada 2.5 segundos
+                        // if (quirkTimer % 150 == 0)
+                        // {
+                        //     Vector2 velocity = directionToPlayer * 12f;
+                            
+                        //     int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.BombSkeletronPrime, npc.damage, 0f, Main.myPlayer);
+                        //     Main.projectile[p].friendly = false;
+                        //     Main.projectile[p].hostile = true;
+                        // }
+                        break;
+                }
+            }
+        }
+    }
+}
         
         // public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
         // {
@@ -120,5 +300,4 @@ namespace MyHeroMod.content.System
         //         }
         //     }
         // }
-    }
-}
+    

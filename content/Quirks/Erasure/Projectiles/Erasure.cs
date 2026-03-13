@@ -68,7 +68,7 @@ namespace MyHeroMod.content.Quirks.Erasure.Projectiles
                 Dust.NewDustPerfect(startPoint + (Projectile.velocity * Main.rand.NextFloat(0, visionLength)), DustID.RedTorch, Vector2.Zero).noGravity = true;
             }
 
-            // Varre TODOS os NPCs próximos
+            
             foreach (NPC npc in Main.ActiveNPCs)
             {
                 if (npc.friendly || npc.townNPC) continue;
@@ -86,9 +86,9 @@ namespace MyHeroMod.content.Quirks.Erasure.Projectiles
                         var globalNPC = npc.GetGlobalNPC<QuirkGlobalNPC>();
                         if (globalNPC.HasQuirk)
                         {
-                            globalNPC.IsQuirkErased = true; 
                             
-                        
+                            globalNPC.ErasureTimer = 10; 
+                            
                             if (Main.rand.NextBool(10))
                             {
                                 Dust d = Dust.NewDustDirect(npc.position, npc.width, npc.height, DustID.Wraith); 

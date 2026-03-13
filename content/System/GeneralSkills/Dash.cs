@@ -34,7 +34,6 @@ namespace MyHeroMod.content.System
             var explosionColor = Color.Cyan;
             int choiceDust = DustID.BlueTorch;
 
-            // Main.NewText("SKILL EXECUTADA!");
             
 
             
@@ -50,13 +49,12 @@ namespace MyHeroMod.content.System
         if (hideNormalDash)
             {
                 TeleportDash(player, explosionColor, choiceDust);
-                // Main.NewText("Teleporte!");
             }
 
             else
             {
                 executeDash(player, speed, isEnhanced);
-        player.SetImmuneTimeForAllTypes(10);
+                player.SetImmuneTimeForAllTypes(10);
             }
 
         
@@ -72,7 +70,7 @@ namespace MyHeroMod.content.System
                 dashDirection.Normalize();
                 player.velocity = dashDirection * speed;
             }
-            // 3.Efeitos Visuais (VFX)
+            
             ApplyFajinVfx(player, isEnhanced);
             
             player.SetImmuneTimeForAllTypes(10);
@@ -122,7 +120,6 @@ namespace MyHeroMod.content.System
 
                 
                 player.Center = safePos;
-                // player.velocity = Vector2.Zero; 
                 if (hitWall) 
                 {
                     player.velocity = -Vector2.Normalize(dir) * 2f; 
@@ -131,35 +128,34 @@ namespace MyHeroMod.content.System
                 dashvfx(player, explosionColor, choiceDust);
         }
 
-        private void dashvfx(Player player, Color explosionColor, int choiceDust)
-        {
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.15f }, player.position);
-                for (int i = 0; i < 4; i++)
+                private void dashvfx(Player player, Color explosionColor, int choiceDust)
                 {
-                    Vector2 dustPosition = player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
-                    Dust.NewDust(dustPosition, 0, 0, DustID.Smoke, player.velocity.X * -0.5f, player.velocity.Y * -0.5f);
+                    SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.15f }, player.position);
+                        for (int i = 0; i < 4; i++)
+                        {
+                            Vector2 dustPosition = player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
+                            Dust.NewDust(dustPosition, 0, 0, DustID.Smoke, player.velocity.X * -0.5f, player.velocity.Y * -0.5f);
+                        }
+                        for (int i = 0; i < 15; i++)
+                        {
+                            Vector2 dustPosition = player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
+                            Dust.NewDust(dustPosition, 0, 0, choiceDust, player.velocity.X * -1f, player.velocity.Y * -1f, 0, explosionColor, 6f);
+                        }
                 }
-                for (int i = 0; i < 15; i++)
+
+                private void ApplyFajinVfx(Player player, bool enhanced)
                 {
-                    Vector2 dustPosition = player.Center + new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
-                    Dust.NewDust(dustPosition, 0, 0, choiceDust, player.velocity.X * -1f, player.velocity.Y * -1f, 0, explosionColor, 6f);
-                }
-        }
+                    int dustCount = enhanced ? 20 : 10;
+                    int type = enhanced ? DustID.RedTorch : DustID.Cloud;
+                    float scale = enhanced ? 2f : 1.5f;
 
-        private void ApplyFajinVfx(Player player, bool enhanced)
-        {
-            int dustCount = enhanced ? 20 : 10;
-            int type = enhanced ? DustID.RedTorch : DustID.Cloud;
-            float scale = enhanced ? 2f : 1.5f;
-
-            for (int i = 0; i < dustCount; i++)
-            {
-                Dust dust = Dust.NewDustDirect(player.position, player.width, player.height, type, 0f, 0f, 100, default, scale);
-                dust.velocity *= 0.5f;
-                if (enhanced) dust.noGravity = true;
-            }
-        }}}
+                    for (int i = 0; i < dustCount; i++)
+                    {
+                        Dust dust = Dust.NewDustDirect(player.position, player.width, player.height, type, 0f, 0f, 100, default, scale);
+                        dust.velocity *= 0.5f;
+                        if (enhanced) dust.noGravity = true;
+                    }
+                }}}
     
 
-
-//    
+    
