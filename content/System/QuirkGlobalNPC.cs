@@ -9,6 +9,11 @@ using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.OFA8th.Projectiles.TexasSmash;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
+using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower;
+using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider;
+using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling;
+using MyHeroMod.content.Quirks.Erasure.Projectiles;
 
 namespace MyHeroMod.content.System
 {
@@ -69,6 +74,7 @@ namespace MyHeroMod.content.System
                     case 9: AssignedQuirk = QuirkType.SmokeScreen; break;
                     case 10: AssignedQuirk = QuirkType.Explosion; break;
                     case 11: AssignedQuirk = QuirkType.SuperRegeneration; break;
+                    case 12: AssignedQuirk = QuirkType.Erasure; break;
 
                 }
                 
@@ -190,7 +196,7 @@ namespace MyHeroMod.content.System
                         if (quirkTimer % 180 == 0)
                         {
                             
-                            int projType = Main.rand.NextBool() ? ModContent.ProjectileType<IceShotProj>() : ProjectileID.GreekFire1; 
+                            int projType = Main.rand.NextBool() ? ModContent.ProjectileType<IceShotProj>() : ModContent.ProjectileType<JetKindlingController>(); 
                             
                             Vector2 velocity = directionToPlayer * 10f; 
                             int damage = npc.damage / 2; 
@@ -223,7 +229,7 @@ namespace MyHeroMod.content.System
 
                         break;
                     case QuirkType.OneForAll8th:
-                    if (quirkTimer % 180 == 0)
+                    if (quirkTimer % 250 == 0)
 
                         {
                             int projType = ModContent.ProjectileType<PrimeTexasSmashProj>();
@@ -250,34 +256,37 @@ namespace MyHeroMod.content.System
 
                         Vector2 safeMovement = Collision.TileCollision(npc.position, extraSpeed, npc.width, npc.height);
 
-                        // 3. Agora sim, adiciona à posição de forma segura
+                        
                         npc.position += safeMovement;
                         }
-                        
-
-                        // EFEITOS VISUAIS
-                        // O Terraria desenha a poeira direto na posição do monstro
-                        // if (Main.rand.NextBool(3)) // 1 em 3 chances por frame de sair uma faísca
-                        // {
-                            
-                        //     int dustType = AssignedQuirk == QuirkType.Overclock ? DustID.Electric : DustID.GemRuby; 
-                            
-                        //     Dust d = Dust.NewDustDirect(npc.position, npc.width, npc.height, dustType);
-                        //     d.noGravity = true;
-                        //     d.velocity *= 0.5f; 
-                        // }
                         break;
                     
                     case QuirkType.Explosion:
-                        // Atira a cada 2.5 segundos
-                        // if (quirkTimer % 150 == 0)
-                        // {
-                        //     Vector2 velocity = directionToPlayer * 12f;
+                        
+                        if (quirkTimer % 150 == 0)
+                        {
+                            int projType = ModContent.ProjectileType<ApShotProj>();
+                            int damage = npc.damage / 2; 
+
+                            Vector2 velocity = directionToPlayer * 12f;
                             
-                        //     int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ProjectileID.BombSkeletronPrime, npc.damage, 0f, Main.myPlayer);
-                        //     Main.projectile[p].friendly = false;
-                        //     Main.projectile[p].hostile = true;
-                        // }
+                            int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, projType, damage, 0f, Main.myPlayer);
+                            Main.projectile[p].friendly = false;
+                            Main.projectile[p].hostile = true;
+                        }
+                        break;
+                    case QuirkType.Erasure:
+
+                    if (quirkTimer % 20 == 0)
+                        {
+                            int projType = ModContent.ProjectileType<ErasureController>();
+                            Vector2 velocity = directionToPlayer * 12f;
+                            
+                            int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, projType, damage, 0f, Main.myPlayer);
+                            Main.projectile[p].friendly = false;
+                            Main.projectile[p].hostile = true;
+
+                        }
                         break;
                 }
             }
