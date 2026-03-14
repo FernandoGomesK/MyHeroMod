@@ -60,21 +60,21 @@ namespace MyHeroMod.content.System
                 int random = Main.rand.Next(4); 
                 switch (random)
                 {
-                    // case 0: AssignedQuirk = QuirkType.HellFlames; break;
-                    case 0: AssignedQuirk = QuirkType.HalfColdHalfHot; break;
+                    case 0: AssignedQuirk = QuirkType.HellFlames; break;
+                    case 1: AssignedQuirk = QuirkType.HalfColdHalfHot; break;
                     // case 2: AssignedQuirk = QuirkType.BlueFlames; break;
-                    case 1: AssignedQuirk = QuirkType.OneForAll9th; break;
-                    case 2: AssignedQuirk = QuirkType.OneForAll8th; break;
-                    case 3: AssignedQuirk = QuirkType.Overclock; break;
-                    case 4: AssignedQuirk = QuirkType.Float; break;
-                    case 5: AssignedQuirk = QuirkType.DangerSense; break;
-                    case 6: AssignedQuirk = QuirkType.BlackWhip; break;
-                    case 7: AssignedQuirk = QuirkType.Gearshift; break;
-                    case 8: AssignedQuirk = QuirkType.FaJin; break;
-                    case 9: AssignedQuirk = QuirkType.SmokeScreen; break;
-                    case 10: AssignedQuirk = QuirkType.Explosion; break;
-                    case 11: AssignedQuirk = QuirkType.SuperRegeneration; break;
-                    case 12: AssignedQuirk = QuirkType.Erasure; break;
+                    case 3: AssignedQuirk = QuirkType.OneForAll9th; break;
+                    case 4: AssignedQuirk = QuirkType.OneForAll8th; break;
+                    case 5: AssignedQuirk = QuirkType.Overclock; break;
+                    case 6: AssignedQuirk = QuirkType.Float; break;
+                    case 7: AssignedQuirk = QuirkType.DangerSense; break;
+                    case 8: AssignedQuirk = QuirkType.BlackWhip; break;
+                    case 9: AssignedQuirk = QuirkType.Gearshift; break;
+                    case 10: AssignedQuirk = QuirkType.FaJin; break;
+                    case 11: AssignedQuirk = QuirkType.SmokeScreen; break;
+                    case 12: AssignedQuirk = QuirkType.Explosion; break;
+                    case 13: AssignedQuirk = QuirkType.SuperRegeneration; break;
+                    case 14: AssignedQuirk = QuirkType.Erasure; break;
 
                 }
                 
@@ -151,6 +151,7 @@ namespace MyHeroMod.content.System
                     if (AssignedQuirk == QuirkType.FaJin) dustType = DustID.WhiteTorch;
                     if (AssignedQuirk == QuirkType.SmokeScreen) dustType = DustID.WhiteTorch;
                     if (AssignedQuirk == QuirkType.Explosion) dustType = DustID.OrangeTorch;
+                    if (AssignedQuirk == QuirkType.Erasure) dustType = DustID.Wraith;
 
                     Dust d = Dust.NewDustDirect(npc.position, npc.width, npc.height, dustType);
                     d.velocity *= 0.5f;
@@ -195,18 +196,32 @@ namespace MyHeroMod.content.System
                     
                         if (quirkTimer % 180 == 0)
                         {
+                            bool isIce = Main.rand.NextBool();
                             
-                            int projType = Main.rand.NextBool() ? ModContent.ProjectileType<IceShotProj>() : ModContent.ProjectileType<JetKindlingController>(); 
-                            
-                            Vector2 velocity = directionToPlayer * 10f; 
-                            int damage = npc.damage / 2; 
+                            int damage = npc.damage / 2;
+                            Vector2 baseVelocity = directionToPlayer * 10f; 
 
+                            if (isIce)
+                            {
+                                
+                                int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, baseVelocity, ModContent.ProjectileType<IceShotProj>(), damage, 0f, Main.myPlayer);
+                                Main.projectile[p].friendly = false;
+                                Main.projectile[p].hostile = true;
+                            }
+                            else
+                            {
                             
-                            int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, projType, damage, 0f, Main.myPlayer);
+                                for (int i = 0; i < 20; i++)
+                                {
+                                    
+                                    Vector2 spreadVel = baseVelocity.RotatedByRandom(MathHelper.ToRadians(25)) * Main.rand.NextFloat(1f, 2.5f);
+                                    
                             
-                            
-                            Main.projectile[p].friendly = false;
-                            Main.projectile[p].hostile = true;
+                                    int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, spreadVel, ModContent.ProjectileType<JetKindlingProj>(), damage, 0f, Main.myPlayer);
+                                    Main.projectile[p].friendly = false;
+                                    Main.projectile[p].hostile = true;
+                                }
+                            }
                         }
                         break;
 
@@ -276,16 +291,12 @@ namespace MyHeroMod.content.System
                         }
                         break;
                     case QuirkType.Erasure:
-
-                    if (quirkTimer % 20 == 0)
+                        
+                        if (quirkTimer % 350 == 0)
                         {
-                            int projType = ModContent.ProjectileType<ErasureController>();
-                            Vector2 velocity = directionToPlayer * 12f;
+                            Vector2 velocity = directionToPlayer * 15f; // Rápido
+                            int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ModContent.ProjectileType<NPCErasureProj>(), 1, 0f, Main.myPlayer);
                             
-                            int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, projType, 0, 0f, Main.myPlayer);
-                            Main.projectile[p].friendly = false;
-                            Main.projectile[p].hostile = true;
-
                         }
                         break;
                 }

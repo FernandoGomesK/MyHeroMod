@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
+using MyHeroMod.content.Debuffs;
 
 namespace MyHeroMod.content.Quirks.SuperRegeneration
 {
@@ -12,7 +13,7 @@ namespace MyHeroMod.content.Quirks.SuperRegeneration
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             
-            if (transPlayer.HasActiveQuirk(QuirkType.SuperRegeneration))
+            if (transPlayer.HasActiveQuirk(QuirkType.SuperRegeneration) || !Player.HasBuff(ModContent.BuffType<QuirkErased>()))
             {
                 int regenBonus = 10;
 

@@ -485,6 +485,7 @@ Projectiles: {
 	ErasureController.DisplayName: Erasure Controller
 	PaleflameController.DisplayName: Paleflame Controller
 	PaleflameProj.DisplayName: Paleflame Proj
+	NPCErasureProj.DisplayName: N P C Erasure Proj
 }
 
 NPCs: {
