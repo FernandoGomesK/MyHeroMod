@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MyHeroMod.content.System; // Ajuste para seu namespace
+using MyHeroMod.content.System; 
 
 namespace MyHeroMod.content.Items
 {
@@ -17,42 +17,53 @@ namespace MyHeroMod.content.Items
             Item.rare = ItemRarityID.Red;
         }
 
-        public override bool? UseItem(Player player)
-        {
-            var modPlayer = player.GetModPlayer<TransformationPlayer>();
-
-            // 1. Ativa o modo manual para parar de resetar
-            modPlayer.ManualStageOverride = true;
-
-            // 2. Avança para o próximo estágio
-            if (modPlayer.CurrentStage == QuirkStage.Adequation)
-                modPlayer.CurrentStage = QuirkStage.Intermediate;
-            else if (modPlayer.CurrentStage == QuirkStage.Intermediate)
-                modPlayer.CurrentStage = QuirkStage.Advanced;
-            else if (modPlayer.CurrentStage == QuirkStage.Advanced)
-                modPlayer.CurrentStage = QuirkStage.Final;
-            else
-                modPlayer.CurrentStage = QuirkStage.Adequation; // Volta pro começo
-
-            Main.NewText($"Debug Mode: ON | Stage set to: {modPlayer.CurrentStage}", Microsoft.Xna.Framework.Color.Cyan);
-
-            return true;
-        }
-
-        // Clique Direito para voltar ao modo Automático
+        
         public override bool AltFunctionUse(Player player)
         {
             return true;
         }
 
-        public override bool CanUseItem(Player player)
+        public override bool? UseItem(Player player)
         {
+            var modPlayer = player.GetModPlayer<TransformationPlayer>();
+
+            
             if (player.altFunctionUse == 2)
             {
-                var modPlayer = player.GetModPlayer<TransformationPlayer>();
-                modPlayer.ManualStageOverride = false; // Desliga a trava
+                modPlayer.ManualStageOverride = false;
                 Main.NewText("Debug Mode: OFF | Auto-Progression Enabled", Microsoft.Xna.Framework.Color.Orange);
             }
+            
+            else
+            {
+                modPlayer.ManualStageOverride = true;
+
+                
+                switch (modPlayer.CurrentStage)
+                {
+                    case QuirkStage.Initial:
+                        modPlayer.CurrentStage = QuirkStage.Adequation;
+                        break;
+                    case QuirkStage.Adequation:
+                        modPlayer.CurrentStage = QuirkStage.Intermediate;
+                        break;
+                    case QuirkStage.Intermediate:
+                        modPlayer.CurrentStage = QuirkStage.Advanced;
+                        break;
+                    case QuirkStage.Advanced:
+                        modPlayer.CurrentStage = QuirkStage.Final;
+                        break;
+                    case QuirkStage.Final:
+                        modPlayer.CurrentStage = QuirkStage.Initial;
+                        break;
+                }
+
+               
+                modPlayer.UpdateUnlockedSkills();
+
+                Main.NewText($"Debug Mode: ON | Stage set to: {modPlayer.CurrentStage}", Microsoft.Xna.Framework.Color.Cyan);
+            }
+
             return true;
         }
     }

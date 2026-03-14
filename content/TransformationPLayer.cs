@@ -116,6 +116,13 @@ namespace MyHeroMod.content
 
         public override void OnEnterWorld() {
         UpdateUnlockedSkills();
+        ProgressionSystem.UpdateStage(this);
+        }
+
+        public override void PostUpdate()
+{
+    
+    ProgressionSystem.UpdateStage(this);
 }
 
         public void CompleteReset()
