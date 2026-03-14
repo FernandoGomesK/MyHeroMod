@@ -282,7 +282,7 @@ namespace MyHeroMod.content.System
                             int projType = ModContent.ProjectileType<ErasureController>();
                             Vector2 velocity = directionToPlayer * 12f;
                             
-                            int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, projType, damage, 0f, Main.myPlayer);
+                            int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, projType, 0, 0f, Main.myPlayer);
                             Main.projectile[p].friendly = false;
                             Main.projectile[p].hostile = true;
 
