@@ -18,6 +18,7 @@ namespace MyHeroMod.content.Quirks.Erasure;
     {
         
         public bool isErasureActive = false;
+        public bool isYellowGogglesOn = false;
         
         public int eyeTimer = 0;
 
@@ -33,6 +34,11 @@ namespace MyHeroMod.content.Quirks.Erasure;
 
         public override void PostUpdate()
 {
+    if (isYellowGogglesOn == true)
+        {
+            maxEyeTimer = 220;
+            
+        }
     if (isErasureActive)
     {
         eyeTimer++;
