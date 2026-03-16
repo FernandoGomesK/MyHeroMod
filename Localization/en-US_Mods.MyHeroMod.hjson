@@ -508,4 +508,6 @@ NPCs: {
 			Princess_LovesNPC: Eu gosto de {NPCName}.
 		}
 	}
+
+	AllForOneBoss.DisplayName: All For One Boss
 }

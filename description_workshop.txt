@@ -1,27 +1,70 @@
-Terraria mod made with the intention of adding some of the quirks from the main show and from vigilantes.
+[h1]Features[/h1]
+This mod is heavily inspired by My Hero Academia and the spin-off My Hero Academia: Vigilantes. It adds items, armors, and systems that recreate the powerful Quirks of various heroes and villains from the universe directly into Terraria. 
 
-To get started you need to collect one iron and get a Quirk gene from any mob!
+[b]All enemy mobs can spawn with a random quirk![/b]
 
+[hr][/hr]
 
-currently contains:
+[h1]Added Items[/h1]
 
-One for All 9th
-One for All 8th
-Explosion
-Float
-Gearshift
-Smoke Screen
-Fa Jin
-BlackWhip
-Half cold Half Hot
-Tape
-Overclock
-Super Regeneration
-Erasure
-All For One
+[h2]🧬 Quirk Gene (Material)[/h2]
+[list]
+[*] Dropped by any enemy with a 50% chance.
+[*] Used to awaken and roll your Quirks.
+[/list]
 
-W.I.P
-Erasure
-Hellflames
-Blueflames
-All for One
+[h2]🛠️ Support Items (Accessories)[/h2]
+[list]
+[*] [b]Aizawa Goggle:[/b] Increases the time you can maintain Erasure active.
+[*] [b]Iron Soles:[/b] Increases the damage of kick-based ultimate moves (like Manchester Smash and St. Louis Smash).
+[*] [b]Air Force Gloves:[/b] Drastically increases the damage and range of Delaware Smash.
+[*] [b]Surge Arm Gauntlets:[/b] Increases the damage of Fire and Ice-based moves by 50%.
+[*] [b]Grenadier Bracers:[/b] Stores excess "Sweat" to empower Explosion attacks without hurting the user.
+[*] [b]Combat Vest Alpha / Beta:[/b] Increases the body's natural temperature regulation, vital for Half-Cold Half-Hot users.
+[/list]
+
+[h2]👕 Hero Costumes (Armor/Vanity)[/h2]
+Tons of iconic outfits added, including Deku's Costumes (Alpha through Zeta), All Might (Golden, Silver, and Young Age), Bakugo, Todoroki, Endeavor, Dabi, and U.A. Uniforms!
+
+[hr][/hr]
+
+[h1]Quirks (Abilities)[/h1]
+Once a Quirk is acquired, you can unleash unique attacks and forms. The mod features a dynamic scaling system (details below).
+
+[list]
+[*] One For All (9th Generation - Deku)
+[*] One For All (8th Generation - All Might)
+[*] Half-Cold Half-Hot (Todoroki)
+[*] Explosion (Bakugo)
+[*] Overclock (O'Clock)
+[*] Erasure (Aizawa)
+[*] Super Regeneration
+[*] All For One
+[*] Fa Jin (3rd User)
+[*] Gearshift (Kudo)
+[*] Float (Nana Shimura)
+[*] Blackwhip (Daigoro Banjo)
+[*] Danger Sense (Hikage Shinomori)
+[*] Smokescreen (En)
+[/list]
+
+[hr][/hr]
+
+[h1]Progression System (Quirk Stages)[/h1]
+Your Quirk automatically evolves as you defeat key bosses in the world. Damage and mechanics scale to keep you balanced with Vanilla Terraria.
+
+[list]
+[*] [b]Initial Stage:[/b] Default state at the start of the game. Raw and dangerous power.
+[*] [b]Adequation Stage:[/b] Unlocked by defeating the Eye of Cthulhu.
+[*] [b]Intermediate Stage:[/b] Unlocked by entering Hardmode (Defeating the Wall of Flesh).
+[*] [b]Advanced Stage:[/b] Unlocked by defeating Plantera.
+[*] [b]Final Stage:[/b] Unlocked by defeating the Moon Lord.
+[/list]
+
+[hr][/hr]
+
+[h1]Notes[/h1]
+[b]Multiplayer and compatibility with other mods:[/b] This mod has not been thoroughly tested in large-scale multiplayer environments or with heavy modpacks, so desyncs or incompatibilities may occur.
+Join the discord!
+https://discord.gg/ZwgJy9tM6a
+Please leave a comment or message me if you find any bugs!
