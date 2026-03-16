@@ -491,6 +491,7 @@ Projectiles: {
 	PaleflameController.DisplayName: Paleflame Controller
 	PaleflameProj.DisplayName: Paleflame Proj
 	NPCErasureProj.DisplayName: N P C Erasure Proj
+	RivetStabProj.DisplayName: Rivet Stab Proj
 }
 
 NPCs: {

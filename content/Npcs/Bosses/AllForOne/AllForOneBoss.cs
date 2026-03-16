@@ -17,8 +17,8 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
         const int FRAME_ATTACK_FIRE  = 23; 
         const int FRAME_ATTACK_END   = 24;  
 
-        const int FRAME_SPEED_FLOAT  = 5;   
-        const int FRAME_SPEED_ATTACK = 6;   
+        const int FRAME_SPEED_FLOAT  = 8;   
+        const int FRAME_SPEED_ATTACK = 10;   
 
         
 
@@ -159,16 +159,13 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
             }
 
             
-            NPC.ai[0]++;
+           NPC.ai[0]++; 
 
             const int COOLDOWN   = 150; 
-            const int ANIM_START = 170;
-            const int FIRE_TICK  = 185; 
-            const int RESET_TICK = 194; 
+            const int ANIM_START = 160;
+            const int FIRE_TICK  = 190; 
+            const int RESET_TICK = 200; 
 
-            NPC.ai[0]++;
-
-        
             if (NPC.ai[0] == ANIM_START)
             {
                 IsAttacking = true;
@@ -178,28 +175,46 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
             
             if (NPC.ai[0] >= FIRE_TICK && NPC.ai[2] == 0f)
             {
-                NPC.ai[2] = 1f; 
+                NPC.ai[2] = 1f;
 
-                if (Main.netMode != NetmodeID.MultiplayerClient)
+                if (Main.netMode != NetmodeID.MultiplayerClient) 
                 {
-                    Vector2 shootDir = (player.Center - NPC.Center).SafeNormalize(Vector2.UnitX);
-                    int p = Projectile.NewProjectile(
-                        NPC.GetSource_FromAI(), NPC.Center, shootDir * 16f,
-                        ModContent.ProjectileType<PrimeTexasSmashProj>(),
-                        NPC.damage, 0f, Main.myPlayer
-                    );
-                    Main.projectile[p].friendly = false;
-                    Main.projectile[p].hostile = true;
+                    
+                    if (Main.rand.NextBool()) 
+                    {
+                        
+                        for (int i = -1; i <= 1; i++) 
+                        {
+                            Vector2 baseDir = (player.Center - NPC.Center).SafeNormalize(Vector2.UnitX);
+                            Vector2 spreadDir = baseDir.RotatedBy(MathHelper.ToRadians(30 * i));
+                            
+                            Projectile.NewProjectile(
+                                NPC.GetSource_FromAI(), NPC.Center, spreadDir * 8f, 
+                                ModContent.ProjectileType<Projectiles.RivetStabProj>(),
+                                NPC.damage / 2, 
+                                0f, Main.myPlayer
+                            );
+                        }
+                    }
+                    else 
+                    {
+                        
+                        Vector2 shootDir = (player.Center - NPC.Center).SafeNormalize(Vector2.UnitX);
+                        int p = Projectile.NewProjectile(
+                            NPC.GetSource_FromAI(), NPC.Center, shootDir * 16f,
+                            ModContent.ProjectileType<PrimeTexasSmashProj>(),
+                            NPC.damage, 
+                            0f, Main.myPlayer
+                        );
+                        Main.projectile[p].friendly = false;
+                        Main.projectile[p].hostile = true;
+                    }
                 }
             }
 
-            
             if (NPC.ai[0] >= RESET_TICK)
             {
                 IsAttacking = false; 
                 NPC.ai[0] = 0f;      
                 NPC.ai[2] = 0f;
-            }
-        }
-    }
-}
+            }}}}
