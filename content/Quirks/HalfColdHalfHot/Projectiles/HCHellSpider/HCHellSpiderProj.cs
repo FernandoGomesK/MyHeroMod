@@ -22,11 +22,9 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider
             // Visual
             Projectile.alpha = 255; // Começa invisível (só veremos as partículas)
             Projectile.ignoreWater = false; // Apaga na água (comportamento clássico)
-            Projectile.tileCollide = true; // Bate nas paredes
+            Projectile.tileCollide = true; 
             
-            // IMUNIDADE (O Segredo do Dano)
-            // Isso impede que o mesmo foguinho bata 60 vezes por segundo no mesmo bicho.
-            // Mas permite que VÁRIOS foguinhos batam no mesmo bicho em sequência.
+            
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10; // Hit a cada 1/6 de segundo por partícula
 
@@ -35,9 +33,21 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider
 
         public override void AI()
         {
-            // 1. Geração de Partículas (O Visual Real)
-            // Gera pó de fogo no centro do projétil
-            for (int i = 0; i < 2; i++) // Pode aumentar para 3 se quiser mais denso
+            Player player = Main.player[Projectile.owner];
+            
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+            
+            
+            int fireColor = DustID.Torch; 
+            
+            
+            if (transPlayer.SelectedQuirk == QuirkType.BlueFlames && transPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+                fireColor = DustID.BlueTorch; 
+            }
+            
+            
+            for (int i = 0; i < 2; i++) 
             {
 
                 Vector2 position = Projectile.position - Projectile.velocity * (float)i / 2;
@@ -45,7 +55,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider
                     position,
                     Projectile.width, 
                     Projectile.height, 
-                    DustID.Torch,
+                    fireColor,
                     0, 0, 
                     
                     100, 

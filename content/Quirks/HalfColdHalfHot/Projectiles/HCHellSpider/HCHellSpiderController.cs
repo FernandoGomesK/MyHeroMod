@@ -14,7 +14,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider
             Projectile.height = 10;
             Projectile.friendly = false; 
             Projectile.tileCollide = false;
-            Projectile.timeLeft = 25;
+            Projectile.timeLeft = 120;
             Projectile.hide = true;
         }
 
@@ -43,7 +43,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider
 
             // DISPARAR O FOGO
             Projectile.ai[0]++; 
-            if (Projectile.ai[0] % 5 == 0) // Atira a cada 5 ticks
+            if (Projectile.ai[0] % 5 == 0) 
             {
                 SoundEngine.PlaySound(SoundID.Item34 with { PitchVariance = 0.2f }, player.position);
 
@@ -52,7 +52,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider
                     int projectilecount = 5;
                     float totalangle = MathHelper.ToRadians(50);
 
-                    // Pega o Dano Total que a Skill mandou e divide pelos 5 projéteis!
+                    
                     int damagePerSpider = Projectile.damage / projectilecount; 
 
                     for (int i = 0; i < projectilecount; i++)
@@ -67,7 +67,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider
                             Projectile.Center,
                             shootVel,
                             ModContent.ProjectileType<HCHellSpiderProj>(),
-                            damagePerSpider, // Dano exato da teia
+                            damagePerSpider, 
                             0f,
                             Projectile.owner
                         );

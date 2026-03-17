@@ -31,15 +31,27 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling
 
         public override void AI()
         {
-            // 1. Geração de Partículas (O Visual Real)
-            // Gera pó de fogo no centro do projétil
+            Player player = Main.player[Projectile.owner];
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+            int fireColor = DustID.Torch; 
+            
+            
+            if (transPlayer.SelectedQuirk == QuirkType.BlueFlames && transPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+                fireColor = DustID.BlueTorch; 
+            }
+
+
+
+
             for (int i = 0; i < 2; i++) // Pode aumentar para 3 se quiser mais denso
             {
                 int dustIndex = Dust.NewDust(
                     Projectile.position, 
                     Projectile.width, 
                     Projectile.height, 
-                    DustID.Torch, // ID do fogo padrão (6)
+                    fireColor, // ID do fogo padrão (6)
                     Projectile.velocity.X * 0.2f, 
                     Projectile.velocity.Y * 0.2f, 
                     100, 

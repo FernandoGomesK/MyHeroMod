@@ -9,39 +9,36 @@ namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower
     {
         public override void SetDefaults()
         {
-            // Tamanho da Hitbox (área que dá dano)
-            Projectile.width = 60; // É gordinho para acertar fácil
+            
+            Projectile.width = 60; 
             Projectile.height = 60;
             
             // Comportamento
-            Projectile.friendly = true; // Acerta inimigos
+            Projectile.friendly = true; 
             Projectile.hostile = false; 
-            Projectile.penetrate = -1; // Atravessa infinitos inimigos
-            Projectile.timeLeft = 60; // Dura 1 segundo (alcance médio)
+            Projectile.penetrate = -1; 
+            Projectile.timeLeft = 60;
             
-            // Visual
-            Projectile.alpha = 255; // Começa invisível (só veremos as partículas)
-            Projectile.ignoreWater = false; // Apaga na água (comportamento clássico)
-            Projectile.tileCollide = true; // Bate nas paredes
             
-            // IMUNIDADE (O Segredo do Dano)
-            // Isso impede que o mesmo foguinho bata 60 vezes por segundo no mesmo bicho.
-            // Mas permite que VÁRIOS foguinhos batam no mesmo bicho em sequência.
+            Projectile.alpha = 255; 
+            Projectile.ignoreWater = false; 
+            Projectile.tileCollide = true; 
+            
+            
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10; // Hit a cada 1/6 de segundo por partícula
+            Projectile.localNPCHitCooldown = 10; 
         }
 
         public override void AI()
         {
-            // 1. Geração de Partículas (O Visual Real)
-            // Gera pó de fogo no centro do projétil
-            for (int i = 0; i < 2; i++) // Pode aumentar para 3 se quiser mais denso
+            
+            for (int i = 0; i < 2; i++) 
             {
                 int dustIndex = Dust.NewDust(
                     Projectile.position, 
                     Projectile.width, 
                     Projectile.height, 
-                    DustID.BlueTorch, // ID do fogo padrão (6)
+                    DustID.BlueTorch, 
                     Projectile.velocity.X * 0.2f, 
                     Projectile.velocity.Y * 0.2f, 
                     100, 
@@ -54,18 +51,7 @@ namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower
                 Main.dust[dustIndex].velocity += Projectile.velocity * 0.5f; // Segue o tiro
             }
 
-            // 2. Crescimento da Hitbox (Opcional, estilo Overhaul)
-            // Faz o fogo começar pequeno e ficar grande no final
-            /*
-            if (Projectile.width < 100) 
-            {
-                Projectile.width += 2;
-                Projectile.height += 2;
-            }
-            */
-
-            // 3. Físicas do Fogo
-            // Desacelera um pouco conforme viaja (resistência do ar)
+            
             Projectile.velocity *= 0.95f; 
         }
 

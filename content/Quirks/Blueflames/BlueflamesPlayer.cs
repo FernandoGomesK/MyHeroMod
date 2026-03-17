@@ -17,15 +17,14 @@ namespace MyHeroMod.content.Quirks.Blueflames
 {
     public partial class BlueFlamesPlayer : ModPlayer
     {
-        public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
 
-        // Heat Logic
+        
         public int MaxHeat = 100;
         public int CurrentHeat = 0;
         public int HeatTimer = 0;
         
 
-        // Buffs
+        
 
         public bool IsFlashFireFistActive = false;
         public bool IsRageActive = false;
@@ -33,11 +32,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
 
         public override void PreUpdate()
         {
-            List<QuirkSkills> keys = new List<QuirkSkills>(SkillCooldowns.Keys);
-            foreach (var skill in keys)
-            {
-                if (SkillCooldowns[skill] > 0) SkillCooldowns[skill]--;
-            }
+            
         }
 
 
@@ -55,17 +50,16 @@ namespace MyHeroMod.content.Quirks.Blueflames
             }
              
 
-            // Verifica se a individualidade atual é Blue Flames
+            
             if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.SelectedQuirk == QuirkType.BlueFlames)
             {
-                // 1. Define o tempo de voo (100 = voo curto/médio)
+                
                 Player.wingTimeMax = 50;
 
-                // 2. Se o jogador NÃO tiver asas equipadas, simula uma
+                
                 if (Player.wingsLogic == 0)
                 {
-                    Player.wingsLogic = 29; // Física das Solar Wings
-                    Player.wings = -1; // Esconde o sprite da asa
+                    Player.wingsLogic = 29; 
                 }
 
                 // 3. Anula dano de queda
@@ -80,7 +74,12 @@ namespace MyHeroMod.content.Quirks.Blueflames
                 Player.AddBuff(ModContent.BuffType<BlueRage>(), 2);
             }
         }
-        
+
+        public override void OnRespawn()
+        {
+            CurrentHeat = 0;
+            
+        }
 
         public override void PostUpdate()
         {
@@ -134,30 +133,29 @@ namespace MyHeroMod.content.Quirks.Blueflames
                     HeatTimer = 0; // Reseta
                     
                     // 1. Diminui o calor
-                    CurrentHeat -= 1;
+                   CurrentHeat -= 1;
 
                     if (CurrentHeat >= 50)
+                    {
+                        
+                        Player.lifeRegenTime = 0; 
+                        
+                        // Subtrai a vida
+                        Player.statLife -= 20;
+                        
+                        
+                        CombatText.NewText(Player.getRect(), Color.Cyan, 20, false, true);
+
+                        if (Player.statLife <= 0)
                         {
-                            Player.statLife -= 5;
-                            if (Player.statLife <= 0)
-                            {
-                                var reason = PlayerDeathReason.ByCustomReason(
+                            var reason = PlayerDeathReason.ByCustomReason(
                                 Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.BlueFireDeathMessage", Player.name));
-                                Player.KillMe(reason, 5, 0);
-                            }
-                    if (CurrentHeat >= MaxHeat)
-                            {
-                                Player.AddBuff(ModContent.BuffType<Heatstroke>(), 300);
-                            }
-                            
+                            Player.KillMe(reason, 5, 0);
                         }
-                }
-            }
-            else
-            {
-                HeatTimer = 0; // Garante que o timer não rode se não tiver calor
-            }
-            }
-        }
-    }
-}
+                        
+                        if (CurrentHeat >= MaxHeat)
+                        {
+                            Player.AddBuff(ModContent.BuffType<Heatstroke>(), 300);
+                        }
+                    }
+        }}}}}}

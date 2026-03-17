@@ -10,28 +10,28 @@ namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower
     {
         public override void SetDefaults()
         {
-            // Este projétil é invisível e intangível, serve apenas para gerenciar o ataque
+            
             Projectile.width = 10;
             Projectile.height = 10;
-            Projectile.friendly = false; // Ele não dá dano, quem dá dano é o fogo que ele cospe
+            Projectile.friendly = false; 
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 120; // DURAÇÃO DO ATAQUE: 120 ticks = 2 Segundos
-            Projectile.hide = true; // Invisível
+            Projectile.timeLeft = 120; 
+            Projectile.hide = true; 
         }
 
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
 
-            // 1. Manter vivo apenas se o jogador estiver vivo
+            
             if (player.dead || !player.active)
             {
                 Projectile.Kill();
                 return;
             }
 
-            // 2. Grudar no Jogador e Mirar
+           
             if (Projectile.owner == Main.myPlayer)
             {
                 Vector2 diff = Main.MouseWorld - player.MountedCenter;

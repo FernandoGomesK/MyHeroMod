@@ -61,16 +61,16 @@ namespace MyHeroMod.content.Quirks.HellFlames
 
             
 
-            if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.SelectedQuirk == QuirkType.HellFlames)
+            if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.SelectedQuirk == QuirkType.HellFlames && !Player.HasBuff<Heatstroke>())
             {
                 
                 Player.wingTimeMax = 50;
 
-                // 2. Se o jogador NÃO tiver asas equipadas, simula uma
+                
                 if (Player.wingsLogic == 0)
                 {
-                    Player.wingsLogic = 29; // Física das Solar Wings
-                    Player.wings = -1; // Esconde o sprite da asa
+                    Player.wingsLogic = 29; 
+                    Player.wings = -1; 
                 }
 
                 // 3. Anula dano de queda

@@ -17,7 +17,30 @@ using MyHeroMod.content.Quirks.HellFlames.Projectiles.IgnitedArrow;
 public class IgnitedArrowSkill: QuirkSkill
 {
     
-    public override string Name => "Ignited Arrow";
+    public override string Name 
+    {
+        get 
+        {
+            
+            Player player = Main.LocalPlayer;
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+            if (transPlayer.SelectedQuirk == QuirkType.BlueFlames)
+            {
+                if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
+                {
+                    return "Flashfire Fist: Vanishing Fist";
+                }
+                
+                else
+                {
+                    return "Fireball";
+                }
+            }
+
+            return "Ignited Arrow"; 
+        }
+    }
 
    
     public override string Description => "Shoot a Huge Ice Spike at your Cursor or Lines of fire";

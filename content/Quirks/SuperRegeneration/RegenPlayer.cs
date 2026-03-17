@@ -13,7 +13,15 @@ namespace MyHeroMod.content.Quirks.SuperRegeneration
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             
-            if (transPlayer.HasActiveQuirk(QuirkType.SuperRegeneration) || !Player.HasBuff(ModContent.BuffType<QuirkErased>()))
+            bool hasRegenQuirk = transPlayer.HasActiveQuirk(QuirkType.SuperRegeneration) || 
+                                 transPlayer.SelectedQuirk == QuirkType.SuperRegeneration;
+
+            
+            bool isNotErased = !Player.HasBuff(ModContent.BuffType<QuirkErased>());
+
+            
+            if (hasRegenQuirk && isNotErased)
+            {
             {
                 int regenBonus = 10;
 
@@ -41,4 +49,4 @@ namespace MyHeroMod.content.Quirks.SuperRegeneration
             }
         }
     }
-}
+}}
