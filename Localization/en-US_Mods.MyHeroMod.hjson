@@ -420,6 +420,11 @@ Buffs: {
 		DisplayName: Erasing Buff
 		Description: Mods.MyHeroMod.Buffs.ErasingBuff.Description
 	}
+
+	HellFlashFireFistBuff: {
+		DisplayName: Hell Flash Fire Fist Buff
+		Description: Mods.MyHeroMod.Buffs.HellFlashFireFistBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"

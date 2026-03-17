@@ -118,12 +118,12 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
             
             if (temperature > 0)
             {
-            Player.AddBuff(ModContent.BuffType<Buffs.TemperatureBuff>(), 2);
+            Player.AddBuff(ModContent.BuffType<TemperatureBuff>(), 2);
             }
 
             if (temperature < 0)
                 {
-                Player.AddBuff(ModContent.BuffType<Buffs.TemperatureBuff>(), 2);
+                Player.AddBuff(ModContent.BuffType<TemperatureBuff>(), 2);
                 }
             if (temperature >= maxTemperature)
                 {

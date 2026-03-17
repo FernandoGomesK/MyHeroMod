@@ -161,7 +161,7 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
             
            NPC.ai[0]++; 
 
-            const int COOLDOWN   = 150; 
+            // const int COOLDOWN   = 150; 
             const int ANIM_START = 160;
             const int FIRE_TICK  = 190; 
             const int RESET_TICK = 200; 

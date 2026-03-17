@@ -8,7 +8,6 @@ using MyHeroMod.content;
 using MyHeroMod.content.System;
 using Terraria.Audio;
 using System.Collections.Generic;
-using MyHeroMod.content.Quirks.HellFlames.Buffs;
 using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.Items.Support;
 using MyHeroMod.content.Buffs;
@@ -32,6 +31,8 @@ namespace MyHeroMod.content.Quirks.HellFlames
 
         public override void OnRespawn()
         {
+            Player.ClearBuff(ModContent.BuffType<FlashFireFistBuff>());
+            IsFlashFireFistActive = false;
             CurrentHeat = 0;
             SkillCooldowns.Clear();
         }
@@ -44,7 +45,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
 
             if (IsFlashFireFistActive)
             {
-                Player.AddBuff(ModContent.BuffType<Buffs.FlashFireFistBuff>(), 2);
+                Player.AddBuff(ModContent.BuffType<FlashFireFistBuff>(), 2);
             }
                 
             if (CurrentHeat >= MaxHeat)
@@ -55,7 +56,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
            
             if (CurrentHeat > 0)
             {
-                Player.AddBuff(ModContent.BuffType<Heat>(), 2);
+                Player.AddBuff(ModContent.BuffType<TemperatureBuff>(), 2);
             }
 
             
@@ -80,6 +81,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
         public override void PreUpdate()
         {
             
+            IsFlashFireFistActive = false;
         }
         
 

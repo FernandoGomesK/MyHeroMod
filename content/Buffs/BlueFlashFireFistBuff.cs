@@ -16,11 +16,11 @@
 //         public override void Update(Player player, ref int buffIndex)
 //         {
             
-//             var BluePlayer = player.GetModPlayer<BlueFlamesPlayer>();
+//             // var BluePlayer = player.GetModPlayer<>();
 
-//             BluePlayer.IsFlashFireFistActive = true;
+//             // BluePlayer.IsFlashFireFistActive = true;
 
-//             if (BluePlayer.IsFlashFireFistActive)
+//             // if (BluePlayer.IsFlashFireFistActive)
 //             {
 //                 // Apply Flash Fire Fist effects
 //                 player.GetDamage(DamageClass.Melee) += 0.20f; // Increase melee damage by 20%

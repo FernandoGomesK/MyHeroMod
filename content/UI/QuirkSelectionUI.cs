@@ -53,7 +53,7 @@ namespace MyHeroMod
             CreateButton("All For One", QuirkType.AllForOne, Color.Black);
             CreateButton("Explosion", QuirkType.Explosion, Color.OrangeRed);
             CreateButton("One For All 8th", QuirkType.OneForAll8th, Color.YellowGreen);
-            // CreateButton("Hell Flames", QuirkType.HellFlames, Color.Orange);
+            CreateButton("Hell Flames", QuirkType.HellFlames, Color.Orange);
             // CreateButton("Blue Flames", QuirkType.BlueFlames, Color.CornflowerBlue);
             
             CreateButton("Super Regeneration", QuirkType.SuperRegeneration, Color.White);
