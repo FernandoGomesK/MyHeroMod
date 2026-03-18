@@ -266,6 +266,38 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
             
         }
+
+        // --- MULTIPLAYER ---
+        public override void CopyClientState(ModPlayer targetCopy)
+        {
+            OneForAll9thPlayer clone = targetCopy as OneForAll9thPlayer;
+            clone.percentage = percentage;
+            clone.Activating = Activating;
+        }
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            ModPacket packet = Mod.GetPacket();
+            packet.Write((byte)MyHeroMod.MessageType.SyncOFA9th); 
+            packet.Write((byte)Player.whoAmI); 
+            packet.Write((int)percentage); 
+            packet.Write(Activating); 
+            packet.Send(toWho, fromWho);
+        }
+
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            OneForAll9thPlayer clone = clientPlayer as OneForAll9thPlayer;
+            if (percentage != clone.percentage || Activating != clone.Activating)
+            {
+                ModPacket packet = Mod.GetPacket();
+                packet.Write((byte)MyHeroMod.MessageType.SyncOFA9th);
+                packet.Write((byte)Player.whoAmI);
+                packet.Write((int)percentage);
+                packet.Write(Activating);
+                packet.Send(-1, Player.whoAmI); 
+            }
+        }
         
 
     }

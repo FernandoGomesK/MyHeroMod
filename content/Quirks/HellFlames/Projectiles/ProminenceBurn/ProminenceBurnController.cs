@@ -72,7 +72,7 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn
 
                 if (Projectile.owner == Main.myPlayer)
                 {
-                    // Lança 3 projéteis gigantes por vez com espalhamento
+                    
                     for (int i = 0; i < 3; i++)
                     {
                         Vector2 shootVel = Projectile.velocity;
@@ -127,8 +127,8 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn
                             spawnPos,
                             shootVel,
                             ModContent.ProjectileType<ProminenceBurnFire>(), 
-                            FinalDamage, // DANO ALTO
-                            4f,  // KNOCKBACK ALTO
+                            FinalDamage,
+                            4f,  
                             player.whoAmI
                         );
                     }

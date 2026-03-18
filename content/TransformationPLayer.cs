@@ -11,19 +11,14 @@ using MyHeroMod.content.Quirks.OFA9th;
 namespace MyHeroMod.content
 {
     // --- ENUMS ---
-    
-
     public enum QuirkType { Quirkless, AllForOne, OneForAll9th, OneForAll8th,
                             Explosion, HellFlames, BlueFlames, HalfColdHalfHot,
                             Float, Gearshift, FaJin, SmokeScreen, DangerSense,
                             BlackWhip, Tape, Overclock, Erasure, SuperRegeneration }
-
-    // Waiting Implementation 
-   
                             
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 
-    // --- CLASSE DO JOGADOR ---
+    
     public class TransformationPlayer : BasePlayer
     {
         public QuirkType SelectedQuirk = QuirkType.Quirkless;
@@ -38,11 +33,10 @@ namespace MyHeroMod.content
         public QuirkSkills Slot3 = QuirkSkills.None;
         public QuirkSkills Slot4 = QuirkSkills.None;
 
-        // Lista de skills desbloqueadas
+        
         public List<QuirkSkills> UnlockedSkills = new List<QuirkSkills>();
 
-
-        // --- SAVE & LOAD ---
+        
         public override void SaveData(TagCompound tag)
         {
             tag["SelectedQuirk"] = (int)SelectedQuirk;
@@ -53,16 +47,6 @@ namespace MyHeroMod.content
             tag["Slot4"] = (int)Slot4;
         }
 
-        public void ResetSlot()
-        {
-            Slot1 = QuirkSkills.None;
-            Slot2 = QuirkSkills.None;
-            Slot3 = QuirkSkills.None;
-            Slot4 = QuirkSkills.None;
-        }
-
-        
-
         public override void LoadData(TagCompound tag)
         {
             if (tag.ContainsKey("SelectedQuirk")) SelectedQuirk = (QuirkType)tag.GetInt("SelectedQuirk");
@@ -72,35 +56,35 @@ namespace MyHeroMod.content
             if (tag.ContainsKey("Slot3")) Slot3 = (QuirkSkills)tag.GetInt("Slot3");
             if (tag.ContainsKey("Slot4")) Slot4 = (QuirkSkills)tag.GetInt("Slot4");
             
-            
             UpdateUnlockedSkills();
         }
 
-        
-        public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
-{
-    // 1. LÓGICA DO MENU
-        if (KeybindSystem.SkillMenu.JustPressed)
+        public void ResetSlot()
         {
-            UISystem.ToggleSkillMenu();
+            Slot1 = QuirkSkills.None;
+            Slot2 = QuirkSkills.None;
+            Slot3 = QuirkSkills.None;
+            Slot4 = QuirkSkills.None;
         }
 
-        
-        if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
-        if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(Slot2);
-        if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(Slot3);
-        if (KeybindSystem.SkillSlot4.JustPressed) ExecuteSkill(Slot4);
-        // if (KeybindSystem.SkillSlot1.JustPressed) { Main.NewText("BOTÃO APERTADO!"); ExecuteSkill(Slot1); }
+        // --- LÓGICA DE JOGO ---
+        public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
+        {
+            if (KeybindSystem.SkillMenu.JustPressed)
+            {
+                UISystem.ToggleSkillMenu();
+            }
 
-        
-    }
+            if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
+            if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(Slot2);
+            if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(Slot3);
+            if (KeybindSystem.SkillSlot4.JustPressed) ExecuteSkill(Slot4);
+        }
 
         public bool HasActiveQuirk(QuirkType typeToCheck)
         {
-        
             if (SelectedQuirk == typeToCheck) return true;
 
-            
             var afoPlayer = Player.GetModPlayer<AllForOnePlayer>();
             var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>(); 
 
@@ -112,43 +96,76 @@ namespace MyHeroMod.content
 
             return false;
         }
-        
 
-        public override void OnEnterWorld() {
-        UpdateUnlockedSkills();
-        ProgressionSystem.UpdateStage(this);
+        public override void OnEnterWorld() 
+        {
+            UpdateUnlockedSkills();
+            ProgressionSystem.UpdateStage(this);
         }
 
         public override void PostUpdate()
-{
-    
-    ProgressionSystem.UpdateStage(this);
-}
+        {
+            ProgressionSystem.UpdateStage(this);
+        }
 
         public void CompleteReset()
         {
             foreach (var modPlayer in Player.ModPlayers)
             {
-                if ( modPlayer is IQuirkResetter quirkResetter)
+                if (modPlayer is IQuirkResetter quirkResetter)
                 {
                     quirkResetter.FullReset();
                 }
             }
         }
 
-        public void UpdateUnlockedSkills() {
-        UnlockedSkills.Clear();
-
-    
-        foreach (var skillId in SkillLibrary.GetAllIds()) {
-            var skill = SkillLibrary.GetSkill(skillId);
-            if (skill != null && skill.CheckUnlock(this)) {
-            UnlockedSkills.Add(skillId);
+        public void UpdateUnlockedSkills() 
+        {
+            UnlockedSkills.Clear();
+            foreach (var skillId in SkillLibrary.GetAllIds()) 
+            {
+                var skill = SkillLibrary.GetSkill(skillId);
+                if (skill != null && skill.CheckUnlock(this)) 
+                {
+                    UnlockedSkills.Add(skillId);
+                }
             }
-    }
-}
+        }
 
         
-    
+        public override void CopyClientState(ModPlayer clientClone)
+        {
+            TransformationPlayer clone = clientClone as TransformationPlayer;
+            clone.SelectedQuirk = SelectedQuirk;
+            clone.CurrentStage = CurrentStage;
+        }
+
+        
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            ModPacket packet = Mod.GetPacket();
+            packet.Write((byte)MyHeroMod.MessageType.SyncTransformationPlayer); 
+            packet.Write((byte)Player.whoAmI); 
+            packet.Write((int)SelectedQuirk); 
+            packet.Write((int)CurrentStage); 
+            packet.Send(toWho, fromWho);
+        }
+
+        
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            TransformationPlayer clone = clientPlayer as TransformationPlayer;
+
+            if (SelectedQuirk != clone.SelectedQuirk || CurrentStage != clone.CurrentStage)
+            {
+                ModPacket packet = Mod.GetPacket();
+                packet.Write((byte)MyHeroMod.MessageType.SyncTransformationPlayer);
+                packet.Write((byte)Player.whoAmI);
+                packet.Write((int)SelectedQuirk);
+                packet.Write((int)CurrentStage);
+                
+                packet.Send(-1, Player.whoAmI); 
+            }
+        }
     }
-    }
+}

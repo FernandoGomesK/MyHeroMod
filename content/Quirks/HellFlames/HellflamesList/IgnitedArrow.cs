@@ -12,6 +12,8 @@ using MyHeroMod.content.Projectiles.HellSpider;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider;
 using MyHeroMod.content.Quirks.HellFlames;
 using MyHeroMod.content.Quirks.HellFlames.Projectiles.IgnitedArrow;
+using MyHeroMod.content.Quirks.Blueflames;
+using MyHeroMod.content.Quirks.AllForOne;
 
 
 public class IgnitedArrowSkill: QuirkSkill
@@ -52,6 +54,28 @@ public class IgnitedArrowSkill: QuirkSkill
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => false;
+
+    public override bool CheckUnlock(TransformationPlayer player)
+    {
+        var bluePlayer = player.Player.GetModPlayer<BlueFlamesPlayer>();
+        var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
+        
+
+        if (player.SelectedQuirk == QuirkType.HellFlames) 
+            return player.CurrentStage >= QuirkStage.Initial;
+
+        if (player.SelectedQuirk == QuirkType.BlueFlames) 
+            return player.CurrentStage >= QuirkStage.Advanced;
+
+        if (player.SelectedQuirk == QuirkType.AllForOne && (afoPlayer.HasInternalQuirk(QuirkType.BlueFlames) || afoPlayer.HasInternalQuirk(QuirkType.HellFlames)))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    
 
 public override void OnUse(Player player)
     {

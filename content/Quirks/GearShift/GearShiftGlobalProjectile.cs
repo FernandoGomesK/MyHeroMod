@@ -15,8 +15,7 @@ namespace MyHeroMod.content.System
 
         public override void SetDefaults(Projectile projectile)
         {
-            // Para ter "sombra", o projétil precisa lembrar onde esteve (Cache)
-            // Se o projétil não tiver rastro configurado, forçamos um rastro de 10 frames
+            
             if (projectile.friendly && projectile.owner == Main.myPlayer)
             {
                 if (ProjectileID.Sets.TrailCacheLength[projectile.type] < 10)

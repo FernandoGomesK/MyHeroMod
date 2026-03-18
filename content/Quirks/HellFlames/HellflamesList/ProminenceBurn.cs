@@ -15,6 +15,8 @@ using MyHeroMod.content.Quirks.HellFlames;
 using MyHeroMod.content.Quirks.HellFlames.Projectiles.IgnitedArrow;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling;
 using MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn;
+using MyHeroMod.content.Quirks.Blueflames;
+using MyHeroMod.content.Quirks.AllForOne;
 
 
 public class ProminenceBurnSkill: QuirkSkill
@@ -26,12 +28,32 @@ public class ProminenceBurnSkill: QuirkSkill
     public override string Description => "Shoot a Huge Ice Spike at your Cursor or Lines of fire";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
-    public override int BaseCooldown => 120;
+    public override int BaseCooldown => 320;
 
     public override QuirkType RequiredQuirk => QuirkType.HellFlames;
-    public override QuirkStage RequiredStage => QuirkStage.Initial;
+    public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => false;
+
+    public override bool CheckUnlock(TransformationPlayer player)
+    {
+        var bluePlayer = player.Player.GetModPlayer<BlueFlamesPlayer>();
+        var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
+        
+
+        if (player.SelectedQuirk == QuirkType.HellFlames) 
+            return player.CurrentStage >= QuirkStage.Intermediate;
+
+        if (player.SelectedQuirk == QuirkType.BlueFlames) 
+            return player.CurrentStage >= QuirkStage.Advanced;
+
+        if (player.SelectedQuirk == QuirkType.AllForOne && (afoPlayer.HasInternalQuirk(QuirkType.BlueFlames) || afoPlayer.HasInternalQuirk(QuirkType.HellFlames)))
+        {
+            return true;
+        }
+
+        return false;
+    }
 
 public override void OnUse(Player player)
     {

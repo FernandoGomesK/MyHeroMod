@@ -74,6 +74,7 @@ public override void OnUse(Player player)
         var bluePlayer = player.GetModPlayer<BlueFlamesPlayer>();
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
+        // HELLFLAMES
         if (transPlayer.SelectedQuirk == QuirkType.HellFlames){
             if (player.ownedProjectileCounts[ModContent.ProjectileType<HCHellSpiderController>()] > 0) return;
 
@@ -99,6 +100,10 @@ public override void OnUse(Player player)
             
             hellPlayer.CurrentHeat += 15; 
         }
+
+        // BLUEFLAMES
+
+
         else if (transPlayer.SelectedQuirk == QuirkType.BlueFlames){
             if (player.ownedProjectileCounts[ModContent.ProjectileType<HCHellSpiderController>()] > 0) return;
 

@@ -32,14 +32,29 @@ namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn
         {
             // GERADOR DE PARTÍCULAS MASSIVO
             // Gera 5 a 8 partículas por frame para preencher o espaço gigante
+            Player player = Main.player[Projectile.owner];
+
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+             int fireColor = DustID.SolarFlare; 
+             int fireColor2 = DustID.Torch;
+            
+            
+            if (transPlayer.SelectedQuirk == QuirkType.BlueFlames && transPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+                fireColor = DustID.BlueTorch; 
+                fireColor2 = DustID.IceTorch;
+            }
+
             for (int i = 0; i < 6; i++) 
             {
+                
                 // Espalha as partículas aleatoriamente dentro da hitbox gigante
                 Vector2 dustPos = Projectile.position + new Vector2(Main.rand.Next(Projectile.width), Main.rand.Next(Projectile.height));
                 
-                int dustID = DustID.Torch;
+                int dustID = fireColor2;
                 // Chance de gerar partículas de fumaça ou fogo mais escuro para textura
-                if (Main.rand.NextBool(3)) dustID = DustID.SolarFlare; 
+                if (Main.rand.NextBool(3)) dustID = fireColor; 
 
                 int idx = Dust.NewDust(dustPos, 0, 0, dustID, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 100, default, 1f);
                 

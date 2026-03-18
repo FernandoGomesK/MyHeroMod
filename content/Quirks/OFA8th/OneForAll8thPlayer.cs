@@ -38,16 +38,38 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 Player.noFallDmg = true;
             }
 
-            // if (form == 2)
-            // {
-                
-            // }
-            // else if (form == 1)
-            // {
-                
-            // }
-
         }
+
+        // --- MULTIPLAYER ---
+        public override void CopyClientState(ModPlayer targetCopy)
+        {
+            OneForAll8thPlayer clone = targetCopy as OneForAll8thPlayer;
+            clone.form = form;
+        }
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            ModPacket packet = Mod.GetPacket();
+            packet.Write((byte)MyHeroMod.MessageType.SyncOFA8th); 
+            packet.Write((byte)Player.whoAmI); 
+            packet.Write((int)form); 
+            packet.Send(toWho, fromWho);
+        }
+
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            OneForAll8thPlayer clone = clientPlayer as OneForAll8thPlayer;
+            if (form != clone.form)
+            {
+                ModPacket packet = Mod.GetPacket();
+                packet.Write((byte)MyHeroMod.MessageType.SyncOFA8th);
+                packet.Write((byte)Player.whoAmI);
+                packet.Write((int)form);
+                packet.Send(-1, Player.whoAmI); 
+            }
+        }
+
+        
     }
 }
 
