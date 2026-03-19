@@ -105,11 +105,14 @@ namespace MyHeroMod.content.Quirks.OFA9th
                     Activating = false;
                     ActivationTimer = 0;
                 }
-                else
-                {
-                    ActivationTimer = 0;
-                }
+                
             }
+            else
+            {
+               
+                ActivationTimer = 0;
+            }
+            
 
             if (currentFingers < MaxFingers)
             {

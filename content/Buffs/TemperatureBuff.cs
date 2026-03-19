@@ -12,7 +12,7 @@ namespace MyHeroMod.content.Buffs
 {
     public class TemperatureBuff : ModBuff
     {
-        // Default texture (Half-Cold Half-Hot)
+       
         public override string Texture => "MyHeroMod/Assets/BuffImage/TemperatureBuff"; 
 
         public override void SetStaticDefaults()
@@ -24,10 +24,9 @@ namespace MyHeroMod.content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            // The buff itself is visual; the logic is handled in the respective Player classes.
+            
         }
-
-        // Dynamically update the hover text
+        
         public override void ModifyBuffText(ref string buffName, ref string tip, ref int rare)
         {
             Player player = Main.LocalPlayer;
@@ -35,38 +34,47 @@ namespace MyHeroMod.content.Buffs
             
             buffName = "Heat";
             
-            if (transPlayer.SelectedQuirk == QuirkType.HalfColdHalfHot) 
+            
+            if (transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot)) 
             {
                 var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
                 tip = $"Heat: {hchhPlayer.temperature} / {hchhPlayer.maxTemperature}\nActive skills generate heat.";
             }
-            else if (transPlayer.SelectedQuirk == QuirkType.HellFlames) 
+            
+            else if (transPlayer.HasActiveQuirk(QuirkType.HellFlames)) 
             {
                 var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
                 tip = $"Heat: {hellPlayer.CurrentHeat} / {hellPlayer.MaxHeat}\nActive skills generate heat.";
             }
-            else if (transPlayer.SelectedQuirk == QuirkType.BlueFlames) 
+            
+            else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames)) 
             {
                 var bluePlayer = player.GetModPlayer<BlueFlamesPlayer>();
                 tip = $"Heat: {bluePlayer.CurrentHeat} / {bluePlayer.MaxHeat}\nActive skills generate heat.";
             }
         }
 
-        // Dynamically change the Buff Icon
+        
         public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)
         {
             Player player = Main.LocalPlayer;
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            string texturePath = "MyHeroMod/Assets/BuffImage/TemperatureBuff"; // Default (HCHH)
+            string texturePath = "MyHeroMod/Assets/BuffImage/TemperatureBuff"; 
 
-            if (transPlayer.SelectedQuirk == QuirkType.HellFlames)
+            
+            if (!transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))
             {
-                texturePath = "MyHeroMod/Assets/BuffImage/HeatBuff"; // Endeavor
-            }
-            else if (transPlayer.SelectedQuirk == QuirkType.BlueFlames)
-            {
-                texturePath = "MyHeroMod/Assets/BuffImage/BlueHeatBuff"; // Dabi
+                
+                if (transPlayer.HasActiveQuirk(QuirkType.HellFlames))
+                {
+                    texturePath = "MyHeroMod/Assets/BuffImage/HeatBuff"; 
+                }
+                
+                else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+                {
+                    texturePath = "MyHeroMod/Assets/BuffImage/BlueHeatBuff"; 
+                }
             }
 
             if (ModContent.HasAsset(texturePath))
@@ -79,7 +87,7 @@ namespace MyHeroMod.content.Buffs
             return true;
         }
 
-        // Dynamically draw the text below the icon
+        
         public override void PostDraw(SpriteBatch spriteBatch, int buffIndex, BuffDrawParams drawParams)
         {
             Player player = Main.LocalPlayer;
@@ -87,17 +95,20 @@ namespace MyHeroMod.content.Buffs
             
             string text = "";
 
-            if (transPlayer.SelectedQuirk == QuirkType.HalfColdHalfHot)
+            // PRIORITY 1
+            if (transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))
             {
                 var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
                 text = $"{hchhPlayer.temperature}/{hchhPlayer.maxTemperature}";
             }
-            else if (transPlayer.SelectedQuirk == QuirkType.HellFlames)
+            // PRIORITY 2
+            else if (transPlayer.HasActiveQuirk(QuirkType.HellFlames))
             {
                 var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
                 text = $"{hellPlayer.CurrentHeat}/{hellPlayer.MaxHeat}";
             }
-            else if (transPlayer.SelectedQuirk == QuirkType.BlueFlames)
+            // PRIORITY 3
+            else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
             {
                 var bluePlayer = player.GetModPlayer<BlueFlamesPlayer>();
                 text = $"{bluePlayer.CurrentHeat}/{bluePlayer.MaxHeat}";
