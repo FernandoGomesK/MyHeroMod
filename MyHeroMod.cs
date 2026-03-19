@@ -12,8 +12,10 @@
     using MyHeroMod.content.Quirks.OFA8th;
     using MyHeroMod.content.Quirks.OFA9th;
     using MyHeroMod.content.Quirks.Gearshift;
+using MyHeroMod.content.Quirks.Erasure;
+using MyHeroMod.content.Quirks.Explosion;
 
-    namespace MyHeroMod
+namespace MyHeroMod
     {
         // Please read https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide#mod-skeleton-contents for more information about the various files in a mod.
         public class MyHeroMod : Mod
@@ -22,7 +24,10 @@
             {
                 SyncTransformationPlayer,
                 SyncOFA8th,
-                SyncOFA9th
+                SyncOFA9th,
+                SyncGearshift,
+                SyncErasure,
+                SyncExplosion,
             }
 
             // 2. LER AS MENSAGENS QUE CHEGAM
@@ -96,7 +101,7 @@
 
                         case MessageType.SyncGearshift:
                         byte playerGear = reader.ReadByte();
-                        int gear = reader.ReadBoolean();
+                        bool gear = reader.ReadBoolean();
 
                         
 
@@ -109,6 +114,62 @@
                             packet.Write(playerGear);
                             packet.Write(gear);
                             packet.Send(-1, playerGear); 
+                        }
+                        break;
+
+                        case MessageType.SyncErasure:
+                        byte playerErasure = reader.ReadByte();
+                        bool erasing = reader.ReadBoolean();
+                        bool goggles = reader.ReadBoolean();
+                        int eyetimer = reader.ReadInt32();
+
+                        
+
+                        var erase = Main.player[playerErasure].GetModPlayer<ErasurePlayer>();
+                        erase.isErasureActive = erasing;
+                        erase.isYellowGogglesOn = goggles;
+                        erase.eyeTimer = eyetimer;
+                        
+
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            ModPacket packet = GetPacket();
+                            packet.Write((byte)MessageType.SyncErasure);
+                            packet.Write(playerErasure);
+                            packet.Write(erasing);
+                            packet.Write(goggles);
+                            packet.Write(eyetimer);
+                            packet.Send(-1, playerErasure); 
+                        }
+                        break;
+
+                        case MessageType.SyncExplosion:
+                        byte playerExplode = reader.ReadByte();
+                        bool cluster = reader.ReadBoolean();
+                        bool grenadier = reader.ReadBoolean();
+                        bool panzer = reader.ReadBoolean();
+                        int sweattimer = reader.ReadInt32();
+
+
+                        var explode = Main.player[playerExplode].GetModPlayer<ExplosionPlayer>();
+                        explode.IsClusterActive = cluster;
+                        explode.IsGrenadierBracersOn = grenadier;
+                        explode.IsStrafePanzerOn = panzer;
+                        explode.sweatTimer = sweattimer;
+                        
+
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            ModPacket packet = GetPacket();
+                            packet.Write((byte)MessageType.SyncExplosion);
+                            packet.Write(playerExplode);
+                            packet.Write(cluster);
+                            packet.Write(grenadier);
+                            packet.Write(panzer);
+                            packet.Write(sweattimer);
+                            packet.Send(-1, playerExplode); 
                         }
                         break;
         }

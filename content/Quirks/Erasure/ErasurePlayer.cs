@@ -86,4 +86,43 @@ namespace MyHeroMod.content.Quirks.Erasure;
         // eyeTimer = 0;
     }
 
+     public override void CopyClientState(ModPlayer targetCopy)
+        {
+            ErasurePlayer clone = targetCopy as ErasurePlayer;
+            clone.isErasureActive = isErasureActive;
+                clone.isYellowGogglesOn = isYellowGogglesOn;
+                clone.eyeTimer = eyeTimer;
+            
+        }
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            ModPacket packet = Mod.GetPacket();
+            packet.Write((byte)MyHeroMod.MessageType.SyncErasure); 
+            packet.Write((byte)Player.whoAmI); 
+            
+            packet.Write(isErasureActive);
+            packet.Write(isYellowGogglesOn);
+            packet.Write(eyeTimer);
+         
+            packet.Send(toWho, fromWho);
+        }
+
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            ErasurePlayer clone = clientPlayer as ErasurePlayer;
+            if (eyeTimer != clone.eyeTimer || isYellowGogglesOn != clone.isYellowGogglesOn || isErasureActive != clone.isErasureActive)
+            {
+                ModPacket packet = Mod.GetPacket();
+                packet.Write((byte)MyHeroMod.MessageType.SyncGearshift);
+                packet.Write((byte)Player.whoAmI);
+                packet.Write(isErasureActive);
+                packet.Write(isYellowGogglesOn);
+                packet.Write(eyeTimer);
+                packet.Send(-1, Player.whoAmI); 
+            }
+        }
+
+    
+
     }

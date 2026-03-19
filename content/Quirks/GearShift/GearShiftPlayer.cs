@@ -125,7 +125,7 @@ namespace MyHeroMod.content.Quirks.Gearshift
             if (GearActivation != clone.GearActivation)
             {
                 ModPacket packet = Mod.GetPacket();
-                packet.Write((byte)MyHeroMod.MessageType.SyncOFA9th);
+                packet.Write((byte)MyHeroMod.MessageType.SyncGearshift);
                 packet.Write((byte)Player.whoAmI);
                 packet.Write(GearActivation);
                 packet.Send(-1, Player.whoAmI); 

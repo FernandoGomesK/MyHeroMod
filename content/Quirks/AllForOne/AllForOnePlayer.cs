@@ -80,11 +80,35 @@ namespace MyHeroMod.content.Quirks.AllForOne;
                     
             }
 
-        // public void quirkCount(){
-        //     foreach (var quirk in InternalQuirks)
+        // public override void CopyClientState(ModPlayer targetCopy)
         // {
-        //     quirkCounter++;
-        // }}
+        //     GearshiftPlayer clone = targetCopy as GearshiftPlayer;
+        //     clone.GearActivation = GearActivation;
+            
+        // }
+
+        // public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        // {
+        //     ModPacket packet = Mod.GetPacket();
+        //     packet.Write((byte)MyHeroMod.MessageType.SyncGearshift); 
+        //     packet.Write((byte)Player.whoAmI); 
+            
+        //     packet.Write(GearActivation); 
+        //     packet.Send(toWho, fromWho);
+        // }
+
+        // public override void SendClientChanges(ModPlayer clientPlayer)
+        // {
+        //     GearshiftPlayer clone = clientPlayer as GearshiftPlayer;
+        //     if (GearActivation != clone.GearActivation)
+        //     {
+        //         ModPacket packet = Mod.GetPacket();
+        //         packet.Write((byte)MyHeroMod.MessageType.SyncGearshift);
+        //         packet.Write((byte)Player.whoAmI);
+        //         packet.Write(GearActivation);
+        //         packet.Send(-1, Player.whoAmI); 
+        //     }
+        // }
 
         
 

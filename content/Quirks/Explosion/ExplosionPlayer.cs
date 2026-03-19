@@ -228,6 +228,45 @@ else
             
         }
     }
+    public override void CopyClientState(ModPlayer targetCopy)
+        {
+            ExplosionPlayer clone = targetCopy as ExplosionPlayer;
+            clone.IsClusterActive = IsClusterActive;
+            clone.IsGrenadierBracersOn = IsGrenadierBracersOn;
+            clone.IsStrafePanzerOn = IsStrafePanzerOn;
+            clone.sweatTimer = sweatTimer;
+            
+        }
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            ModPacket packet = Mod.GetPacket();
+            packet.Write((byte)MyHeroMod.MessageType.SyncExplosion); 
+            packet.Write((byte)Player.whoAmI); 
+            packet.Write(IsClusterActive);
+            packet.Write(IsGrenadierBracersOn);
+            packet.Write(IsStrafePanzerOn);
+            packet.Write(sweatTimer);
+         
+            packet.Send(toWho, fromWho);
+        }
+
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            ExplosionPlayer clone = clientPlayer as ExplosionPlayer;
+            if (IsClusterActive != clone.IsClusterActive || IsGrenadierBracersOn != clone.IsGrenadierBracersOn ||
+             IsStrafePanzerOn != clone.IsStrafePanzerOn || sweatTimer != clone.sweatTimer)
+            {
+                ModPacket packet = Mod.GetPacket();
+                packet.Write((byte)MyHeroMod.MessageType.SyncGearshift);
+                packet.Write((byte)Player.whoAmI);
+                packet.Write(IsClusterActive);
+                packet.Write(IsGrenadierBracersOn);
+                packet.Write(IsStrafePanzerOn);
+                packet.Write(sweatTimer);
+                packet.Send(-1, Player.whoAmI); 
+            }
+        }
     }
     }
 
