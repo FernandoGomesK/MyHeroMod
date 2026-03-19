@@ -9,6 +9,8 @@ using Mono.Cecil.Cil;
 using MyHeroMod.content.System;
 
 
+
+
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     // PARTE 1: DADOS E LÓGICA
@@ -97,6 +99,36 @@ namespace MyHeroMod.content.Quirks.Gearshift
             {
                 velocity *= 2.5f; 
                 damage = (int)(damage * 1.3f); 
+            }
+        }
+
+        public override void CopyClientState(ModPlayer targetCopy)
+        {
+            GearshiftPlayer clone = targetCopy as GearshiftPlayer;
+            clone.GearActivation = GearActivation;
+            
+        }
+
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            ModPacket packet = Mod.GetPacket();
+            packet.Write((byte)MyHeroMod.MessageType.SyncGearshift); 
+            packet.Write((byte)Player.whoAmI); 
+            
+            packet.Write(GearActivation); 
+            packet.Send(toWho, fromWho);
+        }
+
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            GearshiftPlayer clone = clientPlayer as GearshiftPlayer;
+            if (GearActivation != clone.GearActivation)
+            {
+                ModPacket packet = Mod.GetPacket();
+                packet.Write((byte)MyHeroMod.MessageType.SyncOFA9th);
+                packet.Write((byte)Player.whoAmI);
+                packet.Write(GearActivation);
+                packet.Send(-1, Player.whoAmI); 
             }
         }
 

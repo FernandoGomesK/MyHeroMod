@@ -15,9 +15,13 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
 
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
+            
+            if (drawInfo.shadow != 0f) return false;
+
             var ModPlayer = drawInfo.drawPlayer.GetModPlayer<OneForAll9thPlayer>();
 
-            return ModPlayer.ActivationTimer > 0;
+            
+            return ModPlayer.Activating && ModPlayer.ActivationTimer > 0;
         }
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
