@@ -21,8 +21,7 @@ namespace MyHeroMod.content.System
                 int randomIndex = Main.rand.Next(0, quirksArray.Length);
                 quirkType = (QuirkType)quirksArray.GetValue(randomIndex);
             }
-            while ( quirkType == QuirkType.Quirkless || quirkType == QuirkType.HellFlames ||
-                    quirkType == QuirkType.BlueFlames || quirkType == QuirkType.AllForOne || quirkType == QuirkType.Erasure) ;
+            while ( quirkType == QuirkType.Quirkless) ;
 
             var transPlayer = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
 
