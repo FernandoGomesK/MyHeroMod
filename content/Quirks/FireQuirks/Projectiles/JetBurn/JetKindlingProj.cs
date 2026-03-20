@@ -64,18 +64,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling
                 Main.dust[dustIndex].velocity += Projectile.velocity * 0.5f; // Segue o tiro
             }
 
-            // 2. Crescimento da Hitbox (Opcional, estilo Overhaul)
-            // Faz o fogo começar pequeno e ficar grande no final
-            /*
-            if (Projectile.width < 100) 
-            {
-                Projectile.width += 2;
-                Projectile.height += 2;
-            }
-            */
-
-            // 3. Físicas do Fogo
-            // Desacelera um pouco conforme viaja (resistência do ar)
+            
             Projectile.velocity *= 0.95f; 
         }
 

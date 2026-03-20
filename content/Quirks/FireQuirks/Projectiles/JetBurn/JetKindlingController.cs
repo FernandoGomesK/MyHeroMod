@@ -10,14 +10,14 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling
     {
         public override void SetDefaults()
         {
-            // Este projétil é invisível e intangível, serve apenas para gerenciar o ataque
+            
             Projectile.width = 10;
             Projectile.height = 10;
-            Projectile.friendly = false; // Ele não dá dano, quem dá dano é o fogo que ele cospe
+            Projectile.friendly = false; 
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 120; // DURAÇÃO DO ATAQUE: 120 ticks = 2 Segundos
-            Projectile.hide = true; // Invisível
+            Projectile.timeLeft = 120; 
+            Projectile.hide = true; 
         }
 
         public override void AI()
