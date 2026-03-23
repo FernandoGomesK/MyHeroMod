@@ -10,9 +10,13 @@ using MyHeroMod.content.Quirks.HalfColdHalfHot;
 using MyHeroMod.content.Projectiles.HellSpider;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider;
 using MyHeroMod.content.Quirks.HellFlames;
-using MyHeroMod.content.Quirks.HellFlames.Projectiles.IgnitedArrow;
+
 using MyHeroMod.content.Quirks.Blueflames;
 using MyHeroMod.content.Quirks.AllForOne;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueVanishingFist;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueFireBall;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IgnitedArrow;
+
 
 
 public class IgnitedArrowSkill: QuirkSkill
@@ -44,7 +48,7 @@ public class IgnitedArrowSkill: QuirkSkill
     }
 
    
-    public override string Description => "Shoot a Huge Ice Spike at your Cursor or Lines of fire";
+    public override string Description => "Shoot a Projectile of Fire";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
     public override int BaseCooldown => 120;
@@ -64,7 +68,7 @@ public class IgnitedArrowSkill: QuirkSkill
             return player.CurrentStage >= QuirkStage.Initial;
 
         if (player.SelectedQuirk == QuirkType.BlueFlames) 
-            return player.CurrentStage >= QuirkStage.Advanced;
+            return player.CurrentStage >= QuirkStage.Initial;
 
         if (player.SelectedQuirk == QuirkType.AllForOne && (afoPlayer.HasInternalQuirk(QuirkType.BlueFlames) || afoPlayer.HasInternalQuirk(QuirkType.HellFlames)))
         {
@@ -119,7 +123,7 @@ public override void OnUse(Player player)
 
 
 
-
+        if (transPlayer.HasActiveQuirk(QuirkType.HellFlames)){
             Vector2 Velocity = Main.MouseWorld - player.Center;
             Velocity.Normalize();
             Velocity *= 15f;
@@ -134,4 +138,39 @@ public override void OnUse(Player player)
                 player.whoAmI
             );
             hellPlayer.CurrentHeat += 15;
+        }
+        else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames)){
+            Vector2 Velocity = Main.MouseWorld - player.Center;
+            Velocity.Normalize();
+            Velocity *= 15f;
+
+            if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
+            {
+                Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                player.Center,
+                Velocity,
+                ModContent.ProjectileType<BlueVanishingFistProj>(),
+                FinalDamage, 
+                2f, 
+                player.whoAmI
+            );
+            }
+            else{
+                
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                player.Center,
+                Velocity,
+                ModContent.ProjectileType<BlueFireBallProj>(),
+                FinalDamage, 
+                2f, 
+                player.whoAmI
+            );
+            }
+
+            
+            hellPlayer.CurrentHeat += 15;
+        }
+            
         }}

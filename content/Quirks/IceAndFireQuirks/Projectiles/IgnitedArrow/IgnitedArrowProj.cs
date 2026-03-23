@@ -4,7 +4,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.IgnitedArrow
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IgnitedArrow
 {
     public class IgnitedArrowProj : ModProjectile
     {

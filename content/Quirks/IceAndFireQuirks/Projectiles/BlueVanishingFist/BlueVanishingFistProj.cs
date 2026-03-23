@@ -4,7 +4,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueVanishingFist
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueVanishingFist
 {
     public class BlueVanishingFistProj : ModProjectile
     {
@@ -54,6 +54,26 @@ namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueVanishingFist
         }   
         public override void AI()
         {
+
+            for (int i = 0; i < 4; i++) // Pode aumentar para 3 se quiser mais denso
+            {
+                int dustIndex = Dust.NewDust(
+                    Projectile.position, 
+                    Projectile.width, 
+                    Projectile.height, 
+                    DustID.BlueTorch, // ID do fogo padrão (6)
+                    Projectile.velocity.X * 0.2f, 
+                    Projectile.velocity.Y * 0.2f, 
+                    100, 
+                    default, 
+                    5f // Tamanho grande
+                );
+                
+                Main.dust[dustIndex].noGravity = true; // Fogo flutua
+                Main.dust[dustIndex].velocity *= 1.5f; // Fogo se expande um pouco
+                Main.dust[dustIndex].velocity += Projectile.velocity * 0.5f; // Segue o tiro
+            }
+
             Projectile.rotation = Projectile.velocity.ToRotation();
             
             if (Main.rand.NextBool(1))

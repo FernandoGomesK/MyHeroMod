@@ -4,7 +4,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFireBall
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueFireBall
 {
     
     public class BlueFireBallProj : ModProjectile
@@ -13,23 +13,23 @@ namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFireBall
         public string dustcolor = "Torch";
         public override void SetDefaults()
         {
-            Projectile.width = 60; // É gordinho para acertar fácil
+            Projectile.width = 60; 
             Projectile.height = 60;
             
             // Comportamento
-            Projectile.friendly = true; // Acerta inimigos
+            Projectile.friendly = true; 
             Projectile.hostile = false; 
-            Projectile.penetrate = -1; // Atravessa infinitos inimigos
-            Projectile.timeLeft = 210; // Dura 1 segundo (alcance médio)
+            Projectile.penetrate = -1; 
+            Projectile.timeLeft = 120; 
             
-            // Visual
-            Projectile.alpha = 255; // Começa invisível (só veremos as partículas)
-            Projectile.ignoreWater = false; // Apaga na água (comportamento clássico)
-            Projectile.tileCollide = false; // Bate nas paredes
             
-            // IMUNIDADE (O Segredo do Dano)
-            // Isso impede que o mesmo foguinho bata 60 vezes por segundo no mesmo bicho.
-            // Mas permite que VÁRIOS foguinhos batam no mesmo bicho em sequência.
+            Projectile.alpha = 255; 
+            Projectile.ignoreWater = false; 
+            Projectile.tileCollide = false; 
+            
+            
+            
+            
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 10; // Hit a cada 1/6 de segundo por partícula
             
@@ -44,7 +44,7 @@ namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFireBall
         {
             for (int i = 0; i < 30; i++)
             {
-                int idx = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueTorch, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 4.0f);
+                int idx = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.SolarFlare, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 4.0f);
                 Main.dust[idx].noGravity = true;
                 Main.dust[idx].velocity *= 3f;
 
@@ -71,7 +71,7 @@ namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFireBall
                     Projectile.position, 
                     Projectile.width, 
                     Projectile.height, 
-                    DustID.BlueTorch, // ID do fogo padrão (6)
+                    DustID.Torch, // ID do fogo padrão (6)
                     Projectile.velocity.X * 0.2f, 
                     Projectile.velocity.Y * 0.2f, 
                     100, 
