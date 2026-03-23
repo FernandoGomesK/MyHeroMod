@@ -7,7 +7,6 @@ using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.HalfColdHalfHot;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceShot;
 using MyHeroMod.content.Projectiles.HellSpider;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider;
 using MyHeroMod.content.Quirks.HellFlames;

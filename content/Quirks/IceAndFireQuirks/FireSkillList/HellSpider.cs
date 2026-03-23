@@ -7,13 +7,13 @@ using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.HalfColdHalfHot;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceShot;
 using MyHeroMod.content.Projectiles.HellSpider;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider;
 using MyHeroMod.content.Quirks.HellFlames;
 using MyHeroMod.content.Quirks.Blueflames;
 using MyHeroMod.content.Quirks.AllForOne;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HeavenPiercingWall;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceShot;
+
 
 
 public class HellSpiderSkill: QuirkSkill
@@ -47,12 +47,19 @@ public class HellSpiderSkill: QuirkSkill
 
     public override bool CheckUnlock(TransformationPlayer player)
     {
-        if (player.HasActiveQuirk(QuirkType.HalfColdHalfHot) || 
-            player.HasActiveQuirk(QuirkType.HellFlames) || 
-            player.HasActiveQuirk(QuirkType.BlueFlames))
+        if (player.HasActiveQuirk(QuirkType.HellFlames))
         {
-        
-            return player.CurrentStage >= QuirkStage.Initial; 
+            return player.CurrentStage >= QuirkStage.Adequation; 
+        }
+
+        else if(player.HasActiveQuirk(QuirkType.HalfColdHalfHot))
+        {
+            return player.CurrentStage >= QuirkStage.Intermediate; 
+        } 
+            
+        else if(player.HasActiveQuirk(QuirkType.BlueFlames))
+        {
+            return player.CurrentStage >= QuirkStage.Advanced; 
         }
         return false;
     }

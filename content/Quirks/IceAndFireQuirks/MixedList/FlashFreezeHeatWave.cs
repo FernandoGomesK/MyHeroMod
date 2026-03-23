@@ -5,12 +5,10 @@ using MyHeroMod.content;
 using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;
-using Microsoft.Xna.Framework;
+
 using MyHeroMod.content.Quirks.HalfColdHalfHot;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceShot;
-using MyHeroMod.content.Projectiles.HellSpider;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower;
+
+
 
 
 public class FlashFreezeSkill : QuirkSkill

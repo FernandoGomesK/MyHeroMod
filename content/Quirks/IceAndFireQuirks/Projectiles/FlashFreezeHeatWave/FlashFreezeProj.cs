@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.FlashFreezeHeatWave
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.FlashFreezeHeatWave
 {
     public class FlashFreezeProj : ModProjectile
     {

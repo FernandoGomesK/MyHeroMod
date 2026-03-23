@@ -23,8 +23,8 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
 
             { QuirkSkills.HCFireFist, new FlashFireFistSkill() },
             { QuirkSkills.HCPhosphor, new TogglePhosphorSkill() },
-            {QuirkSkills.JetKindling, new  iceThrowerJetKindling() },
-            {QuirkSkills.HCHellSpider, new iceSpikeHellSpider() },
+            // {QuirkSkills.JetKindling, new  iceThrowerJetKindling() },
+            // {QuirkSkills.HCHellSpider, new iceSpikeHellSpider() },
             {QuirkSkills.HeavenPiercingWall, new HeavenPiercingGreatGlacial()},
             {QuirkSkills.FlashFreezeHeatWave, new FlashFreezeSkill( )},
 
@@ -34,7 +34,7 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             { QuirkSkills.HellSpider, new HellSpiderSkill() },
             { QuirkSkills.ProminenceBurn, new ProminenceBurnSkill() },
             { QuirkSkills.JetBurn, new JetBurnSkill() },
-            { QuirkSkills.FlashFireFist, new HellFlashFireFistSkill() },
+            // { QuirkSkills.FlashFireFist, new HellFlashFireFistSkill() },
 
             // Explosion
 

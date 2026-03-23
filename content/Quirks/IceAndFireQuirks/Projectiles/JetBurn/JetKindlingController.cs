@@ -3,8 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.JetBurn;
 
-namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.JetBurn
 {
     public class JetKindlingController : ModProjectile
     {
@@ -23,6 +24,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
             // 1. Manter vivo apenas se o jogador estiver vivo
             if (player.dead || !player.active)
@@ -52,6 +54,34 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling
             // 3. DISPARAR O FOGO (A cada 5 frames)
             // Projectile.ai[0] é um contador interno automático
             Projectile.ai[0]++; 
+
+            
+                
+            int dustColor = DustID.Torch;
+            if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames) && transPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+                dustColor = DustID.BlueTorch;
+            }
+
+        
+            for (int d = 0; d < 3; d++)
+            {
+                
+                Vector2 dustVel = Projectile.velocity; 
+                
+                
+                dustVel = dustVel.RotatedByRandom(MathHelper.ToRadians(20));
+                
+                
+                dustVel *= Main.rand.NextFloat(6f, 12f);
+
+                
+                Vector2 spawnPos = player.Center + (Projectile.velocity * 20f);
+
+                int dust = Dust.NewDust(spawnPos, 10, 10, dustColor, dustVel.X, dustVel.Y, 100, default, 2.5f);
+                Main.dust[dust].noGravity = true; 
+                Main.dust[dust].velocity = dustVel;
+            }
 
             if (Projectile.ai[0] % 22 == 0)
             {

@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.JetBurn
 {
     public class JetKindlingProj : ModProjectile
     {
@@ -45,7 +45,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling
 
 
 
-            for (int i = 0; i < 2; i++) // Pode aumentar para 3 se quiser mais denso
+            for (int i = 0; i < 4; i++) // Pode aumentar para 3 se quiser mais denso
             {
                 int dustIndex = Dust.NewDust(
                     Projectile.position, 
@@ -65,7 +65,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling
             }
 
             
-            Projectile.velocity *= 0.95f; 
+            Projectile.velocity *= 0.98f; 
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

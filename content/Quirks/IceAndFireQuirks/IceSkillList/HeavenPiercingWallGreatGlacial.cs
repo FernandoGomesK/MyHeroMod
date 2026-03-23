@@ -7,10 +7,9 @@ using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.HalfColdHalfHot;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceShot;
-using MyHeroMod.content.Projectiles.HellSpider;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HeavenPiercingWall;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.GreatGlacialAegir;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.GreatGlacialAegir;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.HeavenPiercingWall;
+
 
 
 public class HeavenPiercingGreatGlacial: QuirkSkill

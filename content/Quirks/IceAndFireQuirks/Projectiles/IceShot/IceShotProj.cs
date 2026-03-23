@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 
-namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceShot
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceShot
 {
     public class IceShotProj : ModProjectile
     {

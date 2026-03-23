@@ -3,9 +3,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HeavenPiercingWall;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.HeavenPiercingWall;
 
-namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.GreatGlacialAegir
+
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.GreatGlacialAegir
 {
     public class GreatGlacialAegirController : ModProjectile
     {

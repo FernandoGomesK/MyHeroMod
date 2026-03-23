@@ -7,13 +7,7 @@ using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceShot;
-using MyHeroMod.content.Projectiles.HellSpider;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider;
 using MyHeroMod.content.Quirks.HellFlames;
-using MyHeroMod.content.Quirks.HellFlames.Projectiles.IgnitedArrow;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.JetKindling;
 using MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn;
 using MyHeroMod.content.Quirks.Blueflames;
 using MyHeroMod.content.Quirks.AllForOne;
@@ -37,21 +31,15 @@ public class ProminenceBurnSkill: QuirkSkill
 
     public override bool CheckUnlock(TransformationPlayer player)
     {
-        var bluePlayer = player.Player.GetModPlayer<BlueFlamesPlayer>();
-        var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
-        
-
-        if (player.SelectedQuirk == QuirkType.HellFlames) 
-            return player.CurrentStage >= QuirkStage.Intermediate;
-
-        if (player.SelectedQuirk == QuirkType.BlueFlames) 
-            return player.CurrentStage >= QuirkStage.Advanced;
-
-        if (player.SelectedQuirk == QuirkType.AllForOne && (afoPlayer.HasInternalQuirk(QuirkType.BlueFlames) || afoPlayer.HasInternalQuirk(QuirkType.HellFlames)))
+        if (player.HasActiveQuirk(QuirkType.HellFlames))
         {
-            return true;
+            return player.CurrentStage >= QuirkStage.Intermediate; 
         }
-
+            
+        else if(player.HasActiveQuirk(QuirkType.BlueFlames))
+        {
+            return player.CurrentStage >= QuirkStage.Advanced; 
+        }
         return false;
     }
 
