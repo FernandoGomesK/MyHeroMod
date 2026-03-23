@@ -58,8 +58,8 @@ public class HeavenPiercingGreatGlacial: QuirkSkill
                 player.Center,
                 Vector2.Zero, 
                 ModContent.ProjectileType<GreatGlacialAegirController>(),
-                finalDamage, // Dano alto (Impacto)
-                10f, // Knockback alto
+                finalDamage,
+                10f, 
                 player.whoAmI);
         }
         else

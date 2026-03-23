@@ -70,7 +70,7 @@ public override void OnUse(Player player)
             Vector2 direction = Main.MouseWorld - player.Center;
             direction.Normalize();
 
-            // Lança o Controlador
+            
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
