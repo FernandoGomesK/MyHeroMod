@@ -20,6 +20,21 @@ public override string Name => "Phosphor";
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => false;
 
+    public override bool CheckUnlock(TransformationPlayer player)
+    {
+        
+        if(player.HasActiveQuirk(QuirkType.HalfColdHalfHot))
+        {
+            return player.CurrentStage >= QuirkStage.Advanced; 
+        } 
+            
+        else if(player.HasActiveQuirk(QuirkType.BlueFlames))
+        {
+            return player.CurrentStage >= QuirkStage.Final; 
+        }
+        return false;
+    }
+
 
     public override void OnUse(Player player)
     {

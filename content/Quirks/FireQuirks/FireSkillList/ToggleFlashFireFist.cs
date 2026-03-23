@@ -21,6 +21,25 @@ public class FlashFireFistSkill : QuirkSkill
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => true;
 
+    public override bool CheckUnlock(TransformationPlayer player)
+    {
+        if (player.HasActiveQuirk(QuirkType.HellFlames))
+        {
+            return player.CurrentStage >= QuirkStage.Adequation; 
+        }
+
+        else if(player.HasActiveQuirk(QuirkType.HalfColdHalfHot))
+        {
+            return player.CurrentStage >= QuirkStage.Intermediate; 
+        } 
+            
+        else if(player.HasActiveQuirk(QuirkType.BlueFlames))
+        {
+            return player.CurrentStage >= QuirkStage.Advanced; 
+        }
+        return false;
+    }
+
     public override void OnUse(Player player)
     {
         var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
