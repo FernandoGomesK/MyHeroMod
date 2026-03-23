@@ -15,7 +15,7 @@ using MyHeroMod.content.Buffs;
 
 namespace MyHeroMod.content.Quirks.Blueflames
 {
-    public partial class BlueFlamesPlayer : ModPlayer
+    public partial class BlueFlamesPlayer : ModPlayer, IQuirkResetter
     {
 
         
@@ -30,9 +30,21 @@ namespace MyHeroMod.content.Quirks.Blueflames
         public bool IsRageActive = false;
         public bool IsPhosphorActive = false;
 
+        public void FullReset()
+        {
+            CurrentHeat = 0;
+            HeatTimer = 0;
+            IsFlashFireFistActive = false;
+            IsRageActive = false;
+            IsPhosphorActive = false;
+            Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
+            Player.ClearBuff(ModContent.BuffType<FlashFireFistBuff>());
+        }
+
         public override void PreUpdate()
         {
             
+            IsFlashFireFistActive = false;
         }
 
 
@@ -65,14 +77,14 @@ namespace MyHeroMod.content.Quirks.Blueflames
                 // 3. Anula dano de queda
                 Player.noFallDmg = true;
             }
-            if (IsFlashFireFistActive)
-            {
-                Player.AddBuff(ModContent.BuffType<Buffs.FlashFireFistBuff>(), 2);
-            }
-            if (IsRageActive)
-            {
-                Player.AddBuff(ModContent.BuffType<BlueRage>(), 2);
-            }
+            // if (IsFlashFireFistActive)
+            // {
+            //     Player.AddBuff(ModContent.BuffType<Buffs.FlashFireFistBuff>(), 2);
+            // }
+            // if (IsRageActive)
+            // {
+            //     Player.AddBuff(ModContent.BuffType<BlueRage>(), 2);
+            // }
         }
 
         public override void OnRespawn()

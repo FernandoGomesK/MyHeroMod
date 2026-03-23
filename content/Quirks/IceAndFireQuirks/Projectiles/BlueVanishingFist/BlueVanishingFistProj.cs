@@ -10,8 +10,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueVanishingFis
     {
         public override void SetDefaults()
         {
-            Projectile.width = 32;
-            Projectile.height = 32;
+            Projectile.width = 60;
+            Projectile.height = 60;
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.hostile = false;
@@ -72,6 +72,15 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueVanishingFis
                 Main.dust[dustIndex].noGravity = true; // Fogo flutua
                 Main.dust[dustIndex].velocity *= 1.5f; // Fogo se expande um pouco
                 Main.dust[dustIndex].velocity += Projectile.velocity * 0.5f; // Segue o tiro
+            }
+
+             if (Projectile.scale < 3.0f)
+            {
+                Projectile.scale += 0.05f;
+                Vector2 oldCenter = Projectile.Center;
+                Projectile.width = (int)(50 * Projectile.scale);
+                Projectile.height = (int)(50 * Projectile.scale);
+                Projectile.Center = oldCenter;
             }
 
             Projectile.rotation = Projectile.velocity.ToRotation();

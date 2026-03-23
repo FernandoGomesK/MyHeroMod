@@ -14,9 +14,9 @@ using MyHeroMod.content.Buffs;
 
 namespace MyHeroMod.content.Quirks.HellFlames
 {
-    public partial class HellFlamesPlayer : ModPlayer
+    public partial class HellFlamesPlayer : ModPlayer, IQuirkResetter
     {
-        public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
+    
 
         public int MaxHeat = 100;
         public int CurrentHeat = 0;
@@ -34,7 +34,13 @@ namespace MyHeroMod.content.Quirks.HellFlames
             Player.ClearBuff(ModContent.BuffType<FlashFireFistBuff>());
             IsFlashFireFistActive = false;
             CurrentHeat = 0;
-            SkillCooldowns.Clear();
+            
+        }
+        public void FullReset()
+        {
+            CurrentHeat = 0;
+            IsFlashFireFistActive = false;
+            Player.ClearBuff(ModContent.BuffType<FlashFireFistBuff>());
         }
         public override void PostUpdateEquips()
         {

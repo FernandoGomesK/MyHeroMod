@@ -13,38 +13,20 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
         
         public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
         {
-            if (IsFlashFireFistActive)
-            {
+            // if (IsFlashFireFistActive)
+            // {
             
-                drawInfo.colorArmorBody = Color.OrangeRed;
-                drawInfo.colorArmorHead = Color.OrangeRed;
-                drawInfo.colorArmorLegs = Color.OrangeRed;
-            }
+            //     drawInfo.colorArmorBody = Color.OrangeRed;
+            //     drawInfo.colorArmorHead = Color.OrangeRed;
+            //     drawInfo.colorArmorLegs = Color.OrangeRed;
+            // }
         }
 
         
         public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
             
-            if (IsFlashFireFistActive)
-            {
-                
-                drawInfo.colorArmorBody = Color.OrangeRed;
-                drawInfo.colorArmorHead = Color.OrangeRed;
-                drawInfo.colorArmorLegs = Color.OrangeRed;
-
-                
-                Lighting.AddLight(Player.Center, Color.OrangeRed.ToVector3() * 0.8f);
-                
-                    int fire = Dust.NewDust(Player.position, Player.width, Player.height, DustID.Torch, 0f, 0f, 100, default, 2.5f);
-                    Main.dust[fire].noGravity = true;
-                    Main.dust[fire].velocity *= 3f;
-                    Main.dust[fire].velocity += Player.velocity * 0.5f;
-                
-                
-                
-            }
-
+            
             
             if (IsPhosphorActive)
             {

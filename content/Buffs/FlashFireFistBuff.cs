@@ -30,11 +30,52 @@ namespace MyHeroMod.content.Buffs
             if (transformPlayer.SelectedQuirk == QuirkType.HalfColdHalfHot)
             {
                 player.GetModPlayer<HalfColdHalfHotPlayer>().IsFlashFireFistActive = true;
+                var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+
+
+                if (hchhPlayer.IsFlashFireFistActive)
+            {
+                
+                // drawInfo.colorArmorBody = Color.OrangeRed;
+                // drawInfo.colorArmorHead = Color.OrangeRed;
+                // drawInfo.colorArmorLegs = Color.OrangeRed;
+
+                
+                Lighting.AddLight(player.Center, Color.OrangeRed.ToVector3() * 0.8f);
+                
+                    int fire = Dust.NewDust(player.position, player.width, player.height, DustID.Torch, 0f, 0f, 100, default, 2.5f);
+                    Main.dust[fire].noGravity = true;
+                    Main.dust[fire].velocity *= 3f;
+                    Main.dust[fire].velocity += player.velocity * 0.5f;
+                
+                
+                
+            }
+
             }
             else if (transformPlayer.SelectedQuirk == QuirkType.HellFlames)
             {
                 var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
                 hellPlayer.IsFlashFireFistActive = true;
+
+                if (hellPlayer.IsFlashFireFistActive)
+            {
+                
+                // drawInfo.colorArmorBody = Color.OrangeRed;
+                // drawInfo.colorArmorHead = Color.OrangeRed;
+                // drawInfo.colorArmorLegs = Color.OrangeRed;
+
+                
+                Lighting.AddLight(player.Center, Color.OrangeRed.ToVector3() * 0.8f);
+                
+                    int fire = Dust.NewDust(player.position, player.width, player.height, DustID.Torch, 0f, 0f, 100, default, 2.5f);
+                    Main.dust[fire].noGravity = true;
+                    Main.dust[fire].velocity *= 3f;
+                    Main.dust[fire].velocity += player.velocity * 0.5f;
+                
+                
+                
+            }
                 
                 
                 player.GetDamage(DamageClass.Melee) += 0.20f; 
@@ -44,6 +85,24 @@ namespace MyHeroMod.content.Buffs
             {
                 var bluePlayer = player.GetModPlayer<BlueFlamesPlayer>();
                 bluePlayer.IsFlashFireFistActive = true;
+                if (bluePlayer.IsFlashFireFistActive)
+            {
+                
+                // drawInfo.colorArmorBody = Color.OrangeRed;
+                // drawInfo.colorArmorHead = Color.OrangeRed;
+                // drawInfo.colorArmorLegs = Color.OrangeRed;
+
+                
+                Lighting.AddLight(player.Center, Color.OrangeRed.ToVector3() * 0.8f);
+                
+                    int fire = Dust.NewDust(player.position, player.width, player.height, DustID.BlueTorch, 0f, 0f, 100, default, 2.5f);
+                    Main.dust[fire].noGravity = true;
+                    Main.dust[fire].velocity *= 3f;
+                    Main.dust[fire].velocity += player.velocity * 0.5f;
+                
+                
+                
+            }
 
                 
                 player.GetDamage(DamageClass.Melee) += 0.35f; 
@@ -84,5 +143,7 @@ namespace MyHeroMod.content.Buffs
            
             return true;
         }
+
+        
     }
 }

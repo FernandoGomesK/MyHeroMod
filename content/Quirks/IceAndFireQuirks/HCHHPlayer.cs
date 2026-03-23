@@ -51,16 +51,13 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
             temperature = 0;
             IsFlashFireFistActive = false;
             IsPhosphorActive = false;
-            SkillCooldowns.Clear();
         }
 
         public void FullReset()
         {
-            IsCombatVestAlphaOn = false;
-            IsCombatVestBetaOn = false;
-            IsSurgeArmGauntletsOn = false;
             IsFlashFireFistActive = false;
             IsPhosphorActive = false;
+            temperature = 0;
             Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
             Player.ClearBuff(ModContent.BuffType<FlashFireFistBuff>());
         }

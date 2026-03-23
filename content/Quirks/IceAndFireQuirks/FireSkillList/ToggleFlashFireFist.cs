@@ -54,8 +54,10 @@ public class FlashFireFistSkill : QuirkSkill
         {
             player.AddBuff(ModContent.BuffType<FlashFireFistBuff>(), 3600);
             hellPlayer.CurrentHeat += 15;
+
             hchhPlayer.temperature += 15;
-            bluePlayer.CurrentHeat =+ 15;
+
+            bluePlayer.CurrentHeat += 15;
 
 
              
