@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace MyHeroMod.content.Quirks.OFA8th
 {
-    public partial class OneForAll8thPlayer : ModPlayer, IQuirkResetter
+    public partial class OneForAll8thPlayer : ModPlayer, IQuirkResetter, IHeroDashModifier
     {
        
        public int form = 0;

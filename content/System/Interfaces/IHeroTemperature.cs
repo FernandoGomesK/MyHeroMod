@@ -6,5 +6,7 @@ namespace MyHeroMod.content.System.Interfaces
         int MaxHeat { get; }
         int MinimumHeat { get; }
         void AddHeat(int amount);
+
+        void RemoveHeat(int amount);
     }
 }
