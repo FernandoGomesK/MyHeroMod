@@ -12,17 +12,32 @@ using MyHeroMod.content.Debuffs;
 
 
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.Blueflames
 {
-    public partial class BlueFlamesPlayer : ModPlayer, IQuirkResetter
+    public partial class BlueFlamesPlayer : ModPlayer, IQuirkResetter, IHeroTemperature
     {
 
         
-        public int MaxHeat = 100;
-        public int CurrentHeat = 0;
+        // public int MaxHeat = 100;
+        // public int CurrentHeat = 0;
+
+        public int Temperature {get; set;} = 0;
+        public int MaxTemperature { get; } = 100;
+        public int MinTemperature { get; } = -50;        
         public int HeatTimer = 0;
-        
+
+        public void AddHeat(int amount)
+        {
+            Temperature += amount;
+            if (Temperature > MaxTemperature) Temperature = MaxTemperature;
+        }
+        public void ReduceHeat(int amount)
+        {
+            Temperature -= amount;
+            if (Temperature < MinTemperature) Temperature = MinTemperature;
+        }
 
         
 
@@ -32,7 +47,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
 
         public void FullReset()
         {
-            CurrentHeat = 0;
+            Temperature = 0;
             HeatTimer = 0;
             IsFlashFireFistActive = false;
             IsRageActive = false;
@@ -53,10 +68,10 @@ namespace MyHeroMod.content.Quirks.Blueflames
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            if (mainPlayer.SelectedQuirk != QuirkType.BlueFlames)  
+            if (!mainPlayer.HasActiveQuirk(QuirkType.BlueFlames))  
                 return;
 
-            if (CurrentHeat > 0)
+            if (Temperature > 0)
             {
                 Player.AddBuff(ModContent.BuffType<TemperatureBuff>(), 2);
             }
@@ -89,16 +104,17 @@ namespace MyHeroMod.content.Quirks.Blueflames
 
         public override void OnRespawn()
         {
-            CurrentHeat = 0;
+            Temperature = 0;
             
         }
 
         public override void PostUpdate()
         {
-            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            if (mainPlayer.SelectedQuirk == QuirkType.BlueFlames)
-            {
+            if (!mainPlayer.HasActiveQuirk(QuirkType.BlueFlames))  
+                return;
+
                 // CORREÇÃO AQUI: Substituí !Player.onFloor por Player.velocity.Y != 0
                 bool isFlying = (Player.velocity.Y != 0) && (Player.wingTime > 0 || Player.rocketDelay > 0) && !Player.mount.Active;
 
@@ -116,10 +132,10 @@ namespace MyHeroMod.content.Quirks.Blueflames
                             0, 2f, 100, default, 1.5f 
                         );
                         Main.dust[dustFire].noGravity = true;
-                        Main.dust[dustFire].velocity *= 0.5f; // Suaviza o movimento
+                        Main.dust[dustFire].velocity *= 0.5f; 
                     }
 
-                    // Lado Direito (Fogo tbm)
+                    
                     if (Main.rand.NextBool(2))
                     {
                         int dustIce = Dust.NewDust(
@@ -135,19 +151,19 @@ namespace MyHeroMod.content.Quirks.Blueflames
                 }
 
 
-                if (CurrentHeat > 0)
+                if (Temperature > 0)
             {
-                HeatTimer++; // Conta +1 frame
+                HeatTimer++; 
 
-                // 60 frames = 1 segundo
+                
                 if (HeatTimer >= 60)
                 {
-                    HeatTimer = 0; // Reseta
+                    HeatTimer = 0;
                     
-                    // 1. Diminui o calor
-                   CurrentHeat -= 1;
+                    
+                   Temperature -= 1;
 
-                    if (CurrentHeat >= 50)
+                    if (Temperature >= 50)
                     {
                         
                         Player.lifeRegenTime = 0; 
@@ -165,9 +181,9 @@ namespace MyHeroMod.content.Quirks.Blueflames
                             Player.KillMe(reason, 5, 0);
                         }
                         
-                        if (CurrentHeat >= MaxHeat)
+                        if (Temperature >= MaxTemperature)
                         {
                             Player.AddBuff(ModContent.BuffType<Heatstroke>(), 300);
                         }
                     }
-        }}}}}}
+        }}}}}

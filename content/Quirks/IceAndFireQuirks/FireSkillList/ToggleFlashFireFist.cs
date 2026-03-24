@@ -6,6 +6,7 @@ using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.HalfColdHalfHot;
 using MyHeroMod.content.Quirks.HellFlames;
 using MyHeroMod.content.Quirks.Blueflames;
+using MyHeroMod.content.System.Interfaces;
 
 
 
@@ -53,11 +54,18 @@ public class FlashFireFistSkill : QuirkSkill
         else
         {
             player.AddBuff(ModContent.BuffType<FlashFireFistBuff>(), 3600);
-            hellPlayer.CurrentHeat += 15;
+            // hellPlayer.CurrentHeat += 15;
 
-            hchhPlayer.temperature += 15;
+            // hchhPlayer.temperature += 15;
 
-            bluePlayer.CurrentHeat += 15;
+            // bluePlayer.CurrentHeat += 15;
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.AddHeat(15);
+                }
+            }
 
 
              

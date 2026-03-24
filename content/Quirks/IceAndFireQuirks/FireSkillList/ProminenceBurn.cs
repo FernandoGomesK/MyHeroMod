@@ -8,9 +8,10 @@ using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.HellFlames;
-using MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn;
 using MyHeroMod.content.Quirks.Blueflames;
 using MyHeroMod.content.Quirks.AllForOne;
+using MyHeroMod.content.System.Interfaces;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.ProminenceBurn;
 
 
 public class ProminenceBurnSkill: QuirkSkill
@@ -68,5 +69,13 @@ public override void OnUse(Player player)
                 0f, 
                 player.whoAmI
             );
-            hellPlayer.CurrentHeat += 60;
+            // hellPlayer.CurrentHeat += 60;
+
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.AddHeat(25);
+                }
+            }
         }}

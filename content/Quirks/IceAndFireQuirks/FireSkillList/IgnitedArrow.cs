@@ -16,6 +16,7 @@ using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueVanishingFist;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueFireBall;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IgnitedArrow;
+using MyHeroMod.content.System.Interfaces;
 
 
 
@@ -137,7 +138,7 @@ public override void OnUse(Player player)
                 2f, 
                 player.whoAmI
             );
-            hellPlayer.CurrentHeat += 15;
+            // hellPlayer.CurrentHeat += 15;
         }
         else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames)){
             Vector2 Velocity = Main.MouseWorld - player.Center;
@@ -170,7 +171,15 @@ public override void OnUse(Player player)
             }
 
             
-            hellPlayer.CurrentHeat += 15;
+            // hellPlayer.CurrentHeat += 15;
         }
+
+        foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.AddHeat(15);
+                }
+            }
             
         }}

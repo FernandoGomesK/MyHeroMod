@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.HalfColdHalfHot;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.GreatGlacialAegir;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.HeavenPiercingWall;
+using MyHeroMod.content.System.Interfaces;
 
 
 
@@ -97,7 +98,15 @@ public class HeavenPiercingGreatGlacial: QuirkSkill
 
             
         );
-        hchhPlayer.temperature -= 45;
+        // hchhPlayer.temperature -= 45;
+
+        foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.ReduceHeat(45);
+                }
+            }
         }
         }
     }

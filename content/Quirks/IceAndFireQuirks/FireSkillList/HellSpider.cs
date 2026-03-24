@@ -13,6 +13,7 @@ using MyHeroMod.content.Quirks.HellFlames;
 using MyHeroMod.content.Quirks.Blueflames;
 using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceShot;
+using MyHeroMod.content.System.Interfaces;
 
 
 
@@ -109,10 +110,14 @@ public override void OnUse(Player player)
                 
                 Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, direction, ModContent.ProjectileType<HellSpiderController>(), (int)(fireDamage * multiplier), 0f, player.whoAmI);
                 
-                hchhPlayer.temperature += 25; 
-                if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames)) bluePlayer.CurrentHeat += 25;
+                foreach (var modPlayer in player.ModPlayers)
+                {
+                    if (modPlayer is IHeroTemperature heatUser) heatUser.AddHeat(25);
+                }
                 
-                return; 
+                return;
+                
+                
             }
             else
             {
@@ -125,7 +130,11 @@ public override void OnUse(Player player)
                 Vector2 velocity = direction * 15f;
                 Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, velocity, ModContent.ProjectileType<IceShotProj>(), (int)(iceDamage * multiplier), 2f, player.whoAmI);
 
-                hchhPlayer.temperature -= 25; 
+                foreach (var modPlayer in player.ModPlayers)
+                {
+                    if (modPlayer is IHeroTemperature heatUser) heatUser.ReduceHeat(25);
+                }
+                
                 return; 
             }
         }
@@ -137,8 +146,13 @@ public override void OnUse(Player player)
             
             Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, direction, ModContent.ProjectileType<HellSpiderController>(), (int)(fireDamage * multiplier), 0f, player.whoAmI);
             
-            hellPlayer.CurrentHeat += 25; 
-            if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames)) bluePlayer.CurrentHeat += 25;
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.AddHeat(25);
+                }
+            }
             
             return;
         }
@@ -150,7 +164,16 @@ public override void OnUse(Player player)
             
             Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, direction, ModContent.ProjectileType<HellSpiderController>(), (int)(fireDamage * multiplier), 0f, player.whoAmI);
             
-            bluePlayer.CurrentHeat += 25; 
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.AddHeat(25);
+                }
+            } 
+            return;
         }
+
+        
     }
 }

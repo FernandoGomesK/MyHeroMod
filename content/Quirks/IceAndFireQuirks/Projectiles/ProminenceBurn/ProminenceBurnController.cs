@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using MyHeroMod.content.Quirks.HellFlames;
 
-namespace MyHeroMod.content.Quirks.HellFlames.Projectiles.ProminenceBurn
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.ProminenceBurn
 {
     public class ProminenceBurnController : ModProjectile
     {

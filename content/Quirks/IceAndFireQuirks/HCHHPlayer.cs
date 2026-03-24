@@ -11,16 +11,32 @@ using System.Collections.Generic;
 
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles;
+using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 {
-    public partial class HalfColdHalfHotPlayer : ModPlayer, IQuirkResetter
+    public partial class HalfColdHalfHotPlayer : ModPlayer, IQuirkResetter, IHeroTemperature
     {
-        public Dictionary<QuirkSkills, int> SkillCooldowns = new Dictionary<QuirkSkills, int>();
-        public int temperature = 0;
+        
+        // public int temperature = 0;
 
-        public int maxTemperature = 100;
-        public int MinimumTemperature = -100;
+        // public int maxTemperature = 100;
+        // public int MinimumTemperature = -100;
+
+        public int Temperature {get; set;} = 0;
+        public int MaxTemperature { get; } = 100;
+        public int MinTemperature { get; } = -100;   
+
+        public void AddHeat(int amount)
+        {
+            Temperature += amount;
+            if (Temperature > MaxTemperature) Temperature = MaxTemperature;
+        }
+        public void ReduceHeat(int amount)
+        {
+            Temperature -= amount;
+            if (Temperature < MinTemperature) Temperature = MinTemperature;
+        }
 
         public int temperatureTimer = 0;
         public bool IsFlashFreezeActive = false;
@@ -48,7 +64,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 
         public override void OnRespawn()
         {
-            temperature = 0;
+            Temperature = 0;
             IsFlashFireFistActive = false;
             IsPhosphorActive = false;
         }
@@ -57,7 +73,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
         {
             IsFlashFireFistActive = false;
             IsPhosphorActive = false;
-            temperature = 0;
+            Temperature = 0;
             Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
             Player.ClearBuff(ModContent.BuffType<FlashFireFistBuff>());
         }
@@ -65,6 +81,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 
         public override void ResetEffects()
         {
+            
             IsCombatVestAlphaOn = false;
             IsCombatVestBetaOn = false;
             IsSurgeArmGauntletsOn = false;
@@ -74,6 +91,11 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 
         public override void PreUpdate()
 {
+    var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (!mainPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))  
+                return;
+
     if (Player.statLife <= 0.75 * Player.statLifeMax2)
             {
                 Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
@@ -101,7 +123,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 
             if (Player.HasBuff<PhosphorBuff>())
             {
-                temperature = 0;
+                Temperature = 0;
             }
 
 }
@@ -112,43 +134,43 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
+            if (!mainPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))  
+                return;
+
             
-            if (temperature > 0)
+            if (Temperature > 0)
             {
             Player.AddBuff(ModContent.BuffType<TemperatureBuff>(), 2);
             }
 
-            if (temperature < 0)
+            if (Temperature < 0)
                 {
                 Player.AddBuff(ModContent.BuffType<TemperatureBuff>(), 2);
                 }
-            if (temperature >= maxTemperature)
+            if (Temperature >= MaxTemperature)
                 {
                     Player.AddBuff(ModContent.BuffType<Debuffs.Heatstroke>(), 2);
                 }
-                if (temperature <= MinimumTemperature)
+                if (Temperature <= MinTemperature)
                 {
                     Player.AddBuff(ModContent.BuffType<Debuffs.FrostBite>(), 2);
                 }
 
 
-            if (mainPlayer.SelectedQuirk != QuirkType.HalfColdHalfHot)  
-                return;
-
-            // Verifica se a individualidade atual é Half Cold Half Hot
-            if (mainPlayer.CurrentStage >= QuirkStage.Intermediate && mainPlayer.SelectedQuirk == QuirkType.HalfColdHalfHot)
+           
+            if (mainPlayer.CurrentStage >= QuirkStage.Intermediate && mainPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))
             {
-                // 1. Define o tempo de voo (100 = voo curto/médio)
+                
                 Player.wingTimeMax = 50;
 
-                // 2. Se o jogador NÃO tiver asas equipadas, simula uma
+                
                 if (Player.wingsLogic == 0)
                 {
-                    Player.wingsLogic = 29; // Física das Solar Wings
-                    Player.wings = -1; // Esconde o sprite da asa
+                    Player.wingsLogic = 29; 
+                    Player.wings = -1;
                 }
 
-                // 3. Anula dano de queda
+                
                 Player.noFallDmg = true;
             }
         }
@@ -157,6 +179,8 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
         public override void PostUpdate()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+            if (!mainPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))  
+                return;
 
             if (IsFlashFreezeActive)
     {
@@ -170,7 +194,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
 
                 if (Player.velocity.Y != 0 && !Player.mount.Active)
                 {
-                    // Lado Esquerdo
+                    
                     if (Main.rand.NextBool(2)) 
                     {
                         int dustFire = Dust.NewDust(
@@ -184,7 +208,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                         Main.dust[dustFire].velocity *= 0.5f; 
                     }
 
-                    // lado direito
+                    
                     if (Main.rand.NextBool(2))
                     {
                         int dustIce = Dust.NewDust(
@@ -199,7 +223,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
                     }
                 }
 
-                if (temperature != 0)
+                if (Temperature != 0)
 {
     temperatureTimer++;
 
@@ -216,17 +240,17 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
         if (IsCombatVestBetaOn)  recoveryRate += 5; 
 
         
-        if (temperature < 0) 
+        if (Temperature < 0) 
         {
-            temperature += recoveryRate;
+            Temperature += recoveryRate;
            
-            if (temperature > 0) temperature = 0;
+            if (Temperature > 0) Temperature = 0;
         }
-        else if (temperature > 0)
+        else if (Temperature > 0)
         {
-            temperature -= recoveryRate;
+            Temperature -= recoveryRate;
             
-            if (temperature < 0) temperature = 0;
+            if (Temperature < 0) Temperature = 0;
         }
     }
 }
@@ -239,8 +263,13 @@ else
         }
         private void ActivatePhosphor()
         {
+            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (!mainPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))  
+                return;
 
             // percentage = pendingPercentage;
+            
 
             Player.AddBuff(ModContent.BuffType<PhosphorBuff>(), 3600000);
             Main.NewText("Phosphor Activated", Color.Cyan);

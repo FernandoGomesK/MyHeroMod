@@ -2,11 +2,11 @@ namespace MyHeroMod.content.System.Interfaces
 {
     public interface IHeroTemperature
     {
-        int CurrentHeat { get; set; }
-        int MaxHeat { get; }
-        int MinimumHeat { get; }
+        int Temperature { get; set; }
+        int MaxTemperature { get; }
+        int MinTemperature { get; }
         void AddHeat(int amount);
 
-        void RemoveHeat(int amount);
+        void ReduceHeat(int amount);
     }
 }

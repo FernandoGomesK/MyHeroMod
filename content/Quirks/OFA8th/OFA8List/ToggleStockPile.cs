@@ -44,7 +44,8 @@ public abstract class ToggleStockPile : QuirkSkill
         OfaPlayer.form = stockform;
         SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
         SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/watashigakita"), player.position);
-        CombatText.NewText(player.getRect(), Color.LightGreen, Name);
+        Main.NewText(Name, Color.LightGreen);
+        CombatText.NewText(player.getRect(), Color.Yellow, "WATASHI GA KITA!");
         player.AddBuff(ModContent.BuffType<StockPileBuff>(), 3600000);
     }
     

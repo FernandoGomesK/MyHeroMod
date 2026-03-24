@@ -16,7 +16,8 @@ using MyHeroMod.content.Quirks.Blueflames;
 using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.ColdflamesPaleblade; // Necessário para o PaleflameController
 using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower;
-using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.JetBurn; // Necessário para o IceThrowerController
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.JetBurn;
+using MyHeroMod.content.System.Interfaces; // Necessário para o IceThrowerController
 
 public class JetBurnSkill : QuirkSkill
 {
@@ -123,9 +124,15 @@ public class JetBurnSkill : QuirkSkill
                 
                 Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, direction, ModContent.ProjectileType<JetKindlingController>(), (int)(fireDamage * multiplier), 0f, player.whoAmI);
                 
-                hchhPlayer.temperature += 25; 
-                
-                if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames)) bluePlayer.CurrentHeat += 25;
+                foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.AddHeat(25);
+                }
+            }
+
+            return;
             }
             else
             {
@@ -135,7 +142,17 @@ public class JetBurnSkill : QuirkSkill
                     QuirkStage.Advanced => 90, QuirkStage.Final => 220, _ => 8
                 };
                 Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, direction, ModContent.ProjectileType<IceThrowerController>(), (int)(iceDamage * multiplier), 0f, player.whoAmI);
-                hchhPlayer.temperature -= 25; 
+                foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.ReduceHeat(25);
+                }
+
+                
+            }
+
+            return;
             }
         }
         
@@ -146,9 +163,17 @@ public class JetBurnSkill : QuirkSkill
             
             Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, direction, ModContent.ProjectileType<JetKindlingController>(), (int)(fireDamage * multiplier), 0f, player.whoAmI);
             
-            hellPlayer.CurrentHeat += 25; 
-            
-            if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames)) bluePlayer.CurrentHeat += 25;
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.AddHeat(25);
+                }
+
+                
+            }
+
+            return;
         }
         
         else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
@@ -158,6 +183,18 @@ public class JetBurnSkill : QuirkSkill
             
             Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, direction, ModContent.ProjectileType<JetKindlingController>(), (int)(fireDamage * multiplier), 0f, player.whoAmI);
             
-            bluePlayer.CurrentHeat += 25; 
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.AddHeat(25);
+                }
+
+                
+            }
+
+            return;
         }
+
+        
     }}
