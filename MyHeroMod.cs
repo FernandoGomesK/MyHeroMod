@@ -1,25 +1,51 @@
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Terraria.ModLoader;
-    using System.IO;
-    using Terraria;
-    using Terraria.ID;
-    using MyHeroMod.content.System;
-    using MyHeroMod.content;
-    using MyHeroMod.content.Quirks.OFA8th;
-    using MyHeroMod.content.Quirks.OFA9th;
-    using MyHeroMod.content.Quirks.Gearshift;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Terraria.ModLoader;
+using System.IO;
+using Terraria;
+using Terraria.ID;
+using MyHeroMod.content.System;
+using MyHeroMod.content;
+using MyHeroMod.content.Quirks.OFA8th;
+using MyHeroMod.content.Quirks.OFA9th;
+using MyHeroMod.content.Quirks.Gearshift;
 using MyHeroMod.content.Quirks.Erasure;
 using MyHeroMod.content.Quirks.Explosion;
+using Terraria.Graphics.Effects;
+using Terraria.Graphics.Shaders;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace MyHeroMod
     {
         // Please read https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide#mod-skeleton-contents for more information about the various files in a mod.
         public class MyHeroMod : Mod
         {
+
+            public override void Load()
+    {
+        if (Main.netMode != Terraria.ID.NetmodeID.Server)
+        {
+            
+            ReLogic.Content.Asset<Effect> screenAsset = ModContent.Request<Effect>("MyHeroMod/Assets/Effects/Greyscale", ReLogic.Content.AssetRequestMode.ImmediateLoad);
+            
+            // O nome do Pass dentro do arquivo do JoJo é "Pass1"
+            Filters.Scene["MyHeroMod:Timestop"] = new Filter(new ScreenShaderData(screenAsset, "Pass1"), EffectPriority.VeryHigh);
+            Filters.Scene["MyHeroMod:Timestop"].Load();
+        }
+    }
+
+        public override void Unload()
+        {
+            // Sempre limpe os shaders ao descarregar o mod para evitar vazamento de memória RAM
+            if (Main.netMode != Terraria.ID.NetmodeID.Server)
+            {
+                Filters.Scene["MyHeroMod:TimeStop"] = null;
+            }
+        }
+
     public enum MessageType : byte
             {
                 SyncTransformationPlayer,

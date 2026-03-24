@@ -37,20 +37,20 @@ public class OverclockSkill : QuirkSkill
         {
 
             var transformPlayer = player.GetModPlayer<TransformationPlayer>();
-            int buffDuration = 180;
+            // int buffDuration = 180;
 
-            switch(transformPlayer.CurrentStage)
-            {
-                case QuirkStage.Initial: buffDuration = 187; break;
-                case QuirkStage.Adequation: buffDuration = 250; break;
-                case QuirkStage.Intermediate: buffDuration = 300; break;
-                case QuirkStage.Advanced: buffDuration = 450; break;
-                case QuirkStage.Final: buffDuration = 600; break;
-                default: buffDuration = 650; break;
-            }
+            // switch(transformPlayer.CurrentStage)
+            // {
+            //     case QuirkStage.Initial: buffDuration = 187; break;
+            //     case QuirkStage.Adequation: buffDuration = 250; break;
+            //     case QuirkStage.Intermediate: buffDuration = 300; break;
+            //     case QuirkStage.Advanced: buffDuration = 450; break;
+            //     case QuirkStage.Final: buffDuration = 600; break;
+            //     default: buffDuration = 650; break;
+            // }
 
             
-            player.AddBuff(ModContent.BuffType<OverclockBuff>(), buffDuration);
+            player.AddBuff(ModContent.BuffType<OverclockBuff>(), 360000);
             Main.NewText("Overclock!", Color.Yellow);
             
         
