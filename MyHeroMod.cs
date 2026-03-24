@@ -32,19 +32,21 @@ namespace MyHeroMod
             ReLogic.Content.Asset<Effect> screenAsset = ModContent.Request<Effect>("MyHeroMod/Assets/Effects/Greyscale", ReLogic.Content.AssetRequestMode.ImmediateLoad);
             
             // O nome do Pass dentro do arquivo do JoJo é "Pass1"
-            Filters.Scene["MyHeroMod:Timestop"] = new Filter(new ScreenShaderData(screenAsset, "Pass1"), EffectPriority.VeryHigh);
-            Filters.Scene["MyHeroMod:Timestop"].Load();
+            Filters.Scene["MyHeroMod:TimeStop"] = new Filter(new ScreenShaderData(screenAsset, "Pass1"), EffectPriority.VeryHigh);
+            Filters.Scene["MyHeroMod:TimeStop"].Load();
         }
     }
 
         public override void Unload()
+    {
+        
+        
+        if (Main.netMode != Terraria.ID.NetmodeID.Server)
         {
-            // Sempre limpe os shaders ao descarregar o mod para evitar vazamento de memória RAM
-            if (Main.netMode != Terraria.ID.NetmodeID.Server)
-            {
-                Filters.Scene["MyHeroMod:TimeStop"] = null;
-            }
+            Filters.Scene["MyHeroMod:TimeStop"] = null;
         }
+        
+    }
 
     public enum MessageType : byte
             {
