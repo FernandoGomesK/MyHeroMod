@@ -65,7 +65,7 @@ namespace MyHeroMod.content.Quirks.Overclock
 
             if (Player.HasBuff(ModContent.BuffType<OverclockBuff>()))
             {
-                TimeStopSystem.IsTimeStopped = true; 
+                // TimeStopSystem.IsTimeStopped = true; 
 
                 currentBreath--;
                 

@@ -29,24 +29,38 @@ namespace MyHeroMod
         if (Main.netMode != Terraria.ID.NetmodeID.Server)
         {
             
-            ReLogic.Content.Asset<Effect> screenAsset = ModContent.Request<Effect>("MyHeroMod/Assets/Effects/Greyscale", ReLogic.Content.AssetRequestMode.ImmediateLoad);
+            ReLogic.Content.Asset<Effect> screenAsset = ModContent.Request<Effect>("MyHeroMod/Assets/Effects/TimeStopShader", ReLogic.Content.AssetRequestMode.ImmediateLoad);
             
-            // O nome do Pass dentro do arquivo do JoJo é "Pass1"
-            Filters.Scene["MyHeroMod:TimeStop"] = new Filter(new ScreenShaderData(screenAsset, "Pass1"), EffectPriority.VeryHigh);
+        
+            Filters.Scene["MyHeroMod:TimeStop"] = new Filter(new ScreenShaderData(screenAsset, "GreyscaleEffect"), EffectPriority.VeryHigh);
             Filters.Scene["MyHeroMod:TimeStop"].Load();
         }
     }
 
         public override void Unload()
+{
+    if (Main.netMode != NetmodeID.Server)
     {
-        
-        
-        if (Main.netMode != Terraria.ID.NetmodeID.Server)
+        try
         {
-            Filters.Scene["MyHeroMod:TimeStop"] = null;
+            if (Filters.Scene != null)
+            {
+                
+                if (Filters.Scene["MyHeroMod:TimeStop"] != null &&
+                    Filters.Scene["MyHeroMod:TimeStop"].IsActive())
+                {
+                    Filters.Scene.Deactivate("MyHeroMod:TimeStop");
+                }
+
+                Filters.Scene["MyHeroMod:TimeStop"] = null;
+            }
         }
-        
+        catch (Exception e)
+        {
+            Logger.Warn("TimeStop filter unload failed: " + e.Message);
+        }
     }
+}
 
     public enum MessageType : byte
             {

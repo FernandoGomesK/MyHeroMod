@@ -38,7 +38,7 @@ float4 PixelShaderFunction(float2 coords : TEXCOORD0) : COLOR0
     float2 distortedCoords = coords + float2(shift, 0.0);
 
     // --- CHROMATIC ABERRATION ---
-    float aberration = 0.003; // separação das cores
+    float aberration = 0.008; // separação das cores
     float4 colorR = tex2D(uImage0, distortedCoords + float2( aberration, 0.0));
     float4 colorG = tex2D(uImage0, distortedCoords);
     float4 colorB = tex2D(uImage0, distortedCoords - float2( aberration, 0.0));
@@ -46,7 +46,7 @@ float4 PixelShaderFunction(float2 coords : TEXCOORD0) : COLOR0
 
     // --- DESSATURAÇÃO LEVE ---
     float grey = dot(color.rgb, float3(0.299, 0.587, 0.114));
-    float desatAmount = 0.3;
+    float desatAmount = 1.0;
     color.rgb = lerp(color.rgb, float3(grey, grey, grey), desatAmount);
 
     // --- SCANLINES ---
@@ -57,14 +57,15 @@ float4 PixelShaderFunction(float2 coords : TEXCOORD0) : COLOR0
 
     // --- GRAIN (ruído estático) ---
     float grainAmount = 0.06; // quantidade de grain (0.0 = nenhum)
-    float grain = hash(coords + frac(uTime * 0.1)) - 0.5;
+    float grain = hash(coords + frac(uTime * 0.1)) - 0.8;
     color.rgb += grain * grainAmount;
 
     // --- VINHETA ---
     float vignetteStrength = 0.4; // força da vinheta (0.0 = nenhuma)
     float2 vigCoords = coords * (1.0 - coords.yx);
     float vignette = vigCoords.x * vigCoords.y * 15.0;
-    vignette = pow(vignette, vignetteStrength);
+    // Uso do abs() aqui para evitar o aviso do compilador!
+    vignette = pow(abs(vignette), vignetteStrength);
     color.rgb *= vignette;
 
     // --- FADE com uOpacity (para transição suave) ---
@@ -78,6 +79,7 @@ technique Technique1
 {
     pass GreyscaleEffect
     {
-        PixelShader = compile ps_2_0 PixelShaderFunction();
+        
+        PixelShader = compile ps_3_0 PixelShaderFunction();
     }
 }

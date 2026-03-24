@@ -15,9 +15,9 @@ using MyHeroMod.content.Quirks.Overclock;
 public class OverclockSkill : QuirkSkill
 {
     public override string Name => "Overclock";
-    public override string Description => "Speed yourself up for a limited time.";
+    public override string Description => "Speed up your brain for a limited time.";
     public override string IconPath => "Quirks/GearShift/Gearshift";
-    public override int BaseCooldown => 400;
+    public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.Overclock;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
