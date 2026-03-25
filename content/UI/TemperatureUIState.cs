@@ -27,9 +27,9 @@ namespace MyHeroMod.content.UI
 
             int currentTemp = 0;
             int maxTemp = 100;
-            int minTemp = 100; // Usado sempre positivo para a matemática da barra
+            int minTemp = 100; 
 
-            // LÓGICA DE PRIORIDADE (Respeitando o All For One)
+        
             if (transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))
             {
                 var hchh = player.GetModPlayer<HalfColdHalfHotPlayer>();
@@ -42,14 +42,14 @@ namespace MyHeroMod.content.UI
                 var blue = player.GetModPlayer<BlueFlamesPlayer>();
                 currentTemp = blue.Temperature;
                 maxTemp = blue.MaxTemperature;
-                // Dabi não tem gelo, então a barra dele só vai pra direita
+                
             }
             else if (transPlayer.HasActiveQuirk(QuirkType.HellFlames))
             {
                 var hell = player.GetModPlayer<HellFlamesPlayer>();
                 currentTemp = hell.Temperature;
                 maxTemp = hell.MaxTemperature;
-                // Endeavor não tem gelo
+                
             }
 
             Texture2D barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/TemperatureBarFrame").Value;
@@ -68,13 +68,12 @@ namespace MyHeroMod.content.UI
 
             if (hasPhosphor)
             {
-                // EFEITO PHOSPHOR: Barra cheia, pulsando entre Azul Ciano e Laranja Escuro!
-                // O GlobalTimeWrappedHourly faz o pulse bater junto com o FPS do jogo
+                
                 float pulse = (float)(Math.Sin(Main.GlobalTimeWrappedHourly * 5f) * 0.5f + 0.5f);
                 Color phosphorColor = Color.Lerp(Color.Cyan, Color.OrangeRed, pulse);
                 textColor = phosphorColor;
 
-                // Desenha a barra inteira pintada com a cor pulsante
+                
                 spriteBatch.Draw(barFill, drawPos, phosphorColor);
             }
             else

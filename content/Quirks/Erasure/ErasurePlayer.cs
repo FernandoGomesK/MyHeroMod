@@ -31,7 +31,7 @@ namespace MyHeroMod.content.Quirks.Erasure;
             
         }
 
-
+        public float blinkAnimTimer = 0f;
         public override void PostUpdate()
 {
     if (isYellowGogglesOn == true)
@@ -51,7 +51,12 @@ namespace MyHeroMod.content.Quirks.Erasure;
         Player.ClearBuff(ModContent.BuffType<ErasingBuff>());
         CombatText.NewText(Player.getRect(), Color.Red, "BLINK!");
         eyeTimer = 0;
+        blinkAnimTimer = 1f;
     }
+    
+
+    if (blinkAnimTimer > 0f)
+        blinkAnimTimer = MathHelper.Clamp(blinkAnimTimer - 0.05f, 0f, 1f);
 }
 
 

@@ -22,10 +22,7 @@ namespace MyHeroMod.content.UI
             if (transPlayer.SelectedQuirk != QuirkType.Overclock)
                 return;
 
-            // Se quiser que a barra só apareça quando o poder estiver ativado, descomente abaixo:
-            // if (!player.HasBuff(ModContent.BuffType<Buffs.OverclockBuff>()) && overPlayer.currentBreath == overPlayer.maxBreath) return;
-
-            // Carrega as texturas (certifique-se de que os caminhos estão corretos e as imagens existem!)
+           
             Texture2D barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/BreathBarFrame").Value;
             Texture2D barFill = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/BreathBarFill").Value;
 

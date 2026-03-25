@@ -20,7 +20,11 @@ namespace MyHeroMod
         internal BreathUIState breathUIState;
 
         private UserInterface temperatureUserInterface;
-internal TemperatureUIState temperatureUIState;
+        internal TemperatureUIState temperatureUIState;
+
+
+        private UserInterface blinkUserInterface;
+        internal BlinkUIState blinkUIState;
 
         public override void Load()
         {
@@ -42,6 +46,12 @@ internal TemperatureUIState temperatureUIState;
                 temperatureUIState.Activate();
                 temperatureUserInterface = new UserInterface();
                 temperatureUserInterface.SetState(temperatureUIState);
+
+
+                blinkUIState = new BlinkUIState();
+                blinkUIState.Activate();
+                blinkUserInterface = new UserInterface();
+                blinkUserInterface.SetState(blinkUIState);
             }
         }
         
@@ -57,6 +67,9 @@ internal TemperatureUIState temperatureUIState;
 
             temperatureUIState = null;
             temperatureUserInterface = null;
+
+            blinkUIState = null;
+            blinkUserInterface = null;
 
             
         }
@@ -121,6 +134,9 @@ internal TemperatureUIState temperatureUIState;
             if (breathUserInterface != null)
                 breathUserInterface.Update(gameTime);
 
+            if (blinkUserInterface != null)
+                blinkUserInterface.Update(gameTime);
+
             
         }
 
@@ -168,6 +184,19 @@ internal TemperatureUIState temperatureUIState;
                     if (temperatureUserInterface != null)
                     {
                         temperatureUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
+                    }
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
+
+            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
+                "MyHeroMod: Blink Bar",
+                delegate
+                {
+                    if (blinkUserInterface != null)
+                    {
+                        blinkUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
                     }
                     return true;
                 },
