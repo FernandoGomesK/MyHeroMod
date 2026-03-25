@@ -66,6 +66,8 @@ namespace MyHeroMod
             CreateButton("Black Whip", QuirkType.BlackWhip, Color.Black);
             CreateButton("Tape", QuirkType.Tape, Color.White);
             CreateButton("Overclock", QuirkType.Overclock, Color.Yellow);
+            CreateButton("Flight", QuirkType.Flight, Color.White);
+            CreateButton("Slide And Glide", QuirkType.SlideAndGlide, Color.Green);
 
 
             // red X to close

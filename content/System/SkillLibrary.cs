@@ -45,6 +45,15 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             {QuirkSkills.HowitzerImpact , new HowitzerImpactSkill()},
             {QuirkSkills.StunGrenade , new StunGrenadeSkill()},
 
+            // flight
+
+            {QuirkSkills.Flight, new ToggleFlight()}, 
+            {QuirkSkills.FlightShield, new ToggleFlightShieldSkill()},
+
+            // Slide And Glide
+
+            {QuirkSkills.Slide, new ToggleSlideSkill()},
+
             // Erasure
 
             { QuirkSkills.Erase, new ToggleEraseSkill() },

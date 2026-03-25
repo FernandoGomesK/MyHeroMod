@@ -1,4 +1,5 @@
 using MyHeroMod.content.Quirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.HellFlames;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -30,8 +31,11 @@ namespace MyHeroMod.content.Items.Support
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             
-            var quirkPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
-            quirkPlayer.IsCombatVestAlphaOn = true;
+            var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+            var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
+            
+            hchhPlayer.IsCombatVestAlphaOn = true;
+            hellPlayer.IsCombatVestAlphaOn = true;
             
             
             

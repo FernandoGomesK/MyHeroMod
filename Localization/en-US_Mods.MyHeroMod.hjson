@@ -425,6 +425,21 @@ Buffs: {
 		DisplayName: Hell Flash Fire Fist Buff
 		Description: Mods.MyHeroMod.Buffs.HellFlashFireFistBuff.Description
 	}
+
+	FlightBuff: {
+		DisplayName: Flight Buff
+		Description: Mods.MyHeroMod.Buffs.FlightBuff.Description
+	}
+
+	FlightShieldBuff: {
+		DisplayName: Flight Shield Buff
+		Description: Mods.MyHeroMod.Buffs.FlightShieldBuff.Description
+	}
+
+	SlideAndGlideBuff: {
+		DisplayName: Slide And Glide Buff
+		Description: Mods.MyHeroMod.Buffs.SlideAndGlideBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"

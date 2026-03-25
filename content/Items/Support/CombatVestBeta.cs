@@ -1,4 +1,5 @@
 using MyHeroMod.content.Quirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.HellFlames;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,8 +25,11 @@ namespace MyHeroMod.content.Items.Support
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             // Pega o Player do Todoroki e liga o colete
-            var quirkPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
-            quirkPlayer.IsCombatVestBetaOn = true;
+            var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+            var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
+            
+            hchhPlayer.IsCombatVestBetaOn = true;
+            hellPlayer.IsCombatVestBetaOn = true;
             
             // Opcional: Bônus genéricos
             

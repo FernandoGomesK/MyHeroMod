@@ -13,8 +13,8 @@ namespace MyHeroMod.content
     // --- ENUMS ---
     public enum QuirkType { Quirkless, AllForOne, OneForAll9th, OneForAll8th,
                             Explosion, HellFlames, BlueFlames, HalfColdHalfHot,
-                            Float, Gearshift, FaJin, SmokeScreen, DangerSense,
-                            BlackWhip, Tape, Overclock, Erasure, SuperRegeneration }
+                            Float, Flight, Gearshift, FaJin, SmokeScreen, DangerSense,
+                            BlackWhip, Tape, Overclock, Erasure, SuperRegeneration, SlideAndGlide }
                             
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 

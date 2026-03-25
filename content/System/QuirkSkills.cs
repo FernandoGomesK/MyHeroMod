@@ -14,8 +14,11 @@
             // Flight 
 
             Flight,
+            FlightShield,
 
             // Slide and glide / Flight
+
+            Slide,
 
             SaGFlight,
 
