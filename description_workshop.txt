@@ -34,7 +34,7 @@ Once a Quirk is acquired, you can unleash unique attacks and forms. The mod feat
 [list]
 [*] One For All (9th Generation - Deku)
 [*] One For All (8th Generation - All Might)
-[*] Half-Cold Half-Hot (Todoroki)
+[*] Half-Cold Half-Hot (Shoto)
 [*] Explosion (Bakugo)
 [*] Overclock (O'Clock)
 [*] Erasure (Aizawa)
@@ -46,6 +46,8 @@ Once a Quirk is acquired, you can unleash unique attacks and forms. The mod feat
 [*] Blackwhip (Daigoro Banjo)
 [*] Danger Sense (Hikage Shinomori)
 [*] Smokescreen (En)
+[*] Hellflames (Endeavor)
+[*] Blueflames (Toya)
 [/list]
 
 [hr][/hr]
