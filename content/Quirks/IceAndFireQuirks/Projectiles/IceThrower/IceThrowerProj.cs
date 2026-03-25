@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceThrower
 {
     public class IceThrowerProj : ModProjectile
     {

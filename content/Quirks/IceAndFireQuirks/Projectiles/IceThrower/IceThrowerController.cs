@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
-namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceThrower
 {
     public class IceThrowerController : ModProjectile
     {

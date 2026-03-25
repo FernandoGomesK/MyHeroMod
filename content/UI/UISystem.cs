@@ -19,6 +19,9 @@ namespace MyHeroMod
         private UserInterface breathUserInterface;
         internal BreathUIState breathUIState;
 
+        private UserInterface temperatureUserInterface;
+internal TemperatureUIState temperatureUIState;
+
         public override void Load()
         {
             if (!Main.dedServ) // Só cria interfaces se for um jogador (tela ligada)
@@ -34,6 +37,11 @@ namespace MyHeroMod
                 breathUIState.Activate();
                 breathUserInterface = new UserInterface();
                 breathUserInterface.SetState(breathUIState);
+
+                temperatureUIState = new TemperatureUIState();
+                temperatureUIState.Activate();
+                temperatureUserInterface = new UserInterface();
+                temperatureUserInterface.SetState(temperatureUIState);
             }
         }
         
@@ -46,6 +54,11 @@ namespace MyHeroMod
             
             breathUIState = null;
             breathUserInterface = null;
+
+            temperatureUIState = null;
+            temperatureUserInterface = null;
+
+            
         }
 
         public static void ToggleSkillMenu()
@@ -101,9 +114,14 @@ namespace MyHeroMod
                     MyInterface.Update(gameTime);
                 }
             }
+
+            if (temperatureUserInterface != null)
+            temperatureUserInterface.Update(gameTime);
             
             if (breathUserInterface != null)
                 breathUserInterface.Update(gameTime);
+
+            
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -142,6 +160,19 @@ namespace MyHeroMod
                     InterfaceScaleType.UI)
                 );
             }
+
+            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
+                "MyHeroMod: Temperature Bar",
+                delegate
+                {
+                    if (temperatureUserInterface != null)
+                    {
+                        temperatureUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
+                    }
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
         }
     }
 }

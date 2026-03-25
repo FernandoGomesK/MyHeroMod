@@ -1,14 +1,10 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles;
-
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider;
 
 
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.FlashFreezeHeatWave;
 

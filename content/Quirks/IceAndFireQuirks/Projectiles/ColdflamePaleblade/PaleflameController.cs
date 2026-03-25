@@ -4,34 +4,34 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 
-namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.ColdflamePaleblade
 {
-    public class BlueFlamethrowerController : ModProjectile
+    public class PaleflameController : ModProjectile
     {
         public override void SetDefaults()
         {
-            
+            // Este projétil é invisível e intangível, serve apenas para gerenciar o ataque
             Projectile.width = 10;
             Projectile.height = 10;
-            Projectile.friendly = false; 
+            Projectile.friendly = false; // Ele não dá dano, quem dá dano é o fogo que ele cospe
             Projectile.tileCollide = false;
             Projectile.penetrate = -1;
-            Projectile.timeLeft = 120; 
-            Projectile.hide = true; 
+            Projectile.timeLeft = 120; // DURAÇÃO DO ATAQUE: 120 ticks = 2 Segundos
+            Projectile.hide = true; // Invisível
         }
 
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
 
-            
+            // 1. Manter vivo apenas se o jogador estiver vivo
             if (player.dead || !player.active)
             {
                 Projectile.Kill();
                 return;
             }
 
-           
+            // 2. Grudar no Jogador e Mirar
             if (Projectile.owner == Main.myPlayer)
             {
                 Vector2 diff = Main.MouseWorld - player.MountedCenter;
@@ -53,7 +53,7 @@ namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower
             // Projectile.ai[0] é um contador interno automático
             Projectile.ai[0]++; 
 
-            if (Projectile.ai[0] % 5 == 0) // Atira a cada 5 ticks (rápido)
+            if (Projectile.ai[0] % 22 == 0) // Atira a cada 5 ticks (rápido)
             {
                 // Toca o som (com pitch variado para ficar natural)
                 SoundEngine.PlaySound(SoundID.Item34 with { PitchVariance = 0.2f }, player.position);
@@ -68,6 +68,8 @@ namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower
                         // Velocidade e Espalhamento (Cone)
                         shootVel *= Main.rand.NextFloat(8f, 13f);
                         shootVel = shootVel.RotatedByRandom(MathHelper.ToRadians(15)); 
+    
+                        
                         
                         // Offset para sair da mão (aprox)
                         Vector2 spawnPos = player.Center + Projectile.velocity * 30f;
@@ -76,14 +78,18 @@ namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower
                             player.GetSource_FromThis(),
                             spawnPos,
                             shootVel,
-                            ModContent.ProjectileType<BlueFlameThrowerProj>(), // Chama o foguinho que já criamos
-                            25, // Dano
+                            ModContent.ProjectileType<PaleflameProj>(), // Chama o foguinho que já criamos
+                            Projectile.damage, // Dano
                             1f,
                             player.whoAmI
                         );
                     }
                 }
             }
+        }
+        public override bool PreDraw(ref Color lightColor)
+        {
+            return false;
         }
     }
 }

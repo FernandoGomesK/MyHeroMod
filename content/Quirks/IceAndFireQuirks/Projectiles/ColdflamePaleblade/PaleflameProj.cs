@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.ColdflamesPaleblade
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.ColdflamePaleblade
 {
     public class PaleflameProj : ModProjectile
     {

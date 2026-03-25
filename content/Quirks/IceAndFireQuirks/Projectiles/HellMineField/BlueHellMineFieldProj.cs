@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueHellMineField
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.HellMineField
 {
 
     public class BlueHellMineFieldProj : ModProjectile

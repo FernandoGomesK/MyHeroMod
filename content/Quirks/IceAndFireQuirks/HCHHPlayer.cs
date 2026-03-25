@@ -10,7 +10,6 @@ using Terraria.Audio;
 using System.Collections.Generic;
 
 using MyHeroMod.content.Buffs;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles;
 using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.HalfColdHalfHot

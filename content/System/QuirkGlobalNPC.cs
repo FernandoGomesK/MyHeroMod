@@ -9,7 +9,6 @@ using MyHeroMod.content.Quirks.OFA8th.Projectiles.TexasSmash;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
-using MyHeroMod.content.Quirks.Blueflames.Projectiles.BlueFlameThrower;
 using MyHeroMod.content.Quirks.Erasure.Projectiles;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceShot;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.JetBurn;

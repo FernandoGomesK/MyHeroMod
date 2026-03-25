@@ -8,16 +8,17 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.HalfColdHalfHot;
 
-using MyHeroMod.content.Projectiles.HellSpider;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.HCHellSpider;
+
 using MyHeroMod.content.Quirks.HellFlames;
 
 using MyHeroMod.content.Quirks.Blueflames;
 using MyHeroMod.content.Quirks.AllForOne;
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.ColdflamesPaleblade; // Necessário para o PaleflameController
-using MyHeroMod.content.Quirks.HalfColdHalfHot.Projectiles.IceThrower;
+
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.JetBurn;
-using MyHeroMod.content.System.Interfaces; // Necessário para o IceThrowerController
+using MyHeroMod.content.System.Interfaces;
+
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.ColdflamePaleblade;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceThrower; 
 
 public class JetBurnSkill : QuirkSkill
 {
