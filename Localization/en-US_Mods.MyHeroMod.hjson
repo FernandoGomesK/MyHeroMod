@@ -273,6 +273,16 @@ Items: {
 		DisplayName: Yellow Goggles
 		Tooltip: ""
 	}
+
+	KoichiFBreastplate: {
+		DisplayName: Koichi F Breastplate
+		Tooltip: ""
+	}
+
+	KoichiFHelmet: {
+		DisplayName: Koichi F Helmet
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -440,6 +450,11 @@ Buffs: {
 		DisplayName: Slide And Glide Buff
 		Description: Mods.MyHeroMod.Buffs.SlideAndGlideBuff.Description
 	}
+
+	CruisingBuff: {
+		DisplayName: Cruising Buff
+		Description: Mods.MyHeroMod.Buffs.CruisingBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -512,6 +527,7 @@ Projectiles: {
 	PaleflameProj.DisplayName: Paleflame Proj
 	NPCErasureProj.DisplayName: N P C Erasure Proj
 	RivetStabProj.DisplayName: Rivet Stab Proj
+	FlightProj.DisplayName: Flight Proj
 }
 
 NPCs: {

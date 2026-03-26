@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 namespace MyHeroMod.content.Quirks.Flight
 {
     
-    public partial class FlightPlayer : ModPlayer, IQuirkResetter
+    public partial class FlightPlayer : ModPlayer, IQuirkResetter, IHeroFlightModifier
     {
         public bool isFlightOn = false;
         public bool isFlightShieldOn = false;
@@ -47,6 +47,25 @@ namespace MyHeroMod.content.Quirks.Flight
                 Player.noFallDmg = true;
             }
             
+        }
+
+        public void ModifyFlight(ref float speed)
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            
+           
+            if (!transPlayer.HasActiveQuirk(QuirkType.Flight)) return; 
+            
+            
+
+            float dashSpeed = transPlayer.CurrentStage switch 
+            {
+                QuirkStage.Initial => 8f, QuirkStage.Adequation => 12f,
+                QuirkStage.Intermediate => 15f, QuirkStage.Advanced => 18f,
+                QuirkStage.Final => 20f, _ => 8f
+            };
+
+            speed = dashSpeed ;
         }
             
         }

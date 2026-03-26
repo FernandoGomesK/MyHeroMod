@@ -30,32 +30,27 @@ namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
             
             if (slidePlayer.isSlideOn)
             {
-                if (mainPlayer.CurrentStage == QuirkStage.Initial || mainPlayer.CurrentStage == QuirkStage.Adequation)
+                
+               player.wingTimeMax = mainPlayer.CurrentStage switch
                 {
-                    // Sem pulos extras. O jogo faz isso naturalmente se você não der nenhum pulo a ele.
-                }
-                else if (mainPlayer.CurrentStage == QuirkStage.Intermediate)
-                {
-                    
-                    player.GetJumpState(ExtraJump.CloudInABottle).Enable();
-                    player.GetJumpState(ExtraJump.BlizzardInABottle).Enable();
-                    player.GetJumpState(ExtraJump.SandstormInABottle).Enable();
-                    player.GetJumpState(ExtraJump.FartInAJar).Enable();
-                    player.GetJumpState(ExtraJump.TsunamiInABottle).Enable();
-                    player.GetJumpState(ExtraJump.UnicornMount).Enable();
-                }
-                else if (mainPlayer.CurrentStage == QuirkStage.Advanced)
-                {
-                    player.wingTimeMax =360000;
+                    QuirkStage.Initial => 2,       
+                    QuirkStage.Adequation => 5,     
+                    QuirkStage.Intermediate => 10,   
+                    QuirkStage.Advanced => 300,      
+                    QuirkStage.Final => 36000000, 
+                    _ => 10
+                };
 
+                // Ativa a lógica das asas
                 if (player.wingsLogic == 0)
                 {
                     player.wingsLogic = 29; 
-                    player.wings = -1; 
+                    player.wings = 0;       
                 }
 
+                
                 player.noFallDmg = true;
-                }
+                player.spikedBoots = 2;
                     
 
                 

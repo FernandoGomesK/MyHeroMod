@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.SlideAndGlide
 {
-    public partial class SlideAndGlidePlayer : ModPlayer, IQuirkResetter
+    public partial class SlideAndGlidePlayer : ModPlayer, IQuirkResetter, IHeroFlightModifier
     {
         public bool isSlideOn = false;
 
@@ -24,5 +24,24 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide
         {
            
             }
+
+            public void ModifyFlight(ref float speed)
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            
+           
+            if (!transPlayer.HasActiveQuirk(QuirkType.SlideAndGlide)) return; 
+            
+            
+
+            float dashSpeed = transPlayer.CurrentStage switch 
+            {
+                QuirkStage.Initial => 2f, QuirkStage.Adequation => 5f,
+                QuirkStage.Intermediate => 10f, QuirkStage.Advanced => 8f,
+                QuirkStage.Final => 15f, _ => 40f
+            };
+
+            speed = dashSpeed ;
+        }
         }
     }
