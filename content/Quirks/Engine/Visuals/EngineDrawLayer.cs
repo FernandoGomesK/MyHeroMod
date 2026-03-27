@@ -5,9 +5,9 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using MyHeroMod.content.Buffs;
 
-namespace MyHeroMod.content.Quirks.SlideAndGlide
+namespace MyHeroMod.content.Quirks.Engine
 {
-    public class SlideAndGlideDrawLayer : PlayerDrawLayer
+    public class EngineDrawLayer : PlayerDrawLayer
     {
         
         public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Shoes);
@@ -16,18 +16,28 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
             // Só fica visível se o jogador não estiver morto e tiver o Buff ativado
+             var transPlayer = drawInfo.drawPlayer.GetModPlayer<TransformationPlayer>();
+            
+            
             return drawInfo.drawPlayer.active && 
                    !drawInfo.drawPlayer.dead && 
-                   drawInfo.drawPlayer.HasBuff(ModContent.BuffType<SlideAndGlideBuff>());
+                   transPlayer.HasActiveQuirk(QuirkType.Engine);
         }
 
         
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
             Player player = drawInfo.drawPlayer;
+            var transPlayer = drawInfo.drawPlayer.GetModPlayer<TransformationPlayer>();
 
             // Carregue a sua textura (Troque o caminho para o local exato da sua imagem!)
-            Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/content/Quirks/SlideAndGlide/Visuals/BlueLegs").Value;
+            string texturePath = transPlayer.CurrentStage >= QuirkStage.Intermediate 
+                ? "MyHeroMod/content/Quirks/Engine/Visuals/Exhausts2" 
+                : "MyHeroMod/content/Quirks/Engine/Visuals/Exhausts";
+
+            // Carrega a textura escolhida (agora acessível para o DrawData!)
+            Texture2D texture = ModContent.Request<Texture2D>(texturePath).Value;
+            
 
             
             Vector2 drawPos = new Vector2(
@@ -39,7 +49,7 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide
             drawPos.Y -= 22f; 
 
             
-            Color drawColor = Color.White;
+            Color drawColor = drawInfo.colorArmorBody;
 
             
             DrawData drawData = new DrawData(

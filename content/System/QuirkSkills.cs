@@ -26,6 +26,10 @@
 
             Erase,
 
+            // Engine
+
+            ToggleEngine, Recipro,
+
             // Ofa 8th
             PrimeDetroitSmash, CaliforniaSmash, TexasSmash, CarolinaSmash, StockPile, StockPileMaximum,
 

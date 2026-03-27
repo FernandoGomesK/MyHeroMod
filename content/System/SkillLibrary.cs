@@ -58,6 +58,11 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
 
             { QuirkSkills.Erase, new ToggleEraseSkill() },
 
+            // Engine
+
+            {QuirkSkills.ToggleEngine, new ToggleEngineSkill()},
+            {QuirkSkills.Recipro, new ReciproSkill()},
+
             // Common Skills
 
 

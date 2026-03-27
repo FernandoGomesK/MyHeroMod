@@ -283,6 +283,11 @@ Items: {
 		DisplayName: Koichi F Helmet
 		Tooltip: ""
 	}
+
+	CristopherBreastplate: {
+		DisplayName: Cristopher Breastplate
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -454,6 +459,16 @@ Buffs: {
 	CruisingBuff: {
 		DisplayName: Cruising Buff
 		Description: Mods.MyHeroMod.Buffs.CruisingBuff.Description
+	}
+
+	EngineBuff: {
+		DisplayName: Engine Buff
+		Description: Mods.MyHeroMod.Buffs.EngineBuff.Description
+	}
+
+	ReciproBuff: {
+		DisplayName: Recipro Buff
+		Description: Mods.MyHeroMod.Buffs.ReciproBuff.Description
 	}
 }
 
