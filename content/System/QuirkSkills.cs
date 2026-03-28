@@ -11,6 +11,10 @@
 
             StealQuirk, SeeQuirks,
 
+            // Decay
+
+            RangeTouch, DashTouch, GroundTouch,
+
             // Flight 
 
             Flight,

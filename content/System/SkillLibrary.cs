@@ -45,6 +45,12 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             {QuirkSkills.HowitzerImpact , new HowitzerImpactSkill()},
             {QuirkSkills.StunGrenade , new StunGrenadeSkill()},
 
+            // Decay
+            
+            {QuirkSkills.RangeTouch, new RangeTouchSkill() },
+            {QuirkSkills.DashTouch, new DashTouchSkill() },
+            {QuirkSkills.GroundTouch, new GroundTouchSkill() },
+
             // flight
 
             {QuirkSkills.Flight, new ToggleFlight()}, 

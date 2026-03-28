@@ -543,6 +543,10 @@ Projectiles: {
 	NPCErasureProj.DisplayName: N P C Erasure Proj
 	RivetStabProj.DisplayName: Rivet Stab Proj
 	FlightProj.DisplayName: Flight Proj
+	DashTouchProj.DisplayName: Dash Touch Proj
+	GroundTouchController.DisplayName: Ground Touch Controller
+	GroundTouchProj.DisplayName: Ground Touch Proj
+	RangeTouchProj.DisplayName: Range Touch Proj
 }
 
 NPCs: {
