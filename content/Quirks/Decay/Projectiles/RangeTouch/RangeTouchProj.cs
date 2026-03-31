@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.System;
+using MyHeroMod.content.Debuffs;
 
 namespace MyHeroMod.content.Quirks.Decay.Projectiles.RangeTouch
 {
@@ -25,10 +26,6 @@ namespace MyHeroMod.content.Quirks.Decay.Projectiles.RangeTouch
             
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-           
-        }
 
         public override Color? GetAlpha(Color lightColor)
         {
@@ -58,6 +55,22 @@ namespace MyHeroMod.content.Quirks.Decay.Projectiles.RangeTouch
             
 
         }
+
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            
+            target.AddBuff(ModContent.BuffType<DecayBuff>(), 300);
+        }
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            
+            target.AddBuff(ModContent.BuffType<DecayBuff>(), 300);
+        }
+
+        // public override void OnTileCollide(Vector2 oldVelocity)
+        // {
+        //     Projectile.Kill();
+        // 
 
         
     }

@@ -1,11 +1,13 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.ID;
+using MyHeroMod.content.Debuffs;
 
 namespace MyHeroMod.content.Quirks.Decay.Projectiles.GroundTouch
 {
-    public class GroundTouchProj : ModProjectile
+
+public class GroundTouchProj : ModProjectile
     {
         public override void SetDefaults()
         {
@@ -22,28 +24,52 @@ namespace MyHeroMod.content.Quirks.Decay.Projectiles.GroundTouch
 
         public override void AI()
         {
-            // EFEITO DE "NASCER" DO CHÃO
-            // Nos primeiros frames, ele sobe rápido para parecer que brotou
             if (Projectile.ai[0] < 10)
             {
-                // Projectile.position.Y -= 4f; // Sobe 4 pixels por frame
-                // Projectile.alpha -= 25; // Aparece gradualmente
+                Projectile.position.Y -= 4f; // Sobe 4 pixels por frame
+                
                 if (Projectile.alpha < 0) Projectile.alpha = 0;
                 Projectile.ai[0]++;
             }
 
-            // GERAÇÃO DE PARTÍCULAS (GELO)
-            if (Main.rand.NextBool(3))
+            for (int i = 0; i < 2; i++) 
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Wraith, 0, 0, 100, default, 1f);
-                Main.dust[dust].noGravity = true;
-                Main.dust[dust].velocity *= 1.0f;
+                // Pick a random X position within the width
+                float randomX = Projectile.position.X + Main.rand.NextFloat(Projectile.width);
+                
+                // Force Y position to be at the bottom of the projectile
+                float bottomY = Projectile.position.Y + Projectile.height;
+
+                Vector2 dustPos = new Vector2(randomX, bottomY);
+
+                // Wraith Dust
+                int d1 = Dust.NewDust(dustPos, 1, 1, DustID.Wraith, 0f, 0f, 100, default, 2.5f);
+                Main.dust[d1].noGravity = true;
+                Main.dust[d1].velocity.Y = -Main.rand.NextFloat(2f, 5f); // Shoot UP
+                Main.dust[d1].velocity.X *= 0.2f; // Don't move sideways much
+
+                // Purple Dust
+                if (Main.rand.NextBool(2)) // 50% chance for purple
+                {
+                    int d2 = Dust.NewDust(dustPos, 1, 1, DustID.PurpleTorch, 0f, 0f, 100, default, 2.0f);
+                    Main.dust[d2].noGravity = true;
+                    Main.dust[d2].velocity.Y = -Main.rand.NextFloat(3f, 6f); 
+                    Main.dust[d2].velocity.X *= 0.2f;
+                }
             }
         }
 
+        public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<DecayBuff>(), 300);
+        }
+        
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            // target.AddBuff(BuffID.Frostburn, 180); // Congela
+            target.AddBuff(ModContent.BuffType<DecayBuff>(), 300); 
         }
     }
 }
+
+
+   

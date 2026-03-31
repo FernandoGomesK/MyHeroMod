@@ -1,21 +1,21 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using Terraria.Audio;
-
+using Terraria.ID;
+using MyHeroMod.content.Debuffs;
 
 namespace MyHeroMod.content.Quirks.Decay.Projectiles.GroundTouch
 {
+    
     public class GroundTouchController : ModProjectile
     {
-        public override void SetDefaults()
+       public override void SetDefaults()
         {
             Projectile.width = 16;
             Projectile.height = 16;
             Projectile.friendly = false;
             Projectile.hide = true; // Invisível
-            Projectile.timeLeft = 60; // A onda viaja por 1 segundo
+            Projectile.timeLeft = 120; // A onda viaja por 1 segundo
             Projectile.tileCollide = true; // Precisa ler o terreno
         }
 

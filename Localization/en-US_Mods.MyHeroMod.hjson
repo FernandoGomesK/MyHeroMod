@@ -470,6 +470,11 @@ Buffs: {
 		DisplayName: Recipro Buff
 		Description: Mods.MyHeroMod.Buffs.ReciproBuff.Description
 	}
+
+	DecayBuff: {
+		DisplayName: Decay Buff
+		Description: Mods.MyHeroMod.Buffs.DecayBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"

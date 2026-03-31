@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
+using MyHeroMod.content.Quirks.Decay.Projectiles.DashTouch;
+using Microsoft.Xna.Framework;
 
 public class DashTouchSkill : QuirkSkill
 {
@@ -24,6 +26,15 @@ public class DashTouchSkill : QuirkSkill
 
     public override void OnUse(Player player)
     {
-        
+        Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                player.Center,
+                Vector2.Zero, 
+                ModContent.ProjectileType<DashTouchProj>(),
+                10, 
+                10f, 
+                player.whoAmI
+                
+            );
     }
 }

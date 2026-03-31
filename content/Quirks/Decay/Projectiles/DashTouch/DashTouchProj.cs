@@ -1,8 +1,7 @@
 using Microsoft.Xna.Framework;
 using Terraria;
-using Terraria.ID;
 using Terraria.ModLoader;
-using MyHeroMod.Buffs;
+using MyHeroMod.content.Debuffs;
 
 namespace MyHeroMod.content.Quirks.Decay.Projectiles.DashTouch
 {
@@ -10,62 +9,70 @@ namespace MyHeroMod.content.Quirks.Decay.Projectiles.DashTouch
     {
         public override void SetDefaults()
         {
-            Projectile.width = 10; 
-            Projectile.height = 10;
+            Projectile.width = 20; 
+            Projectile.height = 20;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.tileCollide = false; 
             Projectile.penetrate = -1; 
             Projectile.alpha = 255; 
+            
+            Projectile.timeLeft = 30; 
         }
 
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-
-            var speed = 5f;
-
-            
-
             
             
-
-
             Projectile.Center = player.Center;
 
-        
-        
-
-            player.ChangeDir(Main.MouseWorld.X > player.MountedCenter.X ? 1 : -1);
-
-            Vector2 dashDirection = Main.MouseWorld - player.Center;
-            float distanceToMouse = dashDirection.Length();
             
-            
-            if (distanceToMouse > 20f)
-            {
-                dashDirection.Normalize();
-                float force = speed; 
-                player.velocity = dashDirection * force; 
-
-                
-                player.fullRotation = player.velocity.ToRotation() + MathHelper.PiOver2;
-                player.fullRotationOrigin = player.Size / 2; 
-            }
-            else
+            if (Projectile.ai[0] == 0)
             {
                 
-                player.velocity *= 0.8f; 
+                var speed = 25f; 
+
+                player.ChangeDir(Main.MouseWorld.X > player.MountedCenter.X ? 1 : -1);
+                Vector2 dashDirection = Main.MouseWorld - player.Center;
+                
+                if (dashDirection.Length() > 20f)
+                {
+                    dashDirection.Normalize();
+                    player.velocity = dashDirection * speed; 
+                }
             }
+
+            // 2. A SUSTENTAÇÃO: Roda durante os primeiros 15 frames
+            if (Projectile.ai[0] < 15)
+            {
+                
+                player.gravity = 0f;
+                player.noFallDmg = true;
+                
+                // OPCIONAL: Adicionar um leve "freio" aéreo para o dash não ir longe demais
+                // player.velocity *= 0.95f; 
+            }
+
+            
+            Projectile.ai[0]++;
         }
+
+         public override void OnHitPlayer(Player target, Player.HurtInfo info)
+        {
+            target.AddBuff(ModContent.BuffType<DecayBuff>(), 300);
+            Projectile.Kill();
+        }
+        
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(ModContent.BuffType<DecayBuff>(), 300);
+            Projectile.Kill();
+        }
+
         public override void OnKill(int timeLeft)
         {
             Player player = Main.player[Projectile.owner];
-            
-            
-            player.ClearBuff(ModContent.BuffType<CruisingBuff>());
-            
-        
             player.fullRotation = 0f; 
         }
 

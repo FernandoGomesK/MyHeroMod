@@ -28,6 +28,8 @@ public class GroundTouchSkill : QuirkSkill
 
     public override void OnUse(Player player)
     {
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
         float direction = Main.MouseWorld.X > player.Center.X ? 1f : -1f;
     
         // Velocidade da onda (Rápida)s
@@ -38,12 +40,31 @@ public class GroundTouchSkill : QuirkSkill
             player.GetSource_FromThis(),
             player.Center + new Vector2(20f * direction, 0), // Começa um pouco a frente
             velocity,
-            ModContent.ProjectileType<GroundTouchProj>(),
+            ModContent.ProjectileType<GroundTouchController>(),
+            10, // Dano
+            5f,
+            player.whoAmI
+
+            
+        
+        );
+
+        if (transPlayer.CurrentStage >= QuirkStage.Advanced)
+        {
+            
+            velocity = new Vector2(10f * -direction, 0f); // Velocidade do segundo projétil na direção oposta
+            Projectile.NewProjectile(
+            player.GetSource_FromThis(),
+            player.Center + new Vector2(20f * direction, 0), // Começa um pouco a frente
+            velocity,
+            ModContent.ProjectileType<GroundTouchController>(),
             10, // Dano
             5f,
             player.whoAmI
 
             
         );
+
+        }
     }
 }
