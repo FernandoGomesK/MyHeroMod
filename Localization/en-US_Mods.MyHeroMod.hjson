@@ -552,6 +552,7 @@ Projectiles: {
 	GroundTouchController.DisplayName: Ground Touch Controller
 	GroundTouchProj.DisplayName: Ground Touch Proj
 	RangeTouchProj.DisplayName: Range Touch Proj
+	ScrappyThrustProj.DisplayName: Scrappy Thrust Proj
 }
 
 NPCs: {

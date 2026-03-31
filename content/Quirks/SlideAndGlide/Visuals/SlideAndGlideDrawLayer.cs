@@ -25,11 +25,21 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
             Player player = drawInfo.drawPlayer;
-
-            // Carregue a sua textura (Troque o caminho para o local exato da sua imagem!)
-            Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/content/Quirks/SlideAndGlide/Visuals/BlueLegs").Value;
+            var slidePlayer = player.GetModPlayer<SlideAndGlidePlayer>();
+            
+            bool isWallSliding = player.sliding;
+            
+            
+            bool isShooting = slidePlayer.greenLegsTimer > 0;
 
             
+            string texturePath = (isWallSliding || isShooting) 
+                ? "MyHeroMod/content/Quirks/SlideAndGlide/Visuals/GreenLegs" 
+                : "MyHeroMod/content/Quirks/SlideAndGlide/Visuals/BlueLegs";
+
+            
+            Texture2D texture = ModContent.Request<Texture2D>(texturePath).Value;
+
             Vector2 drawPos = new Vector2(
                 (int)(drawInfo.Position.X - Main.screenPosition.X + (player.width / 2f)),
                 (int)(drawInfo.Position.Y - Main.screenPosition.Y + player.height)

@@ -59,6 +59,11 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             // Slide And Glide
 
             {QuirkSkills.Slide, new ToggleSlideSkill()},
+            {QuirkSkills.ScrappyThrust, new ScrappyThrustSkill() },
+                
+                // {QuirkSkills.ShootyGoBlam, new ShootyGoBlamSkill() },
+                // {QuirkSkills.ShoothyGoBBB, new ShoothyGoBBB() },
+                // {QuirkSkills.SlideShield, new SlideShieldSkill() },
 
             // Erasure
 

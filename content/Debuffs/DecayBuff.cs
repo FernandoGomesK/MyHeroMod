@@ -22,8 +22,8 @@ namespace MyHeroMod.content.Debuffs
             
             int d1 = Dust.NewDust(player.position, 1, 1, DustID.Wraith, 0f, 0f, 100, default, 2.5f);
                 Main.dust[d1].noGravity = true;
-                Main.dust[d1].velocity.Y = -Main.rand.NextFloat(2f, 5f); // Shoot UP
-                Main.dust[d1].velocity.X *= 0.2f; // Don't move sideways much
+                Main.dust[d1].velocity.Y = -Main.rand.NextFloat(2f, 5f); 
+                Main.dust[d1].velocity.X *= 0.2f; 
 
                 // Purple Dust
                 if (Main.rand.NextBool(2)) // 50% chance for purple

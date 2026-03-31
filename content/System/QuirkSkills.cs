@@ -25,6 +25,11 @@
             Slide,
 
             SaGFlight,
+            ScrappyThrust,
+            ShootyGoBlam,
+            ShoothyGoBBB,
+            SlideShield,
+        
 
             //Erasure
 

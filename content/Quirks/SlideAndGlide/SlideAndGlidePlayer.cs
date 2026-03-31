@@ -9,6 +9,7 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide
     public partial class SlideAndGlidePlayer : ModPlayer, IQuirkResetter, IHeroFlightModifier
     {
         public bool isSlideOn = false;
+        public int greenLegsTimer = 0;
 
         public void FullReset()
         {
@@ -22,8 +23,12 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide
 
         public override void PostUpdate()
         {
-           
+            
+            if (greenLegsTimer > 0)
+            {
+                greenLegsTimer--;
             }
+        }
 
             public void ModifyFlight(ref float speed)
         {
@@ -43,5 +48,7 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide
 
             speed = dashSpeed ;
         }
+
+        
         }
     }
