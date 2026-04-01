@@ -62,7 +62,7 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             {QuirkSkills.ScrappyThrust, new ScrappyThrustSkill() },
                 
                 // {QuirkSkills.ShootyGoBlam, new ShootyGoBlamSkill() },
-                // {QuirkSkills.ShoothyGoBBB, new ShoothyGoBBB() },
+                {QuirkSkills.ShoothyGoBBB, new ShootyGoBBBSkill() },
                 // {QuirkSkills.SlideShield, new SlideShieldSkill() },
 
             // Erasure

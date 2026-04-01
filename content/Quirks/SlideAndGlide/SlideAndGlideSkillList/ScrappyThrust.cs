@@ -12,6 +12,7 @@ using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
 using MyHeroMod.Buffs;
 
 using MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ScrappyThrust;
+using MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo;
 
 public class ScrappyThrustSkill : QuirkSkill
 {
@@ -22,7 +23,7 @@ public class ScrappyThrustSkill : QuirkSkill
             Player player = Main.LocalPlayer;
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
+            if (transPlayer.CurrentStage >= QuirkStage.Adequation)
             {
                 return "Shooty go Blam";
             }
@@ -92,10 +93,41 @@ public class ScrappyThrustSkill : QuirkSkill
 
             var finalDamage = (int)(damageMultiplier * MaxDamage);
 
-CombatText.NewText(player.getRect(), Color.Orange, "Shoot!");
+            var text = transPlayer.CurrentStage >= QuirkStage.Intermediate ? "Shooty Go Blam!" : "Scrappy Thrust Style!";
+            
+
+            CombatText.NewText(player.getRect(), Color.Blue, text);
+
+            
+
             Vector2 Velocity = Main.MouseWorld - player.Center;
             Velocity.Normalize();
             Velocity *= 15f;
+
+            if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
+            {
+                Projectile.NewProjectile(
+                    player.GetSource_FromThis(),
+                    player.Center,
+                    Velocity,
+                    ModContent.ProjectileType<ShootyGoProj>(),
+                    finalDamage, 
+                    4f,  
+                    player.whoAmI
+                );
+            }
+            else
+            {
+                Projectile.NewProjectile(
+                    player.GetSource_FromThis(),
+                    player.Center,
+                    Velocity,
+                    ModContent.ProjectileType<ScrappyThrustProj>(),
+                    finalDamage, 
+                    2f,  
+                    player.whoAmI
+                );
+            }
 
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),

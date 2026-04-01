@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 
-namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
+namespace MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo
 {
     public class ShootyGoKablamProj : ModProjectile
     {

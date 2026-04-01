@@ -553,6 +553,9 @@ Projectiles: {
 	GroundTouchProj.DisplayName: Ground Touch Proj
 	RangeTouchProj.DisplayName: Range Touch Proj
 	ScrappyThrustProj.DisplayName: Scrappy Thrust Proj
+	ShootyGoBBBController.DisplayName: Shooty Go B B B Controller
+	ShootyGoKablamProj.DisplayName: Shooty Go Kablam Proj
+	ShootyGoProj.DisplayName: Shooty Go Proj
 }
 
 NPCs: {

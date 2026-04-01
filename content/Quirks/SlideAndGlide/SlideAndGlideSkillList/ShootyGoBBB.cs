@@ -9,8 +9,9 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Explosion;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
+using MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo;
 
-public class ShootyGoBBB : QuirkSkill
+public class ShootyGoBBBSkill : QuirkSkill
 {
     public override string Name => "Ap Machine Gun";
     public override string Description => "Shoot a concentrated penetrating Projectile";
@@ -29,13 +30,13 @@ public class ShootyGoBBB : QuirkSkill
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<ShootyGoBBBController>()] > 0)
             return;
 
-            if (player.GetModPlayer<TransformationPlayer>().CurrentStage >= QuirkStage.Advanced)
+            if (player.GetModPlayer<TransformationPlayer>().CurrentStage >= QuirkStage.Final)
             {
-                CombatText.NewText(player.getRect(), Color.Orange, "AP MACHINE GUN!");
+                CombatText.NewText(player.getRect(), Color.Orange, "Shooty Go Kablam!");
             }
             else
             {
-                CombatText.NewText(player.getRect(), Color.Orange, "AP-SHOT: AUTO-CANNON!");
+                CombatText.NewText(player.getRect(), Color.Orange, "Shooty Go Blam Blam Blam!");
             }
 
             Vector2 direction = Main.MouseWorld - player.Center;

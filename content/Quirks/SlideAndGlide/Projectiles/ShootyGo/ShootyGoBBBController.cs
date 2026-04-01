@@ -7,7 +7,7 @@ using Terraria.Audio;
 using Terraria.Graphics;
 using MyHeroMod.Buffs;
 
-namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
+namespace MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo
 {
     public class ShootyGoBBBController : ModProjectile
     {
@@ -132,13 +132,27 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
 
                         Vector2 spawnPos = player.Center + Projectile.velocity * 40f;
 
+                        if (transPlayer.CurrentStage >= QuirkStage.Advanced)
+                        {
+                            Projectile.NewProjectile(
+                                player.GetSource_FromThis(),
+                                spawnPos,
+                                shootVel,
+                                ModContent.ProjectileType<ShootyGoKablamProj>(), 
+                                finalDamage, 
+                                8f, 
+                                player.whoAmI
+                            );
+                        }
+                        else
+
                         Projectile.NewProjectile(
                             player.GetSource_FromThis(),
                             spawnPos,
                             shootVel,
                             ModContent.ProjectileType<ShootyGoProj>(), 
                             finalDamage, 
-                            4f,  // KNOCKBACK ALTO
+                            4f,  
                             player.whoAmI
                         );
                     }
