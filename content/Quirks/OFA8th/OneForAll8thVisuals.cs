@@ -22,8 +22,8 @@ namespace MyHeroMod.content.Quirks.OFA8th
        {
            
 
-            // Player.armorEffectDrawShadow = true; 
-                Player.armorEffectDrawOutlines = true;
+            Player.armorEffectDrawShadow = true; 
+               
 
             
             
