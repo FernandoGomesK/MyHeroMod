@@ -1,3 +1,4 @@
+using System;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using Terraria;
@@ -11,11 +12,18 @@ namespace MyHeroMod.content.Quirks.Flight
     {
         public bool isFlightOn = false;
         public bool isFlightShieldOn = false;
+
+        public int flightShieldMaxHealth = 0;
+        public float flightShieldHealth = 0;
+        public int timeSinceLastHit = 0;
         
         public void FullReset()
         {
             isFlightOn = false;
             isFlightShieldOn = false;
+
+            
+            flightShieldHealth = 0f; 
             Player.ClearBuff(ModContent.BuffType<FlightBuff>());
             Player.ClearBuff(ModContent.BuffType<FlightShieldBuff>());
         }
@@ -28,6 +36,8 @@ namespace MyHeroMod.content.Quirks.Flight
 
         public override void PostUpdateEquips()
         {
+            
+            
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             
@@ -46,8 +56,82 @@ namespace MyHeroMod.content.Quirks.Flight
 
                 Player.noFallDmg = true;
             }
-            
+
+            if (Player.HasBuff<FlightShieldBuff>())
+            {
+                isFlightShieldOn = true;
+                var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+                
+                flightShieldMaxHealth = transPlayer.CurrentStage switch 
+                {
+                    QuirkStage.Initial => 20, QuirkStage.Adequation => 50,
+                    QuirkStage.Intermediate => 60, QuirkStage.Advanced => 80,
+                    QuirkStage.Final => 120, _ => 20
+                };
+            }
+            else
+            {
+                
+                flightShieldMaxHealth = 0;
+                flightShieldHealth = 0f;
+            }
         }
+
+        public override void PostUpdate()
+        {
+            timeSinceLastHit++;
+            if (timeSinceLastHit > 350) 
+            {
+                timeSinceLastHit = 350; 
+            }
+
+            if (isFlightShieldOn && flightShieldHealth < flightShieldMaxHealth)
+            {
+                
+                if (timeSinceLastHit > 300) 
+                {
+                    
+                    flightShieldHealth += 0.5f; 
+                    
+                    if (flightShieldHealth > flightShieldMaxHealth)
+                    {
+                        flightShieldHealth = flightShieldMaxHealth;
+                    }
+                }
+            }
+        }
+
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
+        {
+            if (isFlightShieldOn && flightShieldHealth > 0)
+            {
+                modifiers.ModifyHurtInfo += (ref Player.HurtInfo info) =>
+                {
+                    int damageToAbsorb = Math.Min((int)flightShieldHealth, info.Damage);
+                    info.Damage -= damageToAbsorb;
+                    flightShieldHealth -= damageToAbsorb;
+
+                    
+                    timeSinceLastHit = 0; 
+
+                    if (info.Damage <= 0)
+                    {
+                        info.Damage = 0;
+                    }
+                };
+            }
+        }
+            
+
+        public override void OnHurt(Player.HurtInfo info)
+        {
+            
+            timeSinceLastHit = 0; 
+        }
+        
+
+
 
         public void ModifyFlight(ref float speed)
         {
