@@ -26,6 +26,9 @@ namespace MyHeroMod
         private UserInterface blinkUserInterface;
         internal BlinkUIState blinkUIState;
 
+        private UserInterface flightShieldUserInterface;
+        internal FlightShieldUIState flightShieldUIState;
+
         public override void Load()
         {
             if (!Main.dedServ) // Só cria interfaces se for um jogador (tela ligada)
@@ -52,6 +55,11 @@ namespace MyHeroMod
                 blinkUIState.Activate();
                 blinkUserInterface = new UserInterface();
                 blinkUserInterface.SetState(blinkUIState);
+
+                flightShieldUIState = new FlightShieldUIState();
+                flightShieldUIState.Activate();
+                flightShieldUserInterface = new UserInterface();
+                flightShieldUserInterface.SetState(flightShieldUIState);
             }
         }
         
@@ -70,6 +78,9 @@ namespace MyHeroMod
 
             blinkUIState = null;
             blinkUserInterface = null;
+
+            flightShieldUIState = null;
+            flightShieldUserInterface = null;
 
             
         }
@@ -137,6 +148,9 @@ namespace MyHeroMod
             if (blinkUserInterface != null)
                 blinkUserInterface.Update(gameTime);
 
+            if (flightShieldUserInterface != null)
+                flightShieldUserInterface.Update(gameTime);
+
             
         }
 
@@ -197,6 +211,19 @@ namespace MyHeroMod
                     if (blinkUserInterface != null)
                     {
                         blinkUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
+                    }
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
+
+            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
+                "MyHeroMod: Flight Shield Bar",
+                delegate
+                {
+                    if (flightShieldUserInterface != null)
+                    {
+                        flightShieldUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
                     }
                     return true;
                 },
