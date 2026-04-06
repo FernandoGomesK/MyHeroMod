@@ -29,27 +29,37 @@ namespace MyHeroMod.content.Quirks.SpringLikeLimbs
         {
             if (isSpringActive)
             {
-                // --- FLOOR BOUNCING ---
-                // If the player is currently on the ground (Y velocity is 0),
-                // AND they were falling reasonably fast in the previous frame (Y > 1f)
+                
                 if (Player.velocity.Y == 0f && previousVelocity.Y > 1f)
                 {
-                    // Invert the velocity to make them bounce up!
-                    // Multiplying by 0.8f means they retain 80% of their falling speed (so they eventually settle)
+                    
                     Player.velocity.Y = -previousVelocity.Y * 0.95f; 
                 }
 
-                // --- WALL BOUNCING (Optional, fits the "Spring Limbs" theme) ---
-                // If they hit a wall horizontally and were moving fast
+                
                 if (Player.velocity.X == 0f && Math.Abs(previousVelocity.X) > 4f)
                 {
-                    // Bounce off the wall
+                    
                     Player.velocity.X = -previousVelocity.X * 0.95f;
                 }
             }
 
             
             previousVelocity = Player.velocity;
+        }
+
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType)
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            
+            
+            if (!transPlayer.HasActiveQuirk(QuirkType.SpringLikeLimbs)) return;
+
+            if (isSpringActive) 
+            {
+                speed = 25f;             
+            }
+        
         }
             
             

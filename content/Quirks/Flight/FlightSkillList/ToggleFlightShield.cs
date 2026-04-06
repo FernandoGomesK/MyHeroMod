@@ -26,7 +26,7 @@ public class ToggleFlightShieldSkill : QuirkSkill
         }
         else
         {
-            player.AddBuff(ModContent.BuffType<FlightShieldBuff>(), 3600);
+            player.AddBuff(ModContent.BuffType<FlightShieldBuff>(), 360000000);
              
         }
     }
