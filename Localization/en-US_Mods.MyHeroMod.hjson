@@ -480,6 +480,11 @@ Buffs: {
 		DisplayName: Decay Buff
 		Description: Mods.MyHeroMod.Buffs.DecayBuff.Description
 	}
+
+	SpringLikeLimbsBuff: {
+		DisplayName: Spring Like Limbs Buff
+		Description: Mods.MyHeroMod.Buffs.SpringLikeLimbsBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own bones!"
@@ -561,6 +566,7 @@ Projectiles: {
 	ShootyGoBBBController.DisplayName: Shooty Go B B B Controller
 	ShootyGoKablamProj.DisplayName: Shooty Go Kablam Proj
 	ShootyGoProj.DisplayName: Shooty Go Proj
+	RivetStabPlayerProj.DisplayName: Rivet Stab Player Proj
 }
 
 NPCs: {

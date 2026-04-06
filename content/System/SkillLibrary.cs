@@ -136,6 +136,14 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
 
             {QuirkSkills.Overclock, new OverclockSkill() },
 
+            // Rivet    
+
+            {QuirkSkills.RivetStab, new RivetStabSkill() },
+
+            // Spring
+
+            {QuirkSkills.ToggleSprings, new ToggleSpringsSkill() },
+
 
 
 

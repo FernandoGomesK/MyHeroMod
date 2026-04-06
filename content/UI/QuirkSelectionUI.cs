@@ -70,6 +70,8 @@ namespace MyHeroMod
             CreateButton("Flight", QuirkType.Flight, Color.White);
             CreateButton("Slide And Glide", QuirkType.SlideAndGlide, Color.Green);
             CreateButton("Decay", QuirkType.Decay, Color.Black);
+            CreateButton("Rivet", QuirkType.Rivet, Color.Red);
+            CreateButton("Spring Like Limbs", QuirkType.SpringLikeLimbs, Color.LightGreen);
 
 
             // red X to close

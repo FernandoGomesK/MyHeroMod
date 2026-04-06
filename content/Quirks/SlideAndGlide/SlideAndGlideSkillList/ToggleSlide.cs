@@ -26,7 +26,7 @@ public class ToggleSlideSkill : QuirkSkill
         }
         else
         {
-            player.AddBuff(ModContent.BuffType<SlideAndGlideBuff>(), 3600);
+            player.AddBuff(ModContent.BuffType<SlideAndGlideBuff>(), 360000000);
              
         }
     }

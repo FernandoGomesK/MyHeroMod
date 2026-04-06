@@ -14,6 +14,7 @@ using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.Gearshift;
 using MyHeroMod.content.Quirks.Erasure;
 using MyHeroMod.content.Quirks.Explosion;
+using MyHeroMod.content.Quirks.AllForOne;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Microsoft.Xna.Framework.Graphics;
@@ -70,6 +71,7 @@ namespace MyHeroMod
                 SyncGearshift,
                 SyncErasure,
                 SyncExplosion,
+                SyncAllForOne,
             }
 
             // 2. LER AS MENSAGENS QUE CHEGAM
@@ -104,6 +106,42 @@ namespace MyHeroMod
                             packet.Send(-1, playernumber); 
                         }
                         break;
+
+                        case MessageType.SyncAllForOne:
+                        byte playerAfo = reader.ReadByte();
+                        int quirkCount = reader.ReadInt32(); 
+
+                        var afoPlayer = Main.player[playerAfo].GetModPlayer<AllForOnePlayer>();
+                        
+                        
+                        afoPlayer.InternalQuirks.Clear(); 
+
+                        
+                        for (int i = 0; i < quirkCount; i++)
+                        {
+                            int quirkId = reader.ReadInt32();
+                            afoPlayer.InternalQuirks.Add((QuirkType)quirkId);
+                        }
+
+                        
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            ModPacket packet = GetPacket();
+                            packet.Write((byte)MessageType.SyncAllForOne);
+                            packet.Write(playerAfo);
+                            
+                            
+                            packet.Write(quirkCount);
+                            foreach (var quirk in afoPlayer.InternalQuirks)
+                            {
+                                packet.Write((int)quirk);
+                            }
+                            
+                            packet.Send(-1, playerAfo); 
+                        }
+                        break;
+
+
 
                         case MessageType.SyncOFA8th:
                         byte player8 = reader.ReadByte();

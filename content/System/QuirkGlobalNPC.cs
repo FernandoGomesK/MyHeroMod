@@ -12,6 +12,7 @@ using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
 using MyHeroMod.content.Quirks.Erasure.Projectiles;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceShot;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.JetBurn;
+using MyHeroMod.content.Npcs.Bosses.AllForOne;
 
 namespace MyHeroMod.content.System
 {
@@ -48,19 +49,41 @@ namespace MyHeroMod.content.System
                 return;
 
             
-            // Ex: NextBool(5) = 1 em 5 = 20%
+            if (npc.realLife >= 0 && npc.realLife != npc.whoAmI)
+                return;
+
+            
+            int[] blacklistedNPCs = {
+                NPCID.TheHungry,        
+                NPCID.TheHungryII,      
+                NPCID.Creeper,          
+                NPCID.Probe,            
+                NPCID.LeechHead,        
+                NPCID.LeechBody,
+                NPCID.LeechTail,
+                NPCID.EaterofWorldsBody, 
+                NPCID.EaterofWorldsTail,
+                ModContent.NPCType<AllForOneBoss>(),
+            };
+
+            
+            foreach (int id in blacklistedNPCs)
+            {
+                if (npc.type == id) return;
+            }
+
+            
             if (Main.rand.NextBool(5)) 
             {
                 HasQuirk = true;
 
                 
-                
-                int random = Main.rand.Next(4); 
+                int random = Main.rand.Next(15); 
                 switch (random)
                 {
                     case 0: AssignedQuirk = QuirkType.HellFlames; break;
                     case 1: AssignedQuirk = QuirkType.HalfColdHalfHot; break;
-                    // case 2: AssignedQuirk = QuirkType.BlueFlames; break;
+                    case 2: AssignedQuirk = QuirkType.BlueFlames; break; 
                     case 3: AssignedQuirk = QuirkType.OneForAll9th; break;
                     case 4: AssignedQuirk = QuirkType.OneForAll8th; break;
                     case 5: AssignedQuirk = QuirkType.Overclock; break;
@@ -73,9 +96,8 @@ namespace MyHeroMod.content.System
                     case 12: AssignedQuirk = QuirkType.Explosion; break;
                     case 13: AssignedQuirk = QuirkType.SuperRegeneration; break;
                     case 14: AssignedQuirk = QuirkType.Erasure; break;
-
+                    // case 15: AssignedQuirk = QuirkType.AllForOne; break; // ALL FOR ONE ADICIONADO AQUI!
                 }
-                
                 
                 npc.lifeMax = (int)(npc.lifeMax * 4f); 
                 npc.life = npc.lifeMax;
@@ -297,11 +319,23 @@ namespace MyHeroMod.content.System
                             
                         }
                         break;
-                }
+
+                    case QuirkType.Float:
+                        npc.noGravity = true;
+                        break;
+
+                    case QuirkType.SuperRegeneration:
+                        if (npc.life < npc.lifeMax)
+                        {
+                            npc.life += 2; 
+                            if (npc.life > npc.lifeMax)
+                                npc.life = npc.lifeMax;
+                        }
+                        break;
             }
         }
     }
-}
+}}
         
         // public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
         // {

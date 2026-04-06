@@ -7,6 +7,10 @@
             // Ofa
             SuperJump,
 
+            // Rivet
+
+            RivetStab,
+
             // All For One
 
             StealQuirk, SeeQuirks,
@@ -68,7 +72,11 @@
 
             // Overclock
 
-            Overclock
+            Overclock,
+
+            // Spring Like Limbs
+
+            ToggleSprings,
 
 
         }
