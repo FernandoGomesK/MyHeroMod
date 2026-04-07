@@ -31,7 +31,7 @@ namespace MyHeroMod.content.System
 
         public override void Load()
         {
-            if (!Main.dedServ) // Evita rodar no servidor dedicado, onde não há gráficos
+            if (!Main.dedServ) 
             {
                 fullCowlingTexture = ModContent.Request<Texture2D>("MyHeroMod/Assets/Effects/FullCowling");
             }
@@ -72,15 +72,31 @@ namespace MyHeroMod.content.System
                 if (npc.type == id) return;
             }
 
-            
-            if (Main.rand.NextBool(5)) 
+            bool isBossAlive = false;
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                if (Main.npc[i].active && Main.npc[i].boss)
+                {
+                    isBossAlive = true;
+                    break;
+                }
+            }
+
+            int quirkChance = 5;
+
+            if (!npc.boss && isBossAlive || npc.type == NPCID.ServantofCthulhu)
+            {
+                quirkChance = 20;
+            }
+
+            if (Main.rand.NextBool(quirkChance))
             {
                 HasQuirk = true;
 
-                
-                int random = Main.rand.Next(15); 
+                int random = Main.rand.Next(15);
                 switch (random)
                 {
+                
                     case 0: AssignedQuirk = QuirkType.HellFlames; break;
                     case 1: AssignedQuirk = QuirkType.HalfColdHalfHot; break;
                     case 2: AssignedQuirk = QuirkType.BlueFlames; break; 
@@ -98,10 +114,20 @@ namespace MyHeroMod.content.System
                     case 14: AssignedQuirk = QuirkType.Erasure; break;
                     // case 15: AssignedQuirk = QuirkType.AllForOne; break; // ALL FOR ONE ADICIONADO AQUI!
                 }
-                
-                npc.lifeMax = (int)(npc.lifeMax * 4f); 
+
+                if (npc.boss){
+                    npc.lifeMax = (int)(npc.lifeMax * 1.5f); 
+                    npc.life = npc.lifeMax;
+                    npc.damage = (int)(npc.damage * 1.5f);
+                }
+                else
+                {
+                     npc.lifeMax = (int)(npc.lifeMax * 4f); 
                 npc.life = npc.lifeMax;
                 npc.damage = (int)(npc.damage * 3f);
+                }
+                
+               
             }
         }
 

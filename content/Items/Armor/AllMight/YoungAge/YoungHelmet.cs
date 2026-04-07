@@ -47,9 +47,7 @@ namespace MyHeroMod.content.Items.Armor.AllMight.YoungAge
             // O sprite cinza será tingido pela cor do cabelo do player.
             color = drawPlayer.hairColor;
             
-            // OPÇÃO B: Cabelo Canônico (Sempre Loiro)
-            // Se você quer que seja sempre amarelo igual ao anime, independente da cor do player:
-            // color = new Color(255, 220, 0); // Amarelo All Might
+            
         }
     }
 }

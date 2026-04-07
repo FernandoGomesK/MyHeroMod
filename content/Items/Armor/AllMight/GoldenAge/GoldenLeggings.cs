@@ -23,10 +23,10 @@ namespace MyHeroMod.content.Items.Armor.AllMight.GoldenAge
         }
         public override void AddRecipes()
         {
-            CreateRecipe()
-            .AddIngredient(ItemID.DirtBlock, 1)
-            .AddTile(TileID.WorkBenches)
-            .Register();
+            // CreateRecipe()
+            // .AddIngredient(ItemID.DirtBlock, 1)
+            // .AddTile(TileID.WorkBenches)
+            // .Register();
         }
     }
 }

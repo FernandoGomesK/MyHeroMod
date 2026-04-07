@@ -53,10 +53,10 @@ namespace MyHeroMod.content.Items.Armor.AllMight.GoldenAge
 
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddIngredient(ItemID.IronBar, 20) // Exemplo
-                .AddTile(TileID.Anvils)
-                .Register();
+            // CreateRecipe()
+            //     .AddIngredient(ItemID.IronBar, 20) 
+            //     .AddTile(TileID.Anvils)
+            //     .Register();
         }
 
 }

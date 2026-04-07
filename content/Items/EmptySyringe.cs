@@ -26,7 +26,7 @@ namespace MyHeroMod.content.Items
 {
     CreateRecipe()
         .AddIngredient(ItemID.Glass, 2) 
-        .AddIngredient(ItemID.IronBar, 1) 
+        .AddIngredient(RecipeGroupID.IronBar, 1) 
         .AddTile(TileID.WorkBenches)         
         .Register();                         
 }

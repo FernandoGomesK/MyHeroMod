@@ -23,9 +23,9 @@ namespace MyHeroMod.content.Items.Armor.Bakugo.BakugoFirstCostume
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.DirtBlock, 1)
-            .AddTile(TileID.WorkBenches)
-            .Register();
+                .AddIngredient(ItemID.IronBar, 20) // Exemplo
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
 }
