@@ -1,0 +1,632 @@
+Keybinds: {
+	Transformar.DisplayName: Transformar
+	"Use Skill.DisplayName": Usar Habilidade
+	"Skill Slot 3.DisplayName": Espaço de Habilidade 3
+	"Skill Slot 2.DisplayName": Espaço de Habilidade 2
+	"Skill Slot 1.DisplayName": Espaço de Habilidade 1
+	"Open Skill Menu.DisplayName": Abrir Menu de Habilidades
+	"Skill Slot 4.DisplayName": Espaço de Habilidade 4
+}
+
+Items: {
+	QuirkSelectorItem: {
+		DisplayName: Seletor de Individualidade
+		Tooltip: Apenas para testes.
+	}
+
+	DebugStageChanger: {
+		DisplayName: Modificador de Estágio (Debug)
+		Tooltip: Altera instantaneamente o teu Estágio de Individualidade.
+	}
+
+	SummonHim: {
+		DisplayName: Elmo Misterioso
+		Tooltip:
+			'''
+			Invoca o Símbolo do Mal.
+			"Use para invocar aquele que governa o submundo."
+			'''
+	}
+
+	# --- SUPPORT ITEMS ---
+	CombatVestAlpha: {
+		DisplayName: Colete de Combate Alfa
+		Tooltip: Diminui a taxa de sobreaquecimento e congelamento das Individualidades de Fogo e Gelo.
+	}
+
+	CombatVestBeta: {
+		DisplayName: Colete de Combate Beta
+		Tooltip: Diminui fortemente a taxa de sobreaquecimento e congelamento.
+	}
+
+	SurgeArmGauntlets: {
+		DisplayName: Manoplas de Braço
+		Tooltip: Aumenta o dano dos ataques supremos de Meio Frio Meio Quente.
+	}
+
+	GrenadierBracers: {
+		DisplayName: Braçadeiras de Granada
+        '''
+		Tooltip: Aumenta o dano das explosões.
+        Reduz o recuo das explosões.
+        '''
+	}
+
+	YellowGoggles: {
+		DisplayName: Óculos Amarelos
+		Tooltip:
+			'''
+			Prolonga a duração da Individualidade Apagar.
+			"Impede que seus olhos sequem."
+			'''
+	}
+
+	IronSoles: {
+		DisplayName: Solas de Ferro
+		Tooltip:
+			'''
+			Aumenta o dano dos chutes supremos.
+			"Perfeito para o Shoot Style."
+			'''
+	}
+
+	AirForce: {
+		DisplayName: Luvas Air Force
+		Tooltip: Aumenta o dano do Delaware Smash em um passo.
+	}
+
+	# --- SYRINGES & GENES ---
+	QuirkGene: {
+        '''
+		DisplayName: Gene de Individualidade
+		Tooltip: Um fragmento cristalizado de puro poder genético.
+        Carrega um poder imenso.
+        '''
+	}
+
+	EmptySyringe: {
+		DisplayName: Seringa Vazia
+		Tooltip: Enche com um Gene de Individualidade para receber poderes incríveis.
+	}
+
+	QuirkSyringe: {
+		DisplayName: Seringa de Individualidade
+		Tooltip: se injete com o Gene da individualidade.
+	}
+
+	RandomQuirkItem: {
+		DisplayName: Seringa de Individualidade Aleatória
+		Tooltip: Concede uma Individualidade aleatória após a injeção.
+	}
+
+	# --- DEKU ARMORS ---
+	AlphaHelmet: {
+		DisplayName: Máscara do Traje Alfa
+		Tooltip: Aumenta a velocidade de movimento em 5%.
+	}
+
+	AlphaBreastplate: {
+		DisplayName: Peitoral Alfa
+		Tooltip: O teu primeiro traje de herói. Um pouco simples, mas cheio de coração.
+	}
+
+	AlphaLeggings: {
+		DisplayName: Perneiras Alpha
+		Tooltip: ""
+	}
+
+	BetaHelmet: {
+		DisplayName: Máscara do Traje Beta
+		Tooltip: Aumenta o dano corpo a corpo e a velocidade de movimento em 10%.
+	}
+
+	BetaBreastplate: {
+		DisplayName: Peitoral Beta
+		Tooltip: Melhorado para suportar o ardor da batalha.
+	}
+
+	BetaLeggings: {
+		DisplayName: Perneiras Beta
+		Tooltip: ""
+	}
+
+	GammaHelmet: {
+		DisplayName: Máscara do Traje Gamma
+		Tooltip: Aumenta a velocidade de ataque corpo a corpo em 15%, dano e velocidade de movimento em 10%.
+	}
+
+	GammaBreastplate: {
+		DisplayName: Peitoral Gamma
+		Tooltip: Reforçado para o Shoot Style.
+	}
+
+	GammaLeggings: {
+		DisplayName: Perneiras Gamma
+		Tooltip: ""
+	}
+
+	DeltaHelmet: {
+		DisplayName: Máscara do Traje Delta
+		Tooltip: Aumenta o dano corpo a corpo em 20%.
+	}
+
+	DeltaBreastplate: {
+		DisplayName: Peitoral Delta
+		Tooltip: ""
+	}
+
+	DeltaLeggings: {
+		DisplayName: Perneiras Delta
+		Tooltip: ""
+	}
+
+	EpsilonHelmet: {
+		DisplayName: Máscara do Traje Epsilon
+		Tooltip: Aumenta o dano corpo a corpo em 25%.
+	}
+
+	EpsilonBreastplate: {
+		DisplayName: Peitoral Epsilon
+		Tooltip: Usado durante a tua hora mais sombria.
+	}
+
+	EpsilonLeggings: {
+		DisplayName: Perneiras Epsilon
+		Tooltip: ""
+	}
+
+	# --- ALL MIGHT ARMORS ---
+	YoungHelmet: {
+		DisplayName: Capacete da Era Jovem
+
+		Tooltip: Aumenta o dano corpo a corpo em 10%.
+        Concede imunidade a Knockback.
+        '''
+	}
+
+	YoungBreastplate: {
+		DisplayName: Peitoral da Era Jovem
+		Tooltip: A Origem do Símbolo da Paz.
+	}
+
+	YoungLeggings: {
+		DisplayName: Perneiras da Era Jovem
+		Tooltip: ""
+	}
+
+	GoldenBreastplate: {
+		DisplayName: Peitoral da Era de Ouro
+        '''
+		Tooltip: Reduz o dano sofrido em 15%.
+        Os inimigos têm maior probabilidade de te atacar.
+        '''
+	}
+
+	GoldenLeggings: {
+		DisplayName: Perneiras da Era de Ouro
+		Tooltip: Porque? Poruqe eu Estou Aqui!
+	}
+
+	# --- TODOROKI ARMORS ---
+	FirstTodorokiBreastplate: {
+		DisplayName: Peitoral Todoroki (Primeiro)
+		Tooltip: Aumenta o dano de Individualidade em 10%.
+	}
+
+	FirstTodorokiLeggings: {
+		DisplayName: Perneiras Todoroki (Primeiras)
+		Tooltip: ""
+	}
+
+	SecondTodorokiBreastplate: {
+		DisplayName: Peitoral Todoroki (Segundo)
+		Tooltip: Aumenta o dano de Individualidade em 15% e a velocidade de movimento em 5%.
+	}
+
+	SecondTodorokiLeggings: {
+		DisplayName: Perneiras Todoroki (Segundas)
+		Tooltip: ""
+	}
+
+	ThirdTodorokiBreastplate: {
+		DisplayName: Peitoral Todoroki (Terceiro)
+		Tooltip: Aumenta o dano de Individualidade em 20%.
+	}
+
+	# --- BAKUGO ARMORS ---
+	FirstBakugoHelmet: {
+		DisplayName: Máscara Bakugo (Primeira)
+		Tooltip: Aumenta a probabilidade de Ataque Crítico em 10%.
+	}
+
+	FirstBakugoBreastplate: {
+		DisplayName: Peitoral Bakugo (Primeiro)
+		Tooltip: Morre!!
+	}
+
+	FirstBakugoLeggings: {
+		DisplayName: Perneiras Bakugo (Primeiras)
+		Tooltip: ""
+	}
+
+	# --- DABI ARMORS ---
+	FirstDabiHelmet: {
+		DisplayName: Cabelo Dabi (Primeiro)
+		Tooltip: Aumenta o dano de Individualidade em 25%, mas reduz a Vida Máxima em 10%.
+	}
+
+	FirstDabiBreastplate: {
+		DisplayName: Casaco Dabi (Primeiro)
+		Tooltip: Um casaco adequado para dançar nas chamas.
+	}
+
+	FirstDabiLeggings: {
+		DisplayName: Calças Dabi (Primeiras)
+		Tooltip: ""
+	}
+
+	# --- ENDEAVOR ARMORS ---
+	FirstEHelmet: {
+		DisplayName: Máscara Endeavor (Primeira)
+		Tooltip: Aumenta o dano de Individualidade em 20%.
+	}
+
+	FirstEBreastplate: {
+		DisplayName: Peitoral Endeavor (Primeiro)
+		Tooltip: A vontade ardente do Herói Número Dois.
+	}
+
+	FirstELeggings: {
+		DisplayName: Perneiras Endeavor (Primeiras)
+		Tooltip: ""
+	}
+
+	# --- VIGILANTES ARMORS ---
+	KoichiFHelmet: {
+        '''
+		DisplayName: Casaco com Capuz do Koichi
+		Tooltip: Aumenta a velocidade de movimento em 25%.
+        Aumenta a distância da investida (dash).
+        '''
+	}
+
+	KoichiFBreastplate: {
+		DisplayName: Casaco do Koichi
+		Tooltip: Apenas um vigilante.
+	}
+
+	CristopherBreastplate: {
+		DisplayName: Traje do Captain Celebrity
+		Tooltip: O Herói número um dos Estados Únidos
+	}
+
+	# --- MISC ---
+	UAShirt: {
+		DisplayName: Camiseta de Ginástica da U.A.
+		Tooltip: Plus Ultra!
+	}
+
+	UAPants: {
+		DisplayName: Calças de Ginástica da U.A.
+		Tooltip: ""
+	}
+
+	# --- SKILL ATTACK NAMES ---
+	FireQuirkAttack.DisplayName: Ataque de Fogo
+	BlueQuirkAttack.DisplayName: Ataque de Fogo Azul
+
+	PunchAttack: {
+		DisplayName: Ataque de Soco
+		Tooltip: ""
+	}
+
+	ExplosionQuirkAttack.DisplayName: Ataque de Explosão
+}
+
+Buffs: {
+	FullCowlingBuff: {
+		DisplayName: Full Cowling
+		Description: Canalizando o One For All por todo o teu corpo.
+	}
+
+	FullCowlingBuff5: {
+		DisplayName: Full Cowling 5%
+		Description: Canalizando 5% do verdadeiro poder do One For All.
+	}
+
+	FullCowlingBuff10: {
+		DisplayName: Full Cowling 10%
+		Description: Canalizando 10% do verdadeiro poder do One For All.
+	}
+
+	FullCowlingBuff45: {
+		DisplayName: Full Cowling 45%
+		Description: Canalizando 45% do verdadeiro poder do One For All.
+	}
+
+	StockPileBuff: {
+		DisplayName: Acumular (Stockpile)
+		Description: Conjurando o poder bruto acumulado do One For All.
+	}
+
+	GearshiftBuff: {
+		DisplayName: Troca de Mudança (Gearshift)
+		Description: Alterando a Velocidade das suas próprias Celulas!
+	}
+
+	DangerSenseBuff: {
+		DisplayName: Sentido de Perigo
+		Description: Detectando Intenções malignas próximas
+	}
+
+	ParallelProcessingBuff: {
+		DisplayName: Processamento Paralelo
+		Description: Processando múltiplas Individualidades ao mesmo tempo.
+	}
+
+	FaJinBuff: {
+		DisplayName: Fa Jin
+		Description: Preparado para Explodir!
+	}
+
+	FaJinActiveBuff: {
+		DisplayName: Fa Jin Ativo
+		Description: Acumulando energia cinética...
+	}
+
+	FlashFireFistBuff: {
+		DisplayName: Flashfire Fist
+		Description: A elevar as tuas chamas à sua temperatura máxima!
+	}
+
+	Heat: {
+		DisplayName: Sobreaquecimento
+		Description: Esquentando
+	}
+
+	ClusterBuff: {
+		DisplayName: Cluster
+		Description: Comprimindo suor em explosões altamente densas.
+	}
+
+	SweatBuff: {
+		DisplayName: A Suar
+		Description: Acumulando Suor, Eca!
+	}
+
+	BlueFlashFireFistBuff: {
+		DisplayName: Blue Flashfire Fist
+		Description: Chamas em temperatura Máxima.
+	}
+
+	PhosphorBuff: {
+		DisplayName: Fósforo (Phosphor)
+		Description: Juntando duas metades em uma união perfeita
+	}
+
+	HCFireFistBuff: {
+		DisplayName: Half-Cold Flashfire Fist
+		Description: Chamas em temperatura Máxima!
+	}
+
+	BlueRage: {
+		DisplayName: Fúria Azul
+		Description: Dance comigo no Inferno!
+	}
+
+	BlueHeatBuff: {
+		DisplayName: Calor Azul
+		Description: Esquentando.
+	}
+
+	Heatstroke: {
+		DisplayName: Insolação
+		Description: Quente demais!
+	}
+
+	TemperatureBuff: {
+		DisplayName: Regulador de Temperatura
+		Description: A estabilizar o calor interno do teu corpo.
+	}
+
+	FrostBite: {
+		DisplayName: Congelamento (Frostbite)
+		Description: Congelando!
+	}
+
+	OvertimeBuff: {
+		DisplayName: Sentido de Perigo (Sobrecarga)
+		Description: O teu Sentido de Perigo está a trabalhar horas extraordinárias!
+	}
+
+	FloatBuff: {
+		DisplayName: Flutuar
+		Description: Flutuando no ar.
+	}
+
+	SmokescreenBuff: {
+		DisplayName: Cortina de Fumo
+		Description: Liberando fumaça Roxa.
+	}
+
+	FingersBuff: {
+		DisplayName: Dedos Partidos
+		Description: Quebrou Seus dedos a usar 100% do teu poder!
+	}
+
+	OverclockBuff: {
+		DisplayName: Overclock
+		Description: Acelerando perceção do tempo!
+	}
+
+	QuirkErased: {
+		DisplayName: Individualidade Apagada
+		Description: A tua Individualidade foi apagada! Você é impotente.
+	}
+
+	ErasingBuff: {
+		DisplayName: Apagar (Erasure)
+		Description: apagando as Individualidades dos inimigos nasua linha de visão.
+	}
+
+	HellFlashFireFistBuff: {
+		DisplayName: Hell Flashfire Fist
+		Description: Queimando mais quente que o próprio sol!
+	}
+
+	FlightBuff: {
+		DisplayName: Voo
+		Description: Voando pelos céus.
+	}
+
+	FlightShieldBuff: {
+		DisplayName: Escudo de Voo
+		Description: Um escudo aerodinâmico protege-te de ataques iminentes.
+	}
+
+	SlideAndGlideBuff: {
+		DisplayName: Deslizar e Planar
+		Description: deslizando sem esforço pelo terreno.
+	}
+
+	CruisingBuff: {
+		DisplayName: Velocidade de Cruzeiro
+		Description: se movendo velocidade máxima de cruzeiro.
+	}
+
+	EngineBuff: {
+		DisplayName: Motor
+		Description: Os teus motores estão rugindo e prontos!
+	}
+
+	ReciproBuff: {
+		DisplayName: Recipro Burst
+		Description: Sobrecarga de velocidade máxima!
+	}
+
+	DecayBuff: {
+		DisplayName: Decadência (Decay)
+		Description: O seu corpo está se desfazendo em é em pó...
+	}
+
+	SpringLikeLimbsBuff: {
+		DisplayName: Membros de Mola
+		Description: Os teus membros armazenam e libertam energia cinética para saltos massivos.
+	}
+}
+
+DeathMessage: "{0} destruiu o seu próprio corpo com 100% de poder!"
+BlueFireDeathMessage: "{0} cremou-se até às cinzas!"
+
+Projectiles: {
+	DelawareSmashProj.DisplayName: Delaware Smash
+	DetroitSmashProj.DisplayName: Detroit Smash
+	PrimeDetroitSmashProj.DisplayName: Prime Detroit Smash
+	BlackWhipProjectile.DisplayName: Chicote Negro
+	WeakFireProj.DisplayName: Fogo Fraco
+	BlueFireProj.DisplayName: Fogo Azul
+	PunchAttackProj.DisplayName: Ataque de Soco
+	ProminenceBurnProj.DisplayName: Prominence Burn
+	JetBurnProj.DisplayName: Jet Burn
+	JetBurnController.DisplayName: Jet Burn
+	ProminenceBurnController.DisplayName: Prominence Burn
+	ProminenceBurnFire.DisplayName: Prominence Burn
+	IgnitedArrowProj.DisplayName: Flecha de Fogo
+	HellSpiderController.DisplayName: Hell Spider
+	HellSpiderProj.DisplayName: Hell Spider
+	ApShotProj.DisplayName: AP Shot
+	HowitzerImpactProj.DisplayName: Howitzer Impact
+	StunGrenadeProj.DisplayName: Granada de Atordoamento
+	ExplosionBlastProj.DisplayName: Explosão
+	ApMachineGunProj.DisplayName: AP Machine Gun
+	BlueProminenceBurnFire.DisplayName: Blue Prominence Burn
+	BlueProminenceBurnController.DisplayName: Blue Prominence Burn
+	BlueJetBurnProj.DisplayName: Blue Jet Burn
+	BlueJetBurnController.DisplayName: Blue Jet Burn
+	BlueHellSpiderProj.DisplayName: Blue Hell Spider
+	BlueHellSpiderController.DisplayName: Blue Hell Spider
+	IceSpikeProj.DisplayName: Espinho de Gelo
+	IceSpike.DisplayName: Espinho de Gelo
+	IceWaveController.DisplayName: Onda de Gelo
+	HCHellSpiderController.DisplayName: Flashfire Spider
+	HCHellSpiderProj.DisplayName: Flashfire Spider
+	JetKindlingController.DisplayName: Jet Kindling
+	JetKindlingProj.DisplayName: Jet Kindling
+	FlashFreezeProj.DisplayName: Flashfreeze Heatwave
+	BlueVanishingFistProj.DisplayName: Vanishing Fist
+	BlueFireBallProj.DisplayName: Bola de Fogo Azul
+	BlueFlameThrowerProj.DisplayName: Lança-chamas Azul
+	BlueFlamethrowerController.DisplayName: Lança-chamas Azul
+	BlueFireWaveController.DisplayName: Onda de Fogo Azul
+	BlueFireWaveProj.DisplayName: Onda de Fogo Azul
+	BlueHellMineFieldController.DisplayName: Campo de Minas Infernal
+	BlueHellMineFieldProj.DisplayName: Campo de Minas Infernal
+	PrimeCaliforniaSmashController.DisplayName: California Smash
+	PrimeCaliforniaSmashProj.DisplayName: California Smash
+	PrimeCarolinaSmashController.DisplayName: Carolina Smash
+	PrimeCarolinaSmashProj.DisplayName: Carolina Smash
+	PrimeTexasSmashProj.DisplayName: Texas Smash
+	DetroitPunchProj.DisplayName: Detroit Smash
+	PunchAnimProj.DisplayName: Soco
+	GreatGlacialAegirController.DisplayName: Great Glacial Aegir
+	IceThrowerController.DisplayName: Lança-gelo
+	IceShotProj.DisplayName: Disparo de Gelo
+	IceThrowerProj.DisplayName: Lança-gelo
+	FullPowerProj.DisplayName: 100% Smash
+	KickAttackProj.DisplayName: Pontapé Shoot Style
+	BlackWhipProjectileUnique.DisplayName: Chicote Negro
+	ManchesterSmashController.DisplayName: Manchester Smash
+	STLouisSmashController.DisplayName: St. Louis Smash
+	SwingTapeProjectile.DisplayName: Fita de Celofane
+	PullTapeProjectile.DisplayName: Fita de Celofane
+	HandProj.DisplayName: Mão da Decadência
+	ErasureController.DisplayName: Apagar (Erasure)
+	PaleflameController.DisplayName: Chama Pálida
+	PaleflameProj.DisplayName: Chama Pálida
+	NPCErasureProj.DisplayName: Apagar (Erasure)
+	RivetStabProj.DisplayName: Rivet Stab
+	FlightProj.DisplayName: Voo
+	DashTouchProj.DisplayName: Investida (Dash)
+	GroundTouchController.DisplayName: Destrição do Solo
+	GroundTouchProj.DisplayName: Toque no Solo
+	RangeTouchProj.DisplayName: Toque a distância
+	ScrappyThrustProj.DisplayName: Scrappy Thrust
+	ShootyGoBBBController.DisplayName: Shooty Go B.B.B.
+	ShootyGoKablamProj.DisplayName: Shooty Go Kablam!
+	ShootyGoProj.DisplayName: Shooty Go
+	RivetStabPlayerProj.DisplayName: Rivet Stab
+}
+
+NPCs: {
+	SupportVendor: {
+		DisplayName: Vendedora de itens de Suporte
+
+		TownNPCMood: {
+			Content: Estou contente. Os meus bebês estão funcionando perfeitamente!
+			NoHome: Preciso de uma oficina para construir os meus bebês! Não consigo trabalhar assim.
+			FarFromHome: Me afastei demaisdas minhas plantas...
+			LoveSpace: Adoro este lugar, tem tanto espaço para testar explosões!
+			DislikeCrowded: Não gosto disto. muitos pessoas esbarrando nas minhas invenções.
+			HateCrowded: Odeio isto! Alguém acabou de pisar o meu bebe mais recente!
+			LikeNPC_Princess: A {NPCName} aprecia os meus designs fofinhos!
+			Princess_LovesNPC: A {NPCName} gosta mesmo das minhas invenções!
+		}
+	}
+
+	AllForOneBoss.DisplayName: All For One
+
+	D_Garaki: {
+		DisplayName: Dr. Garaki
+
+		TownNPCMood: {
+			Content: A ciência exige... paciência. Hehehe.
+			NoHome: O meu laboratório... Preciso de um lugar escuro para esconder os meus Nomus.
+			FarFromHome: Estou muito exposto aqui fora. Preciso voltar ao laboratório.
+			LoveSpace: Ah, o espaço isolado perfeito para conduzir as minhas... experiências.
+			DislikeCrowded: Esses tolos são muito barulhentos. Não consigo me concentrar na minha pesquisa.
+			HateCrowded: SE AFASTEM! Estão arruinando o trabalho da minha vida!
+			LikeNPC_Princess: A {NPCName} é bastante... fascinante.
+			Princess_LovesNPC: A {NPCName} é uma criança muito educada.
+		}
+	}
+}

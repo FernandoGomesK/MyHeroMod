@@ -1,52 +1,111 @@
 Keybinds: {
-	Transformar.DisplayName: Transformar
-	"Use Skill.DisplayName": Use  Skill
-	"Skill Slot 3.DisplayName": Skill  Slot 3
-	"Skill Slot 2.DisplayName": Skill  Slot 2
-	"Skill Slot 1.DisplayName": Skill  Slot 1
-	"Open Skill Menu.DisplayName": Open  Skill  Menu
-	"Skill Slot 4.DisplayName": Skill  Slot 4
+	Transformar.DisplayName: Transform
+	"Use Skill.DisplayName": Use Skill
+	"Skill Slot 3.DisplayName": Skill Slot 3
+	"Skill Slot 2.DisplayName": Skill Slot 2
+	"Skill Slot 1.DisplayName": Skill Slot 1
+	"Open Skill Menu.DisplayName": Open Skill Menu
+	"Skill Slot 4.DisplayName": Skill Slot 4
 }
 
 Items: {
-	AlphaHelmet: {
-		DisplayName: Alpha Suit Helmet
-		Tooltip: Increases Maximum life by 20
-	}
-
 	QuirkSelectorItem: {
-		Tooltip: ""
-		DisplayName: Quirk Selector Item
+		DisplayName: Quirk Selector
+		Tooltip: For testing purposes only.
 	}
 
-	EpsilonHelmet: {
-		DisplayName: Epsilon Suit Helmet
-		Tooltip: Increases Maximum life by 25
+	DebugStageChanger: {
+		DisplayName: Debug Stage Changer
+		Tooltip: Instantly changes your Quirk Stage.
 	}
 
-	EpsilonBreastplate: {
-		DisplayName: Epsilon Breastplate
-		Tooltip: ""
+	SummonHim: {
+		DisplayName: Mysterious Helmet
+		Tooltip:
+			'''
+			Summons the Symbol of Evil. 
+			"Use to summon the one who rules the underworld."
+			'''
 	}
 
-	EpsilonLeggings: {
-		DisplayName: Epsilon Leggings
-		Tooltip: ""
+	# --- SUPPORT ITEMS ---
+	CombatVestAlpha: {
+		DisplayName: Combat Vest Alpha
+		Tooltip: Decreases the overheating and freezing rates of Fire and Ice Quirks.
 	}
 
-	FireQuirkAttack: {
-		DisplayName: Fire Quirk Attack
-		Tooltip: ""
+	CombatVestBeta: {
+		DisplayName: Combat Vest Beta
+		Tooltip: Heavily decreases overheating and freezing rates.
 	}
 
-	BlueQuirkAttack: {
-		Tooltip: ""
-		DisplayName: Blue Quirk Attack
+	SurgeArmGauntlets: {
+		DisplayName: Surge Arm Gauntlets
+		Tooltip: Increases the damage of Half-Cold Half-Hot ultimate moves.
+	}
+
+	GrenadierBracers: {
+		DisplayName: Grenadier Bracers
+		Tooltip: Increases the radius and damage of explosions. Reduces explosion recoil.
+	}
+
+	YellowGoggles: {
+		DisplayName: Yellow Goggles
+		Tooltip:
+			'''
+			Extends the duration of the Erasure Quirk.
+			"Keeps your eyes from drying out."
+			'''
+	}
+
+	IronSoles: {
+		DisplayName: Iron Soles
+		Tooltip:
+			'''
+			Increases the damage of ultimate kick moves.
+			"Perfect for Shoot Style."
+			'''
+	}
+
+	AirForce: {
+		DisplayName: Air Force Gloves
+		Tooltip: Increases the damage of Delaware Smash by one step.
+	}
+
+	# --- SYRINGES & GENES ---
+	QuirkGene: {
+		DisplayName: Quirk Gene
+		Tooltip:
+			'''
+			A crystallized fragment of pure genetic power.
+			"It carries immense power"
+			'''
+	}
+
+	EmptySyringe: {
+		DisplayName: Empty Syringe
+		Tooltip: Fill with a Quirk Gene to grant yourself incredible powers.
+	}
+
+	QuirkSyringe: {
+		DisplayName: Quirk Syringe
+		Tooltip: Inject yourself with the Quirk Gene.
+	}
+
+	RandomQuirkItem: {
+		DisplayName: Random Quirk Syringe
+		Tooltip: Grants a random Quirk upon injection.
+	}
+
+	# --- DEKU ARMORS ---
+	AlphaHelmet: {
+		DisplayName: Alpha Suit Mask
+		Tooltip: Increases movement speed by 5%.
 	}
 
 	AlphaBreastplate: {
-		Tooltip: ""
 		DisplayName: Alpha Breastplate
+		Tooltip: Your first hero costume. A bit plain, but full of heart.
 	}
 
 	AlphaLeggings: {
@@ -54,154 +113,14 @@ Items: {
 		Tooltip: ""
 	}
 
-	PunchAttack: {
-		Tooltip: ""
-		DisplayName: Punch Attack
-	}
-
-	FirstEBreastplate: {
-		Tooltip: ""
-		DisplayName: First E Breastplate
-	}
-
-	FirstELeggings: {
-		Tooltip: ""
-		DisplayName: First E Leggings
-	}
-
-	FirstEHelmet: {
-		Tooltip: ""
-		DisplayName: First E Helmet
-	}
-
-	FirstBakugoBreastplate: {
-		Tooltip: ""
-		DisplayName: First Bakugo Breastplate
-	}
-
-	FirstBakugoHelmet: {
-		Tooltip: ""
-		DisplayName: First Bakugo Helmet
-	}
-
-	ExplosionQuirkAttack: {
-		DisplayName: Explosion Quirk Attack
-		Tooltip: ""
-	}
-
-	FirstDabiBreastplate: {
-		Tooltip: ""
-		DisplayName: First Dabi Breastplate
-	}
-
-	FirstDabiHelmet: {
-		DisplayName: First Dabi Helmet
-		Tooltip: ""
-	}
-
-	FirstDabiLeggings: {
-		DisplayName: First Dabi Leggings
-		Tooltip: ""
-	}
-
-	YoungBreastplate: {
-		Tooltip: ""
-		DisplayName: Young Breastplate
-	}
-
-	YoungHelmet: {
-		DisplayName: Young Helmet
-		Tooltip: ""
-	}
-
-	YoungLeggings: {
-		DisplayName: Young Leggings
-		Tooltip: ""
-	}
-
-	GoldenBreastplate: {
-		Tooltip: ""
-		DisplayName: Golden Breastplate
-	}
-
-	GoldenLeggings: {
-		DisplayName: Golden Leggings
-		Tooltip: ""
-	}
-
-	FirstTodorokiLeggings: {
-		Tooltip: ""
-		DisplayName: First Todoroki Leggings
-	}
-
-	FirstTodorokiBreastplate: {
-		Tooltip: ""
-		DisplayName: First Todoroki Breastplate
-	}
-
-	DebugStageChanger: {
-		DisplayName: Debug Stage Changer
-		Tooltip: ""
-	}
-
-	CombatVestAlpha: {
-		Tooltip: ""
-		DisplayName: Combat Vest Alpha
-	}
-
-	SurgeArmGauntlets: {
-		Tooltip: ""
-		DisplayName: Surge Arm Gauntlets
-	}
-
-	CombatVestBeta: {
-		Tooltip: ""
-		DisplayName: Combat Vest Beta
-	}
-
-	GrenadierBracers: {
-		DisplayName: Grenadier Bracers
-		Tooltip: ""
-	}
-
-	FirstBakugoLeggings: {
-		DisplayName: First Bakugo Leggings
-		Tooltip: ""
-	}
-
-	UAShirt: {
-		DisplayName: U A Shirt
-		Tooltip: ""
-	}
-
-	UAPants: {
-		DisplayName: U A Pants
-		Tooltip: ""
-	}
-
-	IronSoles: {
-		DisplayName: Iron Soles
-		Tooltip: ""
-	}
-
-	RandomQuirkItem: {
-		DisplayName: Quirk Syringe
-		Tooltip: ""
-	}
-
-	AirForce: {
-		DisplayName: Air Force
-		Tooltip: ""
+	BetaHelmet: {
+		DisplayName: Beta Suit Mask
+		Tooltip: Increases melee damage and movement speed by 10%.
 	}
 
 	BetaBreastplate: {
 		DisplayName: Beta Breastplate
-		Tooltip: ""
-	}
-
-	BetaHelmet: {
-		DisplayName: Beta Helmet
-		Tooltip: ""
+		Tooltip: Upgraded to withstand the rigors of combat.
 	}
 
 	BetaLeggings: {
@@ -209,13 +128,28 @@ Items: {
 		Tooltip: ""
 	}
 
-	DeltaBreastplate: {
-		DisplayName: Delta Breastplate
+	GammaHelmet: {
+		DisplayName: Gamma Suit Mask
+		Tooltip: Increases melee speed by 15%, damage and movement speed by 10%.
+	}
+
+	GammaBreastplate: {
+		DisplayName: Gamma Breastplate
+		Tooltip: Reinforced for Shoot Style.
+	}
+
+	GammaLeggings: {
+		DisplayName: Gamma Leggings
 		Tooltip: ""
 	}
 
 	DeltaHelmet: {
-		DisplayName: Delta Helmet
+		DisplayName: Delta Suit Mask
+		Tooltip: Increases melee damage by 20%.
+	}
+
+	DeltaBreastplate: {
+		DisplayName: Delta Breastplate
 		Tooltip: ""
 	}
 
@@ -224,44 +158,69 @@ Items: {
 		Tooltip: ""
 	}
 
-	GammaBreastplate: {
-		DisplayName: Gamma Breastplate
+	EpsilonHelmet: {
+		DisplayName: Epsilon Suit Mask
+		Tooltip: Increases melee damage by 25%.
+	}
+
+	EpsilonBreastplate: {
+		DisplayName: Epsilon Breastplate
+		Tooltip: Worn during your darkest hour.
+	}
+
+	EpsilonLeggings: {
+		DisplayName: Epsilon Leggings
 		Tooltip: ""
 	}
 
-	GammaHelmet: {
-		DisplayName: Gamma Helmet
+	# --- ALL MIGHT ARMORS ---
+	YoungHelmet: {
+		DisplayName: Young Age Mask
+		Tooltip:
+			'''
+			Increases melee damage by 10%.
+			Grants immunity to knockback.
+			'''
+	}
+
+	YoungBreastplate: {
+		DisplayName: Young Age Breastplate
+		Tooltip: The beginnings of the Symbol of Peace.
+	}
+
+	YoungLeggings: {
+		DisplayName: Young Age Leggings
 		Tooltip: ""
 	}
 
-	GammaLeggings: {
-		DisplayName: Gamma Leggings
-		Tooltip: ""
+	GoldenBreastplate: {
+		DisplayName: Golden Age Breastplate
+		Tooltip:
+			'''
+			Reduces damage taken by 15%.
+			Enemies are more likely to target you.
+			'''
 	}
 
-	QuirkGene: {
-		DisplayName: Quirk Gene
-		Tooltip: ""
+	GoldenLeggings: {
+		DisplayName: Golden Age Leggings
+		Tooltip: I am here!
 	}
 
-	EmptySyringe: {
-		DisplayName: Empty Syringe
-		Tooltip: ""
+	# --- TODOROKI ARMORS ---
+	FirstTodorokiBreastplate: {
+		DisplayName: First Todoroki Breastplate
+		Tooltip: Increases Quirk damage by 10%.
 	}
 
-	QuirkSyringe: {
-		DisplayName: Quirk Syringe
+	FirstTodorokiLeggings: {
+		DisplayName: First Todoroki Leggings
 		Tooltip: ""
 	}
 
 	SecondTodorokiBreastplate: {
 		DisplayName: Second Todoroki Breastplate
-		Tooltip: ""
-	}
-
-	ThirdTodorokiBreastplate: {
-		DisplayName: Third Todoroki Breastplate
-		Tooltip: ""
+		Tooltip: Increases Quirk damage by 15% and Movement Speed by 5%.
 	}
 
 	SecondTodorokiLeggings: {
@@ -269,304 +228,374 @@ Items: {
 		Tooltip: ""
 	}
 
-	YellowGoggles: {
-		DisplayName: Yellow Goggles
+	ThirdTodorokiBreastplate: {
+		DisplayName: Third Todoroki Breastplate
+		Tooltip: Increases Quirk damage by 20%.
+	}
+
+	# --- BAKUGO ARMORS ---
+	FirstBakugoHelmet: {
+		DisplayName: First Bakugo Mask
+		Tooltip: Increases Critical Strike Chance by 10%.
+	}
+
+	FirstBakugoBreastplate: {
+		DisplayName: First Bakugo Breastplate
+		Tooltip: Die!!
+	}
+
+	FirstBakugoLeggings: {
+		DisplayName: First Bakugo Leggings
 		Tooltip: ""
+	}
+
+	# --- DABI ARMORS ---
+	FirstDabiHelmet: {
+		DisplayName: First Dabi Hair
+		Tooltip: Increases Quirk damage by 25%, but reduces Max Life by 10%.
+	}
+
+	FirstDabiBreastplate: {
+		DisplayName: First Dabi Coat
+		Tooltip: A coat suited for dancing in the flames.
+	}
+
+	FirstDabiLeggings: {
+		DisplayName: First Dabi Pants
+		Tooltip: ""
+	}
+
+	# --- ENDEAVOR ARMORS ---
+	FirstEHelmet: {
+		DisplayName: First Endeavor Mask
+		Tooltip: Increases Quirk damage by 20%.
+	}
+
+	FirstEBreastplate: {
+		DisplayName: First Endeavor Breastplate
+		Tooltip: The fiery will of the Number Two Hero.
+	}
+
+	FirstELeggings: {
+		DisplayName: First Endeavor Leggings
+		Tooltip: ""
+	}
+
+	# --- VIGILANTES ARMORS ---
+	KoichiFHelmet: {
+		DisplayName: Koichi's Hoodie
+		Tooltip:
+			'''
+			Increases movement speed by 25%.
+			Increases dash distance.
+			'''
 	}
 
 	KoichiFBreastplate: {
-		DisplayName: Koichi F Breastplate
-		Tooltip: ""
-	}
-
-	KoichiFHelmet: {
-		DisplayName: Koichi F Helmet
-		Tooltip: ""
+		DisplayName: Koichi's Jacket
+		Tooltip: Just a nice guy doing his best.
 	}
 
 	CristopherBreastplate: {
-		DisplayName: Cristopher Breastplate
+		DisplayName: Captain Celebrity's Suit
 		Tooltip: ""
 	}
 
-	SummonHim: {
-		Tooltip: ""
-		DisplayName: Summon Him
+	# --- MISC ---
+	UAShirt: {
+		DisplayName: U.A. Gym Shirt
+		Tooltip: Plus Ultra!
 	}
+
+	UAPants: {
+		DisplayName: U.A. Gym Pants
+		Tooltip: ""
+	}
+
+	# --- SKILL ATTACK NAMES ---
+	FireQuirkAttack.DisplayName: Fire Attack
+	BlueQuirkAttack.DisplayName: Blue Fire Attack
+
+	PunchAttack: {
+		DisplayName: Punch Attack
+		Tooltip: ""
+	}
+
+	ExplosionQuirkAttack.DisplayName: Explosion Attack
 }
 
 Buffs: {
 	FullCowlingBuff: {
-		DisplayName: Full Cowling Buff
-		Description: Cowling your whole body with One For All
+		DisplayName: Full Cowling
+		Description: Channeling One For All throughout your entire body.
+	}
+
+	FullCowlingBuff5: {
+		DisplayName: Full Cowling 5%
+		Description: Channeling 5% of One For All's true power.
+	}
+
+	FullCowlingBuff10: {
+		DisplayName: Full Cowling 10%
+		Description: Channeling 10% of One For All's true power.
+	}
+
+	FullCowlingBuff45: {
+		DisplayName: Full Cowling 45%
+		Description: Channeling 45% of One For All's true power.
 	}
 
 	StockPileBuff: {
-		DisplayName: Stock Pile Buff
-		Description: Conjuring the accumulated power of one for all
+		DisplayName: Stockpile
+		Description: Conjuring the accumulated power of One For All.
 	}
 
 	GearshiftBuff: {
-		Description: Shifting the atoms in your body to move faster
-		DisplayName: Gearshift Buff
+		DisplayName: Gearshift
+		Description: Shifting the speed of your Cells!
 	}
 
 	DangerSenseBuff: {
-		Description: Sensing danger near you
-		DisplayName: Danger Sense Buff
+		DisplayName: Danger Sense
+		Description: Sensing malicious intent near you.
 	}
 
 	ParallelProcessingBuff: {
-		Description: How many quirks you can use at the same time
-		DisplayName: Parallel Processing Buff
+		DisplayName: Parallel Processing
+		Description: Managing multiple Quirks at once.
 	}
 
 	FaJinBuff: {
+		DisplayName: Fa Jin
+		Description: Ready to release explosive kinetic energy!
+	}
+
+	FaJinActiveBuff: {
+		DisplayName: Fa Jin Active
 		Description: Accumulating kinectic energy
-		DisplayName: Fa Jin Buff
 	}
 
 	FlashFireFistBuff: {
-		Description: Fire in maximum temperature!
-		DisplayName: Flash Fire Fist Buff
+		DisplayName: Flashfire Fist
+		Description: Raising your flames to their maximum temperature!
 	}
 
 	Heat: {
-		Description: Mods.MyHeroMod.Buffs.Heat.Description
-		DisplayName: Heat
+		DisplayName: Overheating
+		Description: Your body temperature is rising dangerously high!
 	}
 
 	ClusterBuff: {
-		DisplayName: Cluster Buff
-		Description: Compressing your sweat in tiny particles
+		DisplayName: Cluster
+		Description: Compressing your sweat into highly dense explosions.
 	}
 
 	SweatBuff: {
-		DisplayName: Sweat Buff
-		Description: Acumulatting nitroglyceryn like sweat
+		DisplayName: Sweating
+		Description: Accumulating nitroglycerin-like sweat.
 	}
 
 	BlueFlashFireFistBuff: {
-		Description: Fire in maximum temperature!
-		DisplayName: Flash Fire Fist
+		DisplayName: Blue Flashfire Fist
+		Description: Pushing your blue flames to absolute maximum!
 	}
 
 	PhosphorBuff: {
-		Description: Uniting the two halves of your quirk
-		DisplayName: Phosphor Buff
+		DisplayName: Phosphor
+		Description: Uniting the two halves of your Quirk to stabilize your body.
 	}
 
 	HCFireFistBuff: {
-		Description: Raising you fire's temperature
-		DisplayName: H C Fire Fist Buff
+		DisplayName: Half-Cold Flashfire Fist
+		Description: Raising your fire's temperature to extreme levels.
 	}
 
 	BlueRage: {
-		Description: Show them.
-		DisplayName: Rage
+		DisplayName: Blue Rage
+		Description: Show them. Watch it all burn.
 	}
 
 	BlueHeatBuff: {
-		DisplayName: Blue Heat Buff
-		Description: Monitoring your temperature
+		DisplayName: Blue Heat
+		Description: Your skin is burning from your own flames!
 	}
 
 	Heatstroke: {
 		DisplayName: Heatstroke
-		Description: You are Burning!
+		Description: You are burning up from the inside!
 	}
 
 	TemperatureBuff: {
-		Description: Monitoring your temperature
-		DisplayName: Temperature Buff
+		DisplayName: Temperature Regulator
+		Description: Stabilizing your internal body heat.
 	}
 
 	FrostBite: {
-		Description: You are freezing!
-		DisplayName: Frost Bite
+		DisplayName: Frostbite
+		Description: You are freezing to death!
 	}
 
 	OvertimeBuff: {
-		DisplayName: Overtime Buff
-		Description: DangerSense working overtime!
+		DisplayName: Danger Sense Overdrive
+		Description: Danger Sense is working overtime!
 	}
 
 	FloatBuff: {
-		DisplayName: Float Buff
-		Description: currently Floating
+		DisplayName: Float
+		Description: You are suspended in the air.
 	}
 
 	SmokescreenBuff: {
-		DisplayName: Smokescreen Buff
-		Description: Generating Smoke
-	}
-
-	FullCowlingBuff10: {
-		DisplayName: Full Cowling Buff10
-		Description: Cowling yourself with 10% of your full power
-	}
-
-	FullCowlingBuff45: {
-		DisplayName: Full Cowling Buff45
-		Description: Cowling yourself with 45% of your full power
-	}
-
-	FullCowlingBuff5: {
-		DisplayName: Full Cowling Buff5
-		Description: Cowling yourself with 5% of your full power
+		DisplayName: Smokescreen
+		Description: Releasing a massive cloud of purple smoke.
 	}
 
 	FingersBuff: {
-		DisplayName: Fingers Buff
-		Description: your fingers are broken
-	}
-
-	FaJinActiveBuff: {
-		DisplayName: Fa Jin Active Buff
-		Description: Fs jin active, storing energy
+		DisplayName: Broken Fingers
+		Description: You broke your fingers using 100% of your power!
 	}
 
 	OverclockBuff: {
-		DisplayName: Overclock Buff
-		Description: speeding yourself up
+		DisplayName: Overclock
+		Description: Accelerating your perception of time!
 	}
 
 	QuirkErased: {
 		DisplayName: Quirk Erased
-		Description: Mods.MyHeroMod.Buffs.QuirkErased.Description
+		Description: Your Quirk has been erased! You feel powerless.
 	}
 
 	ErasingBuff: {
-		DisplayName: Erasing Buff
-		Description: Mods.MyHeroMod.Buffs.ErasingBuff.Description
+		DisplayName: Erasure
+		Description: Erasing the Quirks of enemies in your line of sight.
 	}
 
 	HellFlashFireFistBuff: {
-		DisplayName: Hell Flash Fire Fist Buff
-		Description: Mods.MyHeroMod.Buffs.HellFlashFireFistBuff.Description
+		DisplayName: Hell Flashfire Fist
+		Description: Burning hotter than the sun itself!
 	}
 
 	FlightBuff: {
-		DisplayName: Flight Buff
-		Description: Mods.MyHeroMod.Buffs.FlightBuff.Description
+		DisplayName: Flight
+		Description: You are soaring through the skies.
 	}
 
 	FlightShieldBuff: {
-		DisplayName: Flight Shield Buff
-		Description: Mods.MyHeroMod.Buffs.FlightShieldBuff.Description
+		DisplayName: Flight Shield
+		Description: An aerodynamic shield protects you from incoming attacks.
 	}
 
 	SlideAndGlideBuff: {
-		DisplayName: Slide And Glide Buff
-		Description: Mods.MyHeroMod.Buffs.SlideAndGlideBuff.Description
+		DisplayName: Slide And Glide
+		Description: sliding effortlessly across the terrain.
 	}
 
 	CruisingBuff: {
-		DisplayName: Cruising Buff
-		Description: Mods.MyHeroMod.Buffs.CruisingBuff.Description
+		DisplayName: Cruising
+		Description: Moving at top cruising speeds.
 	}
 
 	EngineBuff: {
-		DisplayName: Engine Buff
-		Description: Mods.MyHeroMod.Buffs.EngineBuff.Description
+		DisplayName: Engine
+		Description: Your engines are roaring and ready!
 	}
 
 	ReciproBuff: {
-		DisplayName: Recipro Buff
-		Description: Mods.MyHeroMod.Buffs.ReciproBuff.Description
+		DisplayName: Recipro Burst
+		Description: Maximum speed overdrive!
 	}
 
 	DecayBuff: {
-		DisplayName: Decay Buff
-		Description: Mods.MyHeroMod.Buffs.DecayBuff.Description
+		DisplayName: Decay
+		Description: Your body is crumbling to dust...
 	}
 
 	SpringLikeLimbsBuff: {
-		DisplayName: Spring Like Limbs Buff
-		Description: Mods.MyHeroMod.Buffs.SpringLikeLimbsBuff.Description
+		DisplayName: Spring-like Limbs
+		Description: Your limbs store and release kinetic energy for massive jumps.
 	}
 }
 
-DeathMessage: "{0} destroyed their own bones!"
-BlueFireDeathMessage: "{0} cremated Himself to death! "
+DeathMessage: "{0} destroyed their own body with 100% power!"
+BlueFireDeathMessage: "{0} cremated themselves to ashes!"
 
 Projectiles: {
-	DelawareSmashProj.DisplayName: Delaware Smash Proj
-	DetroitSmashProj.DisplayName: Detroit Smash Proj
-	PrimeDetroitSmashProj.DisplayName: Prime Detroit Smash Proj
-	BlackWhipProjectile.DisplayName: Black Whip Projectile
-	WeakFireProj.DisplayName: Weak Fire Proj
-	BlueFireProj.DisplayName: Blue Fire Proj
-	PunchAttackProj.DisplayName: Punch Attack Proj
-	ProminenceBurnProj.DisplayName: Prominence Burn Proj
-	JetBurnProj.DisplayName: Jet Burn Proj
-	JetBurnController.DisplayName: Jet Burn Controller
-	ProminenceBurnController.DisplayName: Prominence Burn Controller
-	ProminenceBurnFire.DisplayName: Prominence Burn Fire
-	IgnitedArrowProj.DisplayName: Ignited Arrow Proj
-	HellSpiderController.DisplayName: Hell Spider Controller
-	HellSpiderProj.DisplayName: Hell Spider Proj
-	ApShotProj.DisplayName: Ap Shot Proj
-	HowitzerImpactProj.DisplayName: Howitzer Impact Proj
-	StunGrenadeProj.DisplayName: Stun Grenade Proj
-	ExplosionBlastProj.DisplayName: Explosion Blast Proj
-	ApMachineGunProj.DisplayName: Ap Machine Gun Proj
-	BlueProminenceBurnFire.DisplayName: Blue Prominence Burn Fire
-	BlueProminenceBurnController.DisplayName: Blue Prominence Burn Controller
-	BlueJetBurnProj.DisplayName: Blue Jet Burn Proj
-	BlueJetBurnController.DisplayName: Blue Jet Burn Controller
-	BlueHellSpiderProj.DisplayName: Blue Hell Spider Proj
-	BlueHellSpiderController.DisplayName: Blue Hell Spider Controller
-	IceSpikeProj.DisplayName: Ice Spike Proj
+	DelawareSmashProj.DisplayName: Delaware Smash
+	DetroitSmashProj.DisplayName: Detroit Smash
+	PrimeDetroitSmashProj.DisplayName: Prime Detroit Smash
+	BlackWhipProjectile.DisplayName: Black Whip
+	WeakFireProj.DisplayName: Weak Fire
+	BlueFireProj.DisplayName: Blue Fire
+	PunchAttackProj.DisplayName: Punch Attack
+	ProminenceBurnProj.DisplayName: Prominence Burn
+	JetBurnProj.DisplayName: Jet Burn
+	JetBurnController.DisplayName: Jet Burn
+	ProminenceBurnController.DisplayName: Prominence Burn
+	ProminenceBurnFire.DisplayName: Prominence Burn
+	IgnitedArrowProj.DisplayName: Ignited Arrow
+	HellSpiderController.DisplayName: Hell Spider
+	HellSpiderProj.DisplayName: Hell Spider
+	ApShotProj.DisplayName: AP Shot
+	HowitzerImpactProj.DisplayName: Howitzer Impact
+	StunGrenadeProj.DisplayName: Stun Grenade
+	ExplosionBlastProj.DisplayName: Explosion
+	ApMachineGunProj.DisplayName: AP Machine Gun
+	BlueProminenceBurnFire.DisplayName: Blue Prominence Burn
+	BlueProminenceBurnController.DisplayName: Blue Prominence Burn
+	BlueJetBurnProj.DisplayName: Blue Jet Burn
+	BlueJetBurnController.DisplayName: Blue Jet Burn
+	BlueHellSpiderProj.DisplayName: Blue Hell Spider
+	BlueHellSpiderController.DisplayName: Blue Hell Spider
+	IceSpikeProj.DisplayName: Ice Spike
 	IceSpike.DisplayName: Ice Spike
-	IceWaveController.DisplayName: Ice Wave Controller
-	HCHellSpiderController.DisplayName: H C Hell Spider Controller
-	HCHellSpiderProj.DisplayName: H C Hell Spider Proj
-	JetKindlingController.DisplayName: Jet Kindling Controller
-	JetKindlingProj.DisplayName: Jet Kindling Proj
-	FlashFreezeProj.DisplayName: Flash Freeze Proj
-	BlueVanishingFistProj.DisplayName: Blue Vanishing Fist Proj
-	BlueFireBallProj.DisplayName: Blue Fire Ball Proj
-	BlueFlameThrowerProj.DisplayName: Blue Flame Thrower Proj
-	BlueFlamethrowerController.DisplayName: Blue Flamethrower Controller
-	BlueFireWaveController.DisplayName: Blue Fire Wave Controller
-	BlueFireWaveProj.DisplayName: Blue Fire Wave Proj
-	BlueHellMineFieldController.DisplayName: Blue Hell Mine Field Controller
-	BlueHellMineFieldProj.DisplayName: Blue Hell Mine Field Proj
-	PrimeCaliforniaSmashController.DisplayName: Prime California Smash Controller
-	PrimeCaliforniaSmashProj.DisplayName: Prime California Smash Proj
-	PrimeCarolinaSmashController.DisplayName: Prime Carolina Smash Controller
-	PrimeCarolinaSmashProj.DisplayName: Prime Carolina Smash Proj
-	PrimeTexasSmashProj.DisplayName: Prime Texas Smash Proj
-	DetroitPunchProj.DisplayName: Detroit Punch Proj
-	PunchAnimProj.DisplayName: Punch Anim Proj
-	GreatGlacialAegirController.DisplayName: Great Glacial Aegir Controller
-	IceThrowerController.DisplayName: Ice Thrower Controller
-	IceShotProj.DisplayName: Ice Shot Proj
-	IceThrowerProj.DisplayName: Ice Thrower Proj
-	FullPowerProj.DisplayName: Full Power Proj
-	KickAttackProj.DisplayName: Kick Attack Proj
-	BlackWhipProjectileUnique.DisplayName: Black Whip Projectile Unique
-	ManchesterSmashController.DisplayName: Manchester Smash Controller
-	STLouisSmashController.DisplayName: S T Louis Smash Controller
-	SwingTapeProjectile.DisplayName: Swing Tape Projectile
-	PullTapeProjectile.DisplayName: Pull Tape Projectile
-	HandProj.DisplayName: Hand Proj
-	ErasureController.DisplayName: Erasure Controller
-	PaleflameController.DisplayName: Paleflame Controller
-	PaleflameProj.DisplayName: Paleflame Proj
-	NPCErasureProj.DisplayName: N P C Erasure Proj
-	RivetStabProj.DisplayName: Rivet Stab Proj
-	FlightProj.DisplayName: Flight Proj
-	DashTouchProj.DisplayName: Dash Touch Proj
-	GroundTouchController.DisplayName: Ground Touch Controller
-	GroundTouchProj.DisplayName: Ground Touch Proj
-	RangeTouchProj.DisplayName: Range Touch Proj
-	ScrappyThrustProj.DisplayName: Scrappy Thrust Proj
-	ShootyGoBBBController.DisplayName: Shooty Go B B B Controller
-	ShootyGoKablamProj.DisplayName: Shooty Go Kablam Proj
-	ShootyGoProj.DisplayName: Shooty Go Proj
-	RivetStabPlayerProj.DisplayName: Rivet Stab Player Proj
+	IceWaveController.DisplayName: Ice Wave
+	HCHellSpiderController.DisplayName: Flashfire Spider
+	HCHellSpiderProj.DisplayName: Flashfire Spider
+	JetKindlingController.DisplayName: Jet Kindling
+	JetKindlingProj.DisplayName: Jet Kindling
+	FlashFreezeProj.DisplayName: Flashfreeze Heatwave
+	BlueVanishingFistProj.DisplayName: Vanishing Fist
+	BlueFireBallProj.DisplayName: Blue Fireball
+	BlueFlameThrowerProj.DisplayName: Blue Flamethrower
+	BlueFlamethrowerController.DisplayName: Blue Flamethrower
+	BlueFireWaveController.DisplayName: Blue Fire Wave
+	BlueFireWaveProj.DisplayName: Blue Fire Wave
+	BlueHellMineFieldController.DisplayName: Hell Minefield
+	BlueHellMineFieldProj.DisplayName: Hell Minefield
+	PrimeCaliforniaSmashController.DisplayName: California Smash
+	PrimeCaliforniaSmashProj.DisplayName: California Smash
+	PrimeCarolinaSmashController.DisplayName: Carolina Smash
+	PrimeCarolinaSmashProj.DisplayName: Carolina Smash
+	PrimeTexasSmashProj.DisplayName: Texas Smash
+	DetroitPunchProj.DisplayName: Detroit Smash
+	PunchAnimProj.DisplayName: Punch
+	GreatGlacialAegirController.DisplayName: Great Glacial Aegir
+	IceThrowerController.DisplayName: Ice Thrower
+	IceShotProj.DisplayName: Ice Shot
+	IceThrowerProj.DisplayName: Ice Thrower
+	FullPowerProj.DisplayName: 100% Smash
+	KickAttackProj.DisplayName: Shoot Style Kick
+	BlackWhipProjectileUnique.DisplayName: Black Whip
+	ManchesterSmashController.DisplayName: Manchester Smash
+	STLouisSmashController.DisplayName: St. Louis Smash
+	SwingTapeProjectile.DisplayName: Cellophane Tape
+	PullTapeProjectile.DisplayName: Cellophane Tape
+	HandProj.DisplayName: Decay Hand
+	ErasureController.DisplayName: Erasure
+	PaleflameController.DisplayName: Pale Flame
+	PaleflameProj.DisplayName: Pale Flame
+	NPCErasureProj.DisplayName: Erasure
+	RivetStabProj.DisplayName: Rivet Stab
+	FlightProj.DisplayName: Flight
+	DashTouchProj.DisplayName: Dash
+	GroundTouchController.DisplayName: Ground Impact
+	GroundTouchProj.DisplayName: Ground Impact
+	RangeTouchProj.DisplayName: Ranged Impact
+	ScrappyThrustProj.DisplayName: Scrappy Thrust
+	ShootyGoBBBController.DisplayName: Shooty Go B.B.B.
+	ShootyGoKablamProj.DisplayName: Shooty Go Kablam!
+	ShootyGoProj.DisplayName: Shooty Go
+	RivetStabPlayerProj.DisplayName: Rivet Stab
 }
 
 NPCs: {
@@ -574,31 +603,31 @@ NPCs: {
 		DisplayName: Support Vendor
 
 		TownNPCMood: {
-			Content: Estou contente.
-			NoHome: Odeio não ter uma casa.
-			FarFromHome: Estou muito longe de casa.
-			LoveSpace: Eu adoro este lugar, tem tanto espaço.
-			DislikeCrowded: Não gosto deste lugar, está muito cheio.
-			HateCrowded: Odeio este lugar, está muito cheio.
-			LikeNPC_Princess: Eu gosto de {NPCName}.
-			Princess_LovesNPC: Eu gosto de {NPCName}.
+			Content: I'm content. My babies are working perfectly!
+			NoHome: I need a workshop to build my babies! I can't work like this.
+			FarFromHome: I wandered too far from my blueprints...
+			LoveSpace: I love this place, so much room for testing explosions!
+			DislikeCrowded: I don't like this. Too many people bumping into my inventions.
+			HateCrowded: I hate this! Someone just stepped on my latest baby!
+			LikeNPC_Princess: "{NPCName} appreciates my cute designs!"
+			Princess_LovesNPC: "{NPCName} really likes my inventions!"
 		}
 	}
 
-	AllForOneBoss.DisplayName: All For One Boss
+	AllForOneBoss.DisplayName: All For One
 
 	D_Garaki: {
-		TownNPCMood: {
-			Princess_LovesNPC: Eu gosto de {NPCName}.
-			LikeNPC_Princess: Eu gosto de {NPCName}.
-			HateCrowded: Odeio este lugar, está muito cheio.
-			DislikeCrowded: Não gosto deste lugar, está muito cheio.
-			LoveSpace: Eu adoro este lugar, tem tanto espaço.
-			FarFromHome: Estou muito longe de casa.
-			NoHome: Odeio não ter uma casa.
-			Content: Estou contente.
-		}
+		DisplayName: Dr. Garaki
 
-		DisplayName: D_ Garaki
+		TownNPCMood: {
+			Content: Science requires... patience. Hehehe.
+			NoHome: My laboratory... I need a dark place to hide my Nomus.
+			FarFromHome: I am too exposed out here. I must return to the lab.
+			LoveSpace: Ah, the perfect isolated space to conduct my... experiments.
+			DislikeCrowded: These fools are too loud. I can't concentrate on my research.
+			HateCrowded: Get them away! They are ruining my life's work!
+			LikeNPC_Princess: "{NPCName} is quite... fascinating."
+			Princess_LovesNPC: "{NPCName} is a very polite child."
+		}
 	}
 }
