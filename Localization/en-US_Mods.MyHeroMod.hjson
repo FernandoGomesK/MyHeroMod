@@ -288,6 +288,11 @@ Items: {
 		DisplayName: Cristopher Breastplate
 		Tooltip: ""
 	}
+
+	SummonHim: {
+		Tooltip: ""
+		DisplayName: Summon Him
+	}
 }
 
 Buffs: {
@@ -581,4 +586,19 @@ NPCs: {
 	}
 
 	AllForOneBoss.DisplayName: All For One Boss
+
+	D_Garaki: {
+		TownNPCMood: {
+			Princess_LovesNPC: Eu gosto de {NPCName}.
+			LikeNPC_Princess: Eu gosto de {NPCName}.
+			HateCrowded: Odeio este lugar, está muito cheio.
+			DislikeCrowded: Não gosto deste lugar, está muito cheio.
+			LoveSpace: Eu adoro este lugar, tem tanto espaço.
+			FarFromHome: Estou muito longe de casa.
+			NoHome: Odeio não ter uma casa.
+			Content: Estou contente.
+		}
+
+		DisplayName: D_ Garaki
+	}
 }

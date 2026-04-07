@@ -8,6 +8,7 @@ using System;
 
 namespace MyHeroMod.content.Npcs.Bosses.AllForOne
 {
+    [AutoloadBossHead]
     public class AllForOneBoss : ModNPC
     {
         // ── Constantes de frame ──────────────────────────────────────────
@@ -57,6 +58,14 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
             NPC.noTileCollide = true;
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
+
+            NPC.boss = true;
+
+            
+            if (!Main.dedServ) 
+            {
+                Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/AllForOneTheme");
+            }
         }
 
     

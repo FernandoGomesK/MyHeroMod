@@ -21,7 +21,7 @@ namespace MyHeroMod.content.Quirks.Smokescreen
             {
                {
             Player.SetImmuneTimeForAllTypes(80); 
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound") with { Volume = 1.2f }, Player.position);
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound") with { Volume = 2.0f }, Player.position);
              
             return true; 
         }
