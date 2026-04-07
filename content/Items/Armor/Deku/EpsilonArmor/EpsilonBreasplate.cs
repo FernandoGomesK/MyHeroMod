@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
+using MyHeroMod.content.Items.Armor.Deku.DeltaArmor;
 
 namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
 {
@@ -37,18 +38,20 @@ namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
             Item.height = 18;
             Item.value = Item.sellPrice(gold: 1);
             Item.rare = ItemRarityID.Yellow;
-            Item.defense = 24; 
+            Item.defense = 30; 
         }
         public override void UpdateEquip(Player player)
         {
-            // Seus buffs aqui (ex: +Dano, +Velocidade)
-            // player.GetDamage(DamageClass.Generic) += 0.10f; 
+            player.moveSpeed += 0.15f;
+            player.GetDamage(DamageClass.Generic) += 0.25f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.20f;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.ChlorophyteBar, 1) 
+                .AddIngredient(ModContent.ItemType<DeltaBreastplate>(), 1)
+                .AddIngredient(ItemID.BeetleHusk, 10)
                 .AddIngredient(ItemID.Ectoplasm, 5)
                 .AddTile(TileID.Anvils)
                 .Register();

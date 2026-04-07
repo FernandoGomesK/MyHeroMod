@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using MyHeroMod.content.Items.Armor.Deku.BetaArmor;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.Deku.GammaArmor
 {
@@ -20,18 +22,21 @@ namespace MyHeroMod.content.Items.Armor.Deku.GammaArmor
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 6; // Defesa do capacete
+            Item.defense = 8; // Defesa do capacete
         }
         public override void UpdateEquip(Player player)
         {
             
             
         }
+
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.Bone, 20)
-                .AddIngredient(ItemID.HellstoneBar, 15)
+                .AddIngredient(ModContent.ItemType<BetaHelmet>(), 1)
+                
+                .AddRecipeGroup(RecipeSystem.AdamantineGroup, 12)
+                .AddIngredient(ItemID.SoulofMight, 5)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

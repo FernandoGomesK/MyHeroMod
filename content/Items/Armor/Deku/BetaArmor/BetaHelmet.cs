@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using MyHeroMod.content.Items.Armor.Deku.AlphaArmor;
 
 namespace MyHeroMod.content.Items.Armor.Deku.BetaArmor
 {
@@ -20,17 +21,19 @@ namespace MyHeroMod.content.Items.Armor.Deku.BetaArmor
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 6; // Defesa do capacete
+            Item.defense = 5; // Defesa do capacete
         }
         public override void UpdateEquip(Player player)
         {
             // Aumenta a vida máxima em 20 quando equipado
-            player.statLifeMax2 += 20;
+            
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.PlatinumBar, 10) // Exemplo
+                .AddIngredient(ModContent.ItemType<AlphaHelmet>(), 1)
+                .AddIngredient(ItemID.HellstoneBar, 10) 
+                .AddIngredient(ItemID.Bone, 5)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

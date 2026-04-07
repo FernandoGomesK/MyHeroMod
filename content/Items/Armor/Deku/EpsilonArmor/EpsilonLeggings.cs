@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using MyHeroMod.content.Items.Armor.Deku.DeltaArmor;
 
 namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
 {
@@ -14,7 +15,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 22; // Defesa do capacete
+            Item.defense = 25; // Defesa do capacete
         }
         public override void UpdateEquip(Player player)
         {
@@ -24,7 +25,8 @@ namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.ChlorophyteBar, 1) 
+                .AddIngredient(ModContent.ItemType<DeltaLeggings>(), 1)
+                .AddIngredient(ItemID.BeetleHusk, 10)
                 .AddIngredient(ItemID.Ectoplasm, 5)
                 .AddTile(TileID.Anvils)
                 .Register();

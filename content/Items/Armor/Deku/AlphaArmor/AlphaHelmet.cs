@@ -18,14 +18,14 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
         }
         public override void UpdateEquip(Player player)
         {
-            // Aumenta a vida máxima em 20 quando equipado
+            
            
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.Silk, 10)
-            .AddIngredient(ItemID.IronBar, 5)
+            .AddIngredient(ItemID.Silk, 20)
+            .AddIngredient(RecipeGroupID.IronBar, 15)
             .AddTile(TileID.Loom)
             .Register();
         }

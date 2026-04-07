@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using MyHeroMod.content.Items.Armor.Deku.AlphaArmor;
 
 namespace MyHeroMod.content.Items.Armor.Deku.BetaArmor
 {
@@ -24,7 +25,9 @@ namespace MyHeroMod.content.Items.Armor.Deku.BetaArmor
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.PlatinumBar, 15) // Exemplo
+                .AddIngredient(ModContent.ItemType<AlphaLeggings>(), 1)
+                .AddIngredient(ItemID.HellstoneBar, 10) 
+                .AddIngredient(ItemID.Bone, 5)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

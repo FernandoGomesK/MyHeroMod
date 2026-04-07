@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.Bakugo.BakugoFirstCostume
 {
@@ -17,13 +18,14 @@ namespace MyHeroMod.content.Items.Armor.Bakugo.BakugoFirstCostume
         }
         public override void UpdateEquip(Player player)
         {
-            // Aumenta a vida máxima em 20 quando equipado
-            player.statLifeMax2 += 20;
+            
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.IronBar, 20) // Exemplo
+                .AddIngredient(ItemID.Silk, 20) 
+                .AddRecipeGroup(RecipeSystem.EvilIronGroup, 15)
+                .AddIngredient(ItemID.Grenade, 5)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

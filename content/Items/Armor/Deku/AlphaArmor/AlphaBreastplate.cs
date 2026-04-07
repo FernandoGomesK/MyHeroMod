@@ -47,15 +47,14 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
         }
         public override void UpdateEquip(Player player)
         {
-            // Seus buffs aqui (ex: +Dano, +Velocidade)
-            // player.GetDamage(DamageClass.Generic) += 0.10f; 
+            player.moveSpeed += 0.5f;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.Silk, 10)
-            .AddIngredient(ItemID.IronBar, 10)
+            .AddIngredient(ItemID.Silk, 20)
+            .AddIngredient(RecipeGroupID.IronBar, 15)
             .AddTile(TileID.Loom)
             .Register();
         }

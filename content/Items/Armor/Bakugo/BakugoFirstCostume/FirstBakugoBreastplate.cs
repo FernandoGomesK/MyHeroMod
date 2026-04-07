@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.Bakugo.BakugoFirstCostume
 {
@@ -44,14 +45,22 @@ namespace MyHeroMod.content.Items.Armor.Bakugo.BakugoFirstCostume
             Item.height = 18;
             Item.value = Item.sellPrice(gold: 1);
             Item.rare = ItemRarityID.Yellow;
-            Item.defense = 20; 
+            Item.defense = 6; 
+        }
+
+        public override void UpdateEquip(Player player)
+        {
+            player.GetCritChance(DamageClass.Generic) += 10;
+            player.GetDamage(DamageClass.Generic) += 0.5f; 
         }
         
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.IronBar, 20) // Exemplo
+                .AddIngredient(ItemID.Silk, 20) 
+                .AddRecipeGroup(RecipeSystem.EvilIronGroup, 15)
+                .AddIngredient(ItemID.Grenade, 5)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
