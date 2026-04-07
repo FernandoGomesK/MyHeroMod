@@ -2,19 +2,23 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Items.Armor.AllMight.GoldenAge
+namespace MyHeroMod.content.Items.Armor.Bakugo.BakugoSecondCostume
 {
-    [AutoloadEquip(EquipType.Legs)]
-    public class GoldenLeggings : ModItem
+    [AutoloadEquip(EquipType.Head)]
+    public class SecondBakugoHelmet : ModItem
     {
-        
+        public override void SetStaticDefaults()
+        {
+            ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
+            
+        }
         public override void SetDefaults()
         {
             Item.width = 18;
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 10; 
+            Item.defense = 5; // Defesa do capacete
         }
         public override void UpdateEquip(Player player)
         {
@@ -24,8 +28,7 @@ namespace MyHeroMod.content.Items.Armor.AllMight.GoldenAge
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.ChlorophyteBar, 15)
-                .AddIngredient(ItemID.BeetleHusk, 5) 
+                .AddIngredient(ItemID.IronBar, 20) // Exemplo
                 .AddTile(TileID.Anvils)
                 .Register();
         }

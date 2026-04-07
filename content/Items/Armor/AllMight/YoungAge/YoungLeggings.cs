@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.AllMight.YoungAge
 {
@@ -14,19 +15,20 @@ namespace MyHeroMod.content.Items.Armor.AllMight.YoungAge
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 5; // Defesa do capacete
+            Item.defense = 10; // Defesa do capacete
         }
         public override void UpdateEquip(Player player)
         {
-            // Aumenta a vida máxima em 20 quando equipado
-            player.statLifeMax2 += 20;
+        
+            
         }
         public override void AddRecipes()
         {
             CreateRecipe()
-            .AddIngredient(ItemID.DirtBlock, 1)
-            .AddTile(TileID.WorkBenches)
-            .Register();
+                .AddIngredient(ItemID.Silk, 20)
+                .AddRecipeGroup(RecipeSystem.CobaltBarGroup, 15)
+                .AddTile(TileID.Anvils)
+                .Register();
         }
     }
 }

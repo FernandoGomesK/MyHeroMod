@@ -46,10 +46,11 @@ Items: {
 
 	GrenadierBracers: {
 		DisplayName: Braçadeiras de Granada
-        '''
-		Tooltip: Aumenta o dano das explosões.
-        Reduz o recuo das explosões.
-        '''
+		Tooltip:
+			'''
+			Aumenta o dano das explosões.
+			Reduz o recuo das explosões.
+			'''
 	}
 
 	YellowGoggles: {
@@ -77,11 +78,12 @@ Items: {
 
 	# --- SYRINGES & GENES ---
 	QuirkGene: {
-        '''
 		DisplayName: Gene de Individualidade
-		Tooltip: Um fragmento cristalizado de puro poder genético.
-        Carrega um poder imenso.
-        '''
+		Tooltip:
+			'''
+			Um fragmento cristalizado de puro poder genético.
+			Carrega um poder imenso.
+			'''
 	}
 
 	EmptySyringe: {
@@ -178,10 +180,11 @@ Items: {
 	# --- ALL MIGHT ARMORS ---
 	YoungHelmet: {
 		DisplayName: Capacete da Era Jovem
-
-		Tooltip: Aumenta o dano corpo a corpo em 10%.
-        Concede imunidade a Knockback.
-        '''
+		Tooltip:
+			'''
+			Aumenta o dano corpo a corpo em 10%.
+			Concede imunidade a Knockback.
+			'''
 	}
 
 	YoungBreastplate: {
@@ -196,10 +199,11 @@ Items: {
 
 	GoldenBreastplate: {
 		DisplayName: Peitoral da Era de Ouro
-        '''
-		Tooltip: Reduz o dano sofrido em 15%.
-        Os inimigos têm maior probabilidade de te atacar.
-        '''
+		Tooltip:
+			'''
+			Reduz o dano sofrido em 15%.
+			Os inimigos têm maior probabilidade de te atacar.
+			'''
 	}
 
 	GoldenLeggings: {
@@ -283,11 +287,12 @@ Items: {
 
 	# --- VIGILANTES ARMORS ---
 	KoichiFHelmet: {
-        '''
 		DisplayName: Casaco com Capuz do Koichi
-		Tooltip: Aumenta a velocidade de movimento em 25%.
-        Aumenta a distância da investida (dash).
-        '''
+		Tooltip:
+			'''
+			Aumenta a velocidade de movimento em 25%.
+			Aumenta a distância da investida (dash).
+			'''
 	}
 
 	KoichiFBreastplate: {
@@ -321,6 +326,21 @@ Items: {
 	}
 
 	ExplosionQuirkAttack.DisplayName: Ataque de Explosão
+
+	SecondBakugoHelmet: {
+		// DisplayName: Second Bakugo Helmet
+		// Tooltip: ""
+	}
+
+	SecondBakugoBreastplate: {
+		// Tooltip: ""
+		// DisplayName: Second Bakugo Breastplate
+	}
+
+	SecondBakugoLeggings: {
+		// DisplayName: Second Bakugo Leggings
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -506,7 +526,7 @@ Buffs: {
 
 	DecayBuff: {
 		DisplayName: Decadência (Decay)
-		Description: O seu corpo está se desfazendo em é em pó...
+		Description: O seu corpo está se desfazendo em pó...
 	}
 
 	SpringLikeLimbsBuff: {
@@ -587,7 +607,7 @@ Projectiles: {
 	RivetStabProj.DisplayName: Rivet Stab
 	FlightProj.DisplayName: Voo
 	DashTouchProj.DisplayName: Investida (Dash)
-	GroundTouchController.DisplayName: Destrição do Solo
+	GroundTouchController.DisplayName: Destruição do Solo
 	GroundTouchProj.DisplayName: Toque no Solo
 	RangeTouchProj.DisplayName: Toque a distância
 	ScrappyThrustProj.DisplayName: Scrappy Thrust

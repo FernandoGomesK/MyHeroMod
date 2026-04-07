@@ -2,11 +2,12 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
+using Microsoft.Xna.Framework;
 
-namespace MyHeroMod.content.Items.Armor.AllMight.GoldenAge
+namespace MyHeroMod.content.Items.Armor.Bakugo.BakugoSecondCostume
 {
     [AutoloadEquip(EquipType.Body)]
-    public class GoldenBreastplate : ModItem
+    public class SecondBakugoBreastplate : ModItem
     {
         public static int FemaleBodySlot;
 
@@ -43,23 +44,18 @@ namespace MyHeroMod.content.Items.Armor.AllMight.GoldenAge
             Item.height = 18;
             Item.value = Item.sellPrice(gold: 1);
             Item.rare = ItemRarityID.Yellow;
-            Item.defense = 27; 
+            Item.defense = 20; 
         }
-
-        public override void UpdateEquip(Player player)
-        {
-            player.noKnockback = true;
-            player.GetDamage(DamageClass.Melee) += 0.15f;
-        }
+        
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.ChlorophyteBar, 15)
-                .AddIngredient(ItemID.BeetleHusk, 5) 
+                .AddIngredient(ItemID.IronBar, 20) // Exemplo
                 .AddTile(TileID.Anvils)
                 .Register();
         }
+    
 
 }
 }

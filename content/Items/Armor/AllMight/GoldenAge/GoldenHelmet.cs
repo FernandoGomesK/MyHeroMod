@@ -2,13 +2,12 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.System;
 
-namespace MyHeroMod.content.Items.Armor.AllMight.YoungAge
+namespace MyHeroMod.content.Items.Armor.AllMight.GoldenAge
 {
     // Define que é um item de Cabeça
     [AutoloadEquip(EquipType.Head)]
-    public class YoungHelmet : ModItem
+    public class GoldenHelmet : ModItem
     {
         public override void SetStaticDefaults()
         {
@@ -39,8 +38,8 @@ namespace MyHeroMod.content.Items.Armor.AllMight.YoungAge
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.Silk, 20)
-                .AddRecipeGroup(RecipeSystem.CobaltBarGroup, 15)
+                .AddIngredient(ItemID.ChlorophyteBar, 15)
+                .AddIngredient(ItemID.BeetleHusk, 5) 
                 .AddTile(TileID.Anvils)
                 .Register();
         }

@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.AllMight.YoungAge
 {
@@ -43,21 +44,22 @@ namespace MyHeroMod.content.Items.Armor.AllMight.YoungAge
             Item.height = 18;
             Item.value = Item.sellPrice(gold: 1);
             Item.rare = ItemRarityID.Yellow;
-            Item.defense = 20; 
+            Item.defense = 15; 
         }
         public override void UpdateEquip(Player player)
         {
-            // Seus buffs aqui (ex: +Dano, +Velocidade)
-            // player.GetDamage(DamageClass.Generic) += 0.10f; 
+            player.noKnockback = true;
+            player.GetDamage(DamageClass.Melee) += 0.10f;
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.IronBar, 20) // Exemplo
+                .AddIngredient(ItemID.Silk, 20)
+                .AddRecipeGroup(RecipeSystem.CobaltBarGroup, 15)
                 .AddTile(TileID.Anvils)
                 .Register();
         }
 
-}
+}    
 }

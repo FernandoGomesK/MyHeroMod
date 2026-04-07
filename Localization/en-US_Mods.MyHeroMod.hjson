@@ -322,6 +322,21 @@ Items: {
 	}
 
 	ExplosionQuirkAttack.DisplayName: Explosion Attack
+
+	SecondBakugoHelmet: {
+		DisplayName: Second Bakugo Helmet
+		Tooltip: ""
+	}
+
+	SecondBakugoBreastplate: {
+		Tooltip: ""
+		DisplayName: Second Bakugo Breastplate
+	}
+
+	SecondBakugoLeggings: {
+		DisplayName: Second Bakugo Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {
