@@ -15,11 +15,13 @@ namespace MyHeroMod.content.Items
 
         }
 
-        public override void SetDefaults(){
+        public override void SetDefaults()
+        {
             Item.width = 20;
             Item.height = 20;
-            Item.maxStack = 120;
+            Item.maxStack = 999;
             Item.rare = ItemRarityID.Blue;
+            Item.value = Item.sellPrice(silver: 50);
         }
-        }
-        }
+    }
+}

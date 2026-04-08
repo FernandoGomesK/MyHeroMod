@@ -24,6 +24,7 @@ namespace MyHeroMod.content.Items
             Item.height = 32;
             Item.value = 100;
             Item.maxStack = 1;
+            Item.buyPrice(gold: 5);
             Item.rare = ItemRarityID.Blue;
             Item.useAnimation =30;
             Item.useTime = 30;

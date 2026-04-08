@@ -15,20 +15,13 @@ namespace MyHeroMod.content.Items
 
         }
 
-        public override void SetDefaults(){
+        public override void SetDefaults()
+        {
             Item.width = 20;
             Item.height = 20;
-            Item.maxStack = 120;
-            Item.rare = ItemRarityID.Blue;
+            Item.maxStack = 99;
+            Item.rare = ItemRarityID.White;
+            Item.value = Item.buyPrice(gold: 2); 
         }
-
-        public override void AddRecipes()
-{
-    CreateRecipe()
-        .AddIngredient(ItemID.Glass, 2) 
-        .AddIngredient(RecipeGroupID.IronBar, 1) 
-        .AddTile(TileID.WorkBenches)         
-        .Register();                         
+    }
 }
-        }
-        }

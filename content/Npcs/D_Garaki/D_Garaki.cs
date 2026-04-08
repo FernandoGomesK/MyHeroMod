@@ -5,6 +5,7 @@ using Terraria.GameContent.Personalities;
 using System.Collections.Generic;
 using MyHeroMod.content.Items.Support; // Para ele poder vender seus itens!
 using MyHeroMod.content.Items;
+using MyHeroMod.content.Npcs.Bosses.AllForOne.Projectiles;
 
 namespace MyHeroMod.content.Npcs.D_Garaki
 {
@@ -56,8 +57,12 @@ namespace MyHeroMod.content.Npcs.D_Garaki
             {
                 Player player = Main.player[k];
                 if (!player.active) continue;
-      
-                return true; 
+                
+                
+                if (player.HasItem(ModContent.ItemType<QuirkGene>()))
+                {
+                    return true;
+                }
             }
             return false;
         }
@@ -82,21 +87,22 @@ namespace MyHeroMod.content.Npcs.D_Garaki
         {
             if (firstButton)
             {
-                shopName = "SupportShop";
+                shopName = "QuirkShop";
             }
         }
 
         
         public override void AddShops()
         {
-            var npcShop = new NPCShop(Type, "SupportShop");
+            var npcShop = new NPCShop(Type, "QuirkShop");
             
             
-            npcShop.Add(ModContent.ItemType<AirForce>());
-            npcShop.Add(ModContent.ItemType<IronSoles>());
+            npcShop.Add(ModContent.ItemType<QuirkSyringe>());
+            npcShop.Add(ModContent.ItemType<QuirkGene>());
+            npcShop.Add(ModContent.ItemType<SummonHim>());
             
            
-            npcShop.Add(ItemID.IronBar); 
+            
             
             npcShop.Register();
         }
@@ -116,7 +122,7 @@ namespace MyHeroMod.content.Npcs.D_Garaki
 
         public override void TownNPCAttackProj(ref int projType, ref int attackDelay)
         {
-            projType = ProjectileID.SpikyBall; // Ele joga bolas espinhentas para se defender
+            projType = ModContent.ProjectileType<RivetStabProj>(); 
             attackDelay = 1;
         }
 
