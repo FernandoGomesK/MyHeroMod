@@ -83,29 +83,46 @@ namespace MyHeroMod
                 switch (msgType)
                 {
                     case MessageType.SyncTransformationPlayer:
-                        // Lê os dados exatamente na mesma ordem em que foram enviados
-                        byte playernumber = reader.ReadByte();
-                        int quirkInt = reader.ReadInt32();
-                        int stageInt = reader.ReadInt32();
+                    // Lê os dados exatamente na mesma ordem em que foram enviados
+                    byte playernumber = reader.ReadByte();
+                    int quirkInt = reader.ReadInt32();
+                    int stageInt = reader.ReadInt32();
+                    
+                    // --- NOVAS LEITURAS DOS SLOTS ---
+                    int slot1Int = reader.ReadInt32();
+                    int slot2Int = reader.ReadInt32();
+                    int slot3Int = reader.ReadInt32();
+                    int slot4Int = reader.ReadInt32();
 
-                        // Aplica os dados recebidos ao jogador correto no mundo
-                        TransformationPlayer transPlayer = Main.player[playernumber].GetModPlayer<TransformationPlayer>();
-                        transPlayer.SelectedQuirk = (QuirkType)quirkInt;
-                        transPlayer.CurrentStage = (QuirkStage)stageInt;
+                    // Aplica os dados recebidos ao jogador correto no mundo
+                    TransformationPlayer transPlayer = Main.player[playernumber].GetModPlayer<TransformationPlayer>();
+                    transPlayer.SelectedQuirk = (QuirkType)quirkInt;
+                    transPlayer.CurrentStage = (QuirkStage)stageInt;
+                    
+                    // --- APLICAÇÃO DOS SLOTS ---
+                    transPlayer.Slot1 = (QuirkSkills)slot1Int;
+                    transPlayer.Slot2 = (QuirkSkills)slot2Int;
+                    transPlayer.Slot3 = (QuirkSkills)slot3Int;
+                    transPlayer.Slot4 = (QuirkSkills)slot4Int;
 
-                        // O SEGREDO DO MULTIPLAYER:
-                        // Se o Servidor recebeu esta mensagem, ele tem de a reencaminhar para TODOS os outros clientes!
-                        if (Main.netMode == NetmodeID.Server)
-                        {
-                            ModPacket packet = GetPacket();
-                            packet.Write((byte)MessageType.SyncTransformationPlayer);
-                            packet.Write(playernumber);
-                            packet.Write(quirkInt);
-                            packet.Write(stageInt);
-                            // Envia para todos (-1) EXCETO para quem enviou originalmente (playernumber)
-                            packet.Send(-1, playernumber); 
-                        }
-                        break;
+                    
+                    if (Main.netMode == NetmodeID.Server)
+                    {
+                        ModPacket packet = GetPacket();
+                        packet.Write((byte)MessageType.SyncTransformationPlayer);
+                        packet.Write(playernumber);
+                        packet.Write(quirkInt);
+                        packet.Write(stageInt);
+                        
+                        
+                        packet.Write(slot1Int);
+                        packet.Write(slot2Int);
+                        packet.Write(slot3Int);
+                        packet.Write(slot4Int);
+
+                        packet.Send(-1, playernumber); 
+                    }
+                    break;
 
                         case MessageType.SyncAllForOne:
                         byte playerAfo = reader.ReadByte();

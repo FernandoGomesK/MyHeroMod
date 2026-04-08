@@ -138,9 +138,12 @@ namespace MyHeroMod.content
             TransformationPlayer clone = clientClone as TransformationPlayer;
             clone.SelectedQuirk = SelectedQuirk;
             clone.CurrentStage = CurrentStage;
+            clone.Slot1 = Slot1;
+            clone.Slot2 = Slot2;
+            clone.Slot3 = Slot3;
+            clone.Slot4 = Slot4;
         }
 
-        
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {
             ModPacket packet = Mod.GetPacket();
@@ -148,21 +151,29 @@ namespace MyHeroMod.content
             packet.Write((byte)Player.whoAmI); 
             packet.Write((int)SelectedQuirk); 
             packet.Write((int)CurrentStage); 
+            packet.Write((int)Slot1);
+            packet.Write((int)Slot2);
+            packet.Write((int)Slot3);
+            packet.Write((int)Slot4);
             packet.Send(toWho, fromWho);
         }
 
-        
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
             TransformationPlayer clone = clientPlayer as TransformationPlayer;
 
-            if (SelectedQuirk != clone.SelectedQuirk || CurrentStage != clone.CurrentStage)
+            if (SelectedQuirk != clone.SelectedQuirk || CurrentStage != clone.CurrentStage ||
+                Slot1 != clone.Slot1 || Slot2 != clone.Slot2 || Slot3 != clone.Slot3 || Slot4 != clone.Slot4)
             {
                 ModPacket packet = Mod.GetPacket();
                 packet.Write((byte)MyHeroMod.MessageType.SyncTransformationPlayer);
                 packet.Write((byte)Player.whoAmI);
                 packet.Write((int)SelectedQuirk);
                 packet.Write((int)CurrentStage);
+                packet.Write((int)Slot1);
+                packet.Write((int)Slot2);
+                packet.Write((int)Slot3);
+                packet.Write((int)Slot4);
                 
                 packet.Send(-1, Player.whoAmI); 
             }
