@@ -32,7 +32,7 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo
             SoundEngine.PlaySound(SoundID.Item62, Projectile.position); 
             for (int i = 0; i < 30; i++)
             {
-                int idx = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 4.0f);
+                int idx = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueTorch, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 2.0f);
                 Main.dust[idx].noGravity = true;
                 Main.dust[idx].velocity *= 3f;
 
@@ -55,12 +55,9 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo
             
             if (Main.rand.NextBool(1))
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 2.5f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.BlueTorch, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 2.5f);
             }
-            if (Main.rand.NextBool(7))
-            {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 2.0f);
-            }
+            
 
         }
 

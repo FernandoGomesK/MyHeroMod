@@ -23,7 +23,7 @@ public class ScrappyThrustSkill : QuirkSkill
             Player player = Main.LocalPlayer;
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            if (transPlayer.CurrentStage >= QuirkStage.Adequation)
+            if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
             {
                 return "Shooty go Blam";
             }
@@ -129,15 +129,6 @@ public class ScrappyThrustSkill : QuirkSkill
                 );
             }
 
-            Projectile.NewProjectile(
-                player.GetSource_FromThis(),
-                player.Center,
-                Velocity,
-                ModContent.ProjectileType<ScrappyThrustProj>(),
-                finalDamage, 
-                2f, 
-                player.whoAmI
-            );
             
         }}
         

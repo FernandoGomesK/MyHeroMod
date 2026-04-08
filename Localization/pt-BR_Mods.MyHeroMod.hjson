@@ -341,6 +341,11 @@ Items: {
 		// DisplayName: Second Bakugo Leggings
 		// Tooltip: ""
 	}
+
+	GoldenHelmet: {
+		// DisplayName: Golden Helmet
+		// Tooltip: ""
+	}
 }
 
 Buffs: {

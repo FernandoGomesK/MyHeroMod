@@ -99,22 +99,13 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo
             // 2. DISPARO CONTÍNUO (Gatling Gun de Fogo)
             Projectile.ai[0]++;
             
-            int shootSpeed = 0;
-            if (transPlayer.CurrentStage >= QuirkStage.Advanced)
-            {
-                shootSpeed = 5;
-            }
-            else
-            {
-                shootSpeed = 10;
-            }
+            int shootSpeed = (transPlayer.CurrentStage >= QuirkStage.Final) ? 5 : 15;
 
             // Atira a cada 3 frames (MUITO RÁPIDO)
 
             if (Projectile.ai[0] % shootSpeed == 0) 
             {
-                if (Projectile.ai[0] % 10 == 0) // Som não toca todo frame pra não travar áudio
-                    SoundEngine.PlaySound(SoundID.Item14 with { Pitch = 1.2f, Volume = 0.5f }, player.position);
+                SoundEngine.PlaySound(SoundID.Item14 with { Pitch = 1.2f, Volume = 0.3f, MaxInstances = 3 }, player.position);
                     // Som grave e alto
 
                 if (Projectile.owner == Main.myPlayer)
@@ -145,8 +136,8 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo
                             );
                         }
                         else
-
-                        Projectile.NewProjectile(
+                        {
+                            Projectile.NewProjectile(
                             player.GetSource_FromThis(),
                             spawnPos,
                             shootVel,
@@ -155,6 +146,9 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo
                             4f,  
                             player.whoAmI
                         );
+                        }
+
+                        
                     }
                 }
             }
