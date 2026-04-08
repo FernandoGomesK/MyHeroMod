@@ -12,19 +12,24 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
     public class AllForOneBoss : ModNPC
     {
         // ── Constantes de frame ──────────────────────────────────────────
+        // Fase 1
         const int FRAME_FLOAT_START  = 2;   
         const int FRAME_FLOAT_END    = 14;  
         const int FRAME_ATTACK_START = 21;  
         const int FRAME_ATTACK_FIRE  = 23; 
         const int FRAME_ATTACK_END   = 24;  
-        const int FRAME_DASH_START = 25; 
-        const int FRAME_DASH_END   = 30;
+
+        // Fase 2 (Máscara Quebrada e Investida)
+        const int FRAME_BROKEN_FLOAT_START = 25;
+        const int FRAME_BROKEN_FLOAT_END   = 34; 
+        
+        
+        const int FRAME_DASH_START         = 35; 
+        const int FRAME_DASH_END           = 40;
 
         const int FRAME_SPEED_FLOAT  = 8;   
         const int FRAME_SPEED_ATTACK = 10;   
         const int FRAME_SPEED_DASH   = 5;
-
-
 
         public bool IsAttacking
         {
@@ -44,12 +49,13 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
         public override void SetStaticDefaults()
         {
             NPCID.Sets.MPAllowedEnemies[Type] = true;
-            Main.npcFrameCount[Type] = 31;
+            // Atualizado para 51 (lembre-se: frame 50 = 51 frames totais do 0 ao 50)
+            Main.npcFrameCount[Type] = 41; 
         }
 
         public override void SetDefaults()
         {
-            NPC.width  = 62;
+            NPC.width  = 62; 
             NPC.height = 54; 
             NPC.damage = 100;
             NPC.defense = 50;
@@ -76,7 +82,7 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
 
             int start = 0, end = 0, speed = 10;
 
-            // FASE 1 (Magias)
+            // FASE 1 (Magias com a máscara)
             if (NPC.ai[3] == 0f)
             {
                 if (IsAttacking)
@@ -92,19 +98,19 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
                     speed = FRAME_SPEED_FLOAT;
                 }
             }
-            // FASE 2 (Investida Brutal)
+            // FASE 2 (Investida Brutal / Máscara Quebrada)
             else 
             {
-                if (IsAttacking) // Quando ele dá o Dash, usa as 6 frames novas
+                if (IsAttacking) // Quando ele dá o Dash (Braço Gigante)
                 {
                     start = FRAME_DASH_START;
                     end   = FRAME_DASH_END;
                     speed = FRAME_SPEED_DASH;
                 }
-                else // Enquanto flutua esperando pra dar o Dash, usa o flutuar normal
+                else // Flutuando e esperando o próximo dash (Máscara Quebrada)
                 {
-                    start = FRAME_FLOAT_START;
-                    end   = FRAME_FLOAT_END;
+                    start = FRAME_BROKEN_FLOAT_START;
+                    end   = FRAME_BROKEN_FLOAT_END;
                     speed = FRAME_SPEED_FLOAT;
                 }
             }
@@ -125,10 +131,8 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
 
                 if (NPC.frame.Y > end * frameHeight)
                 {
-                    // Se estiver num ataque (Atirar ou Investida), ele trava na última frame do ataque
                     if (IsAttacking)
                         NPC.frame.Y = end * frameHeight;
-                    // Se estiver só flutuando, a animação entra em Loop
                     else
                         NPC.frame.Y = start * frameHeight; 
                 }
@@ -156,10 +160,9 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
             NPC.direction = NPC.Center.X < player.Center.X ? 1 : -1;
 
             // 2. VERIFICAÇÃO DE TRANSIÇÃO PARA A FASE 2
-            // Se a vida for menor ou igual à metade E ainda estiver na Fase 1 (NPC.ai[3] == 0)
             if (NPC.life <= NPC.lifeMax / 2 && NPC.ai[3] == 0f)
             {
-                NPC.ai[3] = 1f; // Marca que entrou na Fase 2
+                NPC.ai[3] = 1f; // Entrou na Fase 2
                 NPC.ai[0] = 0f; // Reseta o relógio principal
                 NPC.ai[2] = 0f;
                 IsAttacking = false;
@@ -168,15 +171,12 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
                 SoundEngine.PlaySound(SoundID.Roar, NPC.Center);
                 for (int i = 0; i < 40; i++)
                 {
-                    // Poeira de osso/metal partindo
                     Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Bone, Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-6, 6), 0, default, 1.5f);
-                    // Fumaça saindo dele
                     Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Smoke, Main.rand.NextFloat(-3, 3), Main.rand.NextFloat(-3, 3), 0, default, 2f);
                 }
                 
                 NPC.netUpdate = true;
             }
-
 
             // 3. COMPORTAMENTOS DAS FASES
             if (NPC.ai[3] == 0f)
@@ -258,39 +258,36 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
                     NPC.ai[2] = 0f;
                 }
             }
-           else
+            else
             {
                 // ==========================================
                 // FASE 2: INVESTIDAS AGRESSIVAS (Estilo Olho de Cthulhu)
                 // ==========================================
                 NPC.ai[0]++; // Relógio principal da Fase 2
 
-                // ── ESTADO 1: FLUTUAR E MIRAR (NPC.ai[2] == 0) ──
+                // ── ESTADO 1: FLUTUAR E MIRAR ──
                 if (NPC.ai[2] == 0f)
                 {
-                    IsAttacking = false; // Recolhe o braço
+                    IsAttacking = false; // Recolhe o braço (Usa a animação da Máscara Quebrada)
                     
-                    // Mira em cima da cabeça do jogador
                     Vector2 targetPos = player.Center + new Vector2(0, -250f);
                     Vector2 dir = targetPos - NPC.Center;
                     
                     if (dir.Length() > 20f)
                     {
                         dir.Normalize();
-                        NPC.velocity = (NPC.velocity * 20f + dir * 8f) / 21f; // Movimento suave
+                        NPC.velocity = (NPC.velocity * 20f + dir * 8f) / 21f; 
                     }
 
-                    // Fica 60 frames (1 segundo) flutuando antes de iniciar o combo
                     if (NPC.ai[0] >= 60)
                     {
                         NPC.ai[0] = 0;
-                        NPC.ai[2] = 1f; // Muda para o estado de Combo de Investidas
+                        NPC.ai[2] = 1f; // Inicia o combo
                     }
                 }
-                // ── ESTADO 2: COMBO DE 3 DASHES (NPC.ai[2] > 0) ──
+                // ── ESTADO 2: COMBO DE 3 DASHES ──
                 else
                 {
-                    // No frame 1 de cada investida, ele atira-se na direção do jogador!
                     if (NPC.ai[0] == 1)
                     {
                         IsAttacking = true; // Estica o braço gigante
@@ -299,29 +296,28 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne
                         Vector2 dashDir = player.Center - NPC.Center;
                         dashDir.Normalize();
                         
-                        // VELOCIDADE DA INVESTIDA (20f é bem rápido!)
                         NPC.velocity = dashDir * 20f; 
                     }
                     
-                    // Durante a investida (deixa rastro de sangue/poeira e perde um pouco de velocidade)
                     if (NPC.ai[0] > 1 && NPC.ai[0] < 40)
                     {
                         Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Blood, NPC.velocity.X * -0.5f, NPC.velocity.Y * -0.5f, 0, default, 1.5f);
-                        NPC.velocity *= 0.97f; // Desacelera a fricção levemente
+                        NPC.velocity *= 0.97f; 
                     }
 
-                    // Fim de UMA investida (após 40 frames, ele já prepara a próxima)
                     if (NPC.ai[0] >= 40)
                     {
-                        NPC.ai[0] = 0; // Reseta o relógio para o próximo dash
-                        NPC.ai[2]++;   // Aumenta o contador de investidas dadas
+                        NPC.ai[0] = 0; 
+                        NPC.ai[2]++;   
 
-                        // Se já deu 3 investidas seguidas, o combo acaba e ele volta a flutuar!
                         if (NPC.ai[2] > 3f)
                         {
                             NPC.ai[2] = 0f;
-                            IsAttacking = false;
+                            IsAttacking = false; // Fim do combo, volta a flutuar ofegante
                         }
                     }
                 }
-            }}}}
+            }
+        }
+    }
+}
