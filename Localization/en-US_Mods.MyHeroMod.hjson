@@ -342,6 +342,11 @@ Items: {
 		DisplayName: Golden Helmet
 		Tooltip: ""
 	}
+
+	QuirkRemover: {
+		DisplayName: Quirk Remover
+		Tooltip: ""
+	}
 }
 
 Buffs: {

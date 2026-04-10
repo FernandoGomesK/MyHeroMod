@@ -26,7 +26,7 @@ namespace MyHeroMod
             MainPanel.BackgroundColor = new Color(30, 30, 35);
             Append(MainPanel);
 
-            UIText title = new UIText("Stolen Quirks", 1f);
+            UIText title = new UIText("Current Quirks", 1f);
             title.HAlign = 0.5f;
             title.Top.Set(10f, 0f);
             MainPanel.Append(title);
@@ -80,6 +80,7 @@ namespace MyHeroMod
 
             if (Main.LocalPlayer == null || !Main.LocalPlayer.active) return;
             var afoPlayer = Main.LocalPlayer.GetModPlayer<AllForOnePlayer>();
+            var transPlayer = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
 
             // Se o AFO não tiver roubado nada ainda
             if (afoPlayer.InternalQuirks.Count == 0)
@@ -90,15 +91,15 @@ namespace MyHeroMod
                 quirkList.Add(emptyText);
                 return;
             }
-foreach (QuirkType quirk in afoPlayer.InternalQuirks)
+foreach (QuirkType quirk in transPlayer.ActiveQuirks)
             {
-                // 1. Cria uma "caixinha" para a Quirk
+                
                 UIPanel quirkItemPanel = new UIPanel();
                 quirkItemPanel.Width.Set(0, 1f);
                 quirkItemPanel.Height.Set(40, 0);
                 quirkItemPanel.BackgroundColor = new Color(50, 50, 70);
 
-                // 2. Coloca o nome da Quirk na caixinha
+                
                 UIText quirkText = new UIText(quirk.ToString());
                 quirkText.VAlign = 0.5f;
                 quirkText.Left.Set(10, 0);
@@ -107,7 +108,7 @@ foreach (QuirkType quirk in afoPlayer.InternalQuirks)
                 // 3. Cria o botão de Excluir/Extrair
                 UIText extractButton = new UIText("[Remove]", 0.8f);
                 extractButton.VAlign = 0.5f;
-                extractButton.HAlign = 0.98f; // Canto direito da caixinha
+                extractButton.HAlign = 0.98f; 
                 extractButton.TextColor = Color.Salmon;
 
                 extractButton.OnMouseOver += (evt, elem) => extractButton.TextColor = Color.Red;
@@ -116,8 +117,8 @@ foreach (QuirkType quirk in afoPlayer.InternalQuirks)
                 extractButton.OnLeftClick += (evt, elem) => {
                     SoundEngine.PlaySound(SoundID.NPCDeath11); // Um som de extração
                     
+                    transPlayer.ActiveQuirks.Remove(quirk);
                     
-                    afoPlayer.InternalQuirks.Remove(quirk); 
                     
                     
                     PopulateSkillList(); 

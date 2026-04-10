@@ -15,8 +15,8 @@ namespace MyHeroMod.content.Items
 
         }
         public override void SetDefaults(){
-            Item.width = 20;
-            Item.height = 20;
+            Item.width = 8;
+            Item.height = 16;
             Item.maxStack = 120;
             Item.useTime = 20;
             Item.useAnimation = 20;

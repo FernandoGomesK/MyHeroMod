@@ -23,9 +23,10 @@ namespace MyHeroMod.content
     
     public class TransformationPlayer : BasePlayer
     {
-        public QuirkType SelectedQuirk = QuirkType.Quirkless;
-        public QuirkStage CurrentStage = QuirkStage.Initial;
+        public List<QuirkType> ActiveQuirks = new List<QuirkType>(); 
+        public int naturalQuirkLimit = 1;
 
+        public QuirkStage CurrentStage = QuirkStage.Initial;
         public bool ManualStageOverride = false;
         
         public QuirkSkills ActiveForm = QuirkSkills.None;
@@ -34,10 +35,6 @@ namespace MyHeroMod.content
         public QuirkSkills Slot2 = QuirkSkills.None;
         public QuirkSkills Slot3 = QuirkSkills.None;
         public QuirkSkills Slot4 = QuirkSkills.None;
-
-        public int naturalQuirkLimit = 1;
-
-        public List<QuirkType> ActiveQuirks = new List<QuirkType>(); 
 
         
         public List<QuirkSkills> UnlockedSkills = new List<QuirkSkills>();
@@ -68,7 +65,13 @@ namespace MyHeroMod.content
 
         public override void SaveData(TagCompound tag)
         {
-            tag["SelectedQuirkName"] = SelectedQuirk.ToString();
+            List<string> quirkNames = new List<string>();
+            foreach (var quirk in ActiveQuirks)
+            {
+                quirkNames.Add(quirk.ToString());
+            }
+            
+            tag["ActiveQuirkList"] = quirkNames;
             tag["CurrentStageName"] = CurrentStage.ToString();
             tag["Slot1Name"] = Slot1.ToString();
             tag["Slot2Name"] = Slot2.ToString();
@@ -78,18 +81,27 @@ namespace MyHeroMod.content
 
         public override void LoadData(TagCompound tag)
         {
-            if (tag.ContainsKey("SelectedQuirkName"))
-            {
-             if (Enum.TryParse(tag.GetString("SelectedQuirkName"), out QuirkType parsedQuirk)) SelectedQuirk = parsedQuirk;
+            ActiveQuirks.Clear();
+
+            if (tag.ContainsKey("ActiveQuirkList"))
+            {IList<string> savedQuirks = tag.GetList<string>("ActiveQuirkList");
+                foreach (var quirkName in savedQuirks)
+                {
+                    if (Enum.TryParse(quirkName, out QuirkType parsedQuirk))
+                    {
+                        ActiveQuirks.Add(parsedQuirk);
+                    }
+                }
+             
                 if (Enum.TryParse(tag.GetString("CurrentStageName"), out QuirkStage parsedStage)) CurrentStage = parsedStage;
                 if (Enum.TryParse(tag.GetString("Slot1Name"), out QuirkSkills parsedSlot1)) Slot1 = parsedSlot1;
                 if (Enum.TryParse(tag.GetString("Slot2Name"), out QuirkSkills parsedSlot2)) Slot2 = parsedSlot2;
                 if (Enum.TryParse(tag.GetString("Slot3Name"), out QuirkSkills parsedSlot3)) Slot3 = parsedSlot3;
                 if (Enum.TryParse(tag.GetString("Slot4Name"), out QuirkSkills parsedSlot4)) Slot4 = parsedSlot4;
             }
-            else 
+            else if (tag.ContainsKey("SelectedQuirk")) 
             {
-                if (tag.ContainsKey("SelectedQuirk")) SelectedQuirk = (QuirkType)tag.GetInt("SelectedQuirk");
+                ActiveQuirks.Add((QuirkType)tag.GetInt("SelectedQuirk"));
                 if (tag.ContainsKey("CurrentStage")) CurrentStage = (QuirkStage)tag.GetInt("CurrentStage");
                 if (tag.ContainsKey("Slot1")) Slot1 = (QuirkSkills)tag.GetInt("Slot1");
                 if (tag.ContainsKey("Slot2")) Slot2 = (QuirkSkills)tag.GetInt("Slot2");
@@ -98,6 +110,7 @@ namespace MyHeroMod.content
             }
             UpdateUnlockedSkills();
         }
+
 
         public void ResetSlot()
         {
@@ -123,13 +136,14 @@ namespace MyHeroMod.content
 
         public bool HasActiveQuirk(QuirkType typeToCheck)
         {
-            if (SelectedQuirk == typeToCheck) return true;
-
+            if (ActiveQuirks.Contains(typeToCheck)) return true;
+            
             var afoPlayer = Player.GetModPlayer<AllForOnePlayer>();
             var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>(); 
 
-            if ((SelectedQuirk == QuirkType.AllForOne && afoPlayer.HasInternalQuirk(typeToCheck)) || 
-                (SelectedQuirk == QuirkType.OneForAll9th && ofaPlayer.HasInternalQuirk(typeToCheck)))
+        
+            if ((ActiveQuirks.Contains(QuirkType.AllForOne) && afoPlayer.HasInternalQuirk(typeToCheck)) || 
+                (ActiveQuirks.Contains(QuirkType.OneForAll9th) && ofaPlayer.HasInternalQuirk(typeToCheck)))
             {
                 return true;
             }
@@ -176,7 +190,7 @@ namespace MyHeroMod.content
         public override void CopyClientState(ModPlayer clientClone)
         {
             TransformationPlayer clone = clientClone as TransformationPlayer;
-            clone.SelectedQuirk = SelectedQuirk;
+            clone.ActiveQuirks = new List<QuirkType>(ActiveQuirks); 
             clone.CurrentStage = CurrentStage;
             clone.Slot1 = Slot1;
             clone.Slot2 = Slot2;
@@ -189,7 +203,14 @@ namespace MyHeroMod.content
             ModPacket packet = Mod.GetPacket();
             packet.Write((byte)MyHeroMod.MessageType.SyncTransformationPlayer); 
             packet.Write((byte)Player.whoAmI); 
-            packet.Write((int)SelectedQuirk); 
+            
+            
+            packet.Write(ActiveQuirks.Count);
+            foreach (var quirk in ActiveQuirks)
+            {
+                packet.Write((int)quirk);
+            }
+
             packet.Write((int)CurrentStage); 
             packet.Write((int)Slot1);
             packet.Write((int)Slot2);
@@ -202,13 +223,29 @@ namespace MyHeroMod.content
         {
             TransformationPlayer clone = clientPlayer as TransformationPlayer;
 
-            if (SelectedQuirk != clone.SelectedQuirk || CurrentStage != clone.CurrentStage ||
+            
+            bool quirksChanged = ActiveQuirks.Count != clone.ActiveQuirks.Count;
+            if (!quirksChanged)
+            {
+                for (int i = 0; i < ActiveQuirks.Count; i++)
+                {
+                    if (ActiveQuirks[i] != clone.ActiveQuirks[i]) quirksChanged = true;
+                }
+            }
+
+            if (quirksChanged || CurrentStage != clone.CurrentStage ||
                 Slot1 != clone.Slot1 || Slot2 != clone.Slot2 || Slot3 != clone.Slot3 || Slot4 != clone.Slot4)
             {
                 ModPacket packet = Mod.GetPacket();
                 packet.Write((byte)MyHeroMod.MessageType.SyncTransformationPlayer);
                 packet.Write((byte)Player.whoAmI);
-                packet.Write((int)SelectedQuirk);
+                
+                packet.Write(ActiveQuirks.Count);
+                foreach (var quirk in ActiveQuirks)
+                {
+                    packet.Write((int)quirk);
+                }
+
                 packet.Write((int)CurrentStage);
                 packet.Write((int)Slot1);
                 packet.Write((int)Slot2);
