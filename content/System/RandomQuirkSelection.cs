@@ -29,6 +29,7 @@ namespace MyHeroMod.content.System
             transPlayer.ResetSlot();
             transPlayer.CompleteReset();
             transPlayer.SelectedQuirk = quirkType;
+            transPlayer.UpdateUnlockedSkills();
 
             
             

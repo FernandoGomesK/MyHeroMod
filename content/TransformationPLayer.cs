@@ -7,6 +7,8 @@ using MyHeroMod.content.System;
 using MyHeroMod.content.System.BasePlayer;
 using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.Quirks.OFA9th;
+using System;
+using Terraria.ID;
 
 namespace MyHeroMod.content
 {
@@ -33,29 +35,67 @@ namespace MyHeroMod.content
         public QuirkSkills Slot3 = QuirkSkills.None;
         public QuirkSkills Slot4 = QuirkSkills.None;
 
+        public int naturalQuirkLimit = 1;
+
+        public List<QuirkType> ActiveQuirks = new List<QuirkType>(); 
+
         
         public List<QuirkSkills> UnlockedSkills = new List<QuirkSkills>();
 
-        
+        public override void PostUpdateMiscEffects()
+        {
+            int QuirkCount = ActiveQuirks.Count;
+
+            if (QuirkCount == naturalQuirkLimit + 1)
+            {
+                Player.moveSpeed *= 0.8f;
+                Player.GetDamage(DamageClass.Generic) *= 0.9f; 
+            }
+            else if (QuirkCount >= naturalQuirkLimit + 2)
+            {
+                Player.moveSpeed *= 0.5f; 
+                Player.statDefense -= 20; 
+                
+                
+                Player.AddBuff(BuffID.Confused, 2); 
+                
+                
+                Player.AddBuff(BuffID.Silenced, 2);
+            }
+        }
+
+        // Save and Load
+
         public override void SaveData(TagCompound tag)
         {
-            tag["SelectedQuirk"] = (int)SelectedQuirk;
-            tag["CurrentStage"] = (int)CurrentStage;
-            tag["Slot1"] = (int)Slot1;
-            tag["Slot2"] = (int)Slot2;
-            tag["Slot3"] = (int)Slot3;
-            tag["Slot4"] = (int)Slot4;
+            tag["SelectedQuirkName"] = SelectedQuirk.ToString();
+            tag["CurrentStageName"] = CurrentStage.ToString();
+            tag["Slot1Name"] = Slot1.ToString();
+            tag["Slot2Name"] = Slot2.ToString();
+            tag["Slot3Name"] = Slot3.ToString();
+            tag["Slot4Name"] = Slot4.ToString();
         }
 
         public override void LoadData(TagCompound tag)
         {
-            if (tag.ContainsKey("SelectedQuirk")) SelectedQuirk = (QuirkType)tag.GetInt("SelectedQuirk");
-            if (tag.ContainsKey("CurrentStage")) CurrentStage = (QuirkStage)tag.GetInt("CurrentStage");
-            if (tag.ContainsKey("Slot1")) Slot1 = (QuirkSkills)tag.GetInt("Slot1");
-            if (tag.ContainsKey("Slot2")) Slot2 = (QuirkSkills)tag.GetInt("Slot2");
-            if (tag.ContainsKey("Slot3")) Slot3 = (QuirkSkills)tag.GetInt("Slot3");
-            if (tag.ContainsKey("Slot4")) Slot4 = (QuirkSkills)tag.GetInt("Slot4");
-            
+            if (tag.ContainsKey("SelectedQuirkName"))
+            {
+             if (Enum.TryParse(tag.GetString("SelectedQuirkName"), out QuirkType parsedQuirk)) SelectedQuirk = parsedQuirk;
+                if (Enum.TryParse(tag.GetString("CurrentStageName"), out QuirkStage parsedStage)) CurrentStage = parsedStage;
+                if (Enum.TryParse(tag.GetString("Slot1Name"), out QuirkSkills parsedSlot1)) Slot1 = parsedSlot1;
+                if (Enum.TryParse(tag.GetString("Slot2Name"), out QuirkSkills parsedSlot2)) Slot2 = parsedSlot2;
+                if (Enum.TryParse(tag.GetString("Slot3Name"), out QuirkSkills parsedSlot3)) Slot3 = parsedSlot3;
+                if (Enum.TryParse(tag.GetString("Slot4Name"), out QuirkSkills parsedSlot4)) Slot4 = parsedSlot4;
+            }
+            else 
+            {
+                if (tag.ContainsKey("SelectedQuirk")) SelectedQuirk = (QuirkType)tag.GetInt("SelectedQuirk");
+                if (tag.ContainsKey("CurrentStage")) CurrentStage = (QuirkStage)tag.GetInt("CurrentStage");
+                if (tag.ContainsKey("Slot1")) Slot1 = (QuirkSkills)tag.GetInt("Slot1");
+                if (tag.ContainsKey("Slot2")) Slot2 = (QuirkSkills)tag.GetInt("Slot2");
+                if (tag.ContainsKey("Slot3")) Slot3 = (QuirkSkills)tag.GetInt("Slot3");
+                if (tag.ContainsKey("Slot4")) Slot4 = (QuirkSkills)tag.GetInt("Slot4");
+            }
             UpdateUnlockedSkills();
         }
 
