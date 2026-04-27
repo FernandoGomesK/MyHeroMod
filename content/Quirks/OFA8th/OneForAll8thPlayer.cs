@@ -31,7 +31,7 @@ namespace MyHeroMod.content.Quirks.OFA8th
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
             
 
-            if (mainPlayer.SelectedQuirk == QuirkType.OneForAll8th && mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            if (mainPlayer.HasActiveQuirk(QuirkType.OneForAll8th) && mainPlayer.CurrentStage >= QuirkStage.Adequation)
             {
                 Player.moveSpeed += 1.5f;
                 Player.jumpSpeedBoost += 1.5f;

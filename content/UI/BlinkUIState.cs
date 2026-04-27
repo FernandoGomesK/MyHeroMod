@@ -18,7 +18,7 @@ namespace MyHeroMod.content.UI
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
             var erasurePlayer = player.GetModPlayer<ErasurePlayer>();
 
-            if (transPlayer.SelectedQuirk != QuirkType.Erasure)
+            if (!transPlayer.HasActiveQuirk(QuirkType.Erasure))
                 return;
 
             Texture2D barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/EyeFrame").Value;

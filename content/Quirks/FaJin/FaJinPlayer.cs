@@ -50,12 +50,12 @@ namespace MyHeroMod.content.Quirks.FaJin;
         {
         var transPlayer = Player.GetModPlayer<TransformationPlayer>();
         
-        if (transPlayer.SelectedQuirk == QuirkType.FaJin)
+        if (transPlayer.HasActiveQuirk(QuirkType.FaJin))
         {
             return true;
         }
 
-        if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+        if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
         {
             var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>();
             if (ofaPlayer.HasInternalQuirk(QuirkType.FaJin))

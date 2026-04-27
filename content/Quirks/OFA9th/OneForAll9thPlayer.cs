@@ -157,7 +157,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
 
-        if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+        if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
     {
         
         if (transPlayer.CurrentStage >= QuirkStage.Initial)
@@ -204,7 +204,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
             ParallelProcessing = 0;
 
-            if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+            if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
             {
                 
             
@@ -225,7 +225,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
             
             
-            if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+            if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
             {
                 if (transPlayer.CurrentStage == QuirkStage.Initial) 
                     MaxParallelProcessing = 0; 

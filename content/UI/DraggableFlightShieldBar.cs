@@ -64,7 +64,7 @@ namespace MyHeroMod.content.UI
             var flightPlayer = player.GetModPlayer<FlightPlayer>();
 
             // Se não tiver a Quirk, apenas não desenha nada
-            if (transPlayer.SelectedQuirk != QuirkType.Flight)
+            if (!transPlayer.HasActiveQuirk(QuirkType.Flight))
                 return;
 
             Texture2D barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FlightShieldFrame").Value;

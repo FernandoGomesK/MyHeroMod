@@ -42,7 +42,7 @@ namespace MyHeroMod.content.System
     
     if (IsDefaultSkill) return true;
 
-    if (player.SelectedQuirk == QuirkType.OneForAll9th)
+    if (player.HasActiveQuirk(QuirkType.OneForAll9th))
     {
         var ofaPlayer = player.Player.GetModPlayer<OneForAll9thPlayer>();
 
@@ -52,7 +52,7 @@ namespace MyHeroMod.content.System
         }
     }
 
-    if (player.SelectedQuirk == QuirkType.AllForOne)
+    if (player.HasActiveQuirk(QuirkType.AllForOne))
     {
         var ofaPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
 
@@ -63,9 +63,9 @@ namespace MyHeroMod.content.System
     }
 
     
-    if (IsBaseQuirk && player.SelectedQuirk == RequiredQuirk) return true;
+    if (IsBaseQuirk && player.HasActiveQuirk(RequiredQuirk)) return true;
     
-    bool hasRightQuirk = player.SelectedQuirk == RequiredQuirk;
+    bool hasRightQuirk = player.HasActiveQuirk(RequiredQuirk);
                                 
     return hasRightQuirk && player.CurrentStage >= RequiredStage;
 }
