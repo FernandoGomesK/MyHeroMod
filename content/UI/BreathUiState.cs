@@ -19,7 +19,7 @@ namespace MyHeroMod.content.UI
             var overPlayer = player.GetModPlayer<OverclockPlayer>();
 
             // Só desenha a barra se ele tiver a Quirk do Overclock equipada
-            if (transPlayer.SelectedQuirk != QuirkType.Overclock)
+            if (!transPlayer.HasActiveQuirk(QuirkType.Overclock))
                 return;
 
            

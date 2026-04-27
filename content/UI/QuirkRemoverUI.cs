@@ -115,9 +115,16 @@ foreach (QuirkType quirk in transPlayer.ActiveQuirks)
                 extractButton.OnMouseOut += (evt, elem) => extractButton.TextColor = Color.Salmon;
 
                 extractButton.OnLeftClick += (evt, elem) => {
-                    SoundEngine.PlaySound(SoundID.NPCDeath11); // Um som de extração
+                    SoundEngine.PlaySound(SoundID.NPCDeath11);
                     
                     transPlayer.ActiveQuirks.Remove(quirk);
+                    transPlayer.ResetSlot();
+                    transPlayer.UpdateUnlockedSkills();
+
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                        transPlayer.SendClientChanges(transPlayer);
+                    }
                     
                     
                     

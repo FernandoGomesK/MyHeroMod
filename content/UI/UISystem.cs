@@ -15,6 +15,7 @@ namespace MyHeroMod
         internal QuirkSelectionUI MyQuirkUI;
         internal SkillMenuUI MySkillMenuUI;
         internal AllForOneQuirksUI SeeQuirkUI;
+        internal QuirkRemoverUI MyQuirkRemoverUI;
 
         private UserInterface breathUserInterface;
         internal BreathUIState breathUIState;
@@ -39,6 +40,9 @@ namespace MyHeroMod
                 
                 SeeQuirkUI = new AllForOneQuirksUI();
                 SeeQuirkUI.Activate();
+
+                MyQuirkRemoverUI = new QuirkRemoverUI();
+                MyQuirkRemoverUI.Activate();
 
                 breathUIState = new BreathUIState();
                 breathUIState.Activate();
@@ -69,7 +73,7 @@ namespace MyHeroMod
             MyQuirkUI = null;
             MySkillMenuUI = null;
             SeeQuirkUI = null;
-            
+            MyQuirkRemoverUI = null;
             breathUIState = null;
             breathUserInterface = null;
 
@@ -109,6 +113,12 @@ namespace MyHeroMod
             var system = ModContent.GetInstance<UISystem>();
             system.SeeQuirkUI.PopulateSkillList();
             system.MyInterface?.SetState(system.SeeQuirkUI);
+        }
+
+        public static void ShowQuirkRemoverUI()
+        {
+            var system = ModContent.GetInstance<UISystem>();
+            system.MyInterface?.SetState(system.MyQuirkRemoverUI);
         }
 
         public static void HideUI()

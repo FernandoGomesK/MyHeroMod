@@ -16,7 +16,8 @@ namespace MyHeroMod.content
     public enum QuirkType { Quirkless, AllForOne, OneForAll9th, OneForAll8th,
                             Explosion, Engine, HellFlames, BlueFlames, HalfColdHalfHot,
                             Float, Flight, Gearshift, FaJin, SmokeScreen, DangerSense,
-                            BlackWhip, Tape, Overclock, Erasure, SuperRegeneration, SlideAndGlide, Decay, Rivet, SpringLikeLimbs }
+                            BlackWhip, Tape, Overclock, Erasure, SuperRegeneration, SlideAndGlide,
+                             Decay, Rivet, SpringLikeLimbs, Rabbit, DarkShadow }
                             
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 
@@ -35,6 +36,8 @@ namespace MyHeroMod.content
         public QuirkSkills Slot2 = QuirkSkills.None;
         public QuirkSkills Slot3 = QuirkSkills.None;
         public QuirkSkills Slot4 = QuirkSkills.None;
+
+        public QuirkNatures Nature = QuirkNatures.None;
 
         
         public List<QuirkSkills> UnlockedSkills = new List<QuirkSkills>();

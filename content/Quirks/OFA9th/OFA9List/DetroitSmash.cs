@@ -33,10 +33,12 @@ public class DetroitSmashSkill : QuirkSkill
     {
         var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
 
-        if (player.SelectedQuirk == QuirkType.OneForAll8th ||player.SelectedQuirk ==  QuirkType.OneForAll9th ) 
+        if (player.HasActiveQuirk(QuirkType.OneForAll8th) ||player.HasActiveQuirk(QuirkType.OneForAll9th))
             return player.CurrentStage >= QuirkStage.Initial;
+        
+            
 
-        if (player.SelectedQuirk == QuirkType.AllForOne && (afoPlayer.HasInternalQuirk(QuirkType.OneForAll8th) || afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th)))
+        if (player.HasActiveQuirk(QuirkType.AllForOne) && (afoPlayer.HasInternalQuirk(QuirkType.OneForAll8th) || afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th)))
         {
             return true;
         }
@@ -57,8 +59,8 @@ public class DetroitSmashSkill : QuirkSkill
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
         var FaJinPlayer = player.GetModPlayer<FajinPlayer>();
 
-        bool isOFA9th = transPlayer.SelectedQuirk == QuirkType.OneForAll9th  || (transPlayer.SelectedQuirk == QuirkType.AllForOne && afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th));
-        bool isOFA8th = transPlayer.SelectedQuirk == QuirkType.OneForAll8th || (transPlayer.SelectedQuirk == QuirkType.AllForOne && afoPlayer.HasInternalQuirk(QuirkType.OneForAll8th) && !isOFA9th);
+        bool isOFA9th = transPlayer.HasActiveQuirk(QuirkType.OneForAll9th)  || (transPlayer.HasActiveQuirk(QuirkType.AllForOne) && afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th));
+        bool isOFA8th = transPlayer.HasActiveQuirk(QuirkType.OneForAll8th) || (transPlayer.HasActiveQuirk(QuirkType.AllForOne) && afoPlayer.HasInternalQuirk(QuirkType.OneForAll8th) && !isOFA9th);
 
         
             

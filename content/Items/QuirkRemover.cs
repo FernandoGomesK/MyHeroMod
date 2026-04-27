@@ -49,10 +49,18 @@ namespace MyHeroMod.content.Items
     
         
 
-        // public override bool? UseItem(Player player)
-        // {
-            
-        // }    
+        public override bool? UseItem(Player player)
+        {
+            if (player.whoAmI == Main.myPlayer)
+            {
+                
+                if (!UISystem.IsUiOpen()) 
+                {
+                    UISystem.ShowQuirkRemoverUI();
+                }
+            }
+            return true;
+        }
         
     }
 }

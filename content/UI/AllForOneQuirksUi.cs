@@ -33,7 +33,7 @@ namespace MyHeroMod
 
             UIPanel listPanel = new UIPanel();
             listPanel.Width.Set(340, 0);
-            listPanel.Height.Set(260, 0);
+            listPanel.Height.Set(260, 0);   
             listPanel.HAlign = 0.5f;
             listPanel.Top.Set(50, 0);
             listPanel.BackgroundColor = new Color(20, 20, 40);
