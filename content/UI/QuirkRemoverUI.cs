@@ -73,19 +73,24 @@ namespace MyHeroMod
             
             
         }
+        public override void OnActivate()
+        {
+            base.OnActivate();
+            PopulateSkillList();
+        }
 
        public void PopulateSkillList()
         {
             quirkList.Clear(); // Limpa a lista para não duplicar
 
             if (Main.LocalPlayer == null || !Main.LocalPlayer.active) return;
-            var afoPlayer = Main.LocalPlayer.GetModPlayer<AllForOnePlayer>();
+            // var afoPlayer = Main.LocalPlayer.GetModPlayer<AllForOnePlayer>();
             var transPlayer = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
 
             // Se o AFO não tiver roubado nada ainda
-            if (afoPlayer.InternalQuirks.Count == 0)
+            if (transPlayer.ActiveQuirks.Count == 0)
             {
-                UIText emptyText = new UIText("No Quirks Stolen Yet...", 0.9f);
+                UIText emptyText = new UIText("No Quirks in the Body", 0.9f);
                 emptyText.TextColor = Color.Gray;
                 emptyText.HAlign = 0.5f;
                 quirkList.Add(emptyText);
@@ -135,7 +140,10 @@ foreach (QuirkType quirk in transPlayer.ActiveQuirks)
 
                 // 4. Adiciona a caixinha completa na Lista Principal
                 quirkList.Add(quirkItemPanel);
+
+                
             }
         }
+        
     }
 }
