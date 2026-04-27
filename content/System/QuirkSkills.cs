@@ -78,5 +78,9 @@
 
             ToggleSprings,
 
+            DisassembleHeal,
+            DashDisassemble,
+            DisassembleRange,
+
 
         }

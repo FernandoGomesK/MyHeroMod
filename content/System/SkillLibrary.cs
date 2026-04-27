@@ -144,6 +144,12 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
 
             {QuirkSkills.ToggleSprings, new ToggleSpringsSkill() },
 
+            // Overhaul
+
+            {QuirkSkills.DisassembleHeal, new DisassembleHealSkill() },
+            {QuirkSkills.DashDisassemble, new DashDisassembleSkill() },
+            {QuirkSkills.DisassembleRange, new DisassembleRangeSkill() },
+
 
 
 

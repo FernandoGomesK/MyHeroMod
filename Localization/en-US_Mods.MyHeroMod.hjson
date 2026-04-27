@@ -539,6 +539,11 @@ Buffs: {
 		DisplayName: Spring-like Limbs
 		Description: Your limbs store and release kinetic energy for massive jumps.
 	}
+
+	ChimeraBuff: {
+		DisplayName: Chimera Buff
+		Description: Mods.MyHeroMod.Buffs.ChimeraBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own body with 100% power!"
@@ -621,6 +626,8 @@ Projectiles: {
 	ShootyGoKablamProj.DisplayName: Shooty Go Kablam!
 	ShootyGoProj.DisplayName: Shooty Go
 	RivetStabPlayerProj.DisplayName: Rivet Stab
+	DashDisassembleProj.DisplayName: Dash Disassemble Proj
+	RangeDisassembleProj.DisplayName: Range Disassemble Proj
 }
 
 NPCs: {

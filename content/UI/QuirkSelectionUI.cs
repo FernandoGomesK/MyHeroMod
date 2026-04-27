@@ -72,6 +72,7 @@ namespace MyHeroMod
             CreateButton("Decay", QuirkType.Decay, Color.Black);
             CreateButton("Rivet", QuirkType.Rivet, Color.Red);
             CreateButton("Spring Like Limbs", QuirkType.SpringLikeLimbs, Color.LightGreen);
+            CreateButton("Overhaul", QuirkType.Overhaul, Color.LightPink);
 
 
             // red X to close
