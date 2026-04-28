@@ -25,29 +25,32 @@ public class ChimeraSkill : QuirkSkill
 
     public override void OnUse(Player player)
     {
-        var OverhaulPlayer = player.GetModPlayer<OverhaulPlayer>();
+        var overhaulPlayer = player.GetModPlayer<OverhaulPlayer>();
 
         if (player.HasBuff(ModContent.BuffType<ChimeraBuff>()))
-        {
-            player.ClearBuff(ModContent.BuffType<ChimeraBuff>());
-            OverhaulPlayer.isChimeraActive = false;
-
-        }
-        else
-        {
-
-            var transformPlayer = player.GetModPlayer<TransformationPlayer>();
+            {
+                player.ClearBuff(ModContent.BuffType<ChimeraBuff>());
+                
+                Main.NewText("Chimera Deactivated!", Color.White);
+                
+                
+                overhaulPlayer.isChimeraActive = false;
+                overhaulPlayer.ActivationTimer = 0;
+                return;
+            }
             
-
+            else if (overhaulPlayer.ChimeraActivation)
+            {
+                overhaulPlayer.ChimeraActivation = false;
+                overhaulPlayer.ActivationTimer = 0;
+                Main.NewText("Cancelled.", Color.Gray);
+            }
             
-            player.AddBuff(ModContent.BuffType<ChimeraBuff>(), 3600000);
-            Main.NewText("Chimera!", Color.Yellow);
-            
-        
-            
-            
-            
-             
-        }
+            else
+            {
+                overhaulPlayer.ActivationTimer = 0;
+                overhaulPlayer.ChimeraActivation = true;
+                
+            }
     }
 }
