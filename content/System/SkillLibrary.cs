@@ -149,6 +149,10 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             {QuirkSkills.DisassembleHeal, new DisassembleHealSkill() },
             {QuirkSkills.DashDisassemble, new DashDisassembleSkill() },
             {QuirkSkills.DisassembleRange, new DisassembleRangeSkill() },
+            {QuirkSkills.GroundDisassemble, new GroundDisassembleSkill() },
+            {QuirkSkills.RangeHeal, new RangeHealSkill() },
+            {QuirkSkills.Chimera, new ChimeraSkill() },
+            {QuirkSkills.RockShoot, new RockShootSkill() },
 
 
 

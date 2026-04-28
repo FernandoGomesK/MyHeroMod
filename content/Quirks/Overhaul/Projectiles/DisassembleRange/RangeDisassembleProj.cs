@@ -44,7 +44,7 @@ namespace MyHeroMod.content.Quirks.Overhaul.Projectiles.DisassembleRange
 
             Projectile.rotation = Projectile.velocity.ToRotation();
 
-            if (transPlayer.HasActiveQuirk(QuirkType.Decay))
+            if (transPlayer.HasActiveQuirk(QuirkType.Overhaul))
             {
                 if (Main.rand.NextBool(2))
             {

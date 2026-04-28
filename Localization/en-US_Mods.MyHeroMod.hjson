@@ -628,6 +628,10 @@ Projectiles: {
 	RivetStabPlayerProj.DisplayName: Rivet Stab
 	DashDisassembleProj.DisplayName: Dash Disassemble Proj
 	RangeDisassembleProj.DisplayName: Range Disassemble Proj
+	RockSpikeProj.DisplayName: Rock Spike Proj
+	RockWaveController.DisplayName: Rock Wave Controller
+	RangeHealProj.DisplayName: Range Heal Proj
+	RockShootProj.DisplayName: Rock Shoot Proj
 }
 
 NPCs: {

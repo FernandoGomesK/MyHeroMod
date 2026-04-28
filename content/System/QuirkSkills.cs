@@ -81,6 +81,10 @@
             DisassembleHeal,
             DashDisassemble,
             DisassembleRange,
+            GroundDisassemble,
+            RangeHeal,
+            Chimera,
+            RockShoot,
 
 
         }
