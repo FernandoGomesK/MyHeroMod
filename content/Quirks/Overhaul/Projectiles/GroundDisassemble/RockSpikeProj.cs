@@ -32,18 +32,15 @@ namespace MyHeroMod.content.Quirks.Overhaul.Projectiles.GroundDisassemble
                 Projectile.ai[0]++;
             }
 
-            // GERAÇÃO DE PARTÍCULAS (GELO)
+            // GERAÇÃO DE PARTÍCULAS (Terra)
             if (Main.rand.NextBool(3))
             {
-                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Ice, 0, 0, 100, default, 1f);
+                int dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height,DustID.Dirt, 0, 0, 100, default, 1f);
                 Main.dust[dust].noGravity = true;
                 Main.dust[dust].velocity *= 0.5f;
             }
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
-        {
-            target.AddBuff(BuffID.Frostburn, 180); // Congela
-        }
+    
     }
 }

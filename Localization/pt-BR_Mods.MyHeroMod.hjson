@@ -351,6 +351,11 @@ Items: {
 		// DisplayName: Quirk Remover
 		// Tooltip: ""
 	}
+
+	ChimeraArms: {
+		// DisplayName: Chimera Arms
+		// Tooltip: ""
+	}
 }
 
 Buffs: {

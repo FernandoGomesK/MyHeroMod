@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Overhaul;
+using Terraria.ID;
 
 namespace MyHeroMod.content.Buffs
 {
@@ -26,6 +27,7 @@ namespace MyHeroMod.content.Buffs
                 player.statDefense += 2;    
                 player.jumpSpeedBoost += 2.0f;
                 player.noFallDmg = true;
+                Dust.NewDust(player.position, player.width, player.height, DustID.Wraith, 0f, 0f, 100, default , 1.0f);
             
 }
     }}

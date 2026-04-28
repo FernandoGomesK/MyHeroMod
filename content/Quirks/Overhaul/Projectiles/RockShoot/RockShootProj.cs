@@ -32,7 +32,7 @@ namespace MyHeroMod.content.Quirks.Overhaul.Projectiles.RockShoot
             SoundEngine.PlaySound(SoundID.Item27, Projectile.position); 
             for (int i = 0; i < 30; i++)
             {
-                int idx = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Ice, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.0f);
+                int idx = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.0f);
                 Main.dust[idx].noGravity = true;
                 Main.dust[idx].velocity *= 3f;
 
@@ -41,12 +41,12 @@ namespace MyHeroMod.content.Quirks.Overhaul.Projectiles.RockShoot
             } 
             for (int i = 0; i < 10; i++)
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Ice, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.5f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Sand, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.5f);
             }
             for (int i = 0; i < 5; i++)
             {
 
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 2.0f );
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 2.0f );
             }
         }   
         public override void AI()
@@ -55,11 +55,11 @@ namespace MyHeroMod.content.Quirks.Overhaul.Projectiles.RockShoot
             
             if (Main.rand.NextBool(1))
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Ice, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.0f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.0f);
             }
             if (Main.rand.NextBool(7))
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Snow, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.5f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Sand, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.5f);
             }
 
         }
