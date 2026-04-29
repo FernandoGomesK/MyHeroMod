@@ -59,8 +59,8 @@ public class ReciproSkill : QuirkSkill
                     QuirkStage.Initial => 120,       
                     QuirkStage.Adequation => 160,     
                     QuirkStage.Intermediate => 250,   
-                    QuirkStage.Advanced => 300,      
-                    QuirkStage.Final => 500, 
+                    QuirkStage.Advanced => 1200,      
+                    QuirkStage.Final => 1800, 
                     _ => 120
                 };
 
