@@ -549,6 +549,11 @@ Buffs: {
 		DisplayName: Chimera Buff
 		Description: Mods.MyHeroMod.Buffs.ChimeraBuff.Description
 	}
+
+	ZeroGravityBuff: {
+		DisplayName: Zero Gravity Buff
+		Description: Mods.MyHeroMod.Buffs.ZeroGravityBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own body with 100% power!"

@@ -15,9 +15,18 @@ namespace MyHeroMod.content.Buffs
             Main.buffNoTimeDisplay[Type] = true; 
             Main.debuff[Type] = false; 
         }
+        
 
         public override void Update(Player player, ref int buffIndex)
         {
-            }
+                var enginePlayer = player.GetModPlayer<EnginePlayer>();
+                var mainPlayer = player.GetModPlayer<TransformationPlayer>();
+    
+                if (!mainPlayer.HasActiveQuirk(QuirkType.Engine))  
+                    return;
+
+                enginePlayer.isBoosting = true;
+                
+                
         }
-    }
+    }}

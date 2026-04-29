@@ -70,7 +70,7 @@ namespace MyHeroMod.content.Buffs
                 float reciproAccelBoost = 0f;
                 float reciproJumpBoost = 0f;
 
-                // Se o Recipro estiver ligado, ele IGNORA as marchas normais e dá um empurrão brutal
+            
                 if (player.HasBuff(ModContent.BuffType<ReciproBuff>()))
                 {
                     reciproSpeedBoost = mainPlayer.CurrentStage switch
@@ -107,7 +107,7 @@ namespace MyHeroMod.content.Buffs
                 // Aplica a fórmula final: (Base * Marcha) + Bónus do Recipro
                 player.runAcceleration *= (baseAcceleration * gearMultiplier) + reciproAccelBoost;
                 player.maxRunSpeed += (baseMaxSpeed * gearMultiplier) + reciproSpeedBoost;
-                player.jumpSpeedBoost += (baseJumpBoost) + reciproJumpBoost; // O Pulo não precisa multiplicar com a marcha
+                player.jumpSpeedBoost += (baseJumpBoost) + reciproJumpBoost; 
             }
         }
     }
