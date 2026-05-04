@@ -1,55 +1,23 @@
 using Terraria;
 using Terraria.ModLoader;
-using Terraria.ID;
 
 namespace MyHeroMod.content.Debuffs 
 {
-    // O nome mudou para GlobalNPC para não confundir com o Buff real!
-    public class ZeroGravityGlobalNPC : GlobalNPC
+    public class ZeroGravityEnemyBuff : ModBuff
     {
-        public override bool InstancePerEntity => true; 
+        public override string Texture => "MyHeroMod/Assets/BuffImage/ZeroGravityBuff"; // Pode usar a mesma imagem
         
-        public bool hasZeroGravity;
-        
-        
-        private bool storedNoGravity;
-        private bool gravityStored;
-
-        public override void ResetEffects(NPC npc)
+        public override void SetStaticDefaults()
         {
-            hasZeroGravity = false; 
+            Main.debuff[Type] = true; 
+            Main.pvpBuff[Type] = true; 
+            Main.buffNoSave[Type] = true; 
         }
 
-        public override void PostAI(NPC npc)
+        public override void Update(NPC npc, ref int buffIndex)
         {
-            if (hasZeroGravity)
-            {
-                if (!gravityStored)
-                {
-                    storedNoGravity = npc.noGravity;
-                    gravityStored = true;
-                }
-
-                npc.noGravity = true;
-                
-                if (npc.velocity.Y > -2f) 
-                {
-                    npc.velocity.Y -= 0.1f; 
-                }
-                
-                if (Main.rand.NextBool(5))
-                {
-                    Dust.NewDust(npc.position, npc.width, npc.height, DustID.PinkFairy);
-                }
-            }
-            else
-            {
-                if (gravityStored)
-                {
-                    npc.noGravity = storedNoGravity;
-                    gravityStored = false;
-                }
-            }
+            // Ativa a gravidade zero NA CLASSE GlobalNPC DO INIMIGO
+            npc.GetGlobalNPC<ZeroGravityGlobalNPC>().hasZeroGravity = true; 
         }
     }
 }

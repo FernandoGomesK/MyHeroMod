@@ -568,6 +568,11 @@ Buffs: {
 		// DisplayName: Zero Gravity Buff
 		// Description: Mods.MyHeroMod.Buffs.ZeroGravityBuff.Description
 	}
+
+	ZeroGravityEnemyBuff: {
+		// DisplayName: Zero Gravity Enemy Buff
+		// Description: Mods.MyHeroMod.Buffs.ZeroGravityEnemyBuff.Description
+	}
 }
 
 DeathMessage: "{0} destruiu o seu próprio corpo com 100% de poder!"

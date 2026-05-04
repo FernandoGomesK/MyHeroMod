@@ -49,7 +49,7 @@ namespace MyHeroMod.content.Quirks.ZeroGravity.Projectiles.GravityTouch
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             
-            target.AddBuff(ModContent.BuffType<ZeroGravityBuff>(), 300);
+           target.AddBuff(ModContent.BuffType<ZeroGravityEnemyBuff>(), 300);
         }
     }
 }
