@@ -356,6 +356,16 @@ Items: {
 		// DisplayName: Chimera Arms
 		// Tooltip: ""
 	}
+
+	UrarakaAlpha: {
+		// DisplayName: Uraraka Alpha
+		// Tooltip: ""
+	}
+
+	UrarakaAlphaBreastplate: {
+		// DisplayName: Uraraka Alpha Breastplate
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -646,6 +656,7 @@ Projectiles: {
 	// RockWaveController.DisplayName: Rock Wave Controller
 	// RangeHealProj.DisplayName: Range Heal Proj
 	// RockShootProj.DisplayName: Rock Shoot Proj
+	// GravityTouchProj.DisplayName: Gravity Touch Proj
 }
 
 NPCs: {

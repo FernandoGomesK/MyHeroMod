@@ -73,6 +73,7 @@ namespace MyHeroMod
             CreateButton("Rivet", QuirkType.Rivet, Color.Red);
             CreateButton("Spring Like Limbs", QuirkType.SpringLikeLimbs, Color.LightGreen);
             CreateButton("Overhaul", QuirkType.Overhaul, Color.LightPink);
+            CreateButton("Zero Gravity", QuirkType.ZeroGravity, Color.Pink);
 
 
             // red X to close

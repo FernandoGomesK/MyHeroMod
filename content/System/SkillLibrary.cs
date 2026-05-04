@@ -154,6 +154,12 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             {QuirkSkills.Chimera, new ChimeraSkill() },
             {QuirkSkills.RockShoot, new RockShootSkill() },
 
+            // Zero Gravity
+
+            {QuirkSkills.GravityTouch, new GravityTouchSkill() },
+            {QuirkSkills.SelfFloat, new SelfFloatSkill() },
+            {QuirkSkills.GravityRelease, new GravityReleaseSkill() },
+
 
 
 

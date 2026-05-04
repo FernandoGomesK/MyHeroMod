@@ -78,6 +78,8 @@
 
             ToggleSprings,
 
+            // Overhaul
+
             DisassembleHeal,
             DashDisassemble,
             DisassembleRange,
@@ -85,6 +87,10 @@
             RangeHeal,
             Chimera,
             RockShoot,
+
+            // Zero Gravity
+
+            GravityTouch, SelfFloat, GravityRelease
 
 
         }

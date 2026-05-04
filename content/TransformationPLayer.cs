@@ -17,7 +17,9 @@ namespace MyHeroMod.content
                             Explosion, Engine, HellFlames, BlueFlames, HalfColdHalfHot,
                             Float, Flight, Gearshift, FaJin, SmokeScreen, DangerSense,
                             BlackWhip, Tape, Overclock, Erasure, SuperRegeneration, SlideAndGlide,
-                             Decay, Rivet, SpringLikeLimbs, Rabbit, DarkShadow, Overhaul }
+                            Decay, Rivet, SpringLikeLimbs, Rabbit, DarkShadow, Overhaul,
+                            ZeroGravity,
+                             }
                             
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 
