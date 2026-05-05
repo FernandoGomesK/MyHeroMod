@@ -13,7 +13,7 @@ namespace MyHeroMod.content.Buffs
 {
     public class TemperatureBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/TemperatureBuff"; 
+        
 
         public override void SetStaticDefaults()
         {

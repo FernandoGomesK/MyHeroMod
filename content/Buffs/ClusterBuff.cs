@@ -7,7 +7,7 @@ namespace MyHeroMod.Buffs
 {
     public class ClusterBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/ClusterBuff";
+        
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;

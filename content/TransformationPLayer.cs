@@ -73,6 +73,44 @@ namespace MyHeroMod.content
             }
         }
 
+        public override void PreUpdate()
+        {
+            
+            int buffToAdd = Nature switch
+            {
+                NatureType.ThermalResistance => ModContent.BuffType<Buffs.ThermalResistanceBuff>(),
+                NatureType.ColdResistance => ModContent.BuffType<Buffs.ColdResistanceBuff>(),
+                NatureType.HeatResistance => ModContent.BuffType<Buffs.HeatResistanceBuff>(),
+                NatureType.NauseaResistance => ModContent.BuffType<Buffs.NauseaResistanceBuff>(), 
+                NatureType.StrongMinded => ModContent.BuffType<Buffs.StrongMindedBuff>(),
+                NatureType.PerfectVessel => ModContent.BuffType<Buffs.PerfectVesselBuff>(),
+                NatureType.Resourceful => ModContent.BuffType<Buffs.ResourcefulBuff>(),
+                
+                
+                
+                _ => -1 
+            };
+
+            
+            if (buffToAdd != -1)
+            {
+                Player.AddBuff(buffToAdd, 2);
+            }
+        }
+
+        public override void ResetEffects()
+        {
+            
+            naturalQuirkLimit = 1;
+
+            
+            if (Nature == NatureType.StrongMinded)
+            {
+                naturalQuirkLimit = 2; 
+            }
+            
+        }
+
     
 
         // Save and Load

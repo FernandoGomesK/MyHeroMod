@@ -8,7 +8,7 @@ namespace MyHeroMod.content.Buffs
 {
     public class EngineBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/EngineBuff";
+        
         
         public override void SetStaticDefaults()
         {

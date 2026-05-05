@@ -14,7 +14,7 @@ namespace MyHeroMod.content.Buffs
     public class FlashFireFistBuff : ModBuff
     {
         
-        public override string Texture => "MyHeroMod/Assets/BuffImage/HCFireFistBuff";
+        
 
         public override void SetStaticDefaults()
         {
@@ -118,16 +118,16 @@ namespace MyHeroMod.content.Buffs
             Player player = Main.LocalPlayer;
             var transformPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            string texturePath = "MyHeroMod/Assets/BuffImage/HCFireFistBuff"; 
+            string texturePath =  "MyHeroMod/Content/Buffs/HCFireFistBuff"; 
 
             
             if (transformPlayer.HasActiveQuirk(QuirkType.HellFlames))
             {
-                texturePath = "MyHeroMod/Assets/BuffImage/FlashFireFistBuff";
+                texturePath =  "MyHeroMod/Content/Buffs/FlashFireFistBuff";
             }
             else if (transformPlayer.HasActiveQuirk(QuirkType.BlueFlames))
             {
-                texturePath = "MyHeroMod/Assets/BuffImage/BlueFlashFireFistBuff"; 
+                texturePath = "MyHeroMod/Content/Buffs/BlueFlashFireFistBuff"; 
             }
 
             

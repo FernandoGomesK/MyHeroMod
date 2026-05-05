@@ -9,7 +9,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Buffs
     public class ParallelProcessingBuff : ModBuff
     {
        
-        public override string Texture => "MyHeroMod/Assets/BuffImage/ParallelProcessingBuff"; 
+        
 
         public override void SetStaticDefaults()
         {

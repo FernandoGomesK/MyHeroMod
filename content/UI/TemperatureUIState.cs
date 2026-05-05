@@ -19,7 +19,7 @@ namespace MyHeroMod.content.UI
             Player player = Main.LocalPlayer;
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            // TRAVA: Só desenha se tiver uma Quirk de temperatura ativa
+            
             if (!transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot) &&
                 !transPlayer.HasActiveQuirk(QuirkType.HellFlames) &&
                 !transPlayer.HasActiveQuirk(QuirkType.BlueFlames))

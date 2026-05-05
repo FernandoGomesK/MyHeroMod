@@ -8,7 +8,7 @@ namespace MyHeroMod.content.Buffs
 {
     public class ReciproBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/EngineBuff";
+        
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true; 
