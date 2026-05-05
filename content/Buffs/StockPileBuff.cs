@@ -2,8 +2,9 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
+using MyHeroMod.content.Quirks.OFA8th;
 
-namespace MyHeroMod.content.Quirks.OFA8th
+namespace MyHeroMod.content.Buffs
 {
     public class StockPileBuff : ModBuff
     {

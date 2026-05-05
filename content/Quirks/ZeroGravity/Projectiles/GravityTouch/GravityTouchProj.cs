@@ -4,7 +4,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Debuffs;
-using MyHeroMod.Buffs;
+
 using MyHeroMod.content.Buffs;
 
 namespace MyHeroMod.content.Quirks.ZeroGravity.Projectiles.GravityTouch

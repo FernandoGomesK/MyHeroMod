@@ -366,6 +366,11 @@ Items: {
 		// DisplayName: Uraraka Alpha Breastplate
 		// Tooltip: ""
 	}
+
+	GeneActivator: {
+		// DisplayName: Gene Activator
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -572,6 +577,41 @@ Buffs: {
 	ZeroGravityEnemyBuff: {
 		// DisplayName: Zero Gravity Enemy Buff
 		// Description: Mods.MyHeroMod.Buffs.ZeroGravityEnemyBuff.Description
+	}
+
+	ColdResistanceBuff: {
+		// DisplayName: Cold Resistance Buff
+		// Description: Mods.MyHeroMod.Buffs.ColdResistanceBuff.Description
+	}
+
+	HeatResistanceBuff: {
+		// DisplayName: Heat Resistance Buff
+		// Description: Mods.MyHeroMod.Buffs.HeatResistanceBuff.Description
+	}
+
+	NauseaResistanceBuff: {
+		// DisplayName: Nausea Resistance Buff
+		// Description: Mods.MyHeroMod.Buffs.NauseaResistanceBuff.Description
+	}
+
+	PerfectVesselBuff: {
+		// DisplayName: Perfect Vessel Buff
+		// Description: Mods.MyHeroMod.Buffs.PerfectVesselBuff.Description
+	}
+
+	ResourcefulBuff: {
+		// DisplayName: Resourceful Buff
+		// Description: Mods.MyHeroMod.Buffs.ResourcefulBuff.Description
+	}
+
+	StrongMindedBuff: {
+		// DisplayName: Strong Minded Buff
+		// Description: Mods.MyHeroMod.Buffs.StrongMindedBuff.Description
+	}
+
+	ThermalResistanceBuff: {
+		// DisplayName: Thermal Resistance Buff
+		// Description: Mods.MyHeroMod.Buffs.ThermalResistanceBuff.Description
 	}
 }
 

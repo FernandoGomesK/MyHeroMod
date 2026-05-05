@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
-using MyHeroMod.Buffs;
+
 
 public class Clusterkill : QuirkSkill
 {

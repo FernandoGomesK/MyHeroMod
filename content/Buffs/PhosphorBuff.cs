@@ -7,7 +7,7 @@ namespace MyHeroMod.content.Buffs
 {
     public class PhosphorBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/PhosphorBuff";
+        
         public override void SetStaticDefaults()
         {
             Main.buffNoTimeDisplay[Type] = true;

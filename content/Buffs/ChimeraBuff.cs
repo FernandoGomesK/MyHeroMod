@@ -8,7 +8,7 @@ namespace MyHeroMod.content.Buffs
 {
     public class ChimeraBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/ChimeraBuff";
+        
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;

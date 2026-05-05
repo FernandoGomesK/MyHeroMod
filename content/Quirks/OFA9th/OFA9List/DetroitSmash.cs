@@ -10,7 +10,7 @@ using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.OFA9th;
 using Terraria.DataStructures;
 using Mono.Cecil.Cil;
-using MyHeroMod.content.Quirks.OFA9th.Buffs;
+
 using MyHeroMod.content.Quirks.FaJin;
 using MyHeroMod.content.Quirks.OFA8th;
 using MyHeroMod.content.Quirks.AllForOne;

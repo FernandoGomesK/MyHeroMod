@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
-using MyHeroMod.content.Quirks.OFA9th.Buffs;
+
 using Terraria.Audio;
 using MyHeroMod.content.System.BasePlayer;
 using MyHeroMod.content.System;

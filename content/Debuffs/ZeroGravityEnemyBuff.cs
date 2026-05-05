@@ -5,7 +5,7 @@ namespace MyHeroMod.content.Debuffs
 {
     public class ZeroGravityEnemyBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/ZeroGravityBuff"; // Pode usar a mesma imagem
+        public override string Texture => "MyHeroMod/content/Buffs/ZeroGravityBuff"; 
         
         public override void SetStaticDefaults()
         {

@@ -9,7 +9,7 @@ using MyHeroMod.content.Quirks.Overclock;
 using MyHeroMod.content.Quirks.OFA8th;
 using MyHeroMod.content.Quirks.HalfColdHalfHot;
 using MyHeroMod.content.Quirks.Explosion;
-using MyHeroMod.Buffs;
+
 using MyHeroMod.content.Quirks.Smokescreen;
 using MyHeroMod.content.Quirks.Float;
 using MyHeroMod.content.Quirks.Erasure;

@@ -7,7 +7,7 @@ namespace MyHeroMod.content.Buffs
 {
     public class BlueRage : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/BlueRage";
+        
         
         public override void SetStaticDefaults()
         {

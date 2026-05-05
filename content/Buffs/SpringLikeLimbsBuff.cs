@@ -5,11 +5,11 @@ using Microsoft.Xna.Framework;
 using Terraria.ID;
 using MyHeroMod.content.Quirks.SpringLikeLimbs;
 
-namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
+namespace MyHeroMod.content.Buffs 
 {
     public class SpringLikeLimbsBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/SmokescreenBuff";
+        
         
         public override void SetStaticDefaults()
         {

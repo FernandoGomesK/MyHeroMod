@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Explosion;
 
-namespace MyHeroMod.Buffs
+namespace MyHeroMod.content.Buffs
 {
     public class ClusterBuff : ModBuff
     {
