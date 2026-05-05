@@ -20,6 +20,11 @@ namespace MyHeroMod.content
                             Decay, Rivet, SpringLikeLimbs, Rabbit, DarkShadow, Overhaul,
                             ZeroGravity,
                              }
+
+    // public enum NatureType
+    // {
+    //     None, ThermalResistance, ColdResistance, HeatResistance, NauseaResistance, StrongMinded, PerfectVessel, Resourceful
+    // }
                             
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 
@@ -31,6 +36,8 @@ namespace MyHeroMod.content
 
         public QuirkStage CurrentStage = QuirkStage.Initial;
         public bool ManualStageOverride = false;
+
+        public bool hasRolledInitialTraits = false;
         
         public QuirkSkills ActiveForm = QuirkSkills.None;
 
@@ -39,7 +46,7 @@ namespace MyHeroMod.content
         public QuirkSkills Slot3 = QuirkSkills.None;
         public QuirkSkills Slot4 = QuirkSkills.None;
 
-        public QuirkNatures Nature = QuirkNatures.None;
+        public NatureType Nature = NatureType.None;
 
         
         public List<QuirkSkills> UnlockedSkills = new List<QuirkSkills>();
@@ -66,6 +73,8 @@ namespace MyHeroMod.content
             }
         }
 
+    
+
         // Save and Load
 
         public override void SaveData(TagCompound tag)
@@ -78,6 +87,7 @@ namespace MyHeroMod.content
             
             tag["ActiveQuirkList"] = quirkNames;
             tag["CurrentStageName"] = CurrentStage.ToString();
+            tag["PlayerNature"] = (int)Nature;
             tag["Slot1Name"] = Slot1.ToString();
             tag["Slot2Name"] = Slot2.ToString();
             tag["Slot3Name"] = Slot3.ToString();
@@ -112,6 +122,10 @@ namespace MyHeroMod.content
                 if (tag.ContainsKey("Slot2")) Slot2 = (QuirkSkills)tag.GetInt("Slot2");
                 if (tag.ContainsKey("Slot3")) Slot3 = (QuirkSkills)tag.GetInt("Slot3");
                 if (tag.ContainsKey("Slot4")) Slot4 = (QuirkSkills)tag.GetInt("Slot4");
+            }
+            if (tag.ContainsKey("PlayerNature")) 
+            {
+                Nature = (NatureType)tag.GetInt("PlayerNature");
             }
             UpdateUnlockedSkills();
         }
@@ -160,6 +174,12 @@ namespace MyHeroMod.content
         {
             UpdateUnlockedSkills();
             ProgressionSystem.UpdateStage(this);
+
+            if (!hasRolledInitialTraits)            {
+                RandomNatureSelection.SelectRandomNature();
+                RandomQuirkSelection.SelectRandomQuirk();
+                hasRolledInitialTraits = true;
+            }
         }
 
         public override void PostUpdate()
