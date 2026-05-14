@@ -4,10 +4,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.Projectiles.Base; 
 
-namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
+namespace MyHeroMod.content.Quirks.Engine.Projectiles
 {
    
-    public class ManchesterSmashController : BaseJumpSpinKickProj
+    public class ReciproSpinDiveController : BaseJumpSpinKickProj
     {
         
         protected override float DashSpeed => Projectile.ai[1] == 1f ? 40f : 25f;

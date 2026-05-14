@@ -702,6 +702,8 @@ Projectiles: {
 	// RangeHealProj.DisplayName: Range Heal Proj
 	// RockShootProj.DisplayName: Rock Shoot Proj
 	// GravityTouchProj.DisplayName: Gravity Touch Proj
+	// ReciproExtendController.DisplayName: Recipro Extend Controller
+	// ReciproSpinDiveController.DisplayName: Recipro Spin Dive Controller
 }
 
 NPCs: {

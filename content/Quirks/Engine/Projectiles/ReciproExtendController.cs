@@ -4,13 +4,13 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.Projectiles.Base;
 
-namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
+namespace MyHeroMod.content.Quirks.Engine.Projectiles
 {
     
-    public class STLouisSmashController : BaseJumpKickProj
+    public class ReciproExtendController : BaseJumpKickProj
     {
         
-        protected override float DashSpeed => 20f;
+        protected override float DashSpeed => 40f;
 
         public override void SpawnHoverDust(Player player)
         {
@@ -30,7 +30,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             
             for (int i = 0; i < 50; i++)
             {
-                int fire = Dust.NewDust(position, Projectile.width, Projectile.height, DustID.GreenTorch, 0, 0, 100, default, 4f);
+                int fire = Dust.NewDust(position, Projectile.width, Projectile.height, DustID.Torch, 0, 0, 100, default, 4f);
                 Main.dust[fire].velocity *= 6f;
                 Main.dust[fire].noGravity = true;
 

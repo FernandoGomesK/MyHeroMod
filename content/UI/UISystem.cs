@@ -30,9 +30,12 @@ namespace MyHeroMod
         private UserInterface flightShieldUserInterface;
         internal FlightShieldUIState flightShieldUIState;
 
+        private UserInterface engineGearUserInterface;
+        internal EngineGearUIState engineGearUIState;
+
         public override void Load()
         {
-            if (!Main.dedServ) // Só cria interfaces se for um jogador (tela ligada)
+            if (!Main.dedServ) 
             {
                 MyInterface = new UserInterface();
                 MyQuirkUI = new QuirkSelectionUI();
@@ -64,6 +67,11 @@ namespace MyHeroMod
                 flightShieldUIState.Activate();
                 flightShieldUserInterface = new UserInterface();
                 flightShieldUserInterface.SetState(flightShieldUIState);
+
+                engineGearUIState = new EngineGearUIState();
+                engineGearUIState.Activate();
+                engineGearUserInterface = new UserInterface();
+                engineGearUserInterface.SetState(engineGearUIState);
             }
         }
         
@@ -85,6 +93,9 @@ namespace MyHeroMod
 
             flightShieldUIState = null;
             flightShieldUserInterface = null;
+
+            engineGearUIState = null;
+            engineGearUserInterface = null;
 
             
         }
@@ -161,7 +172,8 @@ namespace MyHeroMod
             if (flightShieldUserInterface != null)
                 flightShieldUserInterface.Update(gameTime);
 
-            
+            if (engineGearUserInterface != null)
+                engineGearUserInterface.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -234,6 +246,19 @@ namespace MyHeroMod
                     if (flightShieldUserInterface != null)
                     {
                         flightShieldUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
+                    }
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
+
+            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
+                "MyHeroMod: Engine Gear Bar",
+                delegate
+                {
+                    if (engineGearUserInterface != null)
+                    {
+                        engineGearUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
                     }
                     return true;
                 },

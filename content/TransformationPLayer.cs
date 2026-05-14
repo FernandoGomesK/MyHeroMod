@@ -75,6 +75,8 @@ namespace MyHeroMod.content
 
         public override void PreUpdate()
         {
+
+            base.PreUpdate();
             
             int buffToAdd = Nature switch
             {
@@ -100,6 +102,8 @@ namespace MyHeroMod.content
 
         public override void ResetEffects()
         {
+
+            base.ResetEffects();
             
             naturalQuirkLimit = 1;
 
@@ -130,6 +134,8 @@ namespace MyHeroMod.content
             tag["Slot2Name"] = Slot2.ToString();
             tag["Slot3Name"] = Slot3.ToString();
             tag["Slot4Name"] = Slot4.ToString();
+            tag["HasRolledInitialTraits"] = hasRolledInitialTraits;
+
         }
 
         public override void LoadData(TagCompound tag)
@@ -164,6 +170,10 @@ namespace MyHeroMod.content
             if (tag.ContainsKey("PlayerNature")) 
             {
                 Nature = (NatureType)tag.GetInt("PlayerNature");
+            }
+            if (tag.ContainsKey("HasRolledInitialTraits"))
+            {
+                hasRolledInitialTraits = tag.GetBool("HasRolledInitialTraits");
             }
             UpdateUnlockedSkills();
         }

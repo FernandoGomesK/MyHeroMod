@@ -14,6 +14,7 @@ namespace MyHeroMod.content.Quirks.Engine
         public bool isBoosting = false;
         public int momentumTimer = 0;
         public int currentGear = 0;
+        
 
         public void FullReset()
         {
@@ -43,7 +44,7 @@ namespace MyHeroMod.content.Quirks.Engine
                 }
                 else
                 {
-                    momentumTimer -= 15;
+                    momentumTimer -= 5;
                     if (momentumTimer < 0) momentumTimer = 0;
                 }
 

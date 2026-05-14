@@ -87,7 +87,7 @@ namespace MyHeroMod.content.Quirks.OFA8th.Projectiles.CaliforniaSmash
             {
                 Projectile.ai[0]++;
 
-                // Aqui é onde ele "PULA"
+                
                 player.velocity.Y = -15f;  // Joga o player para CIMA (Aumentei para 15f para subir mais)
                 
                 // Animação de Giro
