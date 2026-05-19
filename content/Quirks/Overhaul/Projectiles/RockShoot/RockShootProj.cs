@@ -18,7 +18,7 @@ namespace MyHeroMod.content.Quirks.Overhaul.Projectiles.RockShoot
             Projectile.tileCollide = true; 
             Projectile.penetrate = 1; 
             Projectile.timeLeft = 120; 
-            Projectile.alpha = 255; // Invisível
+            Projectile.alpha = 255; //
             
         }
 
