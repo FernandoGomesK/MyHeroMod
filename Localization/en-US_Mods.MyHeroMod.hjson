@@ -367,6 +367,26 @@ Items: {
 		DisplayName: Gene Activator
 		Tooltip: ""
 	}
+
+	FirstTenyaBreastplate: {
+		DisplayName: First Tenya Breastplate
+		Tooltip: ""
+	}
+
+	FirstTenyaHelmet: {
+		DisplayName: First Tenya Helmet
+		Tooltip: ""
+	}
+
+	FirstTenyaLeggings: {
+		DisplayName: First Tenya Leggings
+		Tooltip: ""
+	}
+
+	SecondTenyaHelmet: {
+		DisplayName: Second Tenya Helmet
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -700,6 +720,9 @@ Projectiles: {
 	GravityTouchProj.DisplayName: Gravity Touch Proj
 	ReciproExtendController.DisplayName: Recipro Extend Controller
 	ReciproSpinDiveController.DisplayName: Recipro Spin Dive Controller
+	ReciproSpinController.DisplayName: Recipro Spin Controller
+	RangedDisassembleChimeraProj.DisplayName: Ranged Disassemble Chimera Proj
+	RangedDisassembleProj.DisplayName: Ranged Disassemble Proj
 }
 
 NPCs: {

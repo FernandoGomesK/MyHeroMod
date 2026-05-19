@@ -25,6 +25,7 @@ public class ReciproExtendSkill : QuirkSkill
     public override void OnUse(Player player)
     {
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
+        var enginePlayer = player.GetModPlayer<EnginePlayer>();
 
         
         int MaxDamage = transPlayer.CurrentStage switch
@@ -37,9 +38,21 @@ public class ReciproExtendSkill : QuirkSkill
             _ => 130
         };
 
+    
+
         float DamageMultiplier = 1f;
         string attackName = "Recipro Extend!";
-        int extraDamage = 0;
+        int extraDamage = enginePlayer.currentGear switch
+        {
+            1 => 20,
+            2 => 50,
+            3 => 100,
+            4 => 200,
+            5 => 400,
+            _ => 0
+        };
+
+        
 
         
         /*

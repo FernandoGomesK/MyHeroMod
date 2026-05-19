@@ -3,14 +3,15 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.Projectiles.Base; 
+using MyHeroMod.content.Quirks.Engine;
 
 namespace MyHeroMod.content.Quirks.Engine.Projectiles
 {
-   
-    public class ReciproSpinDiveController : BaseJumpSpinKickProj
+
+    public class ReciproSpinController : BaseSpinningKickProj
     {
         
-        protected override float DashSpeed => Projectile.ai[1] == 1f ? 40f : 25f;
+        protected override float DashSpeed => 40f; 
 
         public override void SpawnHoverDust(Player player)
         {

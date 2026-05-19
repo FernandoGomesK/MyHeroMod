@@ -10,13 +10,13 @@ using MyHeroMod.content.Debuffs;
 
 namespace MyHeroMod.content.Quirks.Overhaul.Projectiles.DisassembleRange
 {
-    public class RangedDisassembleProj : ModProjectile
+    public class RangedDisassembleChimeraProj : ModProjectile
     {
         
         public override void SetDefaults()
         {
-            Projectile.width = 32; 
-            Projectile.height = 32;
+            Projectile.width = 40; 
+            Projectile.height = 40;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.tileCollide = true; 

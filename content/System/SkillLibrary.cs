@@ -74,6 +74,8 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             {QuirkSkills.ToggleEngine, new ToggleEngineSkill()},
             {QuirkSkills.Recipro, new ReciproSkill()},
             {QuirkSkills.ReciproExtend, new ReciproExtendSkill() },
+            {QuirkSkills.ReciproSpin, new ReciproSpinSkill() },
+            {QuirkSkills.ReciproSpinDive, new ReciproSpinDiveSkill() },
 
             // Common Skills
 

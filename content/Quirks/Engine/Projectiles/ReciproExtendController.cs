@@ -23,6 +23,7 @@ namespace MyHeroMod.content.Quirks.Engine.Projectiles
         public override void SpawnDashDust(Player player)
         {
             
+            player.GetModPlayer<EnginePlayer>().SpawnEngineDust(1.5f);
         }
 
         public override void SpawnExplosionDust(Vector2 position)
@@ -30,7 +31,8 @@ namespace MyHeroMod.content.Quirks.Engine.Projectiles
             
             for (int i = 0; i < 50; i++)
             {
-                int fire = Dust.NewDust(position, Projectile.width, Projectile.height, DustID.Torch, 0, 0, 100, default, 4f);
+                
+                int fire = Dust.NewDust(position, Projectile.width, Projectile.height, DustID.BlueTorch, 0, 0, 100, default, 4f);
                 Main.dust[fire].velocity *= 6f;
                 Main.dust[fire].noGravity = true;
 

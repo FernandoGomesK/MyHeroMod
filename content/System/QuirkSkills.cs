@@ -41,7 +41,7 @@
 
             // Engine
 
-            ToggleEngine, Recipro, ReciproExtend, ReciproDiveKick, ReciproSpinDive,
+            ToggleEngine, Recipro, ReciproExtend, ReciproSpin, ReciproSpinDive,
 
             // Ofa 8th
             PrimeDetroitSmash, CaliforniaSmash, TexasSmash, CarolinaSmash, StockPile, StockPileMaximum,
