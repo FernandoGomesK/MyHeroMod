@@ -74,6 +74,7 @@ namespace MyHeroMod
             CreateButton("Spring Like Limbs", QuirkType.SpringLikeLimbs, Color.LightGreen);
             CreateButton("Overhaul", QuirkType.Overhaul, Color.LightPink);
             CreateButton("Zero Gravity", QuirkType.ZeroGravity, Color.Pink);
+            CreateButton("Fierce Wings", QuirkType.FierceWings, Color.Red);
 
 
             // red X to close
