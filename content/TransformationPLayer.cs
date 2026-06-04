@@ -48,7 +48,8 @@ namespace MyHeroMod.content
 
         public NatureType Nature = NatureType.None;
 
-        
+        public int ChannelTime = 0;
+    
         public List<QuirkSkills> UnlockedSkills = new List<QuirkSkills>();
 
         public override void PostUpdateMiscEffects()
