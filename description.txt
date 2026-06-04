@@ -1,17 +1,106 @@
-Terraria mod made with the intention of adding some of the quirks from the main show and from vigilantes.
+Updated Steam/Mod Description
+[h1]Features[/h1]
+This mod is heavily inspired by My Hero Academia and the spin-off My Hero Academia: Vigilantes. It adds items, armors, and systems that recreate the powerful Quirks of various heroes and villains from the universe directly into Terraria.
 
-currently contains:
+[b]All enemy mobs can spawn with a random quirk![/b]
 
-All for one 9th
-Float
-Gearshift
-Smoke Screen
-Fa Jin
+[hr][/hr]
 
+[h1]Core Mechanics[/h1]
+[list]
+[] [b]Multi-Quirk System:[/b] Push your limits by holding multiple quirks at once, managed by a strict Quirk Limit system!
+[] [b]Natures System:[/b] Roll for unique Natures that subtly change your stats and how your Quirks behave.
+[/list]
 
-W.I.P
-Explosion
-Half cold Half Hot
-Hellflames
-Blueflames
-All for one 8th
+[hr][/hr]
+
+[h1]Added Items[/h1]
+
+[h2]🧬 Quirk Genes & Modifiers (Materials)[/h2]
+[list]
+[] [b]Quirk Gene:[/b] Dropped by any enemy with a 50% chance. Used to awaken and roll your Quirks.
+[] [b]GeneActivator:[/b] Used to interact with and reroll your character's Nature.
+[/list]
+
+[h2]💉 Syringes & Consumables[/h2]
+[list]
+[] [b]Empty Syringe:[/b] Fill it with a Quirk Gene to roll and receive a random Quirk.
+[] [b]Quirk Remover:[/b] Allows you to safely remove unwanted Quirks to free up your Quirk Limit.
+[*] [b]Mystery Helmet:[/b] A suspicious item used to summon the Symbol of Evil.
+[/list]
+
+[h2]🛠️ Support Items (Accessories)[/h2]
+[list]
+[] [b]Aizawa Goggle:[/b] Increases the time you can maintain Erasure active.
+[] [b]Iron Soles:[/b] Increases the damage of kick-based ultimate moves (like Manchester Smash and St. Louis Smash).
+[] [b]Air Force Gloves:[/b] Drastically increases the damage and range of Delaware Smash.
+[] [b]Surge Arm Gauntlets:[/b] Increases the damage of Fire and Ice-based moves by 50%.
+[] [b]Grenadier Bracers:[/b] Stores excess "Sweat" to empower Explosion attacks without hurting the user.
+[] [b]Combat Vest Alpha / Beta:[/b] Increases the body's natural temperature regulation, vital for Half-Cold Half-Hot users.
+[/list]
+
+[h2]👕 Hero Costumes (Armor/Vanity)[/h2]
+Tons of iconic outfits added, including Deku's Costumes (Alpha through Zeta), All Might (Golden, Silver, and Young Age), Bakugo, Todoroki, Endeavor, Dabi, U.A. Uniforms, Koichi (The Crawler), Captain Celebrity, Ingenium (with maskless variants), and Mirko (Prototype)!
+
+[hr][/hr]
+
+[h1]NPCs & Bosses[/h1]
+[list]
+[] [b]Dr. Garaki (Town NPC):[/b] Moves in when you hold a Quirk Gene or have an active Quirk. He is your main source for Quirk Syringes and Quirk Removers!
+[] [b]All For One (Boss):[/b] A devastating boss fight featuring multiple phases and iconic attacks. Survive his ultimate combinations to claim true power!
+[/list]
+
+[hr][/hr]
+
+[h1]Quirks (Abilities)[/h1]
+Once a Quirk is acquired, you can unleash unique attacks and forms. The mod features a dynamic scaling system (details below).
+
+[list]
+[] One For All (9th Generation - Deku)
+[] One For All (8th Generation - All Might)
+[] Half-Cold Half-Hot (Shoto)
+[] Explosion (Bakugo)
+[] Overhaul (Chisaki)
+[] Fierce Wings (Hawks)
+[] Zero Gravity (Uraraka)
+[] Overclock (O'Clock)
+[] Erasure (Aizawa)
+[] Super Regeneration
+[] All For One
+[] Fa Jin (Bruce Lee)
+[] Gearshift (Kudo)
+[] Float (Nana Shimura)
+[] Blackwhip (Daigoro Banjo)
+[] Danger Sense (Hikage Shinomori)
+[] Smokescreen (En)
+[] Hellflames (Endeavor)
+[] Blueflames (Toya)
+[] Slide and Glide (Koichi)
+[] Decay (Shigaraki)
+[] Engine (Iida)
+[] Tape (Sero)
+[] Rivet Stab
+[] Springlike Limbs
+[] Rabbit (Mirko - W.I.P)
+[*] Dark Shadow (Tokoyami - W.I.P)
+[/list]
+
+[hr][/hr]
+
+[h1]Progression System (Quirk Stages)[/h1]
+Your Quirk automatically evolves as you defeat key bosses in the world. Damage and mechanics scale to keep you balanced with Vanilla Terraria.
+
+[list]
+[] [b]Initial Stage:[/b] Default state at the start of the game. Raw and dangerous power.
+[] [b]Adequation Stage:[/b] Unlocked by defeating the Eye of Cthulhu.
+[] [b]Intermediate Stage:[/b] Unlocked by entering Hardmode (Defeating the Wall of Flesh).
+[] [b]Advanced Stage:[/b] Unlocked by defeating Plantera.
+[*] [b]Final Stage:[/b] Unlocked by defeating the Moon Lord.
+[/list]
+
+[hr][/hr]
+
+[h1]Notes[/h1]
+[b]Multiplayer and compatibility with other mods:[/b] This mod has not been thoroughly tested in large-scale multiplayer environments or with heavy modpacks, so desyncs or incompatibilities may occur.
+
+Please leave a comment or message me if you find any bugs!
