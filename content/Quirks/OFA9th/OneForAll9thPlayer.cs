@@ -86,9 +86,6 @@ namespace MyHeroMod.content.Quirks.OFA9th
             } 
             
 
-           
-            
-
             if (currentFingers < MaxFingers)
             {
                 fingerRegen++;

@@ -66,8 +66,6 @@ namespace MyHeroMod.content.Projectiles.Base
         
         public virtual void SpawnChargingDust(Player player) { }
         public virtual void OnChargeCancelled(Player player) { } 
-
-        
         public abstract void OnChargeComplete(Player player);
     }
 }

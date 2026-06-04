@@ -724,6 +724,7 @@ Projectiles: {
 	RangedDisassembleChimeraProj.DisplayName: Ranged Disassemble Chimera Proj
 	RangedDisassembleProj.DisplayName: Ranged Disassemble Proj
 	FullCowlingChargeProj.DisplayName: Full Cowling Charge Proj
+	ChargeDetroitProj.DisplayName: Charge Detroit Proj
 }
 
 NPCs: {

@@ -29,6 +29,11 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             {
                 player.velocity *= 0.6f; 
             }
+
+        if (Projectile.ai[0] == 1) 
+            {
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
+            }
         }
 
         public override void SpawnChargingDust(Player player)
@@ -55,7 +60,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 
             player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 3600000);
             
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
+            
             CombatText.NewText(player.getRect(), Color.Cyan, $"Full Cowling {percentage}%!");
             
             

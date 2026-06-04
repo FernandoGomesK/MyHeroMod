@@ -30,9 +30,9 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
             Player player = drawInfo.drawPlayer;
 
             int timer = 0;
-            int maxTime = 40; // O tempo de ChannelTime que definimos no FullCowlingChargeProj (40 frames)
+            int maxTime = 40; 
 
-            // Vamos procurar o projétil para pegar o tempo exato (ai[0]) e animar as veias subindo!
+            
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile p = Main.projectile[i];
