@@ -8,6 +8,7 @@ using MyHeroMod.content.System;
 using Terraria.GameContent.Bestiary;
 using MyHeroMod.content.Quirks.OFA9th;
 using Terraria.ModLoader.IO;
+using System;
 
 namespace MyHeroMod.content.Quirks.AllForOne
 {
@@ -21,7 +22,7 @@ namespace MyHeroMod.content.Quirks.AllForOne
         public void FullReset() 
         {
             
-            InternalQuirks.Clear(); // Clears the stolen quirks list
+            InternalQuirks.Clear(); 
             quirkCounter = 0; 
         }
 
@@ -61,23 +62,40 @@ namespace MyHeroMod.content.Quirks.AllForOne
 
         public override void SaveData(TagCompound tag)
         {
-            List<int> savedQuirks = new List<int>();
+            // Converte a lista de Quirks Roubadas para nomes (textos)
+            List<string> stolenQuirksNames = new List<string>();
             foreach (var quirk in InternalQuirks)
             {
-                savedQuirks.Add((int)quirk); 
+                stolenQuirksNames.Add(quirk.ToString());
             }
-            tag["AfoStolenQuirks"] = savedQuirks;
+            
+            tag["StolenQuirksStringList"] = stolenQuirksNames;
         }
 
         public override void LoadData(TagCompound tag)
         {
-            if (tag.ContainsKey("AfoStolenQuirks"))
+            InternalQuirks.Clear();
+
+            // Novo sistema: Carrega Quirks roubadas pelo nome exato
+            if (tag.ContainsKey("StolenQuirksStringList"))
             {
-                InternalQuirks.Clear();
-                var savedQuirks = tag.GetList<int>("AfoStolenQuirks");
-                foreach (var quirkId in savedQuirks)
+                IList<string> savedQuirks = tag.GetList<string>("StolenQuirksStringList");
+                foreach (string qName in savedQuirks)
                 {
-                    InternalQuirks.Add((QuirkType)quirkId); 
+                    if (Enum.TryParse(qName, out QuirkType parsedQuirk)) 
+                    {
+                        InternalQuirks.Add(parsedQuirk);
+                    }
+                }
+            }
+            // Sistema antigo (Fallback) para jogadores que já tinham o AFO antes deste patch
+            // NOTA: Se usava outra chave antiga para salvar, substitua "InternalQuirks" pelo nome que usava!
+            else if (tag.ContainsKey("InternalQuirks")) 
+            {
+                IList<int> oldQuirks = tag.GetList<int>("InternalQuirks");
+                foreach (int qInt in oldQuirks)
+                {
+                    InternalQuirks.Add((QuirkType)qInt);
                 }
             }
         }

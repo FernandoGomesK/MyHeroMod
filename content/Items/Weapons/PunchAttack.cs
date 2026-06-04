@@ -113,10 +113,10 @@ namespace MyHeroMod.content.Items.Weapons
             var modPlayer = player.GetModPlayer<TransformationPlayer>();
 
             // Verifica se é usuário do OFA
-            bool isPunchUser = modPlayer.SelectedQuirk == QuirkType.OneForAll9th || 
-                               modPlayer.SelectedQuirk == QuirkType.OneForAll8th || 
-                               modPlayer.SelectedQuirk == QuirkType.Gearshift || 
-                               modPlayer.SelectedQuirk == QuirkType.Overclock;
+            bool isPunchUser = modPlayer.HasActiveQuirk(QuirkType.OneForAll9th) || 
+                               modPlayer.HasActiveQuirk(QuirkType.OneForAll8th) || 
+                               modPlayer.HasActiveQuirk(QuirkType.Gearshift) || 
+                               modPlayer.HasActiveQuirk(QuirkType.Overclock);
 
             return isPunchUser; 
         }

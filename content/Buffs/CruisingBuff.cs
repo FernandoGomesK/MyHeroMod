@@ -3,11 +3,11 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Explosion;
 
-namespace MyHeroMod.Buffs
+namespace MyHeroMod.content.Buffs
 {
     public class CruisingBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/ClusterBuff";
+        
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;

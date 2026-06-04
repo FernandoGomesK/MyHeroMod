@@ -41,7 +41,7 @@
 
             // Engine
 
-            ToggleEngine, Recipro,
+            ToggleEngine, Recipro, ReciproExtend, ReciproSpin, ReciproSpinDive,
 
             // Ofa 8th
             PrimeDetroitSmash, CaliforniaSmash, TexasSmash, CarolinaSmash, StockPile, StockPileMaximum,
@@ -77,6 +77,20 @@
             // Spring Like Limbs
 
             ToggleSprings,
+
+            // Overhaul
+
+            DisassembleHeal,
+            DashDisassemble,
+            DisassembleRange,
+            GroundDisassemble,
+            RangeHeal,
+            Chimera,
+            RockShoot,
+
+            // Zero Gravity
+
+            GravityTouch, SelfFloat, GravityRelease
 
 
         }

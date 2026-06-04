@@ -2,12 +2,13 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
+using MyHeroMod.content.Quirks.OFA8th;
 
-namespace MyHeroMod.content.Quirks.OFA8th
+namespace MyHeroMod.content.Buffs
 {
     public class StockPileBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/OneForAllStockPile";
+        
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;

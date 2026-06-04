@@ -80,7 +80,7 @@ namespace MyHeroMod.content.Projectiles
 
             Projectile.rotation = Projectile.velocity.ToRotation();
 
-            if (transPlayer.SelectedQuirk == QuirkType.AllForOne)
+            if (transPlayer.HasActiveQuirk(QuirkType.AllForOne))
             {
                 if (Main.rand.NextBool(2))
             {

@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MyHeroMod.Buffs;
+using MyHeroMod.content.Buffs;
 
 namespace MyHeroMod.content.System.GeneralSkills
 {

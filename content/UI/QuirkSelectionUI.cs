@@ -72,6 +72,9 @@ namespace MyHeroMod
             CreateButton("Decay", QuirkType.Decay, Color.Black);
             CreateButton("Rivet", QuirkType.Rivet, Color.Red);
             CreateButton("Spring Like Limbs", QuirkType.SpringLikeLimbs, Color.LightGreen);
+            CreateButton("Overhaul", QuirkType.Overhaul, Color.LightPink);
+            CreateButton("Zero Gravity", QuirkType.ZeroGravity, Color.Pink);
+            CreateButton("Fierce Wings", QuirkType.FierceWings, Color.Red);
 
 
             // red X to close
@@ -103,32 +106,31 @@ namespace MyHeroMod
             {
 
                 Player player = Main.LocalPlayer;
-                var modPlayer = player.GetModPlayer<TransformationPlayer>();
-                modPlayer.CompleteReset();
-                modPlayer.ResetSlot();
-                modPlayer.SelectedQuirk = quirk;
-                modPlayer.CurrentStage = QuirkStage.Initial;
-                if (quirk == QuirkType.HellFlames || quirk == QuirkType.HalfColdHalfHot )
-    {
-        //i
-        // if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.FireQuirkAttack>()))
-        // {
-        //     player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.FireQuirkAttack>());
-        // }
-    }
-        // else if (quirk == QuirkType.BlueFlames)
-        // {
-        //             // if not on inventary, gives the item
-        //     if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.BlueQuirkAttack>()))
-        //     {
-        //                 player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.BlueQuirkAttack>());
-        //             }
-        //         }
-        else if (quirk == QuirkType.OneForAll9th)
-        {
-                    // if not on inventary, gives the item
-            if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.PunchAttack>()))
-            {
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+                transPlayer.CompleteReset();
+                transPlayer.ResetSlot();
+
+                transPlayer.ActiveQuirks.Clear();
+                transPlayer.ActiveQuirks.Add(quirk);
+
+                transPlayer.UpdateUnlockedSkills();
+
+                if (Main.netMode == NetmodeID.MultiplayerClient) 
+                {
+                    transPlayer.SendClientChanges(transPlayer);
+                }
+
+
+
+if (quirk == QuirkType.HellFlames || quirk == QuirkType.HalfColdHalfHot )
+                {
+                    // Código de dar item do fogo (comentado)
+                }
+                else if (quirk == QuirkType.OneForAll9th)
+                {
+                    if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.PunchAttack>()))
+                    {
                         player.QuickSpawnItem(player.GetSource_GiftOrReward(), ModContent.ItemType<content.Items.Weapons.PunchAttack>());
                     }
                 }

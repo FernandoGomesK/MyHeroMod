@@ -2,12 +2,14 @@ using Terraria.ModLoader;
 using Terraria;
 using MyHeroMod.content.Quirks.SlideAndGlide;
 using MyHeroMod.content.Quirks.Engine;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Buffs 
 {
     public class EngineBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/EngineBuff";
+        
+        
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true; 
@@ -29,7 +31,7 @@ namespace MyHeroMod.content.Buffs
             {
                 player.noFallDmg = true;
                 
-                // --- Base Stats ---
+                // Os seus status base
                 float baseAcceleration = mainPlayer.CurrentStage switch
                 {
                     QuirkStage.Initial => 1f, 
@@ -60,15 +62,17 @@ namespace MyHeroMod.content.Buffs
                     _ => 4.0f
                 };
 
-                // --- Recipro Boost Logic ---
+                // --- APLICAÇÃO DAS MARCHAS ---
+                // Cada marcha aumenta o poder base em 25% (Gear 4 = +100%, Gear 5 = +125%!)
+                float gearMultiplier = 1f + (0.25f * enginePlayer.currentGear);
+
                 float reciproSpeedBoost = 0f;
                 float reciproAccelBoost = 0f;
                 float reciproJumpBoost = 0f;
 
-                // Check if the player has the Recipro buff active
+            
                 if (player.HasBuff(ModContent.BuffType<ReciproBuff>()))
                 {
-                    // Calculate the boost amounts based on the current stage
                     reciproSpeedBoost = mainPlayer.CurrentStage switch
                     {
                         QuirkStage.Initial => 2f,      
@@ -100,10 +104,10 @@ namespace MyHeroMod.content.Buffs
                     };
                 }
 
-                
-                player.runAcceleration *= (baseAcceleration + reciproAccelBoost);
-                player.maxRunSpeed += (baseMaxSpeed + reciproSpeedBoost);
-                player.jumpSpeedBoost += (baseJumpBoost + reciproJumpBoost); 
+                // Aplica a fórmula final: (Base * Marcha) + Bónus do Recipro
+                player.runAcceleration *= (baseAcceleration * gearMultiplier) + reciproAccelBoost;
+                player.maxRunSpeed += (baseMaxSpeed * gearMultiplier) + reciproSpeedBoost;
+                player.jumpSpeedBoost += (baseJumpBoost) + reciproJumpBoost; 
             }
         }
     }

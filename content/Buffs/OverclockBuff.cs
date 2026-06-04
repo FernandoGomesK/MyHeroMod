@@ -9,7 +9,7 @@ namespace MyHeroMod.content.Buffs
 {
     public class OverclockBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/OverclockBuff";
+       
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;

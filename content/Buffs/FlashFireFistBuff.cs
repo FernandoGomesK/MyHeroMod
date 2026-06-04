@@ -14,7 +14,7 @@ namespace MyHeroMod.content.Buffs
     public class FlashFireFistBuff : ModBuff
     {
         
-        public override string Texture => "MyHeroMod/Assets/BuffImage/HCFireFistBuff";
+        
 
         public override void SetStaticDefaults()
         {
@@ -27,7 +27,9 @@ namespace MyHeroMod.content.Buffs
             var transformPlayer = player.GetModPlayer<TransformationPlayer>();
 
         
-            if (transformPlayer.SelectedQuirk == QuirkType.HalfColdHalfHot)
+            
+
+            if (transformPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))
             {
                 player.GetModPlayer<HalfColdHalfHotPlayer>().IsFlashFireFistActive = true;
                 var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
@@ -53,7 +55,7 @@ namespace MyHeroMod.content.Buffs
             }
 
             }
-            else if (transformPlayer.SelectedQuirk == QuirkType.HellFlames)
+            else if (transformPlayer.HasActiveQuirk(QuirkType.HellFlames))
             {
                 var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
                 hellPlayer.IsFlashFireFistActive = true;
@@ -81,7 +83,7 @@ namespace MyHeroMod.content.Buffs
                 player.GetDamage(DamageClass.Melee) += 0.20f; 
                 player.moveSpeed += 2.0f; 
             }
-            else if (transformPlayer.SelectedQuirk == QuirkType.BlueFlames)
+            else if (transformPlayer.HasActiveQuirk(QuirkType.BlueFlames))
             {
                 var bluePlayer = player.GetModPlayer<BlueFlamesPlayer>();
                 bluePlayer.IsFlashFireFistActive = true;
@@ -93,7 +95,7 @@ namespace MyHeroMod.content.Buffs
                 // drawInfo.colorArmorLegs = Color.OrangeRed;
 
                 
-                Lighting.AddLight(player.Center, Color.OrangeRed.ToVector3() * 0.8f);
+                Lighting.AddLight(player.Center, Color.RoyalBlue.ToVector3() * 0.8f);
                 
                     int fire = Dust.NewDust(player.position, player.width, player.height, DustID.BlueTorch, 0f, 0f, 100, default, 2.5f);
                     Main.dust[fire].noGravity = true;
@@ -116,16 +118,16 @@ namespace MyHeroMod.content.Buffs
             Player player = Main.LocalPlayer;
             var transformPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            string texturePath = "MyHeroMod/Assets/BuffImage/HCFireFistBuff"; 
+            string texturePath =  "MyHeroMod/Content/Buffs/HCFireFistBuff"; 
 
             
-            if (transformPlayer.SelectedQuirk == QuirkType.HellFlames)
+            if (transformPlayer.HasActiveQuirk(QuirkType.HellFlames))
             {
-                texturePath = "MyHeroMod/Assets/BuffImage/FlashFireFistBuff";
+                texturePath =  "MyHeroMod/Content/Buffs/FlashFireFistBuff";
             }
-            else if (transformPlayer.SelectedQuirk == QuirkType.BlueFlames)
+            else if (transformPlayer.HasActiveQuirk(QuirkType.BlueFlames))
             {
-                texturePath = "MyHeroMod/Assets/BuffImage/BlueFlashFireFistBuff"; 
+                texturePath = "MyHeroMod/Content/Buffs/BlueFlashFireFistBuff"; 
             }
 
             

@@ -6,7 +6,7 @@ namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
 {
     public class FloatBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/FloatBuff";
+        
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true; 

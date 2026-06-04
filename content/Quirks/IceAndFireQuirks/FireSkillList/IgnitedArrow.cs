@@ -29,7 +29,7 @@ public class IgnitedArrowSkill: QuirkSkill
             Player player = Main.LocalPlayer;
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            if (transPlayer.SelectedQuirk == QuirkType.BlueFlames)
+            if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
             {
                 if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
                 {
@@ -63,13 +63,14 @@ public class IgnitedArrowSkill: QuirkSkill
         var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
         
 
-        if (player.SelectedQuirk == QuirkType.HellFlames) 
+        if (player.HasActiveQuirk(QuirkType.HellFlames))
+     
             return player.CurrentStage >= QuirkStage.Initial;
 
-        if (player.SelectedQuirk == QuirkType.BlueFlames) 
+        if (player.HasActiveQuirk(QuirkType.BlueFlames)) 
             return player.CurrentStage >= QuirkStage.Initial;
 
-        if (player.SelectedQuirk == QuirkType.AllForOne && (afoPlayer.HasInternalQuirk(QuirkType.BlueFlames) || afoPlayer.HasInternalQuirk(QuirkType.HellFlames)))
+        if (player.HasActiveQuirk(QuirkType.AllForOne) && (afoPlayer.HasInternalQuirk(QuirkType.BlueFlames) || afoPlayer.HasInternalQuirk(QuirkType.HellFlames)))
         {
             return true;
         }

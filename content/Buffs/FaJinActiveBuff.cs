@@ -9,7 +9,7 @@ namespace MyHeroMod.content.Buffs
 {
     public class FaJinActiveBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/FaJinActiveBuff";
+        
 
         public override void SetStaticDefaults()
         {

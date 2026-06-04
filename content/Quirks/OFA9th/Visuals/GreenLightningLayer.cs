@@ -16,7 +16,7 @@ public class GreenLightningLayer : PlayerDrawLayer
         var player = drawInfo.drawPlayer.GetModPlayer<OneForAll9thPlayer>();
         var afoPlayer = drawInfo.drawPlayer.GetModPlayer<AllForOnePlayer>();
         var mp = drawInfo.drawPlayer.GetModPlayer<TransformationPlayer>();
-        return mp.SelectedQuirk == QuirkType.OneForAll9th && player.isFullCowlingBuffActive && !drawInfo.drawPlayer.dead  || (mp.SelectedQuirk == QuirkType.AllForOne && afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th) && player.isFullCowlingBuffActive);
+        return mp.HasActiveQuirk(QuirkType.OneForAll9th) && player.isFullCowlingBuffActive && !drawInfo.drawPlayer.dead  || (mp.HasActiveQuirk(QuirkType.AllForOne) && afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th) && player.isFullCowlingBuffActive);
     }
 
     protected override void Draw(ref PlayerDrawSet drawInfo) {

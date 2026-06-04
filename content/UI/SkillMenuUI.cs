@@ -86,18 +86,31 @@ namespace MyHeroMod.content.UI
 
             var modPlayer = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
             
-            // Garante que a lista de desbloqueios está atualizada antes de abrir o menu
+            
             modPlayer.UpdateUnlockedSkills();
 
-            string quirkName = modPlayer.SelectedQuirk.ToString();
             
-            // Título Bonito
-            if (modPlayer.SelectedQuirk == QuirkType.OneForAll9th) quirkName = "One For All 9th";
-            else if (modPlayer.SelectedQuirk == QuirkType.OneForAll8th) quirkName = "One For All 8th";
-            else if (modPlayer.SelectedQuirk == QuirkType.Quirkless) quirkName = "Quirkless";
-            else if (modPlayer.SelectedQuirk == QuirkType.Gearshift) quirkName = "Gearshift";
+            string quirkNames = "Quirkless"; 
+            
+            if (modPlayer.ActiveQuirks.Count > 0)
+            {
+                
+                List<string> activeNames = new List<string>();
+                foreach (var quirk in modPlayer.ActiveQuirks)
+                {
+                    
+                    string formattedName = quirk.ToString();
+                    if (quirk == QuirkType.OneForAll9th) formattedName = "OFA 9th";
+                    if (quirk == QuirkType.OneForAll8th) formattedName = "OFA 8th";
+                    
+                    activeNames.Add(formattedName);
+                }
+                
+                quirkNames = string.Join(", ", activeNames);
+            }
 
-            string dynamicText = $"{quirkName} - Stage: {modPlayer.CurrentStage}";
+            // 2. Define o Texto Final
+            string dynamicText = $"{quirkNames} - Stage: {modPlayer.CurrentStage}";
             title.SetText(dynamicText);
             
             PopulateSkillList(); 

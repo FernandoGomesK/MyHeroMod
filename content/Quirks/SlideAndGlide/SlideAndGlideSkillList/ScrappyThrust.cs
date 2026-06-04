@@ -9,7 +9,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Explosion;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
-using MyHeroMod.Buffs;
+
 
 using MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ScrappyThrust;
 using MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo;

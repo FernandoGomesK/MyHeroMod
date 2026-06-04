@@ -186,7 +186,7 @@ namespace MyHeroMod.content.Quirks.HalfColdHalfHot
         UpdateFlashFreeze();
     }
 
-            if (mainPlayer.SelectedQuirk == QuirkType.HalfColdHalfHot)
+            if (mainPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))
             {
                 
                 bool isFlying = (Player.velocity.Y != 0) && (Player.wingTime > 0 || Player.rocketDelay > 0) && !Player.mount.Active;

@@ -78,7 +78,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
              
 
             
-            if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.SelectedQuirk == QuirkType.BlueFlames)
+            if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.HasActiveQuirk(QuirkType.BlueFlames))
             {
                 
                 Player.wingTimeMax = 50;

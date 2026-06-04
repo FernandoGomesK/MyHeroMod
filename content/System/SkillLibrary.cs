@@ -73,6 +73,9 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
 
             {QuirkSkills.ToggleEngine, new ToggleEngineSkill()},
             {QuirkSkills.Recipro, new ReciproSkill()},
+            {QuirkSkills.ReciproExtend, new ReciproExtendSkill() },
+            {QuirkSkills.ReciproSpin, new ReciproSpinSkill() },
+            {QuirkSkills.ReciproSpinDive, new ReciproSpinDiveSkill() },
 
             // Common Skills
 
@@ -143,6 +146,22 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             // Spring
 
             {QuirkSkills.ToggleSprings, new ToggleSpringsSkill() },
+
+            // Overhaul
+
+            {QuirkSkills.DisassembleHeal, new DisassembleHealSkill() },
+            {QuirkSkills.DashDisassemble, new DashDisassembleSkill() },
+            {QuirkSkills.DisassembleRange, new DisassembleRangeSkill() },
+            {QuirkSkills.GroundDisassemble, new GroundDisassembleSkill() },
+            {QuirkSkills.RangeHeal, new RangeHealSkill() },
+            {QuirkSkills.Chimera, new ChimeraSkill() },
+            {QuirkSkills.RockShoot, new RockShootSkill() },
+
+            // Zero Gravity
+
+            {QuirkSkills.GravityTouch, new GravityTouchSkill() },
+            {QuirkSkills.SelfFloat, new SelfFloatSkill() },
+            {QuirkSkills.GravityRelease, new GravityReleaseSkill() },
 
 
 

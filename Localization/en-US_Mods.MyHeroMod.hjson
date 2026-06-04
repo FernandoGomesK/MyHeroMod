@@ -342,6 +342,51 @@ Items: {
 		DisplayName: Golden Helmet
 		Tooltip: ""
 	}
+
+	QuirkRemover: {
+		DisplayName: Quirk Remover
+		Tooltip: ""
+	}
+
+	ChimeraArms: {
+		DisplayName: Chimera Arms
+		Tooltip: ""
+	}
+
+	UrarakaAlpha: {
+		DisplayName: Uraraka Alpha
+		Tooltip: ""
+	}
+
+	UrarakaAlphaBreastplate: {
+		DisplayName: Uraraka Alpha Breastplate
+		Tooltip: ""
+	}
+
+	GeneActivator: {
+		DisplayName: Gene Activator
+		Tooltip: ""
+	}
+
+	FirstTenyaBreastplate: {
+		DisplayName: First Tenya Breastplate
+		Tooltip: ""
+	}
+
+	FirstTenyaHelmet: {
+		DisplayName: First Tenya Helmet
+		Tooltip: ""
+	}
+
+	FirstTenyaLeggings: {
+		DisplayName: First Tenya Leggings
+		Tooltip: ""
+	}
+
+	SecondTenyaHelmet: {
+		DisplayName: Second Tenya Helmet
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -534,6 +579,56 @@ Buffs: {
 		DisplayName: Spring-like Limbs
 		Description: Your limbs store and release kinetic energy for massive jumps.
 	}
+
+	ChimeraBuff: {
+		DisplayName: Chimera Buff
+		Description: Mods.MyHeroMod.Buffs.ChimeraBuff.Description
+	}
+
+	ZeroGravityBuff: {
+		DisplayName: Zero Gravity Buff
+		Description: Mods.MyHeroMod.Buffs.ZeroGravityBuff.Description
+	}
+
+	ZeroGravityEnemyBuff: {
+		DisplayName: Zero Gravity Enemy Buff
+		Description: Mods.MyHeroMod.Buffs.ZeroGravityEnemyBuff.Description
+	}
+
+	ColdResistanceBuff: {
+		DisplayName: Cold Resistance Buff
+		Description: Mods.MyHeroMod.Buffs.ColdResistanceBuff.Description
+	}
+
+	HeatResistanceBuff: {
+		DisplayName: Heat Resistance Buff
+		Description: Mods.MyHeroMod.Buffs.HeatResistanceBuff.Description
+	}
+
+	NauseaResistanceBuff: {
+		DisplayName: Nausea Resistance Buff
+		Description: Mods.MyHeroMod.Buffs.NauseaResistanceBuff.Description
+	}
+
+	PerfectVesselBuff: {
+		DisplayName: Perfect Vessel Buff
+		Description: Mods.MyHeroMod.Buffs.PerfectVesselBuff.Description
+	}
+
+	ResourcefulBuff: {
+		DisplayName: Resourceful Buff
+		Description: Mods.MyHeroMod.Buffs.ResourcefulBuff.Description
+	}
+
+	StrongMindedBuff: {
+		DisplayName: Strong Minded Buff
+		Description: Mods.MyHeroMod.Buffs.StrongMindedBuff.Description
+	}
+
+	ThermalResistanceBuff: {
+		DisplayName: Thermal Resistance Buff
+		Description: Mods.MyHeroMod.Buffs.ThermalResistanceBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own body with 100% power!"
@@ -616,6 +711,18 @@ Projectiles: {
 	ShootyGoKablamProj.DisplayName: Shooty Go Kablam!
 	ShootyGoProj.DisplayName: Shooty Go
 	RivetStabPlayerProj.DisplayName: Rivet Stab
+	DashDisassembleProj.DisplayName: Dash Disassemble Proj
+	RangeDisassembleProj.DisplayName: Range Disassemble Proj
+	RockSpikeProj.DisplayName: Rock Spike Proj
+	RockWaveController.DisplayName: Rock Wave Controller
+	RangeHealProj.DisplayName: Range Heal Proj
+	RockShootProj.DisplayName: Rock Shoot Proj
+	GravityTouchProj.DisplayName: Gravity Touch Proj
+	ReciproExtendController.DisplayName: Recipro Extend Controller
+	ReciproSpinDiveController.DisplayName: Recipro Spin Dive Controller
+	ReciproSpinController.DisplayName: Recipro Spin Controller
+	RangedDisassembleChimeraProj.DisplayName: Ranged Disassemble Chimera Proj
+	RangedDisassembleProj.DisplayName: Ranged Disassemble Proj
 }
 
 NPCs: {

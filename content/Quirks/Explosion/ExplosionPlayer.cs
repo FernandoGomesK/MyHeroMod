@@ -9,7 +9,7 @@ using MyHeroMod.content.System;
 using Terraria.Audio;
 using System.Collections.Generic;
 using MyHeroMod.content.Dusts;
-using MyHeroMod.Buffs;
+using MyHeroMod.content.Buffs;
 
 
 namespace MyHeroMod.content.Quirks.Explosion
@@ -52,7 +52,7 @@ namespace MyHeroMod.content.Quirks.Explosion
                 
             }
 
-            if (mainPlayer.SelectedQuirk != QuirkType.Explosion)
+            if (!mainPlayer.HasActiveQuirk(QuirkType.Explosion))
                 return;
             
             if (IsClusterActive)
@@ -60,7 +60,7 @@ namespace MyHeroMod.content.Quirks.Explosion
                 Player.AddBuff(ModContent.BuffType<ClusterBuff>(),2 );
             }
 
-            if (mainPlayer.CurrentStage >= QuirkStage.Advanced && mainPlayer.SelectedQuirk == QuirkType.Explosion && IsClusterActive)
+            if (mainPlayer.CurrentStage >= QuirkStage.Advanced && mainPlayer.HasActiveQuirk(QuirkType.Explosion) && IsClusterActive)
             {
                 Player.wingTimeMax = 150;
 
@@ -71,7 +71,7 @@ namespace MyHeroMod.content.Quirks.Explosion
                 }
                 Player.noFallDmg = true;
             }
-            else if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.SelectedQuirk == QuirkType.Explosion)
+            else if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.HasActiveQuirk(QuirkType.Explosion))
             {
                 Player.wingTimeMax = 30;
 
@@ -98,7 +98,7 @@ namespace MyHeroMod.content.Quirks.Explosion
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             
-            if (transPlayer.SelectedQuirk == QuirkType.Explosion && transPlayer.CurrentStage >= QuirkStage.Adequation)
+            if (transPlayer.HasActiveQuirk(QuirkType.Explosion) && transPlayer.CurrentStage >= QuirkStage.Adequation)
             {
                 
                 Player.noFallDmg = true; 
@@ -151,7 +151,7 @@ else
             
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            if (mainPlayer.SelectedQuirk == QuirkType.Explosion && mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            if (mainPlayer.HasActiveQuirk(QuirkType.Explosion) && mainPlayer.CurrentStage >= QuirkStage.Adequation)
             {
             if (Player.velocity.Y != 0 && !Player.mount.Active)
                 {

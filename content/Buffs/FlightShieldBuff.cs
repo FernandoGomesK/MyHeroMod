@@ -7,7 +7,7 @@ namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
 {
     public class FlightShieldBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/FlightShieldBuff";
+        
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true; 

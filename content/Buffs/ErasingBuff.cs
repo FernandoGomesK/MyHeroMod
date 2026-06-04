@@ -10,7 +10,7 @@ namespace MyHeroMod.content.Buffs
 {
     public class ErasingBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/ErasingBuff";
+        
 
         public override void SetStaticDefaults()
         {

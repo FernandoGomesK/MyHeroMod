@@ -26,7 +26,7 @@ public class ToggleEngineSkill : QuirkSkill
         }
         else
         {
-            player.AddBuff(ModContent.BuffType<EngineBuff>(), 3600);
+            player.AddBuff(ModContent.BuffType<EngineBuff>(), 360000000);
              
         }
     }

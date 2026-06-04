@@ -53,13 +53,19 @@ namespace MyHeroMod.content.Npcs.D_Garaki
         
         public override bool CanTownNPCSpawn(int numTownNPCs)
         {
+            
             for (int k = 0; k < 255; k++)
             {
                 Player player = Main.player[k];
                 if (!player.active) continue;
                 
                 
-                if (player.HasItem(ModContent.ItemType<QuirkGene>()))
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+                
+                
+                if (player.HasItem(ModContent.ItemType<QuirkGene>()) || 
+                    player.HasItem(ModContent.ItemType<QuirkSyringe>()) || 
+                    transPlayer.ActiveQuirks.Count > 0)
                 {
                     return true;
                 }
@@ -99,6 +105,7 @@ namespace MyHeroMod.content.Npcs.D_Garaki
             
             npcShop.Add(ModContent.ItemType<QuirkSyringe>());
             npcShop.Add(ModContent.ItemType<QuirkGene>());
+            npcShop.Add(ModContent.ItemType<QuirkRemover>());
             npcShop.Add(ModContent.ItemType<SummonHim>());
             
            

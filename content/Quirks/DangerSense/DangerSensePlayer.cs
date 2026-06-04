@@ -39,12 +39,12 @@ namespace MyHeroMod.content.Quirks.DangerSense;
         {
         var transPlayer = Player.GetModPlayer<TransformationPlayer>();
         
-        if (transPlayer.SelectedQuirk == QuirkType.DangerSense)
+        if (transPlayer.HasActiveQuirk(QuirkType.DangerSense))
         {
             return true;
         }
 
-        if (transPlayer.SelectedQuirk == QuirkType.OneForAll9th)
+        if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
         {
             var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>();
             if (ofaPlayer.HasInternalQuirk(QuirkType.DangerSense))

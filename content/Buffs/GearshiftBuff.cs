@@ -8,7 +8,7 @@ namespace MyHeroMod.content.Buffs
 {
     public class GearshiftBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/GearshiftBuff";
+        
         public override void SetStaticDefaults()
         {
             Main.buffNoSave[Type] = true;

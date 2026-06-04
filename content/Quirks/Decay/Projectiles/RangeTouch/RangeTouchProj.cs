@@ -44,7 +44,7 @@ namespace MyHeroMod.content.Quirks.Decay.Projectiles.RangeTouch
 
             Projectile.rotation = Projectile.velocity.ToRotation();
 
-            if (transPlayer.SelectedQuirk == QuirkType.AllForOne)
+            if (transPlayer.HasActiveQuirk(QuirkType.Decay))
             {
                 if (Main.rand.NextBool(2))
             {

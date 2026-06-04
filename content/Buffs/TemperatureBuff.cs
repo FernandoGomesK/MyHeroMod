@@ -13,7 +13,7 @@ namespace MyHeroMod.content.Buffs
 {
     public class TemperatureBuff : ModBuff
     {
-        public override string Texture => "MyHeroMod/Assets/BuffImage/TemperatureBuff"; 
+        
 
         public override void SetStaticDefaults()
         {
@@ -63,17 +63,17 @@ namespace MyHeroMod.content.Buffs
             Player player = Main.LocalPlayer;
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            string texturePath = "MyHeroMod/Assets/BuffImage/TemperatureBuff"; 
+            string texturePath = "MyHeroMod/content/Buffs/TemperatureBuff"; 
 
             if (!transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))
             {
                 if (transPlayer.HasActiveQuirk(QuirkType.HellFlames))
                 {
-                    texturePath = "MyHeroMod/Assets/BuffImage/HeatBuff"; 
+                    texturePath = "MyHeroMod/content/Buffs/HeatBuff"; 
                 }
                 else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
                 {
-                    texturePath = "MyHeroMod/Assets/BuffImage/BlueHeatBuff"; 
+                    texturePath = "MyHeroMod/content/Buffs/BlueHeatBuff"; 
                 }
             }
 

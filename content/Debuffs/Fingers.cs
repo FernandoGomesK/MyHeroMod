@@ -3,13 +3,14 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
+using MyHeroMod.content.Quirks.OFA9th;
 
-namespace MyHeroMod.content.Quirks.OFA9th.Buffs
+namespace MyHeroMod.content.Buffs
 {
     public class FingersBuff : ModBuff
     {
        
-        public override string Texture => "MyHeroMod/Assets/BuffImage/FingersBuff"; 
+        
 
         public override void SetStaticDefaults()
         {
