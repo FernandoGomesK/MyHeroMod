@@ -20,7 +20,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast
 
         public void FullReset()
         {
-            isZeroGravityActive = false;
+            
             Percentage = 0;
             OpticReserve = 100;
         }
