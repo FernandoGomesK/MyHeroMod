@@ -11,20 +11,26 @@ namespace MyHeroMod.content.Quirks.OpticBlast
 {
     public partial class OpticBlastPlayer : ModPlayer, IQuirkResetter
     {
-        
-        
-        
-        public int Percentage = 0;
+        public enum Percentage 
+        {
+            Zero,
+            TwentyFive,
+            Fifty,
+            SeventyFive,
+            Full
+        };
+
+    
+        public Percentage CurrentPercentage = Percentage.Zero;
+
         public int MaxOpticBlast = 100;
         public int CurrentOpticBlast = 0;
-        
 
         public void FullReset()
         {
-            
-            Percentage = 0;
             MaxOpticBlast = 100;
             CurrentOpticBlast = 0;
+            CurrentPercentage = Percentage.Zero; 
         }
 
         public override void ResetEffects()
@@ -34,8 +40,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast
 
         public override void PostUpdateMiscEffects()
         {
-           
-        
+            
         }
 
         public override void PostUpdate()
@@ -45,8 +50,5 @@ namespace MyHeroMod.content.Quirks.OpticBlast
                 
             }
         }
-            }
-            
-            }
-        
-
+    }
+}

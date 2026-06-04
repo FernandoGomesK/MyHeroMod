@@ -94,7 +94,7 @@
 
             // Optic Blast
 
-            SingleOpticBlast
+            SingleOpticBlast, ChangePercentage,
 
 
         }

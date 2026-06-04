@@ -92,6 +92,8 @@ public class SingleOpticBlastSkill : QuirkSkill
                     4f,  
                     player.whoAmI
                 );
+
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/SingleOpticBlast"), player.position);
            
             }
 
