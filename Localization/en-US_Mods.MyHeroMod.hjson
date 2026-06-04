@@ -725,6 +725,7 @@ Projectiles: {
 	RangedDisassembleProj.DisplayName: Ranged Disassemble Proj
 	FullCowlingChargeProj.DisplayName: Full Cowling Charge Proj
 	ChargeDetroitProj.DisplayName: Charge Detroit Proj
+	OpticBlastProj.DisplayName: Optic Blast Proj
 }
 
 NPCs: {

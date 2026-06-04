@@ -163,6 +163,10 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             {QuirkSkills.SelfFloat, new SelfFloatSkill() },
             {QuirkSkills.GravityRelease, new GravityReleaseSkill() },
 
+            // Optic Blast
+
+            {QuirkSkills.SingleOpticBlast, new SingleOpticBlastSkill() },
+
 
 
 

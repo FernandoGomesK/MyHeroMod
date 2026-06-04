@@ -90,7 +90,11 @@
 
             // Zero Gravity
 
-            GravityTouch, SelfFloat, GravityRelease
+            GravityTouch, SelfFloat, GravityRelease,
+
+            // Optic Blast
+
+            SingleOpticBlast
 
 
         }

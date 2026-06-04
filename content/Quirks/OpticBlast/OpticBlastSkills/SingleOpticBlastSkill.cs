@@ -13,35 +13,18 @@ using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
 
 using MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ScrappyThrust;
 using MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo;
+using MyHeroMod.content.Quirks.OpticBlast.Projectiles;
 
-public class ScrappyThrustSkill : QuirkSkill
+public class SingleOpticBlastSkill : QuirkSkill
 {
-    public override string Name
-    {
-        get
-        {
-            Player player = Main.LocalPlayer;
-            var transPlayer = player.GetModPlayer<TransformationPlayer>();
-
-            if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
-            {
-                return "Shooty go Blam";
-            }
-            else
-            {
-                return "Scrappy Thrust Style";
-            }
-            
-        } 
-        
-    }
+     public override string Name => "Optic Blast";
     public override string Description => "Shoot a concentrated penetrating Projectile";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
-    public override int BaseCooldown => 30;
+    public override int BaseCooldown => 120;
 
-    public override QuirkType RequiredQuirk => QuirkType.SlideAndGlide;
-    public override QuirkStage RequiredStage => QuirkStage.Adequation;
+    public override QuirkType RequiredQuirk => QuirkType.OpticBlast;
+    public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => false;
 
@@ -52,8 +35,6 @@ public class ScrappyThrustSkill : QuirkSkill
                 var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
             
-
-                 
 
 
         float damageMultiplier = 1.0f;
@@ -90,7 +71,7 @@ public class ScrappyThrustSkill : QuirkSkill
 
             var finalDamage = (int)(damageMultiplier * MaxDamage);
 
-            var text = transPlayer.CurrentStage >= QuirkStage.Intermediate ? "Shooty Go Blam!" : "Scrappy Thrust Style!";
+            var text = "Optic Blast!";
             
 
             CombatText.NewText(player.getRect(), Color.Blue, text);
@@ -101,31 +82,19 @@ public class ScrappyThrustSkill : QuirkSkill
             Velocity.Normalize();
             Velocity *= 15f;
 
-            if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
-            {
+            
                 Projectile.NewProjectile(
                     player.GetSource_FromThis(),
                     player.Center,
                     Velocity,
-                    ModContent.ProjectileType<ShootyGoProj>(),
+                    ModContent.ProjectileType<OpticBlastProj>(),
                     finalDamage, 
                     4f,  
                     player.whoAmI
                 );
-            }
-            else
-            {
-                Projectile.NewProjectile(
-                    player.GetSource_FromThis(),
-                    player.Center,
-                    Velocity,
-                    ModContent.ProjectileType<ScrappyThrustProj>(),
-                    finalDamage, 
-                    2f,  
-                    player.whoAmI
-                );
+           
             }
 
             
-        }}
+        }
         
