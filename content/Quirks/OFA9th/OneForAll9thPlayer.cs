@@ -45,11 +45,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
     
         private int ElectricSoundTimer = 0;
 
-        public int ActivationTimer = 0;
-        public int ActivationMaxTime = 40;
+        
         public int percentage = 0;
-        public int pendingPercentage = 0;
-        public bool Activating = false; 
         
 
         public void FullReset()
@@ -57,11 +54,11 @@ namespace MyHeroMod.content.Quirks.OFA9th
             currentFingers = 10;
             ParallelProcessing = 0;
             ElectricSoundTimer = 0;
-            ActivationTimer = 0;
-            ActivationMaxTime = 40;
+            // ActivationTimer = 0;
+            // ActivationMaxTime = 40;
             percentage = 0;
-            pendingPercentage = 0;
-            Activating = false; 
+            // pendingPercentage = 0;
+            // Activating = false; 
             isFullCowlingBuffActive = false;
 
         }
@@ -70,11 +67,11 @@ namespace MyHeroMod.content.Quirks.OFA9th
         {
             currentFingers = 10;
             ElectricSoundTimer = 0;
-            ActivationTimer = 0;
-            ActivationMaxTime = 40;
+            // ActivationTimer = 0;
+            // ActivationMaxTime = 40;
             percentage = 0;
-            pendingPercentage = 0;
-            Activating = false; 
+            // pendingPercentage = 0;
+            // Activating = false; 
             isFullCowlingBuffActive = false;
         }
         
@@ -87,42 +84,20 @@ namespace MyHeroMod.content.Quirks.OFA9th
             {
                 return; 
             } 
-            if (Activating)
-            {
-                ActivationTimer++;
-                Player.velocity *= 0.6f; 
+            
 
-                if (Main.rand.NextBool(2))
-                {
-                    Dust d = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, Color.Green, 0.5f);
-                    d.noGravity = true;
-                    d.velocity *= 0.5f;   
-                }
-
-                if (ActivationTimer >= ActivationMaxTime)
-                {   
-                    ActivateFullCowling();
-                    Activating = false;
-                    ActivationTimer = 0;
-                }
-                
-            }
-            else
-            {
-               
-                ActivationTimer = 0;
-            }
+           
             
 
             if (currentFingers < MaxFingers)
             {
                 fingerRegen++;
-            }
-            if (fingerRegen >= fingerTimer)
-            {
-                currentFingers++;
-                Main.NewText("Finger Regenerated", Color.White);
-                fingerRegen = 0;
+                if (fingerRegen >= fingerTimer)
+                {
+                    currentFingers++;
+                    Main.NewText("Finger Regenerated", Color.White);
+                    fingerRegen = 0; 
+                }
             }
             else
             {
@@ -131,22 +106,22 @@ namespace MyHeroMod.content.Quirks.OFA9th
         
         
                 }
-        private void ActivateFullCowling()
-        {
+        // private void ActivateFullCowling()
+        // {
 
-            percentage = pendingPercentage;
+        //     percentage = pendingPercentage;
         
-            Player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 3600000);
-            Main.NewText("ONE FOR ALL Full Cowling", Color.Cyan);
-            CombatText.NewText(Player.getRect(), Color.Cyan, "Full Cowling!");
+        //     Player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 3600000);
+        //     Main.NewText("ONE FOR ALL Full Cowling", Color.Cyan);
+        //     CombatText.NewText(Player.getRect(), Color.Cyan, "Full Cowling!");
             
             
-            for (int i = 0; i < 20; i++)
-            {
-                Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
-                Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, speed.X, speed.Y, 0, Color.Green, 2f);
-            }
-        }
+        //     for (int i = 0; i < 20; i++)
+        //     {
+        //         Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
+        //         Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, speed.X, speed.Y, 0, Color.Green, 2f);
+        //     }
+        // }
 
 
         public List<QuirkType> InternalQuirks = new List<QuirkType>();
@@ -274,12 +249,12 @@ namespace MyHeroMod.content.Quirks.OFA9th
             
         }
 
-        // --- MULTIPLAYER ---
+       // --- MULTIPLAYER ---
         public override void CopyClientState(ModPlayer targetCopy)
         {
             OneForAll9thPlayer clone = targetCopy as OneForAll9thPlayer;
             clone.percentage = percentage;
-            clone.Activating = Activating;
+            
         }
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -288,25 +263,22 @@ namespace MyHeroMod.content.Quirks.OFA9th
             packet.Write((byte)MyHeroMod.MessageType.SyncOFA9th); 
             packet.Write((byte)Player.whoAmI); 
             packet.Write((int)percentage); 
-            packet.Write(Activating); 
+            
             packet.Send(toWho, fromWho);
         }
 
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
             OneForAll9thPlayer clone = clientPlayer as OneForAll9thPlayer;
-            if (percentage != clone.percentage || Activating != clone.Activating)
+            
+            
+            if (percentage != clone.percentage)
             {
                 ModPacket packet = Mod.GetPacket();
                 packet.Write((byte)MyHeroMod.MessageType.SyncOFA9th);
                 packet.Write((byte)Player.whoAmI);
                 packet.Write((int)percentage);
-                packet.Write(Activating);
                 packet.Send(-1, Player.whoAmI); 
             }
-        }
-        
-
-    }
-}
+        }}}
 

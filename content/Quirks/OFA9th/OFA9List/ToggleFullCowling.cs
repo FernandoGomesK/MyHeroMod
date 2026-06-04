@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using Terraria.Graphics.Renderers;
 using Steamworks;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 
 public abstract class FullCowlingBase : QuirkSkill
 {
@@ -31,31 +32,34 @@ public abstract class FullCowlingBase : QuirkSkill
 
     public override void OnUse(Player player)
     {
-
         var OfaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
         
+        // 1. If it's already active, deactivate it instantly.
         if (player.HasBuff(BuffType))
-    {
-        
-        player.ClearBuff(BuffType); 
-        OfaPlayer.percentage = 0;
-        CombatText.NewText(player.getRect(), Color.Red, "Deactivated");
-    }
-        else if (OfaPlayer.Activating)
-    {
-        OfaPlayer.Activating = false;
-        OfaPlayer.ActivationTimer = 0;
-        OfaPlayer.pendingPercentage = 0;
-        CombatText.NewText(player.getRect(), Color.Red, "Canceled");
-    }
+        {
+            player.ClearBuff(BuffType); 
+            OfaPlayer.percentage = 0;
+            CombatText.NewText(player.getRect(), Color.Red, "Deactivated");
+        }
+        // 2. If not active, start the channeling projectile!
         else
-    {
-        OfaPlayer.ActivationTimer = 0;
-        OfaPlayer.Activating = true;
-        OfaPlayer.pendingPercentage = CowlingPercentage;
-        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
-        CombatText.NewText(player.getRect(), Color.LightGreen, Name + " Charging!");
-    }
+        {
+            CombatText.NewText(player.getRect(), Color.LightGreen, Name + " Charging!");
+            
+            // We pass 'CowlingPercentage' into the ai2 slot (the 6th parameter)
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(), 
+                player.Center, 
+                Vector2.Zero, 
+                ModContent.ProjectileType<FullCowlingChargeProj>(), 
+                0, 
+                0f, 
+                player.whoAmI, 
+                ai0: 0f, 
+                ai1: 0f, 
+                ai2: CowlingPercentage 
+            );
+        }
         // else
         // {
         //     if (ActivationTimer > 0){

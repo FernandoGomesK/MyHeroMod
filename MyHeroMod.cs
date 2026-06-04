@@ -186,7 +186,7 @@ namespace MyHeroMod
 
                         var ofa9 = Main.player[player9].GetModPlayer<OneForAll9thPlayer>();
                         ofa9.percentage = percentage9;
-                        ofa9.Activating = activating9;
+                        
 
                         if (Main.netMode == NetmodeID.Server)
                         {

@@ -723,6 +723,7 @@ Projectiles: {
 	ReciproSpinController.DisplayName: Recipro Spin Controller
 	RangedDisassembleChimeraProj.DisplayName: Ranged Disassemble Chimera Proj
 	RangedDisassembleProj.DisplayName: Ranged Disassemble Proj
+	FullCowlingChargeProj.DisplayName: Full Cowling Charge Proj
 }
 
 NPCs: {
