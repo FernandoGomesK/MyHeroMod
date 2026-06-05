@@ -6,6 +6,7 @@ using Terraria.UI;
 
 using MyHeroMod.content;
 using MyHeroMod.content.UI;
+using MyHeroMod.content.Quirks.OpticBlast;
 
 namespace MyHeroMod
 {
@@ -32,6 +33,10 @@ namespace MyHeroMod
 
         private UserInterface engineGearUserInterface;
         internal EngineGearUIState engineGearUIState;
+
+        private UserInterface OpticBlastUserInterface;
+        internal OpticChargeUIState OpticBlastUIState;
+
 
         public override void Load()
         {
@@ -72,6 +77,11 @@ namespace MyHeroMod
                 engineGearUIState.Activate();
                 engineGearUserInterface = new UserInterface();
                 engineGearUserInterface.SetState(engineGearUIState);
+
+                OpticBlastUIState = new OpticChargeUIState();
+                OpticBlastUIState.Activate();
+                OpticBlastUserInterface = new UserInterface();
+                OpticBlastUserInterface.SetState(OpticBlastUIState);
             }
         }
         
@@ -97,7 +107,8 @@ namespace MyHeroMod
             engineGearUIState = null;
             engineGearUserInterface = null;
 
-            
+            OpticBlastUIState = null;
+            OpticBlastUserInterface = null;
         }
 
         public static void ToggleSkillMenu()
@@ -168,6 +179,9 @@ namespace MyHeroMod
 
             if (blinkUserInterface != null)
                 blinkUserInterface.Update(gameTime);
+
+            if (OpticBlastUserInterface != null)
+                OpticBlastUserInterface.Update(gameTime);
 
             if (flightShieldUserInterface != null)
                 flightShieldUserInterface.Update(gameTime);
@@ -259,6 +273,19 @@ namespace MyHeroMod
                     if (engineGearUserInterface != null)
                     {
                         engineGearUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
+                    }
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
+
+            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
+                "MyHeroMod: Optic Blast Bar",
+                delegate
+                {
+                    if (OpticBlastUserInterface != null)
+                    {
+                        OpticBlastUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
                     }
                     return true;
                 },

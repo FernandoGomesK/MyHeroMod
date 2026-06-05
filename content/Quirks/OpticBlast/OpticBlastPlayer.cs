@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.System.BasePlayer;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Debuffs;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Quirks.OpticBlast.Projectiles; // Added to access the Controller
 
 namespace MyHeroMod.content.Quirks.OpticBlast
 {
@@ -13,41 +13,67 @@ namespace MyHeroMod.content.Quirks.OpticBlast
     {
         public enum Percentage 
         {
-            Zero,
-            TwentyFive,
-            Fifty,
-            SeventyFive,
-            Full
+            Zero, TwentyFive, Fifty, SeventyFive, Full
         };
 
-    
+        public bool isRubyGlassesEquipped = false;
         public Percentage CurrentPercentage = Percentage.Zero;
 
         public int MaxOpticBlast = 100;
-        public int CurrentOpticBlast = 0;
+        public int MinOpticBlast = 0;
+        public int CurrentOpticBlast = 100;
+        public int regenTimer = 0; 
 
         public void FullReset()
         {
             MaxOpticBlast = 100;
-            CurrentOpticBlast = 0;
+            CurrentOpticBlast = MaxOpticBlast;
             CurrentPercentage = Percentage.Zero; 
-        }
-
-        public override void ResetEffects()
-        {
-            
-        }
-
-        public override void PostUpdateMiscEffects()
-        {
-            
+            regenTimer = 0;
+            isRubyGlassesEquipped = false;
         }
 
         public override void PostUpdate()
         {
-            if (CurrentOpticBlast > 0)
+            // 1. Charge Regeneration
+            if (CurrentOpticBlast < MaxOpticBlast)
             {
-                
+                regenTimer++;
+                if (regenTimer >= 6)
+                {
+                    CurrentOpticBlast++;
+                    regenTimer = 0;
+                }
+            }
+
+            // 2. Overheat Logic
+            if (CurrentOpticBlast <= 0)
+            {
+                CurrentOpticBlast = 0;
+                CurrentPercentage = Percentage.Zero;
+                Player.AddBuff(ModContent.BuffType<Heatstroke   >(), 300); 
+            }
+
+            // 3. Spawning the Laser Beam Controller Safely
+            // We only want to spawn ONE controller if the glasses are off.
+            // ownedProjectileCounts is a super fast O(1) check to see if it already exists!
+            if (!isRubyGlassesEquipped && !Player.HasBuff(ModContent.BuffType<Heatstroke>()))
+            {
+                if (Player.ownedProjectileCounts[ModContent.ProjectileType<ContinuousOpticBlastController>()] < 1)
+                {
+                    Projectile.NewProjectile(
+                        Player.GetSource_FromThis(),
+                        Player.Center,
+                        Vector2.Zero,
+                        ModContent.ProjectileType<ContinuousOpticBlastController>(),
+                        20, // Base Damage of the uncontrolled laser
+                        4f,  
+                        Player.whoAmI
+                    );
+                    
+                    // The sound only plays ONCE when the glasses come off
+                    Terraria.Audio.SoundEngine.PlaySound(new Terraria.Audio.SoundStyle("MyHeroMod/Assets/Sounds/SingleOpticBlast"), Player.position);
+                }
             }
         }
     }

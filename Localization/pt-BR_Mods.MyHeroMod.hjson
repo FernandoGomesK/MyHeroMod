@@ -730,6 +730,7 @@ Projectiles: {
 	// FullCowlingChargeProj.DisplayName: Full Cowling Charge Proj
 	// ChargeDetroitProj.DisplayName: Charge Detroit Proj
 	// OpticBlastProj.DisplayName: Optic Blast Proj
+	// ContinuousOpticBlastController.DisplayName: Continuous Optic Blast Controller
 }
 
 NPCs: {
