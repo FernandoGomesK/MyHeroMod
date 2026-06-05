@@ -5,10 +5,10 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.OpticBlast.Projectiles;
+using MyHeroMod.content.Quirks.OpticBlast;
 
-namespace MyHeroMod.content.Quirks.OpticBlast.Skills
-{
-    public class ContinuousOpticBlastSkill : QuirkSkill
+
+public class ContinuousOpticBlastSkill : QuirkSkill
     {
         public override string Name => "Continuous Optic Blast";
         public override string Description => "Shoot a concentrated penetrating beam as long as you hold the key.";
@@ -23,7 +23,14 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Skills
 
         public override void OnUse(Player player)
         {
-            
+            var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
+
+            if (opticPlayer.CurrentPercentage == OpticBlastPlayer.Percentage.Zero)
+            {
+                return;
+            }
+            else
+        {
             int damage = 35; 
 
             // Spawn the Sustained Projectile
@@ -36,6 +43,8 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Skills
                 4f, 
                 player.whoAmI
             );
+            
+        }
+            
         }
     }
-}

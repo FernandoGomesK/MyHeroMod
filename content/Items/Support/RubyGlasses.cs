@@ -31,6 +31,13 @@ namespace MyHeroMod.content.Items.Support
             
         }
 
+        public override void UpdateEquip(Player player)
+         {
+            var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
+            opticPlayer.isRubyGlassesEquipped = true;
+            
+        }
+
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
         
@@ -53,3 +60,35 @@ namespace MyHeroMod.content.Items.Support
         
         }
         }
+
+//     [AutoloadEquip(EquipType.Head)]
+//     public class FirstBakugoHelmet : ModItem
+//     {
+//         public override void SetStaticDefaults()
+//         {
+//             ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
+            
+//         }
+//         public override void SetDefaults()
+//         {
+//             Item.width = 18;
+//             Item.height = 18;
+//             Item.value = 10000;
+//             Item.rare = ItemRarityID.Green;
+//             Item.defense = 5; // Defesa do capacete
+//         }
+//         public override void UpdateEquip(Player player)
+//         {
+            
+//         }
+//         public override void AddRecipes()
+//         {
+//             CreateRecipe()
+//                 .AddIngredient(ItemID.Silk, 20) 
+//                 .AddRecipeGroup(RecipeSystem.EvilIronGroup, 15)
+//                 .AddIngredient(ItemID.Grenade, 5)
+//                 .AddTile(TileID.Anvils)
+//                 .Register();
+//         }
+//     }
+// }

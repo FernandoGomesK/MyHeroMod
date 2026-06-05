@@ -166,12 +166,12 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             // Optic Blast
 
             {QuirkSkills.SingleOpticBlast, new SingleOpticBlastSkill() },
-            {QuirkSkills.ChangePercentage, new ChangePercentageSkill() }
+            {QuirkSkills.ChangePercentage, new ChangePercentageSkill() },
+            {QuirkSkills.ContinuousOpticBlast, new ContinuousOpticBlastSkill() },
 
 
 
-             
-
+        
         
         };
 

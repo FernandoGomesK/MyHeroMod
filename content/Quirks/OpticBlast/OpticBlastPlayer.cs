@@ -17,6 +17,8 @@ namespace MyHeroMod.content.Quirks.OpticBlast
             Zero, TwentyFive, Fifty, SeventyFive, Full
         };
 
+        
+
         public bool isRubyGlassesEquipped = false;
         public Percentage CurrentPercentage = Percentage.Zero;
 
@@ -34,11 +36,16 @@ namespace MyHeroMod.content.Quirks.OpticBlast
             isRubyGlassesEquipped = false;
         }
 
-        public override void 
+        public override void ResetEffects()
+        {
+            
+            isRubyGlassesEquipped = false;
+        }
 
+        
         public override void PostUpdate()
         {
-            // 1. Charge Regeneration
+            
             if (CurrentOpticBlast < MaxOpticBlast)
             {
                 regenTimer++;
