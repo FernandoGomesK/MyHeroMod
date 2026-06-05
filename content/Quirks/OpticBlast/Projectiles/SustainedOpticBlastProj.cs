@@ -2,15 +2,15 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Graphics.CameraModifiers; 
 using MyHeroMod.content.System;
-using MyHeroMod.content.Buffs;
-using Terraria.Graphics.CameraModifiers;
+using MyHeroMod.content.Quirks.OpticBlast;
 
 namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
-{
-    public class ContinuousOpticBlastController : ModProjectile
+{ 
+    public class SustainedOpticBlastProj : ModProjectile
     {
-        public override string Texture => "MyHeroMod/Assets/Projectiles/HandProj"; 
+        public override string Texture => "MyHeroMod/Assets/Projectiles/HandProj"; // Invisible texture
 
         public override void SetDefaults()
         {
@@ -28,14 +28,24 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
             Player player = Main.player[Projectile.owner];
             var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
 
-            if (player.dead || !player.active || opticPlayer.isRubyGlassesEquipped)
+            // 1. KILL CONDITIONS (Dead, inactive, or out of energy)
+            if (player.dead || !player.active || opticPlayer.CurrentOpticBlast <= 0)
             {
                 Projectile.Kill();
                 return;
             }
 
+            // 2. HOLD CONDITION (Check if they are still holding a skill key)
+            bool isHolding = KeybindSystem.SkillSlot1.Current || KeybindSystem.SkillSlot2.Current || KeybindSystem.SkillSlot3.Current || KeybindSystem.SkillSlot4.Current;
+            if (!isHolding)
+            {
+                Projectile.Kill();
+                return;
+            }
+
+            // 3. UPDATE POSITION AND ROTATION
             Projectile.Center = player.Center;
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 2; // Keeps it alive as long as AI is running
 
             if (Projectile.owner == Main.myPlayer)
             {
@@ -44,72 +54,47 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
                 Projectile.velocity = diff;
                 
                 Projectile.rotation = Projectile.velocity.ToRotation();
-                
                 player.ChangeDir(Main.MouseWorld.X > player.Center.X ? 1 : -1); 
                 Projectile.netUpdate = true;
             }
 
-            float visionLength = 1000f; 
-            float visionWidth = 100f; 
+            // 4. DRAIN THE OPTIC BLAST GAUGE
+            // Drains 1 point of energy every 3 frames (so 100 energy lasts 5 seconds)
+            if (Main.GameUpdateCount % 3 == 0)
+            {
+                opticPlayer.CurrentOpticBlast--;
+                opticPlayer.regenTimer = -60; // Pauses regeneration for 1 second after shooting!
+            }
 
-            Vector2 startPoint = player.Center;
-            Vector2 endPoint = player.Center + (Projectile.velocity * visionLength);
-
+            // 5. CAMERA RUMBLE
             if (Main.GameUpdateCount % 4 == 0)
             {
-                
                 PunchCameraModifier rumble = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 3f, 6f, 5, 1000f, "OpticBlastRumble");
                 Main.instance.CameraModifiers.Add(rumble);
             }
 
-            // --- THE THICK BEAM DUST LOGIC ---
-            
-            
+            // 6. THICK BEAM VISUALS
+            float visionLength = 600f; 
+            float visionWidth = 100f; 
+
+            Vector2 startPoint = player.Center;
+            Vector2 endPoint = player.Center + (Projectile.velocity * visionLength);
             Vector2 perpendicular = new Vector2(-Projectile.velocity.Y, Projectile.velocity.X);
 
-            // 2. Spawn multiple dust particles per frame (15 per frame = 900 per second!)
-
-            for (int i1 = 0; i1 < 5; i1++)
+            for (int i = 0; i < 15; i++)
             {
-                // Pick a random distance along the 600-pixel length
                 float lengthOffset = Main.rand.NextFloat(0, visionLength);
-                
-                // Pick a random distance along the 100-pixel width (-50 to +50)
-                float widthOffset = Main.rand.NextFloat(-visionWidth / 1f, visionWidth / 1f);
-                
-                // Combine them to get the exact spawn position
-                Vector2 dustPos = startPoint + (Projectile.velocity * lengthOffset) + (perpendicular * widthOffset);
-
-                Dust beamDust = Dust.NewDustPerfect(dustPos, DustID.RedTorch, Vector2.Zero);
-                beamDust.noGravity = true;
-                beamDust.scale = Main.rand.NextFloat(1.5f, 3f); // Make the dust randomly large and chunky
-                
-                // Optional: Give the dust a tiny bit of forward velocity so the beam looks like it's flowing
-                beamDust.velocity = Projectile.velocity * Main.rand.NextFloat(1f, 4f); 
-            }
-
-
-            for (int i2 = 0; i2 < 15; i2++)
-            {
-                
-                float lengthOffset = Main.rand.NextFloat(0, visionLength);
-                
-                
                 float widthOffset = Main.rand.NextFloat(-visionWidth / 2f, visionWidth / 2f);
-                
                 
                 Vector2 dustPos = startPoint + (Projectile.velocity * lengthOffset) + (perpendicular * widthOffset);
 
                 Dust beamDust = Dust.NewDustPerfect(dustPos, DustID.RedTorch, Vector2.Zero);
                 beamDust.noGravity = true;
                 beamDust.scale = Main.rand.NextFloat(1.5f, 3f); 
-                
-                
                 beamDust.velocity = Projectile.velocity * Main.rand.NextFloat(1f, 4f); 
             }
 
-            // --- COLLISION AND DAMAGE LOGIC ---
-            
+            // 7. HITSCAN DAMAGE
             foreach (NPC npc in Main.ActiveNPCs)
             {
                 if (npc.friendly || npc.townNPC) continue;
@@ -120,12 +105,31 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
                 {
                     if (Collision.CanHitLine(player.position, player.width, player.height, npc.position, npc.width, npc.height))
                     {
-                        
-                        if (Main.rand.NextBool(10)) 
+                        if (Main.rand.NextBool(3)) // Hits every ~3 frames
                         {
-                            npc.SimpleStrikeNPC(Projectile.damage, player.direction, false, 0f, DamageClass.Generic, true, player.luck);
+                            // Multiplies the base damage by whatever Percentage the player toggled!
+                            float multiplier = GetDamageMultiplier(opticPlayer.CurrentPercentage);
+                            int finalDamage = (int)(Projectile.damage * multiplier);
+
+                            npc.SimpleStrikeNPC(finalDamage, player.direction, false, 0f, DamageClass.Generic, true, player.luck);
                         }
                     }
                 }
             }
-        }}}
+        }
+
+        
+        private float GetDamageMultiplier(OpticBlastPlayer.Percentage percentage)
+        {
+            switch (percentage)
+            {
+                case OpticBlastPlayer.Percentage.Zero: return 0f;
+                case OpticBlastPlayer.Percentage.TwentyFive: return 0.25f;
+                case OpticBlastPlayer.Percentage.Fifty: return 0.50f;
+                case OpticBlastPlayer.Percentage.SeventyFive: return 0.75f;
+                case OpticBlastPlayer.Percentage.Full: return 1.0f;
+                default: return 0f;
+            }
+        }
+    }
+}

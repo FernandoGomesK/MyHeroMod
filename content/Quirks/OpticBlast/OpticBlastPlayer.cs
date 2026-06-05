@@ -6,6 +6,7 @@ using MyHeroMod.content.System.BasePlayer;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.Quirks.OpticBlast.Projectiles; // Added to access the Controller
+using Terraria.Graphics.CameraModifiers; 
 
 namespace MyHeroMod.content.Quirks.OpticBlast
 {
@@ -33,6 +34,8 @@ namespace MyHeroMod.content.Quirks.OpticBlast
             isRubyGlassesEquipped = false;
         }
 
+        public override void 
+
         public override void PostUpdate()
         {
             // 1. Charge Regeneration
@@ -55,10 +58,10 @@ namespace MyHeroMod.content.Quirks.OpticBlast
             }
 
             // 3. Spawning the Laser Beam Controller Safely
-            // We only want to spawn ONE controller if the glasses are off.
-            // ownedProjectileCounts is a super fast O(1) check to see if it already exists!
+            
             if (!isRubyGlassesEquipped && !Player.HasBuff(ModContent.BuffType<Heatstroke>()))
             {
+
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<ContinuousOpticBlastController>()] < 1)
                 {
                     Projectile.NewProjectile(
@@ -70,6 +73,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast
                         4f,  
                         Player.whoAmI
                     );
+
                     
                     // The sound only plays ONCE when the glasses come off
                     Terraria.Audio.SoundEngine.PlaySound(new Terraria.Audio.SoundStyle("MyHeroMod/Assets/Sounds/SingleOpticBlast"), Player.position);

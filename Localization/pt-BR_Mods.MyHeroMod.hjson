@@ -391,6 +391,11 @@ Items: {
 		// DisplayName: Second Tenya Helmet
 		// Tooltip: ""
 	}
+
+	RubyGlasses: {
+		// DisplayName: Ruby Glasses
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -731,6 +736,7 @@ Projectiles: {
 	// ChargeDetroitProj.DisplayName: Charge Detroit Proj
 	// OpticBlastProj.DisplayName: Optic Blast Proj
 	// ContinuousOpticBlastController.DisplayName: Continuous Optic Blast Controller
+	// SustainedOpticBlastProj.DisplayName: Sustained Optic Blast Proj
 }
 
 NPCs: {
