@@ -643,6 +643,11 @@ Buffs: {
 		// DisplayName: Speed Force Buff
 		// Description: Mods.MyHeroMod.Buffs.SpeedForceBuff.Description
 	}
+
+	DarkShadowBuff: {
+		// DisplayName: Dark Shadow Buff
+		// Description: Mods.MyHeroMod.Buffs.DarkShadowBuff.Description
+	}
 }
 
 DeathMessage: "{0} destruiu o seu próprio corpo com 100% de poder!"
@@ -742,6 +747,11 @@ Projectiles: {
 	// OpticBlastProj.DisplayName: Optic Blast Proj
 	// ContinuousOpticBlastController.DisplayName: Continuous Optic Blast Controller
 	// SustainedOpticBlastProj.DisplayName: Sustained Optic Blast Proj
+	// DarkShadowBodyProj.DisplayName: Dark Shadow Body Proj
+	// DarkShadowFrontHandProj.DisplayName: Dark Shadow Front Hand Proj
+	// DarkShadowBackHandProj.DisplayName: Dark Shadow Back Hand Proj
+	// DarkShadowLongBackHandProj.DisplayName: Dark Shadow Long Back Hand Proj
+	// DarkShadowLongFrontHandProj.DisplayName: Dark Shadow Long Front Hand Proj
 }
 
 NPCs: {

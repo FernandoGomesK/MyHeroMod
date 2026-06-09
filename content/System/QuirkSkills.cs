@@ -100,5 +100,10 @@
 
             ToggleSpeedForce,
 
+            // Darkshadow
+
+            ToggleDarkShadow,
+            PiercingTwilight,
+
 
         }
