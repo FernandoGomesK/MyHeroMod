@@ -27,6 +27,10 @@ namespace MyHeroMod.content.Quirks.OpticBlast
         public int CurrentOpticBlast = 100;
         public int regenTimer = 0; 
 
+        public int CurrentUncontrolledBlast = 0;
+
+        public int MaxUncontrolledBlast = 500;
+
         public void FullReset()
         {
             MaxOpticBlast = 100;
@@ -46,6 +50,15 @@ namespace MyHeroMod.content.Quirks.OpticBlast
         public override void PostUpdate()
         {
             
+            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (!mainPlayer.HasActiveQuirk(QuirkType.OpticBlast))  
+                return;
+            else{
+
+            
+            
+
             if (CurrentOpticBlast < MaxOpticBlast)
             {
                 regenTimer++;
@@ -66,26 +79,45 @@ namespace MyHeroMod.content.Quirks.OpticBlast
 
             // 3. Spawning the Laser Beam Controller Safely
             
-            if (!isRubyGlassesEquipped && !Player.HasBuff(ModContent.BuffType<Heatstroke>()))
+           if (!isRubyGlassesEquipped && !Player.HasBuff(ModContent.BuffType<Heatstroke>()))
             {
+                CurrentUncontrolledBlast++;
+
+                // Se superaquecer, aplica o debuff e zera a barra para ele começar a "esfriar"
+                if (CurrentUncontrolledBlast >= MaxUncontrolledBlast)
+                {
+                    Player.AddBuff(ModContent.BuffType<Heatstroke>(), 500);
+                    CurrentUncontrolledBlast = 0; 
+                }
 
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<ContinuousOpticBlastController>()] < 1)
                 {
+                    
+                    PunchCameraModifier shake = new PunchCameraModifier(Player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "OpticBlastShake");
+                    Main.instance.CameraModifiers.Add(shake);
+
                     Projectile.NewProjectile(
                         Player.GetSource_FromThis(),
                         Player.Center,
                         Vector2.Zero,
                         ModContent.ProjectileType<ContinuousOpticBlastController>(),
-                        20, // Base Damage of the uncontrolled laser
+                        20, 
                         4f,  
                         Player.whoAmI
                     );
 
-                    
-                    // The sound only plays ONCE when the glasses come off
                     Terraria.Audio.SoundEngine.PlaySound(new Terraria.Audio.SoundStyle("MyHeroMod/Assets/Sounds/SingleOpticBlast"), Player.position);
                 }
             }
+            else 
+            {
+                
+                if (CurrentUncontrolledBlast > 0)
+                {
+                    CurrentUncontrolledBlast--;
+                }
+            }
+            }
+        }
         }
     }
-}
