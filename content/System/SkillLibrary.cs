@@ -169,6 +169,10 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             {QuirkSkills.ChangePercentage, new ChangePercentageSkill() },
             {QuirkSkills.ContinuousOpticBlast, new ContinuousOpticBlastSkill() },
 
+            // Speed Force
+
+            {QuirkSkills.ToggleSpeedForce, new ToggleSpeedForceSkill() },
+
 
 
         

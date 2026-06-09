@@ -18,7 +18,7 @@ namespace MyHeroMod.content
                             Float, Flight, Gearshift, FaJin, SmokeScreen, DangerSense,
                             BlackWhip, Tape, Overclock, Erasure, SuperRegeneration, SlideAndGlide,
                             Decay, Rivet, SpringLikeLimbs, Rabbit, DarkShadow, Overhaul,
-                            ZeroGravity, FierceWings, OpticBlast
+                            ZeroGravity, FierceWings, OpticBlast, SpeedForce
                              }
 
     // public enum NatureType

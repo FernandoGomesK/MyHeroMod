@@ -96,5 +96,9 @@
 
             SingleOpticBlast, ChangePercentage, ContinuousOpticBlast,
 
+            // Speed Force
+
+            ToggleSpeedForce,
+
 
         }

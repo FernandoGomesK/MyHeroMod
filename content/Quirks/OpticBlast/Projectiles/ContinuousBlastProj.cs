@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Buffs;
 using Terraria.Graphics.CameraModifiers;
+using MyHeroMod.content.Debuffs;
 
 namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
 {
@@ -28,7 +29,8 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
             Player player = Main.player[Projectile.owner];
             var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
 
-            if (player.dead || !player.active || opticPlayer.isRubyGlassesEquipped)
+            
+            if (player.dead || !player.active || opticPlayer.isRubyGlassesEquipped || player.HasBuff(ModContent.BuffType<Heatstroke>()))
             {
                 Projectile.Kill();
                 return;
