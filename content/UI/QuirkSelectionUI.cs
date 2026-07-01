@@ -77,6 +77,7 @@ namespace MyHeroMod
             CreateButton("Fierce Wings", QuirkType.FierceWings, Color.Red);
             CreateButton("Optic Blast", QuirkType.OpticBlast, Color.Red);
             CreateButton("Speed Force", QuirkType.SpeedForce, Color.Yellow);
+            CreateButton("DarkShadow", QuirkType.DarkShadow, Color.Black);
 
 
             // red X to close

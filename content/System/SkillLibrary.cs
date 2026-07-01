@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using MyHeroMod.content.Quirks.AllForOne.AllForOneList;
+using MyHeroMod.content.Quirks.DarkShadow.Skills;
 using MyHeroMod.content.Quirks.Erasure.ErasureList;
 using MyHeroMod.content.Quirks.Explosion.Projectiles;
 using MyHeroMod.content.Quirks.Smokescreen; 
@@ -172,6 +173,11 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
             // Speed Force
 
             {QuirkSkills.ToggleSpeedForce, new ToggleSpeedForceSkill() },
+
+            // DarkShadow
+
+            {QuirkSkills.ToggleDarkShadow, new ToggleDarkShadowSkill() },
+            {QuirkSkills.PiercingTwilight, new PiercingTwilightClawsSkill()},
 
 
 
