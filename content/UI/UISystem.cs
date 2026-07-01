@@ -116,11 +116,13 @@ namespace MyHeroMod
             var system = ModContent.GetInstance<UISystem>();
             if (system.MyInterface.CurrentState is SkillMenuUI)
             {
-                system.MyInterface.SetState(null); // Fecha se já estiver aberto
+                // fecha se estiver aberto
+                system.MyInterface.SetState(null); 
             }
             else
             {
-                system.MyInterface.SetState(system.MySkillMenuUI); // Abre
+                // abre
+                system.MyInterface.SetState(system.MySkillMenuUI); 
             }
         }
 

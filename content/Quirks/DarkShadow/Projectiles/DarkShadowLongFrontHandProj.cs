@@ -17,9 +17,9 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Projectile.height = 28;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.tileCollide = false; // Como é um grapple sombrio, atravessa paredes
-            Projectile.penetrate = -1; // Atravessa inimigos
-            Projectile.timeLeft = 300; // Tempo de segurança limite (5 segundos)
+            Projectile.tileCollide = false; 
+            Projectile.penetrate = -1; 
+            Projectile.timeLeft = 300;
         }
 
         public override void AI()
@@ -31,7 +31,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             
             
 
-            // 2. Encontra o Corpo do Dark Shadow para usar como âncora
+            
             Vector2 bodyCenter = player.Center; 
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
