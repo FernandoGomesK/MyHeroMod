@@ -392,6 +392,11 @@ Items: {
 		DisplayName: Ruby Glasses
 		Tooltip: ""
 	}
+
+	AbyssHead: {
+		DisplayName: Abyss Head
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -643,6 +648,11 @@ Buffs: {
 	DarkShadowBuff: {
 		DisplayName: Dark Shadow Buff
 		Description: Mods.MyHeroMod.Buffs.DarkShadowBuff.Description
+	}
+
+	BlackAbyssBuff: {
+		DisplayName: Black Abyss Buff
+		Description: Mods.MyHeroMod.Buffs.BlackAbyssBuff.Description
 	}
 }
 

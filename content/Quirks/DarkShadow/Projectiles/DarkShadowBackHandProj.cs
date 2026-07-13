@@ -33,7 +33,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();
 
             // 1. Condição de Morte
-            if (player.dead || !player.active || !darkPlayer.isDarkShadowOn)
+            if (player.dead || !player.active || !darkPlayer.isDarkShadowOn || darkPlayer.isBlackAbyssOn)
             {
                 Projectile.Kill();
                 return;

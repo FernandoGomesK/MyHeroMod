@@ -8,6 +8,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow
     public partial class DarkShadowPlayer : ModPlayer
     {
         public bool isDarkShadowOn = false;
+        public bool isBlackAbyssOn = false;
         public bool isFrontHandAttacking => Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowLongFrontHandProj>()] > 0;
         public bool isBackHandAttacking => Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowLongBackHandProj>()] > 0;
         
@@ -15,11 +16,24 @@ namespace MyHeroMod.content.Quirks.DarkShadow
         {
            
             isDarkShadowOn = false;      
+            isBlackAbyssOn = false;
+        }
+
+        public override void FrameEffects()
+        {
+            
+            if (Player.HasBuff(ModContent.BuffType<Buffs.BlackAbyssBuff>()))
+            {
+                
+                Player.head = EquipLoader.GetEquipSlot(Mod, "AbyssHead", EquipType.Head);
+                
+
+            }
         }
 
         public override void PostUpdate()
         {
-            if (isDarkShadowOn)
+            if (isDarkShadowOn && !isBlackAbyssOn)
             {
                 
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowBodyProj>()] < 1)

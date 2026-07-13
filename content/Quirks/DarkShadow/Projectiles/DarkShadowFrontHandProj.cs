@@ -12,7 +12,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
 
         public override void SetDefaults()
         {
-            Projectile.width = 26; // Geralmente as mãos são um pouco menores que o corpo
+            Projectile.width = 26; 
             Projectile.height = 16;
             Projectile.friendly = true;
             Projectile.hostile = false;
@@ -28,7 +28,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();
 
             // 1. Condição de Morte
-            if (player.dead || !player.active || !darkPlayer.isDarkShadowOn)
+            if (player.dead || !player.active || !darkPlayer.isDarkShadowOn || darkPlayer.isBlackAbyssOn)
             {
                 Projectile.Kill();
                 return;

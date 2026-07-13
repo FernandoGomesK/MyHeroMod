@@ -2,11 +2,11 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Quirks.Overhaul.Visuals
+namespace MyHeroMod.content.Quirks.DarkShadow.Visuals
 {
    
-    [AutoloadEquip(EquipType.HandsOn, EquipType.HandsOff)]
-    public class ChimeraArms : ModItem
+    [AutoloadEquip(EquipType.Head)]
+    public class AbyssHead : ModItem
     {
         public override void SetDefaults()
         {

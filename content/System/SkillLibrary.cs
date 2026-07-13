@@ -178,6 +178,7 @@ using MyHeroMod.content.System; // Adiciona os namespaces das tuas skills
 
             {QuirkSkills.ToggleDarkShadow, new ToggleDarkShadowSkill() },
             {QuirkSkills.PiercingTwilight, new PiercingTwilightClawsSkill()},
+            {QuirkSkills.ToggleBlackAbyss, new ToggleBlackAbyssSkill() },
 
 
 

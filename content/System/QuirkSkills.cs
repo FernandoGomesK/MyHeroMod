@@ -104,6 +104,7 @@
 
             ToggleDarkShadow,
             PiercingTwilight,
+            ToggleBlackAbyss,
 
 
         }
