@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MyHeroMod.content.Projectiles.Base;
+using KhacesCore.Content.System.BaseProjectiles;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 {

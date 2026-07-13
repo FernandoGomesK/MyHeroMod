@@ -1,7 +1,8 @@
 using Terraria.ModLoader;
-using MyHeroMod.content.Projectiles.Base;
+
 using Terraria;
 using Terraria.ID;
+using KhacesCore.Content.System.BaseProjectiles;
 
 namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
 {

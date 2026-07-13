@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using Terraria.Graphics.CameraModifiers; 
 using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.OpticBlast;
+using KhacesCore.Content.System;
 
 namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
 { 
@@ -36,7 +37,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
             }
 
             // 2. HOLD CONDITION (Check if they are still holding a skill key)
-            bool isHolding = KeybindSystem.SkillSlot1.Current || KeybindSystem.SkillSlot2.Current || KeybindSystem.SkillSlot3.Current || KeybindSystem.SkillSlot4.Current;
+            bool isHolding = CoreKeybinds.SkillSlot1.Current || CoreKeybinds.SkillSlot2.Current || CoreKeybinds.SkillSlot3.Current || CoreKeybinds.SkillSlot4.Current;
             if (!isHolding)
             {
                 Projectile.Kill();

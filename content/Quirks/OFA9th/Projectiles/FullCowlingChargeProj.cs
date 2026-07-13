@@ -4,10 +4,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.Graphics.CameraModifiers; 
-using MyHeroMod.content.System;
-using MyHeroMod.content.Projectiles.Base;
-using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Buffs;
+using KhacesCore.Content.System.BaseProjectiles;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 { 

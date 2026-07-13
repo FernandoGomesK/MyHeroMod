@@ -38,7 +38,8 @@ namespace MyHeroMod.content.System
 
             if (hideNormalDash)
             {
-                TeleportDash(player, explosionColor, choiceDust);
+                TeleportDash(player, explosionColor, choiceDust, speed);
+                ApplyFajinVfx(player, isEnhanced);
             }
             else
             {
@@ -60,7 +61,7 @@ namespace MyHeroMod.content.System
             ApplyFajinVfx(player, isEnhanced);
         }
 
-        public void TeleportDash(Player player, Color explosionColor, int choiceDust)
+        public void TeleportDash(Player player, Color explosionColor, int choiceDust, float speed)
         {
             Vector2 targetPos = Main.MouseWorld;
             Vector2 dir = targetPos - player.Center;
@@ -107,7 +108,8 @@ namespace MyHeroMod.content.System
             }
             else
             {
-                player.velocity = Vector2.Zero; 
+                player.velocity = Vector2.Normalize(dir) * speed;
+                
             }
 
             dashvfx(player, explosionColor, choiceDust);

@@ -100,40 +100,60 @@ namespace MyHeroMod.content.UI
             }
         }
 
-        private void CreateSlotButton(TransformationPlayer player, string label, float top, int slotNum)
+       private void CreateSlotButton(TransformationPlayer player, string baseLabel, float top, int slotNum)
+{
+    UIPanel slotBtn = new UIPanel();
+    slotBtn.Width.Set(-260, 1f);
+    slotBtn.Height.Set(50, 0);
+    slotBtn.Left.Set(250, 0);
+    slotBtn.Top.Set(top, 0);
+    slotBtn.BackgroundColor = Color.DarkSlateBlue;
+
+    // 1. Check what skill is currently assigned to this slot
+    QuirkSkills currentSkill = QuirkSkills.None;
+    if (slotNum == 1) currentSkill = player.Slot1;
+    if (slotNum == 2) currentSkill = player.Slot2;
+    if (slotNum == 3) currentSkill = player.Slot3;
+    if (slotNum == 4) currentSkill = player.Slot4;
+
+    // 2. Format the display text based on whether a skill is equipped
+    string displayLabel = baseLabel;
+    if (currentSkill != QuirkSkills.None)
+    {
+        var existingSkill = SkillLibrary.GetSkill(currentSkill);
+        if (existingSkill != null)
         {
-            UIPanel slotBtn = new UIPanel();
-            slotBtn.Width.Set(-260, 1f);
-            slotBtn.Height.Set(50, 0);
-            slotBtn.Left.Set(250, 0);
-            slotBtn.Top.Set(top, 0);
-            slotBtn.BackgroundColor = Color.DarkSlateBlue;
-
-            UIText slotText = new UIText(label);
-            slotText.HAlign = 0.5f;
-            slotText.VAlign = 0.5f;
-            slotBtn.Append(slotText);
-
-            slotBtn.OnLeftClick += (evt, elem) =>
-            {
-                if (selectedSkill == QuirkSkills.None)
-                {
-                    Main.NewText("Select a skill first!", Color.Red);
-                    return;
-                }
-
-                var skillInstance = SkillLibrary.GetSkill(selectedSkill);
-                if (slotNum == 1) player.Slot1 = selectedSkill;
-                if (slotNum == 2) player.Slot2 = selectedSkill;
-                if (slotNum == 3) player.Slot3 = selectedSkill;
-                if (slotNum == 4) player.Slot4 = selectedSkill;
-
-                Main.NewText($"Assigned {skillInstance.Name} to Slot {slotNum}!", Color.Green);
-                slotText.SetText($"{label}: {skillInstance.Name}");
-                SoundEngine.PlaySound(SoundID.MenuOpen);
-            };
-
-            Append(slotBtn);
+            displayLabel = $"{baseLabel}: {existingSkill.Name}";
         }
+    }
+
+    UIText slotText = new UIText(displayLabel);
+    slotText.HAlign = 0.5f;
+    slotText.VAlign = 0.5f;
+    slotBtn.Append(slotText);
+
+    slotBtn.OnLeftClick += (evt, elem) =>
+    {
+        if (selectedSkill == QuirkSkills.None)
+        {
+            Main.NewText("Select a skill first!", Color.Red);
+            return;
+        }
+
+        var skillInstance = SkillLibrary.GetSkill(selectedSkill);
+        if (slotNum == 1) player.Slot1 = selectedSkill;
+        if (slotNum == 2) player.Slot2 = selectedSkill;
+        if (slotNum == 3) player.Slot3 = selectedSkill;
+        if (slotNum == 4) player.Slot4 = selectedSkill;
+
+        Main.NewText($"Assigned {skillInstance.Name} to Slot {slotNum}!", Color.Green);
+        
+        // 3. Update the text using the base label so it doesn't infinitely stack
+        slotText.SetText($"{baseLabel}: {skillInstance.Name}");
+        SoundEngine.PlaySound(SoundID.MenuOpen);
+    };
+
+    Append(slotBtn);
+}
     }
 }

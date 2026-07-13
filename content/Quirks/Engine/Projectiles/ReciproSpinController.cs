@@ -2,8 +2,8 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using MyHeroMod.content.Projectiles.Base; 
-using MyHeroMod.content.Quirks.Engine;
+using KhacesCore.Content.System.BaseProjectiles;
+
 
 namespace MyHeroMod.content.Quirks.Engine.Projectiles
 {

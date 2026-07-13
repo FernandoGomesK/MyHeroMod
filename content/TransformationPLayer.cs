@@ -193,10 +193,11 @@ namespace MyHeroMod.content
         // --- LÓGICA DE JOGO ---
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         {
-            if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
-            if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(Slot2);
-            if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(Slot3);
-            if (KeybindSystem.SkillSlot4.JustPressed) ExecuteSkill(Slot4);
+            
+            if (KhacesCore.Content.System.CoreKeybinds.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
+            if (KhacesCore.Content.System.CoreKeybinds.SkillSlot2.JustPressed) ExecuteSkill(Slot2);
+            if (KhacesCore.Content.System.CoreKeybinds.SkillSlot3.JustPressed) ExecuteSkill(Slot3);
+            if (KhacesCore.Content.System.CoreKeybinds.SkillSlot4.JustPressed) ExecuteSkill(Slot4);
         }
 
         public bool HasActiveQuirk(QuirkType typeToCheck)

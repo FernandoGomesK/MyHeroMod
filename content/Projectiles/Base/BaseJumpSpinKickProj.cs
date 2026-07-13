@@ -1,105 +1,105 @@
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Audio;
+// using Microsoft.Xna.Framework;
+// using Terraria;
+// using Terraria.ID;
+// using Terraria.ModLoader;
+// using Terraria.Audio;
 
-namespace MyHeroMod.content.Projectiles.Base
-{ 
+// namespace MyHeroMod.content.Projectiles.Base
+// { 
     
-    public abstract class BaseJumpSpinKickProj : ModProjectile
-    {
-        public override string Texture => "MyHeroMod/content/Quirks/Explosion/Projectiles/HowitzerImpact/HowitzerImpactProj"; 
+//     public abstract class BaseJumpSpinKickProj : ModProjectile
+//     {
+//         public override string Texture => "MyHeroMod/content/Quirks/Explosion/Projectiles/HowitzerImpact/HowitzerImpactProj"; 
 
         
-        protected virtual float DashSpeed => 25f;       
-        protected virtual float JumpPower => -15f;      
-        protected virtual int HoverFrames => 15;        
-        protected virtual int DustType => DustID.Smoke; 
+//         protected virtual float DashSpeed => 25f;       
+//         protected virtual float JumpPower => -15f;      
+//         protected virtual int HoverFrames => 15;        
+//         protected virtual int DustType => DustID.Smoke; 
 
-        public override void SetDefaults()
-        {
-            Projectile.width = 80; 
-            Projectile.height = 80;
-            Projectile.friendly = true;
-            Projectile.hostile = false;
-            Projectile.tileCollide = true; 
-            Projectile.penetrate = 1; 
-            Projectile.timeLeft = 120; 
-            Projectile.alpha = 255; 
-        }
+//         public override void SetDefaults()
+//         {
+//             Projectile.width = 80; 
+//             Projectile.height = 80;
+//             Projectile.friendly = true;
+//             Projectile.hostile = false;
+//             Projectile.tileCollide = true; 
+//             Projectile.penetrate = 1; 
+//             Projectile.timeLeft = 120; 
+//             Projectile.alpha = 255; 
+//         }
 
-        public override void AI()
-        {
-            Player player = Main.player[Projectile.owner];
+//         public override void AI()
+//         {
+//             Player player = Main.player[Projectile.owner];
 
-            if (player.dead || !player.active)
-            {
-                Projectile.Kill();
-                return;
-            }
+//             if (player.dead || !player.active)
+//             {
+//                 Projectile.Kill();
+//                 return;
+//             }
 
-            Projectile.Center = player.Center;
-            player.heldProj = Projectile.whoAmI;
+//             Projectile.Center = player.Center;
+//             player.heldProj = Projectile.whoAmI;
             
-            // Pulo
-            if (Projectile.ai[0] < HoverFrames)
-            {
-                Projectile.ai[0]++;
+//             // Pulo
+//             if (Projectile.ai[0] < HoverFrames)
+//             {
+//                 Projectile.ai[0]++;
 
-                player.velocity.Y = JumpPower; 
-                player.velocity.X *= 0.9f; 
-                Projectile.width = 5;
-                Projectile.height = 5;
+//                 player.velocity.Y = JumpPower; 
+//                 player.velocity.X *= 0.9f; 
+//                 Projectile.width = 5;
+//                 Projectile.height = 5;
                 
-                // Girar
-                player.fullRotation += 0.4f * player.direction;
-                player.fullRotationOrigin = player.Size / 2;
+//                 // Girar
+//                 player.fullRotation += 0.4f * player.direction;
+//                 player.fullRotationOrigin = player.Size / 2;
                 
-                SpawnHoverDust(player); 
-            }
-            // --- FASE 2: MIRA ---
-            else if (Projectile.ai[0] == HoverFrames)
-            {
-                Projectile.ai[0]++;
-                Projectile.width = 80;
-                Projectile.height = 80;
+//                 SpawnHoverDust(player); 
+//             }
+//             // --- FASE 2: MIRA ---
+//             else if (Projectile.ai[0] == HoverFrames)
+//             {
+//                 Projectile.ai[0]++;
+//                 Projectile.width = 80;
+//                 Projectile.height = 80;
                 
-                Vector2 dashDirection = Main.MouseWorld - player.Center;
-                dashDirection.Normalize();
+//                 Vector2 dashDirection = Main.MouseWorld - player.Center;
+//                 dashDirection.Normalize();
                 
-                Projectile.velocity = dashDirection * DashSpeed;
-                player.velocity = Projectile.velocity;
+//                 Projectile.velocity = dashDirection * DashSpeed;
+//                 player.velocity = Projectile.velocity;
 
-                SoundEngine.PlaySound(SoundID.Item14, player.position); 
-            }
-            // --- FASE 3: A DESCIDA ---
-            else
-            {
-                player.velocity = Projectile.velocity;
-                player.fullRotation = (player.velocity.ToRotation() + MathHelper.PiOver2) + MathHelper.Pi;
-                player.fullRotationOrigin = player.Size / 2;
+//                 SoundEngine.PlaySound(SoundID.Item14, player.position); 
+//             }
+//             // --- FASE 3: A DESCIDA ---
+//             else
+//             {
+//                 player.velocity = Projectile.velocity;
+//                 player.fullRotation = (player.velocity.ToRotation() + MathHelper.PiOver2) + MathHelper.Pi;
+//                 player.fullRotationOrigin = player.Size / 2;
 
-                SpawnDashDust(player); // Método customizável para rastro
-            }
-        }
+//                 SpawnDashDust(player); // Método customizável para rastro
+//             }
+//         }
 
-        public override void OnKill(int timeLeft)
-        {
-            Player player = Main.player[Projectile.owner];
-            player.velocity = Vector2.Zero;
-            player.fullRotation = 0f; 
-            SoundEngine.PlaySound(SoundID.Item62, Projectile.position); 
+//         public override void OnKill(int timeLeft)
+//         {
+//             Player player = Main.player[Projectile.owner];
+//             player.velocity = Vector2.Zero;
+//             player.fullRotation = 0f; 
+//             SoundEngine.PlaySound(SoundID.Item62, Projectile.position); 
 
-            SpawnExplosionDust(Projectile.Center); // Método customizável
-        }
+//             SpawnExplosionDust(Projectile.Center); // Método customizável
+//         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) => Projectile.Kill();
-        public override bool OnTileCollide(Vector2 oldVelocity) => true;
+//         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) => Projectile.Kill();
+//         public override bool OnTileCollide(Vector2 oldVelocity) => true;
 
-        // --- MÉTODOS VIRTUAIS (Vazios por padrão, o filho decide o que fazer) ---
-        public virtual void SpawnHoverDust(Player player) { }
-        public virtual void SpawnDashDust(Player player) { }
-        public virtual void SpawnExplosionDust(Vector2 position) { }
-    }
-}
+//         // --- MÉTODOS VIRTUAIS (Vazios por padrão, o filho decide o que fazer) ---
+//         public virtual void SpawnHoverDust(Player player) { }
+//         public virtual void SpawnDashDust(Player player) { }
+//         public virtual void SpawnExplosionDust(Vector2 position) { }
+//     }
+// }
