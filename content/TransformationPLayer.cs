@@ -29,6 +29,8 @@ namespace MyHeroMod.content
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 
     
+
+    
     public class TransformationPlayer : BasePlayer
     {
         public List<QuirkType> ActiveQuirks = new List<QuirkType>(); 
@@ -191,11 +193,6 @@ namespace MyHeroMod.content
         // --- LÓGICA DE JOGO ---
         public override void ProcessTriggers(Terraria.GameInput.TriggersSet triggersSet)
         {
-            if (KeybindSystem.SkillMenu.JustPressed)
-            {
-                UISystem.ToggleSkillMenu();
-            }
-
             if (KeybindSystem.SkillSlot1.JustPressed) ExecuteSkill(Slot1);
             if (KeybindSystem.SkillSlot2.JustPressed) ExecuteSkill(Slot2);
             if (KeybindSystem.SkillSlot3.JustPressed) ExecuteSkill(Slot3);
@@ -231,6 +228,8 @@ namespace MyHeroMod.content
             }
         }
 
+        
+
         public override void PostUpdate()
         {
             ProgressionSystem.UpdateStage(this);
@@ -259,6 +258,7 @@ namespace MyHeroMod.content
                 }
             }
         }
+        
 
         
         public override void CopyClientState(ModPlayer clientClone)

@@ -14,7 +14,7 @@ namespace MyHeroMod
     {
         internal UserInterface MyInterface;
         internal QuirkSelectionUI MyQuirkUI;
-        internal SkillMenuUI MySkillMenuUI;
+        // internal SkillMenuUI MySkillMenuUI;
         internal AllForOneQuirksUI SeeQuirkUI;
         internal QuirkRemoverUI MyQuirkRemoverUI;
 
@@ -44,7 +44,7 @@ namespace MyHeroMod
             {
                 MyInterface = new UserInterface();
                 MyQuirkUI = new QuirkSelectionUI();
-                MySkillMenuUI = new SkillMenuUI();
+                // MySkillMenuUI = new SkillMenuUI();
                 
                 SeeQuirkUI = new AllForOneQuirksUI();
                 SeeQuirkUI.Activate();
@@ -82,6 +82,16 @@ namespace MyHeroMod
                 OpticBlastUIState.Activate();
                 OpticBlastUserInterface = new UserInterface();
                 OpticBlastUserInterface.SetState(OpticBlastUIState);
+
+                if (!Main.dedServ)
+    {
+        KhacesCore.Content.System.CoreUISystem.RegisterTab(
+            "Skill Menu",
+            () => new SkillMenuTabContent()
+        );
+
+        
+    }
             }
         }
         
@@ -89,7 +99,7 @@ namespace MyHeroMod
         {
             MyInterface = null;
             MyQuirkUI = null;
-            MySkillMenuUI = null;
+            // MySkillMenuUI = null;
             SeeQuirkUI = null;
             MyQuirkRemoverUI = null;
             breathUIState = null;
@@ -111,20 +121,20 @@ namespace MyHeroMod
             OpticBlastUserInterface = null;
         }
 
-        public static void ToggleSkillMenu()
-        {
-            var system = ModContent.GetInstance<UISystem>();
-            if (system.MyInterface.CurrentState is SkillMenuUI)
-            {
-                // fecha se estiver aberto
-                system.MyInterface.SetState(null); 
-            }
-            else
-            {
-                // abre
-                system.MyInterface.SetState(system.MySkillMenuUI); 
-            }
-        }
+        // public static void ToggleSkillMenu()
+        // {
+        //     var system = ModContent.GetInstance<UISystem>();
+        //     if (system.MyInterface.CurrentState is SkillMenuUI)
+        //     {
+        //         // fecha se estiver aberto
+        //         system.MyInterface.SetState(null); 
+        //     }
+        //     else
+        //     {
+        //         // abre
+        //         system.MyInterface.SetState(system.MySkillMenuUI); 
+        //     }
+        // }
 
         public static void ShowUI()
         {

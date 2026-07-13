@@ -3,6 +3,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.Projectiles.Base;
+using KhacesCore.Content.System.BaseProjectiles;
+
 
 namespace MyHeroMod.content.Quirks.Engine.Projectiles
 {
@@ -19,7 +21,7 @@ namespace MyHeroMod.content.Quirks.Engine.Projectiles
                 Dust.NewDust(player.position, player.width, player.height, DustID.Smoke, 0, 0, 100, default, 1f);
             }
         }
-
+    
         public override void SpawnDashDust(Player player)
         {
             

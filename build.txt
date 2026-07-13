@@ -3,3 +3,4 @@ author = KhadaAce
 version = 0.1.3.2
 buildIgnore = *.aseprite, *.ase, *.psd, *Copia*.png, *copy*.png, *BackUp*.png, asdasd.png, obj\, bin\, .vs\
 includeSource = false
+modReferences = KhacesCore

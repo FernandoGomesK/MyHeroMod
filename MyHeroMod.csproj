@@ -9,8 +9,10 @@
 	</PropertyGroup>
 
 	<!-- References -->
+
 	<ItemGroup>
-		
-	</ItemGroup>
+        <ProjectReference Include="..\KhacesCore\KhacesCore.csproj" />
+    </ItemGroup>
+
 
 </Project>
