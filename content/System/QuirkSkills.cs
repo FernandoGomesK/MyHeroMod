@@ -105,6 +105,7 @@
             ToggleDarkShadow,
             PiercingTwilight,
             ToggleBlackAbyss,
+            CovertBlackOpsArms,
 
 
         }

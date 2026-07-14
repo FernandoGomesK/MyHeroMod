@@ -30,7 +30,7 @@ public class CovertBlackOpsArmsSkill : QuirkSkill
 
             if (player.HasBuff(ModContent.BuffType<BlackAbyssBuff>()))
         {
-          player.AddBuff(ModContent.BuffType<CBOArmsBuff>(), 120);   
+          player.AddBuff(ModContent.BuffType<CBOArmsBuff>(), 800);   
 
         }
         else

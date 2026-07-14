@@ -1,17 +1,16 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics; // Necessário para o PreDraw
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.Quirks.DarkShadow;
-using System.Collections.Generic; // Necessário para o DrawBehind
+using System.Collections.Generic;
+using System.IO;
 
 namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
 {
     public class DarkShadowLongBackHandProj : ModProjectile
     {
-        // Textura da Mão de Trás
-        
-
         public override void SetDefaults()
         {
             Projectile.width = 30;
@@ -28,45 +27,42 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Player player = Main.player[Projectile.owner];
             var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();
 
-            // 1. Avisa o jogador que esta mão está ocupada!
-            
-            
+            // Aumenta a hitbox se o CBO Arms estiver ativo
+            if (darkPlayer.isCBOArmsOn)
+            {
+                Projectile.width = 50;
+                Projectile.height = 50;
+            }
 
-            // 2. Encontra o Corpo do Dark Shadow para usar como âncora
             Vector2 bodyCenter = player.Center; 
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile p = Main.projectile[i];
                 if (p.active && p.owner == player.whoAmI && p.type == ModContent.ProjectileType<DarkShadowBodyProj>())
                 {
-                    bodyCenter = p.Center + new Vector2(0f, 10f); // A mesma âncora que criámos antes!
+                    bodyCenter = p.Center + new Vector2(0f, 10f); 
                     break;
                 }
             }
 
-            // 3. ESTADO 0: INDO PARA A FRENTE
             if (Projectile.ai[1] == 0)
             {
-                // Se estiver muito longe do corpo (Ex: 400 pixels), muda para o estado de voltar
                 if (Vector2.Distance(Projectile.Center, bodyCenter) > 400f)
                 {
-                    Projectile.ai[1] = 1; // Muda o estado para Voltar
+                    Projectile.ai[1] = 1; 
                 }
             }
-            // 4. ESTADO 1: VOLTANDO (RETRACTING)
             else if (Projectile.ai[1] == 1)
             {
                 Vector2 returnDirection = bodyCenter - Projectile.Center;
                 float distanceToBody = returnDirection.Length();
 
-                // Se chegou perto o suficiente do corpo, o ataque terminou!
                 if (distanceToBody < 20f)
                 {
                     Projectile.Kill();
                     return;
                 }
 
-                // Puxa a mão de volta com muita velocidade
                 returnDirection.Normalize();
                 Projectile.velocity = returnDirection * 20f; 
             }
@@ -74,9 +70,8 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.spriteDirection = Projectile.velocity.X > 0 ? 1 : -1;
 
-            // 5. CORDÃO UMBRAL DO ATAQUE (Com a sua cor #180021)
             Color shadowColor = new Color(24, 0, 33);
-            for (int i = 0; i < 4; i++) // Um pouco mais denso durante o ataque
+            for (int i = 0; i < 2; i++) 
             {
                 Vector2 cordPos = Vector2.Lerp(bodyCenter, Projectile.Center, Main.rand.NextFloat());
                 cordPos += Main.rand.NextVector2Circular(5f, 5f); 
@@ -84,15 +79,46 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
                 Dust dust = Dust.NewDustPerfect(cordPos, DustID.WhiteTorch, Vector2.Zero, 0, shadowColor);
                 dust.noGravity = true;
                 dust.scale = Main.rand.NextFloat(1.0f, 1.8f);
-                if (Projectile.ai[0] == 1) dust.customData = 0; // Se for a mão de trás, desenha a poeira atrás!
+                if (Projectile.ai[0] == 1) dust.customData = 0; 
             }
         }
     
-
         // MÁGICA PARA A MÃO GRANDE FICAR ATRÁS!
         public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
         {
             behindNPCs.Add(index);
+        }
+
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
+            var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();
+
+            if (darkPlayer.isCBOArmsOn)
+            {
+                var Path = "MyHeroMod/content/Quirks/DarkShadow/Projectiles/BigDarkShadowLongBackHandProj";
+                
+                Texture2D bigTexture = ModContent.Request<Texture2D>(Path).Value;
+                Vector2 drawOrigin = new Vector2(bigTexture.Width * 0.5f, bigTexture.Height * 0.5f);
+                Vector2 drawPos = Projectile.Center - Main.screenPosition;
+                SpriteEffects effects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+                Main.EntitySpriteDraw(
+                    bigTexture,
+                    drawPos,
+                    null, 
+                    Projectile.GetAlpha(lightColor), // Aplica a transparência corretamente!
+                    Projectile.rotation,
+                    drawOrigin,
+                    Projectile.scale,
+                    effects,
+                    0
+                );
+
+                return false; 
+            }
+
+            return true;
         }
     }
 }

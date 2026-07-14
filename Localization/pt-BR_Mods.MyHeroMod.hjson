@@ -663,6 +663,16 @@ Buffs: {
 		// DisplayName: Black Abyss Buff
 		// Description: Mods.MyHeroMod.Buffs.BlackAbyssBuff.Description
 	}
+
+	CBOArmsBuff: {
+		// DisplayName: C B O Arms Buff
+		// Description: Mods.MyHeroMod.Buffs.CBOArmsBuff.Description
+	}
+
+	AutomaticDarkShadowBuff: {
+		// DisplayName: Automatic Dark Shadow Buff
+		// Description: Mods.MyHeroMod.Buffs.AutomaticDarkShadowBuff.Description
+	}
 }
 
 DeathMessage: "{0} destruiu o seu próprio corpo com 100% de poder!"
@@ -767,6 +777,8 @@ Projectiles: {
 	// DarkShadowBackHandProj.DisplayName: Dark Shadow Back Hand Proj
 	// DarkShadowLongBackHandProj.DisplayName: Dark Shadow Long Back Hand Proj
 	// DarkShadowLongFrontHandProj.DisplayName: Dark Shadow Long Front Hand Proj
+	// BigDarkShadowBackHandProj.DisplayName: Big Dark Shadow Back Hand Proj
+	// BigDarkShadowFrontHandProj.DisplayName: Big Dark Shadow Front Hand Proj
 }
 
 NPCs: {

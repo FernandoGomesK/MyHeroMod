@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
@@ -6,19 +5,15 @@ using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
 {
-    public class DarkShadowBackHandProj : ModProjectile
+    public class BigDarkShadowFrontHandProj : ModProjectile
     {
-        public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
-        {
-            
-            behindNPCs.Add(index);
-        }
+        
         
 
         public override void SetDefaults()
         {
-            Projectile.width = 26; 
-            Projectile.height = 16;
+            Projectile.width = 50; 
+            Projectile.height = 50;
             Projectile.friendly = true;
             Projectile.hostile = false;
             Projectile.tileCollide = false;
@@ -33,16 +28,16 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();
 
             // 1. Condição de Morte
-            if (player.dead || !player.active || !darkPlayer.isDarkShadowOn || darkPlayer.isBlackAbyssOn)
+            if (player.dead || !player.active || !darkPlayer.isCBOArmsOn)
             {
                 Projectile.Kill();
                 return;
             }
 
-            if (darkPlayer.isBackHandAttacking)
+            if (darkPlayer.isFrontHandAttacking)
             {
-                Projectile.alpha = 255; 
-                return; 
+                Projectile.alpha = 255;
+                return;
             }
             else
             {
@@ -53,7 +48,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
 
             // 2. Lógica de Flutuação (Na FRENTE do jogador)
             // +30f empurra para a frente (dependendo da direção), +10f empurra para baixo (altura da cintura/peito)
-            Vector2 hoverPosition = player.Center + new Vector2(-8f * player.direction, -20);
+            Vector2 hoverPosition = player.Center + new Vector2(+30f * player.direction, -20f);
 
             Vector2 direction = hoverPosition - Projectile.Center;
             float distance = direction.Length();
@@ -89,21 +84,19 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
                 }
             }
 
-
             Color shadowColor = new Color(24, 0, 33);
             
             for (int i = 0; i < 3; i++)
             {
+                
                 Vector2 cordPos = Vector2.Lerp(cordStartPos, Projectile.Center, Main.rand.NextFloat());
+                
                 cordPos += Main.rand.NextVector2Circular(4f, 4f); 
                 
                 Dust dust = Dust.NewDustPerfect(cordPos, DustID.WhiteTorch, Vector2.Zero, 0, shadowColor);
                 dust.noGravity = true;
                 dust.scale = Main.rand.NextFloat(0.8f, 1.5f);
                 dust.velocity = Main.rand.NextVector2Circular(0.2f, 0.2f);
-                
-               
-                dust.customData = 0; 
             }
         }
     }

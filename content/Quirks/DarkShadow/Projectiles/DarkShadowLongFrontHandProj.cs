@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics; // Required for Texture2D and SpriteEffects
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -8,9 +9,6 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
 {
     public class DarkShadowLongFrontHandProj : ModProjectile
     {
-        // COLOQUE AQUI O NOME DO SEU SPRITE MAIOR
-        // public override string Texture => "MyHeroMod/Assets/Projectiles/DarkShadowLongFrontHand"; 
-
         public override void SetDefaults()
         {
             Projectile.width = 30;
@@ -27,10 +25,13 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Player player = Main.player[Projectile.owner];
             var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();
 
-            
-            
-            
-
+            // 1. Update ONLY the hitbox here. No texture logic.
+            // (Make sure to use capital 'P' for Projectile in tModLoader 1.4+)
+            if (darkPlayer.isCBOArmsOn)
+            {
+                Projectile.width = 50;
+                Projectile.height = 50;
+            }
             
             Vector2 bodyCenter = player.Center; 
             for (int i = 0; i < Main.maxProjectiles; i++)
@@ -75,7 +76,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
 
             // 5. CORDÃO UMBRAL DO ATAQUE (Com a sua cor #180021)
             Color shadowColor = new Color(24, 0, 33);
-            for (int i = 0; i < 4; i++) // Um pouco mais denso durante o ataque
+            for (int i = 0; i < 2; i++) // Um pouco mais denso durante o ataque
             {
                 Vector2 cordPos = Vector2.Lerp(bodyCenter, Projectile.Center, Main.rand.NextFloat());
                 cordPos += Main.rand.NextVector2Circular(5f, 5f); 
@@ -83,8 +84,51 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
                 Dust dust = Dust.NewDustPerfect(cordPos, DustID.WhiteTorch, Vector2.Zero, 0, shadowColor);
                 dust.noGravity = true;
                 dust.scale = Main.rand.NextFloat(1.0f, 1.8f);
-                if (Projectile.ai[0] == 1) dust.customData = 0; // Se for a mão de trás, desenha a poeira atrás!
+                if (Projectile.ai[0] == 1) dust.customData = 0; 
             }
+        }
+
+        // This method determines exactly how the projectile is drawn on screen
+        public override bool PreDraw(ref Color lightColor)
+        {
+            Player player = Main.player[Projectile.owner];
+            var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();
+
+            if (darkPlayer.isCBOArmsOn)
+            {
+                
+                var Path = "MyHeroMod/content/Quirks/DarkShadow/Projectiles/BigDarkShadowLongFrontHandProj";
+                Texture2D bigTexture = ModContent.Request<Texture2D>(Path).Value;
+                
+                
+                // Calculate where the center of the texture is so it rotates properly
+                Vector2 drawOrigin = new Vector2(bigTexture.Width * 0.5f, bigTexture.Height * 0.5f);
+                
+                // Convert world position to screen position
+                Vector2 drawPos = Projectile.Center - Main.screenPosition;
+
+                // Ensure the sprite flips correctly based on direction
+                SpriteEffects effects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+                // Draw the custom texture manually
+                Main.EntitySpriteDraw(
+                    bigTexture,
+                    drawPos,
+                    null, // null means draw the whole texture (no frames)
+                    lightColor,
+                    Projectile.rotation,
+                    drawOrigin,
+                    Projectile.scale,
+                    effects,
+                    0
+                );
+
+                // Return FALSE. This tells tModLoader: "I drew this manually, do NOT draw the default texture."
+                return false; 
+            }
+
+            
+            return true;
         }
     }
 }
