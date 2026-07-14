@@ -9,6 +9,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow
     {
         public bool isDarkShadowOn = false;
         public bool isBlackAbyssOn = false;
+        public bool isCBOArmsOn = false;
         public bool isFrontHandAttacking => Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowLongFrontHandProj>()] > 0;
         public bool isBackHandAttacking => Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowLongBackHandProj>()] > 0;
         
@@ -17,6 +18,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow
            
             isDarkShadowOn = false;      
             isBlackAbyssOn = false;
+            isCBOArmsOn = false;
         }
 
         public override void FrameEffects()
@@ -26,7 +28,8 @@ namespace MyHeroMod.content.Quirks.DarkShadow
             {
                 
                 Player.head = EquipLoader.GetEquipSlot(Mod, "AbyssHead", EquipType.Head);
-                
+                Player.handon = EquipLoader.GetEquipSlot(Mod, "AbyssArms", EquipType.HandsOn);
+                Player.handoff = EquipLoader.GetEquipSlot(Mod, "AbyssArms", EquipType.HandsOff);
 
             }
         }

@@ -397,6 +397,11 @@ Items: {
 		DisplayName: Abyss Head
 		Tooltip: ""
 	}
+
+	AbyssArms: {
+		DisplayName: Abyss Arms
+		Tooltip: ""
+	}
 }
 
 Buffs: {
