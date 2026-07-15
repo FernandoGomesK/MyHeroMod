@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.DarkShadow.Projectiles; 
+using MyHeroMod.content.System; // Required to use the TargetFinder
 
 namespace MyHeroMod.content.Quirks.DarkShadow
 {
@@ -12,13 +13,15 @@ namespace MyHeroMod.content.Quirks.DarkShadow
         public bool isMediumDarkShadowOn = false;
         public bool isCBOArmsOn = false;
 
-        // Variável nova para ativar o modo descontrolado
+        
         public bool isUncontrolledMode = false; 
 
         public int DarkShadowRange => isMediumDarkShadowOn ? 800 : 600; 
-
+        public bool isDarkShadowAutomatic = false;
         public int AutomaticAttackTimer = 0;
-        public int AutomaticAttackCooldown = 60; // 60 frames = 1 segundo
+        public int AutomaticAttackCooldown = 60; 
+
+        public int darkShadowBodyRange => isMediumDarkShadowOn ? 120 : 50;
         
         public bool isFrontHandAttacking => Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowLongFrontHandProj>()] > 0;
         public bool isBackHandAttacking => Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowLongBackHandProj>()] > 0;
@@ -27,9 +30,10 @@ namespace MyHeroMod.content.Quirks.DarkShadow
         {
             isDarkShadowOn = false;      
             isBlackAbyssOn = false;
+            isDarkShadowAutomatic = false;
             isCBOArmsOn = false;
             isMediumDarkShadowOn = false;
-            isUncontrolledMode = false; // Reseta todo frame
+            isUncontrolledMode = false; 
         }
 
         public override void FrameEffects()
@@ -60,7 +64,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow
 
             if (isDarkShadowOn && !isBlackAbyssOn)
             {
-                // LÓGICA DE SPAWN DOS CORPOS BASE (Inalterada)
+                
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowBodyProj>()] < 1)
                 {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<DarkShadowBodyProj>(), 0, 0f, Player.whoAmI);
@@ -75,91 +79,53 @@ namespace MyHeroMod.content.Quirks.DarkShadow
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<DarkShadowBackHandProj>(), 10, 0f, Player.whoAmI);
                 }
 
-                // =======================================================
-                // LÓGICA DO ATAQUE AUTOMÁTICO (RAMPAGE)
-                // =======================================================
+    
                 if (isUncontrolledMode) 
                 {
                     HandleAutomaticAttacks();
                 }
             }
 
-            // SPAWN DOS BRAÇOS GRANDES (Inalterado)
-            if (isCBOArmsOn)
-            {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<BigDarkShadowBackHandProj>()] < 1)
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BigDarkShadowBackHandProj>(), 10, 0f, Player.whoAmI);
-                }
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<BigDarkShadowFrontHandProj>()] < 1)
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BigDarkShadowFrontHandProj>(), 10, 0f, Player.whoAmI);
-                }
-            }
         }
 
-        // Método exclusivo para gerenciar a mira e os disparos automáticos
-        private void HandleAutomaticAttacks()
+    
+private void HandleAutomaticAttacks()
+{
+    if (isFrontHandAttacking && isBackHandAttacking) return;
+
+    
+    var targetFinder = new TargetFinder();
+    NPC closestNPC = targetFinder.FindClosestEnemy(Player, DarkShadowRange, isUncontrolledMode);
+
+    if (closestNPC != null)
+    {
+        AutomaticAttackTimer++;
+
+        if (AutomaticAttackTimer >= AutomaticAttackCooldown)
         {
-            // Se as duas mãos já estão no meio de um ataque, não faz nada
-            if (isFrontHandAttacking && isBackHandAttacking) return;
+            Vector2 attackDirection = (closestNPC.Center - Player.Center).SafeNormalize(Vector2.Zero);
+            float shootSpeed = 15f; 
+            Vector2 shootVelocity = attackDirection * shootSpeed;
 
-            NPC closestNPC = null;
-            float minDistance = DarkShadowRange;
+            int damage = isMediumDarkShadowOn ? 80 : 40; 
+            float knockback = 5f;
 
-            // 1. Encontra o inimigo válido mais próximo
-            foreach (NPC npc in Main.npc)
+            if (!isFrontHandAttacking)
             {
-                if (npc.active && !npc.friendly && npc.lifeMax > 5 && !npc.dontTakeDamage)
-                {
-                    float distanceToNpc = Player.Distance(npc.Center);
-                    
-                    if (distanceToNpc < minDistance)
-                    {
-                        // Verifica colisão: garante que o Dark Shadow não tente atacar através de paredes sólidas
-                        if (Collision.CanHitLine(Player.Center, 1, 1, npc.Center, 1, 1))
-                        {
-                            minDistance = distanceToNpc;
-                            closestNPC = npc;
-                        }
-                    }
-                }
+                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, shootVelocity, ModContent.ProjectileType<DarkShadowLongFrontHandProj>(), damage, knockback, Player.whoAmI);
+            }
+            else if (!isBackHandAttacking)
+            {
+                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, shootVelocity, ModContent.ProjectileType<DarkShadowLongBackHandProj>(), damage, knockback, Player.whoAmI);
             }
 
-            // 2. Se encontrou um alvo, inicia o cronômetro
-            if (closestNPC != null)
-            {
-                AutomaticAttackTimer++;
-
-                if (AutomaticAttackTimer >= AutomaticAttackCooldown)
-                {
-                    // Calcula a direção e a velocidade (Ex: 15f pixels por frame de velocidade inicial)
-                    Vector2 attackDirection = (closestNPC.Center - Player.Center).SafeNormalize(Vector2.Zero);
-                    float shootSpeed = 15f; 
-                    Vector2 shootVelocity = attackDirection * shootSpeed;
-
-                    int damage = isMediumDarkShadowOn ? 80 : 40; // Dá mais dano se estiver médio/descontrolado
-                    float knockback = 5f;
-
-                    // 3. Atira! Prioriza a mão da frente. Se ela estiver ocupada, usa a de trás.
-                    if (!isFrontHandAttacking)
-                    {
-                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, shootVelocity, ModContent.ProjectileType<DarkShadowLongFrontHandProj>(), damage, knockback, Player.whoAmI);
-                    }
-                    else if (!isBackHandAttacking)
-                    {
-                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, shootVelocity, ModContent.ProjectileType<DarkShadowLongBackHandProj>(), damage, knockback, Player.whoAmI);
-                    }
-
-                    // Reseta o timer para o próximo ataque
-                    AutomaticAttackTimer = 0;
-                }
-            }
-            else
-            {
-                
-                if (AutomaticAttackTimer > 0) AutomaticAttackTimer--;
-            }
+            AutomaticAttackTimer = 0;
         }
+    }
+    else
+    {
+        if (AutomaticAttackTimer > 0) AutomaticAttackTimer--;
+    }
+}
     }
 }
