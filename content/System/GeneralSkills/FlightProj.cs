@@ -1,93 +1,93 @@
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using MyHeroMod.content.Buffs;
+// using Microsoft.Xna.Framework;
+// using Terraria;
+// using Terraria.ID;
+// using Terraria.ModLoader;
+// using MyHeroMod.content.Buffs;
 
-namespace MyHeroMod.content.System.GeneralSkills
-{
-    public class FlightProj : ModProjectile
-    {
-        public override void SetDefaults()
-        {
-            Projectile.width = 10; 
-            Projectile.height = 10;
-            Projectile.friendly = true;
-            Projectile.hostile = false;
-            Projectile.tileCollide = false; 
-            Projectile.penetrate = -1; 
-            Projectile.alpha = 255; 
-        }
+// namespace MyHeroMod.content.System.GeneralSkills
+// {
+//     public class FlightProj : ModProjectile
+//     {
+//         public override void SetDefaults()
+//         {
+//             Projectile.width = 10; 
+//             Projectile.height = 10;
+//             Projectile.friendly = true;
+//             Projectile.hostile = false;
+//             Projectile.tileCollide = false; 
+//             Projectile.penetrate = -1; 
+//             Projectile.alpha = 255; 
+//         }
 
-        public override void AI()
-        {
-            Player player = Main.player[Projectile.owner];
+//         public override void AI()
+//         {
+//             Player player = Main.player[Projectile.owner];
 
-            var speed = 5f;
-
-            
-            if (!player.HasBuff(ModContent.BuffType<CruisingBuff>()) || player.dead || player.wingTime <= 0)
-            {
-                Projectile.Kill();
-                return;
-            }
-
-            foreach (var modPlayer in player.ModPlayers)
-            {
-                if (modPlayer is IHeroFlightModifier flightModifier) 
-                {
-                    flightModifier.ModifyFlight(ref speed);
-                }
-            }
+//             var speed = 5f;
 
             
-            player.wingTime--;
+//             if (!player.HasBuff(ModContent.BuffType<CruisingBuff>()) || player.dead || player.wingTime <= 0)
+//             {
+//                 Projectile.Kill();
+//                 return;
+//             }
+
+//             foreach (var modPlayer in player.ModPlayers)
+//             {
+//                 if (modPlayer is IHeroFlightModifier flightModifier) 
+//                 {
+//                     flightModifier.ModifyFlight(ref speed);
+//                 }
+//             }
 
             
-            Projectile.timeLeft = 2; 
-            Projectile.Center = player.Center;
+//             player.wingTime--;
 
             
-            player.noFallDmg = true;
+//             Projectile.timeLeft = 2; 
+//             Projectile.Center = player.Center;
 
-            player.gravity = 0f; 
+            
+//             player.noFallDmg = true;
 
-            player.ChangeDir(Main.MouseWorld.X > player.MountedCenter.X ? 1 : -1);
+//             player.gravity = 0f; 
 
-            Vector2 dashDirection = Main.MouseWorld - player.Center;
-            float distanceToMouse = dashDirection.Length();
+//             player.ChangeDir(Main.MouseWorld.X > player.MountedCenter.X ? 1 : -1);
+
+//             Vector2 dashDirection = Main.MouseWorld - player.Center;
+//             float distanceToMouse = dashDirection.Length();
             
             
-            if (distanceToMouse > 20f)
-            {
-                dashDirection.Normalize();
-                float force = speed; 
-                player.velocity = dashDirection * force; 
+//             if (distanceToMouse > 20f)
+//             {
+//                 dashDirection.Normalize();
+//                 float force = speed; 
+//                 player.velocity = dashDirection * force; 
 
                 
-                player.fullRotation = player.velocity.ToRotation() + MathHelper.PiOver2;
-                player.fullRotationOrigin = player.Size / 2; 
-            }
-            else
-            {
+//                 player.fullRotation = player.velocity.ToRotation() + MathHelper.PiOver2;
+//                 player.fullRotationOrigin = player.Size / 2; 
+//             }
+//             else
+//             {
                 
-                player.velocity *= 0.8f; 
-            }
-        }
-        public override void OnKill(int timeLeft)
-        {
-            Player player = Main.player[Projectile.owner];
+//                 player.velocity *= 0.8f; 
+//             }
+//         }
+//         public override void OnKill(int timeLeft)
+//         {
+//             Player player = Main.player[Projectile.owner];
             
             
-            player.ClearBuff(ModContent.BuffType<CruisingBuff>());
+//             player.ClearBuff(ModContent.BuffType<CruisingBuff>());
             
         
-            player.fullRotation = 0f; 
-        }
+//             player.fullRotation = 0f; 
+//         }
 
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            return false; 
-        }
-    }
-}
+//         public override bool OnTileCollide(Vector2 oldVelocity)
+//         {
+//             return false; 
+//         }
+//     }
+// }
