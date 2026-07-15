@@ -4,11 +4,14 @@ using MyHeroMod.content.System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using KhacesCore.Content.System.GeneralSkills;
+using KhacesCore.Content.Buffs;
+using KhacesCore.Content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.Flight
 {
     
-    public partial class FlightPlayer : ModPlayer, IQuirkResetter, IHeroFlightModifier
+    public partial class FlightPlayer : ModPlayer, IQuirkResetter, IFlightModifier
     {
         public bool isFlightOn = false;
         public bool isFlightShieldOn = false;
