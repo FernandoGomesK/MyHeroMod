@@ -54,10 +54,16 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
                 Projectile.height = 28;
             }
 
+            if (darkPlayer.isFlying)
+            {
+                offsetX = -5f; 
+                offsetY = darkPlayer.isMediumDarkShadowOn ? -70f : -50f;
+            }
+
             Vector2 hoverPosition = player.Center + new Vector2(offsetX * player.direction, offsetY);
             int targetSpriteDirection = player.direction; 
 
-            if (darkPlayer.isDarkShadowAutomatic || darkPlayer.isUncontrolledMode)
+            if (!darkPlayer.isFlying && (darkPlayer.isDarkShadowAutomatic || darkPlayer.isUncontrolledMode))
             {
                 IClosestEnemyFinder targetFinder = new TargetFinder();
                 NPC target = targetFinder.FindClosestEnemy(player, darkPlayer.DarkShadowRange, darkPlayer.isUncontrolledMode);
@@ -113,7 +119,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
                     mediumFrame++;
                     mediumFrameCounter = 0;
                     
-                    // Se passar do último frame (11, pois começa no 0), volta pro início
+
                     if (mediumFrame >= 12) 
                     {
                         mediumFrame = 0;
@@ -122,7 +128,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             }
             else
             {
-                mediumFrame = 0; // Reseta se voltar para a forma normal
+                mediumFrame = 0; 
             }
         }
 

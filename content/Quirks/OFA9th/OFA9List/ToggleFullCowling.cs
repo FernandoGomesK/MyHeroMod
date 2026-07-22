@@ -12,12 +12,13 @@ using Terraria.Graphics.Renderers;
 using Steamworks;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 
-public abstract class FullCowlingBase : QuirkSkill
+public abstract class FullCowlingBase : QuirkBaseSkill
 {
     public override string Name => "One For All: Full Cowling";
     public override string Description => "Activate One for All throught your entire body";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense"; 
     public override int BaseCooldown => 60; 
+    public override string Category => "OneForAll9th";
     public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
     public override QuirkStage RequiredStage => QuirkStage.Adequation;
     public override bool IsDefaultSkill => false;
@@ -34,19 +35,19 @@ public abstract class FullCowlingBase : QuirkSkill
     {
         var OfaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
         
-        // 1. If it's already active, deactivate it instantly.
+        
         if (player.HasBuff(BuffType))
         {
             player.ClearBuff(BuffType); 
             OfaPlayer.percentage = 0;
             CombatText.NewText(player.getRect(), Color.Red, "Deactivated");
         }
-        // 2. If not active, start the channeling projectile!
+        
         else
         {
             CombatText.NewText(player.getRect(), Color.LightGreen, Name + " Charging!");
             
-            // We pass 'CowlingPercentage' into the ai2 slot (the 6th parameter)
+            
             Projectile.NewProjectile(
                 player.GetSource_FromThis(), 
                 player.Center, 
@@ -60,23 +61,7 @@ public abstract class FullCowlingBase : QuirkSkill
                 ai2: CowlingPercentage 
             );
         }
-        // else
-        // {
-        //     if (ActivationTimer > 0){
-        //         ActivationTimer++;
-        //         player.moveSpeed -= 2f;
-
-        //         if (ActivationTimer >= ActivationMaxTime)
-        //         {
-        //             player.AddBuff(BuffType, 360000); 
-        //     SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
-        //     CombatText.NewText(player.getRect(), Color.LightGreen, Name + " Ativado!");
-        //         }
-
-        //     }
-            
-            
-        // }
+        
     }
 }
 
@@ -89,9 +74,6 @@ public class FullCowling5 : FullCowlingBase
 
     protected override int CowlingPercentage => 5;
 
-     
-
-    
 }
 
 public class FullCowling10 : FullCowlingBase

@@ -5,16 +5,20 @@ using MyHeroMod.content;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.AllForOne;
+using KhacesCore.Content.System;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.OFA8th;
 
-public class DetroitSmashSkill : QuirkSkill
+namespace MyHeroMod.content.Quirks.OFA9th.Skills 
+{
+public class DetroitSmashSkill : QuirkBaseSkill
 {
     public override string Name => "Detroit Smash";
     public override string Description => "Propel air forward with a massive punch";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
     public override int BaseCooldown => 120;
+    public override string Category => "OneForAll9th";
 
     public override QuirkType RequiredQuirk => QuirkType.Quirkless;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
@@ -51,4 +55,5 @@ public class DetroitSmashSkill : QuirkSkill
             player.whoAmI
         );
     }
+}
 }

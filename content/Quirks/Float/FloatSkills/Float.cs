@@ -4,8 +4,9 @@ using Terraria.ModLoader;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
+using MyHeroMod.content.Quirks.GeneralSkills;
 
-public class FloatSkill : QuirkSkill
+public class FloatSkill : BaseToggleSkill
 {
     public override string Name => "Float";
     public override string Description => "Begin To float to the skies";

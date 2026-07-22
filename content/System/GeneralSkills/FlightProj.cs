@@ -2,9 +2,9 @@
 // using Terraria;
 // using Terraria.ID;
 // using Terraria.ModLoader;
-// using MyHeroMod.content.Buffs;
+// using KhacesCore.Content.Buffs;
 
-// namespace MyHeroMod.content.System.GeneralSkills
+// namespace KhacesCore.Content.System.BaseProjectiles
 // {
 //     public class FlightProj : ModProjectile
 //     {
@@ -34,7 +34,7 @@
 
 //             foreach (var modPlayer in player.ModPlayers)
 //             {
-//                 if (modPlayer is IHeroFlightModifier flightModifier) 
+//                 if (modPlayer is IFlightModifier flightModifier) 
 //                 {
 //                     flightModifier.ModifyFlight(ref speed);
 //                 }

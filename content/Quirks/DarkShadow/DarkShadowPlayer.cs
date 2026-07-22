@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.DarkShadow.Projectiles; 
-using MyHeroMod.content.System; // Required to use the TargetFinder
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Quirks.DarkShadow
 {
@@ -13,6 +13,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow
         public bool isMediumDarkShadowOn = false;
         public bool isCBOArmsOn = false;
 
+        public bool isFlying = false;
         
         public bool isUncontrolledMode = false; 
 
@@ -34,6 +35,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow
             isCBOArmsOn = false;
             isMediumDarkShadowOn = false;
             isUncontrolledMode = false; 
+            isFlying = false;
         }
 
         public override void FrameEffects()
@@ -43,6 +45,28 @@ namespace MyHeroMod.content.Quirks.DarkShadow
                 Player.head = EquipLoader.GetEquipSlot(Mod, "AbyssHead", EquipType.Head);
                 Player.handon = EquipLoader.GetEquipSlot(Mod, "AbyssArms", EquipType.HandsOn);
                 Player.handoff = EquipLoader.GetEquipSlot(Mod, "AbyssArms", EquipType.HandsOff);
+            }
+        }
+
+        public override void PostUpdateEquips()
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            
+            if (!transPlayer.HasActiveQuirk(QuirkType.BlueFlames))  
+                return;
+
+            if (transPlayer.CurrentStage == QuirkStage.Intermediate &&
+             (Player.HasBuff(ModContent.BuffType<Buffs.BlackAbyssBuff>()) || Player.HasBuff(ModContent.BuffType<Buffs.DarkShadowBuff>())))
+            {
+                Player.wingTimeMax =360000;
+
+                if (Player.wingsLogic == 0)
+                {
+                    Player.wingsLogic = 29; 
+                    Player.wings = -1; 
+                }
+
+                Player.noFallDmg = true;
             }
         }
 
@@ -57,14 +81,12 @@ namespace MyHeroMod.content.Quirks.DarkShadow
                 {
                     isDarkShadowOn = true;
                 }
-                {
-                    isUncontrolledMode = true;
-                }
+                
+                isUncontrolledMode = true;
             }
 
             if (isDarkShadowOn && !isBlackAbyssOn)
             {
-                
                 if (Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowBodyProj>()] < 1)
                 {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<DarkShadowBodyProj>(), 0, 0f, Player.whoAmI);
@@ -78,54 +100,18 @@ namespace MyHeroMod.content.Quirks.DarkShadow
                 {
                     Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<DarkShadowBackHandProj>(), 10, 0f, Player.whoAmI);
                 }
-
     
                 if (isUncontrolledMode) 
                 {
+
                     HandleAutomaticAttacks();
                 }
             }
 
-        }
-
-    
-private void HandleAutomaticAttacks()
-{
-    if (isFrontHandAttacking && isBackHandAttacking) return;
-
-    
-    var targetFinder = new TargetFinder();
-    NPC closestNPC = targetFinder.FindClosestEnemy(Player, DarkShadowRange, isUncontrolledMode);
-
-    if (closestNPC != null)
-    {
-        AutomaticAttackTimer++;
-
-        if (AutomaticAttackTimer >= AutomaticAttackCooldown)
-        {
-            Vector2 attackDirection = (closestNPC.Center - Player.Center).SafeNormalize(Vector2.Zero);
-            float shootSpeed = 15f; 
-            Vector2 shootVelocity = attackDirection * shootSpeed;
-
-            int damage = isMediumDarkShadowOn ? 80 : 40; 
-            float knockback = 5f;
-
-            if (!isFrontHandAttacking)
+            if (Player.velocity.Y != 0 && (Player.wingTime > 0 || Player.rocketDelay > 0) && !Player.mount.Active)
             {
-                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, shootVelocity, ModContent.ProjectileType<DarkShadowLongFrontHandProj>(), damage, knockback, Player.whoAmI);
+                isFlying = true;
             }
-            else if (!isBackHandAttacking)
-            {
-                Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, shootVelocity, ModContent.ProjectileType<DarkShadowLongBackHandProj>(), damage, knockback, Player.whoAmI);
-            }
-
-            AutomaticAttackTimer = 0;
         }
-    }
-    else
-    {
-        if (AutomaticAttackTimer > 0) AutomaticAttackTimer--;
-    }
-}
     }
 }

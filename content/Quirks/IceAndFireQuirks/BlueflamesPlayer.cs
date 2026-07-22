@@ -19,9 +19,6 @@ namespace MyHeroMod.content.Quirks.Blueflames
     public partial class BlueFlamesPlayer : ModPlayer, IQuirkResetter, IHeroTemperature
     {
 
-        
-        // public int MaxHeat = 100;
-        // public int CurrentHeat = 0;
 
         public int Temperature {get; set;} = 0;
         public int MaxTemperature { get; } = 100;

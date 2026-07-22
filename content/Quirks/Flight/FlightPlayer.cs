@@ -83,6 +83,12 @@ namespace MyHeroMod.content.Quirks.Flight
 
         public override void PostUpdate()
         {
+            
+            if (Player.HasBuff<FlightBuff>())
+            {
+                Player.GetModPlayer<FlightPlayer>().isFlightOn = true;
+            }
+
             timeSinceLastHit++;
             if (timeSinceLastHit > 350) 
             {

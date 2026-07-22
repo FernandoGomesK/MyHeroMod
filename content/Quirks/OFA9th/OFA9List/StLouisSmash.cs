@@ -3,146 +3,103 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using MyHeroMod.content.Buffs;
-using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.OFA9th;
-using Terraria.DataStructures;
-using MyHeroMod.content.Quirks.Explosion.Projectiles;
 using MyHeroMod.content.Quirks.FaJin;
 
-
-public class StLouisSmashSkill : QuirkSkill
+namespace MyHeroMod.content.Quirks.OFA9th.Skills 
 {
-    public override string Name => "ST. Louis Smash";
-    public override string Description => "Jump and do a diving Kick at your Cursor";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
-
-    public override int BaseCooldown => 120;
-
-    public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
-    public override QuirkStage RequiredStage => QuirkStage.Intermediate;
-    public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
-
-
-    public override void OnUse(Player player)
+    public class StLouisSmashSkill : QuirkBaseSkill
     {
+        public override string Name => "ST. Louis Smash";
+        public override string Description => "Jump and do a diving Kick at your Cursor";
+        public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
-        var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
-        var FaJinPlayer = player.GetModPlayer<FajinPlayer>();
-        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+        public override int BaseCooldown => 120;
+        public override string Category => "OneForAll9th";
 
-            int MaxDamage = 130;
+        public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
+        public override QuirkStage RequiredStage => QuirkStage.Intermediate;
+        public override bool IsDefaultSkill => false;
+        public override bool IsBaseQuirk => false;
 
-            switch(transPlayer.CurrentStage){
-                case QuirkStage.Initial:
-                MaxDamage = 130;
-                break;
-            
-                case QuirkStage.Adequation:
-                MaxDamage = 350;
-                break;
-          
-                case QuirkStage.Intermediate:
-                MaxDamage = 500;
-                break;
-            
-                case QuirkStage.Advanced:
-                MaxDamage = 950;
-                break;
-          
-                case QuirkStage.Final:
-                MaxDamage = 2200;
-                break;
-        
-                default:
-                MaxDamage =130;
-                break;
-                    
+        public override void OnUse(Player player)
+        {
+      
+            if (!player.HasBuff(ModContent.BuffType<FullCowlingBuff>()))
+            {
+                CombatText.NewText(player.getRect(), Color.Red, "Requires Full Cowling!");
+                return;
             }
-            float DamageMultiplier = 1f;
-            bool hurtPlayer = false;
+
+            var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+            
+            int MaxDamage = transPlayer.CurrentStage switch
+            {
+                QuirkStage.Initial => 130,
+                QuirkStage.Adequation => 350,
+                QuirkStage.Intermediate => 500,
+                QuirkStage.Advanced => 950,
+                QuirkStage.Final => 2200,
+                _ => 130
+            };
+
+            
+            float DamageMultiplier = ofaPlayer.percentage switch
+            {
+                45 => 0.45f,
+                10 => 0.10f,
+                5 => 0.05f,
+                _ => 1f
+            };
+
             bool usedFaJin = false;
 
-            int extraDamage = 0;
-
-        if (ofaPlayer.isIronSolesOn == true)
-        {
-            extraDamage = 50;
-        }
-    
-
-
-        if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()))
-        {
-         if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 45) {
-                DamageMultiplier = 0.45f; 
-            }
-            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 10) {
-                DamageMultiplier = 0.010f;
-            }
-            else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 5) {
-                DamageMultiplier = 0.05f; 
-            }
-            else {
-                DamageMultiplier = 2.0f; 
-                hurtPlayer = true;
-            }
-            if  (player.HasBuff(ModContent.BuffType<FaJinBuff>()))
+            
+            if (player.HasBuff(ModContent.BuffType<FaJinBuff>()))
             {
-                DamageMultiplier += 0.55f; // Increase damage by 25% if Fa Jin is stored
-                FaJinPlayer.FaJinCharges = 0; // Consume all Fa Jin charges
+                var faJinPlayer = player.GetModPlayer<FajinPlayer>();
+                DamageMultiplier += 0.55f;
+                faJinPlayer.FaJinCharges = 0; 
                 player.ClearBuff(ModContent.BuffType<FaJinBuff>());
                 usedFaJin = true;
             }
 
-            int FinalDamage = (int)(MaxDamage * DamageMultiplier + extraDamage);
-
-            string attackName = "";
+           
+            int extraDamage = ofaPlayer.isIronSolesOn ? 50 : 0;
+            int FinalDamage = (int)(MaxDamage * DamageMultiplier) + extraDamage;
 
             
-            if (usedFaJin)
-            {
-                attackName += "Faux ";
-            }
-            if (usedFaJin || !hurtPlayer)
-            {
-                attackName += (DamageMultiplier * 100).ToString("0") + "% St. Louis Smash";
-            }
-            else
-            {
-                attackName += "St. Louis Smash";
-            }
+            string attackName = usedFaJin ? "Faux " : "";
+            attackName += $"{(DamageMultiplier * 100):0}% St. Louis Smash";
+            
             if (player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
             {
                 attackName += ": OVERDRIVE";
             }
             else 
-            { 
+            {
                 attackName += "!";
             }
             
             CombatText.NewText(player.getRect(), Color.LimeGreen, attackName);
 
-         Projectile.NewProjectile(
+            // 7. Fire Projectile
+            Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
                 Vector2.Zero, 
                 ModContent.ProjectileType<STLouisSmashController>(),
-                FinalDamage, // Dano alto (Impacto)
-                10f, // Knockback alto
+                FinalDamage, 
+                10f, 
                 player.whoAmI
             );
 
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);   
         }
-        else
-        {
-            Main.NewText("You need to be in a Full Cowling to use this skill!", Color.Red);
-        }
-            
-
-            
-    }}
+    }
+}

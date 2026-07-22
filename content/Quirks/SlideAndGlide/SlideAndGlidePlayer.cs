@@ -3,10 +3,11 @@ using MyHeroMod.content.System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using KhacesCore.Content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.SlideAndGlide
 {
-    public partial class SlideAndGlidePlayer : ModPlayer, IQuirkResetter, IHeroFlightModifier
+    public partial class SlideAndGlidePlayer : ModPlayer, IQuirkResetter, IFlightModifier
     {
         public bool isSlideOn = false;
         public int greenLegsTimer = 0;
