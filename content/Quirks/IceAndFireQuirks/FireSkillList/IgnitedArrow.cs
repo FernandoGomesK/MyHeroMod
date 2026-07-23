@@ -18,7 +18,7 @@ using MyHeroMod.content.System.Interfaces;
 
 
 
-public class IgnitedArrowSkill: QuirkSkill
+public class IgnitedArrowSkill: QuirkBaseSkill
 {
     
     public override string Name 
@@ -49,6 +49,7 @@ public class IgnitedArrowSkill: QuirkSkill
    
     public override string Description => "Shoot a Projectile of Fire";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string Category => "Fire";
 
     public override int BaseCooldown => 120;
 

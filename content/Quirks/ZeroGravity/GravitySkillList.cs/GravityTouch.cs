@@ -8,7 +8,7 @@ using MyHeroMod.content;
 using MyHeroMod.content.Quirks.Overhaul.Projectiles.DisassembleRange;
 using MyHeroMod.content.Quirks.ZeroGravity.Projectiles.GravityTouch;
 
-public class GravityTouchSkill : QuirkSkill
+public class GravityTouchSkill : QuirkBaseSkill
 {
     public override string Name => "Zero Gravity Touch";
     
@@ -17,6 +17,7 @@ public class GravityTouchSkill : QuirkSkill
     
     public override string Description => "Negate the gravitational pull of objects at a distance";
     public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string Category => "ZeroGravity";
 
     public override int BaseCooldown => 200;
     public override QuirkType RequiredQuirk => QuirkType.ZeroGravity;

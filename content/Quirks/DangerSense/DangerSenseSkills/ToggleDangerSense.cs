@@ -9,11 +9,12 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA9th;
 
-public class ToggleDangerSenseSkill : QuirkSkill
+public class ToggleDangerSenseSkill : QuirkBaseSkill
 {
     public override string Name => "Toggle DangerSense";
     public override string Description => "Activates DangerSense";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string Category => "DangerSense";
 
     public override int BaseCooldown => 30;
 

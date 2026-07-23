@@ -9,11 +9,12 @@ using Terraria.Audio;
 
 
 
-public class GearShiftSkill : QuirkSkill
+public class GearShiftSkill : QuirkBaseSkill
 {
     public override string Name => "Gearshift";
     public override string Description => "Changes the user's gear to fit the situation.";
     public override string IconPath => "Quirks/GearShift/Gearshift";
+    public override string Category => "Gearshift";
     public override int BaseCooldown => 600;
     public override QuirkType RequiredQuirk => QuirkType.Gearshift;
     public override QuirkStage RequiredStage => QuirkStage.Advanced;

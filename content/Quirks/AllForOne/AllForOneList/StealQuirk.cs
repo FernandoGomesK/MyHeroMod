@@ -12,11 +12,12 @@ using MyHeroMod.content.Projectiles;
 
 
 
-public class StealQuirkSkill : QuirkSkill
+public class StealQuirkSkill : QuirkBaseSkill
 {
     public override string Name => "Steal";
     public override string Description => "Steal the power of another quirk.";
     public override string IconPath => "Quirks/GearShift/Gearshift";
+    public override string Category => "AllForOne";
     public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.AllForOne;
     public override QuirkStage RequiredStage => QuirkStage.Initial;

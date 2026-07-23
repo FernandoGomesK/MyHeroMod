@@ -5,11 +5,12 @@ using MyHeroMod.content;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Rivet.Projectiles;
 
-public class RivetStabSkill : QuirkSkill
+public class RivetStabSkill : QuirkBaseSkill
 {
     public override string Name => "Rivet Stab";
     public override string Description => "Create red like tendrils that stab at your cursor";
     public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string Category => "Rivet";
 
     public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.Rivet;
@@ -21,7 +22,7 @@ public class RivetStabSkill : QuirkSkill
     {
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
         
-        // Define quantos projéteis baseado no estágio (até 10 no Final)
+        
         int projectileCount = transPlayer.CurrentStage switch
         {
             QuirkStage.Initial => 1,

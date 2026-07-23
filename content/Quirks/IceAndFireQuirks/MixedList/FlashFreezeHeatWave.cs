@@ -11,7 +11,7 @@ using MyHeroMod.content.Quirks.HalfColdHalfHot;
 
 
 
-public class FlashFreezeSkill : QuirkSkill
+public class FlashFreezeSkill : QuirkBaseSkill
 {
     
     public override string Name => "Flash Freeze Heatwave";
@@ -19,6 +19,7 @@ public class FlashFreezeSkill : QuirkSkill
    
     public override string Description => "Cool the air around yourself and quickly heat it up releasing a powerfull Heatwave";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string Category => "HalfColdHalfHot";
 
     public override int BaseCooldown => 120;
 

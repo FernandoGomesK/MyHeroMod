@@ -8,11 +8,12 @@ using MyHeroMod.content.Quirks.OpticBlast.Projectiles;
 using MyHeroMod.content.Quirks.OpticBlast;
 
 
-public class ContinuousOpticBlastSkill : QuirkSkill
+public class ContinuousOpticBlastSkill : QuirkBaseSkill
     {
         public override string Name => "Continuous Optic Blast";
         public override string Description => "Shoot a concentrated penetrating beam as long as you hold the key.";
         public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+        public override string Category => "OpticBlast";
 
         public override int BaseCooldown => 120; 
 

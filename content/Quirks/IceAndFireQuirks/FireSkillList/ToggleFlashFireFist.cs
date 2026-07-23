@@ -10,12 +10,12 @@ using MyHeroMod.content.System.Interfaces;
 
 
 
-public class FlashFireFistSkill : QuirkSkill
+public class FlashFireFistSkill : QuirkBaseSkill
 {
      public override string Name => "Flash Fire Fist";
     public override string Description => "Toggle Flash Fire Fist";
     public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
-
+    public override string Category => "Fire";
     public override int BaseCooldown => 30;
      public override QuirkType RequiredQuirk => QuirkType.HellFlames;
     public override QuirkStage RequiredStage => QuirkStage.Adequation;

@@ -10,11 +10,12 @@ using MyHeroMod.content.Buffs; // Garanta que a pasta do Controller esteja corre
 
 namespace MyHeroMod.content.Quirks.Erasure.ErasureList
 {
-    public class ToggleEraseSkill : QuirkSkill
+    public class ToggleEraseSkill : QuirkBaseSkill
     {
         public override string Name => "Erasure";
         public override string Description => "Look at enemies to erase their quirks. Blinking cancels the effect.";
-        public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense"; // Mude depois para um ícone de Olho Vermelho
+        public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+        public override string Category => "Erasure";
 
         public override int BaseCooldown => 250;
 

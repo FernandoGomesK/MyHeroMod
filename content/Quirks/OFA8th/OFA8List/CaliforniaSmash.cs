@@ -13,11 +13,12 @@ using MyHeroMod.content.Quirks.OFA8th.Projectiles.CaliforniaSmash;
 using MyHeroMod.content.Quirks.OFA8th;
 
 
-public class CaliforniaSmashSkill : QuirkSkill
+public class CaliforniaSmashSkill : QuirkBaseSkill
 {
     public override string Name => "California Smash";
     public override string Description => "Propel air forward with a flick of your fingers";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string Category => "OneForAll8th";
 
     public override int BaseCooldown => 120;
 

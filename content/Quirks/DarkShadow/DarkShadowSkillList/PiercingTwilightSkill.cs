@@ -7,11 +7,12 @@ using MyHeroMod.content.Quirks.DarkShadow.Projectiles;
 
 namespace MyHeroMod.content.Quirks.DarkShadow.Skills
 {
-    public class PiercingTwilightClawsSkill : QuirkSkill
+    public class PiercingTwilightClawsSkill : QuirkBaseSkill
     {
         public override string Name => "Piercing Twilight Claws";
         public override string Description => "Lança as garras do Dark Shadow à distância.";
         public override string IconPath => "MyHeroMod/Assets/Skills/ClawAttack";
+        public override string Category => "DarkShadow";
         
         public override int BaseCooldown => 15; 
 

@@ -8,11 +8,12 @@ using MyHeroMod.content;
 using MyHeroMod.content.Quirks.Overhaul.Projectiles.DisassembleRange;
 using MyHeroMod.content.Quirks.Overhaul;
 
-public class DisassembleRangeSkill : QuirkSkill
+public class DisassembleRangeSkill : QuirkBaseSkill
 {
     public override string Name => "Overhaul Hand";
     public override string Description => "Disassemble objects at a distance";
-    public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float"; // Lembre-se de mudar a imagem depois!
+    public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string Category => "Overhaul";
 
     public override int BaseCooldown => 200;
     public override QuirkType RequiredQuirk => QuirkType.Overhaul;

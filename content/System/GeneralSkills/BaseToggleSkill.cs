@@ -9,10 +9,10 @@ namespace MyHeroMod.content.Quirks.GeneralSkills
 {
     public abstract class BaseToggleSkill : QuirkBaseSkill
     {
-        // Every toggle skill MUST provide the ID of the buff it toggles
+        
         public abstract int BuffType { get; }
 
-        // Default text and colors (can be overridden by child classes if desired)
+        
         public virtual string ToggleOnText => $"{Name}: ON";
         public virtual string ToggleOffText => $"{Name}: OFF";
         public virtual Color ToggleOnColor => Color.Orange;

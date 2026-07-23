@@ -9,7 +9,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Decay.Projectiles.GroundTouch;
 
-public class GroundTouchSkill : QuirkSkill
+public class GroundTouchSkill : QuirkBaseSkill
 {
     public override string Name => "Decay Ground";
     
@@ -18,6 +18,7 @@ public class GroundTouchSkill : QuirkSkill
     
     public override string Description => "Touch the ground with decay energy";
     public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string Category => "Decay";
 
     public override int BaseCooldown => 200;
     public override QuirkType RequiredQuirk => QuirkType.Decay;

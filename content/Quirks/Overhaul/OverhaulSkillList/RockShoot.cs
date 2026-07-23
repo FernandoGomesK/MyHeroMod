@@ -18,7 +18,7 @@ using MyHeroMod.content.Quirks.Overhaul.Projectiles.RockShoot;
 
 
 
-public class RockShootSkill: QuirkSkill
+public class RockShootSkill: QuirkBaseSkill
 {
     
     public override string Name => "Rock Shoot";
@@ -27,6 +27,7 @@ public class RockShootSkill: QuirkSkill
    
     public override string Description => "Shoot a rock at your enemies";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string Category => "Overhaul";
 
     public override int BaseCooldown => 120;
 

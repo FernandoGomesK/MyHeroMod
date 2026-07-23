@@ -8,11 +8,12 @@ using MyHeroMod.content.Quirks.HalfColdHalfHot;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
 
-public class TogglePhosphorSkill : QuirkSkill
+public class TogglePhosphorSkill : QuirkBaseSkill
 {
 public override string Name => "Phosphor";
     public override string Description => "Toggle Phosphor";
     public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string Category => "Fire";
 
     public override int BaseCooldown => 30;
      public override QuirkType RequiredQuirk => QuirkType.HalfColdHalfHot;

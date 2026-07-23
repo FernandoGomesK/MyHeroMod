@@ -9,11 +9,12 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Engine.Projectiles;
 using MyHeroMod.content.Quirks.Engine;
 
-public class ReciproExtendSkill : QuirkSkill
+public class ReciproExtendSkill : QuirkBaseSkill
 {
     public override string Name => "Recipro Extend";
     public override string Description => "Jump and do a diving Kick at your Cursor";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash"; 
+    public override string Category => "Engine";
 
     public override int BaseCooldown => 120;
 

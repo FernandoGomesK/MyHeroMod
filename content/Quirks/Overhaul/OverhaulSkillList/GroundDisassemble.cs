@@ -11,7 +11,7 @@ using MyHeroMod.content.Quirks.Overhaul.Projectiles.GroundDisassemble;
 
 
 
-public class GroundDisassembleSkill: QuirkSkill
+public class GroundDisassembleSkill: QuirkBaseSkill
 {
     
     public override string Name => "Ground Disassemble";
@@ -19,6 +19,7 @@ public class GroundDisassembleSkill: QuirkSkill
    
     public override string Description => "Create a row of Huge Rock Spikes";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string Category => "Overhaul";
 
     public override int BaseCooldown => 120;
 

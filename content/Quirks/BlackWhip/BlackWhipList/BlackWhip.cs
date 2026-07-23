@@ -11,11 +11,12 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip;
 
 
-public class BlackWhipHookSkill : QuirkSkill
+public class BlackWhipHookSkill : QuirkBaseSkill
     {
          public override string Name => "Black Whip Hook";
     public override string Description => "Shoot a hook made from blackwhip at you cursor and pull yourself towards it";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string Category => "BlackWhip";
 
     public override int BaseCooldown => 30;
 

@@ -13,11 +13,12 @@ using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.FullPower;
 
 
-public class FullPowerBlastSkill : QuirkSkill
+public class FullPowerBlastSkill : QuirkBaseSkill
 {
     public override string Name => "Full Power Blast";
     public override string Description => "Shoot a concentrated penetrating Projectile";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string Category => "Explosion";
 
     public override int BaseCooldown => 30;
 

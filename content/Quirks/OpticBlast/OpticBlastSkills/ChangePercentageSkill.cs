@@ -8,11 +8,12 @@ using MyHeroMod.content.Quirks.OpticBlast;
 using Terraria.Audio;
 
 
-    public class ChangePercentageSkill : QuirkSkill
+    public class ChangePercentageSkill : QuirkBaseSkill
     {
         public override string Name => "Change Percentage";
         public override string Description => "Change the percentage of your Optic Blast";
-        public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash"; // Update this icon later!
+        public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash"; 
+        public override string Category => "OpticBlast";
 
         public override int BaseCooldown => 60;
 

@@ -12,11 +12,12 @@ using MyHeroMod.content.Quirks.Overhaul;
 
 
 
-public class ChimeraSkill : QuirkSkill
+public class ChimeraSkill : QuirkBaseSkill
 {
     public override string Name => "Chimera";
     public override string Description => "Combine the powers of different quirks.";
     public override string IconPath => "Quirks/GearShift/Gearshift";
+    public override string Category => "Overhaul";
     public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.Overhaul;
     public override QuirkStage RequiredStage => QuirkStage.Intermediate;

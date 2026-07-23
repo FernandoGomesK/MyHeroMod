@@ -12,13 +12,14 @@ using MyHeroMod.content.Projectiles;
 using MyHeroMod;
 
 
-namespace MyHeroMod.content.Quirks.AllForOne.AllForOneList // Mude para a pasta onde você salvar este arquivo
+namespace MyHeroMod.content.Quirks.AllForOne.AllForOneList 
 {
-public class SeeQuirksSkill : QuirkSkill
+public class SeeQuirksSkill : QuirkBaseSkill
 {
     public override string Name => "See";
     public override string Description => "See all quirks in you mighty possession.";
     public override string IconPath => "Quirks/GearShift/Gearshift";
+    public override string Category => "AllForOne";
     public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.AllForOne;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
@@ -27,13 +28,13 @@ public class SeeQuirksSkill : QuirkSkill
 
     public override void OnUse(Player player)
         {
-            // Se alguma interface já estiver aberta, a habilidade fecha ela
+            
             if (UISystem.IsUiOpen())
             {
                 UISystem.HideUI();
                 SoundEngine.PlaySound(SoundID.MenuClose);
             }
-            // Se estiver fechado, ela abre o menu do AFO
+            
             else
             {
                 UISystem.ShowSeeQuirksUI();

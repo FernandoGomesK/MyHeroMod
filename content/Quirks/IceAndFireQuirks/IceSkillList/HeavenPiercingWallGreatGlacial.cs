@@ -13,7 +13,7 @@ using MyHeroMod.content.System.Interfaces;
 
 
 
-public class HeavenPiercingGreatGlacial: QuirkSkill
+public class HeavenPiercingGreatGlacial: QuirkBaseSkill
 {
     
     public override string Name => "Heaven Piercing Wall/Great Glacial Aegir";
@@ -21,6 +21,7 @@ public class HeavenPiercingGreatGlacial: QuirkSkill
    
     public override string Description => "Create a row of Huge ice spikes or dash and freeze everything in your path";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string Category => "HCHH";
 
     public override int BaseCooldown => 120;
 

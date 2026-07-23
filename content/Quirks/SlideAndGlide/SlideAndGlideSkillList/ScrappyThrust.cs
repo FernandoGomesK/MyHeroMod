@@ -14,7 +14,7 @@ using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
 using MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ScrappyThrust;
 using MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo;
 
-public class ScrappyThrustSkill : QuirkSkill
+public class ScrappyThrustSkill : QuirkBaseSkill
 {
     public override string Name
     {
@@ -37,6 +37,7 @@ public class ScrappyThrustSkill : QuirkSkill
     }
     public override string Description => "Shoot a concentrated penetrating Projectile";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string Category => "SlideAndGlide";
 
     public override int BaseCooldown => 30;
 

@@ -9,11 +9,12 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Engine.Projectiles;
 using MyHeroMod.content.Quirks.Engine;
 
-public class ReciproSpinSkill : QuirkSkill
+public class ReciproSpinSkill : QuirkBaseSkill
 {
     public override string Name => "Recipro Spin";
     public override string Description => "Spin like a Wheel ";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash"; 
+    public override string Category => "Engine";
 
     public override int BaseCooldown => 120;
 

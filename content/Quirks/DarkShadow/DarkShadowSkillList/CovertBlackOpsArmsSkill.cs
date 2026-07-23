@@ -13,11 +13,12 @@ using MyHeroMod.content.Quirks.DarkShadow;
 
 
 
-public class CovertBlackOpsArmsSkill : QuirkSkill
+public class CovertBlackOpsArmsSkill : QuirkBaseSkill
 {
     public override string Name => "Covert Black Ops Arms";
     public override string Description => "Enlarge your arms for a temporary boost.";
     public override string IconPath => "Quirks/GearShift/Gearshift";
+    public override string Category => "DarkShadow";
     public override int BaseCooldown => 600;
     public override QuirkType RequiredQuirk => QuirkType.DarkShadow;
     public override QuirkStage RequiredStage => QuirkStage.Advanced;

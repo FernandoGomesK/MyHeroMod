@@ -14,12 +14,13 @@ using MyHeroMod.content.System.Interfaces;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.ProminenceBurn;
 
 
-public class ProminenceBurnSkill: QuirkSkill
+public class ProminenceBurnSkill: QuirkBaseSkill
 {
     
     public override string Name => "Prominence Burn";
 
-   
+    public override string Category => "Fire";
+
     public override string Description => "Shoot a Huge Ice Spike at your Cursor or Lines of fire";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 

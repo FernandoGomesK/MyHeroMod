@@ -13,11 +13,12 @@ using MyHeroMod.content.Quirks.OFA8th.Projectiles.CarolinaSmash;
 using MyHeroMod.content.Quirks.OFA8th;
 
 
-public class CarolinaSmashSkill : QuirkSkill
+public class CarolinaSmashSkill : QuirkBaseSkill
 {
     public override string Name => "Carolina Smash";
     public override string Description => "Propel air forward with a flick of your fingers";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string Category => "OneForAll8th";
 
     public override int BaseCooldown => 200;
 

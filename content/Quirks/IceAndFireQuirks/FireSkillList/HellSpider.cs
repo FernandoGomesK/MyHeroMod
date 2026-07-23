@@ -16,7 +16,7 @@ using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.HellSpider;
 
 
 
-public class HellSpiderSkill: QuirkSkill
+public class HellSpiderSkill: QuirkBaseSkill
 {
     
     public override string Name 
@@ -37,7 +37,7 @@ public class HellSpiderSkill: QuirkSkill
    
     public override string Description => "Shoot burning Lines of fire";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
-
+    public override string Category => "Fire";
     public override int BaseCooldown => 120;
 
     public override QuirkType RequiredQuirk => QuirkType.HellFlames;

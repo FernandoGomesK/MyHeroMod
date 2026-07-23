@@ -11,11 +11,12 @@ using MyHeroMod.content.Quirks.Tape.Projectiles;
 
 
 
-public class ShootTapeSkill : QuirkSkill
+public class ShootTapeSkill : QuirkBaseSkill
     {
          public override string Name => "Swinging Tape";
     public override string Description => "Shoot a hook made from blackwhip at you cursor and pull yourself towards it";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string Category => "Tape";
 
     public override int BaseCooldown => 30;
 

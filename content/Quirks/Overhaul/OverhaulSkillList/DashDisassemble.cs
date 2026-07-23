@@ -7,7 +7,7 @@ using MyHeroMod.content;
 using MyHeroMod.content.Quirks.Overhaul.Projectiles.DashDisassemble;
 using Microsoft.Xna.Framework;
 
-public class DashDisassembleSkill : QuirkSkill
+public class DashDisassembleSkill : QuirkBaseSkill
 {
     public override string Name => "Decay Dash";
     
@@ -16,6 +16,7 @@ public class DashDisassembleSkill : QuirkSkill
     
     public override string Description => "Dash Forward reaching for your foes";
     public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string Category => "Overhaul";
 
     public override int BaseCooldown => 200;
     public override QuirkType RequiredQuirk => QuirkType.Overhaul;

@@ -7,7 +7,7 @@ using MyHeroMod.content.System;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.Overhaul.Projectiles.DisassembleRange;
 
-public class DisassembleHealSkill : QuirkSkill
+public class DisassembleHealSkill : QuirkBaseSkill
 {
     public override string Name => "Disassemble Heal";
     
@@ -16,6 +16,7 @@ public class DisassembleHealSkill : QuirkSkill
     
     public override string Description => "Dissassemble Yourself to heal";
     public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string Category => "Overhaul";
 
     public override int BaseCooldown => 200;
     public override QuirkType RequiredQuirk => QuirkType.Overhaul;

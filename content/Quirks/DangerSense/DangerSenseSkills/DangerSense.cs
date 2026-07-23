@@ -6,7 +6,7 @@ using MyHeroMod.content.Buffs;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content;
 
-public class DangerSenseSkill : QuirkSkill
+public class DangerSenseSkill : QuirkBaseSkill
 {
     public override string Name => "DangerSense";
     public override string Description => "Activates DangerSense Overtime";
@@ -18,6 +18,7 @@ public class DangerSenseSkill : QuirkSkill
     public override QuirkStage RequiredStage => QuirkStage.Advanced;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => true;
+    public override string Category => "DangerSense";
 
     public override void OnUse(Player player)
     {

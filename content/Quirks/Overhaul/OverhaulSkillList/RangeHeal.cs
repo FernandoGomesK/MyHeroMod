@@ -7,7 +7,7 @@ using MyHeroMod.content.System;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.Overhaul.Projectiles.RangeHeal;
 
-public class RangeHealSkill : QuirkSkill
+public class RangeHealSkill : QuirkBaseSkill
 {
     public override string Name => "Range Heal";
     
@@ -16,6 +16,7 @@ public class RangeHealSkill : QuirkSkill
     
     public override string Description => "Heal allies at a distance";
     public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string Category => "Overhaul";
 
     public override int BaseCooldown => 200;
     public override QuirkType RequiredQuirk => QuirkType.Overhaul;

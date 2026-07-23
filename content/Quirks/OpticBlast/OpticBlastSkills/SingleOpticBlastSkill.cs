@@ -15,11 +15,12 @@ using MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ScrappyThrust;
 using MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo;
 using MyHeroMod.content.Quirks.OpticBlast.Projectiles;
 
-public class SingleOpticBlastSkill : QuirkSkill
+public class SingleOpticBlastSkill : QuirkBaseSkill
 {
      public override string Name => "Optic Blast";
     public override string Description => "Shoot a concentrated penetrating Projectile";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string Category => "OpticBlast";
 
     public override int BaseCooldown => 120;
 

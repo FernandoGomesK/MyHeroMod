@@ -11,11 +11,12 @@ using MyHeroMod.content.Quirks.Explosion;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
 
 
-public class ApShotSkill : QuirkSkill
+public class ApShotSkill : QuirkBaseSkill
 {
     public override string Name => "Ap Shot";
     public override string Description => "Shoot a concentrated penetrating Projectile";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string Category => "Explosion";
 
     public override int BaseCooldown => 30;
 

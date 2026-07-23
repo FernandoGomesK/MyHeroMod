@@ -7,7 +7,7 @@ using MyHeroMod.content;
 using MyHeroMod.content.Quirks.Decay.Projectiles.DashTouch;
 using Microsoft.Xna.Framework;
 
-public class DashTouchSkill : QuirkSkill
+public class DashTouchSkill : QuirkBaseSkill
 {
     public override string Name => "Decay Dash";
     
@@ -16,6 +16,7 @@ public class DashTouchSkill : QuirkSkill
     
     public override string Description => "Dash Forward reaching for your foes";
     public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string Category => "Decay";
 
     public override int BaseCooldown => 200;
     public override QuirkType RequiredQuirk => QuirkType.Decay;

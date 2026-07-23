@@ -9,11 +9,12 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA8th;
 
-public abstract class ToggleStockPile : QuirkSkill
+public abstract class ToggleStockPile : QuirkBaseSkill
 {
     public override string Name => "StockPile";
     public override string Description => "Activate One for All throught your entire body";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense"; 
+    public override string Category => "OneForAll8th";
     public override int BaseCooldown => 60; 
     public override QuirkType RequiredQuirk => QuirkType.OneForAll8th;
     public override QuirkStage RequiredStage => QuirkStage.Intermediate;

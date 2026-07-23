@@ -10,11 +10,12 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Explosion;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
 
-public class ApMachineGunSkill : QuirkSkill
+public class ApMachineGunSkill : QuirkBaseSkill
 {
     public override string Name => "Ap Machine Gun";
     public override string Description => "Shoot a concentrated penetrating Projectile";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string Category => "Explosion";
 
     public override int BaseCooldown => 300;
 

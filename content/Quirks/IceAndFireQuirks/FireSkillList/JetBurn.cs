@@ -20,7 +20,7 @@ using MyHeroMod.content.System.Interfaces;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.ColdflamePaleblade;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceThrower; 
 
-public class JetBurnSkill : QuirkSkill
+public class JetBurnSkill : QuirkBaseSkill
 {
     public override string Name 
     {
@@ -49,7 +49,8 @@ public class JetBurnSkill : QuirkSkill
     }
 
     public override string Description => "Fire a wave of flames or ice";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash"; // Pode mudar o ícone depois
+    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string Category => "Fire";
     public override int BaseCooldown => 120;
     
     
