@@ -18,7 +18,7 @@ public class ToggleDarkShadowSkill : QuirkBaseSkill
     public override string Name => "Toggle Dark Shadow";
     public override string Description => "Summon DarkShadow.";
     public override string IconPath => "Quirks/GearShift/Gearshift";
-    public override string IconPath => "Quirks/GearShift/Gearshift";
+    public override string Category => "DarkShadow";
     public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.DarkShadow;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
