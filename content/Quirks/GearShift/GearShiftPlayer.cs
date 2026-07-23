@@ -7,6 +7,7 @@ using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.BasePlayer;
 using Mono.Cecil.Cil;
 using MyHeroMod.content.System;
+using KhacesCore.Content.System.Interfaces;
 
 
 
@@ -14,7 +15,7 @@ using MyHeroMod.content.System;
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     // PARTE 1: DADOS E LÓGICA
-    public partial class GearshiftPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter, IHeroPunchModifier
+    public partial class GearshiftPlayer : ModPlayer, IDashModifier, IQuirkResetter, IHeroPunchModifier
     {
         // Variáveis de Estado
         

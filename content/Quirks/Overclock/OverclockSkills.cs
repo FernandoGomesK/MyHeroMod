@@ -6,12 +6,13 @@ using Terraria.ID;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.BasePlayer;
 using MyHeroMod.content.System;
+using KhacesCore.Content.System.Interfaces;
 
 
 namespace MyHeroMod.content.Quirks.Overclock
 {
     
-    public partial class OverclockPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter, IHeroPunchModifier
+    public partial class OverclockPlayer : ModPlayer, IDashModifier, IQuirkResetter, IHeroPunchModifier
     {
 
 

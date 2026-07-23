@@ -4,10 +4,11 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
+using KhacesCore.Content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.Overclock
 {
-    public partial class OverclockPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter, IHeroPunchModifier
+    public partial class OverclockPlayer : ModPlayer, IDashModifier, IQuirkResetter, IHeroPunchModifier
     {
         public int form = 0;
         public bool isOverclockBuffActive = false;

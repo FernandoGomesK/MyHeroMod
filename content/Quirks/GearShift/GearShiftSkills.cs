@@ -7,12 +7,13 @@ using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.BasePlayer;
 using MyHeroMod.content.System;
 using Microsoft.Xna.Framework.Graphics;
+using KhacesCore.Content.System.Interfaces;
 
 
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     
-    public partial class GearshiftPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter, IHeroPunchModifier
+    public partial class GearshiftPlayer : ModPlayer, IDashModifier, IQuirkResetter, IHeroPunchModifier
     {
 
 

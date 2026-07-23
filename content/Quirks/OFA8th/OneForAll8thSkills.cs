@@ -2,10 +2,11 @@ using MyHeroMod.content.System;
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
+using KhacesCore.Content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.OFA8th
 {
-    public partial class OneForAll8thPlayer : ModPlayer, IHeroDashModifier
+    public partial class OneForAll8thPlayer : ModPlayer, IDashModifier
     {
         public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType)
         {

@@ -3,10 +3,11 @@ using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Buffs;
+using KhacesCore.Content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.FaJin
 {
-    public partial class FajinPlayer : ModPlayer, IHeroDashModifier, IHeroPunchModifier
+    public partial class FajinPlayer : ModPlayer, IDashModifier, IHeroPunchModifier
     {
         public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType)
         {

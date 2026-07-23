@@ -13,13 +13,14 @@ using System.Collections.Generic;
 using MyHeroMod.content.System.BasePlayer;
 using rail;
 using MyHeroMod.content.System;
+using KhacesCore.Content.System.Interfaces;
 
 
 
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
-    public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter, IHeroDashModifier
+    public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter, IDashModifier
     {
 
         public bool isAirForceOn = false;

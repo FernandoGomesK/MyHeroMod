@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
+using KhacesCore.Content.System.Interfaces;
 
 using Terraria.Audio;
 using MyHeroMod.content.System.BasePlayer;
@@ -12,7 +13,7 @@ using MyHeroMod.content.Quirks.OFA9th;
 
 namespace MyHeroMod.content.Quirks.FaJin;
 
-    public partial class FajinPlayer : ModPlayer, IHeroDashModifier, IQuirkResetter, IHeroPunchModifier
+    public partial class FajinPlayer : ModPlayer, IDashModifier, IQuirkResetter, IHeroPunchModifier
     {
         
         public int FaJinCharges = 0;

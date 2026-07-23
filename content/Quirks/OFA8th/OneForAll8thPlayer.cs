@@ -10,10 +10,11 @@ using MyHeroMod.content.Quirks.OFA8th.Projectiles;
 using Terraria.Audio;
 using MyHeroMod.content.System;
 using System.Collections.Generic;
+using KhacesCore.Content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.OFA8th
 {
-    public partial class OneForAll8thPlayer : ModPlayer, IQuirkResetter, IHeroDashModifier
+    public partial class OneForAll8thPlayer : ModPlayer, IQuirkResetter, IDashModifier
     {
        
        public int form = 0;
