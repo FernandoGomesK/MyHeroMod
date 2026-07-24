@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.DataStructures;
-using MyHeroMod.content.System.BasePlayer;
+
 
 namespace MyHeroMod.content.Quirks.Gearshift
 {

@@ -13,12 +13,11 @@ using MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo;
 
 public class ShootyGoBBBSkill : QuirkBaseSkill
 {
-    public override string Name
+    public override string Name => "Shooty Go BBB";
+
+    public override string GetDisplayName(Player player)
     {
-        get
-        {
-            Player player = Main.LocalPlayer;
-            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
             if (transPlayer.CurrentStage >= QuirkStage.Final)
             {
@@ -28,9 +27,6 @@ public class ShootyGoBBBSkill : QuirkBaseSkill
             {
                 return "Shooty go Blam Blam Blam";
             }
-            
-        } 
-        
     }
     public override string Description => "Shoot a concentrated penetrating Projectile";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";

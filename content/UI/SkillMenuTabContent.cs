@@ -1,4 +1,4 @@
-// MyHeroMod/content/UI/SkillMenuTabContent.cs
+
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.GameContent.UI.Elements;
@@ -6,15 +6,17 @@ using Terraria.UI;
 using Terraria.Audio;
 using Terraria.ID;
 using System.Collections.Generic;
-using MyHeroMod.content.Quirks;
 using MyHeroMod.content.System;
+using KhacesCore.Content.System;
 
 namespace MyHeroMod.content.UI
 {
     public class SkillMenuTabContent : UIElement
     {
         private UIText descriptionText;
-        private QuirkSkills selectedSkill = QuirkSkills.None;
+        
+        
+        private string selectedSkill = "None"; 
 
         public SkillMenuTabContent()
         {
@@ -26,7 +28,6 @@ namespace MyHeroMod.content.UI
 
             UIPanel listPanel = new UIPanel();
             listPanel.Width.Set(230, 0);
-            // Fix: Set height to 100% minus 90px to leave room for the description panel
             listPanel.Height.Set(-90, 1f); 
             listPanel.Left.Set(10, 0);
             listPanel.Top.Set(10, 0);
@@ -45,20 +46,17 @@ namespace MyHeroMod.content.UI
             listPanel.Append(scrollbar);
             skillList.SetScrollbar(scrollbar);
 
-            // 2. SLOT BUTTONS (Right side)
-            // These are perfectly anchored to the right of the listPanel (Left = 250)
+            
             CreateSlotButton(player, "Slot 1 (Z)", 10, 1);
             CreateSlotButton(player, "Slot 2 (X)", 70, 2);
             CreateSlotButton(player, "Slot 3 (C)", 130, 3);
             CreateSlotButton(player, "Slot 4 (V)", 190, 4);
 
-            // 3. DESCRIPTION PANEL (Bottom span)
+            
             UIPanel descPanel = new UIPanel();
-            // Spans the full width of the menu minus 20px for padding
             descPanel.Width.Set(-20, 1f); 
             descPanel.Height.Set(60, 0);
             descPanel.Left.Set(10, 0);
-            // Anchors perfectly 70px from the bottom
             descPanel.Top.Set(-70, 1f); 
             Append(descPanel);
 
@@ -72,10 +70,14 @@ namespace MyHeroMod.content.UI
 
         private void PopulateSkillList(TransformationPlayer player, UIList skillList)
         {
-            foreach (var skillId in SkillLibrary.GetAllIds())
+            foreach (var skillId in SkillLibrary.GetAllIds()) 
             {
-                var skillInstance = SkillLibrary.GetSkill(skillId);
-                if (skillInstance == null || !skillInstance.CheckUnlock(player)) continue;
+                var skillInstance = SkillLibrary.GetSkill(skillId); 
+                if (skillInstance == null) continue;
+
+            
+                if (skillInstance is QuirkBaseSkill quirkSkill && !quirkSkill.CheckUnlock(player)) 
+                    continue;
 
                 UIPanel button = new UIPanel();
                 button.Width.Set(0, 1f);
@@ -91,7 +93,7 @@ namespace MyHeroMod.content.UI
                 button.OnMouseOut += (evt, elem) => button.BackgroundColor = new Color(60, 60, 100);
                 button.OnLeftClick += (evt, elem) =>
                 {
-                    selectedSkill = skillId;
+                    selectedSkill = skillId; 
                     descriptionText.SetText(skillInstance.Description);
                     SoundEngine.PlaySound(SoundID.MenuTick);
                 };
@@ -100,60 +102,59 @@ namespace MyHeroMod.content.UI
             }
         }
 
-       private void CreateSlotButton(TransformationPlayer player, string baseLabel, float top, int slotNum)
-{
-    UIPanel slotBtn = new UIPanel();
-    slotBtn.Width.Set(-260, 1f);
-    slotBtn.Height.Set(50, 0);
-    slotBtn.Left.Set(250, 0);
-    slotBtn.Top.Set(top, 0);
-    slotBtn.BackgroundColor = Color.DarkSlateBlue;
-
-    // 1. Check what skill is currently assigned to this slot
-    QuirkSkills currentSkill = QuirkSkills.None;
-    if (slotNum == 1) currentSkill = player.Slot1;
-    if (slotNum == 2) currentSkill = player.Slot2;
-    if (slotNum == 3) currentSkill = player.Slot3;
-    if (slotNum == 4) currentSkill = player.Slot4;
-
-    // 2. Format the display text based on whether a skill is equipped
-    string displayLabel = baseLabel;
-    if (currentSkill != QuirkSkills.None)
-    {
-        var existingSkill = SkillLibrary.GetSkill(currentSkill);
-        if (existingSkill != null)
+        private void CreateSlotButton(TransformationPlayer player, string baseLabel, float top, int slotNum)
         {
-            displayLabel = $"{baseLabel}: {existingSkill.Name}";
-        }
-    }
+            UIPanel slotBtn = new UIPanel();
+            slotBtn.Width.Set(-260, 1f);
+            slotBtn.Height.Set(50, 0);
+            slotBtn.Left.Set(250, 0);
+            slotBtn.Top.Set(top, 0);
+            slotBtn.BackgroundColor = Color.DarkSlateBlue;
 
-    UIText slotText = new UIText(displayLabel);
-    slotText.HAlign = 0.5f;
-    slotText.VAlign = 0.5f;
-    slotBtn.Append(slotText);
-
-    slotBtn.OnLeftClick += (evt, elem) =>
-    {
-        if (selectedSkill == QuirkSkills.None)
-        {
-            Main.NewText("Select a skill first!", Color.Red);
-            return;
-        }
-
-        var skillInstance = SkillLibrary.GetSkill(selectedSkill);
-        if (slotNum == 1) player.Slot1 = selectedSkill;
-        if (slotNum == 2) player.Slot2 = selectedSkill;
-        if (slotNum == 3) player.Slot3 = selectedSkill;
-        if (slotNum == 4) player.Slot4 = selectedSkill;
-
-        Main.NewText($"Assigned {skillInstance.Name} to Slot {slotNum}!", Color.Green);
         
-        // 3. Update the text using the base label so it doesn't infinitely stack
-        slotText.SetText($"{baseLabel}: {skillInstance.Name}");
-        SoundEngine.PlaySound(SoundID.MenuOpen);
-    };
+            string currentSkill = "None";
+            if (slotNum == 1) currentSkill = player.Slot1;
+            if (slotNum == 2) currentSkill = player.Slot2;
+            if (slotNum == 3) currentSkill = player.Slot3;
+            if (slotNum == 4) currentSkill = player.Slot4;
 
-    Append(slotBtn);
-}
+            string displayLabel = baseLabel;
+            if (currentSkill != "None")
+            {
+                var existingSkill = SkillLibrary.GetSkill(currentSkill);
+                if (existingSkill != null)
+                {
+                    displayLabel = $"{baseLabel}: {existingSkill.Name}";
+                }
+            }
+
+            UIText slotText = new UIText(displayLabel);
+            slotText.HAlign = 0.5f;
+            slotText.VAlign = 0.5f;
+            slotBtn.Append(slotText);
+
+            slotBtn.OnLeftClick += (evt, elem) =>
+            {
+                
+                if (selectedSkill == "None")
+                {
+                    Main.NewText("Select a skill first!", Color.Red);
+                    return;
+                }
+
+                var skillInstance = SkillLibrary.GetSkill(selectedSkill);
+                if (slotNum == 1) player.Slot1 = selectedSkill;
+                if (slotNum == 2) player.Slot2 = selectedSkill;
+                if (slotNum == 3) player.Slot3 = selectedSkill;
+                if (slotNum == 4) player.Slot4 = selectedSkill;
+
+                Main.NewText($"Assigned {skillInstance.Name} to Slot {slotNum}!", Color.Green);
+                
+                slotText.SetText($"{baseLabel}: {skillInstance.Name}");
+                SoundEngine.PlaySound(SoundID.MenuOpen);
+            };
+
+            Append(slotBtn);
+        }
     }
 }

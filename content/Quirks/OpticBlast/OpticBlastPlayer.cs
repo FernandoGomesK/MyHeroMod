@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.System.BasePlayer;
+
 using MyHeroMod.content.System;
 using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.Quirks.OpticBlast.Projectiles; // Added to access the Controller

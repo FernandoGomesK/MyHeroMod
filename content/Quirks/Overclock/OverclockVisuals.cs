@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Audio;
-using MyHeroMod.content.System.BasePlayer;
+
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System.Interfaces;

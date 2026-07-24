@@ -6,7 +6,7 @@ using MyHeroMod.content.Buffs;
 using KhacesCore.Content.System.Interfaces;
 
 using Terraria.Audio;
-using MyHeroMod.content.System.BasePlayer;
+
 using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.OFA9th;
 

@@ -7,31 +7,20 @@ using MyHeroMod.content;
 
 public class ReciproSkill : QuirkBaseSkill
 {
-    public override string Name
-    {
-        get
-        {
-            Player player = Main.LocalPlayer;
-            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+    public override string Name => "Recipro";
+    
 
-            if (transPlayer.CurrentStage == QuirkStage.Advanced)
-            {
-                return "Recipro Turbo";
-            }
-            else if (transPlayer.CurrentStage == QuirkStage.Intermediate)
-            {
-                return "Recipro Extend";
-            }
-            else if (transPlayer.CurrentStage == QuirkStage.Adequation)
-            {
-                return "Recipro Boost";
-            }
-            else
-            {
-                return "Engine Boost";
-            }
-        }
-    }
+    public override string GetDisplayName(Player player)
+{
+    var transPlayer = player.GetModPlayer<TransformationPlayer>();
+    return transPlayer.CurrentStage switch
+    {
+        QuirkStage.Advanced => "Recipro Turbo",
+        QuirkStage.Intermediate => "Recipro Extend",
+        QuirkStage.Adequation => "Recipro Boost",
+        _ => "Engine Boost"
+    };
+}
 
     
     public override string Description => "Supercharge your engines for a short period of time";

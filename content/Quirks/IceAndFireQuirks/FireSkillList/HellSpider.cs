@@ -19,19 +19,20 @@ using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.HellSpider;
 public class HellSpiderSkill: QuirkBaseSkill
 {
     
-    public override string Name 
+    public override string Name => "Hell Spider";
+    
+
+    public override string GetDisplayName(Player player)
     {
-        get 
-        {
-            Player player = Main.LocalPlayer;
-            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+       
 
             if (transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))
             {
                 return "Ice Spike / Hell Spider";
             }
-            return "Flashfire Fist: Hell Spider"; 
-        }
+            return "Flashfire Fist: Hell Spider";
+           
     }
 
    

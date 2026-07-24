@@ -4,7 +4,7 @@ using Terraria.ID;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
-using MyHeroMod.content.System.BasePlayer;
+
 using Terraria.DataStructures;
 
 namespace MyHeroMod.content.Quirks.SpeedForce

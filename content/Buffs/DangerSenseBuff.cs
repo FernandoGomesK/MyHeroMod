@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.DangerSense;
-using MyHeroMod.content.System.BasePlayer;
+
 
 namespace MyHeroMod.content.Buffs
 {

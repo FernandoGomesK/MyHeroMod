@@ -22,19 +22,18 @@ using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceThrower;
 
 public class JetBurnSkill : QuirkBaseSkill
 {
-    public override string Name 
-    {
-        get 
-        {
-            Player player = Main.LocalPlayer;
-            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+    public override string Name => "Jet Burn";
 
-            // PRIORIDADE 1: HCHH
+    public override string GetDisplayName(Player player)
+    {
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+            
             if (transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))
             {
                 return "Ice Thrower / Jet Kindling";
             }
-            // PRIORIDADE 2: BlueFlames
+            
             else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
             {
                 if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
@@ -43,9 +42,8 @@ public class JetBurnSkill : QuirkBaseSkill
                     return "Flamethrower";
             }
             
-            // PRIORIDADE 3 / Padrão: HellFlames
-            return "Flashfire Fist: Jet Burn"; 
-        }
+            
+            return "Flashfire Fist: Jet Burn";   
     }
 
     public override string Description => "Fire a wave of flames or ice";

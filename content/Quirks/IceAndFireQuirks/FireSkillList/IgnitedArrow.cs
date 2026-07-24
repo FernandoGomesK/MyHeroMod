@@ -21,13 +21,12 @@ using MyHeroMod.content.System.Interfaces;
 public class IgnitedArrowSkill: QuirkBaseSkill
 {
     
-    public override string Name 
+    public override string Name => "Ignited Arrow";
+    
+
+    public override string GetDisplayName(Player player)
     {
-        get 
-        {
-            
-            Player player = Main.LocalPlayer;
-            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
             if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
             {
@@ -42,8 +41,7 @@ public class IgnitedArrowSkill: QuirkBaseSkill
                 }
             }
 
-            return "Ignited Arrow"; 
-        }
+            return "Ignited Arrow";     
     }
 
    

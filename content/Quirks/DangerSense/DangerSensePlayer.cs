@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using MyHeroMod.content.Buffs;
-using MyHeroMod.content.System.BasePlayer;
 using Terraria.Audio;
 using MyHeroMod.content.System;
 using Terraria.GameContent.Bestiary;

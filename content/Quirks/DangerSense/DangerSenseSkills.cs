@@ -7,7 +7,6 @@ using MyHeroMod.content.System;
 using Terraria.Audio;
 using Terraria.DataStructures;
 using MyHeroMod.content.Buffs;
-using MyHeroMod.content.System.BasePlayer;
 
 
 

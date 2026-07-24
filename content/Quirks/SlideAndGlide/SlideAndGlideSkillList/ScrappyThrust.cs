@@ -16,12 +16,11 @@ using MyHeroMod.content.Quirks.SlideAndGlide.Projectiles.ShootyGo;
 
 public class ScrappyThrustSkill : QuirkBaseSkill
 {
-    public override string Name
+    public override string Name => "Scrappy Thrust";
+
+    public override string GetDisplayName(Player player)
     {
-        get
-        {
-            Player player = Main.LocalPlayer;
-            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
             if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
             {
@@ -31,9 +30,6 @@ public class ScrappyThrustSkill : QuirkBaseSkill
             {
                 return "Scrappy Thrust Style";
             }
-            
-        } 
-        
     }
     public override string Description => "Shoot a concentrated penetrating Projectile";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";

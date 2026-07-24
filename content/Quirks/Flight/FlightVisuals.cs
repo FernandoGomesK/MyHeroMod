@@ -1,6 +1,6 @@
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
-using MyHeroMod.content.System.BasePlayer;
+
 using Terraria.ModLoader;
 using Terraria;
 

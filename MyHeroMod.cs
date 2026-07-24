@@ -77,105 +77,60 @@ namespace MyHeroMod
             // 2. LER AS MENSAGENS QUE CHEGAM
             public override void HandlePacket(BinaryReader reader, int whoAmI)
             {
-                // Lê o primeiro byte para saber de que tipo de mensagem se trata
+                
                 MessageType msgType = (MessageType)reader.ReadByte();
 
                 switch (msgType)
                 {
                     case MessageType.SyncTransformationPlayer:
-                    byte playernumber = reader.ReadByte();
-                    
-                    // --- NOVA LEITURA DA LISTA ---
-                    int ActiveQuirkCount = reader.ReadInt32();
-                    List<QuirkType> receivedQuirks = new List<QuirkType>();
-                    for(int i = 0; i < ActiveQuirkCount; i++)
-                    {
-                        receivedQuirks.Add((QuirkType)reader.ReadInt32());
-                    }
-                    // -----------------------------
-
-                    int stageInt = reader.ReadInt32();
-                    int slot1Int = reader.ReadInt32();
-                    int slot2Int = reader.ReadInt32();
-                    int slot3Int = reader.ReadInt32();
-                    int slot4Int = reader.ReadInt32();
-
-                    TransformationPlayer transPlayer = Main.player[playernumber].GetModPlayer<TransformationPlayer>();
-                    transPlayer.ActiveQuirks = receivedQuirks; // Substitui a lista
-                    transPlayer.CurrentStage = (QuirkStage)stageInt;
-                    transPlayer.Slot1 = (QuirkSkills)slot1Int;
-                    transPlayer.Slot2 = (QuirkSkills)slot2Int;
-                    transPlayer.Slot3 = (QuirkSkills)slot3Int;
-                    transPlayer.Slot4 = (QuirkSkills)slot4Int;
-
-                    if (Main.netMode == NetmodeID.Server) 
-                    {
-                        ModPacket packet = GetPacket();
-                        packet.Write((byte)MessageType.SyncTransformationPlayer);
-                        packet.Write(playernumber);
+                        byte playernumber = reader.ReadByte();
                         
-                        // Reencaminha a lista para todos!
-                        packet.Write(ActiveQuirkCount);
-                        foreach(var quirk in receivedQuirks) packet.Write((int)quirk);
-
-                        packet.Write(stageInt);
-                        packet.Write(slot1Int);
-                        packet.Write(slot2Int);
-                        packet.Write(slot3Int);
-                        packet.Write(slot4Int);
-                        packet.Send(-1, playernumber); 
-                    }
-                    break;
-
-                        case MessageType.SyncAllForOne:
-                        byte playerAfo = reader.ReadByte();
-                        int quirkCount = reader.ReadInt32(); 
-
-                        var afoPlayer = Main.player[playerAfo].GetModPlayer<AllForOnePlayer>();
-                        
-                        
-                        afoPlayer.InternalQuirks.Clear(); 
-
-                        
-                        for (int i = 0; i < quirkCount; i++)
+                        // --- NOVA LEITURA DA LISTA ---
+                        int ActiveQuirkCount = reader.ReadInt32();
+                        List<QuirkType> receivedQuirks = new List<QuirkType>();
+                        for(int i = 0; i < ActiveQuirkCount; i++)
                         {
-                            int quirkId = reader.ReadInt32();
-                            afoPlayer.InternalQuirks.Add((QuirkType)quirkId);
+                            receivedQuirks.Add((QuirkType)reader.ReadInt32());
                         }
+                        // -----------------------------
 
+                        int stageInt = reader.ReadInt32();
                         
-                        if (Main.netMode == NetmodeID.Server)
+                        
+                        string slot1Str = reader.ReadString();
+                        string slot2Str = reader.ReadString();
+                        string slot3Str = reader.ReadString();
+                        string slot4Str = reader.ReadString();
+
+                        TransformationPlayer transPlayer = Main.player[playernumber].GetModPlayer<TransformationPlayer>();
+                        transPlayer.ActiveQuirks = receivedQuirks; 
+                        transPlayer.CurrentStage = (QuirkStage)stageInt;
+                        
+                        
+                        transPlayer.Slot1 = slot1Str;
+                        transPlayer.Slot2 = slot2Str;
+                        transPlayer.Slot3 = slot3Str;
+                        transPlayer.Slot4 = slot4Str;
+
+                        if (Main.netMode == NetmodeID.Server) 
                         {
                             ModPacket packet = GetPacket();
-                            packet.Write((byte)MessageType.SyncAllForOne);
-                            packet.Write(playerAfo);
+                            packet.Write((byte)MessageType.SyncTransformationPlayer);
+                            packet.Write(playernumber);
+                            
+                        
+                            packet.Write(ActiveQuirkCount);
+                            foreach(var quirk in receivedQuirks) packet.Write((int)quirk);
+
+                            packet.Write(stageInt);
                             
                             
-                            packet.Write(quirkCount);
-                            foreach (var quirk in afoPlayer.InternalQuirks)
-                            {
-                                packet.Write((int)quirk);
-                            }
+                            packet.Write(slot1Str);
+                            packet.Write(slot2Str);
+                            packet.Write(slot3Str);
+                            packet.Write(slot4Str);
                             
-                            packet.Send(-1, playerAfo); 
-                        }
-                        break;
-
-
-
-                        case MessageType.SyncOFA8th:
-                        byte player8 = reader.ReadByte();
-                        int form8 = reader.ReadInt32();
-
-                        Main.player[player8].GetModPlayer<OneForAll8thPlayer>().form = form8;
-
-                        if (Main.netMode == NetmodeID.Server)
-                        {
-                            ModPacket packet = GetPacket();
-                            packet.Write((byte)MessageType.SyncOFA8th);
-                            packet.Write(player8);
-                            packet.Write(form8);
-                            packet.Send(-1, player8); 
+                            packet.Send(-1, playernumber); 
                         }
                         break;
 

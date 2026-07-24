@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.ID;
 using MyHeroMod.content.Buffs;
-using MyHeroMod.content.System.BasePlayer;
+
 using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Quirks.Float

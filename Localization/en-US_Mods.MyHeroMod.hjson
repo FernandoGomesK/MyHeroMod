@@ -775,6 +775,9 @@ Projectiles: {
 	DarkShadowLongFrontHandProj.DisplayName: Dark Shadow Long Front Hand Proj
 	BigDarkShadowBackHandProj.DisplayName: Big Dark Shadow Back Hand Proj
 	BigDarkShadowFrontHandProj.DisplayName: Big Dark Shadow Front Hand Proj
+	LunaRingController.DisplayName: Luna Ring Controller
+	LunaArcController.DisplayName: Luna Arc Controller
+	LunaFallController.DisplayName: Luna Fall Controller
 }
 
 NPCs: {

@@ -10,7 +10,7 @@ using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using Terraria.Audio;
 using System.Collections.Generic;
-using MyHeroMod.content.System.BasePlayer;
+
 using rail;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System.Interfaces;

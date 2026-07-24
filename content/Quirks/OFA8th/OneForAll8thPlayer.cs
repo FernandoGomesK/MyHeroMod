@@ -24,7 +24,8 @@ namespace MyHeroMod.content.Quirks.OFA8th
         }
         public override void OnRespawn()
         {
-            Player.GetModPlayer<TransformationPlayer>().ActiveForm = QuirkSkills.None;    
+
+            Player.GetModPlayer<TransformationPlayer>().ActiveForm = "None";    
         }
 
             public override void PostUpdateEquips()
