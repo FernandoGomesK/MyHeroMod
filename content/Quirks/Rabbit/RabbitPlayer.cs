@@ -13,6 +13,21 @@ namespace MyHeroMod.content.Quirks.Rabbit
         }
 
 
+        public override void PostUpdateEquips()
+        {
+            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+            
+
+            if (mainPlayer.HasActiveQuirk(QuirkType.Rabbit))
+            {
+                Player.moveSpeed += 1.5f;
+                Player.jumpSpeedBoost += 1.5f;
+                Player.noFallDmg = true;
+            }
+
+        }
+
+
         
     }
 }

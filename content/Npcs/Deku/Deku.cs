@@ -16,7 +16,7 @@ namespace MyHeroMod.content.Npcs.Deku
         {
             
             
-            Main.npcFrameCount[NPC.type] = 25; 
+            Main.npcFrameCount[NPC.type] = 26; 
             NPCID.Sets.ExtraFramesCount[NPC.type] = 9;
             NPCID.Sets.AttackFrameCount[NPC.type] = 4;
             NPCID.Sets.DangerDetectRange[NPC.type] = 700;
@@ -30,7 +30,7 @@ namespace MyHeroMod.content.Npcs.Deku
             NPC.townNPC = true; 
             NPC.friendly = true;
             NPC.width = 18;
-            NPC.height = 40;
+            NPC.height = 55;
             NPC.aiStyle = NPCAIStyleID.Passive;
             NPC.damage = 10; 
             NPC.defense = 15;
