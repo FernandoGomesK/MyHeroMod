@@ -812,4 +812,19 @@ NPCs: {
 			Princess_LovesNPC: "{NPCName} is a very polite child."
 		}
 	}
+
+	Deku: {
+		DisplayName: Deku
+
+		TownNPCMood: {
+			Content: Estou contente.
+			NoHome: Odeio não ter uma casa.
+			FarFromHome: Estou muito longe de casa.
+			LoveSpace: Eu adoro este lugar, tem tanto espaço.
+			DislikeCrowded: Não gosto deste lugar, está muito cheio.
+			HateCrowded: Odeio este lugar, está muito cheio.
+			LikeNPC_Princess: Eu gosto de {NPCName}.
+			Princess_LovesNPC: Eu gosto de {NPCName}.
+		}
+	}
 }
