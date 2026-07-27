@@ -21,9 +21,9 @@ namespace MyHeroMod.content.Quirks.OFA8th
 
             float dashSpeed = transPlayer.CurrentStage switch 
             {
-                QuirkStage.Initial => 15f, QuirkStage.Adequation => 20f,
-                QuirkStage.Intermediate => 25f, QuirkStage.Advanced => 30f,
-                QuirkStage.Final => 35f, _ => 40f
+                QuirkStage.Initial => 20f, QuirkStage.Adequation => 25f,
+                QuirkStage.Intermediate => 35f, QuirkStage.Advanced => 40f,
+                QuirkStage.Final => 60f, _ => 80f
             };
 
             speed = dashSpeed + formModifier;

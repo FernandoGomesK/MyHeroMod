@@ -37,8 +37,6 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide
             
            
             if (!transPlayer.HasActiveQuirk(QuirkType.SlideAndGlide)) return; 
-            
-            
 
             float dashSpeed = transPlayer.CurrentStage switch 
             {
@@ -47,9 +45,13 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide
                 QuirkStage.Final => 15f, _ => 40f
             };
 
-            speed = dashSpeed ;
+            speed = dashSpeed;
         }
 
-        
+        public bool CanCruiseFlight()
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            return transPlayer.HasActiveQuirk(QuirkType.SlideAndGlide) && transPlayer.CurrentStage >= QuirkStage.Advanced;
         }
     }
+}

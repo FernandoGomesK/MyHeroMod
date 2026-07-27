@@ -28,9 +28,11 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
         {
             Player player = Main.player[Projectile.owner];
             var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+            
 
             
-            if (player.dead || !player.active || opticPlayer.isRubyGlassesEquipped || player.HasBuff(ModContent.BuffType<Heatstroke>()))
+            if (player.dead || !player.active || opticPlayer.isRubyGlassesEquipped || player.HasBuff(ModContent.BuffType<Heatstroke>()) || !transPlayer.HasActiveQuirk(QuirkType.OpticBlast))
             {
                 Projectile.Kill();
                 return;

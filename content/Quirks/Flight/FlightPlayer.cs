@@ -160,6 +160,12 @@ namespace MyHeroMod.content.Quirks.Flight
 
             speed = dashSpeed ;
         }
+
+        public bool CanCruiseFlight()
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            return transPlayer.HasActiveQuirk(QuirkType.Flight);
+        }
             
         }
     }
