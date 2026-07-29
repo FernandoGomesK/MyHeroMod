@@ -10,6 +10,7 @@ using MyHeroMod.content.Quirks.FaJin;
 using MyHeroMod.content.Quirks.OFA8th;
 using MyHeroMod.content.Quirks.AllForOne;
 using KhacesCore.Content.System.BaseProjectiles;
+using MyHeroMod.content.Projectiles;
 
 
 namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
@@ -129,6 +130,8 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
                     Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<PunchAttackProj>(), 0, 0f, player.whoAmI);
                     SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
                 }
+                Vector2 textPosition = player.Center + new Vector2(0, -30f);
+                Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>(), 0, 0f, player.whoAmI);
 
                 if (hurtPlayer)
                 {
@@ -174,6 +177,8 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
                 
                 Projectile.NewProjectile(player.GetSource_FromThis(), currentSpawn, Velocity, ModContent.ProjectileType<DetroitSmashProj>(), FinalDamage, 2f, player.whoAmI);
                 Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<PunchAttackProj>(), 0, 0f, player.whoAmI);
+                Vector2 textPosition = player.Center + new Vector2(0, -30f);
+                Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, ModContent.ProjectileType<DetroitSmashOnomatopoeia>(), 0, 0f, player.whoAmI);
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
             }
 

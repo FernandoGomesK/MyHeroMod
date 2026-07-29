@@ -779,6 +779,10 @@ Projectiles: {
 	LunaArcController.DisplayName: Luna Arc Controller
 	LunaFallController.DisplayName: Luna Fall Controller
 	BoomOnomatopoeia.DisplayName: Boom Onomatopoeia
+	DetroitOnomatopoeia.DisplayName: Detroit Onomatopoeia
+	DetroitSmashOnomatopoeia.DisplayName: Detroit Smash Onomatopoeia
+	DekuDetroitOnomatopoeia.DisplayName: Deku Detroit Onomatopoeia
+	DekuDetroitSmashOnomatopoeia.DisplayName: Deku Detroit Smash Onomatopoeia
 }
 
 NPCs: {

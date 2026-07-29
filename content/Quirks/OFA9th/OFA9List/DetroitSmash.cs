@@ -8,6 +8,7 @@ using MyHeroMod.content.Quirks.AllForOne;
 using KhacesCore.Content.System;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.OFA8th;
+using MyHeroMod.content.Projectiles;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Skills 
 {
@@ -43,7 +44,29 @@ public class DetroitSmashSkill : QuirkBaseSkill
     public override void OnUse(Player player)
     {
         
-        CombatText.NewText(player.getRect(), Color.LightGreen, "SMASH Charging!");
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+        
+        
+        int onomatopoeiaType = ModContent.ProjectileType<DetroitOnomatopoeia>();
+
+        
+        if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
+        {
+            onomatopoeiaType = ModContent.ProjectileType<DekuDetroitOnomatopoeia>();
+        }
+
+        
+        Vector2 textPosition = player.Center + new Vector2(0, -30f);
+        Projectile.NewProjectile(
+            player.GetSource_FromThis(),
+            textPosition,
+            Vector2.Zero, 
+            onomatopoeiaType, 
+            0, 
+            0f, 
+            player.whoAmI
+        );
+
         
         Projectile.NewProjectile(
             player.GetSource_FromThis(), 
