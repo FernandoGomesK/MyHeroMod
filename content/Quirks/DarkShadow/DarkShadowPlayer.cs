@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.DarkShadow.Projectiles; 
 using MyHeroMod.content.System;
+using rail;
 
 namespace MyHeroMod.content.Quirks.DarkShadow
 {
@@ -52,7 +53,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             
-            if (!transPlayer.HasActiveQuirk(QuirkType.BlueFlames))  
+            if (!transPlayer.HasActiveQuirk(QuirkType.DarkShadow))  
                 return;
 
             if (transPlayer.CurrentStage == QuirkStage.Intermediate &&
@@ -73,6 +74,10 @@ namespace MyHeroMod.content.Quirks.DarkShadow
         public override void PostUpdate()
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            if (!transPlayer.HasActiveQuirk(QuirkType.DarkShadow))
+                return;
+
+                
             if (!Main.dayTime)
             {
                 isMediumDarkShadowOn = true;

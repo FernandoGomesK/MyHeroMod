@@ -7,6 +7,7 @@ using Terraria.UI;
 using MyHeroMod.content;
 using MyHeroMod.content.UI;
 using MyHeroMod.content.Quirks.OpticBlast;
+using MyHeroMod.content.Buffs;
 
 namespace MyHeroMod
 {
@@ -14,7 +15,7 @@ namespace MyHeroMod
     {
         internal UserInterface MyInterface;
         internal QuirkSelectionUI MyQuirkUI;
-        // internal SkillMenuUI MySkillMenuUI;
+        
         internal AllForOneQuirksUI SeeQuirkUI;
         internal QuirkRemoverUI MyQuirkRemoverUI;
 
@@ -36,6 +37,9 @@ namespace MyHeroMod
 
         private UserInterface OpticBlastUserInterface;
         internal OpticChargeUIState OpticBlastUIState;
+
+        private UserInterface SweatUserInterface;
+        internal SweatUIState sweatUIState;
 
 
         public override void Load()
@@ -83,6 +87,11 @@ namespace MyHeroMod
                 OpticBlastUserInterface = new UserInterface();
                 OpticBlastUserInterface.SetState(OpticBlastUIState);
 
+                sweatUIState = new SweatUIState();
+                sweatUIState.Activate();
+                SweatUserInterface = new UserInterface();
+                SweatUserInterface.SetState(sweatUIState);
+
                 if (!Main.dedServ)
     {
         KhacesCore.Content.System.CoreUISystem.RegisterTab(
@@ -119,6 +128,9 @@ namespace MyHeroMod
 
             OpticBlastUIState = null;
             OpticBlastUserInterface = null;
+
+            sweatUIState = null;
+            SweatUserInterface = null;
         }
 
         // public static void ToggleSkillMenu()
@@ -200,6 +212,9 @@ namespace MyHeroMod
 
             if (engineGearUserInterface != null)
                 engineGearUserInterface.Update(gameTime);
+
+            if (SweatUserInterface != null)
+                SweatUserInterface.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -298,6 +313,19 @@ namespace MyHeroMod
                     if (OpticBlastUserInterface != null)
                     {
                         OpticBlastUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
+                    }
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
+
+            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
+                "MyHeroMod: Sweat Bar",
+                delegate
+                {
+                    if (SweatUserInterface != null)
+                    {
+                        SweatUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
                     }
                     return true;
                 },

@@ -10,12 +10,14 @@ using Terraria.Audio;
 using System.Collections.Generic;
 using MyHeroMod.content.Dusts;
 using MyHeroMod.content.Buffs;
+using KhacesCore.Content.System.Interfaces;
 
 
 namespace MyHeroMod.content.Quirks.Explosion
 {
-    public partial class ExplosionPlayer : ModPlayer
+    public partial class ExplosionPlayer : ModPlayer, IFlightModifier, IDashModifier
     {
+    
         
 
         public bool IsClusterActive = false;
@@ -124,10 +126,6 @@ namespace MyHeroMod.content.Quirks.Explosion
         int recoveryRate = 1;
 
         
-        // if (IsCombatVestAlphaOn) recoveryRate += 1; 
-        // if (IsCombatVestBetaOn)  recoveryRate += 5; 
-
-        
         if (CurrentSweat > 0) 
         {
             CurrentSweat -= recoveryRate;
@@ -155,7 +153,7 @@ else
             {
             if (Player.velocity.Y != 0 && !Player.mount.Active)
                 {
-                    // Lado Esquerdo (Fogo)
+                    
                     if (Main.rand.NextBool(10)) 
                     {
                         int dustFire = Dust.NewDust(
@@ -200,7 +198,7 @@ else
                         Main.dust[dustSmoke2].noGravity = true;
                         Main.dust[dustSmoke2].velocity *= 0.5f;
                     }
-                    // cluster
+                
                     if (Main.rand.NextBool(6) && IsClusterActive)
                     {
                          int dustFire2 = Dust.NewDust(
@@ -228,6 +226,58 @@ else
             
         }
     }
+
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType)
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (!transPlayer.HasActiveQuirk(QuirkType.Explosion))
+                return;
+
+             float dashSpeed = transPlayer.CurrentStage switch 
+            {
+                QuirkStage.Initial => 20f, QuirkStage.Adequation => 25f,
+                QuirkStage.Intermediate => 35f, QuirkStage.Advanced => 40f,
+                QuirkStage.Final => 60f, _ => 80f
+            };
+
+            speed = dashSpeed;
+                
+            if (Player.HasBuff(ModContent.BuffType<ClusterBuff>()))
+            {
+                hideNormalDash = true;
+                explosionColor = Color.Orange; 
+                dustType = ModContent.DustType<ClusterDust>(); 
+            }
+            }
+
+        public void ModifyFlight(ref float speed)
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            
+           
+            if (!transPlayer.HasActiveQuirk(QuirkType.Explosion)) return; 
+            
+            
+
+            float dashSpeed = transPlayer.CurrentStage switch 
+            {
+                QuirkStage.Initial => 8f, QuirkStage.Adequation => 12f,
+                QuirkStage.Intermediate => 15f, QuirkStage.Advanced => 18f,
+                QuirkStage.Final => 20f, _ => 8f
+            };
+
+            speed = dashSpeed ;
+        }
+
+        public bool CanCruiseFlight()
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            return transPlayer.HasActiveQuirk(QuirkType.Explosion);
+        }
+
+
+    // ===================================================Sync data ====================================================================================================
     public override void CopyClientState(ModPlayer targetCopy)
         {
             ExplosionPlayer clone = targetCopy as ExplosionPlayer;

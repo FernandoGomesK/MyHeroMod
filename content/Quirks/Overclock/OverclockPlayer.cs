@@ -14,7 +14,7 @@ namespace MyHeroMod.content.Quirks.Overclock
         public bool isOverclockBuffActive = false;
 
         public int maxBreath = 0;
-        // Inicia com 90 como padrão para não começar zerado
+        
         public int currentBreath = 90; 
         
         private int ElectricSoundTimer = 0;
