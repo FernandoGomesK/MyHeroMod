@@ -16,7 +16,7 @@ namespace MyHeroMod.content.Quirks.Overclock
     {
 
 
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType)
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
 {
     var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 

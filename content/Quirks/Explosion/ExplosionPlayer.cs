@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using MyHeroMod.content.Dusts;
 using MyHeroMod.content.Buffs;
 using KhacesCore.Content.System.Interfaces;
+using MyHeroMod.content.Projectiles;
 
 
 namespace MyHeroMod.content.Quirks.Explosion
@@ -227,7 +228,7 @@ else
         }
     }
 
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType)
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
@@ -249,6 +250,8 @@ else
                 explosionColor = Color.Orange; 
                 dustType = ModContent.DustType<ClusterDust>(); 
             }
+
+            onomatopoeiaType = ModContent.ProjectileType<BoomOnomatopoeia>(); 
             }
 
         public void ModifyFlight(ref float speed)
@@ -268,7 +271,10 @@ else
             };
 
             speed = dashSpeed ;
+
+            
         }
+        
 
         public bool CanCruiseFlight()
         {

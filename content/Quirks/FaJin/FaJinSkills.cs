@@ -9,7 +9,7 @@ namespace MyHeroMod.content.Quirks.FaJin
 {
     public partial class FajinPlayer : ModPlayer, IDashModifier, IHeroPunchModifier
     {
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType)
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             
