@@ -14,6 +14,7 @@ using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.Explosion.Projectiles;
 using System.Diagnostics;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.StunGrenade;
+using MyHeroMod.content.Projectiles;
 
 
 
@@ -84,10 +85,21 @@ public class StunGrenadeSkill : QuirkBaseSkill
 
 
             CombatText.NewText(player.getRect(), Color.Orange, "STUN GRENADE!");
-            // Evita usar se já estiver usando
+            
             Vector2 Velocity = Main.MouseWorld - player.Center;
             Velocity.Normalize();
             Velocity *= 15f;
+
+            Vector2 textPosition = player.Center + new Vector2(0, -30f);
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                textPosition,
+                Vector2.Zero, 
+                ModContent.ProjectileType<BoomOnomatopoeia>(),
+                0, 
+                0f, 
+                player.whoAmI
+                );
 
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),

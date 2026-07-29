@@ -9,6 +9,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Explosion;
 using Terraria.DataStructures;
+using MyHeroMod.content.Projectiles;
 
 using MyHeroMod.content.Quirks.Explosion.Projectiles.FullPower;
 
@@ -100,6 +101,17 @@ public class FullPowerBlastSkill : QuirkBaseSkill
             Velocity.Normalize();
             Velocity *= 15f;
 
+            Vector2 textPosition = player.Center + new Vector2(0, -30f);
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                textPosition,
+                Vector2.Zero, 
+                ModContent.ProjectileType<BoomOnomatopoeia>(),
+                0, 
+                0f, 
+                player.whoAmI
+                );
+
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
@@ -129,16 +141,5 @@ public class FullPowerBlastSkill : QuirkBaseSkill
 
             
 
-            // if (explodePlayer.IsGrenadierBracersOn != true)
-            // {
-            //     player.statLife -= 5;
-            // if (player.statLife <= 0)
-            // {
-            //     var reason = PlayerDeathReason.ByCustomReason(
-            //     Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.BlueFireDeathMessage", player.name));
-            //     player.KillMe(reason, 5, 0);
-            // }
-                
-            // }
-
+          
    

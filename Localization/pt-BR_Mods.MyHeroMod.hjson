@@ -782,6 +782,7 @@ Projectiles: {
 	// LunaRingController.DisplayName: Luna Ring Controller
 	// LunaArcController.DisplayName: Luna Arc Controller
 	// LunaFallController.DisplayName: Luna Fall Controller
+	// BoomOnomatopoeia.DisplayName: Boom Onomatopoeia
 }
 
 NPCs: {

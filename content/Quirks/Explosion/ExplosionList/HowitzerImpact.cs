@@ -11,6 +11,7 @@ using MyHeroMod.content.Quirks.Explosion;
 using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.Explosion.Projectiles;
 using System.Diagnostics;
+using MyHeroMod.content.Projectiles;
 
 
 public class HowitzerImpactSkill : QuirkBaseSkill
@@ -91,15 +92,24 @@ public class HowitzerImpactSkill : QuirkBaseSkill
                 CombatText.NewText(player.getRect(), Color.Orange, "HOWITZER IMPACT!");
             }
 
-            // Spawna o projétil que vai controlar o player
-            // A velocidade inicial não importa aqui, pois a AI[0] controla a subida
+            Vector2 textPosition = player.Center + new Vector2(0, -30f);
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                textPosition,
+                Vector2.Zero, 
+                ModContent.ProjectileType<BoomOnomatopoeia>(),
+                0, 
+                0f, 
+                player.whoAmI
+                );
+                
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
                 Vector2.Zero, 
                 ModContent.ProjectileType<HowitzerImpactProj>(),
-                FinalDamage, // Dano alto (Impacto)
-                10f, // Knockback alto
+                FinalDamage, 
+                10f, 
                 player.whoAmI
             );
             explodePlayer.CurrentSweat += 15;

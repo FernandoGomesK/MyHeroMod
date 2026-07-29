@@ -22,8 +22,7 @@ namespace MyHeroMod.content.Quirks.Explosion
     
     Vector2 randomPos = Player.Center + Main.rand.NextVector2Circular(20f, 20f);
     if (Main.rand.NextBool(25)) 
-    {
-        
+    { 
         int dust = Dust.NewDust(
         randomPos, 
         0, 0, 

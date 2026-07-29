@@ -9,6 +9,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Explosion;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
+using MyHeroMod.content.Projectiles;
 
 
 public class ApShotSkill : QuirkBaseSkill
@@ -77,6 +78,17 @@ CombatText.NewText(player.getRect(), Color.Orange, "AP-SHOT!");
             Vector2 Velocity = Main.MouseWorld - player.Center;
             Velocity.Normalize();
             Velocity *= 15f;
+
+            Vector2 textPosition = player.Center + new Vector2(0, -30f);
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                textPosition,
+                Vector2.Zero, 
+                ModContent.ProjectileType<BoomOnomatopoeia>(),
+                0, 
+                0f, 
+                player.whoAmI
+                );
 
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),

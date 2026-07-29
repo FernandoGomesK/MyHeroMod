@@ -42,7 +42,7 @@ public class ApMachineGunSkill : QuirkBaseSkill
             Vector2 direction = Main.MouseWorld - player.Center;
             direction.Normalize();
 
-            // Lança o Controlador
+            
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
