@@ -82,7 +82,7 @@ namespace MyHeroMod.content.System
                 }
             }
 
-            int quirkChance = 5;
+            int quirkChance = 8;
 
             if (!npc.boss && isBossAlive || npc.type == NPCID.ServantofCthulhu)
             {
@@ -112,7 +112,7 @@ namespace MyHeroMod.content.System
                     case 12: AssignedQuirk = QuirkType.Explosion; break;
                     case 13: AssignedQuirk = QuirkType.SuperRegeneration; break;
                     case 14: AssignedQuirk = QuirkType.Erasure; break;
-                    // case 15: AssignedQuirk = QuirkType.AllForOne; break; // ALL FOR ONE ADICIONADO AQUI!
+                    
                 }
 
                 if (npc.boss){
