@@ -20,25 +20,25 @@ namespace MyHeroMod.content.Buffs
             var transformPlayer = player.GetModPlayer<TransformationPlayer>();
             var darkShadow = player.GetModPlayer<DarkShadowPlayer>();
 
-            Color shadowColor = new Color(24, 0, 33);
+            // Color shadowColor = new Color(24, 0, 33);
 
 
-            darkShadow.isBlackAbyssOn = true;
+            darkShadow.isDarkShadowAutomatic = true;
             
-                player.moveSpeed += 1.5f; 
-                player.statDefense += 2;    
-                player.jumpSpeedBoost += 2.0f;
-                player.noFallDmg = true;
-                for (int i = 0; i < 3; i++) 
-                    {
-                        int dustIndex = Dust.NewDust(player.position, player.width, player.height, DustID.Shadowflame, 0f, 0f, 100, shadowColor, 1.5f);
-                        if (dustIndex >= 0)
-                        {
-                            Dust dust = Main.dust[dustIndex];
-                            dust.noGravity = true;
-                            dust.velocity *= 0.3f; 
-                        }
-                    }
+            //     player.moveSpeed += 1.5f; 
+            //     player.statDefense += 2;    
+            //     player.jumpSpeedBoost += 2.0f;
+            //     player.noFallDmg = true;
+            //     for (int i = 0; i < 3; i++) 
+            //         {
+            //             int dustIndex = Dust.NewDust(player.position, player.width, player.height, DustID.Shadowflame, 0f, 0f, 100, shadowColor, 1.5f);
+            //             if (dustIndex >= 0)
+            //             {
+            //                 Dust dust = Main.dust[dustIndex];
+            //                 dust.noGravity = true;
+            //                 dust.velocity *= 0.3f; 
+            //             }
+            //         }
             
 }
     }}

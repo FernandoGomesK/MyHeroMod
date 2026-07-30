@@ -23,7 +23,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Skills
         {
             var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();
 
-            // Descobre qual mão está livre
+            
             int projectileToSpawn = -1;
             int handIndex = -1;
             

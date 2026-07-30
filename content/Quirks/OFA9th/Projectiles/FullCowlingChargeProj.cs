@@ -65,7 +65,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             for (int i = 0; i < 30; i++)
             {
                 Vector2 speed = Main.rand.NextVector2Circular(10f, 10f);
-                Dust.NewDust(player.position, player.width, player.height, DustID.Electric, speed.X, speed.Y, 0, Color.Green, 2.5f);
+                Dust.NewDust(player.position, player.width, player.height, DustID.Electric, speed.X, speed.Y, 0, Color.LightGreen, 2.5f);
             }
 
             

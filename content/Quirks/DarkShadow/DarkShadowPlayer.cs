@@ -2,8 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.DarkShadow.Projectiles; 
-using MyHeroMod.content.System;
-using rail;
 
 namespace MyHeroMod.content.Quirks.DarkShadow
 {
@@ -15,7 +13,6 @@ namespace MyHeroMod.content.Quirks.DarkShadow
         public bool isCBOArmsOn = false;
 
         public bool isFlying = false;
-        
         public bool isUncontrolledMode = false; 
 
         public int DarkShadowRange => isMediumDarkShadowOn ? 800 : 600; 
@@ -52,22 +49,22 @@ namespace MyHeroMod.content.Quirks.DarkShadow
         public override void PostUpdateEquips()
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-            
             if (!transPlayer.HasActiveQuirk(QuirkType.DarkShadow))  
                 return;
 
-            if (transPlayer.CurrentStage == QuirkStage.Intermediate &&
-             (Player.HasBuff(ModContent.BuffType<Buffs.BlackAbyssBuff>()) || Player.HasBuff(ModContent.BuffType<Buffs.DarkShadowBuff>())))
+            bool hasFormBuff = Player.HasBuff(ModContent.BuffType<Buffs.BlackAbyssBuff>()) || 
+                               Player.HasBuff(ModContent.BuffType<Buffs.DarkShadowBuff>());
+
+            if (transPlayer.CurrentStage >= QuirkStage.Intermediate && hasFormBuff)
             {
-                Player.wingTimeMax =360000;
+                Player.wingTimeMax = 360000;
+                Player.noFallDmg = true;
 
                 if (Player.wingsLogic == 0)
                 {
                     Player.wingsLogic = 29; 
                     Player.wings = -1; 
                 }
-
-                Player.noFallDmg = true;
             }
         }
 
@@ -77,45 +74,55 @@ namespace MyHeroMod.content.Quirks.DarkShadow
             if (!transPlayer.HasActiveQuirk(QuirkType.DarkShadow))
                 return;
 
-                
-            if (!Main.dayTime)
+            bool isNight = !Main.dayTime;
+            bool isMastered = transPlayer.CurrentStage >= QuirkStage.Advanced; 
+
+            
+            isMediumDarkShadowOn = transPlayer.CurrentStage >= QuirkStage.Intermediate || isNight;
+
+            
+            if (isNight && !isMastered)
             {
-                isMediumDarkShadowOn = true;
-                
-                if (transPlayer.CurrentStage == QuirkStage.Initial || transPlayer.CurrentStage == QuirkStage.Intermediate)
-                {
-                    isDarkShadowOn = true;
-                }
-                
+                isDarkShadowOn = true;
                 isUncontrolledMode = true;
             }
 
             if (isDarkShadowOn && !isBlackAbyssOn)
             {
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowBodyProj>()] < 1)
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<DarkShadowBodyProj>(), 0, 0f, Player.whoAmI);
-                }  
-                
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowFrontHandProj>()] < 1)
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<DarkShadowFrontHandProj>(), 10, 0f, Player.whoAmI);
-                }
-                if (Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowBackHandProj>()] < 1)
-                {
-                    Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<DarkShadowBackHandProj>(), 10, 0f, Player.whoAmI);
-                }
+            
+                SpawnDarkShadowPart<DarkShadowBodyProj>(0);
+                SpawnDarkShadowPart<DarkShadowFrontHandProj>(10);
+                SpawnDarkShadowPart<DarkShadowBackHandProj>(10);
     
-                if (isUncontrolledMode) 
+                if (isUncontrolledMode || isDarkShadowAutomatic) 
                 {
-
                     HandleAutomaticAttacks();
                 }
             }
 
-            if (Player.velocity.Y != 0 && (Player.wingTime > 0 || Player.rocketDelay > 0) && !Player.mount.Active)
+            
+            isFlying = Player.velocity.Y != 0 && !Player.mount.Active && (Player.wingTime > 0 || Player.rocketDelay > 0);
+        }
+
+
+
+        /// <summary>
+        /// Summons Dark Shadow parts if they aren't already
+        /// </summary>
+        private void SpawnDarkShadowPart<T>(int damage) where T : ModProjectile
+        {
+            int projType = ModContent.ProjectileType<T>();
+            if (Player.ownedProjectileCounts[projType] < 1)
             {
-                isFlying = true;
+                Projectile.NewProjectile(
+                    Player.GetSource_FromThis(), 
+                    Player.Center, 
+                    Vector2.Zero, 
+                    projType, 
+                    damage, 
+                    0f, 
+                    Player.whoAmI
+                );
             }
         }
     }

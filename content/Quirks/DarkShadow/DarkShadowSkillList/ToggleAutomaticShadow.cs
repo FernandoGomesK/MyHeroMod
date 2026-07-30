@@ -13,15 +13,15 @@ using MyHeroMod.content.Quirks.DarkShadow;
 
 
 
-public class CovertBlackOpsArmsSkill : QuirkBaseSkill
+public class ToggleAutomaticShadowSkill : QuirkBaseSkill
 {
-    public override string Name => "Covert Black Ops Arms";
-    public override string Description => "Enlarge your arms for a temporary boost.";
+    public override string Name => "Toggle Automatic Dark Shadow";
+    public override string Description => "Summon DarkShadow.";
     public override string IconPath => "Quirks/GearShift/Gearshift";
     public override string Category => "DarkShadow";
-    public override int BaseCooldown => 600;
+    public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.DarkShadow;
-    public override QuirkStage RequiredStage => QuirkStage.Advanced;
+    public override QuirkStage RequiredStage => QuirkStage.Adequation;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => true;
 
@@ -29,26 +29,19 @@ public class CovertBlackOpsArmsSkill : QuirkBaseSkill
     {
         var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();
 
-            if (player.HasBuff(ModContent.BuffType<BlackAbyssBuff>()))
+        if (player.HasBuff(ModContent.BuffType<DarkShadowBuff>()))
         {
-            if (player.HasBuff(ModContent.BuffType<CBOArmsBuff>()))
-            {
-                player.ClearBuff(ModContent.BuffType<DarkShadowBuff>());
-            }
-            else
-            {
-               player.AddBuff(ModContent.BuffType<CBOArmsBuff>(), 800);    
-            }
-          
+            
+        
 
-        }
+        if (player.HasBuff(ModContent.BuffType < AutomaticDarkShadowBuff>()))
+            {
+                player.ClearBuff(ModContent.BuffType<AutomaticDarkShadowBuff>());
+            }
         else
         {
-
-             
+            player.AddBuff(ModContent.BuffType<AutomaticDarkShadowBuff>(), 360000);
         }
-            
         }
-        
-    
+    }
 }

@@ -20,7 +20,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             
 
 
-            Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
+            Lighting.AddLight(Player.Center, Color.Green.ToVector3() * 1.5f);
             ElectricSoundTimer++;
 
             if (ElectricSoundTimer >= 900 + Main.rand.Next(-120, 120))
@@ -39,9 +39,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
         if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
         {
         
-        drawInfo.colorArmorBody = Color.RoyalBlue;
-        drawInfo.colorArmorHead = Color.RoyalBlue;
-        drawInfo.colorArmorLegs = Color.RoyalBlue;
+        drawInfo.colorArmorBody = Color.LightBlue;
+        drawInfo.colorArmorHead = Color.LightBlue;
+        drawInfo.colorArmorLegs = Color.LightBlue;
         
         
         Player.armorEffectDrawShadow = true; 
