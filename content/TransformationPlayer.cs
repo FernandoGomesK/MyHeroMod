@@ -18,7 +18,7 @@ namespace MyHeroMod.content
                             Float, Flight, Gearshift, FaJin, SmokeScreen, DangerSense,
                             BlackWhip, Tape, Overclock, Erasure, SuperRegeneration, SlideAndGlide,
                             Decay, Rivet, SpringLikeLimbs, Rabbit, DarkShadow, Overhaul,
-                            ZeroGravity, FierceWings, OpticBlast, SpeedForce }
+                            ZeroGravity, FierceWings, OpticBlast }
 
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 
@@ -45,6 +45,47 @@ namespace MyHeroMod.content
     
         
         public List<string> UnlockedSkills = new List<string>();
+
+        public override string DisplayPowerName
+        {
+            get
+            {
+                if (ActiveForm != "None")
+                    return ActiveForm;
+
+                if (ActiveQuirks.Count == 0)
+                    return "Quirkless";
+
+                return GetFriendlyQuirkName(ActiveQuirks[0]);
+            }
+        }
+
+        public override string DisplayPowerStage => CurrentStage switch
+        {
+            QuirkStage.Initial => "Initial",
+            QuirkStage.Adequation => "Adequation",
+            QuirkStage.Intermediate => "Intermediate",
+            QuirkStage.Advanced => "Advanced",
+            QuirkStage.Final => "Final",
+            _ => "N/A"
+        };
+
+        private string GetFriendlyQuirkName(QuirkType quirk) => quirk switch
+        {
+            QuirkType.OneForAll9th => "One For All (9th)",
+            QuirkType.OneForAll8th => "One For All (8th)",
+            QuirkType.AllForOne => "All For One",
+            QuirkType.HalfColdHalfHot => "Half-Cold Half-Hot",
+            QuirkType.BlackWhip => "Black Whip",
+            QuirkType.SmokeScreen => "Smoke Screen",
+            QuirkType.SuperRegeneration => "Super Regeneration",
+            QuirkType.SlideAndGlide => "Slide and Glide",
+            QuirkType.SpringLikeLimbs => "Spring-Like Limbs",
+            QuirkType.ZeroGravity => "Zero Gravity",
+            QuirkType.FierceWings => "Fierce Wings",
+            QuirkType.OpticBlast => "Optic Blast",
+            _ => quirk.ToString()
+        };
 
         public override void PostUpdateMiscEffects()
         {
