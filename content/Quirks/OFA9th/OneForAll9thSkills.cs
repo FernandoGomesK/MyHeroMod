@@ -22,7 +22,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             
             if (transPlayer.CurrentStage == QuirkStage.Initial) 
             {
-                speed = 40;
+                speed = 80;
                 Player.statLife -= 50;
                 if (Player.statLife <= 0)
                 {
@@ -33,8 +33,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
             else if (Player.HasBuff(ModContent.BuffType<FullCowlingBuff>()))
             {
                 if (ofaPlayer.percentage == 5) speed = 20;
-                else if (ofaPlayer.percentage == 10) speed = 25;
-                else if (ofaPlayer.percentage == 45) speed = 28;
+                else if (ofaPlayer.percentage == 10) speed = 40;
+                else if (ofaPlayer.percentage == 45) speed = 65;
                 else speed = 20;
             }
         }
