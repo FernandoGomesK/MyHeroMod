@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -48,7 +49,8 @@ namespace MyHeroMod.content.Quirks.SpringLikeLimbs
             previousVelocity = Player.velocity;
         }
 
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, 
+        ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             

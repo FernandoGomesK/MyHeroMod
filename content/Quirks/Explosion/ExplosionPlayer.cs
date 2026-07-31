@@ -235,7 +235,7 @@ else
             if (!transPlayer.HasActiveQuirk(QuirkType.Explosion))
                 return;
 
-             float dashSpeed = transPlayer.CurrentStage switch 
+            float dashSpeed = transPlayer.CurrentStage switch 
             {
                 QuirkStage.Initial => 20f, QuirkStage.Adequation => 25f,
                 QuirkStage.Intermediate => 35f, QuirkStage.Advanced => 40f,
@@ -252,6 +252,7 @@ else
             }
 
             onomatopoeiaType = ModContent.ProjectileType<BoomOnomatopoeia>(); 
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/Explosion2Sound"), Player.Center);
             }
 
         public void ModifyFlight(ref float speed)

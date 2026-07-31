@@ -17,7 +17,8 @@ namespace MyHeroMod.content.Quirks.Gearshift
     {
 
 
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash ,ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash ,
+        ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
@@ -30,6 +31,8 @@ namespace MyHeroMod.content.Quirks.Gearshift
                 explosionColor = Color.Cyan; 
                 dustType = DustID.BlueTorch;
             }
+
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.8f }, Player.position);
         }
 
         public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref bool isSuperPunch, ref int numberOfPunches)

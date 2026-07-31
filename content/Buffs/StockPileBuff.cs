@@ -41,7 +41,7 @@ namespace MyHeroMod.content.Buffs
                 float corVelocidade = 0.5f; 
                 Color corArcoIris = Main.hslToRgb((Main.GlobalTimeWrappedHourly * corVelocidade) % 1f, 1f, 0.6f);
 
-                int dustIndex = Dust.NewDust(player.position, player.width, player.height, DustID.WhiteTorch, player.velocity.X * -0.5f, player.velocity.Y * -0.5f, 0, corArcoIris, 2f);
+                int dustIndex = Dust.NewDust(player.position, player.width, player.height, DustID.Electric, player.velocity.X * -0.5f, player.velocity.Y * -0.5f, 0, corArcoIris, 2f);
                 Main.dust[dustIndex].noGravity = true;      
             }
         }

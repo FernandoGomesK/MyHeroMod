@@ -55,12 +55,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
             currentFingers = 10;
             ParallelProcessing = 0;
             ElectricSoundTimer = 0;
-            // ActivationTimer = 0;
-            // ActivationMaxTime = 40;
             percentage = 0;
-            // pendingPercentage = 0;
-            // Activating = false; 
             isFullCowlingBuffActive = false;
+            Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
 
         }
 
@@ -68,11 +65,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
         {
             currentFingers = 10;
             ElectricSoundTimer = 0;
-            // ActivationTimer = 0;
-            // ActivationMaxTime = 40;
+            
             percentage = 0;
-            // pendingPercentage = 0;
-            // Activating = false; 
+            
             isFullCowlingBuffActive = false;
         }
         

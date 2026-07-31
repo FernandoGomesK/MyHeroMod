@@ -11,6 +11,7 @@ using Terraria.Audio;
 using MyHeroMod.content.System;
 using System.Collections.Generic;
 using KhacesCore.Content.System.Interfaces;
+using MyHeroMod.content.Buffs;
 
 namespace MyHeroMod.content.Quirks.OFA8th
 {
@@ -21,6 +22,7 @@ namespace MyHeroMod.content.Quirks.OFA8th
         public void FullReset()
         {
             form = 0;
+            Player.ClearBuff(ModContent.BuffType<StockPileBuff>());
         }
         public override void OnRespawn()
         {

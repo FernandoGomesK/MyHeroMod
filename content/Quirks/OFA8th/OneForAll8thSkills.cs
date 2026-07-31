@@ -3,12 +3,14 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using KhacesCore.Content.System.Interfaces;
+using Terraria.Audio;
 
 namespace MyHeroMod.content.Quirks.OFA8th
 {
     public partial class OneForAll8thPlayer : ModPlayer, IDashModifier
     {
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, 
+        ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             
@@ -27,6 +29,8 @@ namespace MyHeroMod.content.Quirks.OFA8th
             };
 
             speed = dashSpeed + formModifier;
+
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.8f }, Player.position);
         }
     }
 }

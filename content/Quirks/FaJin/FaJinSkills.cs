@@ -4,12 +4,14 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Buffs;
 using KhacesCore.Content.System.Interfaces;
+using Terraria.Audio;
 
 namespace MyHeroMod.content.Quirks.FaJin
 {
     public partial class FajinPlayer : ModPlayer, IDashModifier, IHeroPunchModifier
     {
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, 
+        ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
     {
         var transPlayer = Player.GetModPlayer<TransformationPlayer>();
         
@@ -26,6 +28,9 @@ namespace MyHeroMod.content.Quirks.FaJin
         {
             ChargeFajin();
         }
+
+        
+        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinSound"), Player.Center);
     }
 
         public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref bool isSuperPunch, ref int numberOfPunches)
@@ -47,5 +52,7 @@ namespace MyHeroMod.content.Quirks.FaJin
                 ChargeFajin();
             }
         }
+
+        
     }
 }

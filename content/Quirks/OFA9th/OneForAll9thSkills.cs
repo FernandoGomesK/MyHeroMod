@@ -5,12 +5,14 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Buffs;
 using KhacesCore.Content.System.Interfaces;
+using Terraria.Audio;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
     public partial class OneForAll9thPlayer : ModPlayer, IDashModifier
     {
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, 
+        ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>();
@@ -37,6 +39,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 else if (ofaPlayer.percentage == 45) speed = 65;
                 else speed = 20;
             }
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.8f }, Player.position);
         }
     }
 }
