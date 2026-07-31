@@ -318,7 +318,7 @@ Items: {
 
 	PunchAttack: {
 		DisplayName: Punch Attack
-		Tooltip: ""
+		Tooltip: A standard Punch
 	}
 
 	ExplosionQuirkAttack.DisplayName: Explosion Attack
@@ -345,7 +345,7 @@ Items: {
 
 	QuirkRemover: {
 		DisplayName: Quirk Remover
-		Tooltip: ""
+		Tooltip: This sinister thing removes your quirk!
 	}
 
 	ChimeraArms: {
@@ -365,7 +365,7 @@ Items: {
 
 	GeneActivator: {
 		DisplayName: Gene Activator
-		Tooltip: ""
+		Tooltip: Activates your genes!
 	}
 
 	FirstTenyaBreastplate: {
@@ -390,7 +390,7 @@ Items: {
 
 	RubyGlasses: {
 		DisplayName: Ruby Glasses
-		Tooltip: ""
+		Tooltip: Stop your eyes from leaking Concussive blasts!
 	}
 
 	AbyssHead: {
@@ -567,7 +567,7 @@ Buffs: {
 
 	SlideAndGlideBuff: {
 		DisplayName: Slide And Glide
-		Description: sliding effortlessly across the terrain.
+		Description: Sliding effortlessly across the terrain.
 	}
 
 	CruisingBuff: {
@@ -597,77 +597,77 @@ Buffs: {
 
 	ChimeraBuff: {
 		DisplayName: Chimera Buff
-		Description: Mods.MyHeroMod.Buffs.ChimeraBuff.Description
+		Description: Fusing multiple parts into yourself!
 	}
 
 	ZeroGravityBuff: {
 		DisplayName: Zero Gravity Buff
-		Description: Mods.MyHeroMod.Buffs.ZeroGravityBuff.Description
+		Description: Floating!
 	}
 
 	ZeroGravityEnemyBuff: {
 		DisplayName: Zero Gravity Enemy Buff
-		Description: Mods.MyHeroMod.Buffs.ZeroGravityEnemyBuff.Description
+		Description: Suspended in zero gravity.
 	}
 
 	ColdResistanceBuff: {
 		DisplayName: Cold Resistance Buff
-		Description: Mods.MyHeroMod.Buffs.ColdResistanceBuff.Description
+		Description: Diminishing Cold Accumulation
 	}
 
 	HeatResistanceBuff: {
 		DisplayName: Heat Resistance Buff
-		Description: Mods.MyHeroMod.Buffs.HeatResistanceBuff.Description
+		Description: Diminishing Heat Accumulation
 	}
 
 	NauseaResistanceBuff: {
 		DisplayName: Nausea Resistance Buff
-		Description: Mods.MyHeroMod.Buffs.NauseaResistanceBuff.Description
+		Description: You resist quite well to nausea
 	}
 
 	PerfectVesselBuff: {
 		DisplayName: Perfect Vessel Buff
-		Description: Mods.MyHeroMod.Buffs.PerfectVesselBuff.Description
+		Description: Your body handles the stress.
 	}
 
 	ResourcefulBuff: {
 		DisplayName: Resourceful Buff
-		Description: Mods.MyHeroMod.Buffs.ResourcefulBuff.Description
+		Description: You're great managing your resources!
 	}
 
 	StrongMindedBuff: {
 		DisplayName: Strong Minded Buff
-		Description: Mods.MyHeroMod.Buffs.StrongMindedBuff.Description
+		Description: Your mind handles the stress.
 	}
 
 	ThermalResistanceBuff: {
 		DisplayName: Thermal Resistance Buff
-		Description: Mods.MyHeroMod.Buffs.ThermalResistanceBuff.Description
+		Description: Balancing Hot and Cold
 	}
 
 	SpeedForceBuff: {
 		DisplayName: Speed Force Buff
-		Description: Mods.MyHeroMod.Buffs.SpeedForceBuff.Description
+		Description: Connected to the speedforce
 	}
 
 	DarkShadowBuff: {
 		DisplayName: Dark Shadow Buff
-		Description: Mods.MyHeroMod.Buffs.DarkShadowBuff.Description
+		Description: Summoned Dark Shadow!
 	}
 
 	BlackAbyssBuff: {
 		DisplayName: Black Abyss Buff
-		Description: Mods.MyHeroMod.Buffs.BlackAbyssBuff.Description
+		Description: Covering youself with Dark Shadow!
 	}
 
 	CBOArmsBuff: {
-		DisplayName: C B O Arms Buff
-		Description: Mods.MyHeroMod.Buffs.CBOArmsBuff.Description
+		DisplayName: Covert Black Opps Arms Buff
+		Description: Enlarging Dark Shadow Arms!
 	}
 
 	AutomaticDarkShadowBuff: {
 		DisplayName: Automatic Dark Shadow Buff
-		Description: Mods.MyHeroMod.Buffs.AutomaticDarkShadowBuff.Description
+		Description: Dark Shadow is attacking automatically!
 	}
 }
 
@@ -822,14 +822,14 @@ NPCs: {
 		DisplayName: Deku
 
 		TownNPCMood: {
-			Content: Estou contente.
-			NoHome: Odeio não ter uma casa.
-			FarFromHome: Estou muito longe de casa.
-			LoveSpace: Eu adoro este lugar, tem tanto espaço.
-			DislikeCrowded: Não gosto deste lugar, está muito cheio.
-			HateCrowded: Odeio este lugar, está muito cheio.
-			LikeNPC_Princess: Eu gosto de {NPCName}.
-			Princess_LovesNPC: Eu gosto de {NPCName}.
+			Content: I'm glad everyone is safe. But I still need to keep getting stronger.
+			NoHome: I have to keep moving. If I stay in one place, I might put people in danger.
+			FarFromHome: I'm a long way from U.A. High... I wonder how everyone is doing.
+			LoveSpace: This is a great spot! I can practice Shoot Style without worrying about collateral damage.
+			DislikeCrowded: It's a bit cramped here... Danger Sense is going off constantly from the crowds.
+			HateCrowded: We need clear evacuation routes! It's too dangerous if a villain attacks here!
+			LikeNPC_Princess: "{NPCName} has a really comforting presence. It reminds me of Eri."
+			Princess_LovesNPC: "{NPCName} is always trying their best to smile!"
 		}
 	}
 }

@@ -31,12 +31,12 @@ Items: {
 	# --- SUPPORT ITEMS ---
 	CombatVestAlpha: {
 		DisplayName: Colete de Combate Alfa
-		Tooltip: Diminui a taxa de sobreaquecimento e congelamento das Individualidades de Fogo e Gelo.
+		Tooltip: Diminui a taxa de superaquecimento e congelamento das Individualidades de Fogo e Gelo.
 	}
 
 	CombatVestBeta: {
 		DisplayName: Colete de Combate Beta
-		Tooltip: Diminui fortemente a taxa de sobreaquecimento e congelamento.
+		Tooltip: Diminui fortemente a taxa de superaquecimento e congelamento.
 	}
 
 	SurgeArmGauntlets: {
@@ -109,7 +109,7 @@ Items: {
 
 	AlphaBreastplate: {
 		DisplayName: Peitoral Alfa
-		Tooltip: O teu primeiro traje de herói. Um pouco simples, mas cheio de coração.
+		Tooltip: O teu primeiro traje de herói. Um pouco simples, mas feito de coração.
 	}
 
 	AlphaLeggings: {
@@ -169,7 +169,7 @@ Items: {
 
 	EpsilonBreastplate: {
 		DisplayName: Peitoral Epsilon
-		Tooltip: Usado durante a tua hora mais sombria.
+		Tooltip: Usado durante a sua hora mais sombria.
 	}
 
 	EpsilonLeggings: {
@@ -208,7 +208,7 @@ Items: {
 
 	GoldenLeggings: {
 		DisplayName: Perneiras da Era de Ouro
-		Tooltip: Porque? Poruqe eu Estou Aqui!
+		Tooltip: Porque? Porque eu Estou Aqui!
 	}
 
 	# --- TODOROKI ARMORS ---
@@ -349,7 +349,7 @@ Items: {
 
 	QuirkRemover: {
 		// DisplayName: Quirk Remover
-		// Tooltip: ""
+		// Tooltip: This sinister thing removes your quirk!
 	}
 
 	ChimeraArms: {
@@ -369,7 +369,7 @@ Items: {
 
 	GeneActivator: {
 		// DisplayName: Gene Activator
-		// Tooltip: ""
+		// Tooltip: Activates your genes!
 	}
 
 	FirstTenyaBreastplate: {
@@ -394,7 +394,7 @@ Items: {
 
 	RubyGlasses: {
 		// DisplayName: Ruby Glasses
-		// Tooltip: ""
+		// Tooltip: Stop your eyes from leaking Concussive blasts!
 	}
 
 	AbyssHead: {
@@ -411,7 +411,7 @@ Items: {
 Buffs: {
 	FullCowlingBuff: {
 		DisplayName: Full Cowling
-		Description: Canalizando o One For All por todo o teu corpo.
+		Description: Canalizando o One For All por todo o seu corpo.
 	}
 
 	FullCowlingBuff5: {
@@ -461,7 +461,7 @@ Buffs: {
 
 	FlashFireFistBuff: {
 		DisplayName: Flashfire Fist
-		Description: A elevar as tuas chamas à sua temperatura máxima!
+		Description: Elevando suas chamas à sua temperatura máxima!
 	}
 
 	Heat: {
@@ -511,7 +511,7 @@ Buffs: {
 
 	TemperatureBuff: {
 		DisplayName: Regulador de Temperatura
-		Description: A estabilizar o calor interno do teu corpo.
+		Description: Estabilizando o calor interno do seu corpo.
 	}
 
 	FrostBite: {
@@ -521,7 +521,7 @@ Buffs: {
 
 	OvertimeBuff: {
 		DisplayName: Sentido de Perigo (Sobrecarga)
-		Description: O teu Sentido de Perigo está a trabalhar horas extraordinárias!
+		Description: O seu Sentido de Perigo está a trabalhar horas extraordinárias!
 	}
 
 	FloatBuff: {
@@ -600,78 +600,78 @@ Buffs: {
 	}
 
 	ChimeraBuff: {
-		// DisplayName: Chimera Buff
-		// Description: Mods.MyHeroMod.Buffs.ChimeraBuff.Description
+		DisplayName: Buff Quimera
+		Description: Fusing multiple parts into yourself!
 	}
 
 	ZeroGravityBuff: {
-		// DisplayName: Zero Gravity Buff
-		// Description: Mods.MyHeroMod.Buffs.ZeroGravityBuff.Description
+		DisplayName: Buff Zero Gravidade
+		Description: Flutuando!
 	}
 
 	ZeroGravityEnemyBuff: {
-		// DisplayName: Zero Gravity Enemy Buff
-		// Description: Mods.MyHeroMod.Buffs.ZeroGravityEnemyBuff.Description
+		DisplayName: Buff Zero gravidade inimigo
+		Description: Suspenso em gravidade Zero.
 	}
 
 	ColdResistanceBuff: {
-		// DisplayName: Cold Resistance Buff
-		// Description: Mods.MyHeroMod.Buffs.ColdResistanceBuff.Description
+		DisplayName: Buff Resistência ao Frio
+		Description: Diminuindo acúmulo do frio
 	}
 
 	HeatResistanceBuff: {
-		// DisplayName: Heat Resistance Buff
-		// Description: Mods.MyHeroMod.Buffs.HeatResistanceBuff.Description
+		DisplayName: Buff Resistência ao calor
+		Description: Diminuindo acúmulo do calor
 	}
 
 	NauseaResistanceBuff: {
-		// DisplayName: Nausea Resistance Buff
-		// Description: Mods.MyHeroMod.Buffs.NauseaResistanceBuff.Description
+		DisplayName: Buff Resistência a tontura
+		Description: Você aguenta bem a nausea
 	}
 
 	PerfectVesselBuff: {
-		// DisplayName: Perfect Vessel Buff
-		// Description: Mods.MyHeroMod.Buffs.PerfectVesselBuff.Description
+		DisplayName: Buff Receptáculo Perfeito
+		Description: Seu corpo aguenta o tranco.
 	}
 
 	ResourcefulBuff: {
-		// DisplayName: Resourceful Buff
-		// Description: Mods.MyHeroMod.Buffs.ResourcefulBuff.Description
+		DisplayName: Buff Engenhoso
+		Description: Você é ótimo administrando recursos!
 	}
 
 	StrongMindedBuff: {
-		// DisplayName: Strong Minded Buff
-		// Description: Mods.MyHeroMod.Buffs.StrongMindedBuff.Description
+		DisplayName: Buff Mente de Titânio
+		Description: Sua mente aguenta o tranco.
 	}
 
 	ThermalResistanceBuff: {
-		// DisplayName: Thermal Resistance Buff
-		// Description: Mods.MyHeroMod.Buffs.ThermalResistanceBuff.Description
+		DisplayName: Buff resistência Térmica
+		Description: Equilibrando quente e frio
 	}
 
 	SpeedForceBuff: {
 		// DisplayName: Speed Force Buff
-		// Description: Mods.MyHeroMod.Buffs.SpeedForceBuff.Description
+		// Description: Connected to the speedforce
 	}
 
 	DarkShadowBuff: {
 		// DisplayName: Dark Shadow Buff
-		// Description: Mods.MyHeroMod.Buffs.DarkShadowBuff.Description
+		// Description: Summoned Dark Shadow!
 	}
 
 	BlackAbyssBuff: {
 		// DisplayName: Black Abyss Buff
-		// Description: Mods.MyHeroMod.Buffs.BlackAbyssBuff.Description
+		// Description: Covering youself with Dark Shadow!
 	}
 
 	CBOArmsBuff: {
-		// DisplayName: C B O Arms Buff
-		// Description: Mods.MyHeroMod.Buffs.CBOArmsBuff.Description
+		// DisplayName: Covert Black Opps Arms Buff
+		// Description: Enlarging Dark Shadow Arms!
 	}
 
 	AutomaticDarkShadowBuff: {
 		// DisplayName: Automatic Dark Shadow Buff
-		// Description: Mods.MyHeroMod.Buffs.AutomaticDarkShadowBuff.Description
+		// Description: Dark Shadow is attacking automatically!
 	}
 }
 
@@ -780,13 +780,13 @@ Projectiles: {
 	// BigDarkShadowBackHandProj.DisplayName: Big Dark Shadow Back Hand Proj
 	// BigDarkShadowFrontHandProj.DisplayName: Big Dark Shadow Front Hand Proj
 	// LunaRingController.DisplayName: Luna Ring Controller
-	// LunaArcController.DisplayName: Luna Arc Controller
-	// LunaFallController.DisplayName: Luna Fall Controller
-	// BoomOnomatopoeia.DisplayName: Boom Onomatopoeia
-	// DetroitOnomatopoeia.DisplayName: Detroit Onomatopoeia
-	// DetroitSmashOnomatopoeia.DisplayName: Detroit Smash Onomatopoeia
-	// DekuDetroitOnomatopoeia.DisplayName: Deku Detroit Onomatopoeia
-	// DekuDetroitSmashOnomatopoeia.DisplayName: Deku Detroit Smash Onomatopoeia
+	LunaArcController.DisplayName: Luna Arc Controller
+	LunaFallController.DisplayName: Luna Fall Controller
+	BoomOnomatopoeia.DisplayName: Boom Onomatopoeia
+	DetroitOnomatopoeia.DisplayName: Detroit Onomatopoeia
+	DetroitSmashOnomatopoeia.DisplayName: Detroit Smash Onomatopoeia
+	DekuDetroitOnomatopoeia.DisplayName: Deku Detroit Onomatopoeia
+	DekuDetroitSmashOnomatopoeia.DisplayName: Deku Detroit Smash Onomatopoeia
 }
 
 NPCs: {
@@ -826,14 +826,14 @@ NPCs: {
 		// DisplayName: Deku
 
 		TownNPCMood: {
-			// Content: Estou contente.
-			// NoHome: Odeio não ter uma casa.
-			// FarFromHome: Estou muito longe de casa.
-			// LoveSpace: Eu adoro este lugar, tem tanto espaço.
-			// DislikeCrowded: Não gosto deste lugar, está muito cheio.
-			// HateCrowded: Odeio este lugar, está muito cheio.
-			// LikeNPC_Princess: Eu gosto de {NPCName}.
-			// Princess_LovesNPC: Eu gosto de {NPCName}.
+			// Content: I'm glad everyone is safe. But I still need to keep getting stronger.
+			// NoHome: I have to keep moving. If I stay in one place, I might put people in danger.
+			// FarFromHome: I'm a long way from U.A. High... I wonder how everyone is doing.
+			// LoveSpace: This is a great spot! I can practice Shoot Style without worrying about collateral damage.
+			// DislikeCrowded: It's a bit cramped here... Danger Sense is going off constantly from the crowds.
+			// HateCrowded: We need clear evacuation routes! It's too dangerous if a villain attacks here!
+			// LikeNPC_Princess: "{NPCName} has a really comforting presence. It reminds me of Eri."
+			// Princess_LovesNPC: "{NPCName} is always trying their best to smile!"
 		}
 	}
 }
