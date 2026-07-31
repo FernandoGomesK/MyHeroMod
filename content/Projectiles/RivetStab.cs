@@ -31,46 +31,79 @@ namespace MyHeroMod.content.Npcs.Bosses.AllForOne.Projectiles
 
         public override void AI()
         {
-            
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
-
-            
             Projectile.ai[0]++; 
 
-            
-            Player target = Main.player[Player.FindClosest(Projectile.Center, 1, 1)];
+        
+            Vector2 targetCenter = Vector2.Zero;
+            bool hasTarget = false;
 
             
-            if (Projectile.ai[0] % 15 == 0 && target.active && !target.dead) 
+            if (Projectile.friendly)
             {
-                Vector2 directionToTarget = target.Center - Projectile.Center;
+                float closestDistance = 1500f; 
+                for (int i = 0; i < Main.maxNPCs; i++)
+                {
+                    NPC npc = Main.npc[i];
+                    
+                    if (npc.active && !npc.friendly && npc.CanBeChasedBy())
+                    {
+                        float distance = Vector2.Distance(Projectile.Center, npc.Center);
+                        if (distance < closestDistance)
+                        {
+                            closestDistance = distance;
+                            targetCenter = npc.Center;
+                            hasTarget = true;
+                        }
+                    }
+                }
+            }
+            
+            else
+            {
+                Player targetPlayer = Main.player[Player.FindClosest(Projectile.Center, 1, 1)];
+                if (targetPlayer.active && !targetPlayer.dead)
+                {
+                    targetCenter = targetPlayer.Center;
+                    hasTarget = true;
+                }
+            }
+
+            
+            if (Projectile.ai[0] % 15 == 0 && hasTarget) 
+            {
+                Vector2 directionToTarget = targetCenter - Projectile.Center;
                 float distanceToTarget = directionToTarget.Length();
 
-                
                 if (distanceToTarget > 100f) 
                 {
                     directionToTarget.Normalize();
-                    float speed = Projectile.velocity.Length(); 
                     
-                
                     float currentAngle = Projectile.velocity.ToRotation();
                     float targetAngle = directionToTarget.ToRotation();
-
-                    
                     float difference = MathHelper.WrapAngle(targetAngle - currentAngle);
-
-                    
                     float maxTurn = MathHelper.PiOver4; 
                     
                     if (difference > maxTurn) difference = maxTurn;
                     else if (difference < -maxTurn) difference = -maxTurn;
 
-                    
                     Projectile.velocity = Projectile.velocity.RotatedBy(difference);
-                    
-                    
                 }
-                
+            }
+        }
+
+        public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
+        {
+            
+            if (source is Terraria.DataStructures.EntitySource_Parent parent && parent.Entity is NPC npc)
+            {
+            
+                if (npc.friendly)
+                {
+                    Projectile.hostile = false;
+                    Projectile.friendly = true;
+                    Projectile.tileCollide = false;
+                }
             }
         }
         public override bool PreDraw(ref Color lightColor)

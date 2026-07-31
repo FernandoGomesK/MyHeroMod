@@ -29,6 +29,19 @@ namespace MyHeroMod.content.Quirks.ZeroGravity
             isZeroGravityActive = false;
         }
 
+        public override void PostUpdateEquips()
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            NauseaMax = transPlayer.CurrentStage switch 
+                {
+                    QuirkStage.Initial => 300, QuirkStage.Adequation => 500,
+                    QuirkStage.Intermediate => 700, QuirkStage.Advanced => 900,
+                    QuirkStage.Final => 1200, _ => 20
+                };
+            
+        }
+
         public override void PostUpdateMiscEffects()
         {
         

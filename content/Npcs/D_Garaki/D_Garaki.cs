@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using MyHeroMod.content.Items.Support; // Para ele poder vender seus itens!
 using MyHeroMod.content.Items;
 using MyHeroMod.content.Npcs.Bosses.AllForOne.Projectiles;
+using MyHeroMod.content.Quirks.Rivet.Projectiles;
 
 namespace MyHeroMod.content.Npcs.D_Garaki
 {
