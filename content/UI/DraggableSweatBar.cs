@@ -9,7 +9,7 @@ using MyHeroMod.content.Quirks.Explosion;
 
 namespace MyHeroMod.content.UI
 {
-    // Criamos um elemento de UI customizado
+  
     public class DraggableSweatBar : UIElement
     {
         private Vector2 offset;

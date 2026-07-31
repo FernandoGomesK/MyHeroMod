@@ -19,7 +19,7 @@ public class GravityTouchSkill : QuirkBaseSkill
     public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
     public override string Category => "ZeroGravity";
 
-    public override int BaseCooldown => 200;
+    public override int BaseCooldown => 120;
     public override QuirkType RequiredQuirk => QuirkType.ZeroGravity;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
@@ -37,7 +37,7 @@ public class GravityTouchSkill : QuirkBaseSkill
                 player.Center,
                 Velocity,
                 ModContent.ProjectileType<GravityTouchProj>(),
-                15, 
+                8, 
                 2f, 
                 player.whoAmI);
         

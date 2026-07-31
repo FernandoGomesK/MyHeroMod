@@ -17,6 +17,7 @@ namespace MyHeroMod.content.Quirks.ZeroGravity
         public int Nausea = 0;
         public int NauseaMax = 300; 
 
+
         public void FullReset()
         {
             isZeroGravityActive = false;
@@ -30,7 +31,7 @@ namespace MyHeroMod.content.Quirks.ZeroGravity
 
         public override void PostUpdateMiscEffects()
         {
-            // 1. Conta quantos inimigos estão a flutuar neste momento
+        
             int floatingNpcCount = 0;
             for (int i = 0; i < Main.maxNPCs; i++)
             {
@@ -41,17 +42,17 @@ namespace MyHeroMod.content.Quirks.ZeroGravity
                 }
             }
 
-            // Se o player estiver a flutuar OU tiver inimigos a flutuar
+        
             if (isZeroGravityActive || floatingNpcCount > 0)
             {
-                // 2. Aumenta a náusea baseada no peso (quantidade de alvos)
+                
                 int nauseaRate = 0;
-                if (isZeroGravityActive) nauseaRate += 1; // 1 de peso por si mesmo
-                nauseaRate += floatingNpcCount;           // 1 de peso extra por cada inimigo!
+                if (isZeroGravityActive) nauseaRate += 1; 
+                nauseaRate += floatingNpcCount;           
 
                 Nausea += nauseaRate;
 
-                // 3. Lógica Física do Jogador (apenas se ele ativou em si mesmo)
+                
                 if (isZeroGravityActive && !Player.mount.Active && Player.velocity.Y != 0)
                 {
                     if (Player.controlJump) 
@@ -69,14 +70,14 @@ namespace MyHeroMod.content.Quirks.ZeroGravity
                         Dust.NewDust(Player.position, Player.width, Player.height, DustID.PinkFairy);
                 }
 
-                // 4. LIMITE ATINGIDO (VÔMITO / PERDA DE CONTROLE)
+            
                 if (Nausea >= NauseaMax)
                 {
-                    // Auto-Release no Player
+                    
                     Player.ClearBuff(ModContent.BuffType<Buffs.ZeroGravityBuff>());
                     isZeroGravityActive = false;
                     
-                    // Auto-Release nos Inimigos (A Quirk desativa à força)
+                
                     for (int i = 0; i < Main.maxNPCs; i++)
                     {
                         NPC npc = Main.npc[i];
@@ -88,20 +89,20 @@ namespace MyHeroMod.content.Quirks.ZeroGravity
                         }
                     }
 
-                    // Punição Severa de Enjoo (Confuso e Lento)
-                    Player.AddBuff(BuffID.Confused, 240); // 4 segundos
+                
+                    Player.AddBuff(BuffID.Confused, 240); 
                     Player.AddBuff(BuffID.Slow, 240);
                     
-                    // Efeito sonoro desagradável opcional (vômito/engasgo do Terraria)
+                
                     Terraria.Audio.SoundEngine.PlaySound(SoundID.NPCDeath13, Player.position);
                 }
             }
             else
             {
-                // 5. Recuperação de Fôlego
+            
                 if (Nausea > 0)
                 {
-                    Nausea -= 2; // Recupera o enjoo gradualmente
+                    Nausea -= 2; 
                     if (Nausea < 0) Nausea = 0;
                 }
             }

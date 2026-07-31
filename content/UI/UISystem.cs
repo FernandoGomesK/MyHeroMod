@@ -41,6 +41,9 @@ namespace MyHeroMod
         private UserInterface SweatUserInterface;
         internal SweatUIState sweatUIState;
 
+        private UserInterface nauseaUserInterface;
+        internal NauseaUIState nauseaUIState;
+
 
         public override void Load()
         {
@@ -92,6 +95,11 @@ namespace MyHeroMod
                 SweatUserInterface = new UserInterface();
                 SweatUserInterface.SetState(sweatUIState);
 
+                nauseaUIState = new NauseaUIState();
+                nauseaUIState.Activate();
+                nauseaUserInterface = new UserInterface();
+                nauseaUserInterface.SetState(nauseaUIState);
+
                 if (!Main.dedServ)
     {
         KhacesCore.Content.System.CoreUISystem.RegisterTab(
@@ -131,6 +139,9 @@ namespace MyHeroMod
 
             sweatUIState = null;
             SweatUserInterface = null;
+
+            nauseaUIState = null;
+            nauseaUserInterface = null;
         }
 
         // public static void ToggleSkillMenu()
@@ -215,6 +226,9 @@ namespace MyHeroMod
 
             if (SweatUserInterface != null)
                 SweatUserInterface.Update(gameTime);
+
+            if (nauseaUserInterface != null)
+                nauseaUserInterface.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -326,6 +340,19 @@ namespace MyHeroMod
                     if (SweatUserInterface != null)
                     {
                         SweatUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
+                    }
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
+
+            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
+                "MyHeroMod: Nausea Bar",
+                delegate
+                {
+                    if (nauseaUserInterface != null)
+                    {
+                        nauseaUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
                     }
                     return true;
                 },

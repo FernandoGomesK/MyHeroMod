@@ -15,7 +15,7 @@ public class GravityReleaseSkill : QuirkBaseSkill
     public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
     public override string Category => "ZeroGravity";
 
-    public override int BaseCooldown => 200;
+    public override int BaseCooldown => 120;
     public override QuirkType RequiredQuirk => QuirkType.ZeroGravity;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
@@ -33,7 +33,17 @@ public class GravityReleaseSkill : QuirkBaseSkill
         for (int i = 0; i < Main.maxNPCs; i++)
         {
             NPC npc = Main.npc[i];
-            
+
+            if (npc.active && npc.HasBuff(ModContent.BuffType<ZeroGravityEnemyBuff>()))
+            {
+                int buffIndex = npc.FindBuffIndex(ModContent.BuffType<ZeroGravityEnemyBuff>());
+                if (buffIndex != -1)
+                {
+                    npc.DelBuff(buffIndex);
+                }
+
+                npc.GetGlobalNPC<ZeroGravityGlobalNPC>().hasZeroGravity = false;
+            }
             
             if (npc.active && npc.HasBuff(ModContent.BuffType<ZeroGravityBuff>()))
             {
@@ -42,6 +52,8 @@ public class GravityReleaseSkill : QuirkBaseSkill
                 {
                     npc.DelBuff(buffIndex); 
                 }
+
+            
                 
                 
                 npc.GetGlobalNPC<ZeroGravityGlobalNPC>().hasZeroGravity = false;

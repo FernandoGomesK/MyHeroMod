@@ -3,13 +3,13 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.UI;
 using Terraria.ModLoader;
-using MyHeroMod.content.System;
-using MyHeroMod.content.Quirks.Flight;
+using MyHeroMod.content.Quirks.ZeroGravity;
+
 
 namespace MyHeroMod.content.UI
 {
-    // Criamos um elemento de UI customizado
-    public class DraggableFlightShieldBar : UIElement
+  
+    public class DraggableNauseaBar : UIElement
     {
         private Vector2 offset;
         public bool dragging;
@@ -57,27 +57,27 @@ namespace MyHeroMod.content.UI
         }
 
         // A lógica de desenho vem pra cá
-        protected override void DrawSelf(SpriteBatch spriteBatch)
+         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             Player player = Main.LocalPlayer;
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
-            var flightPlayer = player.GetModPlayer<FlightPlayer>();
+            var zeroPlayer = player.GetModPlayer<ZeroGravityPlayer>();
 
             
-            if (!transPlayer.HasActiveQuirk(QuirkType.Flight))
+            if (!transPlayer.HasActiveQuirk(QuirkType.ZeroGravity))
                 return;
 
-            Texture2D barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FlightShieldFrame").Value;
-            Texture2D barFill = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FlightShieldFill").Value;
+            Texture2D barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/NauseaBarFrame").Value;
+            Texture2D barFill = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/NauseaBarFill").Value;
 
             
             CalculatedStyle dimensions = GetDimensions();
             Vector2 drawPos = new Vector2(dimensions.X, dimensions.Y);
 
             float quotient = 1f;
-            if (flightPlayer.flightShieldMaxHealth > 0)
+            if (zeroPlayer.Nausea > 0)
             {
-                quotient = (float)flightPlayer.flightShieldHealth / flightPlayer.flightShieldMaxHealth;
+                quotient = (float)zeroPlayer.Nausea / zeroPlayer.NauseaMax;
             }
             quotient = MathHelper.Clamp(quotient, 0f, 1f);
 
@@ -91,7 +91,7 @@ namespace MyHeroMod.content.UI
 
             spriteBatch.Draw(barFill, fillDrawPos, fillRect, Color.White);
 
-            string text = $"{(int)flightPlayer.flightShieldHealth} / {flightPlayer.flightShieldMaxHealth}";
+            string text = $"{(int)zeroPlayer.Nausea} / {zeroPlayer.NauseaMax}";
             Vector2 textPos = drawPos + new Vector2(barFrame.Width / 2f - 20f, barFrame.Height + 5f);
             Utils.DrawBorderString(spriteBatch, text, textPos, Color.Cyan, 0.8f);
         }
