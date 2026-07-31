@@ -23,6 +23,7 @@ namespace MyHeroMod.content.Quirks.FaJin
             isEnhanced = true;  
             Player.ClearBuff(ModContent.BuffType<FaJinBuff>());
             FaJinCharges = 0;  
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinSound"), Player.Center);
         }
         else if (isFaJinActive)
         {
@@ -30,7 +31,7 @@ namespace MyHeroMod.content.Quirks.FaJin
         }
 
         
-        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinSound"), Player.Center);
+        
     }
 
         public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref bool isSuperPunch, ref int numberOfPunches)

@@ -30,9 +30,10 @@ namespace MyHeroMod.content.Quirks.Gearshift
                 hideNormalDash = true;
                 explosionColor = Color.Cyan; 
                 dustType = DustID.BlueTorch;
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.8f }, Player.position);
             }
 
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.8f }, Player.position);
+            
         }
 
         public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref bool isSuperPunch, ref int numberOfPunches)
