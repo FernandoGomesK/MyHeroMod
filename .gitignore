@@ -1,10 +1,15 @@
 # --- Build e Compilação do C# ---
-# Ignora pastas geradas automaticamente pelo compilador
 [Bb]in/
 [Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+*.pdb
 
 # --- Arquivos do tModLoader ---
-# Ignora o arquivo final compilado do mod (você não quer versionar o binário, apenas o código)
 *.tmod
 
 # --- Visual Studio ---
@@ -26,12 +31,15 @@ Desktop.ini
 # Mac
 .DS_Store
 
-# --- Opcional: Arquivos de Arte Fonte ---
-# Descomente abaixo se não quiser subir os arquivos originais de arte (PSDs, Aseprite),
-# mantendo apenas os .png exportados.
+# --- Arquivos de Arte Fonte ---
 # *.psd
 # *.ase
 # *.aseprite
-obj/Debug/net8.0/MyHeroMod.AssemblyInfo.cs
-obj/Debug/net8.0/MyHeroMod.AssemblyInfo.cs
-obj/Debug/net8.0/MyHeroMod.AssemblyInfoInputs.cache
+
+# --- Logs, Caches e Arquivos temporários ---
+*.log
+[Ll]og/
+*.tmp
+*.bak
+*~
+*.[Cc]ache
