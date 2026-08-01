@@ -101,24 +101,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         
         
                 }
-        // private void ActivateFullCowling()
-        // {
-
-        //     percentage = pendingPercentage;
-        
-        //     Player.AddBuff(ModContent.BuffType<FullCowlingBuff>(), 3600000);
-        //     Main.NewText("ONE FOR ALL Full Cowling", Color.Cyan);
-        //     CombatText.NewText(Player.getRect(), Color.Cyan, "Full Cowling!");
-            
-            
-        //     for (int i = 0; i < 20; i++)
-        //     {
-        //         Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
-        //         Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, speed.X, speed.Y, 0, Color.Green, 2f);
-        //     }
-        // }
-
-
+                
         public List<QuirkType> InternalQuirks = new List<QuirkType>();
         
             
