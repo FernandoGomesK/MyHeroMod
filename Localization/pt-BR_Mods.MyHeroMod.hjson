@@ -16,7 +16,7 @@ Items: {
 
 	DebugStageChanger: {
 		DisplayName: Modificador de Estágio (Debug)
-		Tooltip: Altera instantaneamente o teu Estágio de Individualidade.
+		Tooltip: Altera instantaneamente o seu Estágio de Individualidade.
 	}
 
 	SummonHim: {
@@ -109,7 +109,7 @@ Items: {
 
 	AlphaBreastplate: {
 		DisplayName: Peitoral Alfa
-		Tooltip: O teu primeiro traje de herói. Um pouco simples, mas feito de coração.
+		Tooltip: O seu primeiro traje de herói. Um pouco simples, mas feito de coração.
 	}
 
 	AlphaLeggings: {
@@ -393,8 +393,8 @@ Items: {
 	}
 
 	RubyGlasses: {
-		// DisplayName: Ruby Glasses
-		// Tooltip: Stop your eyes from leaking Concussive blasts!
+		DisplayName: Óculos Rubi
+		Tooltip: Impeça seus olhos de vazarem rajadas consussivas!
 	}
 
 	AbyssHead: {
@@ -435,12 +435,12 @@ Buffs: {
 	}
 
 	GearshiftBuff: {
-		DisplayName: Troca de Mudança (Gearshift)
+		DisplayName: Troca de Marcha
 		Description: Alterando a Velocidade das suas próprias Celulas!
 	}
 
 	DangerSenseBuff: {
-		DisplayName: Sentido de Perigo
+		DisplayName: Sensor de Perigo
 		Description: Detectando Intenções malignas próximas
 	}
 
@@ -515,12 +515,12 @@ Buffs: {
 	}
 
 	FrostBite: {
-		DisplayName: Congelamento (Frostbite)
+		DisplayName: Congelamento 
 		Description: Congelando!
 	}
 
 	OvertimeBuff: {
-		DisplayName: Sentido de Perigo (Sobrecarga)
+		DisplayName: Sensor de Perigo (sobrecarga)
 		Description: O seu Sentido de Perigo está a trabalhar horas extraordinárias!
 	}
 
@@ -530,13 +530,13 @@ Buffs: {
 	}
 
 	SmokescreenBuff: {
-		DisplayName: Cortina de Fumo
+		DisplayName: Cortina de Fumaça
 		Description: Liberando fumaça Roxa.
 	}
 
 	FingersBuff: {
 		DisplayName: Dedos Partidos
-		Description: Quebrou Seus dedos a usar 100% do teu poder!
+		Description: Quebrou Seus dedos a usar 100% do seu poder!
 	}
 
 	OverclockBuff: {
@@ -546,7 +546,7 @@ Buffs: {
 
 	QuirkErased: {
 		DisplayName: Individualidade Apagada
-		Description: A tua Individualidade foi apagada! Você é impotente.
+		Description: A sua Individualidade foi apagada! Você é impotente.
 	}
 
 	ErasingBuff: {
@@ -581,7 +581,7 @@ Buffs: {
 
 	EngineBuff: {
 		DisplayName: Motor
-		Description: Os teus motores estão rugindo e prontos!
+		Description: Os seus motores estão rugindo e prontos!
 	}
 
 	ReciproBuff: {
@@ -596,12 +596,12 @@ Buffs: {
 
 	SpringLikeLimbsBuff: {
 		DisplayName: Membros de Mola
-		Description: Os teus membros armazenam e libertam energia cinética para saltos massivos.
+		Description: Os seus membros armazenam e libertam energia cinética para saltos massivos.
 	}
 
 	ChimeraBuff: {
 		DisplayName: Buff Quimera
-		Description: Fusing multiple parts into yourself!
+		Description: Se fundindo com várias partes!
 	}
 
 	ZeroGravityBuff: {
@@ -655,23 +655,23 @@ Buffs: {
 	}
 
 	DarkShadowBuff: {
-		// DisplayName: Dark Shadow Buff
-		// Description: Summoned Dark Shadow!
+		DisplayName: Dark Shadow Buff
+		Description: Invocou Dark Shadow!
 	}
 
 	BlackAbyssBuff: {
-		// DisplayName: Black Abyss Buff
-		// Description: Covering youself with Dark Shadow!
+		DisplayName: Black Abyss Buff
+		Description: Se cobrindo com Dark Shadow!
 	}
 
 	CBOArmsBuff: {
-		// DisplayName: Covert Black Opps Arms Buff
-		// Description: Enlarging Dark Shadow Arms!
+		DisplayName: Covert Black Opps Arms Buff
+		Description: Aumentando os braços da Dark Shadow!
 	}
 
 	AutomaticDarkShadowBuff: {
-		// DisplayName: Automatic Dark Shadow Buff
-		// Description: Dark Shadow is attacking automatically!
+		DisplayName: Automatic Dark Shadow Buff
+		Description: Dark Shadow está atacando automaticamente!
 	}
 }
 
