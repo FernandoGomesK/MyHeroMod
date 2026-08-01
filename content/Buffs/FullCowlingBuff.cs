@@ -26,6 +26,7 @@ namespace MyHeroMod.content.Buffs
                 player.statDefense += 3;  
                 player.jumpSpeedBoost += 5f;
                 player.noFallDmg = true;
+                ofaPlayer.isFullCowlingBuffActive = true;
                 
             }
             if (ofaPlayer.percentage == 10)
@@ -34,6 +35,7 @@ namespace MyHeroMod.content.Buffs
                 player.statDefense += 3;    
                 player.jumpSpeedBoost += 3f; 
                 player.noFallDmg = true;
+                ofaPlayer.isFullCowlingBuffActive = true;
             }
             if (ofaPlayer.percentage == 5)
             {
@@ -41,6 +43,7 @@ namespace MyHeroMod.content.Buffs
                 player.statDefense += 2;    
                 player.jumpSpeedBoost += 2.0f;
                 player.noFallDmg = true;
+                ofaPlayer.isFullCowlingBuffActive = true;
             }
 }
     }}

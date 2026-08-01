@@ -48,6 +48,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         
         public int percentage = 0;
+        public int strainTimer = 0;
 
         private QuirkStage _lastStage = (QuirkStage)(-1);
         
@@ -60,6 +61,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             percentage = 0;
             isFullCowlingBuffActive = false;
             Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
+            strainTimer = 0;
 
         }
 
@@ -67,10 +69,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
         {
             currentFingers = 10;
             ElectricSoundTimer = 0;
-            
             percentage = 0;
-            
             isFullCowlingBuffActive = false;
+            strainTimer = 0;
         }
         
 
@@ -149,64 +150,53 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public override void ResetEffects()
         {
+            
+            isFullCowlingBuffActive = false;
+            ParallelProcessing = 0;
+
+            
             if (!Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th))
             {
                 return; 
             }
+            
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>();
 
             UnlockQuirks();
 
-            ParallelProcessing = 0;
-
             if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
             {
-                
-            
-            if (Player.HasBuff(ModContent.BuffType<FloatBuff>()))
-            {
-                ParallelProcessing++;
+                if (Player.HasBuff(ModContent.BuffType<FloatBuff>())) { ParallelProcessing++; }
+                if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>())) { ParallelProcessing++; }
+                if (Player.HasBuff(ModContent.BuffType<DangerSenseBuff>())) { ParallelProcessing++; }
+                if (Player.HasBuff(ModContent.BuffType<SmokescreenBuff>())) { ParallelProcessing++; }
+                if (Player.HasBuff(ModContent.BuffType<FaJinBuff>())) { ParallelProcessing++; }
             }
-            if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
-            {
-                ParallelProcessing++;
-            }
-            if (Player.HasBuff(ModContent.BuffType<DangerSenseBuff>()))
-            {
-                ParallelProcessing++;
-            }
-            if(Player.HasBuff(ModContent.BuffType<SmokescreenBuff>()))
-            {
-                ParallelProcessing++;
-            }
-            if(Player.HasBuff(ModContent.BuffType<FaJinBuff>()))
-            {
-                ParallelProcessing++;
-            }
-            }
-
-
-            
             
             if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
             {
-                if (transPlayer.CurrentStage == QuirkStage.Initial) 
-                    MaxParallelProcessing = 0; 
-                else if (transPlayer.CurrentStage == QuirkStage.Adequation) 
-                    MaxParallelProcessing = 1; 
-                else if (transPlayer.CurrentStage == QuirkStage.Intermediate) 
-                    MaxParallelProcessing = 2; 
-                else if (transPlayer.CurrentStage == QuirkStage.Advanced) 
-                    MaxParallelProcessing = 4; 
-                else if (transPlayer.CurrentStage >= QuirkStage.Final) 
-                    MaxParallelProcessing = 6; 
+                if (transPlayer.CurrentStage == QuirkStage.Initial) MaxParallelProcessing = 0; 
+                else if (transPlayer.CurrentStage == QuirkStage.Adequation) MaxParallelProcessing = 1; 
+                else if (transPlayer.CurrentStage == QuirkStage.Intermediate) MaxParallelProcessing = 2; 
+                else if (transPlayer.CurrentStage == QuirkStage.Advanced) MaxParallelProcessing = 4; 
+                else if (transPlayer.CurrentStage >= QuirkStage.Final) MaxParallelProcessing = 6; 
             }
             else
             {
                 MaxParallelProcessing = 0;
             }
-        
+        }
+
+        public override void PostUpdateMiscEffects()
+        {
+            
+            if (!Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th))
+            {
+                return; 
+            }
+
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             if (ParallelProcessing > 0)
             {
@@ -215,60 +205,62 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
             int strainDrain = (transPlayer.CurrentStage, percentage) switch
             {
-                (QuirkStage.Initial, 5) => 5,
-                (QuirkStage.Adequation, 5) => 5,
-                
-                (QuirkStage.Intermediate, 5) => 2,
-                (QuirkStage.Intermediate, 10) => 5,
-                
-                (QuirkStage.Advanced, 5) => 1,
-                (QuirkStage.Advanced, 10) => 2,
-                (QuirkStage.Advanced, 45) => 10,
-                
+                (QuirkStage.Initial, 5) => 10,
+                (QuirkStage.Adequation, 5) => 8,
+
+                (QuirkStage.Intermediate, 5) => 5,
+                (QuirkStage.Intermediate, 10) => 10,
+
+                (QuirkStage.Advanced, 5) => 2,
+                (QuirkStage.Advanced, 10) => 10,
+                (QuirkStage.Advanced, 45) => 20,
+
                 (QuirkStage.Final, 5) => 0,
-                (QuirkStage.Final, 10) => 1,
-                (QuirkStage.Final, 45) => 5,
+                (QuirkStage.Final, 10) => 5,
+                (QuirkStage.Final, 45) => 10,
                 _ => 0 
             };
 
-       
-            bool isFullCowlingActive = Player.HasBuff(ModContent.BuffType<FullCowlingBuff>());
             if (isFullCowlingBuffActive)
-    {
-        HandleFullCowlingEffects();
-        Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
-        ElectricSoundTimer++;
-
-        
-        transPlayer.currentStrain += strainDrain;
-        
-        if (transPlayer.currentStrain >= transPlayer.maxStrain)
-        {
-            transPlayer.currentStrain = transPlayer.maxStrain; 
-            Player.ClearBuff(ModContent.BuffType<ParallelProcessingBuff>());
-            
-            
-        }
-    }
-    else if (transPlayer.currentStrain > 0)
-    {
-        
-        transPlayer.currentStrain -= 1; 
-        if (transPlayer.currentStrain < 0) 
-        {
-            transPlayer.currentStrain = 0;
-        }
-    }
-
-            if (currentFingers < MaxFingers)
             {
-                Player.AddBuff(ModContent.BuffType<FingersBuff>(), 2);
+                strainTimer++;
+                
+                
+                HandleFullCowlingEffects();
+                Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
+                ElectricSoundTimer++;
+
+                if (strainTimer >= 60)
+                {
+                    transPlayer.currentStrain += strainDrain;
+                    if (transPlayer.currentStrain >= transPlayer.maxStrain)
+                {
+                    transPlayer.currentStrain = transPlayer.maxStrain; 
+                    Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
+                }
+                strainTimer = 0;
+                }
+
+                
+                
+                
             }
+            else if (transPlayer.currentStrain > 0)
+            {
+                
+                strainTimer++;
+                if (strainTimer >= 60) 
+                {
+                    transPlayer.currentStrain -= 5; 
+                    strainTimer = 0; 
 
-
-
-            
-        }
+                    if (transPlayer.currentStrain < 0) 
+                    {
+                        transPlayer.currentStrain = 0;
+                    }
+                }
+            }
+            }
 
        // --- MULTIPLAYER ---
         public override void CopyClientState(ModPlayer targetCopy)

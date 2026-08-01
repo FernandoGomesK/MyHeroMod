@@ -44,6 +44,9 @@ namespace MyHeroMod
         private UserInterface nauseaUserInterface;
         internal NauseaUIState nauseaUIState;
 
+        private UserInterface fullCowlingUserInterface;
+        internal FullCowlingUIState fullCowlingUIState;
+
 
         public override void Load()
         {
@@ -100,6 +103,11 @@ namespace MyHeroMod
                 nauseaUserInterface = new UserInterface();
                 nauseaUserInterface.SetState(nauseaUIState);
 
+                fullCowlingUIState = new FullCowlingUIState();
+                fullCowlingUIState.Activate();
+                fullCowlingUserInterface = new UserInterface();
+                fullCowlingUserInterface.SetState(fullCowlingUIState);
+
                 if (!Main.dedServ)
     {
         KhacesCore.Content.System.CoreUISystem.RegisterTab(
@@ -142,6 +150,9 @@ namespace MyHeroMod
 
             nauseaUIState = null;
             nauseaUserInterface = null;
+
+            fullCowlingUIState = null;
+            fullCowlingUserInterface = null;
         }
 
         // public static void ToggleSkillMenu()
@@ -229,6 +240,9 @@ namespace MyHeroMod
 
             if (nauseaUserInterface != null)
                 nauseaUserInterface.Update(gameTime);
+
+            if (fullCowlingUserInterface != null)
+                fullCowlingUserInterface.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -353,6 +367,19 @@ namespace MyHeroMod
                     if (nauseaUserInterface != null)
                     {
                         nauseaUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
+                    }
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
+
+            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
+                "MyHeroMod: Full Cowling Bar",
+                delegate
+                {
+                    if (fullCowlingUserInterface != null)
+                    {
+                        fullCowlingUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
                     }
                     return true;
                 },

@@ -94,11 +94,11 @@ namespace MyHeroMod.content
         {
             maxStrain = CurrentStage switch
             {
-                QuirkStage.Initial => 100,
-                QuirkStage.Adequation => 200,
-                QuirkStage.Intermediate => 300,
-                QuirkStage.Advanced => 400,
-                QuirkStage.Final => 500,
+                QuirkStage.Initial => 300,
+                QuirkStage.Adequation => 500,
+                QuirkStage.Intermediate => 600,
+                QuirkStage.Advanced => 800,
+                QuirkStage.Final => 1200,
                 _ => 0
             };
         }
