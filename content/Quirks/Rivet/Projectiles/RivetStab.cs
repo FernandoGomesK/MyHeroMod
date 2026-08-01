@@ -20,7 +20,7 @@ namespace MyHeroMod.content.Quirks.Rivet.Projectiles
             Projectile.width = 12; 
             Projectile.height = 8; 
             
-            // CORREÇÃO: Agora ele ataca inimigos e não fere o jogador
+            
             Projectile.hostile = false; 
             Projectile.friendly = true;
             
@@ -35,7 +35,7 @@ namespace MyHeroMod.content.Quirks.Rivet.Projectiles
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             Projectile.ai[0]++; 
 
-            // Só quem atirou pode ditar a posição do mouse (prevenção de bugs no multiplayer)
+        
             if (Projectile.owner == Main.myPlayer)
             {
                 Vector2 targetPos = Main.MouseWorld;
@@ -46,7 +46,7 @@ namespace MyHeroMod.content.Quirks.Rivet.Projectiles
                     Vector2 directionToTarget = targetPos - Projectile.Center;
                     float distanceToTarget = directionToTarget.Length();
 
-                    // Evita que o projétil fique "tremendo" se já estiver muito perto do mouse
+                
                     if (distanceToTarget > 30f) 
                     {
                         directionToTarget.Normalize();
@@ -56,13 +56,13 @@ namespace MyHeroMod.content.Quirks.Rivet.Projectiles
 
                         float difference = MathHelper.WrapAngle(targetAngle - currentAngle);
 
-                        // EFEITO ÔMEGA: Curvas muito bruscas (até 90 graus de uma vez)
+                       
                         float maxTurn = MathHelper.PiOver2; 
                         
                         if (difference > maxTurn) difference = maxTurn;
                         else if (difference < -maxTurn) difference = -maxTurn;
 
-                        // Aplica a nova rotação sem perder a velocidade
+                        
                         Projectile.velocity = Projectile.velocity.RotatedBy(difference);
                     }
                 }

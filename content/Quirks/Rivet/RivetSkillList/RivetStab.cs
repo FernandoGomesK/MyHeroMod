@@ -38,7 +38,6 @@ public class RivetStabSkill : QuirkBaseSkill
 
         for (int i = 0; i < projectileCount; i++)
         {
-            // Rotaciona levemente a saída de cada projétil para eles espalharem como uma "mão"
             Vector2 spreadVelocity = direction.RotatedByRandom(MathHelper.ToRadians(45)) * 15f;
 
             Projectile.NewProjectile(
