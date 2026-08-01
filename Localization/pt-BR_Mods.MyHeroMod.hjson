@@ -515,7 +515,7 @@ Buffs: {
 	}
 
 	FrostBite: {
-		DisplayName: Congelamento 
+		DisplayName: Congelamento
 		Description: Congelando!
 	}
 
@@ -787,6 +787,8 @@ Projectiles: {
 	DetroitSmashOnomatopoeia.DisplayName: Detroit Smash Onomatopoeia
 	DekuDetroitOnomatopoeia.DisplayName: Deku Detroit Onomatopoeia
 	DekuDetroitSmashOnomatopoeia.DisplayName: Deku Detroit Smash Onomatopoeia
+	// GearDekuDetroitOnomatopoeia.DisplayName: Gear Deku Detroit Onomatopoeia
+	// GearDekuDetroitSmashOnomatopoeia.DisplayName: Gear Deku Detroit Smash Onomatopoeia
 }
 
 NPCs: {

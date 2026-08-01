@@ -49,7 +49,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 
         public override void OnChargeCancelled(Player player)
         {
-            CombatText.NewText(player.getRect(), Color.Red, "Smash Cancelled!");
+            // CombatText.NewText(player.getRect(), Color.Red, "Smash Cancelled!");
         }
 
         public override void OnChargeComplete(Player player)
@@ -68,7 +68,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             bool hurtPlayer = false;
             bool usedFaJin = false;
 
-            // --- 9TH GEN LOGIC ---
+            
             if (isOFA9th)
             {
                 switch(transPlayer.CurrentStage){
@@ -84,7 +84,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
                     DamageMultiplier = 0.45f; 
                 }
                 else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 10) {
-                    DamageMultiplier = 0.10f; // Fixed a tiny bug here! You had 0.010f which is 1%, changed to 0.10f
+                    DamageMultiplier = 0.10f; 
                 }
                 else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 5) {
                     DamageMultiplier = 0.05f; 
@@ -130,8 +130,9 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
                     Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<PunchAttackProj>(), 0, 0f, player.whoAmI);
                     SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
                 }
+                var projectileType = player.HasBuff(ModContent.BuffType<GearshiftBuff>()) ? ModContent.ProjectileType<GearDekuDetroitSmashOnomatopoeia>() : ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>();
                 Vector2 textPosition = player.Center + new Vector2(0, -30f);
-                Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>(), 0, 0f, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, projectileType, 0, 0f, player.whoAmI);
 
                 if (hurtPlayer)
                 {

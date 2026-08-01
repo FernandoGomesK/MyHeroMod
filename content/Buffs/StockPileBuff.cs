@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
 using MyHeroMod.content.Quirks.OFA8th;
+using System;
 
 namespace MyHeroMod.content.Buffs
 {
@@ -38,11 +39,29 @@ namespace MyHeroMod.content.Buffs
                 player.noFallDmg = true;
 
                 
-                float corVelocidade = 0.5f; 
-                Color corArcoIris = Main.hslToRgb((Main.GlobalTimeWrappedHourly * corVelocidade) % 1f, 1f, 0.6f);
+                if (Math.Abs(player.velocity.X) > 0.1f || Math.Abs(player.velocity.Y) > 0.1f)
+                {
+                    float corVelocidade = 0.5f; 
+                    Color corArcoIris = Main.hslToRgb((Main.GlobalTimeWrappedHourly * corVelocidade) % 1f, 1f, 0.6f);
+                    
+                
+                    Color corTranslucida = corArcoIris * 0.5f; 
 
-                int dustIndex = Dust.NewDust(player.position, player.width, player.height, DustID.Electric, player.velocity.X * -0.5f, player.velocity.Y * -0.5f, 0, corArcoIris, 2f);
-                Main.dust[dustIndex].noGravity = true;      
+                    
+                    int dustIndex = Dust.NewDust(
+                        player.position, 
+                        player.width, 
+                        player.height, 
+                        DustID.FireworksRGB, 
+                        player.velocity.X * -0.5f, 
+                        player.velocity.Y * -0.5f, 
+                        120,                
+                        corTranslucida,   
+                        1.2f
+                    );
+                    
+                    Main.dust[dustIndex].noGravity = true;      
+                }
             }
         }
     }

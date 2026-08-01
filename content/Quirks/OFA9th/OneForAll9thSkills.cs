@@ -6,6 +6,7 @@ using MyHeroMod.content.System;
 using MyHeroMod.content.Buffs;
 using KhacesCore.Content.System.Interfaces;
 using Terraria.Audio;
+using MyHeroMod.content.Projectiles;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
@@ -40,6 +41,17 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 else speed = 20;
             }
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.8f }, Player.position);
+            if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
+            {
+                onomatopoeiaType = ModContent.ProjectileType<GearDekuDetroitSmashOnomatopoeia>();
+            }
+            else
+            {
+                onomatopoeiaType = ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>();
+            }
+
+            
+            
         }
     }
 }

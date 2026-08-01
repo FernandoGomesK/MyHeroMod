@@ -8,6 +8,8 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using Terraria.DataStructures;
+using MyHeroMod.content.Projectiles;
+using Terraria.Graphics.CameraModifiers;
 
 
 namespace MyHeroMod.content.Quirks.OFA9th.Skills 
@@ -98,6 +100,9 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
                     Dust.NewDust(player.position, player.width, player.height, DustID.Cloud, Velocity.X * 2, Velocity.Y * 2, 0, default, 1f);
                 }
             }
+            
+            Vector2 textPosition = player.Center + new Vector2(0, -30f);
+            Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>(), 0, 0f, player.whoAmI);
 
           
             Projectile.NewProjectile(
@@ -124,6 +129,10 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
                     player.KillMe(reason, FinalDamage, 0);        
                 }
             }
+
+
+            PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "FullCowlingShake");
+            Main.instance.CameraModifiers.Add(shake);
         }
     }
 }

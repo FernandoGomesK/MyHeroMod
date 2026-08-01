@@ -9,6 +9,7 @@ using KhacesCore.Content.System;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.OFA8th;
 using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Buffs;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Skills 
 {
@@ -52,7 +53,15 @@ public class DetroitSmashSkill : QuirkBaseSkill
         
         if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
         {
-            onomatopoeiaType = ModContent.ProjectileType<DekuDetroitOnomatopoeia>();
+            if (player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
+            {
+                onomatopoeiaType = ModContent.ProjectileType<GearDekuDetroitOnomatopoeia>();
+            }
+            else
+            {
+                onomatopoeiaType = ModContent.ProjectileType<DekuDetroitOnomatopoeia>();
+            }
+            
         }
 
         
