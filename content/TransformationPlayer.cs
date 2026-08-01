@@ -42,6 +42,9 @@ namespace MyHeroMod.content
 
         public NatureType Nature = NatureType.None;
         public int ChannelTime = 0;
+
+        public int maxStrain = 100;
+        public int currentStrain = 0;
     
         
         public List<string> UnlockedSkills = new List<string>();
@@ -86,6 +89,19 @@ namespace MyHeroMod.content
             QuirkType.OpticBlast => "Optic Blast",
             _ => quirk.ToString()
         };
+
+        public override void PostUpdateEquips()
+        {
+            maxStrain = CurrentStage switch
+            {
+                QuirkStage.Initial => 100,
+                QuirkStage.Adequation => 200,
+                QuirkStage.Intermediate => 300,
+                QuirkStage.Advanced => 400,
+                QuirkStage.Final => 500,
+                _ => 0
+            };
+        }
 
         public override void PostUpdateMiscEffects()
         {

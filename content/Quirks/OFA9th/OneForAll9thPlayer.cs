@@ -48,6 +48,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         
         public int percentage = 0;
+
+        private QuirkStage _lastStage = (QuirkStage)(-1);
         
 
         public void FullReset()
@@ -122,6 +124,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
             
 
         public void UnlockQuirks(){
+
+        InternalQuirks.Clear();
         var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
 
@@ -159,6 +163,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
 }
         
 
+
         public override void ResetEffects()
         {
             if (!Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th))
@@ -185,6 +190,14 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 ParallelProcessing++;
             }
             if (Player.HasBuff(ModContent.BuffType<DangerSenseBuff>()))
+            {
+                ParallelProcessing++;
+            }
+            if(Player.HasBuff(ModContent.BuffType<SmokescreenBuff>()))
+            {
+                ParallelProcessing++;
+            }
+            if(Player.HasBuff(ModContent.BuffType<FaJinBuff>()))
             {
                 ParallelProcessing++;
             }
@@ -217,20 +230,52 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 Player.AddBuff(ModContent.BuffType<ParallelProcessingBuff>(), 2);
             }
 
-       
-            bool hasAnyFullCowling = Player.HasBuff(ModContent.BuffType<FullCowlingBuff>());
+            int strainDrain = (transPlayer.CurrentStage, percentage) switch
+            {
+                (QuirkStage.Initial, 5) => 5,
+                (QuirkStage.Adequation, 5) => 5,
+                
+                (QuirkStage.Intermediate, 5) => 2,
+                (QuirkStage.Intermediate, 10) => 5,
+                
+                (QuirkStage.Advanced, 5) => 1,
+                (QuirkStage.Advanced, 10) => 2,
+                (QuirkStage.Advanced, 45) => 10,
+                
+                (QuirkStage.Final, 5) => 0,
+                (QuirkStage.Final, 10) => 1,
+                (QuirkStage.Final, 45) => 5,
+                _ => 0 
+            };
 
-            if (hasAnyFullCowling)
-            {
-                isFullCowlingBuffActive = true;
-                HandleFullCowlingEffects();
-                Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
-                ElectricSoundTimer++;
-            }
-            else
-            {
-                isFullCowlingBuffActive = false;
-            }
+       
+            bool isFullCowlingActive = Player.HasBuff(ModContent.BuffType<FullCowlingBuff>());
+            if (isFullCowlingBuffActive)
+    {
+        HandleFullCowlingEffects();
+        Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
+        ElectricSoundTimer++;
+
+        
+        transPlayer.currentStrain += strainDrain;
+        
+        if (transPlayer.currentStrain >= transPlayer.maxStrain)
+        {
+            transPlayer.currentStrain = transPlayer.maxStrain; 
+            Player.ClearBuff(ModContent.BuffType<ParallelProcessingBuff>());
+            
+            
+        }
+    }
+    else if (transPlayer.currentStrain > 0)
+    {
+        
+        transPlayer.currentStrain -= 1; 
+        if (transPlayer.currentStrain < 0) 
+        {
+            transPlayer.currentStrain = 0;
+        }
+    }
 
             if (currentFingers < MaxFingers)
             {
