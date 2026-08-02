@@ -12,6 +12,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
 {
     public partial class OneForAll9thPlayer : ModPlayer, IDashModifier
     {
+
+        // ========================================= Dash Modifier =====================================================================
         public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, 
         ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
         {

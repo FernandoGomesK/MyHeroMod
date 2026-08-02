@@ -11,17 +11,17 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip;
 
 
-public class BlackWhipHookSkill : QuirkBaseSkill
+public class PinpointFocusSkill : QuirkBaseSkill
     {
-         public override string Name => "Black Whip Hook";
-    public override string Description => "Shoot a hook made from blackwhip at you cursor and pull yourself towards it";
+         public override string Name => "Pinpoint Focus";
+    public override string Description => "Shoot a tendril of blackwhip";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
     public override string Category => "BlackWhip";
 
     public override int BaseCooldown => 30;
 
     public override QuirkType RequiredQuirk => QuirkType.BlackWhip;
-    public override QuirkStage RequiredStage => QuirkStage.Advanced;
+    public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => true;
 

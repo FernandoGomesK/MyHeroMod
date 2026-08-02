@@ -17,9 +17,6 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         private void HandleFullCowlingEffects()
         {
-            
-
-
             Lighting.AddLight(Player.Center, Color.Green.ToVector3() * 1.5f);
             ElectricSoundTimer++;
 
@@ -30,6 +27,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, default, 0.5f);
             }
         }
+
+        
         public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
         {
         if (Player.HasBuff(ModContent.BuffType<FaJinBuff>()))
@@ -47,10 +46,6 @@ namespace MyHeroMod.content.Quirks.OFA9th
         Player.armorEffectDrawShadow = true; 
         
         }
-        // if (FaJinStored)
-        //     {
-                
-        //     }
         }
     }
 }

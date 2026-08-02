@@ -6,7 +6,7 @@ using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
 {
-    // Renomeei para BlackWhipProjectile para evitar conflitos
+    
     public class BlackWhipProjectile : ModProjectile
     {
         
@@ -44,7 +44,7 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
         {
             
             
-            string chainTexturePath = "MyHeroMod/contentQuirks/BlackWhip/Projectiles/BlackWhip/BlackWhipChain";
+            string chainTexturePath = "MyHeroMod/content/Quirks/BlackWhip/Projectiles/BlackWhip/BlackWhipChain";
 
             
             if (!ModContent.HasAsset(chainTexturePath)) return false;

@@ -785,6 +785,7 @@ Projectiles: {
 	DekuDetroitSmashOnomatopoeia.DisplayName: Deku Detroit Smash Onomatopoeia
 	GearDekuDetroitOnomatopoeia.DisplayName: Gear Deku Detroit Onomatopoeia
 	GearDekuDetroitSmashOnomatopoeia.DisplayName: Gear Deku Detroit Smash Onomatopoeia
+	BlackWhipStunProj.DisplayName: Black Whip Stun Proj
 }
 
 NPCs: {

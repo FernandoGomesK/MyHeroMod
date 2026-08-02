@@ -3,22 +3,22 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Quirks.Rivet.Projectiles
+namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
 {
-    public class RivetStabPlayerProj : ModProjectile
+    public class BlackWhipStunProj : ModProjectile
     {
-        public override string Texture => "MyHeroMod/Assets/Projectiles/RivetStabProj";
+        
 
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 60; 
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 150; 
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2; 
         }
 
         public override void SetDefaults()
         {
-            Projectile.width = 12; 
-            Projectile.height = 8; 
+            Projectile.width = 20; 
+            Projectile.height = 12; 
             
             
             Projectile.hostile = false; 
@@ -26,7 +26,7 @@ namespace MyHeroMod.content.Quirks.Rivet.Projectiles
             
             Projectile.penetrate = 1; 
             Projectile.tileCollide = true; 
-            Projectile.timeLeft = 100; 
+            Projectile.timeLeft = 200; 
             Projectile.extraUpdates = 1; 
         }
 
