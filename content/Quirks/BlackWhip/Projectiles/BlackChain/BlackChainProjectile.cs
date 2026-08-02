@@ -3,9 +3,9 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
+namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackChain
 {
-    public class BlackWhipStunProj : ModProjectile
+    public class BlackChainProjectile : ModProjectile
     {
         
 
@@ -34,6 +34,9 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
         {
             Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
             Projectile.ai[0]++; 
+
+            
+            Lighting.AddLight(Projectile.Center, Color.Red.ToVector3() * 0.8f); 
 
         
             if (Projectile.owner == Main.myPlayer)
@@ -67,6 +70,11 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
                     }
                 }
             }
+        }
+
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.Frozen, 200);  
         }
 
         public override bool PreDraw(ref Color lightColor)

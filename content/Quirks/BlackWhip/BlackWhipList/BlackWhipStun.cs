@@ -5,6 +5,8 @@ using MyHeroMod.content;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhipStun;
+using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackChain;
 
 
 public class BlackWhipStunSkill : QuirkBaseSkill
@@ -51,6 +53,20 @@ public class BlackWhipStunSkill : QuirkBaseSkill
         {
             Vector2 spreadVelocity = direction.RotatedByRandom(MathHelper.ToRadians(45)) * 8f;
 
+            if (transPlayer.HasActiveQuirk(QuirkType.FaJin) && transPlayer.CurrentStage >= QuirkStage.Advanced && player.HasBuff(ModContent.BuffType<FaJinBuff>()))
+        {
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(), 
+                player.Center, 
+                spreadVelocity, 
+                ModContent.ProjectileType<BlackChainProjectile>(), 
+                10, 
+                2f, 
+                player.whoAmI
+            );
+        }
+        else
+        {
             Projectile.NewProjectile(
                 player.GetSource_FromThis(), 
                 player.Center, 
@@ -61,5 +77,6 @@ public class BlackWhipStunSkill : QuirkBaseSkill
                 player.whoAmI
             );
         }
+        
     }
-}
+}}

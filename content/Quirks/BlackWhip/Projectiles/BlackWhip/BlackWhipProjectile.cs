@@ -29,7 +29,7 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
         public override float GrappleRange() => 600f; 
 
         
-        public override void NumGrappleHooks(Player player, ref int numHooks) => numHooks = 2;
+        public override void NumGrappleHooks(Player player, ref int numHooks) => numHooks = 10;
 
         
         public override void GrappleRetreatSpeed(Player player, ref float speed) => speed = 18f;
@@ -38,6 +38,8 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
         {
             target.AddBuff(BuffID.Frozen, 120);  
         }
+
+        
 
         
         public override bool PreDraw(ref Color lightColor)

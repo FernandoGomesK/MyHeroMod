@@ -28,7 +28,20 @@ public class BlackWhipHookSkill : QuirkBaseSkill
     public override void OnUse(Player player)
     {
 
-        if (player.ownedProjectileCounts[ModContent.ProjectileType<BlackWhipProjectile>()] >= 2) 
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+        var whipLimit = transPlayer.CurrentStage switch
+        {
+            QuirkStage.Initial => 1,
+            QuirkStage.Adequation => 2,
+            QuirkStage.Intermediate => 4,
+            QuirkStage.Advanced => 7,
+            QuirkStage.Final => 10,
+            _ => 1
+        };
+
+
+
+        if (player.ownedProjectileCounts[ModContent.ProjectileType<BlackWhipProjectile>()] >= whipLimit) 
             {
             return; 
             }
@@ -43,7 +56,7 @@ public class BlackWhipHookSkill : QuirkBaseSkill
                 player.Center, 
                 velocity, 
                 ModContent.ProjectileType<BlackWhipProjectile>(), 
-                0,  
+                15,  
                 0f, 
                 player.whoAmI);
 

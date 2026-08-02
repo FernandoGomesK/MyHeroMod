@@ -9,6 +9,7 @@ using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip;
+using MyHeroMod.content.Quirks.BlackWhip.Projectiles.PinpointFocus;
 
 
 public class PinpointFocusSkill : QuirkBaseSkill
@@ -28,22 +29,22 @@ public class PinpointFocusSkill : QuirkBaseSkill
     public override void OnUse(Player player)
     {
 
-        if (player.ownedProjectileCounts[ModContent.ProjectileType<BlackWhipProjectile>()] >= 2) 
+        if (player.ownedProjectileCounts[ModContent.ProjectileType<PinpointFocusProj>()] >= 2) 
             {
             return; 
             }
-            CombatText.NewText(player.getRect(), Color.Orange, "BlackWhip!");
+            CombatText.NewText(player.getRect(), Color.Orange, "Pinpoint Focus!");
             Vector2 velocity = Main.MouseWorld - player.Center;
             velocity.Normalize();
-            velocity *= 18f;
+            velocity *= 20f;
 
             
             Projectile.NewProjectile(
                 player.GetSource_FromThis(), 
                 player.Center, 
                 velocity, 
-                ModContent.ProjectileType<BlackWhipProjectile>(), 
-                0,  
+                ModContent.ProjectileType<PinpointFocusProj>(), 
+                20,  
                 0f, 
                 player.whoAmI);
 
