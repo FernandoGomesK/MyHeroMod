@@ -16,9 +16,10 @@ namespace MyHeroMod.content.Quirks.GeneralSkills
         public virtual Color ToggleOnColor => Color.Orange;
         public virtual Color ToggleOffColor => Color.Gray;
         public virtual SoundStyle? ToggleSound => SoundID.Item4;
-        
-        // Alterado para float. 1f = 100% de volume.
         public virtual float ToggleSoundVolume => 1f;
+
+        public virtual int OnomatopoeiaProjType => 0; 
+        public virtual float OnomatipoeiaSpawnOffset => -30f;
 
         public override void OnUse(Player player)
         {
@@ -36,14 +37,29 @@ namespace MyHeroMod.content.Quirks.GeneralSkills
             }
             else
             {
-                
                 player.AddBuff(BuffType, 36000); 
                 CombatText.NewText(player.getRect(), ToggleOnColor, ToggleOnText);
                 
                 if (ToggleSound.HasValue) 
                 {
-                    
                     SoundEngine.PlaySound(ToggleSound.Value with { Volume = ToggleSoundVolume }, player.position);
+                }
+
+            
+                if (OnomatopoeiaProjType > 0)
+                {
+                    Vector2 textPosition = player.Center + new Vector2(0, OnomatipoeiaSpawnOffset);
+                    
+                    
+                    Projectile.NewProjectile(
+                        player.GetSource_FromThis(), 
+                        textPosition,
+                        Vector2.Zero, 
+                        OnomatopoeiaProjType, 
+                        0,  
+                        0f, 
+                        player.whoAmI
+                    );
                 }
                 
                 OnToggleOn(player);

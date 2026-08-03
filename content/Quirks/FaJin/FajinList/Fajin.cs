@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.GeneralSkills;
 using Terraria.Audio;
+using MyHeroMod.content.Projectiles;
 
 namespace MyHeroMod.content.Quirks.FaJin.Skills
 {
@@ -23,6 +24,9 @@ namespace MyHeroMod.content.Quirks.FaJin.Skills
         public override string ToggleOffText => "";
         public override SoundStyle? ToggleSound => new SoundStyle("MyHeroMod/Assets/Sounds/FaJinSound");
         public override float ToggleSoundVolume => 0.2f; 
+
+        public override int OnomatopoeiaProjType => ModContent.ProjectileType<FajinOnomatopoeia>();
+        public override float OnomatipoeiaSpawnOffset => -100f;
 
 
 

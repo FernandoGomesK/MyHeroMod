@@ -789,6 +789,7 @@ Projectiles: {
 	BlackChainProjectile.DisplayName: Black Chain Projectile
 	PinpointFocusProj.DisplayName: Pinpoint Focus Proj
 	BlackwhipOnomatopoeia.DisplayName: Blackwhip Onomatopoeia
+	FajinOnomatopoeia.DisplayName: Fajin Onomatopoeia
 }
 
 NPCs: {
