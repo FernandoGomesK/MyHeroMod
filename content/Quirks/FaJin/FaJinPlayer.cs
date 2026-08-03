@@ -11,8 +11,8 @@ using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.OFA9th;
 
 
-namespace MyHeroMod.content.Quirks.FaJin;
-
+namespace MyHeroMod.content.Quirks.FaJin
+{
     public partial class FajinPlayer : ModPlayer, IDashModifier, IQuirkResetter, IHeroPunchModifier
     {
         
@@ -92,7 +92,17 @@ namespace MyHeroMod.content.Quirks.FaJin;
     
 
         public void ChargeFajin() {
-            FaJinCharges++;
+            var transformationPlayer = Player.GetModPlayer<TransformationPlayer>();
+            int chargeQuantity = transformationPlayer.CurrentStage switch
+            {
+                QuirkStage.Initial => 1,
+                QuirkStage.Adequation => 1,
+                QuirkStage.Intermediate => 2,
+                QuirkStage.Advanced => 2,
+                QuirkStage.Final => 3,
+                _ => 1
+            };
+            FaJinCharges += chargeQuantity;
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinStoringSound"), Player.position);
             CombatText.NewText(Player.getRect(), Color.Orange, $"Fa Jin: {FaJinCharges}/{MaxFaJinCharges}");
 
@@ -104,6 +114,7 @@ namespace MyHeroMod.content.Quirks.FaJin;
 
         
     }
+}
 
 
       

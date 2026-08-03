@@ -20,10 +20,10 @@ namespace MyHeroMod.content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            // 1. Acessa o player que guarda as cargas (FaJinPlayer)
+            
             var faJinPlayer = player.GetModPlayer<FajinPlayer>();
 
-            // 2. Se o jogador não tiver mais cargas, o buff deve sumir automaticamente
+            
             if (faJinPlayer.FaJinCharges <= 0)
             {
                 player.DelBuff(buffIndex);
