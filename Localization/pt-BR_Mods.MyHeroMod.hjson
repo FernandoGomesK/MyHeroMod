@@ -792,6 +792,7 @@ Projectiles: {
 	// BlackWhipStunProj.DisplayName: Black Whip Stun Proj
 	// BlackChainProjectile.DisplayName: Black Chain Projectile
 	// PinpointFocusProj.DisplayName: Pinpoint Focus Proj
+	// BlackwhipOnomatopoeia.DisplayName: Blackwhip Onomatopoeia
 }
 
 NPCs: {

@@ -39,16 +39,33 @@ public class BlackWhipHookSkill : QuirkBaseSkill
             _ => 1
         };
 
+        
+
 
 
         if (player.ownedProjectileCounts[ModContent.ProjectileType<BlackWhipProjectile>()] >= whipLimit) 
             {
             return; 
             }
-            CombatText.NewText(player.getRect(), Color.Orange, "BlackWhip!");
+
+                Vector2 textPosition = player.Center + new Vector2(0, -30f);
+                Projectile.NewProjectile(
+                player.GetSource_FromThis(), 
+                textPosition,
+                Vector2.Zero, 
+                ModContent.ProjectileType<BlackwhipOnomatopoeia>(), 
+                0,  
+                0f, 
+                player.whoAmI);
+
+
+
+            
             Vector2 velocity = Main.MouseWorld - player.Center;
             velocity.Normalize();
             velocity *= 18f;
+
+            
 
             
             Projectile.NewProjectile(

@@ -13,7 +13,6 @@ namespace MyHeroMod.content.Buffs
 
         public override void SetStaticDefaults()
         {
-            // Nome e descrição que aparecem ao passar o mouse
             Main.buffNoSave[Type] = true;
             Main.buffNoTimeDisplay[Type] = true;
         }
@@ -25,11 +24,12 @@ namespace MyHeroMod.content.Buffs
 
             faJinPlayer.isFaJinActive = true;
 
-            
-            
-
-            
-            
+            if (Main.rand.NextBool(6)) 
+            {
+                Dust dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.RedTorch, 0f, 0f, 100, default, 1.5f);
+                dust.noGravity = true;
+                dust.velocity *= 1f;
+            }       
         }
 
         

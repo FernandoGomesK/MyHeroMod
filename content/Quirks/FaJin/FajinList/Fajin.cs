@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.GeneralSkills;
+using Terraria.Audio;
 
 namespace MyHeroMod.content.Quirks.FaJin.Skills
 {
@@ -18,6 +19,11 @@ namespace MyHeroMod.content.Quirks.FaJin.Skills
         public override QuirkStage RequiredStage => QuirkStage.Advanced;
         public override bool IsBaseQuirk => true;
         public override int BuffType => ModContent.BuffType<FaJinActiveBuff>();
+        public override string ToggleOnText => "";
+        public override string ToggleOffText => "";
+        public override SoundStyle? ToggleSound => new SoundStyle("MyHeroMod/Assets/Sounds/FaJinSound");
+        public override float ToggleSoundVolume => 0.2f; 
+
 
 
         public override void OnToggleOff(Player player)

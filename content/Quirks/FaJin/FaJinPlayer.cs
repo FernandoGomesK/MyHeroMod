@@ -33,7 +33,6 @@ namespace MyHeroMod.content.Quirks.FaJin
 
         public override void ResetEffects()
         {
-            
             isFaJinActive = false;
         }
 
@@ -104,11 +103,11 @@ namespace MyHeroMod.content.Quirks.FaJin
             };
             FaJinCharges += chargeQuantity;
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinStoringSound"), Player.position);
-            CombatText.NewText(Player.getRect(), Color.Orange, $"Fa Jin: {FaJinCharges}/{MaxFaJinCharges}");
+            
 
             if (FaJinCharges >= MaxFaJinCharges) {
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinSound"), Player.position);
-                Main.NewText("Fa Jin storage is full!", Color.Red);
+        
             }
         
 

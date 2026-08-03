@@ -171,7 +171,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<DangerSenseBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<SmokescreenBuff>())) { ParallelProcessing++; }
-                if (Player.HasBuff(ModContent.BuffType<FaJinBuff>())) { ParallelProcessing++; }
+                if (Player.HasBuff(ModContent.BuffType<FaJinActiveBuff>())) { ParallelProcessing++; }
             }
             
             if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))

@@ -32,11 +32,11 @@ namespace MyHeroMod.content.Buffs
             }
 
             
-            if (Main.rand.NextBool(3)) 
+            if (Main.rand.NextBool(2)) 
             {
-                Dust dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.RedTorch, 0f, 0f, 100, default, 2.0f);
+                Dust dust = Dust.NewDustDirect(player.position, player.width, player.height, DustID.RedTorch, 0f, 0f, 100, default, 3.0f);
                 dust.noGravity = true;
-                dust.velocity *= 0.5f;
+                dust.velocity *= 1f;
             }
         }
 
