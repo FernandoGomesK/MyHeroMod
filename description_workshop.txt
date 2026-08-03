@@ -1,3 +1,8 @@
+[h1]Discord[/h1]
+
+here's the discord link if you want to communicate directly with me to make suggestions, report bugs or anything you need!
+https://discord.gg/vpvqft4y64
+
 [h1]Features[/h1]
 
 This mod is heavily inspired by My Hero Academia and the spin-off My Hero Academia: Vigilantes. It adds items, armors, and systems that recreate the powerful Quirks of various heroes and villains from the universe directly into Terraria.
@@ -44,7 +49,7 @@ This mod is heavily inspired by My Hero Academia and the spin-off My Hero Academ
 [/list]
 
 [h2]Hero Costumes (Armor/Vanity)[/h2]
-Tons of outfits added, including Deku’s Costumes (Alpha through Zeta), All Might (Golden, Silver, and Young Age), Bakugo, Todoroki, Endeavor, Dabi, U.A. Uniforms, Koichi (The Crawler), Captain Celebrity, Ingenium (with maskless variants), and Mirko (Prototype)!
+Tons of iconic outfits added, including Deku’s Costumes (Alpha through Zeta), All Might (Golden, Silver, and Young Age), Bakugo, Todoroki, Endeavor, Dabi, U.A. Uniforms, Koichi (The Crawler), Captain Celebrity, Ingenium (with maskless variants), and Mirko (Prototype)!
 
 [hr]
 
@@ -52,7 +57,7 @@ Tons of outfits added, including Deku’s Costumes (Alpha through Zeta), All Mig
 [list]
 [*] [b]Dr. Garaki (Town NPC):[/b] Moves in when you hold a Quirk Gene or have an active Quirk. He is your main source for Quirk Syringes and Quirk Removers!
 [*] [b]Deku (Town NPC):[/b] Is being currently sprited
-[*] [b]All For One (Boss):[/b] A devastating boss fight featuring multiple phases and attacks. Survive his ultimate combinations to claim true power!
+[*] [b]All For One (Boss):[/b] A devastating boss fight featuring multiple phases and iconic attacks. Survive his ultimate combinations to claim true power!
 [/list]
 
 [hr]
@@ -62,18 +67,18 @@ Tons of outfits added, including Deku’s Costumes (Alpha through Zeta), All Mig
 Once a Quirk is acquired, you can unleash unique attacks and forms. The mod features a dynamic scaling system (details below).
 
 [list]
-[*] One For All (9th Generation - Deku) 
+[*] One For All (9th Generation - Deku) - Now features Full Cowling transformations, updated dash speeds, and charge-ups for Detroit Smash.
 [*] One For All (8th Generation - All Might)
 [*] Half-Cold Half-Hot (Shoto)
-[*] Explosion (Bakugo) 
+[*] Explosion (Bakugo) - Updated to feature specific sound effects, dash modifiers, and the new Sweat bar mechanics!
 [*] Overhaul (Chisaki)
 [*] Fierce Wings (Hawks)
-[*] Zero Gravity (Uraraka) 
+[*] Zero Gravity (Uraraka) - Now includes a functional Release move and a Nausea Bar mechanic.
 [*] Overclock (O’Clock)
 [*] Erasure (Aizawa)
 [*] Super Regeneration
 [*] All For One
-[*] Fa Jin (Bruce Lee)
+[*] Fa Jin (Bruce Lee) - Dash speed now scales appropriately and combines effectively with Gearshift.
 [*] Gearshift (Kudo)
 [*] Float (Nana Shimura)
 [*] Blackwhip (Daigoro Banjo)
@@ -85,11 +90,11 @@ Once a Quirk is acquired, you can unleash unique attacks and forms. The mod feat
 [*] Decay (Shigaraki)
 [*] Engine (Iida)
 [*] Tape (Sero)
-[*] Rivet Stab 
+[*] Rivet Stab
 [*] Springlike Limbs
-[*] Rabbit (Mirko)
-[*] Dark Shadow (Tokoyami) 
-[*] Optic Blast 
+[*] Rabbit (Mirko) - Updated with three new moves and full fall damage resistance.
+[*] Dark Shadow (Tokoyami) - Fully fleshed out with a long hand attack, a Black Abyss toggle, an interface for finding/targeting enemies, and a Big Dark Shadow/Ragnarok form for the night!
+[*] Optic Blast - A newly added quirk that features continuous blasts, custom sound effects, a charge bar, and percentage control.
 [/list]
 
 [hr]
