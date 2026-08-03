@@ -13,16 +13,12 @@ namespace MyHeroMod.content.System
             if (TimeStopSystem.IsTimeStopped)
             {
                 
-
-    
                 Player owner = Main.player[projectile.owner];
                 if (owner.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.Overclock))
                 {
                     return base.PreAI(projectile);
                 }
-                
-
-                
+                               
                 projectile.velocity = Vector2.Zero;
                 projectile.frameCounter = 0; 
                 

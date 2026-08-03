@@ -791,6 +791,7 @@ Projectiles: {
 	BlackwhipOnomatopoeia.DisplayName: Blackwhip Onomatopoeia
 	FajinOnomatopoeia.DisplayName: Fajin Onomatopoeia
 	FloatOnomatopoeia.DisplayName: Float Onomatopoeia
+	OverdriveOnomatopoeia.DisplayName: Overdrive Onomatopoeia
 }
 
 NPCs: {

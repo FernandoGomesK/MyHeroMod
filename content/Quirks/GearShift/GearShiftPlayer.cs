@@ -9,6 +9,7 @@ using Mono.Cecil.Cil;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System;
 using KhacesCore.Content.System.Interfaces;
+using MyHeroMod.content.Projectiles;
 
 
 
@@ -47,7 +48,7 @@ namespace MyHeroMod.content.Quirks.Gearshift
         public override void ResetEffects()
         {
             isGearshiftBuffActive = false; 
-            Player.ClearBuff(ModContent.BuffType<GearshiftBuff>());
+            
         }
 
         public override void PreUpdate()
@@ -69,6 +70,16 @@ namespace MyHeroMod.content.Quirks.Gearshift
                     ActivateGearshift();
                     GearActivation = false;
                     ActivationTimer = 0;
+                    Vector2 textPosition = Player.Center + new Vector2(0, -60f);
+                    Projectile.NewProjectile(
+                        Player.GetSource_FromThis(),
+                        textPosition,
+                        Vector2.Zero, 
+                        ModContent.ProjectileType<OverdriveOnomatopoeia>(),
+                        0, 
+                        0f, 
+                        Player.whoAmI
+                    );
                 }
             }
         }
@@ -89,8 +100,8 @@ namespace MyHeroMod.content.Quirks.Gearshift
 
             
             Player.AddBuff(ModContent.BuffType<GearshiftBuff>(), buffDuration);
-            Main.NewText("ONE FOR ALL 2ND - GEARSHIFT: TRANSMISSION!", Color.Cyan);
-            CombatText.NewText(Player.getRect(), Color.Cyan, "SECOND GEAR");
+            // Main.NewText("ONE FOR ALL 2ND - GEARSHIFT: TRANSMISSION!", Color.Cyan);
+            // CombatText.NewText(Player.getRect(), Color.Cyan, "SECOND GEAR");
             
 
             // Explosão de partículas
