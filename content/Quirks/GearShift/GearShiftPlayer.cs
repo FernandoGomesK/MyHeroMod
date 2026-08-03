@@ -7,7 +7,10 @@ using MyHeroMod.content.Buffs;
 
 using Mono.Cecil.Cil;
 using MyHeroMod.content.System;
+using KhacesCore.Content.System;
 using KhacesCore.Content.System.Interfaces;
+
+
 
 
 
@@ -15,7 +18,7 @@ using KhacesCore.Content.System.Interfaces;
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     // PARTE 1: DADOS E LÓGICA
-    public partial class GearshiftPlayer : ModPlayer, IDashModifier, IQuirkResetter, IHeroPunchModifier
+    public partial class GearshiftPlayer : ModPlayer, IDashModifier, IQuirkResetter
     {
         // Variáveis de Estado
         
@@ -32,15 +35,19 @@ namespace MyHeroMod.content.Quirks.Gearshift
         {
             isGearshiftBuffActive = false;
             ActivationTimer = 0;
+            Player.ClearBuff(ModContent.BuffType<GearshiftBuff>());
         }
          public override void OnRespawn()
         {
-            // resetAll();
+            isGearshiftBuffActive = false;
+            ActivationTimer = 0;
+            Player.ClearBuff(ModContent.BuffType<GearshiftBuff>());
         }
 
         public override void ResetEffects()
         {
             isGearshiftBuffActive = false; 
+            Player.ClearBuff(ModContent.BuffType<GearshiftBuff>());
         }
 
         public override void PreUpdate()

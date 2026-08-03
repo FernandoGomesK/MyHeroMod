@@ -5,10 +5,12 @@ using MyHeroMod.content.System;
 using MyHeroMod.content.Buffs;
 using KhacesCore.Content.System.Interfaces;
 using Terraria.Audio;
+using KhacesCore.Content.System.BaseProjectiles;
+
 
 namespace MyHeroMod.content.Quirks.FaJin
 {
-    public partial class FajinPlayer : ModPlayer, IDashModifier, IHeroPunchModifier
+    public partial class FajinPlayer : ModPlayer, IDashModifier, IPunchModifier
     {
         public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, 
         ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
@@ -34,7 +36,7 @@ namespace MyHeroMod.content.Quirks.FaJin
         
     }
 
-        public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref bool isSuperPunch, ref int numberOfPunches)
+        public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref int numberOfPunches, ref int mainProjType, ref int extraProjType)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             if (!transPlayer.HasActiveQuirk(QuirkType.FaJin) && !transPlayer.HasActiveQuirk(QuirkType.OneForAll9th)) return;
@@ -43,7 +45,8 @@ namespace MyHeroMod.content.Quirks.FaJin
             {
                 projSpeed = 30;
                 baseDamage = 15;
-                isSuperPunch = true;
+                mainProjType = ModContent.ProjectileType<PunchAttackProj>();
+                extraProjType = ModContent.ProjectileType<SuperPunchProj>();
                 numberOfPunches = 1;
                 Player.ClearBuff(ModContent.BuffType<FaJinBuff>());
                 FaJinCharges = 0; 

@@ -794,6 +794,7 @@ Projectiles: {
 	// PinpointFocusProj.DisplayName: Pinpoint Focus Proj
 	// BlackwhipOnomatopoeia.DisplayName: Blackwhip Onomatopoeia
 	// FajinOnomatopoeia.DisplayName: Fajin Onomatopoeia
+	// FloatOnomatopoeia.DisplayName: Float Onomatopoeia
 }
 
 NPCs: {

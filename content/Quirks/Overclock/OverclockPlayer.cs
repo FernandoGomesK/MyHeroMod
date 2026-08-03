@@ -8,7 +8,7 @@ using KhacesCore.Content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.Overclock
 {
-    public partial class OverclockPlayer : ModPlayer, IDashModifier, IQuirkResetter, IHeroPunchModifier
+    public partial class OverclockPlayer : ModPlayer, IDashModifier, IQuirkResetter
     {
         public int form = 0;
         public bool isOverclockBuffActive = false;

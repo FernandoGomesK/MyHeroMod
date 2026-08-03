@@ -8,12 +8,13 @@ using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using Microsoft.Xna.Framework.Graphics;
 using KhacesCore.Content.System.Interfaces;
+using KhacesCore.Content.System.BaseProjectiles;
 
 
 namespace MyHeroMod.content.Quirks.Gearshift
 {
     
-    public partial class GearshiftPlayer : ModPlayer, IDashModifier, IQuirkResetter, IHeroPunchModifier
+    public partial class GearshiftPlayer : ModPlayer, IDashModifier, IQuirkResetter, IPunchModifier
     {
 
 
@@ -36,13 +37,15 @@ namespace MyHeroMod.content.Quirks.Gearshift
             
         }
 
-        public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref bool isSuperPunch, ref int numberOfPunches)
+        public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref int numberOfPunches, ref int mainProjType, ref int extraProjType)
         {
             if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
+            
     {
+    mainProjType = ModContent.ProjectileType<PunchAttackProj>();
        projSpeed = 25;
             baseDamage = 20;
-            isSuperPunch = false;
+            
             numberOfPunches = 5;
     }
 

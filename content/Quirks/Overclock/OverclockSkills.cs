@@ -12,7 +12,7 @@ using KhacesCore.Content.System.Interfaces;
 namespace MyHeroMod.content.Quirks.Overclock
 {
     
-    public partial class OverclockPlayer : ModPlayer, IDashModifier, IQuirkResetter, IHeroPunchModifier
+    public partial class OverclockPlayer : ModPlayer, IDashModifier, IQuirkResetter, IPunchModifier
     {
 
 
@@ -33,15 +33,16 @@ namespace MyHeroMod.content.Quirks.Overclock
     }
     }
 
-        public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref bool isSuperPunch, ref int numberOfPunches)
+        public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref int numberOfPunches, ref int mainProjType, ref int extraProjType)
         {
 
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             if (Player.HasBuff(ModContent.BuffType<OverclockBuff>()))
+            
     {
        projSpeed = 30;
             baseDamage = 20;
-            isSuperPunch = false;
+        
 
             if (transPlayer.CurrentStage >= QuirkStage.Intermediate){
                     numberOfPunches = 8;

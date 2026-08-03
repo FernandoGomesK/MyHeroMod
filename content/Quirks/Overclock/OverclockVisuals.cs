@@ -12,7 +12,7 @@ using KhacesCore.Content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.Overclock
 {
-    public partial class OverclockPlayer: ModPlayer, IQuirkResetter, IDashModifier, IHeroPunchModifier
+    public partial class OverclockPlayer: ModPlayer, IQuirkResetter, IDashModifier, IPunchModifier
     {
         private void HandleFullCowlingEffects()
         {
