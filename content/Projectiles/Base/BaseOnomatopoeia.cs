@@ -8,6 +8,7 @@ namespace MyHeroMod.content.Projectiles.Base
     {   
     
         public virtual int Duration => 60; 
+        public virtual Color TextColor => Color.White;
         
         public override void SetDefaults()
         {
@@ -24,7 +25,7 @@ namespace MyHeroMod.content.Projectiles.Base
 
         public override void AI()
         {
-            
+            Lighting.AddLight(Projectile.Center, TextColor.ToVector3());
             if (Projectile.localAI[0] == 0f)
             {
                 
