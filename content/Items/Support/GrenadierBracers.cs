@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Items.Support
 {
+    [AutoloadEquip(EquipType.HandsOn, EquipType.HandsOff)]
     public class GrenadierBracers : ModItem
     {
         public override void SetDefaults()
@@ -16,6 +17,9 @@ namespace MyHeroMod.content.Items.Support
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;
             Item.value = Item.sellPrice(gold: 1);
+
+            Item.handOnSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOn);
+            Item.handOffSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOff);
             
         }
 

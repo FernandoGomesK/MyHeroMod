@@ -12,11 +12,11 @@ namespace MyHeroMod.content.UI
         {
             sweatBar = new DraggableSweatBar();
             
-            sweatBar.Width.Set(56f, 0f);  
-            sweatBar.Height.Set(62f, 0f); 
+            sweatBar.Width.Set(72f, 0f);  
+            sweatBar.Height.Set(74f, 0f); 
 
             
-            sweatBar.Left.Set(Main.screenWidth - 355f, 0f);
+            sweatBar.Left.Set(Main.screenWidth - 380f, 0f);
             sweatBar.Top.Set(10f, 0f);
 
             Append(sweatBar);

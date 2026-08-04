@@ -38,8 +38,6 @@ namespace MyHeroMod.content.Quirks.Explosion
         }
 
         
-        
-
         public override void PostUpdateEquips()
         {
             if (!Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.Explosion))
@@ -96,50 +94,42 @@ namespace MyHeroMod.content.Quirks.Explosion
         {
             
             var ModPlayer = Player.GetModPlayer<TransformationPlayer>();
-
-            
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             
             if (transPlayer.HasActiveQuirk(QuirkType.Explosion) && transPlayer.CurrentStage >= QuirkStage.Adequation)
             {
-                
                 Player.noFallDmg = true; 
             }
+
             IsGrenadierBracersOn = false;
             IsStrafePanzerOn = false;
-
             IsClusterActive = false;
         }
         
         public override void PreUpdate()
         {
-             if (CurrentSweat > 0)
-{
-    sweatTimer++;
+            if (CurrentSweat > 0)
+            {
+                sweatTimer++;
+                if (sweatTimer >= 60)
+                {
+                    sweatTimer = 0;
+                    int recoveryRate = 1;
 
-    
-    if (sweatTimer >= 60)
-    {
-        sweatTimer = 0;
+                    if (CurrentSweat > 0) 
+                    {
+                        CurrentSweat -= recoveryRate;
+                    
+                        if (CurrentSweat < 0) CurrentSweat = 0;
+                    }
         
-        
-        int recoveryRate = 1;
-
-        
-        if (CurrentSweat > 0) 
-        {
-            CurrentSweat -= recoveryRate;
-           
-            if (CurrentSweat < 0) CurrentSweat = 0;
-        }
-        
-    }
-}
-else
-{
-    sweatTimer = 0;
-}
+                }   
+            }
+            else
+            {
+                sweatTimer = 0;
+            }
         }
         public override void PostUpdate()
         {
@@ -149,6 +139,8 @@ else
             }   
             
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            // ===================Flight Effects========================================================
 
             if (mainPlayer.HasActiveQuirk(QuirkType.Explosion) && mainPlayer.CurrentStage >= QuirkStage.Adequation)
             {
@@ -177,7 +169,7 @@ else
                         Main.dust[dustSmoke].velocity *= 0.5f;
                     }
 
-                    // Lado Direito (Fogo tbm)
+                
                     if (Main.rand.NextBool(10))
                     {
                         int dustFire2 = Dust.NewDust(
@@ -227,62 +219,6 @@ else
             
         }
     }
-
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
-        {
-            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-
-            if (!transPlayer.HasActiveQuirk(QuirkType.Explosion))
-                return;
-
-            float dashSpeed = transPlayer.CurrentStage switch 
-            {
-                QuirkStage.Initial => 20f, QuirkStage.Adequation => 25f,
-                QuirkStage.Intermediate => 35f, QuirkStage.Advanced => 40f,
-                QuirkStage.Final => 60f, _ => 80f
-            };
-
-            speed = dashSpeed;
-                
-            if (Player.HasBuff(ModContent.BuffType<ClusterBuff>()))
-            {
-                hideNormalDash = true;
-                explosionColor = Color.Orange; 
-                dustType = ModContent.DustType<ClusterDust>(); 
-            }
-
-            onomatopoeiaType = ModContent.ProjectileType<BoomOnomatopoeia>(); 
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/Explosion2Sound"), Player.Center);
-            }
-
-        public void ModifyFlight(ref float speed)
-        {
-            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-            
-           
-            if (!transPlayer.HasActiveQuirk(QuirkType.Explosion)) return; 
-            
-            
-
-            float dashSpeed = transPlayer.CurrentStage switch 
-            {
-                QuirkStage.Initial => 8f, QuirkStage.Adequation => 12f,
-                QuirkStage.Intermediate => 15f, QuirkStage.Advanced => 18f,
-                QuirkStage.Final => 20f, _ => 8f
-            };
-
-            speed = dashSpeed ;
-
-            
-        }
-        
-
-        public bool CanCruiseFlight()
-        {
-            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-            return transPlayer.HasActiveQuirk(QuirkType.Explosion);
-        }
-
 
     // ===================================================Sync data ====================================================================================================
     public override void CopyClientState(ModPlayer targetCopy)
