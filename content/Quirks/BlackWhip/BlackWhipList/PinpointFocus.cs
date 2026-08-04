@@ -14,7 +14,7 @@ using MyHeroMod.content.Quirks.BlackWhip.Projectiles.PinpointFocus;
 
 public class PinpointFocusSkill : QuirkBaseSkill
     {
-         public override string Name => "Pinpoint Focus";
+    public override string Name => "Pinpoint Focus";
     public override string Description => "Shoot a tendril of blackwhip";
     public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
     public override string Category => "BlackWhip";
@@ -22,7 +22,7 @@ public class PinpointFocusSkill : QuirkBaseSkill
     public override int BaseCooldown => 30;
 
     public override QuirkType RequiredQuirk => QuirkType.BlackWhip;
-    public override QuirkStage RequiredStage => QuirkStage.Intermediate;
+    public override QuirkStage RequiredStage => QuirkStage.Advanced;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => true;
 
@@ -43,7 +43,7 @@ public class PinpointFocusSkill : QuirkBaseSkill
                 player.GetSource_FromThis(), 
                 player.Center, 
                 velocity, 
-                ModContent.ProjectileType<PinpointFocusProj>(), 
+                ModContent.ProjectileType<PinpointFocusProj>(),     
                 20,  
                 0f, 
                 player.whoAmI);

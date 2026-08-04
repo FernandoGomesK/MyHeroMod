@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using rail;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System.Interfaces;
+using KhacesCore.Content.System;
 
 
 
@@ -36,7 +37,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public int currentFingers = 10;
         public int MaxFingers = 10;
         public int fingerRegen = 0;
-        public int fingerTimer = 450;
+        public int fingerTimer = 800;
 
         // Parallel Processing
         public int ParallelProcessing = 0;
@@ -50,7 +51,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public int percentage = 0;
         public int strainTimer = 0;
 
-        private QuirkStage _lastStage = (QuirkStage)(-1);
+        
         
 
         public void FullReset()
@@ -195,8 +196,33 @@ namespace MyHeroMod.content.Quirks.OFA9th
             {
                 return; 
             }
-
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (currentFingers < MaxFingers)
+            {
+        
+                Player.AddBuff(ModContent.BuffType<FingersBuff>(), 2); 
+            }
+
+            var dashPlayer = Player.GetModPlayer<DashPlayer>();
+
+    if (dashPlayer.IsDashing)
+    {
+        if (transPlayer.CurrentStage == QuirkStage.Initial)
+        {
+            
+            Player.statLife -= 4;
+            
+            if (Player.statLife <= 0)
+            {
+                var reason = PlayerDeathReason.ByCustomReason(Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name));
+                Player.KillMe(reason, 100, 0);
+            }
+        }
+    }
+
+
+            
 
             if (ParallelProcessing > 0)
             {
