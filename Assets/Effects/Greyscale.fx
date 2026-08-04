@@ -20,7 +20,7 @@ float2 uImageSize1;
 float2 uImageSize2;
 float2 uImageSize3;
 
-// Função de hash para gerar ruído pseudo-aleatório
+
 float hash(float2 p)
 {
     return frac(sin(dot(p, float2(127.1, 311.7))) * 43758.5453);

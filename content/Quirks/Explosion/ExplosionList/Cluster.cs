@@ -4,9 +4,12 @@ using Terraria.ModLoader;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
+using MyHeroMod.content.Quirks.GeneralSkills;
+using Terraria.Audio;
 
 
-public class Clusterkill : QuirkBaseSkill
+
+public class Clusterkill : BaseToggleSkill
 {
     public override string Name => "Toggle Cluster";
     public override string Description => "Begin To float to the skies";
@@ -18,18 +21,11 @@ public class Clusterkill : QuirkBaseSkill
     public override QuirkStage RequiredStage => QuirkStage.Advanced;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => false;
+    public override int BuffType => ModContent.BuffType<ClusterBuff>();
+    public override SoundStyle? ToggleSound => new SoundStyle("MyHeroMod/Assets/Sounds/Crackle1");
+        public override float ToggleSoundVolume => 0.4f; 
 
 
-    public override void OnUse(Player player)
-    {
-        if (player.HasBuff(ModContent.BuffType<ClusterBuff>()))
-        {
-            player.ClearBuff(ModContent.BuffType<ClusterBuff>());
-        }
-        else
-        {
-            player.AddBuff(ModContent.BuffType<ClusterBuff>(), 3600);
-             
-        }
-    }
+
+    
 }

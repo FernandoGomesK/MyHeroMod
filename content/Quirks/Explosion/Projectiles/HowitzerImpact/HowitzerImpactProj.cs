@@ -4,6 +4,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using MyHeroMod.content.Dusts;
+using System;
+using Terraria.Graphics.CameraModifiers;
 
 // 1. Simplifiquei o namespace para ficar fácil de achar
 namespace MyHeroMod.content.Quirks.Explosion.Projectiles
@@ -36,53 +38,65 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
             Projectile.Center = player.Center;
             player.heldProj = Projectile.whoAmI;
             
-            // --- FASE 1: SUBIDA (O Pulo) ---
-            // Dura 15 frames (0.25 segundos)
+        
             if (Projectile.ai[0] < 15)
             {
                 Projectile.ai[0]++;
 
-                // Aqui é onde ele "PULA"
-                player.velocity.X *= 0.9f; // Freia o movimento lateral
-                player.velocity.Y = -15f;  // Joga o player para CIMA (Aumentei para 15f para subir mais)
                 
-                // Animação de Giro
+                player.velocity.X *= 0.9f; 
+                player.velocity.Y = -15f;  
+                
+                
                 player.fullRotation += 0.4f * player.direction;
                 player.fullRotationOrigin = player.Size / 2;
                 
-                // Partículas saindo do player enquanto sobe
+                
                 if (Main.rand.NextBool(3))
                 {
                     Dust.NewDust(player.position, player.width, player.height, DustID.Smoke, 0, 0, 100, default, 1f);
                 }
+                PunchCameraModifier shake = new PunchCameraModifier(Projectile.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "FullCowlingShake");
+                Main.instance.CameraModifiers.Add(shake);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/Explosion2Sound") { Volume = 2.5f, PitchVariance = 0.3f }, Projectile.Center);
+                
             }
-            // --- FASE 2: CÁLCULO DA MIRA (Frame 15) ---
+        
             else if (Projectile.ai[0] == 15)
             {
+                PunchCameraModifier shake = new PunchCameraModifier(Projectile.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "FullCowlingShake");
+                Main.instance.CameraModifiers.Add(shake);
                 Projectile.ai[0]++;
                 
-                // Aqui ele descobre onde está o mouse para descer
+                
                 Vector2 dashDirection = Main.MouseWorld - player.Center;
                 dashDirection.Normalize();
                 
-                // VELOCIDADE DO DASH
+                
                 float speed = 25f; 
                 Projectile.velocity = dashDirection * speed;
-                player.velocity = Projectile.velocity; // Aplica no player
+                player.velocity = Projectile.velocity; 
 
-                SoundEngine.PlaySound(SoundID.Item14, player.position); // Som de disparo
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/Explosion1Sound") { Volume = 2.5f, PitchVariance = 0.3f }, Projectile.Center);
+                var quirkPlayer = player.GetModPlayer<ExplosionPlayer>();
+        
+                if (quirkPlayer.IsClusterActive == true){
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/Crackle2") { Volume = 1.5f, PitchVariance = 0.3f }, Projectile.Center);
             }
-            // --- FASE 3: O DASH/DESCIDA (Frame 16+) ---
+            
+            }
+
+            
             else
             {
-                // Mantém o player preso na velocidade do projétil
+            
                 player.velocity = Projectile.velocity;
                 
-                // Gira o sprite na direção do movimento (cabeça para frente)
+                
                 player.fullRotation = player.velocity.ToRotation() + MathHelper.PiOver2;
                 player.fullRotationOrigin = player.Size / 2;
 
-                // Rastro de fogo
+                
                 for (int i = 0; i < 3; i++)
                 {
                     int d = Dust.NewDust(player.position, player.width, player.height, DustID.Torch, 0, 0, 100, default, 2f);
@@ -101,10 +115,13 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
         
                 if (quirkPlayer.IsClusterActive == true){
 
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/Crackle2") { Volume = 1.5f, PitchVariance = 0.3f }, Projectile.Center);
                 int d3 =Dust.NewDust(player.position, player.width, player.height, ModContent.DustType<ClusterDust>(), 0, 0, 100, default, 6f);
                 Main.dust[d2].noGravity = true;
                 Main.dust[d2].velocity = player.velocity;
                 }
+                PunchCameraModifier shake = new PunchCameraModifier(Projectile.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "FullCowlingShake");
+                Main.instance.CameraModifiers.Add(shake);
             }
         }
 
@@ -112,34 +129,76 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
         {
             Player player = Main.player[Projectile.owner];
             
-            // Para o player e reseta a rotação ao bater
+        
             player.velocity = Vector2.Zero;
             player.fullRotation = 0f; 
 
-            SoundEngine.PlaySound(SoundID.Item62, Projectile.position); 
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/Explosion1Sound") { Volume = 1.5f, PitchVariance = 0.3f }, Projectile.Center); 
 
-            // Efeito Visual da Explosão
+            
+            Projectile.position = Projectile.Center;
+            Projectile.width = 250; 
+            Projectile.height = 250;
+            Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
+            Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
+
+            
             for (int i = 0; i < 50; i++)
             {
-                int fire = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Torch, 0, 0, 100, default, 4f);
-                Main.dust[fire].velocity *= 6f;
-                Main.dust[fire].noGravity = true;
-
-                int smoke = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Smoke, 0, 0, 100, default, 3f);
-                Main.dust[smoke].velocity *= 4f;
+                double angle = Main.rand.NextDouble() * 2.0 * Math.PI;
+                float speed = 20f; 
+                Vector2 velocity = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle)) * speed;
+                
+                int shockwaveDust = Dust.NewDust(Projectile.Center, 0, 0, DustID.SolarFlare, velocity.X, velocity.Y, 100, default, 3.5f);
+                Main.dust[shockwaveDust].noGravity = true;
+                Main.dust[shockwaveDust].velocity = velocity;
             }
+
+        
+            for (int g = 0; g < 15; g++)
+            {
+                Vector2 goreSpeed = Main.rand.NextVector2Circular(10f, 10f);
+                Gore.NewGore(Projectile.GetSource_Death(), Projectile.Center, goreSpeed, Main.rand.Next(61, 64), 2.5f);
+            }
+
+        
+            for (int i = 0; i < 70; i++)
+            {
+                Vector2 speed = Main.rand.NextVector2Circular(22f, 22f); 
+                
             
-            // Dica: Adicione dano em área aqui criando outro projétil de explosão se quiser
+                int dustType = Main.rand.NextBool() ? DustID.Torch : DustID.FlameBurst;
+                
+                int idx = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType, speed.X, speed.Y, 100, default, 4.5f);
+                Main.dust[idx].noGravity = true;
+
+        
+                if (Main.rand.NextBool(2))
+                {
+                    Main.dust[idx].velocity *= 2.5f;
+                    Main.dust[idx].scale *= 1.8f;
+                }
+            } 
+
+            
+            for (int i = 0; i < 40; i++)
+            {
+                Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
+                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Ash, speed.X, speed.Y, 100, default, 2.5f);
+            }
+
+            PunchCameraModifier shake = new PunchCameraModifier(Projectile.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "FullCowlingShake");
+            Main.instance.CameraModifiers.Add(shake);
         }
         
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            Projectile.Kill(); // Garante que exploda ao tocar inimigos
+            Projectile.Kill(); 
         }
         
         public override bool OnTileCollide(Vector2 oldVelocity)
         {
-            return true; // Garante que exploda ao tocar chão/parede
+            return true; 
         }
     }
 }

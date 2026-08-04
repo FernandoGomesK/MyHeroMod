@@ -96,7 +96,7 @@ public class FullPowerBlastSkill : QuirkBaseSkill
             
 
 
-
+        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/Explosion2Sound") { Volume = 1.5f, PitchVariance = 0.3f }, player.Center);
          Vector2 Velocity = Main.MouseWorld - player.Center;
             Velocity.Normalize();
             Velocity *= 15f;

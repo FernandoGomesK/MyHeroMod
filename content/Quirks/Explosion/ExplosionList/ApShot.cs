@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Explosion;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot;
 using MyHeroMod.content.Projectiles;
+using Terraria.Graphics.CameraModifiers;
 
 
 public class ApShotSkill : QuirkBaseSkill
@@ -100,5 +101,7 @@ CombatText.NewText(player.getRect(), Color.Orange, "AP-SHOT!");
                 player.whoAmI
             );
             explodePlayer.CurrentSweat += 15;
+            PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "FullCowlingShake");
+            Main.instance.CameraModifiers.Add(shake);
         }}
         
