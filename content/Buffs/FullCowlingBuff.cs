@@ -29,6 +29,14 @@ namespace MyHeroMod.content.Buffs
                 ofaPlayer.isFullCowlingBuffActive = true;
                 
             }
+            if (ofaPlayer.percentage == 20)
+            {
+                player.moveSpeed += 2.5f; 
+                player.statDefense += 3;    
+                player.jumpSpeedBoost += 4f; 
+                player.noFallDmg = true;
+                ofaPlayer.isFullCowlingBuffActive = true;
+            }
             if (ofaPlayer.percentage == 10)
             {
                 player.moveSpeed += 2f; 

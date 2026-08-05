@@ -21,7 +21,8 @@ public class BlackWhipHookSkill : QuirkBaseSkill
     public override int BaseCooldown => 30;
 
     public override QuirkType RequiredQuirk => QuirkType.BlackWhip;
-    public override QuirkStage RequiredStage => QuirkStage.Advanced;
+    public override QuirkStage RequiredStage => QuirkStage.Initial;
+    public override QuirkStage RequiredOfaStage => QuirkStage.Advanced;
     public override bool IsDefaultSkill => false;
     public override bool IsBaseQuirk => true;
 

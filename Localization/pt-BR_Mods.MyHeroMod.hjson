@@ -796,6 +796,7 @@ Projectiles: {
 	// FajinOnomatopoeia.DisplayName: Fajin Onomatopoeia
 	// FloatOnomatopoeia.DisplayName: Float Onomatopoeia
 	// OverdriveOnomatopoeia.DisplayName: Overdrive Onomatopoeia
+	// Charge1000000DetroitProj.DisplayName: Charge1000000 Detroit Proj
 }
 
 NPCs: {

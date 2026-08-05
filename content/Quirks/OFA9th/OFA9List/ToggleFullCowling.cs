@@ -80,11 +80,18 @@ public class FullCowling10 : FullCowlingBase
 {
     public override string Name => "OFA Full Cowling 10%";
     public override string IconPath => "MyHeroMod/Assets/Skills/FullCowling10";
-    public override QuirkStage RequiredStage => QuirkStage.Advanced;
+    public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
     protected override int CowlingPercentage => 10;
+}
 
-
+public class FullCowling20: FullCowlingBase
+{
+    public override string Name => "OFA Full Cowling 20%";
+    public override string IconPath => "MyHeroMod/Assets/Skills/FullCowling20";
+    public override QuirkStage RequiredStage => QuirkStage.Intermediate;
+    protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
+    protected override int CowlingPercentage => 20;
 }
 public class FullCowling45 : FullCowlingBase
 {

@@ -11,8 +11,11 @@ namespace MyHeroMod.content.System
     {
         public virtual QuirkType RequiredQuirk => QuirkType.Quirkless;
         public virtual QuirkStage RequiredStage => QuirkStage.Initial;
+        public virtual QuirkStage RequiredOfaStage => QuirkStage.Initial;
         public virtual bool IsDefaultSkill => false;
-        public virtual bool IsBaseQuirk => false;
+        
+
+        public virtual bool isOfaSkill => false;
 
         public virtual bool CheckErasure(Player player)
         {
@@ -26,35 +29,32 @@ namespace MyHeroMod.content.System
             return true;
         }
 
-        public virtual bool CheckUnlock(TransformationPlayer player)
+       public virtual bool CheckUnlock(TransformationPlayer player)
         {
             if (IsDefaultSkill) return true;
 
+        
             if (player.HasActiveQuirk(QuirkType.OneForAll9th))
             {
                 var ofaPlayer = player.Player.GetModPlayer<OneForAll9thPlayer>();
-
                 if (ofaPlayer.HasInternalQuirk(RequiredQuirk))
                 {
-                    return player.CurrentStage >= RequiredStage; 
+                    return player.CurrentStage >= RequiredOfaStage; 
                 }
             }
 
+            
             if (player.HasActiveQuirk(QuirkType.AllForOne))
             {
-                var ofaPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
-
-                if (ofaPlayer.HasInternalQuirk(RequiredQuirk))
+                var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
+                if (afoPlayer.HasInternalQuirk(RequiredQuirk))
                 {
                     return player.CurrentStage >= RequiredStage; 
                 }
             }
 
-            if (IsBaseQuirk && player.HasActiveQuirk(RequiredQuirk)) return true;
-            
-            bool hasRightQuirk = player.HasActiveQuirk(RequiredQuirk);
-                                        
-            return hasRightQuirk && player.CurrentStage >= RequiredStage;
+        
+            return player.HasActiveQuirk(RequiredQuirk) && player.CurrentStage >= RequiredStage;
         }
         
         

@@ -19,7 +19,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
     {
         public override string Texture => "MyHeroMod/content/Quirks/Explosion/Projectiles/HowitzerImpact/HowitzerImpactProj";
 
-        protected override int ChannelTime => 40; 
+        protected override int ChannelTime => 60; 
 
         public override void AI()
         {
@@ -63,14 +63,14 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
                     Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<PunchAttackProj>(), 0, 0f, player.whoAmI);
                     SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
 
-            player.statLife -= (int)(0.25f * player.statLifeMax2);
+            player.statLife -= (int)(0.60f * player.statLifeMax2);
                     if (player.statLife <= 0)
                     {
                         var reason = PlayerDeathReason.ByCustomReason(Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", player.name));
                         player.KillMe(reason,  maxDamage, 0);
                     }
                 
-
+            
             PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "FullCowlingShake");
             Main.instance.CameraModifiers.Add(shake);
             

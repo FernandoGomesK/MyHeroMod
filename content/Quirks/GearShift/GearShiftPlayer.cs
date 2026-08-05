@@ -10,6 +10,7 @@ using MyHeroMod.content.System;
 using KhacesCore.Content.System;
 using KhacesCore.Content.System.Interfaces;
 using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Debuffs;
 
 
 
@@ -30,6 +31,7 @@ namespace MyHeroMod.content.Quirks.Gearshift
         public bool GearActivation = false; 
         public int ActivationTimer = 0;     
         public int ActivationMaxTime = 40;  
+        public bool wasGearshiftBuffActive = false;
         
 
         public void FullReset()
@@ -47,6 +49,7 @@ namespace MyHeroMod.content.Quirks.Gearshift
 
         public override void ResetEffects()
         {
+            wasGearshiftBuffActive = isGearshiftBuffActive;
             isGearshiftBuffActive = false; 
             
         }
@@ -100,11 +103,9 @@ namespace MyHeroMod.content.Quirks.Gearshift
 
             
             Player.AddBuff(ModContent.BuffType<GearshiftBuff>(), buffDuration);
-            // Main.NewText("ONE FOR ALL 2ND - GEARSHIFT: TRANSMISSION!", Color.Cyan);
-            // CombatText.NewText(Player.getRect(), Color.Cyan, "SECOND GEAR");
             
 
-            // Explosão de partículas
+            
             for (int i = 0; i < 20; i++)
             {
                 Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
@@ -121,12 +122,24 @@ namespace MyHeroMod.content.Quirks.Gearshift
             }
         }
 
+        public override void PostUpdateBuffs()
+        {
+            
+            if (wasGearshiftBuffActive && !isGearshiftBuffActive)
+            {
+                
+                Player.AddBuff(ModContent.BuffType<GearshiftRecoil>(), 600); 
+            }
+        }
+
         public override void CopyClientState(ModPlayer targetCopy)
         {
             GearshiftPlayer clone = targetCopy as GearshiftPlayer;
             clone.GearActivation = GearActivation;
             
         }
+
+
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
         {

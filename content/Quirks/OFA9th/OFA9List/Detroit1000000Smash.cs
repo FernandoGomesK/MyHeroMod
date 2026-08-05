@@ -15,7 +15,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
 {
 public class Detroit1000000SmashSkill : QuirkBaseSkill
 {
-    public override string Name => "Detroit Smash";
+    public override string Name => "Detroit 1000000 Smash";
     public override string Description => "Propel air forward with a massive punch";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
@@ -81,7 +81,7 @@ public class Detroit1000000SmashSkill : QuirkBaseSkill
             player.GetSource_FromThis(), 
             player.Center, 
             Vector2.Zero, 
-            ModContent.ProjectileType<ChargeDetroitProj>(), 
+            ModContent.ProjectileType<Charge1000000DetroitProj>(), 
             0, 
             0f, 
             player.whoAmI
