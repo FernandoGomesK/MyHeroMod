@@ -49,7 +49,7 @@ public class GearShiftSkill : QuirkBaseSkill
             {
                 gearshiftPlayer.ActivationTimer = 0;
                 gearshiftPlayer.GearActivation = true;
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/GearShiftSound") with { Volume = 0.20f }, player.position);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/GearShiftSound") with { Volume = 0.60f }, player.position);
             }
     }
 }

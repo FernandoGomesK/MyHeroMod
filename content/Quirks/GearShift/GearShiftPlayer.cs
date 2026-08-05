@@ -93,11 +93,11 @@ namespace MyHeroMod.content.Quirks.Gearshift
 
             switch(transformPlayer.CurrentStage)
             {
-                case QuirkStage.Initial: buffDuration = 187; break;
-                case QuirkStage.Adequation: buffDuration = 375; break;
+                case QuirkStage.Initial: buffDuration = 380; break;
+                case QuirkStage.Adequation: buffDuration = 590; break;
                 case QuirkStage.Intermediate: buffDuration = 750; break;
-                case QuirkStage.Advanced: buffDuration = 1500; break;
-                case QuirkStage.Final: buffDuration = 3000; break;
+                case QuirkStage.Advanced: buffDuration = 1800; break;
+                case QuirkStage.Final: buffDuration = 3500; break;
                 default: buffDuration = 6000; break;
             }
 

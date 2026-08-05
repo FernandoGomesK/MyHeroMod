@@ -3,13 +3,17 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Quirks.Gearshift.Projectiles
+namespace MyHeroMod.content.Quirks.GearShift.Projectiles
 {
     public class GearshiftStrikeProj : ModProjectile
     {
+        
+        public Vector2 startPos;
+        public Vector2 endPos;
+
         public override void SetDefaults()
         {
-           
+            
             Projectile.width = 80; 
             Projectile.height = 80;
             Projectile.friendly = true;
@@ -19,7 +23,6 @@ namespace MyHeroMod.content.Quirks.Gearshift.Projectiles
             Projectile.alpha = 255; 
             Projectile.timeLeft = 30; 
             
-           
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = 30; 
         }
@@ -27,24 +30,28 @@ namespace MyHeroMod.content.Quirks.Gearshift.Projectiles
         public override void AI()
         {
             Player player = Main.player[Projectile.owner];
-            
-        
             Projectile.Center = player.Center;
 
             
             if (Projectile.ai[0] == 0)
             {
+                startPos = player.Center; 
+
                 var speed = 50f; 
                 Vector2 targetPos = Main.MouseWorld;
                 Vector2 dir = targetPos - player.Center;
                 float distance = dir.Length();
                 
                 
+                if (distance != 0)
+                {
+                    dir.Normalize(); 
+                }
+
+            
                 float maxDist = 300f; 
                 if (distance > maxDist)
                 {
-                    dir.Normalize();
-                    dir *= maxDist;
                     distance = maxDist;
                 }
 
@@ -52,43 +59,47 @@ namespace MyHeroMod.content.Quirks.Gearshift.Projectiles
                 float stepSize = 16f; 
                 bool hitWall = false;
 
-                
                 for (float i = 0; i < distance; i += stepSize)
                 {
-                    Vector2 checkPos = player.Center + Vector2.Normalize(dir) * i;
+                    
+                    Vector2 checkPos = player.Center + (dir * i);
+                    
+                    checkPos.Y -= 4f; 
+                    
                     if (Collision.SolidCollision(checkPos - new Vector2(player.width/2, player.height/2), player.width, player.height))
                     {
                         hitWall = true;
                         break; 
                     }
-                    safePos = checkPos; 
+                    
+                    safePos = player.Center + (dir * i); 
                 }
 
+                endPos = safePos; 
+
                 
-                Vector2 startPos = player.Center;
                 int dustCount = (int)(Vector2.Distance(startPos, safePos) / 5); 
                 for (int i = 0; i < dustCount; i++)
                 {
                     Vector2 dustPos = Vector2.Lerp(startPos, safePos, (float)i / dustCount);
-                    int d = Dust.NewDust(dustPos, 0, 0, DustID.FireworkFountain_Blue, 0, 0, 100, default, 1.5f);
+                    int d = Dust.NewDust(dustPos - new Vector2(10, 10), 20, 20, DustID.FireworkFountain_Blue, 0, 0, 100, default, 1.5f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 0.5f;
                 }
 
-                
                 player.Center = safePos;
                 
                 if (hitWall) 
                 {
-                    player.velocity = -Vector2.Normalize(dir) * 2f; 
+                    
+                    player.velocity = -dir * 2f; 
                 }
                 else
                 {
-                    
-                    player.velocity = Vector2.Normalize(dir) * speed;
+                  
+                    player.velocity = dir * speed;
                 }
 
-                
                 player.SetImmuneTimeForAllTypes(20);
             }
 
@@ -98,13 +109,40 @@ namespace MyHeroMod.content.Quirks.Gearshift.Projectiles
                 player.gravity = 0f;
                 player.noFallDmg = true;
                 player.velocity *= 0.90f; 
+
+                player.armorEffectDrawShadow = true;
                 
                
-                int trailDust = Dust.NewDust(player.position, player.width, player.height, DustID.Electric, 0, 0, 100, default, 1f);
+                int trailDust = Dust.NewDust(player.position, player.width, player.height, DustID.FireworkFountain_Blue, 0f, 0f, 100, default, 1.2f);
                 Main.dust[trailDust].noGravity = true;
+                
+                
+                Main.dust[trailDust].velocity *= 0.1f;
+
+
             }
 
             Projectile.ai[0]++;
+        }
+
+        // CUSTOM HITBOX LOGIC
+        public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+        {
+            // Only apply the massive line hitbox while the player is actively dashing/teleporting
+            if (Projectile.ai[0] < 15)
+            {
+                float collisionPoint = 0f;
+                
+                // Draws an 80-pixel thick invisible line between startPos and endPos. 
+                // If the enemy touches any part of this line, it counts as a hit!
+                if (Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), startPos, endPos, 80f, ref collisionPoint))
+                {
+                    return true;
+                }
+            }
+            
+            // Fallback to normal collision if the dash is over
+            return base.Colliding(projHitbox, targetHitbox);
         }
 
         public override void OnKill(int timeLeft)

@@ -4,8 +4,9 @@ using Terraria.ModLoader;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
-using MyHeroMod.content.Quirks.Decay.Projectiles.DashTouch;
 using Microsoft.Xna.Framework;
+using MyHeroMod.content.Quirks.GearShift.Projectiles;
+using Terraria.Audio;
 
 public class GearShiftStrikeSkill : QuirkBaseSkill
 {
@@ -18,7 +19,7 @@ public class GearShiftStrikeSkill : QuirkBaseSkill
     public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
     public override string Category => "Gearshift";
 
-    public override int BaseCooldown => 200;
+    public override int BaseCooldown => 300;
     public override QuirkType RequiredQuirk => QuirkType.Gearshift;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override QuirkStage RequiredOfaStage => QuirkStage.Final;
@@ -28,15 +29,24 @@ public class GearShiftStrikeSkill : QuirkBaseSkill
 
     public override void OnUse(Player player)
     {
-        Projectile.NewProjectile(
+        if (player.HasBuff<GearshiftBuff>())
+        {
+         Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
                 Vector2.Zero, 
-                ModContent.ProjectileType<DashTouchProj>(),
+                ModContent.ProjectileType<GearshiftStrikeProj>(),
                 200, 
                 10f, 
                 player.whoAmI
                 
             );
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.8f }, player.position);   
+        }
+        else
+        {
+            return;
+        }
+        
     }
 }
