@@ -14,7 +14,7 @@ namespace MyHeroMod.content.UI
             fullCowlingBar = new DraggableFullCowlingBar();
             
             
-            fullCowlingBar.Left.Set(Main.screenWidth - 355f, 0f);
+            fullCowlingBar.Left.Set(Main.screenWidth - 380f, 0f);
             fullCowlingBar.Top.Set(10f, 0f);
 
             Append(fullCowlingBar);
