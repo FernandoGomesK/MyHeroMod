@@ -40,7 +40,7 @@ public class ScrappyThrustSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.SlideAndGlide;
     public override QuirkStage RequiredStage => QuirkStage.Adequation;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
 
 
                     public override void OnUse(Player player)

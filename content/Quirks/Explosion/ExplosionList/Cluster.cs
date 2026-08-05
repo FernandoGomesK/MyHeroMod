@@ -20,7 +20,7 @@ public class Clusterkill : BaseToggleSkill
     public override QuirkType RequiredQuirk => QuirkType.Explosion;
     public override QuirkStage RequiredStage => QuirkStage.Advanced;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
     public override int BuffType => ModContent.BuffType<ClusterBuff>();
     public override SoundStyle? ToggleSound => new SoundStyle("MyHeroMod/Assets/Sounds/Crackle1");
         public override float ToggleSoundVolume => 0.4f; 

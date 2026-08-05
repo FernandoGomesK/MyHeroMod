@@ -16,7 +16,7 @@ public class RivetStabSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.Rivet;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
 
     public override void OnUse(Player player)
     {

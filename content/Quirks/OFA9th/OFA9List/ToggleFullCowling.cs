@@ -22,7 +22,7 @@ public abstract class FullCowlingBase : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
     public override QuirkStage RequiredStage => QuirkStage.Adequation;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
 
 
 

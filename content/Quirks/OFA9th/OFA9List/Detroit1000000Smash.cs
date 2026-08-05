@@ -25,14 +25,14 @@ public class Detroit1000000SmashSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.Quirkless;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
 
     public override bool CheckUnlock(TransformationPlayer player)
     {
         var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
 
         if (player.HasActiveQuirk(QuirkType.OneForAll8th) || player.HasActiveQuirk(QuirkType.OneForAll9th))
-            return player.CurrentStage >= QuirkStage.Initial;
+            return player.CurrentStage >= QuirkStage.Adequation;
 
         if (player.HasActiveQuirk(QuirkType.AllForOne) && (afoPlayer.HasInternalQuirk(QuirkType.OneForAll8th) || afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th)))
         {

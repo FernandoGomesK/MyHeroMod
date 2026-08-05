@@ -22,7 +22,7 @@ public class ChimeraSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.Overhaul;
     public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => true;
+    
 
     public override void OnUse(Player player)
     {

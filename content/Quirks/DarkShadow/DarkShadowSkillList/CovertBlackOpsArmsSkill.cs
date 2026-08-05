@@ -21,10 +21,9 @@ public class CovertBlackOpsArmsSkill : QuirkBaseSkill
     public override string Category => "DarkShadow";
     public override int BaseCooldown => 600;
     public override QuirkType RequiredQuirk => QuirkType.DarkShadow;
-    public override QuirkStage RequiredStage => QuirkStage.Advanced;
+    public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => true;
-
+    
     public override void OnUse(Player player)
     {
         var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();

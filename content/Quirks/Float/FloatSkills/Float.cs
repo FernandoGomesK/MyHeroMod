@@ -18,9 +18,10 @@ public class FloatSkill : BaseToggleSkill
 
     public override int BaseCooldown => 30;
     public override QuirkType RequiredQuirk => QuirkType.Float ;
-    public override QuirkStage RequiredStage => QuirkStage.Advanced;
+    public override QuirkStage RequiredStage => QuirkStage.Initial;
+    public override QuirkStage RequiredOfaStage => QuirkStage.Intermediate;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => true;
+
     public override int BuffType => ModContent.BuffType<FloatBuff>();
 
 

@@ -19,7 +19,7 @@ public override string Name => "Phosphor";
      public override QuirkType RequiredQuirk => QuirkType.HalfColdHalfHot;
     public override QuirkStage RequiredStage => QuirkStage.Advanced;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
 
     public override bool CheckUnlock(TransformationPlayer player)
     {

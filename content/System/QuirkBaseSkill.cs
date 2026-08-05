@@ -11,7 +11,7 @@ namespace MyHeroMod.content.System
     {
         public virtual QuirkType RequiredQuirk => QuirkType.Quirkless;
         public virtual QuirkStage RequiredStage => QuirkStage.Initial;
-        public virtual QuirkStage RequiredOfaStage => QuirkStage.Initial;
+        public virtual QuirkStage RequiredOfaStage => RequiredStage;
         public virtual bool IsDefaultSkill => false;
         
 

@@ -18,7 +18,7 @@ public class ToggleFlight : BaseToggleSkill
     public override QuirkType RequiredQuirk => QuirkType.Flight;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
     public override int BuffType => ModContent.BuffType<FlightBuff>();
 
 

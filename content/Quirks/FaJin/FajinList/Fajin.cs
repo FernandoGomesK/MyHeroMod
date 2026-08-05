@@ -17,8 +17,9 @@ namespace MyHeroMod.content.Quirks.FaJin.Skills
         public override int BaseCooldown => 30;
 
         public override QuirkType RequiredQuirk => QuirkType.FaJin;
-        public override QuirkStage RequiredStage => QuirkStage.Advanced;
-        public override bool IsBaseQuirk => true;
+        public override QuirkStage RequiredStage => QuirkStage.Initial;
+        public override QuirkStage RequiredOfaStage => QuirkStage.Advanced;
+        
         public override int BuffType => ModContent.BuffType<FaJinActiveBuff>();
         public override string ToggleOnText => "";
         public override string ToggleOffText => "";

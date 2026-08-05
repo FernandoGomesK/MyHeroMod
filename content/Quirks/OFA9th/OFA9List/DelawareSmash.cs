@@ -25,7 +25,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
         public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
         public override QuirkStage RequiredStage => QuirkStage.Initial;
         public override bool IsDefaultSkill => false;
-        public override bool IsBaseQuirk => false;
+        
 
         public override void OnUse(Player player)
         {

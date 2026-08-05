@@ -16,7 +16,7 @@ public class ToggleEngineSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.Engine;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
 
 
     public override void OnUse(Player player)

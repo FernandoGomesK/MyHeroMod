@@ -25,7 +25,8 @@ public class DetroitSmashSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.Quirkless;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
+
 
     public override bool CheckUnlock(TransformationPlayer player)
     {

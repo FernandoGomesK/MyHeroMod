@@ -19,7 +19,7 @@ public abstract class ToggleStockPile : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.OneForAll8th;
     public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
 
 
 

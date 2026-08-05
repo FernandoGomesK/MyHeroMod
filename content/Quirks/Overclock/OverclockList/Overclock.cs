@@ -22,7 +22,7 @@ public class OverclockSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.Overclock;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => true;
+    
 
     public override void OnUse(Player player)
     {

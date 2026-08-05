@@ -26,7 +26,7 @@ public class GroundDisassembleSkill: QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.Overhaul;
     public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
 
 
     public override void OnUse(Player player)

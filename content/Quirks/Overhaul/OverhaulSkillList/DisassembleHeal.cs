@@ -22,7 +22,7 @@ public class DisassembleHealSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.Overhaul;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
 
 
     public override void OnUse(Player player)

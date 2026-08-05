@@ -673,6 +673,11 @@ Buffs: {
 		DisplayName: Automatic Dark Shadow Buff
 		Description: Dark Shadow está atacando automaticamente!
 	}
+
+	GearshiftRecoil: {
+		// DisplayName: Gearshift Recoil
+		// Description: Mods.MyHeroMod.Buffs.GearshiftRecoil.Description
+	}
 }
 
 DeathMessage: "{0} destruiu o seu próprio corpo com 100% de poder!"

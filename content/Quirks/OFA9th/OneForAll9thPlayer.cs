@@ -15,6 +15,10 @@ using rail;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System.Interfaces;
 using KhacesCore.Content.System;
+using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip;
+using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackChain;
+using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhipStun;
+using MyHeroMod.content.Quirks.BlackWhip.Projectiles.PinpointFocus;
 
 
 
@@ -84,6 +88,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             {
                 return; 
             } 
+
             
 
             if (currentFingers < MaxFingers)
@@ -121,20 +126,22 @@ namespace MyHeroMod.content.Quirks.OFA9th
             InternalQuirks.Add(QuirkType.OneForAll9th); 
 
         if (transPlayer.CurrentStage >= QuirkStage.Adequation)
-            InternalQuirks.Add(QuirkType.BlackWhip);
+            
 
         if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
             InternalQuirks.Add(QuirkType.DangerSense);
+            InternalQuirks.Add(QuirkType.BlackWhip);
 
         if (transPlayer.CurrentStage >= QuirkStage.Advanced)
         {
             InternalQuirks.Add(QuirkType.Float);
             InternalQuirks.Add(QuirkType.SmokeScreen);
+            InternalQuirks.Add(QuirkType.FaJin);
         }
 
         if (transPlayer.CurrentStage >= QuirkStage.Final)
         {
-            InternalQuirks.Add(QuirkType.FaJin);
+            
             InternalQuirks.Add(QuirkType.Gearshift);
         }
     }
@@ -173,6 +180,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 if (Player.HasBuff(ModContent.BuffType<DangerSenseBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<SmokescreenBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<FaJinActiveBuff>())) { ParallelProcessing++; }
+                if (Player.HasBuff(ModContent.BuffType<FullCowlingBuff>())) { ParallelProcessing++; }
+                
+            
             }
             
             if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
@@ -197,6 +207,11 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 return; 
             }
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<BlackWhipProjectile>()] >= 1) { ParallelProcessing++; }
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<BlackChainProjectile>()] >= 1) { ParallelProcessing++; }
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<BlackWhipStunProj>()] >= 1) { ParallelProcessing++; }
+            if (Player.ownedProjectileCounts[ModContent.ProjectileType<PinpointFocusProj>()] >= 1) { ParallelProcessing++; }
 
             if (currentFingers < MaxFingers)
             {
@@ -224,28 +239,43 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
             
 
-            if (ParallelProcessing > 0)
-            {
-                Player.AddBuff(ModContent.BuffType<ParallelProcessingBuff>(), 2);
-            }
+            
 
             int strainDrain = (transPlayer.CurrentStage, percentage) switch
             {
                 (QuirkStage.Initial, 5) => 10,
+
                 (QuirkStage.Adequation, 5) => 8,
+                (QuirkStage.Adequation, 10) => 15,
+                (QuirkStage.Adequation, 20) => 20,
+                (QuirkStage.Adequation, 45) => 50,
 
                 (QuirkStage.Intermediate, 5) => 5,
                 (QuirkStage.Intermediate, 10) => 10,
+                (QuirkStage.Intermediate, 20) => 15,
+                (QuirkStage.Intermediate, 45) => 40,
 
                 (QuirkStage.Advanced, 5) => 2,
-                (QuirkStage.Advanced, 10) => 10,
-                (QuirkStage.Advanced, 45) => 20,
+                (QuirkStage.Advanced, 10) => 5,
+                (QuirkStage.Advanced, 20) => 15,
+                (QuirkStage.Advanced, 45) => 30,
 
                 (QuirkStage.Final, 5) => 0,
                 (QuirkStage.Final, 10) => 5,
+                (QuirkStage.Final, 20) => 8,
                 (QuirkStage.Final, 45) => 10,
                 _ => 0 
             };
+
+            if (ParallelProcessing > 0)
+            {
+                Player.AddBuff(ModContent.BuffType<ParallelProcessingBuff>(), 2);
+                if (ParallelProcessing > 1)
+                {
+                    int multiQuirkTax = (ParallelProcessing - 1) * 3;
+                    strainDrain += multiQuirkTax;
+                }
+            }
 
             if (isFullCowlingBuffActive)
             {

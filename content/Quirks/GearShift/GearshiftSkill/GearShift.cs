@@ -17,9 +17,10 @@ public class GearShiftSkill : QuirkBaseSkill
     public override string Category => "Gearshift";
     public override int BaseCooldown => 600;
     public override QuirkType RequiredQuirk => QuirkType.Gearshift;
-    public override QuirkStage RequiredStage => QuirkStage.Advanced;
+    public override QuirkStage RequiredStage => QuirkStage.Initial;
+    public override QuirkStage RequiredOfaStage => QuirkStage.Advanced;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => true;
+    
 
     public override void OnUse(Player player)
     {

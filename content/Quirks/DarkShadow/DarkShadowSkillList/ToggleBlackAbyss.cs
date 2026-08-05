@@ -23,7 +23,7 @@ public class ToggleBlackAbyssSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.DarkShadow;
     public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => true;
+   
 
     public override void OnUse(Player player)
     {

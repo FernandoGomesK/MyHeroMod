@@ -23,8 +23,9 @@ public class PinpointFocusSkill : QuirkBaseSkill
 
     public override QuirkType RequiredQuirk => QuirkType.BlackWhip;
     public override QuirkStage RequiredStage => QuirkStage.Advanced;
+    public override QuirkStage RequiredOfaStage => QuirkStage.Advanced;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => true;
+    
 
     public override void OnUse(Player player)
     {

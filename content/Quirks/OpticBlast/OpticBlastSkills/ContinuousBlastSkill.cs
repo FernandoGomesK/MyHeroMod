@@ -20,7 +20,7 @@ public class ContinuousOpticBlastSkill : QuirkBaseSkill
         public override QuirkType RequiredQuirk => QuirkType.OpticBlast;
         public override QuirkStage RequiredStage => QuirkStage.Initial;
         public override bool IsDefaultSkill => false;
-        public override bool IsBaseQuirk => false;
+        
 
         public override void OnUse(Player player)
         {

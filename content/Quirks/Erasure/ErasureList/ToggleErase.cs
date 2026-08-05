@@ -22,7 +22,7 @@ namespace MyHeroMod.content.Quirks.Erasure.ErasureList
         public override QuirkType RequiredQuirk => QuirkType.Erasure;
         public override QuirkStage RequiredStage => QuirkStage.Initial;
         public override bool IsDefaultSkill => false;
-        public override bool IsBaseQuirk => false;
+        
 
         public override void OnUse(Player player)
         {

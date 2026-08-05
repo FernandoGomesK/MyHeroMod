@@ -44,7 +44,7 @@ public class HellSpiderSkill: QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.HellFlames;
     public override QuirkStage RequiredStage => QuirkStage.Adequation;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
 
     public override bool CheckUnlock(TransformationPlayer player)
     {

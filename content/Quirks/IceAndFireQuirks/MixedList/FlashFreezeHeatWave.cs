@@ -26,7 +26,7 @@ public class FlashFreezeSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.HalfColdHalfHot;
     public override QuirkStage RequiredStage => QuirkStage.Adequation;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+   
 
 
     public override void OnUse(Player player)

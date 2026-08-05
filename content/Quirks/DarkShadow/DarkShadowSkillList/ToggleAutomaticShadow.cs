@@ -23,7 +23,7 @@ public class ToggleAutomaticShadowSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.DarkShadow;
     public override QuirkStage RequiredStage => QuirkStage.Adequation;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => true;
+    
 
     public override void OnUse(Player player)
     {

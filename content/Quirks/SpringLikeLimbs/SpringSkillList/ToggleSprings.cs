@@ -17,7 +17,7 @@ public class ToggleSpringsSkill : BaseToggleSkill
     public override QuirkType RequiredQuirk => QuirkType.SpringLikeLimbs;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
     public override int BuffType => ModContent.BuffType<SpringLikeLimbsBuff>();
 
 

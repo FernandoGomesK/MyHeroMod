@@ -22,9 +22,10 @@ public class BlackWhipHookSkill : QuirkBaseSkill
 
     public override QuirkType RequiredQuirk => QuirkType.BlackWhip;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
-    public override QuirkStage RequiredOfaStage => QuirkStage.Advanced;
+    public override QuirkStage RequiredOfaStage => QuirkStage.Intermediate;
+    
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => true;
+    
 
     public override void OnUse(Player player)
     {

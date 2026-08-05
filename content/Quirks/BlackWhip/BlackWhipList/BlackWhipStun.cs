@@ -19,8 +19,9 @@ public class BlackWhipStunSkill : QuirkBaseSkill
     public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.BlackWhip;
     public override QuirkStage RequiredStage => QuirkStage.Advanced;
+    public override QuirkStage RequiredOfaStage => QuirkStage.Intermediate;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => true;
+    
 
     public override void OnUse(Player player)
     {

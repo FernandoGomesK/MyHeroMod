@@ -12,10 +12,11 @@ public class SmokescreenSkill : BaseToggleSkill
     public override string IconPath => "Quirks/Smokescreen/Smokescreen";
     public override string Category => "Smokescreen";
     public override int BaseCooldown => 30;
-    public override QuirkType RequiredQuirk => QuirkType.SmokeScreen ;
-    public override QuirkStage RequiredStage => QuirkStage.Advanced;
+    public override QuirkType RequiredQuirk => QuirkType.SmokeScreen;
+    public override QuirkStage RequiredStage => QuirkStage.Initial;
+    public override QuirkStage RequiredOfaStage => QuirkStage.Advanced;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => true;
+    
     public override int BuffType => ModContent.BuffType<SmokescreenBuff>();
 
 

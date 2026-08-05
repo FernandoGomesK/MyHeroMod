@@ -34,7 +34,7 @@ public class RockShootSkill: QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.Overhaul;
     public override QuirkStage RequiredStage => QuirkStage.Adequation;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
 
     
 

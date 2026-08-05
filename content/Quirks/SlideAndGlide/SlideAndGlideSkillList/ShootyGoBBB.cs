@@ -37,7 +37,7 @@ public class ShootyGoBBBSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.SlideAndGlide;
     public override QuirkStage RequiredStage => QuirkStage.Advanced;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
 
 
                     public override void OnUse(Player player)

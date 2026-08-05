@@ -23,7 +23,7 @@ public class LunaRingSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.Rabbit;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
-    public override bool IsBaseQuirk => false;
+    
 
     public override void OnUse(Player player)
     {
