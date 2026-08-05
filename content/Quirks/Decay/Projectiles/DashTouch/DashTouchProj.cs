@@ -43,15 +43,14 @@ namespace MyHeroMod.content.Quirks.Decay.Projectiles.DashTouch
                 }
             }
 
-            // 2. A SUSTENTAÇÃO: Roda durante os primeiros 15 frames
+            
             if (Projectile.ai[0] < 15)
             {
                 
                 player.gravity = 0f;
                 player.noFallDmg = true;
                 
-                // OPCIONAL: Adicionar um leve "freio" aéreo para o dash não ir longe demais
-                // player.velocity *= 0.95f; 
+                
             }
 
             

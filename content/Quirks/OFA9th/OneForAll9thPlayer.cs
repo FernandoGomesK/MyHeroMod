@@ -7,6 +7,7 @@ using Terraria.ID;
 using MyHeroMod.content;
 
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using Terraria.Audio;
 using System.Collections.Generic;
@@ -36,14 +37,14 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public bool isFullCowlingBuffActive = false;
 
 
-        // Fingers
+        // ================================== Fingers =====================================================
 
         public int currentFingers = 10;
         public int MaxFingers = 10;
         public int fingerRegen = 0;
         public int fingerTimer = 800;
 
-        // Parallel Processing
+        // ============================================ Parallel Processing ======================================================
         public int ParallelProcessing = 0;
         public int MaxParallelProcessing = 0;
 
@@ -181,6 +182,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 if (Player.HasBuff(ModContent.BuffType<SmokescreenBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<FaJinActiveBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<FullCowlingBuff>())) { ParallelProcessing++; }
+                if (Player.HasBuff(ModContent.BuffType<OverlayBuff>())) {ParallelProcessing++;} 
+                if (Player.HasBuff(ModContent.BuffType<OverlayBuff>()) && Player.HasBuff(ModContent.BuffType<GearshiftRecoil>())) {ParallelProcessing++;} 
                 
             
             }

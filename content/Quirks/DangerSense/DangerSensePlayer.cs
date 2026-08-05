@@ -62,7 +62,6 @@ namespace MyHeroMod.content.Quirks.DangerSense;
         public bool TryDodge(Player.HurtInfo info) 
         {
            
-            
             if (Main.rand.NextFloat() < dodgeChance)
             {
                {
