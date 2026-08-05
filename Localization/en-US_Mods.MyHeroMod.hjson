@@ -402,6 +402,21 @@ Items: {
 		DisplayName: Abyss Arms
 		Tooltip: ""
 	}
+
+	OverlayArms: {
+		DisplayName: Overlay Arms
+		Tooltip: ""
+	}
+
+	OverlayBody: {
+		DisplayName: Overlay Body
+		Tooltip: ""
+	}
+
+	OverlayHead: {
+		DisplayName: Overlay Head
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -673,6 +688,11 @@ Buffs: {
 	GearshiftRecoil: {
 		DisplayName: Gearshift Recoil
 		Description: Mods.MyHeroMod.Buffs.GearshiftRecoil.Description
+	}
+
+	OverlayBuff: {
+		DisplayName: Overlay Buff
+		Description: Mods.MyHeroMod.Buffs.OverlayBuff.Description
 	}
 }
 

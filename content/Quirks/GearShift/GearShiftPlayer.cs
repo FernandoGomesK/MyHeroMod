@@ -125,10 +125,23 @@ namespace MyHeroMod.content.Quirks.Gearshift
         public override void PostUpdateBuffs()
         {
             
+            var transformPlayer = Player.GetModPlayer<TransformationPlayer>();
+            int buffDuration = 180;
+
+            switch(transformPlayer.CurrentStage)
+            {
+                case QuirkStage.Initial: buffDuration = 187; break;
+                case QuirkStage.Adequation: buffDuration = 375; break;
+                case QuirkStage.Intermediate: buffDuration = 750; break;
+                case QuirkStage.Advanced: buffDuration = 1500; break;
+                case QuirkStage.Final: buffDuration = 3000; break;
+                default: buffDuration = 6000; break;
+            }
+            
             if (wasGearshiftBuffActive && !isGearshiftBuffActive)
             {
                 
-                Player.AddBuff(ModContent.BuffType<GearshiftRecoil>(), 600); 
+                Player.AddBuff(ModContent.BuffType<GearshiftRecoil>(), buffDuration); 
             }
         }
 
