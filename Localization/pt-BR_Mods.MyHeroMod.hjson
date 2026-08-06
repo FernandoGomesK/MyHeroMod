@@ -823,6 +823,10 @@ Projectiles: {
 	// OverdriveOnomatopoeia.DisplayName: Overdrive Onomatopoeia
 	// Charge1000000DetroitProj.DisplayName: Charge1000000 Detroit Proj
 	// GearshiftStrikeProj.DisplayName: Gearshift Strike Proj
+	// Deku1000000DetroitOnomatopoeia.DisplayName: Deku1000000 Detroit Onomatopoeia
+	// DekuDelawareOnomatopoeia.DisplayName: Deku Delaware Onomatopoeia
+	// DelawareDetroitOnomatopoeia.DisplayName: Delaware Detroit Onomatopoeia
+	// BigDelawareSmashProj.DisplayName: Big Delaware Smash Proj
 }
 
 NPCs: {

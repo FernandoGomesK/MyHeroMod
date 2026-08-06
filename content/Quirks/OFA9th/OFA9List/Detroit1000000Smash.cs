@@ -48,33 +48,7 @@ public class Detroit1000000SmashSkill : QuirkBaseSkill
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
         
         
-        int onomatopoeiaType = ModContent.ProjectileType<DetroitOnomatopoeia>();
-
         
-        if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
-        {
-            if (player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
-            {
-                onomatopoeiaType = ModContent.ProjectileType<GearDekuDetroitOnomatopoeia>();
-            }
-            else
-            {
-                onomatopoeiaType = ModContent.ProjectileType<DekuDetroitOnomatopoeia>();
-            }
-            
-        }
-
-        
-        Vector2 textPosition = player.Center + new Vector2(0, -30f);
-        Projectile.NewProjectile(
-            player.GetSource_FromThis(),
-            textPosition,
-            Vector2.Zero, 
-            onomatopoeiaType, 
-            0, 
-            0f, 
-            player.whoAmI
-        );
 
         
         Projectile.NewProjectile(

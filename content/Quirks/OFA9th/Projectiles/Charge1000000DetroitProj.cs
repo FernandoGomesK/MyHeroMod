@@ -19,24 +19,64 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
     {
         public override string Texture => "MyHeroMod/content/Quirks/Explosion/Projectiles/HowitzerImpact/HowitzerImpactProj";
 
-        protected override int ChannelTime => 60; 
+        protected override int ChannelTime => 120; 
 
-        public override void AI()
+       public override void AI()
+{
+    base.AI(); 
+    Player player = Main.player[Projectile.owner];
+    
+    if (player.active && !player.dead)
+    {
+        player.velocity *= 0.6f; 
+    }
+
+    if (Projectile.ai[0] == 1) 
+    {
+        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
+        Vector2 textPosition = player.Center + new Vector2(0, -30f);
+        Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, ModContent.ProjectileType<Deku1000000DetroitOnomatopoeia>(), 0, 0f, player.whoAmI);
+    }
+
+    
+    if (Projectile.ai[0] == 60)
+    {
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+        int maxDamage = transPlayer.CurrentStage switch
         {
-            base.AI(); 
-            Player player = Main.player[Projectile.owner];
-            
-            if (player.active && !player.dead)
-            {
-                player.velocity *= 0.6f; 
-            }
+            QuirkStage.Initial => 250,    
+            QuirkStage.Adequation => 600,  
+            QuirkStage.Intermediate => 1250,
+            QuirkStage.Advanced => 2250,    
+            QuirkStage.Final => 4250,       
+            _ => 1200
+        };
 
-            
-            if (Projectile.ai[0] == 1) 
-            {
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
-            }
+        Vector2 Direction = Main.MouseWorld - player.Center;
+        Direction.Normalize();
+        Vector2 Velocity = Direction * 15f;
+        Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
+
+        Vector2 textPosition = player.Center + new Vector2(0, -30f);
+        Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, ModContent.ProjectileType<DelawareDetroitOnomatopoeia>(), 0, 0f, player.whoAmI);
+
+        Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<BigDelawareSmashProj>(), maxDamage, 15f, player.whoAmI);
+        Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<PunchAttackProj>(), 0, 0f, player.whoAmI);
+        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.8f, Pitch = -0.2f }, player.position);
+
+        PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 20f, 25f, 30, 1500f, "FullCowlingShake");
+            Main.instance.CameraModifiers.Add(shake);
+        
+    
+        player.statLife -= (int)(0.45f * player.statLifeMax2);
+        if (player.statLife <= 0)
+        {
+            var reason = PlayerDeathReason.ByCustomReason(Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", player.name));
+            player.KillMe(reason, maxDamage, 0);
         }
+    }
+}
 
         public override void SpawnChargingDust(Player player)
         {
@@ -55,14 +95,13 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
         {
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            
             int maxDamage = transPlayer.CurrentStage switch
             {
-                QuirkStage.Initial => 500,    
-                QuirkStage.Adequation => 1200,  
-                QuirkStage.Intermediate => 2500,
-                QuirkStage.Advanced => 4500,    
-                QuirkStage.Final => 8500,       
+                QuirkStage.Initial => 250,    
+                QuirkStage.Adequation => 600,  
+                QuirkStage.Intermediate => 1250,
+                QuirkStage.Advanced => 2250,    
+                QuirkStage.Final => 4250,       
                 _ => 1200
             };
 
@@ -72,12 +111,13 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
 
             Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<DetroitSmashProj>(), maxDamage, 15f, player.whoAmI);
-            Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<PunchAttackProj>(), 0, 0f, player.whoAmI);
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.8f, Pitch = -0.2f }, player.position);
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.8f, Pitch = +0.3f }, player.position);
 
-         
-            player.statLife -= (int)(0.60f * player.statLifeMax2);
+            Vector2 textPosition = player.Center + new Vector2(0, -30f);
+            Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>(), 0, 0f, player.whoAmI);
+
             
+            player.statLife -= (int)(0.15f * player.statLifeMax2);
             
             player.AddBuff(BuffID.Weak, 3600); 
             player.AddBuff(BuffID.BrokenArmor, 3600); 

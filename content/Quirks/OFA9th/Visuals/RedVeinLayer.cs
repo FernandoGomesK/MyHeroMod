@@ -18,9 +18,11 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
         {
             if (drawInfo.shadow != 0f) return false;
 
-            // Verificação super rápida (O(1)): O jogador é dono de um FullCowlingChargeProj neste exato frame?
-            // Se sim, ele está a carregar a habilidade e as veias devem aparecer!
-            return drawInfo.drawPlayer.ownedProjectileCounts[ModContent.ProjectileType<FullCowlingChargeProj>()] > 0;
+            
+            bool hasFullCowling = drawInfo.drawPlayer.ownedProjectileCounts[ModContent.ProjectileType<FullCowlingChargeProj>()] > 0;
+            bool hasDetroit1M = drawInfo.drawPlayer.ownedProjectileCounts[ModContent.ProjectileType<Charge1000000DetroitProj>()] > 0;
+            
+            return hasFullCowling || hasDetroit1M;
         }
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
@@ -32,19 +34,29 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
             int timer = 0;
             int maxTime = 40; 
 
-            
             for (int i = 0; i < Main.maxProjectiles; i++)
             {
                 Projectile p = Main.projectile[i];
-                if (p.active && p.owner == player.whoAmI && p.type == ModContent.ProjectileType<FullCowlingChargeProj>())
+                if (p.active && p.owner == player.whoAmI)
                 {
-                    timer = (int)p.ai[0];
-                    break;
+                    if (p.type == ModContent.ProjectileType<FullCowlingChargeProj>())
+                    {
+                        timer = (int)p.ai[0];
+                        maxTime = 40; 
+                        break;
+                    }
+                    else if (p.type == ModContent.ProjectileType<Charge1000000DetroitProj>())
+                    {
+                        timer = (int)p.ai[0];
+                        maxTime = 120; 
+                        break;
+                    }
                 }
             }
 
             Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/Assets/Effects/FullCowlingVeins").Value;
 
+        
             int totalframes = 4;
             int frameDuration = maxTime / totalframes;
             if (frameDuration < 1) frameDuration = 1;
