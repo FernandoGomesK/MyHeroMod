@@ -31,12 +31,24 @@ public class GearShiftStrikeSkill : QuirkBaseSkill
     {
         if (player.HasBuff<GearshiftBuff>())
         {
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+             int finalDamage = transPlayer.CurrentStage switch
+            {
+                QuirkStage.Initial => 100,
+                QuirkStage.Adequation => 300,
+                QuirkStage.Intermediate => 450,
+                QuirkStage.Advanced => 600,
+                QuirkStage.Final => 900,
+                _ => 15
+            };
+
          Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
                 Vector2.Zero, 
                 ModContent.ProjectileType<GearshiftStrikeProj>(),
-                200, 
+                finalDamage, 
                 10f, 
                 player.whoAmI
                 
