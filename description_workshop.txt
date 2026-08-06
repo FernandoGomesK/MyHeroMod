@@ -92,9 +92,9 @@ Once a Quirk is acquired, you can unleash unique attacks and forms. The mod feat
 [*] Tape (Sero)
 [*] Rivet Stab
 [*] Springlike Limbs
-[*] Rabbit (Mirko) - Updated with three new moves and full fall damage resistance.
-[*] Dark Shadow (Tokoyami) - Fully fleshed out with a long hand attack, a Black Abyss toggle, an interface for finding/targeting enemies, and a Big Dark Shadow/Ragnarok form for the night!
-[*] Optic Blast - A newly added quirk that features continuous blasts, custom sound effects, a charge bar, and percentage control.
+[*] Rabbit (Mirko) 
+[*] Dark Shadow (Tokoyami) 
+[*] Optic Blast 
 [/list]
 
 [hr]
