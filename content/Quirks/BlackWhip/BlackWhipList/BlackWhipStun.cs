@@ -3,11 +3,10 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhipStun;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackChain;
-
+using MyHeroMod.content.Quirks.FaJin; 
 
 public class BlackWhipStunSkill : QuirkBaseSkill
 {
@@ -22,21 +21,44 @@ public class BlackWhipStunSkill : QuirkBaseSkill
     public override QuirkStage RequiredOfaStage => QuirkStage.Intermediate;
     public override bool IsDefaultSkill => false;
     
-
     public override void OnUse(Player player)
     {
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-        if (transPlayer.HasActiveQuirk(QuirkType.FaJin) && transPlayer.CurrentStage >= QuirkStage.Advanced && player.HasBuff(ModContent.BuffType<FaJinBuff>()))
+        
+        int baseDamage = transPlayer.CurrentStage switch
+        {
+            QuirkStage.Initial => 20,
+            QuirkStage.Adequation => 50,
+            QuirkStage.Intermediate => 90,
+            QuirkStage.Advanced => 150,
+            QuirkStage.Final => 250,
+            _ => 20
+        };
+
+        float damageMultiplier = 1f;
+        bool isBlackChain = transPlayer.HasActiveQuirk(QuirkType.FaJin) && transPlayer.CurrentStage >= QuirkStage.Advanced && player.HasBuff(ModContent.BuffType<FaJinBuff>());
+
+        
+        if (isBlackChain)
         {
             CombatText.NewText(player.getRect(), Color.Orange, "Blackchain!");
+            damageMultiplier = 1.5f; 
+            
+           
+            var faJinPlayer = player.GetModPlayer<FajinPlayer>();
+            faJinPlayer.FaJinCharges = 0;
+            player.ClearBuff(ModContent.BuffType<FaJinBuff>());
         }
         else
         {
             CombatText.NewText(player.getRect(), Color.Orange, "BlackWhip Stun!");
         }
+
+    
+        int finalDamage = (int)(baseDamage * damageMultiplier);
         
-        
+    
         int projectileCount = transPlayer.CurrentStage switch
         {
             QuirkStage.Initial => 1,
@@ -52,32 +74,33 @@ public class BlackWhipStunSkill : QuirkBaseSkill
 
         for (int i = 0; i < projectileCount; i++)
         {
+            
             Vector2 spreadVelocity = direction.RotatedByRandom(MathHelper.ToRadians(45)) * 8f;
 
-            if (transPlayer.HasActiveQuirk(QuirkType.FaJin) && transPlayer.CurrentStage >= QuirkStage.Advanced && player.HasBuff(ModContent.BuffType<FaJinBuff>()))
-        {
-            Projectile.NewProjectile(
-                player.GetSource_FromThis(), 
-                player.Center, 
-                spreadVelocity, 
-                ModContent.ProjectileType<BlackChainProjectile>(), 
-                10, 
-                2f, 
-                player.whoAmI
-            );
+            if (isBlackChain)
+            {
+                Projectile.NewProjectile(
+                    player.GetSource_FromThis(), 
+                    player.Center, 
+                    spreadVelocity, 
+                    ModContent.ProjectileType<BlackChainProjectile>(), 
+                    finalDamage, 
+                    4f, 
+                    player.whoAmI
+                );
+            }
+            else
+            {
+                Projectile.NewProjectile(
+                    player.GetSource_FromThis(), 
+                    player.Center, 
+                    spreadVelocity, 
+                    ModContent.ProjectileType<BlackWhipStunProj>(), 
+                    finalDamage, 
+                    2f, 
+                    player.whoAmI
+                );
+            }
         }
-        else
-        {
-            Projectile.NewProjectile(
-                player.GetSource_FromThis(), 
-                player.Center, 
-                spreadVelocity, 
-                ModContent.ProjectileType<BlackWhipStunProj>(), 
-                10, 
-                2f, 
-                player.whoAmI
-            );
-        }
-        
     }
-}}
+}

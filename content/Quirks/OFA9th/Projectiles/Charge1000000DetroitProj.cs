@@ -53,27 +53,43 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 
         public override void OnChargeComplete(Player player)
         {
-            int maxDamage = 2500;
-             Vector2 Direction = Main.MouseWorld - player.Center;
-                Direction.Normalize();
-                Vector2 Velocity = Direction * 15f;
-                Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-             Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<DetroitSmashProj>(), maxDamage, 2f, player.whoAmI);
-                    Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<PunchAttackProj>(), 0, 0f, player.whoAmI);
-                    SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
+            
+            int maxDamage = transPlayer.CurrentStage switch
+            {
+                QuirkStage.Initial => 500,    
+                QuirkStage.Adequation => 1200,  
+                QuirkStage.Intermediate => 2500,
+                QuirkStage.Advanced => 4500,    
+                QuirkStage.Final => 8500,       
+                _ => 1200
+            };
 
+            Vector2 Direction = Main.MouseWorld - player.Center;
+            Direction.Normalize();
+            Vector2 Velocity = Direction * 15f;
+            Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
+
+            Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<DetroitSmashProj>(), maxDamage, 15f, player.whoAmI);
+            Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<PunchAttackProj>(), 0, 0f, player.whoAmI);
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.8f, Pitch = -0.2f }, player.position);
+
+         
             player.statLife -= (int)(0.60f * player.statLifeMax2);
-                    if (player.statLife <= 0)
-                    {
-                        var reason = PlayerDeathReason.ByCustomReason(Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", player.name));
-                        player.KillMe(reason,  maxDamage, 0);
-                    }
-                
             
-            PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "FullCowlingShake");
+            
+            player.AddBuff(BuffID.Weak, 3600); 
+            player.AddBuff(BuffID.BrokenArmor, 3600); 
+
+            if (player.statLife <= 0)
+            {
+                var reason = PlayerDeathReason.ByCustomReason(Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", player.name));
+                player.KillMe(reason, maxDamage, 0);
+            }
+
+            PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 20f, 25f, 30, 1500f, "FullCowlingShake");
             Main.instance.CameraModifiers.Add(shake);
-            
         }
     }
 }

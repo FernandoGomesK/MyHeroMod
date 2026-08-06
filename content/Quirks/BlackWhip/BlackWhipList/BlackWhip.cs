@@ -50,6 +50,16 @@ public class BlackWhipHookSkill : QuirkBaseSkill
             return; 
             }
 
+            int finalDamage = transPlayer.CurrentStage switch
+            {
+                QuirkStage.Initial => 15,
+                QuirkStage.Adequation => 30,
+                QuirkStage.Intermediate => 60,
+                QuirkStage.Advanced => 100,
+                QuirkStage.Final => 150,
+                _ => 15
+            };
+
                 Vector2 textPosition = player.Center + new Vector2(0, -30f);
                 Projectile.NewProjectile(
                 player.GetSource_FromThis(), 
@@ -75,7 +85,7 @@ public class BlackWhipHookSkill : QuirkBaseSkill
                 player.Center, 
                 velocity, 
                 ModContent.ProjectileType<BlackWhipProjectile>(), 
-                15,  
+                finalDamage,  
                 0f, 
                 player.whoAmI);
 

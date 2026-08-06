@@ -34,6 +34,18 @@ public class PinpointFocusSkill : QuirkBaseSkill
             {
             return; 
             }
+
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+    
+            int finalDamage = transPlayer.CurrentStage switch
+            {
+                QuirkStage.Initial => 40,
+                QuirkStage.Adequation => 80,
+                QuirkStage.Intermediate => 150,
+                QuirkStage.Advanced => 280,
+                QuirkStage.Final => 500,
+                _ => 40
+            };
             CombatText.NewText(player.getRect(), Color.Orange, "Pinpoint Focus!");
             Vector2 velocity = Main.MouseWorld - player.Center;
             velocity.Normalize();
@@ -45,7 +57,7 @@ public class PinpointFocusSkill : QuirkBaseSkill
                 player.Center, 
                 velocity, 
                 ModContent.ProjectileType<PinpointFocusProj>(),     
-                20,  
+                finalDamage,  
                 0f, 
                 player.whoAmI);
 
