@@ -53,6 +53,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
                 float baseMulti = ofaPlayer.percentage switch
                 {
                     45 => 0.45f,
+                    20 => 0.20f,
                     10 => 0.10f,
                     5 => 0.05f,
                     _ => 1f

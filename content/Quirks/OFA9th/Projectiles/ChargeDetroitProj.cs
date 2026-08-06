@@ -83,6 +83,9 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
                 if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 45) {
                     DamageMultiplier = 0.45f; 
                 }
+                else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 20) {
+                    DamageMultiplier = 0.20f; 
+                }
                 else if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage == 10) {
                     DamageMultiplier = 0.10f; 
                 }

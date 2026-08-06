@@ -52,6 +52,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
             float DamageMultiplier = ofaPlayer.percentage switch
             {
                 45 => 0.45f,
+                20 => 0.20f,
                 10 => 0.10f,
                 5 => 0.05f,
                 _ => 1f
@@ -70,9 +71,8 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
             }
 
            
-            int extraDamage = ofaPlayer.isIronSolesOn ? 50 : 0;
-            int FinalDamage = (int)(MaxDamage * DamageMultiplier) + extraDamage;
-
+            float ironSolesMultiplier = ofaPlayer.isIronSolesOn ? 1.30f : 1f;
+            int FinalDamage = (int)(MaxDamage * DamageMultiplier * ironSolesMultiplier);
             
             string attackName = usedFaJin ? "Faux " : "";
             attackName += $"{(DamageMultiplier * 100):0}% St. Louis Smash";
