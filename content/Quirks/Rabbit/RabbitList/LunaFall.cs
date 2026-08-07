@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Engine.Projectiles;
 using MyHeroMod.content.Quirks.Engine;
 using MyHeroMod.content.Quirks.Rabbit;
-using MyHeroMod.content.Quirks.Rabbit.Projectiles;
+using MyHeroMod.content.Quirks.Rabbit.RabbitProjectiles;
 
 public class LunaFallSkill : QuirkBaseSkill
 {

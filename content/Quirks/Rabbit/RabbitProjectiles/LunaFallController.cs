@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using KhacesCore.Content.System.BaseProjectiles;
 
 
-namespace MyHeroMod.content.Quirks.Rabbit.Projectiles
+namespace MyHeroMod.content.Quirks.Rabbit.RabbitProjectiles
 {
 
     public class LunaFallController : BaseJumpKickProj

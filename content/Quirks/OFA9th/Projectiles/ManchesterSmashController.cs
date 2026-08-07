@@ -9,6 +9,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
    
     public class ManchesterSmashController : BaseJumpSpinKickProj
     {
+        public override string Texture => "MyHeroMod/content/Quirks/Explosion/Projectiles/HowitzerImpact/HowitzerImpactProj";
         
         protected override float DashSpeed => Projectile.ai[1] == 1f ? 40f : 25f;
 

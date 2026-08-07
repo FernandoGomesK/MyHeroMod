@@ -9,7 +9,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
     
     public class STLouisSmashController : BaseJumpKickProj
     {
-        
+        public override string Texture => "MyHeroMod/content/Quirks/Explosion/Projectiles/HowitzerImpact/HowitzerImpactProj";
         protected override float DashSpeed => 20f;
 
         public override void SpawnHoverDust(Player player)

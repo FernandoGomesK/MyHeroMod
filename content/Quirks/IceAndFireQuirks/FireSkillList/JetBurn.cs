@@ -22,6 +22,8 @@ using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceThrower;
 
 public class JetBurnSkill : QuirkBaseSkill
 {
+
+    
     public override string Name => "Jet Burn";
 
     public override string GetDisplayName(Player player)
