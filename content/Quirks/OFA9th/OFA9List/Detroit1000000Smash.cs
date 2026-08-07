@@ -31,9 +31,6 @@ public class Detroit1000000SmashSkill : QuirkBaseSkill
     {
         var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
 
-        if (player.HasActiveQuirk(QuirkType.OneForAll8th) || player.HasActiveQuirk(QuirkType.OneForAll9th))
-            return player.CurrentStage >= QuirkStage.Adequation;
-
         if (player.HasActiveQuirk(QuirkType.AllForOne) && (afoPlayer.HasInternalQuirk(QuirkType.OneForAll8th) || afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th)))
         {
             return true;
@@ -46,10 +43,6 @@ public class Detroit1000000SmashSkill : QuirkBaseSkill
     {
         
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
-        
-        
-        
-
         
         Projectile.NewProjectile(
             player.GetSource_FromThis(), 

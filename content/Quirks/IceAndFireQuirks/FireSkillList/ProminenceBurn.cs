@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.HellFlames;
-using MyHeroMod.content.Quirks.Blueflames;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.System.Interfaces;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.ProminenceBurn;
@@ -38,7 +38,7 @@ public class ProminenceBurnSkill: QuirkBaseSkill
             return player.CurrentStage >= QuirkStage.Intermediate; 
         }
             
-        else if(player.HasActiveQuirk(QuirkType.BlueFlames))
+        else if(player.HasActiveQuirk(QuirkType.Blueflame))
         {
             return player.CurrentStage >= QuirkStage.Advanced; 
         }

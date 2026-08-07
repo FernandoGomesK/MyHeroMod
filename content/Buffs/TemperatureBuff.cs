@@ -4,9 +4,9 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
 using MyHeroMod.content.Quirks.HellFlames;
-using MyHeroMod.content.Quirks.Blueflames;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Buffs
@@ -42,9 +42,9 @@ namespace MyHeroMod.content.Buffs
                 currentTemp = hchh.Temperature;
                 maxTemp = hchh.MaxTemperature;
             }
-            else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+            else if (transPlayer.HasActiveQuirk(QuirkType.Blueflame))
             {
-                var blue = player.GetModPlayer<BlueFlamesPlayer>();
+                var blue = player.GetModPlayer<BlueflamePlayer>();
                 currentTemp = blue.Temperature;
                 maxTemp = blue.MaxTemperature;
             }
@@ -71,7 +71,7 @@ namespace MyHeroMod.content.Buffs
                 {
                     texturePath = "MyHeroMod/content/Buffs/HeatBuff"; 
                 }
-                else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+                else if (transPlayer.HasActiveQuirk(QuirkType.Blueflame))
                 {
                     texturePath = "MyHeroMod/content/Buffs/BlueHeatBuff"; 
                 }
@@ -100,9 +100,9 @@ namespace MyHeroMod.content.Buffs
                 var hchh = player.GetModPlayer<HalfColdHalfHotPlayer>();
                 text = $"{hchh.Temperature} / {hchh.MaxTemperature}";
             }
-            else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+            else if (transPlayer.HasActiveQuirk(QuirkType.Blueflame))
             {
-                var blue = player.GetModPlayer<BlueFlamesPlayer>();
+                var blue = player.GetModPlayer<BlueflamePlayer>();
                 text = $"{blue.Temperature} / {blue.MaxTemperature}";
             }
             else if (transPlayer.HasActiveQuirk(QuirkType.HellFlames))

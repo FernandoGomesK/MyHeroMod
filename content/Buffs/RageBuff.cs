@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.Blueflames;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 
 namespace MyHeroMod.content.Buffs
 {
@@ -18,7 +18,7 @@ namespace MyHeroMod.content.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
         
-            var BluePlayer = player.GetModPlayer<BlueFlamesPlayer>();
+            var BluePlayer = player.GetModPlayer<BlueflamePlayer>();
 
             BluePlayer.IsRageActive = true;
 

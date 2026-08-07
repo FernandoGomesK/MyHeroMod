@@ -10,7 +10,7 @@ using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.FlashFreezeHeatWave;
 
 
 
-namespace MyHeroMod.content.Quirks.HalfColdHalfHot
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
 {
     public partial class HalfColdHalfHotPlayer : ModPlayer, IQuirkResetter
     {

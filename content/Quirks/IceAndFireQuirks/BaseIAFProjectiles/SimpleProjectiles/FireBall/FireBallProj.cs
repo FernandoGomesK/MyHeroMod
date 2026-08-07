@@ -4,10 +4,10 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueFireBall
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles.SimpleProjectiles.FireBall
 {
     
-    public class BlueFireBallProj : ModProjectile
+    public class FireBallProj : ModProjectile
     {
         
         public string dustcolor = "Torch";
@@ -16,7 +16,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueFireBall
             Projectile.width = 60; 
             Projectile.height = 60;
             
-            // Comportamento
+           
             Projectile.friendly = true; 
             Projectile.hostile = false; 
             Projectile.penetrate = -1; 
@@ -31,7 +31,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueFireBall
             
             
             Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10; // Hit a cada 1/6 de segundo por partícula
+            Projectile.localNPCHitCooldown = 10;
             
         }
 
@@ -63,46 +63,42 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueFireBall
         }   
        public override void AI()
         {
-            // 1. Geração de Partículas (O Visual Real)
-            // Gera pó de fogo no centro do projétil
-            for (int i = 0; i < 4; i++) // Pode aumentar para 3 se quiser mais denso
+        
+            for (int i = 0; i < 4; i++) 
             {
                 int dustIndex = Dust.NewDust(
                     Projectile.position, 
                     Projectile.width, 
                     Projectile.height, 
-                    DustID.Torch, // ID do fogo padrão (6)
+                    DustID.Torch, 
                     Projectile.velocity.X * 0.2f, 
                     Projectile.velocity.Y * 0.2f, 
                     100, 
                     default, 
-                    5f // Tamanho grande
+                    5f 
                 );
                 
-                Main.dust[dustIndex].noGravity = true; // Fogo flutua
-                Main.dust[dustIndex].velocity *= 1.5f; // Fogo se expande um pouco
-                Main.dust[dustIndex].velocity += Projectile.velocity * 0.5f; // Segue o tiro
+                Main.dust[dustIndex].noGravity = true; 
+                Main.dust[dustIndex].velocity *= 1.5f;
+                Main.dust[dustIndex].velocity += Projectile.velocity * 0.5f;
             }
 
-            // 2. Crescimento da Hitbox (Opcional, estilo Overhaul)
-            // Faz o fogo começar pequeno e ficar grande no final
-            /*
+            
             if (Projectile.width < 100) 
             {
                 Projectile.width += 2;
                 Projectile.height += 2;
             }
-            */
+            
 
-            // 3. Físicas do Fogo
-            // Desacelera um pouco conforme viaja (resistência do ar)
+            
             Projectile.velocity *= 0.99f; 
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
-            // Aplica o Debuff clássico de fogo
-            target.AddBuff(BuffID.OnFire, 180); // 3 segundos de fogo
+        
+            target.AddBuff(BuffID.OnFire, 180); 
         }
 
         

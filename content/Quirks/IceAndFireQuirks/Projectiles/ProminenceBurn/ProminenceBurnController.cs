@@ -17,7 +17,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.ProminenceBurn
             Projectile.tileCollide = false;
             Projectile.hide = true;
             
-            // DURAÇÃO DO ATAQUE: 300 ticks = 5 Segundos
+            
             Projectile.timeLeft = 300; 
         }
 

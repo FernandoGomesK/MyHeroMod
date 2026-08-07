@@ -14,9 +14,9 @@ using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.Interfaces;
 
-namespace MyHeroMod.content.Quirks.Blueflames
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
 {
-    public partial class BlueFlamesPlayer : ModPlayer, IQuirkResetter, IHeroTemperature
+    public partial class BlueflamePlayer : ModPlayer, IQuirkResetter, IHeroTemperature
     {
 
 
@@ -65,7 +65,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            if (!mainPlayer.HasActiveQuirk(QuirkType.BlueFlames))  
+            if (!mainPlayer.HasActiveQuirk(QuirkType.Blueflame))  
                 return;
 
             if (Temperature > 0)
@@ -75,7 +75,7 @@ namespace MyHeroMod.content.Quirks.Blueflames
              
 
             
-            if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+            if (mainPlayer.CurrentStage >= QuirkStage.Adequation && mainPlayer.HasActiveQuirk(QuirkType.Blueflame))
             {
                 
                 Player.wingTimeMax = 50;
@@ -85,18 +85,9 @@ namespace MyHeroMod.content.Quirks.Blueflames
                 {
                     Player.wingsLogic = 29; 
                 }
-
-                // 3. Anula dano de queda
                 Player.noFallDmg = true;
             }
-            // if (IsFlashFireFistActive)
-            // {
-            //     Player.AddBuff(ModContent.BuffType<Buffs.FlashFireFistBuff>(), 2);
-            // }
-            // if (IsRageActive)
-            // {
-            //     Player.AddBuff(ModContent.BuffType<BlueRage>(), 2);
-            // }
+            
         }
 
         public override void OnRespawn()
@@ -109,16 +100,15 @@ namespace MyHeroMod.content.Quirks.Blueflames
         {
              var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            if (!mainPlayer.HasActiveQuirk(QuirkType.BlueFlames))  
+            if (!mainPlayer.HasActiveQuirk(QuirkType.Blueflame))  
                 return;
 
-                // CORREÇÃO AQUI: Substituí !Player.onFloor por Player.velocity.Y != 0
                 bool isFlying = (Player.velocity.Y != 0) && (Player.wingTime > 0 || Player.rocketDelay > 0) && !Player.mount.Active;
 
-                // Se estiver apenas caindo ou voando (sem estar montado)
+            
                 if (Player.velocity.Y != 0 && !Player.mount.Active)
                 {
-                    // Lado Esquerdo (Fogo)
+                   
                     if (Main.rand.NextBool(2)) 
                     {
                         int dustFire = Dust.NewDust(
@@ -165,7 +155,6 @@ namespace MyHeroMod.content.Quirks.Blueflames
                         
                         Player.lifeRegenTime = 0; 
                         
-                        // Subtrai a vida
                         Player.statLife -= 20;
                         
                         

@@ -4,9 +4,9 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MyHeroMod.content.System;
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
 using MyHeroMod.content.Quirks.HellFlames;
-using MyHeroMod.content.Quirks.Blueflames;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 using Terraria.DataStructures;
 
 namespace MyHeroMod.content.Buffs
@@ -83,9 +83,9 @@ namespace MyHeroMod.content.Buffs
                 player.GetDamage(DamageClass.Melee) += 0.20f; 
                 player.moveSpeed += 2.0f; 
             }
-            else if (transformPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+            else if (transformPlayer.HasActiveQuirk(QuirkType.Blueflame))
             {
-                var bluePlayer = player.GetModPlayer<BlueFlamesPlayer>();
+                var bluePlayer = player.GetModPlayer<BlueflamePlayer>();
                 bluePlayer.IsFlashFireFistActive = true;
                 if (bluePlayer.IsFlashFireFistActive)
             {
@@ -125,7 +125,7 @@ namespace MyHeroMod.content.Buffs
             {
                 texturePath =  "MyHeroMod/Content/Buffs/FlashFireFistBuff";
             }
-            else if (transformPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+            else if (transformPlayer.HasActiveQuirk(QuirkType.Blueflame))
             {
                 texturePath = "MyHeroMod/Content/Buffs/BlueFlashFireFistBuff"; 
             }
