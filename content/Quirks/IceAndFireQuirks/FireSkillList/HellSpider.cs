@@ -6,9 +6,9 @@ using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
 using MyHeroMod.content.Quirks.HellFlames;
-using MyHeroMod.content.Quirks.Blueflames;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceShot;
 using MyHeroMod.content.System.Interfaces;
@@ -58,7 +58,7 @@ public class HellSpiderSkill: QuirkBaseSkill
             return player.CurrentStage >= QuirkStage.Intermediate; 
         } 
             
-        else if(player.HasActiveQuirk(QuirkType.BlueFlames))
+        else if(player.HasActiveQuirk(QuirkType.Blueflame))
         {
             return player.CurrentStage >= QuirkStage.Advanced; 
         }
@@ -68,7 +68,7 @@ public class HellSpiderSkill: QuirkBaseSkill
 public override void OnUse(Player player)
     {
         var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
-        var bluePlayer = player.GetModPlayer<BlueFlamesPlayer>();
+        var bluePlayer = player.GetModPlayer<BlueflamePlayer>();
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
         var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
 
@@ -86,7 +86,7 @@ public override void OnUse(Player player)
         
         int fireDamage = 110; 
         
-        if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+        if (transPlayer.HasActiveQuirk(QuirkType.Blueflame))
         {
             fireDamage = transPlayer.CurrentStage switch {
                 QuirkStage.Adequation => 180, QuirkStage.Intermediate => 280,
@@ -158,7 +158,7 @@ public override void OnUse(Player player)
         }
         
        
-        else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+        else if (transPlayer.HasActiveQuirk(QuirkType.Blueflame))
         {
             if (player.ownedProjectileCounts[ModContent.ProjectileType<HellSpiderController>()] > 0) return;
             

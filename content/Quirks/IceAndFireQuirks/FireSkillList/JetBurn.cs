@@ -6,12 +6,12 @@ using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
 
 
 using MyHeroMod.content.Quirks.HellFlames;
 
-using MyHeroMod.content.Quirks.Blueflames;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 using MyHeroMod.content.Quirks.AllForOne;
 
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.JetBurn;
@@ -36,7 +36,7 @@ public class JetBurnSkill : QuirkBaseSkill
                 return "Ice Thrower / Jet Kindling";
             }
             
-            else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+            else if (transPlayer.HasActiveQuirk(QuirkType.Blueflame))
             {
                 if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
                     return "Flashfire Fist: Jet Burn";
@@ -65,7 +65,7 @@ public class JetBurnSkill : QuirkBaseSkill
     
         if (player.HasActiveQuirk(QuirkType.HalfColdHalfHot) || 
             player.HasActiveQuirk(QuirkType.HellFlames) || 
-            player.HasActiveQuirk(QuirkType.BlueFlames))
+            player.HasActiveQuirk(QuirkType.Blueflame))
         {
             return player.CurrentStage >= QuirkStage.Initial; 
         }
@@ -76,7 +76,7 @@ public class JetBurnSkill : QuirkBaseSkill
     {
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
         var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
-        var bluePlayer = player.GetModPlayer<BlueFlamesPlayer>();
+        var bluePlayer = player.GetModPlayer<BlueflamePlayer>();
         var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
 
         Vector2 direction = Main.MouseWorld - player.Center;
@@ -93,7 +93,7 @@ public class JetBurnSkill : QuirkBaseSkill
         int fireDamage = 12; 
         
        
-        if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+        if (transPlayer.HasActiveQuirk(QuirkType.Blueflame))
         {
             fireDamage = transPlayer.CurrentStage switch {
                 QuirkStage.Initial => 12, QuirkStage.Adequation => 55, QuirkStage.Intermediate => 120,
@@ -178,7 +178,7 @@ public class JetBurnSkill : QuirkBaseSkill
             return;
         }
         
-        else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+        else if (transPlayer.HasActiveQuirk(QuirkType.Blueflame))
         {
             if (player.ownedProjectileCounts[ModContent.ProjectileType<JetKindlingController>()] > 0) return;
             

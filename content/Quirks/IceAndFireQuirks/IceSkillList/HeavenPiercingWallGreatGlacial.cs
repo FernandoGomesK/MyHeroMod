@@ -6,7 +6,7 @@ using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.GreatGlacialAegir;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.HeavenPiercingWall;
 using MyHeroMod.content.System.Interfaces;

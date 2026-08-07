@@ -7,7 +7,7 @@ using Terraria.Audio;
 using Terraria.Graphics.CameraModifiers;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles.ChannelingIAFProjectiles
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles
 {
     public class ChargeFlashFreezeHeatWaveProj : BaseChannelingProj 
 
