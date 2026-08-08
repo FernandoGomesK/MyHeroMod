@@ -10,14 +10,27 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Frost.Projectiles
     {
         
         protected override float MaxRange => 1200f;
-        protected override float BeamWidth => 40f; 
-        protected override int DustType => DustID.Ice;
+        protected override float BeamWidth => 200f;
+        protected override int DustType => DustID.SnowflakeIce;
         protected override float DustScale => 1.5f;
         protected override int HitCooldown => 15;
 
         protected override bool IsChannelingValid(Player player)
         {
             
+            if (Projectile.ai[0] > 0)
+            {
+                Projectile.ai[0]--; 
+                
+                if (Projectile.ai[0] <= 0) 
+                {
+                    return false;
+                }
+
+            
+                return player.active && !player.dead; 
+            }
+
             return player.active && !player.dead && player.channel;
         }
 

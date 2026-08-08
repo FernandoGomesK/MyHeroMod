@@ -4,6 +4,7 @@ using MyHeroMod.content.Quirks.IceAndFireQuirks.Frost.Projectiles;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.CameraModifiers;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.FlashFreezeHeatWave
@@ -21,6 +22,9 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
             base.AI();
             Player player = Main.player[Projectile.owner];
 
+    
+            Projectile.ai[0]++; 
+
             if (player.active && !player.dead)
             {
                 player.velocity *= 0.6f; 
@@ -28,15 +32,12 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
 
             if (Projectile.ai[0] == 1) 
             {
-                // SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
-                // Vector2 textPosition = player.Center + new Vector2(0, -30f);
-                // Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, ModContent.ProjectileType<Deku1000000DetroitOnomatopoeia>(), 0, 0f, player.whoAmI);
             }
 
+        
             if (Projectile.ai[0] == 120)
             {
                 var transPlayer = player.GetModPlayer<TransformationPlayer>();
-                
                 
                 int iceDamage = transPlayer.CurrentStage switch
                 {
@@ -48,7 +49,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
                     _ => 100
                 };
 
-            
                 Projectile.NewProjectile(
                     player.GetSource_FromThis(), 
                     player.Center, 
@@ -57,22 +57,26 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
                     iceDamage, 
                     2f, 
                     player.whoAmI,
-                    120f 
+                    60f
                 );
             }
         }
-
           public override void SpawnChargingDust(Player player)
         {
-            // if (Main.rand.NextBool(2))
-            // {
-            //     Dust d = Dust.NewDustDirect(player.position, player.width, player.height, DustID.Electric, 0, 0, 100, Color.Green, 0.5f);
-            //     d.noGravity = true;
-            //     d.velocity *= 0.5f;   
-            //     Dust d2 = Dust.NewDustDirect(player.position, player.width, player.height, DustID.RedTorch, 0, 0, 100, Color.Red, 0.5f);
-            //     d2.noGravity = true;
-            //     d2.velocity *= 1.5f;
-            // }
+            float offsetCostas = 20f; 
+            Vector2 spawnPos = player.Center - new Vector2(offsetCostas * player.direction, 0f);
+
+            spawnPos.Y += Main.rand.NextFloat(-10f, 10f);
+            Dust d = Dust.NewDustDirect(player.position, player.width, player.height, DustID.IceTorch, 0, 0, 100, default, 4.5f);
+                d.noGravity = true;
+                d.velocity *= 8f;   
+                
+
+                
+                int iceDust = Dust.NewDust(spawnPos, 4, 4, DustID.IceTorch, 0, 0, 100, default, 4.5f);
+                Main.dust[iceDust].noGravity = true;
+                Main.dust[iceDust].velocity = new Vector2(-5f * player.direction, 0f);
+                player.velocity *= 0.1f; 
         }
 
         public override void OnChargeComplete(Player player)
