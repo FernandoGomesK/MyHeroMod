@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
 
@@ -29,7 +29,7 @@ public override string Name => "Phosphor";
             return player.CurrentStage >= QuirkStage.Advanced; 
         } 
             
-        else if(player.HasActiveQuirk(QuirkType.BlueFlames))
+        else if(player.HasActiveQuirk(QuirkType.Blueflame))
         {
             return player.CurrentStage >= QuirkStage.Final; 
         }

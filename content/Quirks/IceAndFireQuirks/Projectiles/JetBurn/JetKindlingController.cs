@@ -58,7 +58,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.JetBurn
             
                 
             int dustColor = DustID.Torch;
-            if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames) && transPlayer.CurrentStage >= QuirkStage.Adequation)
+            if (transPlayer.HasActiveQuirk(QuirkType.Blueflame) && transPlayer.CurrentStage >= QuirkStage.Adequation)
             {
                 dustColor = DustID.BlueTorch;
             }

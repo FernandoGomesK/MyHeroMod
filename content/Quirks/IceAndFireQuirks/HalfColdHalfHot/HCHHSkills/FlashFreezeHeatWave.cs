@@ -6,7 +6,9 @@ using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;
 
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.FlashFreezeHeatWave;
+using Microsoft.Xna.Framework;
 
 
 
@@ -33,13 +35,18 @@ public class FlashFreezeSkill : QuirkBaseSkill
     {
         var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
 
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
         
+        Projectile.NewProjectile(
+            player.GetSource_FromThis(), 
+            player.Center, 
+            Vector2.Zero, 
+            ModContent.ProjectileType<ChargeFlashFreezeHeatWaveProj>(), 
+            0, 
+            0f, 
+            player.whoAmI
+        );
 
-        if (!hchhPlayer.IsFlashFreezeActive)
-                    {
-                        hchhPlayer.IsFlashFreezeActive = true;
-                        hchhPlayer.FlashFreezeTimer = 0;
-                        
-                    }
+        
     }}
       

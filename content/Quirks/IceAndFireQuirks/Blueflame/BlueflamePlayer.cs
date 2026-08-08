@@ -50,7 +50,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
             IsRageActive = false;
             IsPhosphorActive = false;
             Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
-            Player.ClearBuff(ModContent.BuffType<FlashFireFistBuff>());
+            Player.ClearBuff(ModContent.BuffType<FlashfireFistBuff>());
         }
 
         public override void PreUpdate()

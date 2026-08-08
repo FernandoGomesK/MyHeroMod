@@ -93,7 +93,7 @@
                     button.Height.Set(40, 0);
                     button.BackgroundColor = new Color(60, 60, 100);
 
-                    UIText text = new UIText(skillInstance.Name, 0.7f);
+                    UIText text = new UIText(skillInstance.GetDisplayName(Main.LocalPlayer), 0.7f);
                     text.HAlign = 0.5f;
                     text.VAlign = 0.5f;
                     button.Append(text);
@@ -133,7 +133,7 @@
                     var existingSkill = SkillLibrary.GetSkill(currentSkill);
                     if (existingSkill != null)
                     {
-                        displayLabel = $"{baseLabel}: {existingSkill.Name}";
+                        displayLabel = $"{baseLabel}: {existingSkill.GetDisplayName(Main.LocalPlayer)}";
                     }
                 }
 
@@ -157,9 +157,9 @@
                     if (slotNum == 3) player.Slot3 = selectedSkill;
                     if (slotNum == 4) player.Slot4 = selectedSkill;
 
-                    Main.NewText($"Assigned {skillInstance.Name} to Slot {slotNum}!", Color.Green);
-                    
-                    slotText.SetText($"{baseLabel}: {skillInstance.Name}");
+    
+                    Main.NewText($"Assigned {skillInstance.GetDisplayName(Main.LocalPlayer)} to Slot {slotNum}!", Color.Green);
+                    slotText.SetText($"{baseLabel}: {skillInstance.GetDisplayName(Main.LocalPlayer)}");
                     SoundEngine.PlaySound(SoundID.MenuOpen);
                 };
 

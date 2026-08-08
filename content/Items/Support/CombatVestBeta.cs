@@ -1,4 +1,4 @@
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
 using MyHeroMod.content.Quirks.HellFlames;
 using Terraria;
 using Terraria.ID;

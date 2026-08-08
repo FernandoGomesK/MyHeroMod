@@ -6,7 +6,7 @@ using Terraria.ID;
 using Terraria.Audio;
 using MyHeroMod.content.System;
 
-namespace MyHeroMod.content.Quirks.HalfColdHalfHot
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
 {
     public partial class HalfColdHalfHotPlayer : ModPlayer, IQuirkResetter
     {

@@ -1,5 +1,4 @@
 using MyHeroMod.content.Quirks.Explosion;
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;

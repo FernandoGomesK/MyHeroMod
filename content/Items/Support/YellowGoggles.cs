@@ -1,4 +1,4 @@
-// using MyHeroMod.content.Quirks.HalfColdHalfHot;
+
 using MyHeroMod.content.Quirks.Erasure;
 using MyHeroMod.content.Quirks.OFA9th;
 using Terraria;

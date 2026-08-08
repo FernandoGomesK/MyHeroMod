@@ -35,7 +35,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
 
         public override void OnRespawn()
         {
-            Player.ClearBuff(ModContent.BuffType<FlashFireFistBuff>());
+            Player.ClearBuff(ModContent.BuffType<FlashfireFistBuff>());
             IsFlashFireFistActive = false;
             Temperature = 0;
         }
@@ -44,7 +44,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
         {
             Temperature = 0;
             IsFlashFireFistActive = false;
-            Player.ClearBuff(ModContent.BuffType<FlashFireFistBuff>());
+            Player.ClearBuff(ModContent.BuffType<FlashfireFistBuff>());
         }
 
         public override void PreUpdate()
@@ -62,7 +62,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
 
             if (IsFlashFireFistActive)
             {
-                Player.AddBuff(ModContent.BuffType<FlashFireFistBuff>(), 2);
+                Player.AddBuff(ModContent.BuffType<FlashfireFistBuff>(), 2);
             }
                 
             if (Temperature >= MaxTemperature)

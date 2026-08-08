@@ -40,7 +40,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.ProminenceBurn
              int fireColor2 = DustID.Torch;
             
             
-            if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames) && transPlayer.CurrentStage >= QuirkStage.Adequation)
+            if (transPlayer.HasActiveQuirk(QuirkType.Blueflame) && transPlayer.CurrentStage >= QuirkStage.Adequation)
             {
                 fireColor = DustID.BlueTorch; 
                 fireColor2 = DustID.IceTorch;

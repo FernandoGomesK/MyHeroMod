@@ -7,7 +7,7 @@ using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.Overclock;
 using MyHeroMod.content.Quirks.OFA8th;
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
 using MyHeroMod.content.Quirks.Explosion;
 
 using MyHeroMod.content.Quirks.Smokescreen;
@@ -67,7 +67,7 @@ namespace MyHeroMod.content.Debuffs
             var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
             hchhPlayer.IsFlashFireFistActive = false;
             hchhPlayer.IsPhosphorActive = false;
-            player.ClearBuff(ModContent.BuffType<FlashFireFistBuff>());
+            player.ClearBuff(ModContent.BuffType<FlashfireFistBuff>());
             player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
         }
     }}

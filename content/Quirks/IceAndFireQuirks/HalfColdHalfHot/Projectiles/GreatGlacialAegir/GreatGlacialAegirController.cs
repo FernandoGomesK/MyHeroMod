@@ -3,10 +3,10 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
-using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.HeavenPiercingWall;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.HeavenPiercingWall;
 
 
-namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.GreatGlacialAegir
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.GreatGlacialAegir
 {
     public class GreatGlacialAegirController : ModProjectile
     {
@@ -19,7 +19,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.GreatGlacialAegi
             Projectile.tileCollide = false; 
             Projectile.penetrate = 1; 
             Projectile.timeLeft = 120; 
-            Projectile.alpha = 255; // Invisível
+            Projectile.alpha = 255; 
         }
 
         public override void AI()
@@ -60,7 +60,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.GreatGlacialAegi
                 
             
 
-                // Aqui é onde ele "PULA"
+        
                 Vector2 dashDirection = Main.MouseWorld - player.Center;
                 dashDirection.Normalize();
                 
@@ -79,24 +79,11 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.GreatGlacialAegi
                 player.fallStart = (int)(player.position.Y / 16f);
             }
 
-
-            // --- FASE 2: CÁLCULO DA MIRA (Frame 15) ---
             if (Projectile.ai[0] > 300)
             {
                 player.velocity *= 0.1f;
                 Projectile.Kill();
-            }
-
-
-           
-             
-                
-                
-                
-                
-
-                // Rastro de fogo
-            
+            }        
             }
 
              public override void OnKill(int timeLeft)
@@ -124,12 +111,11 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.GreatGlacialAegi
                     Projectile.knockBack,
                     player.whoAmI
                 );
-
-                // 2. ONDA PARA A ESQUERDA
+ 
                 Projectile.NewProjectile(
                     Projectile.GetSource_FromThis(),
-                    player.Center, // Sai do jogador
-                    new Vector2(-waveSpeed, 0), // Velocidade X negativa
+                    player.Center, 
+                    new Vector2(-waveSpeed, 0), 
                     ModContent.ProjectileType<IceWaveController>(),
                     Projectile.damage,
                     Projectile.knockBack,

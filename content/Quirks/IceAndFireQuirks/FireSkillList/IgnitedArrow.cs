@@ -1,183 +1,183 @@
-using Terraria;
-using Terraria.ModLoader;
-using MyHeroMod.content.System;
-using MyHeroMod.content;
-using MyHeroMod.content.Buffs;
-using Terraria.ID;
-using Terraria.Audio;
-using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
-using MyHeroMod.content.Quirks.HellFlames;
+// using Terraria;
+// using Terraria.ModLoader;
+// using MyHeroMod.content.System;
+// using MyHeroMod.content;
+// using MyHeroMod.content.Buffs;
+// using Terraria.ID;
+// using Terraria.Audio;
+// using Microsoft.Xna.Framework;
+// using MyHeroMod.content.Quirks.HalfColdHalfHot;
+// using MyHeroMod.content.Quirks.HellFlames;
 
-using MyHeroMod.content.Quirks.Blueflames;
-using MyHeroMod.content.Quirks.AllForOne;
-using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueVanishingFist;
-using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueFireBall;
-using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IgnitedArrow;
-using MyHeroMod.content.System.Interfaces;
+// using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
+// using MyHeroMod.content.Quirks.AllForOne;
+// using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueVanishingFist;
+// using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.BlueFireBall;
+// using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IgnitedArrow;
+// using MyHeroMod.content.System.Interfaces;
 
 
 
-public class IgnitedArrowSkill: QuirkBaseSkill
-{
+// public class IgnitedArrowSkilll: QuirkBaseSkill
+// {
     
-    public override string Name => "Ignited Arrow";
+//     public override string Name => "Ignited Arrow";
     
 
-    public override string GetDisplayName(Player player)
-    {
-        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+//     public override string GetDisplayName(Player player)
+//     {
+//         var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
-            {
-                if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
-                {
-                    return "Flashfire Fist: Vanishing Fist";
-                }
+//             if (transPlayer.HasActiveQuirk(QuirkType.Blueflame))
+//             {
+//                 if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
+//                 {
+//                     return "Flashfire Fist: Vanishing Fist";
+//                 }
                 
-                else
-                {
-                    return "Fireball";
-                }
-            }
+//                 else
+//                 {
+//                     return "Fireball";
+//                 }
+//             }
 
-            return "Ignited Arrow";     
-    }
+//             return "Ignited Arrow";     
+//     }
 
    
-    public override string Description => "Shoot a Projectile of Fire";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
-    public override string Category => "Fire";
+//     public override string Description => "Shoot a Projectile of Fire";
+//     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+//     public override string Category => "Fire";
 
-    public override int BaseCooldown => 120;
+//     public override int BaseCooldown => 120;
 
-    public override QuirkType RequiredQuirk => QuirkType.HellFlames;
-    public override QuirkStage RequiredStage => QuirkStage.Initial;
-    public override bool IsDefaultSkill => false;
+//     public override QuirkType RequiredQuirk => QuirkType.HellFlames;
+//     public override QuirkStage RequiredStage => QuirkStage.Initial;
+//     public override bool IsDefaultSkill => false;
 
 
-    public override bool CheckUnlock(TransformationPlayer player)
-    {
-        var bluePlayer = player.Player.GetModPlayer<BlueFlamesPlayer>();
-        var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
+//     public override bool CheckUnlock(TransformationPlayer player)
+//     {
+//         var bluePlayer = player.Player.GetModPlayer<BlueFlamesPlayer>();
+//         var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
         
 
-        if (player.HasActiveQuirk(QuirkType.HellFlames))
+//         if (player.HasActiveQuirk(QuirkType.HellFlames))
      
-            return player.CurrentStage >= QuirkStage.Initial;
+//             return player.CurrentStage >= QuirkStage.Initial;
 
-        if (player.HasActiveQuirk(QuirkType.BlueFlames)) 
-            return player.CurrentStage >= QuirkStage.Initial;
+//         if (player.HasActiveQuirk(QuirkType.BlueFlames)) 
+//             return player.CurrentStage >= QuirkStage.Initial;
 
-        if (player.HasActiveQuirk(QuirkType.AllForOne) && (afoPlayer.HasInternalQuirk(QuirkType.BlueFlames) || afoPlayer.HasInternalQuirk(QuirkType.HellFlames)))
-        {
-            return true;
-        }
+//         if (player.HasActiveQuirk(QuirkType.AllForOne) && (afoPlayer.HasInternalQuirk(QuirkType.BlueFlames) || afoPlayer.HasInternalQuirk(QuirkType.HellFlames)))
+//         {
+//             return true;
+//         }
 
-        return false;
-    }
+//         return false;
+//     }
 
     
 
-public override void OnUse(Player player)
-    {
-            var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
-            var transPlayer = player.GetModPlayer<TransformationPlayer>();
-            int BaseDamage = 0;
+// public override void OnUse(Player player)
+//     {
+//             var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
+//             var transPlayer = player.GetModPlayer<TransformationPlayer>();
+//             int BaseDamage = 0;
 
-            switch(transPlayer.CurrentStage){
-                case QuirkStage.Initial:
-                BaseDamage = 20;
-                break;
+//             switch(transPlayer.CurrentStage){
+//                 case QuirkStage.Initial:
+//                 BaseDamage = 20;
+//                 break;
             
-                case QuirkStage.Adequation:
-                BaseDamage = 40;
-                break;
+//                 case QuirkStage.Adequation:
+//                 BaseDamage = 40;
+//                 break;
           
-                case QuirkStage.Intermediate:
-                BaseDamage =  45;
-                break;
+//                 case QuirkStage.Intermediate:
+//                 BaseDamage =  45;
+//                 break;
             
-                case QuirkStage.Advanced:
-                BaseDamage = 60;
-                break;
+//                 case QuirkStage.Advanced:
+//                 BaseDamage = 60;
+//                 break;
           
-                case QuirkStage.Final:
-                BaseDamage = 80;
-                break;
+//                 case QuirkStage.Final:
+//                 BaseDamage = 80;
+//                 break;
         
-                default:
-                BaseDamage =20;
-                break;
+//                 default:
+//                 BaseDamage =20;
+//                 break;
                     
-            }
+//             }
         
-        float ModifiedDamage = 1;
+//         float ModifiedDamage = 1;
 
-        if (hellPlayer.IsFlashFireFistActive){
+//         if (hellPlayer.IsFlashFireFistActive){
          
-        ModifiedDamage += 1.5f;        
-        }
-        int FinalDamage = (int)(BaseDamage * ModifiedDamage);
+//         ModifiedDamage += 1.5f;        
+//         }
+//         int FinalDamage = (int)(BaseDamage * ModifiedDamage);
 
 
 
-        if (transPlayer.HasActiveQuirk(QuirkType.HellFlames)){
-            Vector2 Velocity = Main.MouseWorld - player.Center;
-            Velocity.Normalize();
-            Velocity *= 15f;
+//         if (transPlayer.HasActiveQuirk(QuirkType.HellFlames)){
+//             Vector2 Velocity = Main.MouseWorld - player.Center;
+//             Velocity.Normalize();
+//             Velocity *= 15f;
 
-            Projectile.NewProjectile(
-                player.GetSource_FromThis(),
-                player.Center,
-                Velocity,
-                ModContent.ProjectileType<IgnitedArrowProj>(),
-                FinalDamage, 
-                2f, 
-                player.whoAmI
-            );
-            // hellPlayer.CurrentHeat += 15;
-        }
-        else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames)){
-            Vector2 Velocity = Main.MouseWorld - player.Center;
-            Velocity.Normalize();
-            Velocity *= 15f;
+//             Projectile.NewProjectile(
+//                 player.GetSource_FromThis(),
+//                 player.Center,
+//                 Velocity,
+//                 ModContent.ProjectileType<IgnitedArrowProj>(),
+//                 FinalDamage, 
+//                 2f, 
+//                 player.whoAmI
+//             );
+//             // hellPlayer.CurrentHeat += 15;
+//         }
+//         else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames)){
+//             Vector2 Velocity = Main.MouseWorld - player.Center;
+//             Velocity.Normalize();
+//             Velocity *= 15f;
 
-            if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
-            {
-                Projectile.NewProjectile(
-                player.GetSource_FromThis(),
-                player.Center,
-                Velocity,
-                ModContent.ProjectileType<BlueVanishingFistProj>(),
-                FinalDamage, 
-                2f, 
-                player.whoAmI
-            );
-            }
-            else{
+//             if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
+//             {
+//                 Projectile.NewProjectile(
+//                 player.GetSource_FromThis(),
+//                 player.Center,
+//                 Velocity,
+//                 ModContent.ProjectileType<BlueVanishingFistProj>(),
+//                 FinalDamage, 
+//                 2f, 
+//                 player.whoAmI
+//             );
+//             }
+//             else{
                 
-            Projectile.NewProjectile(
-                player.GetSource_FromThis(),
-                player.Center,
-                Velocity,
-                ModContent.ProjectileType<BlueFireBallProj>(),
-                FinalDamage, 
-                2f, 
-                player.whoAmI
-            );
-            }
+//             Projectile.NewProjectile(
+//                 player.GetSource_FromThis(),
+//                 player.Center,
+//                 Velocity,
+//                 ModContent.ProjectileType<BlueFireBallProj>(),
+//                 FinalDamage, 
+//                 2f, 
+//                 player.whoAmI
+//             );
+//             }
 
             
-            // hellPlayer.CurrentHeat += 15;
-        }
+//             // hellPlayer.CurrentHeat += 15;
+//         }
 
-        foreach (var modPlayer in player.ModPlayers)
-            {
-                if (modPlayer is IHeroTemperature heatUser) 
-                {
-                    heatUser.AddHeat(15);
-                }
-            }
+//         foreach (var modPlayer in player.ModPlayers)
+//             {
+//                 if (modPlayer is IHeroTemperature heatUser) 
+//                 {
+//                     heatUser.AddHeat(15);
+//                 }
+//             }
             
-        }}
+//         }}

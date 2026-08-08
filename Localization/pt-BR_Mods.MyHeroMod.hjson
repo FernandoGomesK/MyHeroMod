@@ -698,6 +698,11 @@ Buffs: {
 		// DisplayName: Overlay Buff
 		// Description: Mods.MyHeroMod.Buffs.OverlayBuff.Description
 	}
+
+	FlashfireFistBuff: {
+		// DisplayName: Flashfire Fist Buff
+		// Description: Mods.MyHeroMod.Buffs.FlashfireFistBuff.Description
+	}
 }
 
 DeathMessage: "{0} destruiu o seu próprio corpo com 100% de poder!"
@@ -827,6 +832,14 @@ Projectiles: {
 	// DekuDelawareOnomatopoeia.DisplayName: Deku Delaware Onomatopoeia
 	// DelawareDetroitOnomatopoeia.DisplayName: Delaware Detroit Onomatopoeia
 	// BigDelawareSmashProj.DisplayName: Big Delaware Smash Proj
+	// BasePhosphorChargeProj.DisplayName: Base Phosphor Charge Proj
+	// FireBallProj.DisplayName: Fire Ball Proj
+	// FreezingIceBeamController.DisplayName: Freezing Ice Beam Controller
+	// ChargeFlashFreezeHeatWaveProj.DisplayName: Charge Flash Freeze Heat Wave Proj
+	// RemadeProminenceBurnController.DisplayName: Remade Prominence Burn Controller
+	// HellMinefieldController.DisplayName: Hell Minefield Controller
+	// HellMinefieldTrap.DisplayName: Hell Minefield Trap
+	// HeatwaveFireBallProj.DisplayName: Heatwave Fire Ball Proj
 }
 
 NPCs: {

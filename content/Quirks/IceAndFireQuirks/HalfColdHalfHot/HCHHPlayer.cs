@@ -74,7 +74,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
             IsPhosphorActive = false;
             Temperature = 0;
             Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
-            Player.ClearBuff(ModContent.BuffType<FlashFireFistBuff>());
+            Player.ClearBuff(ModContent.BuffType<FlashfireFistBuff>());
         }
 
 

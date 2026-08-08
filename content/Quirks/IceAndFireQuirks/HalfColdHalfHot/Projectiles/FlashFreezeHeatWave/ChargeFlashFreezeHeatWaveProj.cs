@@ -1,13 +1,12 @@
 using KhacesCore.Content.System.BaseProjectiles;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles.SimpleProjectiles.FireBall;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Frost.Projectiles;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.CameraModifiers;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.FlashFreezeHeatWave
 {
     public class ChargeFlashFreezeHeatWaveProj : BaseChannelingProj 
 
@@ -95,7 +94,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles
             Vector2 Velocity = Direction * 15f;
             Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
 
-            Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<FireBallProj>(), maxDamage, 15f, player.whoAmI);
+            Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<HeatwaveFireBallProj>(), maxDamage, 15f, player.whoAmI);
             // SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.8f, Pitch = +0.3f }, player.position);
 
             // Vector2 textPosition = player.Center + new Vector2(0, -30f);

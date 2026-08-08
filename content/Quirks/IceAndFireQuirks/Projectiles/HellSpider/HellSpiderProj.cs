@@ -40,7 +40,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.HellSpider
             int fireColor = DustID.Torch; 
             
             
-            if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames) && transPlayer.CurrentStage >= QuirkStage.Adequation)
+            if (transPlayer.HasActiveQuirk(QuirkType.Blueflame) && transPlayer.CurrentStage >= QuirkStage.Adequation)
             {
                 fireColor = DustID.BlueTorch; 
             }

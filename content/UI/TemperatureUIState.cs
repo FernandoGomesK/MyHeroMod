@@ -6,8 +6,8 @@ using Terraria.UI;
 using System;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Buffs;
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
-using MyHeroMod.content.Quirks.Blueflames;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 using MyHeroMod.content.Quirks.HellFlames;
 
 namespace MyHeroMod.content.UI
@@ -22,7 +22,7 @@ namespace MyHeroMod.content.UI
             
             if (!transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot) &&
                 !transPlayer.HasActiveQuirk(QuirkType.HellFlames) &&
-                !transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+                !transPlayer.HasActiveQuirk(QuirkType.Blueflame))
                 return;
 
             int currentTemp = 0;
@@ -37,9 +37,9 @@ namespace MyHeroMod.content.UI
                 maxTemp = hchh.MaxTemperature;
                 minTemp = Math.Abs(hchh.MinTemperature);
             }
-            else if (transPlayer.HasActiveQuirk(QuirkType.BlueFlames))
+            else if (transPlayer.HasActiveQuirk(QuirkType.Blueflame))
             {
-                var blue = player.GetModPlayer<BlueFlamesPlayer>();
+                var blue = player.GetModPlayer<BlueflamePlayer>();
                 currentTemp = blue.Temperature;
                 maxTemp = blue.MaxTemperature;
                 

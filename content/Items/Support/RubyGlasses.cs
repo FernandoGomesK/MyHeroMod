@@ -1,4 +1,3 @@
-// using MyHeroMod.content.Quirks.HalfColdHalfHot;
 
 using MyHeroMod.content.Quirks.OpticBlast;
 using Terraria;

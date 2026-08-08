@@ -99,7 +99,7 @@ namespace MyHeroMod.content.System
                 
                     case 0: AssignedQuirk = QuirkType.HellFlames; break;
                     case 1: AssignedQuirk = QuirkType.HalfColdHalfHot; break;
-                    case 2: AssignedQuirk = QuirkType.BlueFlames; break; 
+                    case 2: AssignedQuirk = QuirkType.Blueflame; break; 
                     case 3: AssignedQuirk = QuirkType.OneForAll9th; break;
                     case 4: AssignedQuirk = QuirkType.OneForAll8th; break;
                     case 5: AssignedQuirk = QuirkType.Overclock; break;
@@ -185,7 +185,7 @@ namespace MyHeroMod.content.System
                     int dustType = DustID.MagicMirror; 
 
                     if (AssignedQuirk == QuirkType.HellFlames) dustType = DustID.Torch; 
-                    if (AssignedQuirk == QuirkType.BlueFlames) dustType = DustID.BlueTorch; 
+                    if (AssignedQuirk == QuirkType.Blueflame) dustType = DustID.BlueTorch; 
                     if (AssignedQuirk == QuirkType.HalfColdHalfHot) dustType = DustID.IceTorch; 
                     
                     if (AssignedQuirk == QuirkType.OneForAll8th) dustType = DustID.YellowTorch; 

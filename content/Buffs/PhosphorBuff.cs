@@ -1,7 +1,8 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using MyHeroMod.content.Quirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 
 namespace MyHeroMod.content.Buffs
 {
@@ -18,7 +19,10 @@ namespace MyHeroMod.content.Buffs
             
             
             var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+            var bluePlayer = player.GetModPlayer<BlueflamePlayer>();
             hchhPlayer.IsPhosphorActive = true;
+
+
     }
     }
 }

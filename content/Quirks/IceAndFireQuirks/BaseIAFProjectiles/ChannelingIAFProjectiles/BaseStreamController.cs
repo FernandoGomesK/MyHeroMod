@@ -9,7 +9,7 @@ namespace MyHeroMod.content.System.BaseProjectiles
     {
     
         protected abstract int ParticleType { get; }
-        protected virtual int FireRate => 5; // Fires every 5 ticks
+        protected virtual int FireRate => 5; 
         protected virtual int ParticlesPerShot => 2;
         protected virtual float BaseSpeed => 10f;
         protected virtual float SpeedVariance => 2.5f;

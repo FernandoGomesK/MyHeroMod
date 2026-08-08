@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.HeavenPiercingWall
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.HeavenPiercingWall
 {
     public class IceSpikeProj : ModProjectile
     {

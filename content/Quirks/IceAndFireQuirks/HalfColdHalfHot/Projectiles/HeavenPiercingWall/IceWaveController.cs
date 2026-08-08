@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 
 
-namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.HeavenPiercingWall
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.HeavenPiercingWall
 {
     public class IceWaveController : ModProjectile
     {
