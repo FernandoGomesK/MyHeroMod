@@ -12,31 +12,21 @@ using MyHeroMod.content.Quirks.HellFlames;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.System.Interfaces;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles.BlueFireball;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles;
 
 
 
-public class BlueFlamethrowerSkill: QuirkBaseSkill
+public class BlueProminenceSkill: QuirkBaseSkill
 {
     
-    public override string Name => "Blue Flamethrower";
+    public override string Name => "Blue Prominence Burn ";
 
-    public override string GetDisplayName(Player player)
-        {
-            
-            var transPlayer = player.GetModPlayer<TransformationPlayer>();
-            if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
-            {
-                return "Flashfire Fist: Jet Burn";
-            }
-            if (transPlayer.CurrentStage == QuirkStage.Adequation)
-            {
-                return "Blue Flamethrower";
-            }
-            return "Flamethrower"; 
-        }
+    public override string GetDisplayName(Player player) => "Prominence Burn ";
+        
    
-    public override string Description => "Shoot a constant stream of fire";
+    public override string Description => "Shoot a fireball";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
     public override string Category => "Fire";
 
@@ -48,7 +38,7 @@ public class BlueFlamethrowerSkill: QuirkBaseSkill
 
     public override void OnUse(Player player)
     {
-        var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
+        var bluePlayer = player.GetModPlayer<BlueflamePlayer>();
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
         int BaseDamage = 0;
         
@@ -81,7 +71,7 @@ public class BlueFlamethrowerSkill: QuirkBaseSkill
         
         float ModifiedDamage = 1;
 
-        if (hellPlayer.IsFlashFireFistActive){
+        if (bluePlayer.IsFlashFireFistActive){
          
         ModifiedDamage += 1.5f;        
         }
@@ -98,12 +88,12 @@ public class BlueFlamethrowerSkill: QuirkBaseSkill
                 player.GetSource_FromThis(),
                 player.Center,
                 Velocity,
-                ModContent.ProjectileType<ChargeBlueJetBurnProj>(),
+                ModContent.ProjectileType<ChargeBlueProminenceBurnProj>(),
                 FinalDamage, 
                 2f, 
                 player.whoAmI
             );
-            
+           
         }
 
         foreach (var modPlayer in player.ModPlayers)

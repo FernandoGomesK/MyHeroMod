@@ -3,20 +3,20 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.System.BaseProjectiles;
-using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles.BlueFlamethrower;
+
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles
 {
-    public class BlueProminenceBurnController : BaseLaserProj
+    public class BlueJetBurnController : BaseLaserProj
     {
-        protected override float MaxRange => 1200f;
+        protected override float MaxRange => 400f;
         protected override float BeamWidth => 100f;
         protected override int DustType => DustID.FireworkFountain_Blue;
         protected override float DustScale => 3.5f;
         protected override int HitCooldown => 15;
 
   
-        protected int ParticleType => ModContent.ProjectileType<BlueProminceBurnEffectProj>();
+        protected int ParticleType => ModContent.ProjectileType<BlueJetBurnEffectProj>();
         protected float BaseSpeed => 30f;
         protected float SpeedVariance => 5f;
         protected float SpreadAngle => 25f; 

@@ -1,6 +1,7 @@
 using KhacesCore.Content.System.BaseProjectiles;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.System;
 using Terraria;
 using Terraria.Audio;
@@ -10,10 +11,10 @@ using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles
 { 
-    public class ChargeBlueProminenceBurnProj : BaseChannelingProj
+    public class ChargeBlueJetBurnProj : BaseChannelingProj
     {
         public override string Texture => "MyHeroMod/content/Quirks/Explosion/Projectiles/HowitzerImpact/HowitzerImpactProj";
-        protected override int ChannelTime => 60; 
+        protected override int ChannelTime => 30; 
 
         public override void AI()
         {
@@ -27,7 +28,18 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles
 
             if (Projectile.ai[0] == 1) 
             {
+                Vector2 textPosition = player.Center + new Vector2(0, -30f);
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/CremationSound"), player.position);
+                Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                textPosition,
+                Vector2.Zero, 
+                ModContent.ProjectileType<JetOnomatopoeia>(),
+                0, 
+                0f, 
+                player.whoAmI
+                );
+
             }
         }
 
@@ -80,12 +92,23 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles
                 player.GetSource_FromThis(),
                 player.Center,
                 Vector2.Zero, 
-                ModContent.ProjectileType<BlueProminenceBurnController>(),
+                ModContent.ProjectileType<BlueJetBurnController>(),
                 Projectile.damage, 
                 2f, 
                 player.whoAmI,
-                120f
+                60f
             );
+
+            Vector2 textPosition = player.Center + new Vector2(0, -30f);
+                Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                textPosition,
+                Vector2.Zero, 
+                ModContent.ProjectileType<BurnOnomatopoeia>(),
+                0, 
+                0f, 
+                player.whoAmI
+                );
 
             ImpactFrameSystem.CurrentImpactTexture = "MyHeroMod/Assets/Effects/BurnImpactImage"; 
             ImpactFrameSystem.ImpactTimer = 6;

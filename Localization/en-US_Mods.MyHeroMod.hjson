@@ -843,6 +843,14 @@ Projectiles: {
 	BlueHellMinefieldTrap.DisplayName: Blue Hell Minefield Trap
 	ChargeBlueProminenceBurnProj.DisplayName: Charge Blue Prominence Burn Proj
 	BlueProminceBurnEffectProj.DisplayName: Blue Promince Burn Effect Proj
+	Blue2ProminceBurnEffectProj.DisplayName: Blue2 Promince Burn Effect Proj
+	Blue2ProminenceBurnController.DisplayName: Blue2 Prominence Burn Controller
+	Charge2BlueProminenceBurnProj.DisplayName: Charge2 Blue Prominence Burn Proj
+	BlueJetBurnEffectProj.DisplayName: Blue Jet Burn Effect Proj
+	ChargeBlueJetBurnProj.DisplayName: Charge Blue Jet Burn Proj
+	BurnOnomatopoeia.DisplayName: Burn Onomatopoeia
+	JetOnomatopoeia.DisplayName: Jet Onomatopoeia
+	ProminenceOnomatopoeia.DisplayName: Prominence Onomatopoeia
 }
 
 NPCs: {

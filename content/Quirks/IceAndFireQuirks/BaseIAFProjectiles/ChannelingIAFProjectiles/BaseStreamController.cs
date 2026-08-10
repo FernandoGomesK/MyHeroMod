@@ -129,18 +129,18 @@ namespace MyHeroMod.content.System.BaseProjectiles
     }
 }
 
-namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles.BlueFlamethrower
-{
-    public class BlueFlamethrowerProj : BaseStreamController
-    {
-        public override string Texture => "MyHeroMod/Assets/Projectiles/RivetStabProj";
+// namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles.BlueFlamethrower
+// {
+//     public class BlueFlamethrowerProj : BaseStreamController
+//     {
+//         public override string Texture => "MyHeroMod/Assets/Projectiles/RivetStabProj";
 
-        protected override int ParticleType => ModContent.ProjectileType<BlueFlamethrowerHitboxProj>();
-        protected override int FireRate => 5; 
-        protected override int ParticlesPerShot => 2;
-        protected override float BaseSpeed => 10f;
-        protected override float SpeedVariance => 2.5f;
-        protected override float SpreadAngle => 15f;
-        protected override SoundStyle? ChannelSound => new SoundStyle("MyHeroMod/Assets/Sounds/CremationSound");
-    }
-}
+//         protected override int ParticleType => ModContent.ProjectileType<BlueFlamethrowerHitboxProj>();
+//         protected override int FireRate => 5; 
+//         protected override int ParticlesPerShot => 2;
+//         protected override float BaseSpeed => 10f;
+//         protected override float SpeedVariance => 2.5f;
+//         protected override float SpreadAngle => 15f;
+//         protected override SoundStyle? ChannelSound => new SoundStyle("MyHeroMod/Assets/Sounds/CremationSound");
+//     }
+// }

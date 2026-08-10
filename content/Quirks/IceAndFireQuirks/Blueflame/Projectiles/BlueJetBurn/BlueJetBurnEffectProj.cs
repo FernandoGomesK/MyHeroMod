@@ -5,7 +5,7 @@ using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles
 {
-    public class BlueProminceBurnEffectProj : ModProjectile
+    public class BlueJetBurnEffectProj : ModProjectile
     {
         public override string Texture => "MyHeroMod/Assets/Projectiles/RivetStabProj";
         public override void SetDefaults()
