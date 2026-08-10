@@ -12,16 +12,15 @@ using MyHeroMod.content.Quirks.HellFlames;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.System.Interfaces;
-using MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles;
-using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles.BlueFireball;
-using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles.BlueFlamethrower;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles.BlueVanishingFist;
 
 
 
-public class BlueFlamethrowerSkill: QuirkBaseSkill
+
+public class BlueVanishingFistSkill: QuirkBaseSkill
 {
     
-    public override string Name => "Blue Flamethrower";
+    public override string Name => "Blue Vanishing Fist";
 
     public override string GetDisplayName(Player player)
         {
@@ -30,12 +29,12 @@ public class BlueFlamethrowerSkill: QuirkBaseSkill
    
             if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
             {
-                return "Blue Flamethrower";
+                return "Blue Vanishing Fist";
             }
-            return "Flamethrower"; 
+            return "Blue Vanishing Fist"; 
         }
    
-    public override string Description => "Shoot a constant stream of fire";
+    public override string Description => "Shoot a fireball";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
     public override string Category => "Fire";
 
@@ -97,7 +96,7 @@ public class BlueFlamethrowerSkill: QuirkBaseSkill
                 player.GetSource_FromThis(),
                 player.Center,
                 Velocity,
-                ModContent.ProjectileType<BlueFlamethrowerProj>(),
+                ModContent.ProjectileType<VanishingFistProj>(),
                 FinalDamage, 
                 2f, 
                 player.whoAmI

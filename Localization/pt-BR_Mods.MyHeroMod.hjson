@@ -840,6 +840,9 @@ Projectiles: {
 	// HellMinefieldController.DisplayName: Hell Minefield Controller
 	// HellMinefieldTrap.DisplayName: Hell Minefield Trap
 	// HeatwaveFireBallProj.DisplayName: Heatwave Fire Ball Proj
+	// BlueFlamethrowerProj.DisplayName: Blue Flamethrower Proj
+	// BlueFlamethrowerHitboxProj.DisplayName: Blue Flamethrower Hitbox Proj
+	// VanishingFistProj.DisplayName: Vanishing Fist Proj
 }
 
 NPCs: {

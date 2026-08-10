@@ -1,6 +1,9 @@
+using KhacesCore.Content.System;
 using Microsoft.Xna.Framework;
+using MyHeroMod.content.System.BaseProjectiles;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace MyHeroMod.content.System.BaseProjectiles
@@ -32,8 +35,11 @@ namespace MyHeroMod.content.System.BaseProjectiles
         {
             Player player = Main.player[Projectile.owner];
 
-            
-            if (player.dead || !player.active || !player.channel || !IsChannelingValid(player))
+        
+            bool isHolding = CoreKeybinds.SkillSlot1.Current || CoreKeybinds.SkillSlot2.Current || 
+                            CoreKeybinds.SkillSlot3.Current || CoreKeybinds.SkillSlot4.Current;
+
+            if (player.dead || !player.active || !isHolding || !IsChannelingValid(player))
             {
                 Projectile.Kill();
                 return;
@@ -105,5 +111,21 @@ namespace MyHeroMod.content.System.BaseProjectiles
         {
             return false;
         }
+    }
+}
+
+namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles.BlueFlamethrower
+{
+    public class BlueFlamethrowerProj : BaseStreamController
+    {
+        public override string Texture => "MyHeroMod/Assets/Projectiles/RivetStabProj";
+
+        protected override int ParticleType => ModContent.ProjectileType<BlueFlamethrowerHitboxProj>();
+        protected override int FireRate => 5; 
+        protected override int ParticlesPerShot => 2;
+        protected override float BaseSpeed => 10f;
+        protected override float SpeedVariance => 2.5f;
+        protected override float SpreadAngle => 15f;
+        protected override SoundStyle? ShootSound => new SoundStyle("MyHeroMod/Assets/Sounds/Crackle1");
     }
 }

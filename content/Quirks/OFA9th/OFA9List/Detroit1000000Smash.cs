@@ -22,19 +22,23 @@ public class Detroit1000000SmashSkill : QuirkBaseSkill
     public override int BaseCooldown => 120;
     public override string Category => "OneForAll9th";
 
-    public override QuirkType RequiredQuirk => QuirkType.Quirkless;
-    public override QuirkStage RequiredStage => QuirkStage.Initial;
+    public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
+    public override QuirkStage RequiredStage => QuirkStage.Adequation;
     public override bool IsDefaultSkill => false;
     
 
     public override bool CheckUnlock(TransformationPlayer player)
     {
-        var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
+        // var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
 
-        if (player.HasActiveQuirk(QuirkType.AllForOne) && (afoPlayer.HasInternalQuirk(QuirkType.OneForAll8th) || afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th)))
-        {
-            return true;
-        }
+        // if (player.HasActiveQuirk(QuirkType.AllForOne) && (afoPlayer.HasInternalQuirk(QuirkType.OneForAll8th) || afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th)))
+        // {
+        //     return true;
+        // }
+        if (player.HasActiveQuirk(QuirkType.OneForAll9th))
+            {
+                return true;
+            }
 
         return false;
     }
@@ -43,6 +47,8 @@ public class Detroit1000000SmashSkill : QuirkBaseSkill
     {
         
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+       
         
         Projectile.NewProjectile(
             player.GetSource_FromThis(), 
