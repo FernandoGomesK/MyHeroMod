@@ -11,12 +11,11 @@ namespace MyHeroMod.content.System
     {
         public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            if (ImpactFrameSystem.ImpactTimer > 0)
+           
+            if (ImpactFrameSystem.ImpactTimer > 0 && ModContent.GetInstance<MyHeroConfig>().EnableImpactFrames)
             {
-             
                 SpriteEffects effects = npc.spriteDirection == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
                 
-            
                 spriteBatch.Draw(
                     TextureAssets.Npc[npc.type].Value, 
                     npc.Center - screenPos, 

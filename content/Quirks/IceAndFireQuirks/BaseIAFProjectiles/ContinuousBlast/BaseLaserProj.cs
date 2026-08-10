@@ -70,7 +70,7 @@ namespace MyHeroMod.content.System.BaseProjectiles
 
         protected abstract bool IsChannelingValid(Player player);
 
-        private void SpawnBeamDust(Player player)
+        protected virtual void SpawnBeamDust(Player player)
         {
             Vector2 startPoint = player.Center;
             Vector2 perpendicular = new Vector2(-Projectile.velocity.Y, Projectile.velocity.X);

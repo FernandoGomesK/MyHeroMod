@@ -13,13 +13,14 @@ using MyHeroMod.content.Debuffs;
 
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.Interfaces;
+using ReLogic.Utilities;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
 {
     public partial class BlueflamePlayer : ModPlayer, IQuirkResetter, IHeroTemperature
     {
 
-
+        private SlotId _loopSoundSlot;
         public int Temperature {get; set;} = 0;
         public int MaxTemperature { get; } = 100;
         public int MinTemperature { get; } = -50;        
@@ -57,6 +58,10 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
         {
             
             IsFlashFireFistActive = false;
+            if (SoundEngine.TryGetActiveSound(_loopSoundSlot, out var activeSound))
+            {
+                activeSound.Stop();
+            }
         }
 
 

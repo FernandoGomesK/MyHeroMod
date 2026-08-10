@@ -8,11 +8,13 @@ using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
 using MyHeroMod.content.Quirks.HellFlames;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 using Terraria.DataStructures;
-
+using Terraria.Audio;
+using ReLogic.Utilities;
 namespace MyHeroMod.content.Buffs
 {
     public class FlashfireFistBuff : ModBuff
     {
+        private SlotId _loopSoundSlot;
         public override void SetStaticDefaults()
         {
             Main.buffNoTimeDisplay[Type] = true;
@@ -92,17 +94,58 @@ namespace MyHeroMod.content.Buffs
             {
                 var bluePlayer = player.GetModPlayer<BlueflamePlayer>();
                 bluePlayer.IsFlashFireFistActive = true;
+
+               
+                Lighting.AddLight(player.Center, new Vector3(0.4f, 0.7f, 1f) * 1.5f);
                 
-                Lighting.AddLight(player.Center, Color.RoyalBlue.ToVector3() * 0.8f);
+            
+                for (int i = 0; i < 2; i++)
+                {
+                  
+                    int blueFire = Dust.NewDust(player.position - new Vector2(4, 4), player.width + 8, player.height + 8, DustID.BlueTorch, 0f, 0f, 100, default, 2.5f);
+                    Main.dust[blueFire].noGravity = true;
+                    Main.dust[blueFire].velocity.Y -= Main.rand.NextFloat(1f, 3.5f); 
+                    Main.dust[blueFire].velocity.X *= 0.3f;
+                    Main.dust[blueFire].velocity += player.velocity * 0.4f; 
+                    
+                  
+                    if (Main.rand.NextBool(2)) 
+                    {
+                        int whiteFire = Dust.NewDust(player.position, player.width, player.height, DustID.IceTorch, 0f, 0f, 50, default, 1.7f);
+                        Main.dust[whiteFire].noGravity = true;
+                        Main.dust[whiteFire].velocity.Y -= Main.rand.NextFloat(2f, 5f); 
+                        Main.dust[whiteFire].velocity.X *= 0.2f;
+                        Main.dust[whiteFire].velocity += player.velocity * 0.5f;
+                    }
+
+                    
+                    if (Main.rand.NextBool(4)) 
+                    {
+                        int spark = Dust.NewDust(player.position, player.width, player.height, DustID.FireworkFountain_Blue, 0f, 0f, 0, default, 1.2f);
+                        Main.dust[spark].noGravity = true;
+                        
+                        Main.dust[spark].velocity = new Vector2(Main.rand.NextFloat(-2f, 2f), Main.rand.NextFloat(-5f, -1f));
+                    }
+                }
                 
-                int fire = Dust.NewDust(player.position, player.width, player.height, DustID.BlueTorch, 0f, 0f, 100, default, 2.5f);
-                Main.dust[fire].noGravity = true;
-                Main.dust[fire].velocity *= 3f;
-                Main.dust[fire].velocity += player.velocity * 0.5f;
                 
                 player.GetDamage(DamageClass.Melee) += 0.35f; 
                 player.moveSpeed += 2.0f; 
-            }
+                if (!SoundEngine.TryGetActiveSound(_loopSoundSlot, out var activeSound))
+                {
+                    
+                    SoundStyle crackleStyle = new SoundStyle("MyHeroMod/Assets/Sounds/FireCrackingSound");
+                    crackleStyle.IsLooped = true; 
+                    crackleStyle.Volume = 0.5f; 
+                    
+                    _loopSoundSlot = SoundEngine.PlaySound(crackleStyle, player.Center);
+                }
+                else
+                {
+                  
+                    activeSound.Position = player.Center;
+                }
+        }
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)

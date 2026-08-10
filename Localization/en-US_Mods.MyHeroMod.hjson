@@ -839,6 +839,10 @@ Projectiles: {
 	BlueFlamethrowerProj.DisplayName: Blue Flamethrower Proj
 	BlueFlamethrowerHitboxProj.DisplayName: Blue Flamethrower Hitbox Proj
 	VanishingFistProj.DisplayName: Vanishing Fist Proj
+	BlueHellMinefieldController.DisplayName: Blue Hell Minefield Controller
+	BlueHellMinefieldTrap.DisplayName: Blue Hell Minefield Trap
+	ChargeBlueProminenceBurnProj.DisplayName: Charge Blue Prominence Burn Proj
+	BlueProminceBurnEffectProj.DisplayName: Blue Promince Burn Effect Proj
 }
 
 NPCs: {
@@ -886,6 +890,18 @@ NPCs: {
 			HateCrowded: We need clear evacuation routes! It's too dangerous if a villain attacks here!
 			LikeNPC_Princess: "{NPCName} has a really comforting presence. It reminds me of Eri."
 			Princess_LovesNPC: "{NPCName} is always trying their best to smile!"
+		}
+	}
+}
+
+Configs: {
+	MyHeroConfig: {
+		DisplayName: My Hero Config
+		Headers.VisualEffects: Visual Effects Header
+
+		EnableImpactFrames: {
+			Label: Enable Impact Frames
+			Tooltip: Toggles the flashing white background and black silhouettes on ultimate attacks. Disable if you are sensitive to flashing lights.
 		}
 	}
 }

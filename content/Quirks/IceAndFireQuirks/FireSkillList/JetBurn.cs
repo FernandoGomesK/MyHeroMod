@@ -64,8 +64,8 @@ public class JetBurnSkill : QuirkBaseSkill
     {
     
         if (player.HasActiveQuirk(QuirkType.HalfColdHalfHot) || 
-            player.HasActiveQuirk(QuirkType.HellFlames) || 
-            player.HasActiveQuirk(QuirkType.Blueflame))
+            player.HasActiveQuirk(QuirkType.HellFlames))
+            // player.HasActiveQuirk(QuirkType.Blueflame))
         {
             return player.CurrentStage >= QuirkStage.Initial; 
         }

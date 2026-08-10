@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.Interfaces;
+using Terraria.Audio;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
 {
@@ -36,6 +37,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
                     {
                         heatUser.AddHeat(15);
                     }
+                    SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/CremationSound") { Volume = 0.5f, PitchVariance = 1.0f }, player.Center);
                 }
             }
         }

@@ -53,7 +53,9 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
                 int delawareDamage = 500; 
                 Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<BigDelawareSmashProj>(), delawareDamage, 15f, player.whoAmI);
                 ImpactFrameSystem.ImpactTimer = 4; 
+               
                 PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 20f, 25f, 30, 1500f, "FullCowlingShake");
+                 Main.instance.CameraModifiers.Add(shake);
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.8f, Pitch = -0.2f }, player.position);
 
                

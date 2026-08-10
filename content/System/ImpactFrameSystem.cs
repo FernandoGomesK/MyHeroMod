@@ -20,9 +20,9 @@ namespace MyHeroMod.content.System
 
         public override void PostDrawTiles()
         {
-            if (ImpactTimer > 0)
+            
+            if (ImpactTimer > 0 && ModContent.GetInstance<MyHeroConfig>().EnableImpactFrames)
             {
-               
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
                 Main.spriteBatch.Draw(

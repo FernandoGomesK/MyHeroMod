@@ -101,6 +101,7 @@ public class BlueVanishingFistSkill: QuirkBaseSkill
                 2f, 
                 player.whoAmI
             );
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/CremationSound") { Volume = 0.5f, PitchVariance = 1.0f }, player.Center);
             
         }
 

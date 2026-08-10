@@ -1,23 +1,28 @@
 using KhacesCore.Content.System;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.System.BaseProjectiles;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
+using ReLogic.Utilities;
+using MyHeroMod.content.System.BaseProjectiles;
 
 namespace MyHeroMod.content.System.BaseProjectiles
 {
     public abstract class BaseStreamController : ModProjectile
     {
-    
         protected abstract int ParticleType { get; }
-        protected virtual int FireRate => 5; 
+        protected virtual int FireRate => 5;        
         protected virtual int ParticlesPerShot => 2;
         protected virtual float BaseSpeed => 10f;
         protected virtual float SpeedVariance => 2.5f;
         protected virtual float SpreadAngle => 15f;
-        protected virtual SoundStyle? ShootSound => null;
+        
+     
+        protected virtual SoundStyle? ChannelSound => null; 
+        
+      
+        private SlotId _loopSoundSlot;
 
         public override string Texture => "MyHeroMod/Assets/Projectiles/HandProj"; 
 
@@ -35,9 +40,8 @@ namespace MyHeroMod.content.System.BaseProjectiles
         {
             Player player = Main.player[Projectile.owner];
 
-        
             bool isHolding = CoreKeybinds.SkillSlot1.Current || CoreKeybinds.SkillSlot2.Current || 
-                            CoreKeybinds.SkillSlot3.Current || CoreKeybinds.SkillSlot4.Current;
+                             CoreKeybinds.SkillSlot3.Current || CoreKeybinds.SkillSlot4.Current;
 
             if (player.dead || !player.active || !isHolding || !IsChannelingValid(player))
             {
@@ -45,10 +49,8 @@ namespace MyHeroMod.content.System.BaseProjectiles
                 return;
             }
 
-            
             Projectile.timeLeft = 2; 
 
-            
             if (Projectile.owner == Main.myPlayer)
             {
                 Vector2 diff = Main.MouseWorld - player.MountedCenter;
@@ -65,28 +67,33 @@ namespace MyHeroMod.content.System.BaseProjectiles
             player.itemRotation = (Projectile.velocity * player.direction).ToRotation();
 
             
+            if (Projectile.ai[0] == 0 && ChannelSound.HasValue)
+            {
+                SoundStyle loopedStyle = ChannelSound.Value;
+                loopedStyle.IsLooped = true; 
+                _loopSoundSlot = SoundEngine.PlaySound(loopedStyle, player.Center);
+            }
+
+            
+            if (SoundEngine.TryGetActiveSound(_loopSoundSlot, out var activeSound))
+            {
+                activeSound.Position = player.Center;
+            }
+           
             Projectile.ai[0]++; 
 
             if (Projectile.ai[0] % FireRate == 0)
             {
-                if (ShootSound.HasValue)
-                {
-                    SoundEngine.PlaySound(ShootSound.Value, player.position);
-                }
-
                 if (Projectile.owner == Main.myPlayer)
                 {
                     for (int i = 0; i < ParticlesPerShot; i++)
                     {
                         Vector2 shootVel = Projectile.velocity;
                         
-                        
                         float speed = BaseSpeed + Main.rand.NextFloat(-SpeedVariance, SpeedVariance);
                         shootVel *= speed;
                         
-                        
                         shootVel = shootVel.RotatedByRandom(MathHelper.ToRadians(SpreadAngle)); 
-                        
                         
                         Vector2 spawnPos = player.Center + (Projectile.velocity * 30f);
 
@@ -103,8 +110,16 @@ namespace MyHeroMod.content.System.BaseProjectiles
                 }
             }
         }
-
         
+        
+        public override void OnKill(int timeLeft)
+        {
+            if (SoundEngine.TryGetActiveSound(_loopSoundSlot, out var activeSound))
+            {
+                activeSound.Stop();
+            }
+        }
+
         protected virtual bool IsChannelingValid(Player player) => true;
 
         public override bool PreDraw(ref Color lightColor)
@@ -126,6 +141,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles.BlueFl
         protected override float BaseSpeed => 10f;
         protected override float SpeedVariance => 2.5f;
         protected override float SpreadAngle => 15f;
-        protected override SoundStyle? ShootSound => new SoundStyle("MyHeroMod/Assets/Sounds/Crackle1");
+        protected override SoundStyle? ChannelSound => new SoundStyle("MyHeroMod/Assets/Sounds/CremationSound");
     }
 }
