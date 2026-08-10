@@ -38,8 +38,15 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
 
         private void DrawPhosphorFire()
         {
-        
-            float tamanhoX = 10f; 
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (!transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))
+            {
+                return;
+            }
+            else
+            {
+               float tamanhoX = 10f; 
             // moves to the chest area
             Vector2 chestCenter = Player.Center + new Vector2(0, 5f); 
 
@@ -59,7 +66,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
                 Vector2 pos2 = chestCenter + new Vector2(progressoRandom * tamanhoX, -progressoRandom * tamanhoX);
                 SpawnFireDust(pos2, chestCenter.X);
             }
-        }
+            }}
 
         private void SpawnFireDust(Vector2 position, float centerX)
         {
@@ -76,6 +83,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
 
             
             Main.dust[d].velocity += Player.velocity * 0.3f;
-        }
+        } 
+            }
+        
+            
     }
-}

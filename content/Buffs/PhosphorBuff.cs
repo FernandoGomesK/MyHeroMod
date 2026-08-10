@@ -16,13 +16,20 @@ namespace MyHeroMod.content.Buffs
         }
         public override void Update(Player player, ref int buffIndex)
         {
-            
-            
+        
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
             var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
             var bluePlayer = player.GetModPlayer<BlueflamePlayer>();
-            hchhPlayer.IsPhosphorActive = true;
-
-
-    }
+           
+            if (transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))
+            {
+                hchhPlayer.IsPhosphorActive = true;
+            }
+            else if (transPlayer.HasActiveQuirk(QuirkType.Blueflame))
+            {
+               
+                bluePlayer.IsPhosphorActive = true; 
+            }
+        }
     }
 }

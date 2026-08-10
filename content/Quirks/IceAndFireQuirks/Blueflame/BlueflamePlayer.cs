@@ -23,7 +23,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
         private SlotId _loopSoundSlot;
         public int Temperature {get; set;} = 0;
         public int MaxTemperature { get; } = 100;
-        public int MinTemperature { get; } = -50;        
+        public int MinTemperature { get; } = -50; 
+              
         public int HeatTimer = 0;
 
         public void AddHeat(int amount)
@@ -43,6 +44,12 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
         public bool IsRageActive = false;
         public bool IsPhosphorActive = false;
 
+        public override void ResetEffects()
+        {
+            IsFlashFireFistActive = false;
+            IsPhosphorActive = false;
+        }
+
         public void FullReset()
         {
             Temperature = 0;
@@ -57,7 +64,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
         public override void PreUpdate()
         {
             
-            IsFlashFireFistActive = false;
             if (SoundEngine.TryGetActiveSound(_loopSoundSlot, out var activeSound))
             {
                 activeSound.Stop();
