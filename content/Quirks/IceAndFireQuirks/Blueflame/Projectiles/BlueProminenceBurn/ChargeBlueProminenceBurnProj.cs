@@ -81,15 +81,14 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles
                 player.Center,
                 Vector2.Zero, 
                 ModContent.ProjectileType<BlueProminenceBurnController>(),
-                10, 
+                Projectile.damage, 
                 2f, 
                 player.whoAmI,
                 120f
             );
 
-            
-            ImpactFrameSystem.ImpactTimer = 4;
-
+            ImpactFrameSystem.CurrentImpactTexture = "MyHeroMod/Assets/Effects/BurnImpactImage"; 
+            ImpactFrameSystem.ImpactTimer = 6;
             PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "PhosphorShake");
             Main.instance.CameraModifiers.Add(shake);
         }
