@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
-using System; // Required for Math.Clamp
+using System;
 
 namespace MyHeroMod.content.System
 {
@@ -19,7 +19,28 @@ namespace MyHeroMod.content.System
         
     
         private const int FramesPerStage = 1; 
-
+        public override void Load()
+        {
+            if (!Main.dedServ) 
+            {
+               
+                foreach (string fileName in Mod.GetFileNames())
+                {
+                    
+                    if (fileName.StartsWith("Assets/Effects/") && (fileName.EndsWith(".rawimg") || fileName.EndsWith(".png")))
+                    {
+                        
+                        string cleanPath = fileName.Replace(".rawimg", "").Replace(".png", "");
+                        
+                
+                        string fullPath = Mod.Name + "/" + cleanPath;
+                        
+                    
+                        ModContent.Request<Texture2D>(fullPath, ReLogic.Content.AssetRequestMode.AsyncLoad);
+                    }
+                }
+            }
+        }
        
         public static void Trigger(Color color, bool flipSprite, params string[] textures)
         {

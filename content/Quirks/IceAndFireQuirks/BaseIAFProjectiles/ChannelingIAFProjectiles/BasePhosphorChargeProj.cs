@@ -27,7 +27,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles.Channelin
 
             if (Projectile.ai[0] == 1) 
             {
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FireCrackingSound"), player.position);
             }
         }
 
@@ -70,6 +70,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles.Channelin
             
           
             player.AddBuff(buffToApply, 3600000);
+
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/CremationSound"), player.position);
             
             
             string activationText = "Phosphor!";
