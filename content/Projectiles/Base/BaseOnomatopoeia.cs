@@ -22,7 +22,14 @@ namespace MyHeroMod.content.Projectiles.Base
             Projectile.timeLeft = Duration;
             Projectile.alpha = 0; 
         }
-
+        public override Color? GetAlpha(Color lightColor)
+        {
+            
+            float fadeAmount = (255 - Projectile.alpha) / 255f;
+            
+         
+            return TextColor * fadeAmount;
+        }
         public override void AI()
         {
             Lighting.AddLight(Projectile.Center, TextColor.ToVector3());

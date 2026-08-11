@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Projectiles.GreyOnomatopoeias;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles;
 using Terraria;
 using Terraria.Graphics.CameraModifiers;
@@ -33,11 +34,10 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles
                 }
             }
           
-            // Much cleaner text spawning using the new Base method!
+        
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
-            int textTypeToSpawn = (transPlayer.CurrentStage >= QuirkStage.Advanced) 
-                ? ModContent.ProjectileType<VanishingOnomatopoeia>() 
-                : ModContent.ProjectileType<VanishingFistOnomatopoeia>();
+            int textTypeToSpawn = ModContent.ProjectileType<GreyVanishingOnomatopoeia>();
+                
 
             SpawnOnomatopoeia(ref hasSpawnedText, textTypeToSpawn);
         }
@@ -47,10 +47,10 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles
             Player player = Main.player[Projectile.owner];
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            // Always freeze player and add camera shake on hit
-            player.velocity = Vector2.Zero;
+        
             
-            // Only add camera shake for the local player to prevent multiplayer stacking
+            
+        
             if (Projectile.owner == Main.myPlayer && !hasSpawnedHitText) 
             {
                 PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 12f, 10f, 15, 1000f, "VanishingFistImpact");
@@ -59,7 +59,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles
 
             if (transPlayer.CurrentStage >= QuirkStage.Advanced)
             {
-                // Spawn JetBurn Damage Controller (Only once, checked via hasSpawnedHitText flag)
+                player.velocity = Vector2.Zero;
                 if (!hasSpawnedHitText && Projectile.owner == Main.myPlayer)
                 {
                     Projectile.NewProjectile(
@@ -74,13 +74,13 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles
                     );
                 }
 
-                // Safely spawn Jet Burn text
-                SpawnOnomatopoeia(ref hasSpawnedHitText, ModContent.ProjectileType<JetBurnOnomatopoeia>());
+               
+                SpawnOnomatopoeia(ref hasSpawnedHitText, ModContent.ProjectileType<GreyJetBurnOnomatopoeia>());
             }
             else
             {
-                // Safely spawn normal Fist text
-                SpawnOnomatopoeia(ref hasSpawnedHitText, ModContent.ProjectileType<FistOnomatopoeia>());
+                
+                SpawnOnomatopoeia(ref hasSpawnedHitText, ModContent.ProjectileType<GreyFistOnomatopoeia>());
             }
 
             target.AddBuff(BuffID.Frostburn, 180);

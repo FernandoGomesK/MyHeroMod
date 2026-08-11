@@ -2,6 +2,7 @@ using KhacesCore.Content.System.BaseProjectiles;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Projectiles.GreyOnomatopoeias;
 using MyHeroMod.content.System;
 using Terraria;
 using Terraria.Audio;
@@ -36,7 +37,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles
                 player.GetSource_FromThis(),
                 textPosition,
                 Vector2.Zero, 
-                ModContent.ProjectileType<ProminenceOnomatopoeia>(),
+                ModContent.ProjectileType<GreyProminenceOnomatopoeia>(),
                 0, 
                 0f, 
                 player.whoAmI
@@ -96,7 +97,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles
                 player.GetSource_FromThis(),
                 textPosition,
                 Vector2.Zero, 
-                ModContent.ProjectileType<BurnOnomatopoeia>(),
+                ModContent.ProjectileType<GreyBurnOnomatopoeia>(),
                 0, 
                 0f, 
                 player.whoAmI
@@ -113,7 +114,9 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles
                 120f
             );
 
-            ImpactFrameSystem.CurrentImpactTexture = "MyHeroMod/Assets/Effects/BurnImpactImage"; 
+            ImpactFrameSystem.Trigger(Color.Orange, false, "MyHeroMod/Assets/Effects/BurnImpactImage");
+            
+            ImpactFrameSystem.ActiveColor = Color.Orange;
             ImpactFrameSystem.ImpactTimer = 6;
             PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "PhosphorShake");
             Main.instance.CameraModifiers.Add(shake);

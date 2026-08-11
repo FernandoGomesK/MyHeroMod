@@ -3,22 +3,34 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ModLoader;
+using System; // Required for Math.Clamp
 
 namespace MyHeroMod.content.System
 {
     public class ImpactFrameSystem : ModSystem
     {
-        private const int WhiteFrames = 5;
-        private const int CustomFrames = 1;
-        private const int TotalFrames = WhiteFrames + CustomFrames;
+        public static int ImpactTimer = 4;
+        
+       
+        public static string[] ImpactTextures;
+        public static Color ActiveColor = Color.White; 
 
-        public static int ImpactTimer = 0;
-        public static string CurrentImpactTexture = "";
+        public static SpriteEffects ActiveSpriteEffect = SpriteEffects.None;
+        
+    
+        private const int FramesPerStage = 1; 
 
-        public static void Trigger(string texture)
+       
+        public static void Trigger(Color color, bool flipSprite, params string[] textures)
         {
-            CurrentImpactTexture = texture;
-            ImpactTimer = TotalFrames;
+            ImpactTextures = textures;
+            ActiveColor = color;
+
+            ActiveSpriteEffect = flipSprite ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            
+            
+            int totalImages = textures != null ? textures.Length : 0;
+            ImpactTimer = FramesPerStage + (totalImages * FramesPerStage);
         }
 
         public override void PostUpdateEverything()
@@ -26,7 +38,7 @@ namespace MyHeroMod.content.System
             if (ImpactTimer > 0)
                 ImpactTimer--;
             else
-                CurrentImpactTexture = "";
+                ImpactTextures = null;
         }
 
         public override void PostDrawTiles()
@@ -34,25 +46,37 @@ namespace MyHeroMod.content.System
             if (ImpactTimer <= 0 || !ModContent.GetInstance<MyHeroConfig>().EnableImpactFrames)
                 return;
 
-            bool isCustomFrame = ImpactTimer <= CustomFrames && !string.IsNullOrEmpty(CurrentImpactTexture);
-
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
 
-            if (isCustomFrame)
-            {
-                Texture2D customImpact = ModContent.Request<Texture2D>(CurrentImpactTexture).Value;
-                Main.spriteBatch.Draw(
-                    customImpact,
-                    new Rectangle(0, 0, Main.screenWidth, Main.screenHeight),
-                    Color.DarkBlue
-                );
-            }
-            else
+            int totalImageFrames = ImpactTextures != null ? ImpactTextures.Length * FramesPerStage : 0;
+
+            
+            if (ImpactTimer > totalImageFrames)
             {
                 Main.spriteBatch.Draw(
                     TextureAssets.MagicPixel.Value,
                     new Rectangle(0, 0, Main.screenWidth, Main.screenHeight),
-                    Color.White
+                    Color.White 
+                );
+            }
+           
+            else if (ImpactTextures != null && ImpactTextures.Length > 0)
+            {
+                
+                int currentIndex = ImpactTextures.Length - 1 - ((ImpactTimer - 1) / FramesPerStage);
+                currentIndex = Math.Clamp(currentIndex, 0, ImpactTextures.Length - 1);
+
+                Texture2D customImpact = ModContent.Request<Texture2D>(ImpactTextures[currentIndex]).Value;
+                
+                Main.spriteBatch.Draw(
+                    customImpact,
+                    new Rectangle(0, 0, Main.screenWidth, Main.screenHeight),
+                    null, 
+                    ActiveColor,
+                    0f, 
+                    Vector2.Zero, 
+                    ActiveSpriteEffect,
+                    0f 
                 );
             }
 

@@ -862,6 +862,12 @@ Projectiles: {
 	JetBurnOnomatopoeia.DisplayName: Jet Burn Onomatopoeia
 	VanishingFistOnomatopoeia.DisplayName: Vanishing Fist Onomatopoeia
 	FistOnomatopoeia.DisplayName: Fist Onomatopoeia
+	GreyBurnOnomatopoeia.DisplayName: Grey Burn Onomatopoeia
+	GreyJetBurnOnomatopoeia.DisplayName: Grey Jet Burn Onomatopoeia
+	GreyJetOnomatopoeia.DisplayName: Grey Jet Onomatopoeia
+	GreyProminenceOnomatopoeia.DisplayName: Grey Prominence Onomatopoeia
+	GreyVanishingOnomatopoeia.DisplayName: Grey Vanishing Onomatopoeia
+	GreyFistOnomatopoeia.DisplayName: Grey Fist Onomatopoeia
 }
 
 NPCs: {

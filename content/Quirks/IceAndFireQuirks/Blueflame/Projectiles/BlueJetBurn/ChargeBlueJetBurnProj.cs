@@ -110,8 +110,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles
                 player.whoAmI
                 );
 
-            ImpactFrameSystem.CurrentImpactTexture = "MyHeroMod/Assets/Effects/BurnImpactImage"; 
-            ImpactFrameSystem.ImpactTimer = 6;
+            ImpactFrameSystem.Trigger(Color.AliceBlue, false,"MyHeroMod/Assets/Effects/BurnImpactImage");
             PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "PhosphorShake");
             Main.instance.CameraModifiers.Add(shake);
         }

@@ -52,7 +52,7 @@ namespace MyHeroMod.content.Buffs
                     tip = "Refines your blue flames for devastating attacks.";
                 }
             }
-            else // HellFlames default
+            else 
             {
                 buffName = "Flashfire Fist";
                 tip = "Compresses internal heat to evolve your skills.";
@@ -63,89 +63,72 @@ namespace MyHeroMod.content.Buffs
         {
             var transformPlayer = player.GetModPlayer<TransformationPlayer>();
 
+            
+            int mainDust = DustID.Torch;
+            int secondaryDust = DustID.RedTorch;
+            int sparkDust = DustID.FireworkFountain_Red;
+            Vector3 lightColor = Color.OrangeRed.ToVector3();
+
+           
             if (transformPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))
             {
-                var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
-                hchhPlayer.IsFlashFireFistActive = true;
-
-                Lighting.AddLight(player.Center, Color.OrangeRed.ToVector3() * 0.8f);
-                
-                int fire = Dust.NewDust(player.position, player.width, player.height, DustID.Torch, 0f, 0f, 100, default, 2.5f);
-                Main.dust[fire].noGravity = true;
-                Main.dust[fire].velocity *= 3f;
-                Main.dust[fire].velocity += player.velocity * 0.5f;
+                player.GetModPlayer<HalfColdHalfHotPlayer>().IsFlashFireFistActive = true;
             }
             else if (transformPlayer.HasActiveQuirk(QuirkType.HellFlames))
             {
-                var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
-                hellPlayer.IsFlashFireFistActive = true;
-
-                Lighting.AddLight(player.Center, Color.OrangeRed.ToVector3() * 0.8f);
-                
-                int fire = Dust.NewDust(player.position, player.width, player.height, DustID.Torch, 0f, 0f, 100, default, 2.5f);
-                Main.dust[fire].noGravity = true;
-                Main.dust[fire].velocity *= 3f;
-                Main.dust[fire].velocity += player.velocity * 0.5f;
-                
-                player.GetDamage(DamageClass.Melee) += 0.20f; 
-                player.moveSpeed += 2.0f; 
+                player.GetModPlayer<HellFlamesPlayer>().IsFlashFireFistActive = true;
             }
             else if (transformPlayer.HasActiveQuirk(QuirkType.Blueflame))
             {
-                var bluePlayer = player.GetModPlayer<BlueflamePlayer>();
-                bluePlayer.IsFlashFireFistActive = true;
+                player.GetModPlayer<BlueflamePlayer>().IsFlashFireFistActive = true;
+              
+                mainDust = DustID.BlueTorch;
+                secondaryDust = DustID.IceTorch;
+                sparkDust = DustID.FireworkFountain_Blue;
+                lightColor = new Vector3(0.4f, 0.7f, 1f) * 1.5f;
+            }
 
-               
-                Lighting.AddLight(player.Center, new Vector3(0.4f, 0.7f, 1f) * 1.5f);
-                
             
-                for (int i = 0; i < 2; i++)
-                {
-                  
-                    int blueFire = Dust.NewDust(player.position - new Vector2(4, 4), player.width + 8, player.height + 8, DustID.BlueTorch, 0f, 0f, 100, default, 2.5f);
-                    Main.dust[blueFire].noGravity = true;
-                    Main.dust[blueFire].velocity.Y -= Main.rand.NextFloat(1f, 3.5f); 
-                    Main.dust[blueFire].velocity.X *= 0.3f;
-                    Main.dust[blueFire].velocity += player.velocity * 0.4f; 
-                    
-                  
-                    if (Main.rand.NextBool(2)) 
-                    {
-                        int whiteFire = Dust.NewDust(player.position, player.width, player.height, DustID.IceTorch, 0f, 0f, 50, default, 1.7f);
-                        Main.dust[whiteFire].noGravity = true;
-                        Main.dust[whiteFire].velocity.Y -= Main.rand.NextFloat(2f, 5f); 
-                        Main.dust[whiteFire].velocity.X *= 0.2f;
-                        Main.dust[whiteFire].velocity += player.velocity * 0.5f;
-                    }
+            player.GetDamage(DamageClass.Melee) += 0.35f; 
+            player.moveSpeed += 2.0f; 
+            Lighting.AddLight(player.Center, lightColor * 0.8f);
 
-                    
-                    if (Main.rand.NextBool(4)) 
-                    {
-                        int spark = Dust.NewDust(player.position, player.width, player.height, DustID.FireworkFountain_Blue, 0f, 0f, 0, default, 1.2f);
-                        Main.dust[spark].noGravity = true;
-                        
-                        Main.dust[spark].velocity = new Vector2(Main.rand.NextFloat(-2f, 2f), Main.rand.NextFloat(-5f, -1f));
-                    }
+           
+            for (int i = 0; i < 2; i++)
+            {
+                int fire = Dust.NewDust(player.position - new Vector2(4, 4), player.width + 8, player.height + 8, mainDust, 0f, 0f, 100, default, 2.5f);
+                Main.dust[fire].noGravity = true;
+                Main.dust[fire].velocity.Y -= Main.rand.NextFloat(1f, 3.5f); 
+                Main.dust[fire].velocity.X *= 0.3f;
+                Main.dust[fire].velocity += player.velocity * 0.4f; 
+                
+                if (Main.rand.NextBool(2)) 
+                {
+                    int hotFire = Dust.NewDust(player.position, player.width, player.height, secondaryDust, 0f, 0f, 50, default, 1.7f);
+                    Main.dust[hotFire].noGravity = true;
+                    Main.dust[hotFire].velocity.Y -= Main.rand.NextFloat(2f, 5f); 
+                    Main.dust[hotFire].velocity.X *= 0.2f;
+                    Main.dust[hotFire].velocity += player.velocity * 0.5f;
                 }
                 
-                
-                player.GetDamage(DamageClass.Melee) += 0.35f; 
-                player.moveSpeed += 2.0f; 
-                if (!SoundEngine.TryGetActiveSound(_loopSoundSlot, out var activeSound))
+                if (Main.rand.NextBool(4)) 
                 {
-                    
-                    SoundStyle crackleStyle = new SoundStyle("MyHeroMod/Assets/Sounds/FireCrackingSound");
-                    crackleStyle.IsLooped = true; 
-                    crackleStyle.Volume = 0.5f; 
-                    
-                    _loopSoundSlot = SoundEngine.PlaySound(crackleStyle, player.Center);
+                    int spark = Dust.NewDust(player.position, player.width, player.height, sparkDust, 0f, 0f, 0, default, 1.2f);
+                    Main.dust[spark].noGravity = true;
+                    Main.dust[spark].velocity = new Vector2(Main.rand.NextFloat(-2f, 2f), Main.rand.NextFloat(-5f, -1f));
                 }
-                else
-                {
-                  
-                    activeSound.Position = player.Center;
-                }
-        }
+            }
+
+            
+            if (!SoundEngine.TryGetActiveSound(_loopSoundSlot, out var activeSound))
+            {
+                SoundStyle crackleStyle = new SoundStyle("MyHeroMod/Assets/Sounds/FireCrackingSound") { IsLooped = true, Volume = 0.5f };
+                _loopSoundSlot = SoundEngine.PlaySound(crackleStyle, player.Center);
+            }
+            else
+            {
+                activeSound.Position = player.Center;
+            }
         }
 
         public override bool PreDraw(SpriteBatch spriteBatch, int buffIndex, ref BuffDrawParams drawParams)

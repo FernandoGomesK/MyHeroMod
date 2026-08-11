@@ -97,16 +97,7 @@ public class HellVanishingFistSkill: QuirkBaseSkill
             Velocity.Normalize();
             Velocity *= 15f;
 
-            Vector2 textPosition = player.Center + new Vector2(0, -30f);
-                Projectile.NewProjectile(
-                player.GetSource_FromThis(),
-                textPosition,
-                Vector2.Zero, 
-                ModContent.ProjectileType<VanishingOnomatopoeia>(),
-                0, 
-                0f, 
-                player.whoAmI
-                );
+           
 
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),

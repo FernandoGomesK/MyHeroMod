@@ -1,6 +1,7 @@
 using KhacesCore.Content.System.BaseProjectiles;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Frost.Projectiles;
+using MyHeroMod.content.System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.CameraModifiers;
@@ -35,30 +36,68 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
             }
 
         
-            if (Projectile.ai[0] == 120)
+            if (Projectile.ai[0] >= 120)
             {
-                var transPlayer = player.GetModPlayer<TransformationPlayer>();
                 
-                int iceDamage = transPlayer.CurrentStage switch
+                if (Projectile.ai[0] % 10 == 0)
                 {
+                    PunchCameraModifier windShake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 2f, 4f, 10, 1500f, "BlizzardWind");
+                    Main.instance.CameraModifiers.Add(windShake);
+                }
+
+                
+                for (int i = 0; i < 4; i++)
+                {
+                    
+                    Vector2 snowPos = player.Center + new Vector2(Main.rand.NextFloat(-1000f, 1000f), Main.rand.NextFloat(-800f, 800f));
+                    
+                    int snow = Dust.NewDust(snowPos, 0, 0, DustID.Snow, 0, 0, 100, default, Main.rand.NextFloat(1.5f, 3f));
+                    Main.dust[snow].noGravity = true;
+                    
+                    Main.dust[snow].velocity = new Vector2(player.direction * Main.rand.NextFloat(20f, 45f), Main.rand.NextFloat(-2f, 2f));
+                }
+
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+               
+
+                int iceDamage = transPlayer.CurrentStage switch
+
+                {
+
                     QuirkStage.Initial => 50,    
+
                     QuirkStage.Adequation => 100,  
+
                     QuirkStage.Intermediate => 180,
+
                     QuirkStage.Advanced => 300,    
-                    QuirkStage.Final => 600,       
+
+                    QuirkStage.Final => 600,      
+
                     _ => 100
+
                 };
 
                 Projectile.NewProjectile(
-                    player.GetSource_FromThis(), 
-                    player.Center, 
-                    Vector2.Zero, 
-                    ModContent.ProjectileType<FreezingIceBeamController>(), 
-                    iceDamage, 
-                    2f, 
+
+                    player.GetSource_FromThis(),
+
+                    player.Center,
+
+                    Vector2.Zero,
+
+                    ModContent.ProjectileType<FreezingIceBeamController>(),
+
+                    iceDamage,
+
+                    2f,
+
                     player.whoAmI,
-                    60f
-                );
+
+                    30f
+
+                ); 
             }
         }
           public override void SpawnChargingDust(Player player)
@@ -97,6 +136,18 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
             Direction.Normalize();
             Vector2 Velocity = Direction * 15f;
             Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
+
+            bool shouldFlipImage = player.direction == 1;
+
+
+            ImpactFrameSystem.Trigger(Color.White, shouldFlipImage, 
+                "MyHeroMod/Assets/Effects/BlankImpactImage",
+                "MyHeroMod/Assets/Effects/FlashFreezeHeatWave/FlashFreezeImpactImage", 
+                "MyHeroMod/Assets/Effects/FlashFreezeHeatWave/FlashFreezeImpactImage2", 
+                "MyHeroMod/Assets/Effects/FlashFreezeHeatWave/FlashFreezeImpactImage3",
+                "MyHeroMod/Assets/Effects/FlashFreezeHeatWave/FlashFreezeImpactImage4"
+            );
+            
 
             Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<HeatwaveFireBallProj>(), maxDamage, 15f, player.whoAmI);
             // SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.8f, Pitch = +0.3f }, player.position);

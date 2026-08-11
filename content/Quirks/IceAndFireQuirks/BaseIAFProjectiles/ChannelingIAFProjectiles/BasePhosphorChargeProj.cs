@@ -1,6 +1,7 @@
 using KhacesCore.Content.System.BaseProjectiles;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.CameraModifiers;
@@ -32,13 +33,21 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles.Channelin
 
         public override void SpawnChargingDust(Player player)
         {
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
             
             int dustType = DustID.Torch; 
             
             if (Projectile.ai[1] == ModContent.BuffType<PhosphorBuff>())
             {
-             
-                dustType = Main.rand.NextBool() ? DustID.Torch : DustID.IceTorch;
+                if (transPlayer.HasActiveQuirk(QuirkType.Blueflame))
+                {
+                    dustType = Main.rand.NextBool() ? DustID.PurpleTorch : DustID.PurpleTorch;
+                }
+                else
+                {
+                    dustType = Main.rand.NextBool() ? DustID.Torch : DustID.IceTorch;
+                }
+                
             }
 
             if (Main.rand.NextBool(2))
@@ -56,7 +65,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles.Channelin
 
         public override void OnChargeComplete(Player player)
         {
-            
+            ImpactFrameSystem.Trigger(Color.SkyBlue, false,"MyHeroMod/Assets/Effects/BlankImpactImage", "MyHeroMod/Assets/Effects/PhosphorImpactImage", "MyHeroMod/Assets/Effects/PhosphorImpactImage2","MyHeroMod/Assets/Effects/PhosphorImpactImage3");
             int buffToApply = (int)Projectile.ai[1];
             
           

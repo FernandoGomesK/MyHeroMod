@@ -21,63 +21,74 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
             }
         }
 
-        // DRAW EFFECTS: O lugar perfeito para spawnar PARTÍCULAS (Dust) e LUZES
-        public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
+        
+       public override void DrawEffects(PlayerDrawSet drawInfo, ref float r, ref float g, ref float b, ref float a, ref bool fullBright)
         {
-            // --- FLASHFIRE FIST (FOGO NA MÃO) ---
             if (IsFlashFireFistActive)
             {
-                // Add a fiery glow effect to the player when Flash Fire Fist is active
                 drawInfo.colorArmorBody = Color.Blue;
                 drawInfo.colorArmorHead = Color.Blue;
                 drawInfo.colorArmorLegs = Color.Blue;
-
-                // Create a light effect around the player
+                
                 Lighting.AddLight(Player.Center, Color.Cyan.ToVector3() * 0.8f);
                 
-                    int fire = Dust.NewDust(Player.position, Player.width, Player.height, DustID.BlueTorch, 0f, 0f, 100, default, 3.5f);
-                    Main.dust[fire].noGravity = true;
-                    Main.dust[fire].velocity *= 3f;
-                    Main.dust[fire].velocity += Player.velocity * 0.5f;
-                
-                // Main.dust[Player.whoAmI].noGravity = true;
-                // if (Main.rand.NextBool(3))
-                // {
-                //     Dust.NewDust(Player.position, Player.width, Player.height, DustID.Fire, 0f, 0f, 100, default, 1.5f);
-                // }
                 
             }
 
-            // --- PHOSPHOR (X NO PEITO) ---
-            if (IsPhosphorActive)
+           if (IsPhosphorActive)
             {
+               
+                if (!IsFlashFireFistActive)
+                {
+                    DrawReducedPhosphorAura();
+                }
                 DrawPhosphorFire();
             }
         }
 
-        // --- MÉTODOS AUXILIARES ATUALIZADOS ---
+        
+        private void DrawReducedPhosphorAura()
+        {
+          
+            Lighting.AddLight(Player.Center, new Vector3(0.2f, 0.4f, 0.8f)); 
 
+            
+            if (Main.rand.NextBool(2)) 
+            {
+               
+                int blueFire = Dust.NewDust(Player.position - new Vector2(4, 4), Player.width + 8, Player.height + 8, DustID.BlueTorch, 0f, 0f, 150, default, 1.5f);
+                Main.dust[blueFire].noGravity = true;
+                Main.dust[blueFire].velocity.Y -= Main.rand.NextFloat(0.5f, 1.5f);
+                Main.dust[blueFire].velocity.X *= 0.2f;
+                Main.dust[blueFire].velocity += Player.velocity * 0.4f; 
+            }
+
+            
+            if (Main.rand.NextBool(4)) 
+            {
+                int whiteFire = Dust.NewDust(Player.position, Player.width, Player.height, DustID.IceTorch, 0f, 0f, 100, default, 1.2f);
+                Main.dust[whiteFire].noGravity = true;
+                Main.dust[whiteFire].velocity.Y -= Main.rand.NextFloat(1f, 2f); 
+                Main.dust[whiteFire].velocity += Player.velocity * 0.5f;
+            }
+        }
+
+        
         private void DrawPhosphorFire()
         {
-            // 1. Tamanho e Posição
-            float tamanhoX = 10f; // Bem menor
-            // Move o centro para cima, na altura do peito/coração
+            float tamanhoX = 15f; 
             Vector2 chestCenter = Player.Center + new Vector2(0, 5f); 
-
-            // 2. Densidade do Fogo
-            // Roda o loop algumas vezes por frame para gerar várias chamas e preencher o X
-            int densidade = 3; 
-            for (int k = 0; k < densidade; k++)
+            
+            
+            int density = IsFlashFireFistActive ? 6 : 3; 
+            
+            for (int k = 0; k < density; k++)
             {
-                // Escolhe um ponto aleatório ao longo da linha diagonal (de -1 a 1)
-                // Isso faz o fogo "tremer" ao longo do X em vez de ser uma linha reta
                 float progressoRandom = Main.rand.NextFloat(-1f, 1f);
 
-                // --- Diagonal 1 (\) ---
                 Vector2 pos1 = chestCenter + new Vector2(progressoRandom * tamanhoX, progressoRandom * tamanhoX);
                 SpawnFireDust(pos1, chestCenter.X);
 
-                // --- Diagonal 2 (/) ---
                 Vector2 pos2 = chestCenter + new Vector2(progressoRandom * tamanhoX, -progressoRandom * tamanhoX);
                 SpawnFireDust(pos2, chestCenter.X);
             }
@@ -85,21 +96,18 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
 
         private void SpawnFireDust(Vector2 position, float centerX)
         {
-            // Cor baseada no lado (Verde na esquerda, Vermelho na direita)
-            int dustID = (position.X < centerX) ? DustID.PurpleTorch : DustID.PurpleTorch;
-
-            // Cria a partícula em uma área pequena (4x4 pixels)
-            // Usamos NewDust normal para ele ter um pouco de variação natural
-            int d = Dust.NewDust(position - new Vector2(2,2), 4, 4, dustID, 0, 0, 100, default, 1.3f);
+            int dustID = DustID.PurpleTorch;
             
-            Main.dust[d].noGravity = true; // Fogo flutua
+           
+            float scale = IsFlashFireFistActive ? 1.8f : 1.5f;
 
-            // --- COMPORTAMENTO DE FOGO ---
-            // Velocidade para cima (Y negativo) com um pouco de variação horizontal
-            Main.dust[d].velocity = new Vector2(Main.rand.NextFloat(-0.5f, 0.5f), Main.rand.NextFloat(-2f, -1f));
-
-            // Importante: Faz o fogo acompanhar um pouco o movimento do player
-            // para não ficar para trás quando você corre
+            int d = Dust.NewDust(position - new Vector2(2,2), 4, 4, dustID, 0, 0, 100, default, scale); 
+            Main.dust[d].noGravity = true; 
+            
+            
+            float riseSpeed = IsFlashFireFistActive ? -0.5f : -1.5f;
+            Main.dust[d].velocity = new Vector2(Main.rand.NextFloat(-0.5f, 0.5f), Main.rand.NextFloat(riseSpeed - 0.5f, riseSpeed));
+            
             Main.dust[d].velocity += Player.velocity * 0.3f;
         }
     }

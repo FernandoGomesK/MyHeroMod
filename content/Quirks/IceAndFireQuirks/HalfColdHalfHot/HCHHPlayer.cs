@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.Interfaces;
+using ReLogic.Utilities;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
 {
@@ -21,6 +22,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
 
         // public int maxTemperature = 100;
         // public int MinimumTemperature = -100;
+        private SlotId _loopSoundSlot;
 
         public int Temperature {get; set;} = 0;
         public int MaxTemperature { get; } = 100;
@@ -90,6 +92,10 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
 
         public override void PreUpdate()
 {
+    if (SoundEngine.TryGetActiveSound(_loopSoundSlot, out var activeSound))
+            {
+                activeSound.Stop();
+            }
     var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             if (!mainPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))  

@@ -6,12 +6,15 @@ using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.Interfaces;
 using Terraria.ID;
+using ReLogic.Utilities;
+using Terraria.Audio;
 
 namespace MyHeroMod.content.Quirks.HellFlames
 {
     public partial class HellFlamesPlayer : ModPlayer, IQuirkResetter, IHeroTemperature
     {
         // Temperature control
+        private SlotId _loopSoundSlot;
         public int Temperature { get; set; } = 0;
         public int MaxTemperature { get; } = 100;
         public int MinTemperature { get; } = 0;    
@@ -49,6 +52,10 @@ namespace MyHeroMod.content.Quirks.HellFlames
 
         public override void PreUpdate()
         {
+            if (SoundEngine.TryGetActiveSound(_loopSoundSlot, out var activeSound))
+            {
+                activeSound.Stop();
+            }
             IsFlashFireFistActive = false;
         }
 
