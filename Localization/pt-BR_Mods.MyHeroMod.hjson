@@ -862,6 +862,10 @@ Projectiles: {
 	// ChargeHellProminenceBurnProj.DisplayName: Charge Hell Prominence Burn Proj
 	// HellProminceBurnEffectProj.DisplayName: Hell Promince Burn Effect Proj
 	// HellProminenceBurnController.DisplayName: Hell Prominence Burn Controller
+	// VanishingOnomatopoeia.DisplayName: Vanishing Onomatopoeia
+	// JetBurnOnomatopoeia.DisplayName: Jet Burn Onomatopoeia
+	// VanishingFistOnomatopoeia.DisplayName: Vanishing Fist Onomatopoeia
+	// FistOnomatopoeia.DisplayName: Fist Onomatopoeia
 }
 
 NPCs: {

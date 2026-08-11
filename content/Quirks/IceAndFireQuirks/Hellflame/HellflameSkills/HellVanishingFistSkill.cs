@@ -14,6 +14,7 @@ using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.System.Interfaces;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles.BlueVanishingFist;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles;
+using MyHeroMod.content.Projectiles;
 
 
 
@@ -95,6 +96,17 @@ public class HellVanishingFistSkill: QuirkBaseSkill
             Vector2 Velocity = Main.MouseWorld - player.Center;
             Velocity.Normalize();
             Velocity *= 15f;
+
+            Vector2 textPosition = player.Center + new Vector2(0, -30f);
+                Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                textPosition,
+                Vector2.Zero, 
+                ModContent.ProjectileType<VanishingOnomatopoeia>(),
+                0, 
+                0f, 
+                player.whoAmI
+                );
 
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),

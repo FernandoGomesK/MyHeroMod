@@ -6,7 +6,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles
 {
     public abstract class BaseDashProj : ModProjectile
     {
-       
         protected virtual float DashSpeed => 30f; 
         protected virtual int DashDuration => 15; 
         protected virtual float HitboxThickness => 80f; 
@@ -27,7 +26,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles
             Projectile.hide = true;
             Projectile.timeLeft = DashDuration; 
             
-            
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = DashDuration + 5; 
         }
@@ -36,7 +34,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles
         {
             Player player = Main.player[Projectile.owner];
 
-            
             if (Projectile.ai[0] == 0)
             {
                 startPos = player.Center; 
@@ -47,14 +44,11 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles
                     dir.Normalize(); 
                 }
 
-                
                 player.velocity = dir * DashSpeed;
             }
 
-            
             Projectile.Center = player.Center;
 
-            
             player.gravity = 0f;
             player.noFallDmg = true;
             player.armorEffectDrawShadow = true;
@@ -65,10 +59,46 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles
             Projectile.ai[0]++;
         }
 
-      
         protected abstract void SpawnDashVisuals(Player player);
-
         
+        // --- NEW GENERIC TEXT SPAWNER ---
+        // Call this from any dash to safely spawn text exactly once.
+        protected void SpawnOnomatopoeia(ref bool hasSpawnedFlag, int textProjectileType)
+        {
+            // If the flag is already true, stop.
+            if (hasSpawnedFlag) return;
+            
+            hasSpawnedFlag = true;
+
+            // Only let the client owner run this
+            if (Projectile.owner == Main.myPlayer)
+            {
+                // FAILSAFE: Check if another glitchy duplicate dash already spawned this exact text this frame
+                for (int i = 0; i < Main.maxProjectiles; i++)
+                {
+                    if (Main.projectile[i].active && 
+                        Main.projectile[i].owner == Projectile.owner && 
+                        Main.projectile[i].type == textProjectileType &&
+                        Main.projectile[i].timeLeft > 10) // Ensure we don't accidentally block it if an old text from a previous dash is fading out
+                    {
+                        return; // Text already exists, abort!
+                    }
+                }
+
+                Vector2 textPosition = Main.player[Projectile.owner].Center + new Vector2(0, -30f);
+                
+                Projectile.NewProjectile(
+                    Projectile.GetSource_FromThis(),
+                    textPosition,
+                    Vector2.Zero, 
+                    textProjectileType,
+                    0, 
+                    0f, 
+                    Projectile.owner
+                );
+            }
+        }
+
         public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
         {
             float collisionPoint = 0f;
