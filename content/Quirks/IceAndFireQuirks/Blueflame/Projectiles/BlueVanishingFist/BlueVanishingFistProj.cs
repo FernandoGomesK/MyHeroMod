@@ -6,8 +6,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles.BlueVa
 {
    public class VanishingFistProj : BaseDashProj
     {
-        // Customizing the Dash
-        protected override float DashSpeed => 35f; // Very fast
+     
+        protected override float DashSpeed => 35f; 
         protected override int DashDuration => 15; 
         protected override float HitboxThickness => 90f;
 
