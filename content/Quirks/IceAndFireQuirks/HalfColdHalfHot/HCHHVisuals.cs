@@ -47,22 +47,21 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
             else
             {
                float tamanhoX = 10f; 
-            // moves to the chest area
+          
             Vector2 chestCenter = Player.Center + new Vector2(0, 5f); 
 
-            // 2. Densidade do Fogo
-           //  Generates the flames
+            
             int densidade = 3; 
             for (int k = 0; k < densidade; k++)
             {
-                // adds variatioin to the flames
+                
                 float progressoRandom = Main.rand.NextFloat(-1f, 1f);
 
-                //  Diagonal 1 
+                
                 Vector2 pos1 = chestCenter + new Vector2(progressoRandom * tamanhoX, progressoRandom * tamanhoX);
                 SpawnFireDust(pos1, chestCenter.X);
 
-                // Diagonal 2
+              
                 Vector2 pos2 = chestCenter + new Vector2(progressoRandom * tamanhoX, -progressoRandom * tamanhoX);
                 SpawnFireDust(pos2, chestCenter.X);
             }

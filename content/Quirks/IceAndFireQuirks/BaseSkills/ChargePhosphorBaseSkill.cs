@@ -49,7 +49,10 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
 
     public class BluePhosphor : PhosphorBase
     {
-        public override string Name => "Crazy Torch";
+        public override string Name => "Blue Phosphor";
+
+        public override string GetDisplayName(Player player) => "Phosphor";
+        
         public override string IconPath => "MyHeroMod/Assets/Skills/FullCowling5";
         public override string Category => "Blueflame";
         public override QuirkType RequiredQuirk => QuirkType.Blueflame; 
@@ -62,6 +65,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
     public class HCHHPhosphor : PhosphorBase
     {
         public override string Name => "Phosphor";
+
+        public override string GetDisplayName(Player player) => "Phosphor";
         public override string IconPath => "MyHeroMod/Assets/Skills/FullCowling10";
         public override string Category => "HalfColdHalfHot";
         public override QuirkType RequiredQuirk => QuirkType.HalfColdHalfHot;
