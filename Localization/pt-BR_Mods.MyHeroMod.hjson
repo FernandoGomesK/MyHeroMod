@@ -880,6 +880,8 @@ Projectiles: {
 	// JetPaleCharge.DisplayName: Jet Pale Charge
 	// JetPaleController.DisplayName: Jet Pale Controller
 	// JetPaleEffectProj.DisplayName: Jet Pale Effect Proj
+	// FlashFreezeOnomatopoeia.DisplayName: Flash Freeze Onomatopoeia
+	// KindlingOnomatopoeia.DisplayName: Kindling Onomatopoeia
 }
 
 NPCs: {

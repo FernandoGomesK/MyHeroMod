@@ -46,6 +46,7 @@ public class FlashFreezeSkill : QuirkBaseSkill
             0f, 
             player.whoAmI
         );
+        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/TodorokiIce") with { Volume = 0.5f, Pitch = +0.8f }, player.position);
 
         
     }}

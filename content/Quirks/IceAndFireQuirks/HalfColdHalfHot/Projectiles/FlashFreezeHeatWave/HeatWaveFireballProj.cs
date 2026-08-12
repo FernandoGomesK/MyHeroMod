@@ -3,6 +3,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.System.BaseIAFProjectiles.SimpleProjectiles.FireBall;
+using MyHeroMod.content.System;
+using Terraria.Audio;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.FlashFreezeHeatWave
 {
@@ -42,11 +44,24 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
             Projectile.height = 250;
             Projectile.position.X = Projectile.position.X - (Projectile.width / 2);
             Projectile.position.Y = Projectile.position.Y - (Projectile.height / 2);
+
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/CremationSound") with { Volume = 0.8f, Pitch = -0.5f }, Projectile.position);
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/Explosion2Sound") with { Volume = 1.0f, Pitch = -0.1f }, Projectile.position);
+
+            ImpactFrameSystem.Trigger(Color.White, false, 
+                "MyHeroMod/Assets/Effects/BlankImpactImage",
+                "MyHeroMod/Assets/Effects/FlashFreezeHeatWave/FlashProjImpactImage4", 
+                "MyHeroMod/Assets/Effects/FlashFreezeHeatWave/FlashProjImpactImage2", 
+                "MyHeroMod/Assets/Effects/FlashFreezeHeatWave/FlashProjImpactImage3",
+                "MyHeroMod/Assets/Effects/FlashFreezeHeatWave/FlashProjImpactImage"
+            );
         }
 
         private void CreateExplosionEffects(Vector2 center, float size)
         {
             int baseDust = (int)(80 * size);
+
+            
             
             
             for (int i = 0; i < (int)(40 * size); i++)
@@ -80,6 +95,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
                     Main.dust[idx].velocity *= 2.0f;
                     Main.dust[idx].scale *= 1.5f;
                 }
+
+                
             } 
         }
         
