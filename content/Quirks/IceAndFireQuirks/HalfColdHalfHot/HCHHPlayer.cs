@@ -12,21 +12,24 @@ using System.Collections.Generic;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.Interfaces;
 using ReLogic.Utilities;
+using MyHeroMod.content.Debuffs;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
 {
     public partial class HalfColdHalfHotPlayer : ModPlayer, IQuirkResetter, IHeroTemperature
     {
         
-        // public int temperature = 0;
-
-        // public int maxTemperature = 100;
-        // public int MinimumTemperature = -100;
+        
         private SlotId _loopSoundSlot;
 
         public int Temperature {get; set;} = 0;
         public int MaxTemperature { get; } = 100;
-        public int MinTemperature { get; } = -100;   
+        public int MinTemperature { get; } = -100;
+
+        public int HeatPerSecond { get; set; }
+        public int StrainPenaltyPerSecond { get; set; }
+        public int CurrentStrain = 0;
+        public int MaxStrain = 100;      
 
         public void AddHeat(int amount)
         {
@@ -37,6 +40,18 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
         {
             Temperature -= amount;
             if (Temperature < MinTemperature) Temperature = MinTemperature;
+        }
+
+        public void AddStrain(int amount)
+        {
+            CurrentStrain += amount;
+            CombatText.NewText(Player.getRect(), Color.Cyan, $"{amount} Strain!", false, true);
+
+            if (CurrentStrain >= MaxStrain)
+            {
+                Player.AddBuff(ModContent.BuffType<Heatstroke>(), 300);
+                Player.ClearBuff(ModContent.BuffType<FlashfireFistBuff>());
+            }
         }
 
         public int temperatureTimer = 0;
@@ -105,25 +120,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
             {
                 Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
                 IsPhosphorActive = false;
-            }
-    if (Activating)
-            {
-                ActivationTimer++;
-                Player.velocity *= 0.6f; 
-
-                if (Main.rand.NextBool(2))
-                {
-                    Dust d = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, Color.Green, 0.5f);
-                    d.noGravity = true;
-                    d.velocity *= 0.5f;   
-                }
-
-                if (ActivationTimer >= ActivationMaxTime)
-                {   
-                    ActivatePhosphor();
-                    Activating = false;
-                    ActivationTimer = 0;
-                }
             }
 
             if (Player.HasBuff<PhosphorBuff>())

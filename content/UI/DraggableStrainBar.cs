@@ -9,7 +9,7 @@ using MyHeroMod.content.Quirks.ZeroGravity;
 namespace MyHeroMod.content.UI
 {
   
-    public class DraggableNauseaBar : UIElement
+    public class DraggableStrainBar : UIElement
     {
         private Vector2 offset;
         public bool dragging;
@@ -61,23 +61,23 @@ namespace MyHeroMod.content.UI
         {
             Player player = Main.LocalPlayer;
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
-            var zeroPlayer = player.GetModPlayer<ZeroGravityPlayer>();
+            
 
             
             if (!transPlayer.HasActiveQuirk(QuirkType.ZeroGravity))
                 return;
 
-            Texture2D barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/NauseaBarFrame").Value;
-            Texture2D barFill = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/NauseaBarFill").Value;
+            Texture2D barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/StrainFrame").Value;
+            Texture2D barFill = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/StrainFill").Value;
 
             
             CalculatedStyle dimensions = GetDimensions();
             Vector2 drawPos = new Vector2(dimensions.X, dimensions.Y);
 
             float quotient = 1f;
-            if (zeroPlayer.Nausea > 0)
+            if (transPlayer.currentStrain > 0)
             {
-                quotient = (float)zeroPlayer.Nausea / zeroPlayer.NauseaMax;
+                quotient = (float)transPlayer.currentStrain / transPlayer.maxStrain;
             }
             quotient = MathHelper.Clamp(quotient, 0f, 1f);
 
@@ -91,7 +91,7 @@ namespace MyHeroMod.content.UI
 
             spriteBatch.Draw(barFill, fillDrawPos, fillRect, Color.White);
 
-            string text = $"{(int)zeroPlayer.Nausea} / {zeroPlayer.NauseaMax}";
+            string text = $"{(int)transPlayer.currentStrain} / {transPlayer.maxStrain}";
             Vector2 textPos = drawPos + new Vector2(barFrame.Width / 2f - 20f, barFrame.Height + 5f);
             Utils.DrawBorderString(spriteBatch, text, textPos, Color.Cyan, 0.8f);
         }

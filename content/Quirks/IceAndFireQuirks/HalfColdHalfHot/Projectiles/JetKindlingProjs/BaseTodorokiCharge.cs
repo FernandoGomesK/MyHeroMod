@@ -92,16 +92,19 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
             );
 
             
-            Vector2 textPosition = player.Center + new Vector2(0, -30f);
-            Projectile.NewProjectile(
-                player.GetSource_FromThis(),
-                textPosition,
-                Vector2.Zero, 
-                OnomatopoeiaType,
-                0,  
-                0f, 
-                player.whoAmI
-            );
+            if (OnomatopoeiaType > 0)
+            {
+                Vector2 textPosition = player.Center + new Vector2(0, -30f);
+                Projectile.NewProjectile(
+                    player.GetSource_FromThis(),
+                    textPosition,
+                    Vector2.Zero, 
+                    OnomatopoeiaType,
+                    0,  
+                    0f, 
+                    player.whoAmI
+                );
+            }
 
             ImpactFrameSystem.Trigger(ImpactColor, false,
                 "MyHeroMod/Assets/Effects/BlankImpactImage", 

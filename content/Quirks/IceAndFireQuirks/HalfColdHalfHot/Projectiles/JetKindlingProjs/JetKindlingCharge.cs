@@ -2,6 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.Projectiles.GreyOnomatopoeias;
+using MyHeroMod.content.Projectiles;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.JetKindlingProjs
 {
@@ -12,7 +13,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
         protected override int CoreDustType => DustID.RedTorch;
         protected override int SparkDustType => DustID.FireworkFountain_Red;
         protected override int BeamProjectileType => ModContent.ProjectileType<JetKindlingController>();
-        protected override int OnomatopoeiaType => ModContent.ProjectileType<GreyBurnOnomatopoeia>();
+        protected override int OnomatopoeiaType => ModContent.ProjectileType<KindlingOnomatopoeia>();
         protected override string SoundStylePath => "MyHeroMod/Assets/Sounds/CremationSound"; 
         protected override Vector3 LightColor => new Vector3(1.2f, 0.6f, 0.3f);
         protected override Color ImpactColor => Color.Orange;
@@ -36,7 +37,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
         protected override int CoreDustType => DustID.Snow;
         protected override int SparkDustType => DustID.Ice;
         protected override int BeamProjectileType => ModContent.ProjectileType<JetIceController>();
-        protected override int OnomatopoeiaType => ModContent.ProjectileType<GreyJetOnomatopoeia>(); 
+        protected override int OnomatopoeiaType => -1;
         protected override string SoundStylePath => "MyHeroMod/Assets/Sounds/TodorokiIce"; 
         protected override Vector3 LightColor => new Vector3(0.6f, 0.9f, 1.2f);
         protected override Color ImpactColor => Color.Cyan;

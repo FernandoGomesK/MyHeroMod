@@ -4,6 +4,8 @@ using MyHeroMod.content.System;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System.Interfaces;
 using Terraria.Audio;
+using Microsoft.Xna.Framework;
+using MyHeroMod.content.Projectiles;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
 {
@@ -37,9 +39,14 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
                     {
                         heatUser.AddHeat(15);
                     }
-                    SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/CremationSound") { Volume = 0.5f, PitchVariance = 1.0f }, player.Center);
                 }
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/CremationSound") { Volume = 0.5f, PitchVariance = 1.0f }, player.Center);
+                    Vector2 textPosition = player.Center + new Vector2(0, -60f);
+                    Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, ModContent.ProjectileType<FlashfireOnomatopoeia>(), 0, 0f, player.whoAmI);
+
             }
+
+            
         }
     }
 }

@@ -49,9 +49,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/Explosion2Sound") with { Volume = 1.0f, Pitch = -0.1f }, Projectile.position);
 
             ImpactFrameSystem.Trigger(Color.White, false, 
-                "MyHeroMod/Assets/Effects/BlankImpactImage",
-                "MyHeroMod/Assets/Effects/FlashFreezeHeatWave/FlashProjImpactImage4", 
-                "MyHeroMod/Assets/Effects/FlashFreezeHeatWave/FlashProjImpactImage2", 
+                "MyHeroMod/Assets/Effects/BlankImpactImage", 
                 "MyHeroMod/Assets/Effects/FlashFreezeHeatWave/FlashProjImpactImage3",
                 "MyHeroMod/Assets/Effects/FlashFreezeHeatWave/FlashProjImpactImage"
             );

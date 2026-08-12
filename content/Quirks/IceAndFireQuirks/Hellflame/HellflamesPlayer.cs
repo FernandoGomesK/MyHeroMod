@@ -17,7 +17,12 @@ namespace MyHeroMod.content.Quirks.HellFlames
         private SlotId _loopSoundSlot;
         public int Temperature { get; set; } = 0;
         public int MaxTemperature { get; } = 100;
-        public int MinTemperature { get; } = 0;    
+        public int MinTemperature { get; } = 0;  
+
+        public int HeatPerSecond { get; set; }
+        public int StrainPenaltyPerSecond { get; set; }
+        public int CurrentStrain = 0;
+        public int MaxStrain = 100;   
 
         public int temperatureTimer = 0;   
         public bool IsCombatVestAlphaOn = false;
@@ -35,6 +40,18 @@ namespace MyHeroMod.content.Quirks.HellFlames
             Temperature -= amount;
             if (Temperature < MinTemperature) Temperature = MinTemperature;
         } 
+
+        public void AddStrain(int amount)
+        {
+            CurrentStrain += amount;
+            CombatText.NewText(Player.getRect(), Color.Cyan, $"{amount} Strain!", false, true);
+
+            if (CurrentStrain >= MaxStrain)
+            {
+                Player.AddBuff(ModContent.BuffType<Heatstroke>(), 300);
+                Player.ClearBuff(ModContent.BuffType<FlashfireFistBuff>());
+            }
+        }
 
         public override void OnRespawn()
         {
