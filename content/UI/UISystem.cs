@@ -48,7 +48,7 @@ namespace MyHeroMod
         internal FullCowlingUIState fullCowlingUIState;
 
         private UserInterface StrainUserInterface;
-        internal strainUIState StrainUIState;
+        internal StrainUIState StrainUIState;
 
 
         public override void Load()
@@ -111,7 +111,7 @@ namespace MyHeroMod
                 fullCowlingUserInterface = new UserInterface();
                 fullCowlingUserInterface.SetState(fullCowlingUIState);
 
-                StrainUIState = new strainUIState();
+                StrainUIState = new StrainUIState();
                 StrainUIState.Activate();
                 StrainUserInterface = new UserInterface();
                 StrainUserInterface.SetState(StrainUIState);

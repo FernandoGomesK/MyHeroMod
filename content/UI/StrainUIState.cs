@@ -4,18 +4,19 @@ using Terraria;
 
 namespace MyHeroMod.content.UI
 {
-    public class strainUIState : UIState
+    
+    public class StrainUIState : UIState 
     {
-        public DraggableNauseaBar strainBar;
+        
+        public DraggableStrainBar strainBar; 
 
         public override void OnInitialize()
         {
-            strainBar = new DraggableNauseaBar();
+            strainBar = new DraggableStrainBar(); 
             
             strainBar.Width.Set(64f, 0f);  
             strainBar.Height.Set(64f, 0f); 
 
-            
             strainBar.Left.Set(Main.screenWidth - 500f, 0f);
             strainBar.Top.Set(10f, 0f);
 
