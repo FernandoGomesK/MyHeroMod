@@ -18,7 +18,7 @@ namespace MyHeroMod.content.System
         public static SpriteEffects ActiveSpriteEffect = SpriteEffects.None;
         
     
-        private const int FramesPerStage = 1; 
+        private const int FramesPerStage = 2; 
         public override void Load()
         {
             if (!Main.dedServ) 

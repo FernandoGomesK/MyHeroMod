@@ -25,43 +25,49 @@ namespace MyHeroMod.content.Projectiles
             
         }
 
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+       public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+{
+    Player player = Main.player[Projectile.owner];
+    var afoPlayer = player.GetModPlayer<AllForOnePlayer>();
+    var globalNPC = target.GetGlobalNPC<QuirkGlobalNPC>();
+
+    
+    if (Projectile.owner == Main.myPlayer)
+    {
+        if (globalNPC.HasQuirk && globalNPC.AssignedQuirk != QuirkType.Quirkless)
         {
-            Player player = Main.player[Projectile.owner];
-            var afoPlayer = player.GetModPlayer<AllForOnePlayer>();
-            var globalNPC = target.GetGlobalNPC<QuirkGlobalNPC>();
-
-            
-            if (globalNPC.HasQuirk && globalNPC.AssignedQuirk != QuirkType.Quirkless)
+            if (afoPlayer.CurrentQuirkCount >= afoPlayer.maxQuirks) 
             {
-                if (afoPlayer.CurrentQuirkCount >= afoPlayer.maxQuirks) 
-                {
-                    CombatText.NewText(target.getRect(), Color.Orange, "Capacity Full!");
-                    return;
-                }
-                if (!afoPlayer.HasInternalQuirk(globalNPC.AssignedQuirk))
-                {
-                    
-                    afoPlayer.InternalQuirks.Add(globalNPC.AssignedQuirk);
-                    
-                    
-                    globalNPC.HasQuirk = false;
-                    globalNPC.AssignedQuirk = QuirkType.Quirkless;
+                CombatText.NewText(target.getRect(), Color.Orange, "Capacity Full!");
+                return;
+            }
+            
+           
+            if (afoPlayer.TryStealQuirk(globalNPC.AssignedQuirk))
+            {
+                
+                globalNPC.HasQuirk = false;
+                globalNPC.AssignedQuirk = QuirkType.Quirkless;
 
-                    
-                    CombatText.NewText(target.getRect(), Color.DarkRed, "QUIRK STOLEN!");
-                    SoundEngine.PlaySound(SoundID.Item74, target.position);
+                CombatText.NewText(target.getRect(), Color.DarkRed, "QUIRK STOLEN!");
+                SoundEngine.PlaySound(SoundID.Item74, target.position);
 
-                    
-                    var transPlayer = player.GetModPlayer<TransformationPlayer>();
-                    transPlayer.UpdateUnlockedSkills(); 
-                }
-                else
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+                transPlayer.UpdateUnlockedSkills(); 
+                
+                
+                if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
-                    CombatText.NewText(target.getRect(), Color.Gray, "Already Stolen!");
+                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, target.whoAmI);
                 }
             }
+            else
+            {
+                CombatText.NewText(target.getRect(), Color.Gray, "Already Stolen!");
+            }
         }
+    }
+}
 
         public override Color? GetAlpha(Color lightColor)
         {

@@ -7,7 +7,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
 using MyHeroMod.content.System.Interfaces;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceShot;
-using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.HellSpider;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles.ContinuousBlast.HellSpider;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
 {
@@ -42,14 +42,14 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
             Vector2 direction = Main.MouseWorld - player.Center;
             direction.Normalize();
 
-            // 1. Calculate Multiplier (Surge Arm Gauntlets)
+            
             float multiplier = 1.0f;
             if (hchhPlayer.IsSurgeArmGauntletsOn) 
             {
                 multiplier += 0.5f;
             }
 
-            // 2. STANCE CHECK: Flashfire Fist -> Hell Spider
+            
             if (hchhPlayer.IsFlashFireFistActive)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<HellSpiderController>()] > 0) return;
@@ -61,13 +61,13 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
 
                 Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, direction, ModContent.ProjectileType<HellSpiderController>(), (int)(fireDamage * multiplier), 0f, player.whoAmI);
                 
-                // Add Heat (Fire Side)
+                
                 foreach (var modPlayer in player.ModPlayers)
                 {
                     if (modPlayer is IHeroTemperature heatUser) heatUser.AddHeat(25);
                 }
             }
-            // 3. BASE STANCE: Ice Spike
+            
             else
             {
                 int iceDamage = transPlayer.CurrentStage switch {
@@ -78,7 +78,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
                 Vector2 velocity = direction * 15f;
                 Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, velocity, ModContent.ProjectileType<IceShotProj>(), (int)(iceDamage * multiplier), 2f, player.whoAmI);
 
-                // Add Cold / Reduce Heat (Ice Side)
+                
                 foreach (var modPlayer in player.ModPlayers)
                 {
                     if (modPlayer is IHeroTemperature heatUser) heatUser.ReduceHeat(25);

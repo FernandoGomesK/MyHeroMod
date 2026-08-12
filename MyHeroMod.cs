@@ -212,9 +212,8 @@ namespace MyHeroMod
                         explode.IsGrenadierBracersOn = grenadier;
                         explode.IsStrafePanzerOn = panzer;
                         explode.sweatTimer = sweattimer;
-                        
 
-
+                
                         if (Main.netMode == NetmodeID.Server)
                         {
                             ModPacket packet = GetPacket();
@@ -225,6 +224,34 @@ namespace MyHeroMod
                             packet.Write(panzer);
                             packet.Write(sweattimer);
                             packet.Send(-1, playerExplode); 
+                        }
+                        break;
+
+                        case MessageType.SyncAllForOne:
+                        byte playerAFO = reader.ReadByte();
+                        int quirkCount = reader.ReadInt32();
+
+                        var afoPlayer = Main.player[playerAFO].GetModPlayer<AllForOnePlayer>();
+                        
+                        
+                        afoPlayer.InternalQuirks.Clear();
+                        for (int i = 0; i < quirkCount; i++)
+                        {
+                            afoPlayer.InternalQuirks.Add((QuirkType)reader.ReadInt32());
+                        }
+
+                      
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            ModPacket packet = GetPacket();
+                            packet.Write((byte)MessageType.SyncAllForOne);
+                            packet.Write(playerAFO);
+                            packet.Write(quirkCount);
+                            foreach (var quirk in afoPlayer.InternalQuirks)
+                            {
+                                packet.Write((int)quirk);
+                            }
+                            packet.Send(-1, playerAFO); 
                         }
                         break;
         }

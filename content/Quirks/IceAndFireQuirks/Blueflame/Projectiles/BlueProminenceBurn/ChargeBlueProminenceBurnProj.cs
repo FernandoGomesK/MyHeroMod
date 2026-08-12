@@ -42,6 +42,18 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles
                 player.whoAmI
                 );
 
+                 bool shouldFlipImage = player.direction == 1;
+
+
+                ImpactFrameSystem.Trigger(Color.White, shouldFlipImage, 
+                "MyHeroMod/Assets/Effects/BlankImpactImage",
+                "MyHeroMod/Assets/Effects/BlueProminenceBurn/BlueProImpactImage", 
+                "MyHeroMod/Assets/Effects/BlueProminenceBurn/BlueProImpactImage",
+                "MyHeroMod/Assets/Effects/BlueProminenceBurn/BlueProImpactImage2", 
+                "MyHeroMod/Assets/Effects/BlueProminenceBurn/BlueProImpactImage3",
+                "MyHeroMod/Assets/Effects/BlueProminenceBurn/BlueProImpactImage4"
+                
+            );
             }
         }
 
@@ -113,8 +125,16 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles
                 120f
             );
 
-            ImpactFrameSystem.Trigger(Color.SkyBlue, false,"MyHeroMod/Assets/Effects/BurnImpactImage");
-            ImpactFrameSystem.ImpactTimer = 6;
+             bool shouldFlipImage = player.direction == 1;
+
+
+            ImpactFrameSystem.Trigger(Color.SkyBlue, shouldFlipImage, 
+                "MyHeroMod/Assets/Effects/BlankImpactImage",
+                 
+                "MyHeroMod/Assets/Effects/BlueProminenceBurn/BlueProImpactImage2", 
+                "MyHeroMod/Assets/Effects/BlueProminenceBurn/BlueProImpactImage3",
+                "MyHeroMod/Assets/Effects/BlueProminenceBurn/BlueProImpactImage4"
+            );
             PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "PhosphorShake");
             Main.instance.CameraModifiers.Add(shake);
         }

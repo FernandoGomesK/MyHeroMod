@@ -65,7 +65,9 @@
 //         return false;
 //     }
 
-// public override void OnUse(Player player)
+
+
+//     public override void OnUse(Player player)
 //     {
 //         var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
 //         var bluePlayer = player.GetModPlayer<BlueflamePlayer>();
