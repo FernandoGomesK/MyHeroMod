@@ -21,9 +21,13 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
    
             if (hchhPlayer.IsFlashFireFistActive)
             {
-                return "(FF) Hell Spider";
+                return "Flashfire Fist: Hell Spider";
             }
-            return "Ice Spike"; 
+            else
+            {
+                return "Ice Spike"; 
+            }
+            
         }
         public override string Description => "Shoot an Ice Spike. Evolves based on your active stance.";
         public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";

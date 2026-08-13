@@ -38,7 +38,7 @@ public class BlueFireballSkill: QuirkBaseSkill
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
     public override string Category => "Fire";
 
-    public override int BaseCooldown => 120;
+    public override int BaseCooldown => 900;
 
     public override QuirkType RequiredQuirk => QuirkType.Blueflame;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
@@ -46,29 +46,29 @@ public class BlueFireballSkill: QuirkBaseSkill
 
     public override void OnUse(Player player)
     {
-        var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
+        var bluePlayer = player.GetModPlayer<BlueflamePlayer>();
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
         int BaseDamage = 0;
         
             switch(transPlayer.CurrentStage){
                 case QuirkStage.Initial:
-                BaseDamage = 20;
+                BaseDamage = 30;
                 break;
             
                 case QuirkStage.Adequation:
-                BaseDamage = 40;
-                break;
-          
-                case QuirkStage.Intermediate:
-                BaseDamage =  45;
-                break;
-            
-                case QuirkStage.Advanced:
                 BaseDamage = 60;
                 break;
           
+                case QuirkStage.Intermediate:
+                BaseDamage =  75;
+                break;
+            
+                case QuirkStage.Advanced:
+                BaseDamage = 90;
+                break;
+          
                 case QuirkStage.Final:
-                BaseDamage = 80;
+                BaseDamage = 150;
                 break;
         
                 default:
@@ -77,13 +77,20 @@ public class BlueFireballSkill: QuirkBaseSkill
                     
             }
         
-        float ModifiedDamage = 1;
+            float modifiedDamage = 1f;
 
-        if (hellPlayer.IsFlashFireFistActive){
-         
-        ModifiedDamage += 1.5f;        
-        }
-        int FinalDamage = (int)(BaseDamage * ModifiedDamage);
+            
+            if (bluePlayer.IsFlashFireFistActive)
+            {
+                modifiedDamage += 2.0f; 
+            }
+        
+            if (bluePlayer.isSurgeArmGauntletsOn)
+            {
+                modifiedDamage += 1.5f; 
+            }
+
+            int finalDamage = (int)(BaseDamage * modifiedDamage);
 
 
 
@@ -97,7 +104,7 @@ public class BlueFireballSkill: QuirkBaseSkill
                 player.Center,
                 Velocity,
                 ModContent.ProjectileType<BlueFireBallProj>(),
-                FinalDamage, 
+                finalDamage, 
                 2f, 
                 player.whoAmI
             );
@@ -108,7 +115,7 @@ public class BlueFireballSkill: QuirkBaseSkill
             {
                 if (modPlayer is IHeroTemperature heatUser) 
                 {
-                    heatUser.AddHeat(15);
+                    heatUser.AddHeat(20);
                 }
             }
             

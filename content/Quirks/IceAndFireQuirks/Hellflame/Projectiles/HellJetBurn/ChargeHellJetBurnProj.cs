@@ -50,6 +50,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles
         {
             
             
+            
             Lighting.AddLight(player.Center, new Vector3(0.4f, 0.7f, 1f) * 1.5f);
             
         

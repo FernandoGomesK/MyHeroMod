@@ -20,11 +20,11 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
   
         public override string Category => "HellFlames"; 
 
-        public override int BaseCooldown => 120;
+        public override int BaseCooldown => 2100;
         public override QuirkType RequiredQuirk => QuirkType.Blueflame;
         
        
-        public override QuirkStage RequiredStage => QuirkStage.Initial; 
+        public override QuirkStage RequiredStage => QuirkStage.Advanced; 
         public override bool IsDefaultSkill => false;
 
         public override void OnUse(Player player)
@@ -34,21 +34,27 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
             
         
             int baseDamage = transPlayer.CurrentStage switch {
-                QuirkStage.Initial => 20,
-                QuirkStage.Adequation => 40,
-                QuirkStage.Intermediate => 45,
-                QuirkStage.Advanced => 60,
-                QuirkStage.Final => 80,
+                QuirkStage.Initial => 120,
+                QuirkStage.Adequation => 180,
+                QuirkStage.Intermediate => 250,
+                QuirkStage.Advanced => 350,
+                QuirkStage.Final => 500,
                 _ => 20
             };  
 
             float modifiedDamage = 1f;
 
+            
             if (bluePlayer.IsFlashFireFistActive)
             {
-                modifiedDamage += 1.5f;        
+                modifiedDamage += 2.0f; 
             }
-            
+        
+            if (bluePlayer.isSurgeArmGauntletsOn)
+            {
+                modifiedDamage += 1.5f; 
+            }
+
             int finalDamage = (int)(baseDamage * modifiedDamage);
 
             if (transPlayer.HasActiveQuirk(QuirkType.Blueflame))
@@ -74,7 +80,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
             {
                 if (modPlayer is IHeroTemperature heatUser) 
                 {
-                    heatUser.AddHeat(15);
+                    heatUser.AddHeat(75);
                 }
             }
         }

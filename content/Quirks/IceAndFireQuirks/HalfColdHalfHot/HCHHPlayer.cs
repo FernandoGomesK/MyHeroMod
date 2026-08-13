@@ -10,7 +10,9 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
         
         public override int MaxTemperature => 300;
         public override int MinTemperature => -300; 
-        public override int FlashfireHeatRate => 10; 
+        public override int FlashfireHeatRate => 10;
+        public override bool PhosphorFreezesTemperature => true;
+        public override bool PhosphorTurnsOff => true;
 
         public override void PostUpdateEquips()
         {
