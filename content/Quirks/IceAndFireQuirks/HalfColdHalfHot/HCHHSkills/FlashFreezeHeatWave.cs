@@ -23,7 +23,7 @@ public class FlashFreezeSkill : QuirkBaseSkill
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
     public override string Category => "HalfColdHalfHot";
 
-    public override int BaseCooldown => 120;
+    public override int BaseCooldown => 2400;
 
     public override QuirkType RequiredQuirk => QuirkType.HalfColdHalfHot;
     public override QuirkStage RequiredStage => QuirkStage.Adequation;

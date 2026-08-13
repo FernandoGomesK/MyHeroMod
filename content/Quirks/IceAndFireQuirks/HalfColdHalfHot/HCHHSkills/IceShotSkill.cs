@@ -33,7 +33,27 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
         public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
         public override string Category => "HalfColdHalfHot";
 
-        public override int BaseCooldown => 120;
+        public override int BaseCooldown 
+        {
+            get
+            {
+               
+                Player player = Main.LocalPlayer; 
+                var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+
+                
+                if (hchhPlayer.IsFlashFireFistActive)
+                {
+                    return 1500;
+                }
+                
+                else
+                {
+                    return 900; 
+                }  
+            }
+        }
+
         public override QuirkType RequiredQuirk => QuirkType.HalfColdHalfHot;
         public override QuirkStage RequiredStage => QuirkStage.Initial;
         public override bool IsDefaultSkill => false;
@@ -59,8 +79,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<HellSpiderController>()] > 0) return;
                 
                 int fireDamage = transPlayer.CurrentStage switch {
-                    QuirkStage.Adequation => 110, QuirkStage.Intermediate => 180,
-                    QuirkStage.Advanced => 360, QuirkStage.Final => 760, _ => 110
+                    QuirkStage.Adequation => 50, QuirkStage.Intermediate => 75,
+                    QuirkStage.Advanced => 90, QuirkStage.Final => 120, _ => 110
                 };
 
                 Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, direction, ModContent.ProjectileType<HellSpiderController>(), (int)(fireDamage * multiplier), 0f, player.whoAmI);
@@ -75,8 +95,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
             else
             {
                 int iceDamage = transPlayer.CurrentStage switch {
-                    QuirkStage.Initial => 25, QuirkStage.Adequation => 55, QuirkStage.Intermediate => 90,
-                    QuirkStage.Advanced => 180, QuirkStage.Final => 380, _ => 25
+                    QuirkStage.Initial => 20, QuirkStage.Adequation => 40, QuirkStage.Intermediate => 45,
+                    QuirkStage.Advanced => 60, QuirkStage.Final => 80, _ => 25
                 };
 
                 Vector2 velocity = direction * 15f;
@@ -85,7 +105,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
                 
                 foreach (var modPlayer in player.ModPlayers)
                 {
-                    if (modPlayer is IHeroTemperature heatUser) heatUser.ReduceHeat(25);
+                    if (modPlayer is IHeroTemperature heatUser) heatUser.ReduceHeat(15);
                 }
             }
         }

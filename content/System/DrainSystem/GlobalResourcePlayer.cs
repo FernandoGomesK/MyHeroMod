@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System.Interfaces;
 using Terraria.DataStructures;
-
+using Terraria.Localization; 
 namespace MyHeroMod.content.System
 {
     public class GlobalResourcePlayer : ModPlayer
@@ -14,7 +14,7 @@ namespace MyHeroMod.content.System
                 var transPlayer = Player.GetModPlayer<TransformationPlayer>();
                 int strainDamage = 0;
 
-                
+             
                 if (transPlayer.currentStrain >= transPlayer.maxStrain) 
                 {
                     strainDamage = 20;  
@@ -28,38 +28,35 @@ namespace MyHeroMod.content.System
                     strainDamage = 2; 
                 }
 
-                
                 if (strainDamage > 0)
                 {
                     Player.statLife -= strainDamage;
                     Player.lifeRegenTime = 0; 
 
-                    
                     CombatText.NewText(Player.getRect(), CombatText.LifeRegenNegative, strainDamage.ToString(), false, true);
 
-                    
-                    
                     if (Player.statLife <= 0)
                     {
-                        var reason = PlayerDeathReason.ByCustomReason(
-                        Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name)
-                    );
+                        
+                        string deathText = Language.GetTextValue("Mods.MyHeroMod.DeathMessage", Player.name);
+                        var reason = PlayerDeathReason.ByCustomReason(NetworkText.FromLiteral(deathText));
+                        Player.KillMe(reason, strainDamage, 0);
+                        return;
                     }
                 }
             
+        
                 foreach (var modPlayer in Player.ModPlayers)
                 {
-                    
                     if (modPlayer is IHeroTemperature tempUser)
                     {
-                    
                         if (tempUser.HeatPerSecond != 0)
                         {
                             tempUser.AddHeat(tempUser.HeatPerSecond);
                         }
 
-
-                        if (tempUser.StrainPenaltyPerSecond > 0)
+                        
+                        if (tempUser.StrainPenaltyPerSecond != 0)
                         {
                             tempUser.AddStrain(tempUser.StrainPenaltyPerSecond);
                         }

@@ -10,11 +10,12 @@ using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 using Terraria.DataStructures;
 using Terraria.Audio;
 using ReLogic.Utilities;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass;
 namespace MyHeroMod.content.Buffs
 {
     public class FlashfireFistBuff : ModBuff
     {
-        private SlotId _loopSoundSlot;
+        
         public override void SetStaticDefaults()
         {
             Main.buffNoTimeDisplay[Type] = true;
@@ -69,19 +70,24 @@ namespace MyHeroMod.content.Buffs
             int sparkDust = DustID.FireworkFountain_Red;
             Vector3 lightColor = Color.OrangeRed.ToVector3();
 
+            BaseIceAndFirePlayer activePlayer = null;
+
            
             if (transformPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot))
             {
-                player.GetModPlayer<HalfColdHalfHotPlayer>().IsFlashFireFistActive = true;
+                activePlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+                activePlayer.IsFlashFireFistActive = true;
             }
             else if (transformPlayer.HasActiveQuirk(QuirkType.HellFlames))
             {
-                player.GetModPlayer<HellFlamesPlayer>().IsFlashFireFistActive = true;
+                activePlayer = player.GetModPlayer<HellFlamesPlayer>();
+                activePlayer.IsFlashFireFistActive = true;
             }
             else if (transformPlayer.HasActiveQuirk(QuirkType.Blueflame))
             {
-                player.GetModPlayer<BlueflamePlayer>().IsFlashFireFistActive = true;
-              
+                activePlayer = player.GetModPlayer<BlueflamePlayer>();
+                activePlayer.IsFlashFireFistActive = true;
+
                 mainDust = DustID.BlueTorch;
                 secondaryDust = DustID.IceTorch;
                 sparkDust = DustID.FireworkFountain_Blue;
@@ -89,8 +95,8 @@ namespace MyHeroMod.content.Buffs
             }
 
             
-            player.GetDamage(DamageClass.Melee) += 0.35f; 
-            player.moveSpeed += 2.0f; 
+            player.GetDamage(DamageClass.Melee) += 0.35f;
+            player.moveSpeed += 2.0f;
             Lighting.AddLight(player.Center, lightColor * 0.8f);
 
            
@@ -120,14 +126,16 @@ namespace MyHeroMod.content.Buffs
             }
 
             
-            if (!SoundEngine.TryGetActiveSound(_loopSoundSlot, out var activeSound))
+           
+
+            if (activePlayer != null)
             {
-                SoundStyle crackleStyle = new SoundStyle("MyHeroMod/Assets/Sounds/FireCrackingSound") { IsLooped = true, Volume = 0.5f };
-                _loopSoundSlot = SoundEngine.PlaySound(crackleStyle, player.Center);
-            }
-            else
-            {
-                activeSound.Position = player.Center;
+                SoundStyle crackleStyle = new SoundStyle("MyHeroMod/Assets/Sounds/FireCrackingSound")
+                {
+                    IsLooped = true,
+                    Volume = 0.5f
+                };
+                activePlayer.PlayLoopSound(crackleStyle, player.Center);
             }
         }
 

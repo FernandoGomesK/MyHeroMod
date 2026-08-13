@@ -36,9 +36,7 @@ namespace MyHeroMod.content.Items.Support
                 
                 if (modPlayer is BaseIceAndFirePlayer fireIceUser)
                 {
-      
-                    fireIceUser.isCombatVestBetaOn = true;
-                    break; 
+                    fireIceUser.isCombatVestBetaOn = true; 
                 }
             }
             

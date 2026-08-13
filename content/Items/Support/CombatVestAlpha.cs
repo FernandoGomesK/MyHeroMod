@@ -36,12 +36,10 @@ namespace MyHeroMod.content.Items.Support
 
             foreach (var modPlayer in player.ModPlayers)
             {
-                
+               
                 if (modPlayer is BaseIceAndFirePlayer fireIceUser)
                 {
-      
                     fireIceUser.isCombatVestAlphaOn = true;
-                    break; 
                 }
             }
         }

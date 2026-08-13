@@ -4,6 +4,7 @@ using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Frost.Projectiles;
 using MyHeroMod.content.System;
+using MyHeroMod.content.System.Interfaces;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.CameraModifiers;
@@ -138,10 +139,10 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
             int maxDamage = transPlayer.CurrentStage switch
             {
                 QuirkStage.Initial => 250,    
-                QuirkStage.Adequation => 600,  
-                QuirkStage.Intermediate => 1250,
-                QuirkStage.Advanced => 2250,    
-                QuirkStage.Final => 4250,       
+                QuirkStage.Adequation => 300,  
+                QuirkStage.Intermediate => 750,
+                QuirkStage.Advanced => 800,    
+                QuirkStage.Final => 1500,       
                 _ => 1200
             };
 
@@ -177,6 +178,14 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
             player.ClearBuff(ModContent.BuffType<FlashfireFistBuff>()); 
 
             hchhPlayer.IsFlashFireFistActive = false;
+
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.AddHeat(150);
+                }
+            }
         }
     }
 }

@@ -25,17 +25,30 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Skills
         public override string GetDisplayName(Player player)
         {
             var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
             
-            // FIX 1: Correctly checks Phosphor for the Pale Blade!
+            
             if (hchhPlayer.IsPhosphorActive)
             {
                 return "Coldflame's Pale Blade";
             }
             else if (hchhPlayer.IsFlashFireFistActive)
             {
-                return "Jet Kindling";
+                if (transPlayer.CurrentStage == QuirkStage.Adequation)
+                {
+                    return "Jet Kindling";
+                }
+                else
+                {
+                    return "Fire Blast";
+                }
+                
             }
-            return "Ice Thrower"; 
+            else
+            {
+                return "Ice Thrower"; 
+            }
+            
         }
 
         public override void OnUse(Player player)
@@ -45,51 +58,64 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Skills
 
             if (!transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot)) return;
 
-            int baseDamage = 20;
+            int iceDamage = 25;      
+            int fireDamage = 40;     
+            int phosphorDamage = 120; 
+
             switch(transPlayer.CurrentStage)
             {
-                case QuirkStage.Initial: baseDamage = 20; break;
-                case QuirkStage.Adequation: baseDamage = 40; break;
-                case QuirkStage.Intermediate: baseDamage = 45; break;
-                case QuirkStage.Advanced: baseDamage = 60; break;
-                case QuirkStage.Final: baseDamage = 80; break;
+                case QuirkStage.Initial: 
+                    iceDamage = 25; fireDamage = 40; phosphorDamage = 120; break;
+                case QuirkStage.Adequation: 
+                    iceDamage = 45; fireDamage = 65; phosphorDamage = 180; break;
+                case QuirkStage.Intermediate: 
+                    iceDamage = 60; fireDamage = 80; phosphorDamage = 260; break;
+                case QuirkStage.Advanced: 
+                    iceDamage = 80; fireDamage = 110; phosphorDamage = 400; break;
+                case QuirkStage.Final: 
+                    iceDamage = 120; fireDamage = 150; phosphorDamage = 600; break;
             }
-
-            float modifiedDamage = 1f;
-
-            if (hchhPlayer.IsFlashFireFistActive)
-            {
-                modifiedDamage += 1.5f;        
-            }
-            int finalDamage = (int)(baseDamage * modifiedDamage);
 
             
+            float multiplier = 1f;
+
+            if (hchhPlayer.isSurgeArmGauntletsOn)
+            {
+                multiplier += 0.5f; 
+            }
+
+        
             Vector2 velocity = Main.MouseWorld - player.Center;
             velocity.Normalize();
             velocity *= 15f;
 
             if (hchhPlayer.IsPhosphorActive)
             {
+                int finalDamage = (int)(phosphorDamage * multiplier);
                 Projectile.NewProjectile(
                     player.GetSource_FromThis(), player.Center, velocity, 
                     ModContent.ProjectileType<JetPaleCharge>(), finalDamage, 2f, player.whoAmI
                 );
+
             }
             else if (hchhPlayer.IsFlashFireFistActive)
             {
+                int finalDamage = (int)(fireDamage * multiplier);
                 Projectile.NewProjectile(
                     player.GetSource_FromThis(), player.Center, velocity, 
                     ModContent.ProjectileType<JetKindlingCharge>(), finalDamage, 2f, player.whoAmI
                 );
-                hchhPlayer.AddHeat(15);
+                
+                hchhPlayer.AddHeat(35); 
             }
             else
             {
+                int finalDamage = (int)(iceDamage * multiplier);
                 Projectile.NewProjectile(
                     player.GetSource_FromThis(), player.Center, velocity, 
                     ModContent.ProjectileType<JetIceCharge>(), finalDamage, 2f, player.whoAmI
                 );      
-                hchhPlayer.ReduceHeat(15);
+                hchhPlayer.ReduceHeat(20);
             }
         }
     }

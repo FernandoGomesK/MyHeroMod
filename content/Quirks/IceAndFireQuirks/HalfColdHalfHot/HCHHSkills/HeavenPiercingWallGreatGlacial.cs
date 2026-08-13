@@ -23,10 +23,10 @@ public class HeavenPiercingGreatGlacial: QuirkBaseSkill
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
     public override string Category => "HCHH";
 
-    public override int BaseCooldown => 120;
+    public override int BaseCooldown => 1800;
 
     public override QuirkType RequiredQuirk => QuirkType.HalfColdHalfHot;
-    public override QuirkStage RequiredStage => QuirkStage.Intermediate;
+    public override QuirkStage RequiredStage => QuirkStage.Adequation;
     public override bool IsDefaultSkill => false;
     
 
@@ -45,10 +45,6 @@ public class HeavenPiercingGreatGlacial: QuirkBaseSkill
 
             int iceDamage = 1000;
             switch(transPlayer.CurrentStage) {
-                case QuirkStage.Initial: iceDamage = 1000; break;
-                case QuirkStage.Adequation: iceDamage = 1000; break;
-                case QuirkStage.Intermediate: iceDamage = 1000; break;
-                case QuirkStage.Advanced: iceDamage = 1000; break;
                 case QuirkStage.Final: iceDamage = 1500; break;
             }
             int finalDamage = (int)(iceDamage * multiplier);
@@ -62,6 +58,14 @@ public class HeavenPiercingGreatGlacial: QuirkBaseSkill
                 finalDamage,
                 10f, 
                 player.whoAmI);
+
+                foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.ReduceHeat(100);
+                }
+            }
         }
         else
         {
@@ -72,40 +76,40 @@ public class HeavenPiercingGreatGlacial: QuirkBaseSkill
 
         int iceDamage = 80;
             switch(transPlayer.CurrentStage) {
-                case QuirkStage.Initial: iceDamage = 80; break;
-                case QuirkStage.Adequation: iceDamage = 150; break;
-                case QuirkStage.Intermediate: iceDamage = 300; break;
-                case QuirkStage.Advanced: iceDamage = 500; break;
-                case QuirkStage.Final: iceDamage = 750; break;
+                case QuirkStage.Initial: iceDamage = 60; break;
+                case QuirkStage.Adequation: iceDamage = 90; break;
+                case QuirkStage.Intermediate: iceDamage = 120; break;
+                case QuirkStage.Advanced: iceDamage = 160; break;
+                case QuirkStage.Final: iceDamage = 220; break;
             }
             int finalDamage = (int)(iceDamage * multiplier);
 
 
-        // Define a direção (Esquerda ou Direita baseado no mouse)
+        
         float direction = Main.MouseWorld.X > player.Center.X ? 1f : -1f;
     
-        // Velocidade da onda (Rápida)s
+        
         Vector2 velocity = new Vector2(10f * direction, 0f);
 
-        // Spawna o Controlador um pouco na frente do player
+      
         Projectile.NewProjectile(
             player.GetSource_FromThis(),
-            player.Center + new Vector2(20f * direction, 0), // Começa um pouco a frente
+            player.Center + new Vector2(20f * direction, 0),
             velocity,
             ModContent.ProjectileType<IceWaveController>(),
-            finalDamage, // Dano
+            finalDamage, 
             5f,
             player.whoAmI
 
             
         );
-        // hchhPlayer.temperature -= 45;
+        
 
         foreach (var modPlayer in player.ModPlayers)
             {
                 if (modPlayer is IHeroTemperature heatUser) 
                 {
-                    heatUser.ReduceHeat(45);
+                    heatUser.ReduceHeat(50);
                 }
             }
         }

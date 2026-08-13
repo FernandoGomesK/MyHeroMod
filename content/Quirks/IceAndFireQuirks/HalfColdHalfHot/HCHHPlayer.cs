@@ -25,10 +25,15 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
         public override void PostUpdate()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-            if (!mainPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot)) return;
-
-            
+            if (!mainPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot)) 
+            {
+                HeatPerSecond = 0;
+                StrainPenaltyPerSecond = 0;
+                return;
+            }
             base.PostUpdate(); 
         }
+
+       
     }
 }

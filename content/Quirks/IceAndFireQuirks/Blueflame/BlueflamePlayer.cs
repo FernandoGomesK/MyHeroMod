@@ -24,9 +24,12 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
         public override void PostUpdate()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-            if (!mainPlayer.HasActiveQuirk(QuirkType.Blueflame)) return;
-
-            
+            if (!mainPlayer.HasActiveQuirk(QuirkType.Blueflame)) 
+            {
+                HeatPerSecond = 0;
+                StrainPenaltyPerSecond = 0;
+                return;
+            }
             base.PostUpdate(); 
         }
     }

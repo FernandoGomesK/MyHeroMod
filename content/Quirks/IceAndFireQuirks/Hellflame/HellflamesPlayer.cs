@@ -24,21 +24,25 @@ namespace MyHeroMod.content.Quirks.HellFlames
         }
         public override int MinTemperature => 0; 
         public override int FlashfireHeatRate => 5; 
-        
+            
+       public override void PostUpdateEquips()
+        {
+            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+            if (!mainPlayer.HasActiveQuirk(QuirkType.HellFlames)) return;
+
+            base.PostUpdateEquips();
+        }
+
         public override void PostUpdate()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-            if (!mainPlayer.HasActiveQuirk(QuirkType.HellFlames)) return;
-            
-            base.PostUpdate(); 
-        }
-
-        public override void PostUpdateEquips()
-        {
-            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-            if (!mainPlayer.HasActiveQuirk(QuirkType.HellFlames)) return;
-            
-            base.PostUpdateEquips();
+            if (!mainPlayer.HasActiveQuirk(QuirkType.HellFlames))
+            {
+                HeatPerSecond = 0;
+                StrainPenaltyPerSecond = 0;
+                return;
+            }
+            base.PostUpdate();
         }
     }
 }

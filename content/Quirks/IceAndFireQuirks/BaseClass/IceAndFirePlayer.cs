@@ -15,6 +15,26 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
     {
         protected SlotId _loopSoundSlot;
 
+        public void PlayLoopSound(SoundStyle style, Vector2 position)
+        {
+            if (!SoundEngine.TryGetActiveSound(_loopSoundSlot, out var activeSound))
+            {
+                _loopSoundSlot = SoundEngine.PlaySound(style, position);
+            }
+            else
+            {
+                activeSound.Position = position;
+            }
+        }
+
+        public void StopLoopSound()
+        {
+            if (SoundEngine.TryGetActiveSound(_loopSoundSlot, out var activeSound))
+            {
+                activeSound.Stop();
+            }
+        }
+
     
         public int Temperature { get; set; } = 0;
         public int HeatPerSecond { get; set; }
@@ -65,7 +85,15 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
         public void AddStrain(int amount)
         {
             CurrentStrain += amount;
-            CombatText.NewText(Player.getRect(), Color.Cyan, $"{amount} Strain!", false, true);
+            
+            
+            if (CurrentStrain < 0) CurrentStrain = 0; 
+
+           
+            if (amount > 0)
+            {
+                CombatText.NewText(Player.getRect(), Color.Cyan, $"{amount} Strain!", false, true);
+            }
 
             if (CurrentStrain >= MaxStrain)
             {
@@ -73,6 +101,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
                 Player.ClearBuff(ModContent.BuffType<FlashfireFistBuff>());
             }
         }
+
+        
 
         public override void ResetEffects()
         {
@@ -86,7 +116,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
         public virtual void FullReset()
         {
             Temperature = 0;
-            CurrentStrain = 0;
+            
             IsFlashFireFistActive = false;
             IsPhosphorActive = false;
             Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
@@ -109,12 +139,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 
        public override void PreUpdate()
         {
-            if (SoundEngine.TryGetActiveSound(_loopSoundSlot, out var activeSound))
-            {
-                activeSound.Stop();
-            }
-            
-            
             if (IsPhosphorActive && Player.statLife <= 0.75 * Player.statLifeMax2 && PhosphorTurnsOff)
             {
                 Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
@@ -152,6 +176,12 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 
        public override void PostUpdate()
         {
+
+
+            if (!IsFlashFireFistActive)
+            {
+                StopLoopSound();
+            }
         
             if (!IsPhosphorActive || !PhosphorFreezesTemperature)
             {
@@ -188,8 +218,26 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
             }
             
             
-            if (Temperature >= StrainPenaltyThreshold) StrainPenaltyPerSecond = 20; 
-            else StrainPenaltyPerSecond = 0;
+        bool isOverheating = Temperature >= (MaxTemperature * 0.75f);
+        bool isFreezing = MinTemperature < 0 && Temperature <= (MinTemperature * 0.75f);
+
+        bool isSafeHot = Temperature >= 0 && Temperature <= (MaxTemperature * 0.25f);
+        bool isSafeCold = Temperature < 0 && Temperature >= (MinTemperature * 0.25f);
+
+        if (isOverheating || isFreezing)
+        {
+            StrainPenaltyPerSecond = 20; 
+        }
+        else if (isSafeHot || isSafeCold)
+        {
+            StrainPenaltyPerSecond = -5; 
+        }
+        else 
+        {
+            StrainPenaltyPerSecond = 0;  
+        }
+
+            
 
             UpdateFlyingDust();
         }

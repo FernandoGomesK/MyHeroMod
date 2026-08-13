@@ -1,6 +1,7 @@
 using KhacesCore.Content.System.BaseProjectiles;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.System;
+using MyHeroMod.content.System.Interfaces;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.CameraModifiers;
@@ -22,6 +23,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
         protected abstract string SoundStylePath { get; }
         protected abstract Vector3 LightColor { get; }
         protected abstract Color ImpactColor { get; }
+        protected abstract int addHeatVar { get; }
+        protected abstract int removeHeatVar { get; }
 
         public override void AI()
         {
@@ -113,6 +116,21 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Projectiles.
             
             PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "PhosphorShake");
             Main.instance.CameraModifiers.Add(shake);
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.AddHeat(addHeatVar);
+                }
+            }
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.ReduceHeat(removeHeatVar);
+                }
+            }
+
         }
     }
 }
