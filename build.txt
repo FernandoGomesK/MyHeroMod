@@ -1,6 +1,6 @@
 displayName = My hero Academia mod
 author = KhadaAce
-version = 0.1.6.1
+version = 0.1.7
 buildIgnore = *.aseprite, *.ase, *.psd, *Copia*.png, *copy*.png, *BackUp*.png, asdasd.png, obj\, bin\, .vs\
 includeSource = false
 modReferences = KhacesCore
