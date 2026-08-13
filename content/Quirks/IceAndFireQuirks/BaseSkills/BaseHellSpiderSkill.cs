@@ -3,6 +3,7 @@ using MyHeroMod.content.System;
 using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System.Interfaces;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
 {
@@ -15,6 +16,9 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
         public override string Category => "Fire";
         public override int BaseCooldown => 120;
         public override bool IsDefaultSkill => false;
+        
+        public virtual float FlashfireFistModifier => 1.5f; 
+        public virtual float SurgeArmGauntletModifier => 0.5f;
 
         
         protected abstract int HellSpiderProjType { get; } 
@@ -37,10 +41,28 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
             direction.Normalize();
 
             
-            int damage = CalculateDamage(transPlayer);
+            int baseDamage = CalculateDamage(transPlayer);
+    
+            
+            float totalMultiplier = 1f;
+
+            if (player.TryGetModPlayer(out BaseIceAndFirePlayer firePlayer))
+        {
+            if (firePlayer.IsFlashFireFistActive)
+            {
+                totalMultiplier += FlashfireFistModifier; 
+            }
+            
+            if (firePlayer.isSurgeArmGauntletsOn)
+            {
+                totalMultiplier += SurgeArmGauntletModifier; 
+            }
+        }
+          
+            int finalDamage = (int)(baseDamage * totalMultiplier);
 
             
-            Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, direction, HellSpiderProjType, damage, 0f, player.whoAmI);
+            Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, direction, HellSpiderProjType, finalDamage, 0f, player.whoAmI);
 
           
             foreach (var modPlayer in player.ModPlayers)

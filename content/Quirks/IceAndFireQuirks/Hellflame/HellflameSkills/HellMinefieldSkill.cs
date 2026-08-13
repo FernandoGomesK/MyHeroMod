@@ -10,7 +10,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
 {
     public class HellMinefieldSkill : QuirkBaseSkill
     {
-        public override string Name => "Hell Minefield";
+        public override string Name => "Hell Hell Minefield";
         public override string GetDisplayName(Player player) => "Hell Minefield";
         
         public override string Description => "Release a wave of fire that leaves explosive mines along the ground.";
@@ -18,11 +18,11 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
   
         public override string Category => "HellFlames"; 
 
-        public override int BaseCooldown => 120;
+        public override int BaseCooldown => 1800;
         public override QuirkType RequiredQuirk => QuirkType.HellFlames;
         
        
-        public override QuirkStage RequiredStage => QuirkStage.Initial; 
+        public override QuirkStage RequiredStage => QuirkStage.Intermediate; 
         public override bool IsDefaultSkill => false;
 
         public override void OnUse(Player player)
@@ -32,21 +32,27 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
             
         
             int baseDamage = transPlayer.CurrentStage switch {
-                QuirkStage.Initial => 20,
-                QuirkStage.Adequation => 40,
-                QuirkStage.Intermediate => 45,
-                QuirkStage.Advanced => 60,
-                QuirkStage.Final => 80,
+                QuirkStage.Initial => 60,
+                QuirkStage.Adequation => 90,
+                QuirkStage.Intermediate => 120,
+                QuirkStage.Advanced => 160,
+                QuirkStage.Final => 220,
                 _ => 20
             };  
 
-            float modifiedDamage = 1f;
+           float modifiedDamage = 1f;
 
+            
             if (hellPlayer.IsFlashFireFistActive)
             {
-                modifiedDamage += 1.5f;        
+                modifiedDamage += 1.5f; 
             }
-            
+        
+            if (hellPlayer.isSurgeArmGauntletsOn)
+            {
+                modifiedDamage += 0.5f; 
+            }
+
             int finalDamage = (int)(baseDamage * modifiedDamage);
 
             if (transPlayer.HasActiveQuirk(QuirkType.HellFlames))
@@ -72,7 +78,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
             {
                 if (modPlayer is IHeroTemperature heatUser) 
                 {
-                    heatUser.AddHeat(15);
+                    heatUser.AddHeat(50);
                 }
             }
         }

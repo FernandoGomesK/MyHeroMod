@@ -23,7 +23,7 @@ namespace MyHeroMod.content.Quirks.HellFlames
             }
         }
         public override int MinTemperature => 0; 
-        public override int FlashfireHeatRate => 20; 
+        public override int FlashfireHeatRate => 5; 
         
         public override void PostUpdate()
         {

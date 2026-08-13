@@ -27,7 +27,7 @@ public class IgnitedArrowSkill: QuirkBaseSkill
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
     public override string Category => "Fire";
 
-    public override int BaseCooldown => 120;
+    public override int BaseCooldown => 900;
 
     public override QuirkType RequiredQuirk => QuirkType.HellFlames;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
@@ -37,42 +37,31 @@ public class IgnitedArrowSkill: QuirkBaseSkill
     {
         var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
-        int BaseDamage = 0;
-        
-            switch(transPlayer.CurrentStage){
-                case QuirkStage.Initial:
-                BaseDamage = 20;
-                break;
+            int baseDamage = 20;
+
+            switch(transPlayer.CurrentStage)
+            {
+                case QuirkStage.Initial: baseDamage = 20; break;
+                case QuirkStage.Adequation: baseDamage = 40; break;
+                case QuirkStage.Intermediate: baseDamage = 45; break;
+                case QuirkStage.Advanced: baseDamage = 60; break;
+                case QuirkStage.Final: baseDamage = 80; break;
+            }
+
+            float modifiedDamage = 1f;
+
             
-                case QuirkStage.Adequation:
-                BaseDamage = 40;
-                break;
-          
-                case QuirkStage.Intermediate:
-                BaseDamage =  45;
-                break;
-            
-                case QuirkStage.Advanced:
-                BaseDamage = 60;
-                break;
-          
-                case QuirkStage.Final:
-                BaseDamage = 80;
-                break;
-        
-                default:
-                BaseDamage =20;
-                break;
-                    
+            if (hellPlayer.IsFlashFireFistActive)
+            {
+                modifiedDamage += 1.5f; 
             }
         
-        float ModifiedDamage = 1;
+            if (hellPlayer.isSurgeArmGauntletsOn)
+            {
+                modifiedDamage += 0.5f; 
+            }
 
-        if (hellPlayer.IsFlashFireFistActive){
-         
-        ModifiedDamage += 1.5f;        
-        }
-        int FinalDamage = (int)(BaseDamage * ModifiedDamage);
+            int finalDamage = (int)(baseDamage * modifiedDamage);
 
 
 
@@ -86,7 +75,7 @@ public class IgnitedArrowSkill: QuirkBaseSkill
                 player.Center,
                 Velocity,
                 ModContent.ProjectileType<IgnitedArrowProj>(),
-                FinalDamage, 
+                finalDamage, 
                 2f, 
                 player.whoAmI
             );

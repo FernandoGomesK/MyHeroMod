@@ -12,17 +12,20 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Skills
         
         public override QuirkType RequiredQuirk => QuirkType.HellFlames;
         public override QuirkStage RequiredStage => QuirkStage.Intermediate;
+        protected override int HeatCost => 45;
+
+        public override int BaseCooldown => 1500;
 
         protected override int HellSpiderProjType => ModContent.ProjectileType<HellSpiderController>();
 
         protected override int CalculateDamage(TransformationPlayer transPlayer)
         {
             return transPlayer.CurrentStage switch {
-                QuirkStage.Adequation => 180, 
-                QuirkStage.Intermediate => 280,
-                QuirkStage.Advanced => 480, 
-                QuirkStage.Final => 950, 
-                _ => 180
+                QuirkStage.Adequation => 65, 
+                QuirkStage.Intermediate => 80,
+                QuirkStage.Advanced => 110, 
+                QuirkStage.Final => 150, 
+                _ => 65
             };
         }
     }

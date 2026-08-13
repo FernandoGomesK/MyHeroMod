@@ -5,6 +5,7 @@ using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.Projectiles.Base;
 using MyHeroMod.content.Projectiles.GreyOnomatopoeias;
 using MyHeroMod.content.System;
+using MyHeroMod.content.System.Interfaces;
 using Terraria;
 using Terraria.Audio;
 using Terraria.Graphics.CameraModifiers;
@@ -126,6 +127,14 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles
             );
             PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "PhosphorShake");
             Main.instance.CameraModifiers.Add(shake);
+
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) 
+                {
+                    heatUser.AddHeat(35);
+                }
+            }
         }
     }
 }

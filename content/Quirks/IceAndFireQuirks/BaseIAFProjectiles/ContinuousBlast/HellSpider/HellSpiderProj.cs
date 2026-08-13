@@ -23,10 +23,13 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles.Continuou
             Projectile.alpha = 255; 
             Projectile.ignoreWater = false; 
             Projectile.tileCollide = true; 
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.localNPCHitCooldown = 10; 
             Projectile.hide = true;
             Projectile.extraUpdates = 2; 
+
+            Projectile.usesIDStaticNPCImmunity = true;
+    
+   
+            Projectile.idStaticNPCHitCooldown = 15;
         }
 
         public override void AI()
