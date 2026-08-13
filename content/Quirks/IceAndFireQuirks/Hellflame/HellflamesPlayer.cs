@@ -5,7 +5,23 @@ namespace MyHeroMod.content.Quirks.HellFlames
 {
     public partial class HellFlamesPlayer : BaseIceAndFirePlayer
     {
-        public override int MaxTemperature => 300;
+        public override int MaxTemperature
+        {
+            get 
+            {
+            
+                var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+        
+                if (mainPlayer.CurrentStage == QuirkStage.Final)
+                {
+                    return 250;
+                }
+
+            
+                return 200;
+            }
+        }
         public override int MinTemperature => 0; 
         public override int FlashfireHeatRate => 20; 
         

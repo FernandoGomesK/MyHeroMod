@@ -161,7 +161,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
                     else HeatPerSecond = 0;                       
                 }
             }
-
+        
             
             if (Temperature >= StrainPenaltyThreshold) StrainPenaltyPerSecond = 20; 
             else StrainPenaltyPerSecond = 0;

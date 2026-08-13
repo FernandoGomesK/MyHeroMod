@@ -8,8 +8,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
     public partial class BlueflamePlayer : BaseIceAndFirePlayer 
     {
         
-        public override int MaxTemperature => 150;
-        public override int MinTemperature => -50; 
+        public override int MaxTemperature => 100;
+        public override int MinTemperature => -200; 
         public override int FlashfireHeatRate => 20; 
 
         public override void PostUpdateEquips()
