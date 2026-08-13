@@ -53,9 +53,6 @@ namespace MyHeroMod.content.UI
             Player player = Main.LocalPlayer;
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            
-            if (transPlayer.currentStrain <= 0 && !Main.playerInventory)
-                return;
 
             Texture2D barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/StrainFrame").Value;
             Texture2D barFill = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/StrainFill").Value;
@@ -65,8 +62,10 @@ namespace MyHeroMod.content.UI
 
             float quotient = 1f;
             
-            
-            quotient = (float)transPlayer.currentStrain / transPlayer.maxStrain;
+            if (transPlayer.maxStrain > 0)
+            {
+                quotient = (float)transPlayer.currentStrain / transPlayer.maxStrain;
+            }
             
             quotient = MathHelper.Clamp(quotient, 0f, 1f);
 

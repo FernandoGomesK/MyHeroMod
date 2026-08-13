@@ -3,6 +3,8 @@ using MyHeroMod.content.Quirks.HellFlames;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass;
 
 
 namespace MyHeroMod.content.Items.Support
@@ -31,15 +33,22 @@ namespace MyHeroMod.content.Items.Support
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
             
-            var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
-            var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
-            
-            hchhPlayer.IsCombatVestAlphaOn = true;
-            hellPlayer.IsCombatVestAlphaOn = true;
-            
-            
-            
+
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                
+                if (modPlayer is BaseIceAndFirePlayer fireIceUser)
+                {
+      
+                    fireIceUser.isCombatVestAlphaOn = true;
+                    break; 
+                }
+            }
         }
+            
+            
+            
+        
         public override void AddRecipes()
         {   
             CreateRecipe()

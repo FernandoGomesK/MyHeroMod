@@ -1,12 +1,15 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria.ID;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
 {
-    public partial class BlueflamePlayer : ModPlayer
+   
+    public partial class BlueflamePlayer : BaseIceAndFirePlayer
     {
         public override void ModifyDrawInfo(ref PlayerDrawSet drawInfo)
         {
@@ -85,7 +88,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
             Main.dust[d].velocity += Player.velocity * 0.3f;
         }
 
-        private void UpdateFlyingDust()
+        protected new void UpdateFlyingDust()
         {
             bool isFlying = (Player.velocity.Y != 0) && (Player.wingTime > 0 || Player.rocketDelay > 0) && !Player.mount.Active;
             

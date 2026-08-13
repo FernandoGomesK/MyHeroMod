@@ -3,6 +3,8 @@ using MyHeroMod.content.Quirks.HellFlames;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass;
 
 
 namespace MyHeroMod.content.Items.Support
@@ -24,14 +26,21 @@ namespace MyHeroMod.content.Items.Support
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            // Pega o Player do Todoroki e liga o colete
-            var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
-            var hellPlayer = player.GetModPlayer<HellFlamesPlayer>();
+        
+            // var iAndFPlaayer = player.GetModPlayer<BaseIceAndFirePlayer>();
+
+            // iAndFPlaayer.isCombatVestBetaOn = true;
             
-            hchhPlayer.IsCombatVestBetaOn = true;
-            hellPlayer.IsCombatVestBetaOn = true;
-            
-            // Opcional: Bônus genéricos
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                
+                if (modPlayer is BaseIceAndFirePlayer fireIceUser)
+                {
+      
+                    fireIceUser.isCombatVestBetaOn = true;
+                    break; 
+                }
+            }
             
         }
         public override void AddRecipes()

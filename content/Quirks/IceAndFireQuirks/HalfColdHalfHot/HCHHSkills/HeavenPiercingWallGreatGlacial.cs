@@ -36,7 +36,7 @@ public class HeavenPiercingGreatGlacial: QuirkBaseSkill
         var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
         float multiplier = 1.0f;
-        if (hchhPlayer.IsSurgeArmGauntletsOn) multiplier += 0.5f;
+        if (hchhPlayer.isSurgeArmGauntletsOn) multiplier += 0.5f;
 
         if (hchhPlayer.IsPhosphorActive)
         {

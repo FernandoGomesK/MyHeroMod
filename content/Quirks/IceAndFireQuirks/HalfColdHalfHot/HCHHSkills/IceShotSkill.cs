@@ -44,7 +44,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
 
             
             float multiplier = 1.0f;
-            if (hchhPlayer.IsSurgeArmGauntletsOn) 
+            if (hchhPlayer.isSurgeArmGauntletsOn) 
             {
                 multiplier += 0.5f;
             }

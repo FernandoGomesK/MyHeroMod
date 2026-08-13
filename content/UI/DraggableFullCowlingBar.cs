@@ -114,7 +114,7 @@ namespace MyHeroMod.content.UI
 
         
             float quotient = 1f;
-            if (transPlayer.maxStrain > 0)
+            if (transPlayer.maxStrain >= 0)
             {
                 
                 quotient = 1f - ((float)transPlayer.currentStrain / transPlayer.maxStrain);

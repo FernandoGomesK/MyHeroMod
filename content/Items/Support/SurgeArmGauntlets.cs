@@ -1,3 +1,4 @@
+using MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
 using Terraria;
 using Terraria.ID;
@@ -20,11 +21,18 @@ namespace MyHeroMod.content.Items.Support
 
         public override void UpdateAccessory(Player player, bool hideVisual)
         {
-            // Pega o Player do Todoroki e liga o colete
-            var quirkPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
-            quirkPlayer.IsSurgeArmGauntletsOn = true;
+           
             
-            
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                
+                if (modPlayer is BaseIceAndFirePlayer fireIceUser)
+                {
+      
+                    fireIceUser.isSurgeArmGauntletsOn = true;
+                    break; 
+                }
+            }
             
         }
         public override void AddRecipes()
