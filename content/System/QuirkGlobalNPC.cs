@@ -13,6 +13,8 @@ using MyHeroMod.content.Quirks.Erasure.Projectiles;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.IceShot;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.JetBurn;
 using MyHeroMod.content.Npcs.Bosses.AllForOne;
+using Terraria.ModLoader.IO;
+using System.IO;
 
 namespace MyHeroMod.content.System
 {
@@ -39,6 +41,18 @@ namespace MyHeroMod.content.System
         public override void Unload()
         {
             fullCowlingTexture = null;
+        }
+
+        public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter binaryWriter)
+        {
+            bitWriter.WriteBit(HasQuirk);
+            binaryWriter.Write((int)AssignedQuirk);
+        }
+
+        public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
+        {
+            HasQuirk = bitReader.ReadBit();
+            AssignedQuirk = (QuirkType)binaryReader.ReadInt32();
         }
 
         
@@ -208,6 +222,8 @@ namespace MyHeroMod.content.System
         }
         public override void OnKill(NPC npc)
         {
+            if (Main.netMode == NetmodeID.MultiplayerClient) return;
+
             if (HasQuirk && Main.rand.NextBool(2))
             {
                 Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<Items.QuirkGene>());
