@@ -18,6 +18,7 @@ using MyHeroMod.content.Quirks.AllForOne;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
 using Microsoft.Xna.Framework.Graphics;
+using MyHeroMod.content.Quirks.FaJin;
 
 namespace MyHeroMod
     {
@@ -72,8 +73,10 @@ namespace MyHeroMod
                 SyncErasure,
                 SyncExplosion,
                 SyncAllForOne,
+                SyncFaJin,
 
                 StealNPCQuirk,
+
             }
 
             // 2. LER AS MENSAGENS QUE CHEGAM
@@ -109,6 +112,9 @@ namespace MyHeroMod
                         int stageInt = reader.ReadInt32();
                         stageInt = Math.Clamp(stageInt, (int)QuirkStage.Initial, (int)QuirkStage.Final);
 
+                        int natureInt= reader.ReadInt32();
+                        int currentStrain = reader.ReadInt32();
+
                         string slot1Str = reader.ReadString();
                         string slot2Str = reader.ReadString();
                         string slot3Str = reader.ReadString();
@@ -117,6 +123,11 @@ namespace MyHeroMod
                         TransformationPlayer transPlayer = Main.player[playerIndex].GetModPlayer<TransformationPlayer>();
                         transPlayer.ActiveQuirks = receivedQuirks;
                         transPlayer.CurrentStage = (QuirkStage)stageInt;
+
+                        if (Enum.IsDefined(typeof(NatureType), natureInt))
+                            transPlayer.Nature = (NatureType)natureInt;
+
+                        transPlayer.currentStrain = currentStrain;
                         transPlayer.Slot1 = slot1Str;
                         transPlayer.Slot2 = slot2Str;
                         transPlayer.Slot3 = slot3Str;
@@ -130,6 +141,8 @@ namespace MyHeroMod
                             packet.Write(receivedQuirks.Count); 
                             foreach (var quirk in receivedQuirks) packet.Write((int)quirk);
                             packet.Write(stageInt);
+                            packet.Write(natureInt);
+                            packet.Write(currentStrain);
                             packet.Write(slot1Str);
                             packet.Write(slot2Str);
                             packet.Write(slot3Str);
@@ -165,6 +178,7 @@ namespace MyHeroMod
                         {
                             byte senderIndexInPacket = reader.ReadByte();
                             int percentage9 = reader.ReadInt32();
+                            int fingers = reader.ReadInt32();
 
                             byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
                             if (playerIndex >= Main.maxPlayers) break;
@@ -180,6 +194,7 @@ namespace MyHeroMod
                                 packet.Write((byte)MessageType.SyncOFA9th);
                                 packet.Write(playerIndex);
                                 packet.Write(percentage9);
+                                packet.Write(fingers);
                                 packet.Send(-1, playerIndex);
                             }
                             break;
@@ -310,9 +325,34 @@ namespace MyHeroMod
                             break;
                         }
 
+                        case MessageType.SyncFaJin:
+                        {
+                            byte senderIndexInPacket = reader.ReadByte();
+                            int fajinCharges = reader.ReadInt32();
+                            bool isFajinActive = reader.ReadBoolean();
+
+                            byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
+                            if (playerIndex >= Main.maxPlayers) break;
+
+                            var fajinPlayer = Main.player[playerIndex].GetModPlayer<FajinPlayer>();
+                            fajinPlayer.FaJinCharges = fajinCharges;
+                            fajinPlayer.isFaJinActive = isFajinActive;
+
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                ModPacket packet = GetPacket();
+                                packet.Write((byte)MessageType.SyncFaJin);
+                                packet.Write(playerIndex);
+                                packet.Write(fajinCharges);
+                                packet.Write(isFajinActive);
+                                packet.Send(-1, playerIndex);
+                            }
+                            break;
+                        }
+
                         case MessageType.StealNPCQuirk:
                         {
-                            int npcWhoAmI = reader.ReadInt32(); // Qual NPC foi roubado
+                            int npcWhoAmI = reader.ReadInt32(); 
 
                             if (npcWhoAmI >= 0 && npcWhoAmI < Main.maxNPCs)
                             {

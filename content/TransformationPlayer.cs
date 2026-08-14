@@ -307,6 +307,8 @@ namespace MyHeroMod.content
             clone.Slot2 = Slot2;
             clone.Slot3 = Slot3;
             clone.Slot4 = Slot4;
+            clone.Nature = Nature;
+            clone.currentStrain = currentStrain;
         }
 
         public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
@@ -322,7 +324,8 @@ namespace MyHeroMod.content
             }
 
             packet.Write((int)CurrentStage); 
-            
+            packet.Write((int)Nature);
+            packet.Write(currentStrain); 
             
             packet.Write(Slot1 ?? "None");
             packet.Write(Slot2 ?? "None");
@@ -344,8 +347,9 @@ namespace MyHeroMod.content
                     if (ActiveQuirks[i] != clone.ActiveQuirks[i]) quirksChanged = true;
                 }
             }
-
-            if (quirksChanged || CurrentStage != clone.CurrentStage ||
+            
+            
+            if (quirksChanged || CurrentStage != clone.CurrentStage || Nature != clone.Nature || currentStrain != clone.currentStrain ||
                 Slot1 != clone.Slot1 || Slot2 != clone.Slot2 || Slot3 != clone.Slot3 || Slot4 != clone.Slot4)
             {
                 ModPacket packet = Mod.GetPacket();
@@ -359,6 +363,9 @@ namespace MyHeroMod.content
                 }
 
                 packet.Write((int)CurrentStage);
+                packet.Write((int)Nature); 
+                packet.Write(currentStrain); 
+                
                 packet.Write(Slot1 ?? "None");
                 packet.Write(Slot2 ?? "None");
                 packet.Write(Slot3 ?? "None");
@@ -367,5 +374,5 @@ namespace MyHeroMod.content
                 packet.Send(-1, Player.whoAmI); 
             }
         }
-    }
+        }
 }
