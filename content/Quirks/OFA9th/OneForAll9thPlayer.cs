@@ -326,6 +326,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         {
             OneForAll9thPlayer clone = targetCopy as OneForAll9thPlayer;
             clone.percentage = percentage;
+            clone.currentFingers = currentFingers;
             
         }
 
@@ -335,6 +336,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             packet.Write((byte)MyHeroMod.MessageType.SyncOFA9th); 
             packet.Write((byte)Player.whoAmI); 
             packet.Write((int)percentage); 
+            packet.Write(currentFingers);
             
             packet.Send(toWho, fromWho);
         }
@@ -350,6 +352,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 packet.Write((byte)MyHeroMod.MessageType.SyncOFA9th);
                 packet.Write((byte)Player.whoAmI);
                 packet.Write((int)percentage);
+                packet.Write(currentFingers);
                 packet.Send(-1, Player.whoAmI); 
             }
         }}}

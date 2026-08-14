@@ -119,7 +119,7 @@ namespace MyHeroMod.content.Quirks.Erasure;
             if (eyeTimer != clone.eyeTimer || isYellowGogglesOn != clone.isYellowGogglesOn || isErasureActive != clone.isErasureActive)
             {
                 ModPacket packet = Mod.GetPacket();
-                packet.Write((byte)MyHeroMod.MessageType.SyncGearshift);
+                packet.Write((byte)MyHeroMod.MessageType.SyncErasure);
                 packet.Write((byte)Player.whoAmI);
                 packet.Write(isErasureActive);
                 packet.Write(isYellowGogglesOn);

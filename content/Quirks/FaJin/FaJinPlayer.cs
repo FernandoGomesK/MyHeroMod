@@ -113,8 +113,39 @@ namespace MyHeroMod.content.Quirks.FaJin
 
         
     }
-}
 
+    public override void CopyClientState(ModPlayer targetCopy)
+        {
+            FajinPlayer clone = targetCopy as FajinPlayer;
+            clone.FaJinCharges = FaJinCharges;
+            clone.isFaJinActive = isFaJinActive;
+        }
+
+    public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            ModPacket packet = Mod.GetPacket();
+            packet.Write((byte)MyHeroMod.MessageType.SyncFaJin); 
+            packet.Write((byte)Player.whoAmI); 
+            packet.Write(FaJinCharges);
+            packet.Write(isFaJinActive);
+            packet.Send(toWho, fromWho);
+        }
+
+    public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            FajinPlayer clone = clientPlayer as FajinPlayer;
+            if (FaJinCharges != clone.FaJinCharges || isFaJinActive != clone.isFaJinActive)
+            {
+                ModPacket packet = Mod.GetPacket();
+                packet.Write((byte)MyHeroMod.MessageType.SyncFaJin);
+                packet.Write((byte)Player.whoAmI);
+                packet.Write(FaJinCharges);
+                packet.Write(isFaJinActive);
+                packet.Send(-1, Player.whoAmI); 
+            }
+        }
+}
+ 
 
       
     }
