@@ -17,7 +17,7 @@ public class DetroitSmashSkill : QuirkBaseSkill
 {
     public override string Name => "Detroit Smash";
     public override string Description => "Propel air forward with a massive punch";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/DetroitSmashIcon";
 
     public override int BaseCooldown => 120;
     public override string Category => "OneForAll9th";

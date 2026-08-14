@@ -68,7 +68,8 @@ public abstract class FullCowlingBase : QuirkBaseSkill
 public class FullCowling5 : FullCowlingBase
 {
     public override string Name => "OFA Full Cowling 5%";
-    public override string IconPath => "MyHeroMod/Assets/Skills/FullCowling5";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/FullCowlingIcon";
+    
     public override QuirkStage RequiredStage => QuirkStage.Adequation;
     protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
 

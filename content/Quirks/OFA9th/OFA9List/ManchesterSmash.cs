@@ -15,7 +15,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
     {
         public override string Name => "Manchester Smash";
         public override string Description => "Jump and do a kick at your cursor";
-        public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/ManchesterIcon";
         public override int BaseCooldown => 120;
         public override string Category => "OneForAll9th";
 

@@ -35,10 +35,6 @@ namespace MyHeroMod.content
         public string ActiveForm = "None";
 
         
-        public string Slot1 = "None";
-        public string Slot2 = "None";
-        public string Slot3 = "None";
-        public string Slot4 = "None";
 
         public NatureType Nature = NatureType.None;
         public int ChannelTime = 0;
@@ -257,6 +253,7 @@ namespace MyHeroMod.content
 
         public override void OnEnterWorld() 
         {
+
             UpdateUnlockedSkills();
             ProgressionSystem.UpdateStage(this);
 
@@ -376,3 +373,4 @@ namespace MyHeroMod.content
         }
         }
 }
+
