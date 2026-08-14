@@ -15,6 +15,7 @@ using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles.JetBurn;
 using MyHeroMod.content.Npcs.Bosses.AllForOne;
 using Terraria.ModLoader.IO;
 using System.IO;
+using System;
 
 namespace MyHeroMod.content.System
 {
@@ -51,9 +52,10 @@ namespace MyHeroMod.content.System
 
         public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader binaryReader)
         {
-            HasQuirk = bitReader.ReadBit();
-            AssignedQuirk = (QuirkType)binaryReader.ReadInt32();
-        }
+          HasQuirk = bitReader.ReadBit();
+        int rawQuirk = binaryReader.ReadInt32();
+        AssignedQuirk = Enum.IsDefined(typeof(QuirkType), rawQuirk) ? (QuirkType)rawQuirk : QuirkType.Quirkless;
+    }
 
         
         public override void OnSpawn(NPC npc, IEntitySource source)
@@ -244,19 +246,21 @@ namespace MyHeroMod.content.System
 
             quirkTimer++;
 
-        
+
             npc.TargetClosest(true);
             if (npc.HasValidTarget)
             {
                 Player target = Main.player[npc.target];
                 Vector2 directionToPlayer = (target.Center - npc.Center).SafeNormalize(Vector2.Zero);
 
+                bool isAuthority = Main.netMode != NetmodeID.MultiplayerClient;
+
                 // 3. A Lógica de cada Quirk
                 switch (AssignedQuirk)
                 {
                     case QuirkType.HalfColdHalfHot:
                     
-                        if (quirkTimer % 180 == 0)
+                        if (quirkTimer % 180 == 0 && isAuthority)
                         {
                             bool isIce = Main.rand.NextBool();
                             
@@ -288,7 +292,7 @@ namespace MyHeroMod.content.System
                         break;
 
                     case QuirkType.OneForAll9th:
-                    if (quirkTimer % 180 == 0)
+                    if (quirkTimer % 180 == 0 && isAuthority)
 
                         {
                             int projType = ModContent.ProjectileType<DelawareSmashProj>();
@@ -306,7 +310,7 @@ namespace MyHeroMod.content.System
 
                         break;
                     case QuirkType.OneForAll8th:
-                    if (quirkTimer % 250 == 0)
+                    if (quirkTimer % 250 == 0 && isAuthority)
 
                         {
                             int projType = ModContent.ProjectileType<PrimeTexasSmashProj>();
@@ -340,7 +344,7 @@ namespace MyHeroMod.content.System
                     
                     case QuirkType.Explosion:
                         
-                        if (quirkTimer % 150 == 0)
+                        if (quirkTimer % 150 == 0 && isAuthority)
                         {
                             int projType = ModContent.ProjectileType<ApShotProj>();
                             int damage = npc.damage / 2; 
@@ -354,7 +358,7 @@ namespace MyHeroMod.content.System
                         break;
                     case QuirkType.Erasure:
                         
-                        if (quirkTimer % 350 == 0)
+                        if (quirkTimer % 350 == 0 && isAuthority)
                         {
                             Vector2 velocity = directionToPlayer * 15f; // Rápido
                             int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ModContent.ProjectileType<NPCErasureProj>(), 1, 0f, Main.myPlayer);
@@ -370,8 +374,8 @@ namespace MyHeroMod.content.System
                         if (npc.life < npc.lifeMax)
                         {
                             npc.life += 2; 
-                            if (npc.life > npc.lifeMax)
-                                npc.life = npc.lifeMax;
+                            if (npc.life > npc.lifeMax) npc.life = npc.lifeMax;
+                            npc.netUpdate = true;
                         }
                         break;
             }

@@ -81,6 +81,9 @@ namespace MyHeroMod
             {
                 MessageType msgType = (MessageType)reader.ReadByte();
 
+                try
+                {
+
                 switch (msgType)
                 {
                     case MessageType.SyncTransformationPlayer:
@@ -136,11 +139,32 @@ namespace MyHeroMod
                         break;
                     }
 
+                    case MessageType.SyncOFA8th:
+                    {
+                        byte senderIndexInPacket = reader.ReadByte();
+                        int form = reader.ReadInt32();
+
+                        byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
+                        if (playerIndex >= Main.maxPlayers) break;
+
+                        var ofa8 = Main.player[playerIndex].GetModPlayer<OneForAll8thPlayer>();
+                        ofa8.form = form;
+
+                        if (Main.netMode == NetmodeID.Server)
+                        {
+                            ModPacket packet = GetPacket();
+                            packet.Write((byte)MessageType.SyncOFA8th);
+                            packet.Write(playerIndex);
+                            packet.Write(form);
+                            packet.Send(-1, playerIndex);
+                        }
+                        break;
+                    }
+
                         case MessageType.SyncOFA9th:
                         {
                             byte senderIndexInPacket = reader.ReadByte();
                             int percentage9 = reader.ReadInt32();
-                            bool activating9 = reader.ReadBoolean();
 
                             byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
                             if (playerIndex >= Main.maxPlayers) break;
@@ -156,11 +180,12 @@ namespace MyHeroMod
                                 packet.Write((byte)MessageType.SyncOFA9th);
                                 packet.Write(playerIndex);
                                 packet.Write(percentage9);
-                                packet.Write(activating9);
                                 packet.Send(-1, playerIndex);
                             }
                             break;
                         }
+
+
 
                         case MessageType.SyncGearshift:
                         {
@@ -220,6 +245,7 @@ namespace MyHeroMod
                             bool grenadier = reader.ReadBoolean();
                             bool panzer = reader.ReadBoolean();
                             int sweattimer = reader.ReadInt32();
+                            int currentSweat = reader.ReadInt32();
 
                             byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
                             if (playerIndex >= Main.maxPlayers) break;
@@ -231,6 +257,7 @@ namespace MyHeroMod
                             explode.IsGrenadierBracersOn = grenadier;
                             explode.IsStrafePanzerOn = panzer;
                             explode.sweatTimer = sweattimer;
+                            explode.CurrentSweat = currentSweat;
 
                             if (Main.netMode == NetmodeID.Server)
                             {
@@ -241,6 +268,7 @@ namespace MyHeroMod
                                 packet.Write(grenadier);
                                 packet.Write(panzer);
                                 packet.Write(sweattimer);
+                                packet.Write(currentSweat);
                                 packet.Send(-1, playerIndex);
                             }
                             break;
@@ -326,6 +354,13 @@ namespace MyHeroMod
                             break;
                         }
                     }
-                }        
+                }   
+                catch (Exception e)
+                {
+                    Logger.Warn($"[MyHeroMod] Failed handling packet '{msgType}' from player {whoAmI}: {e}");
+                }
+            }     
             }
         }
+    
+    

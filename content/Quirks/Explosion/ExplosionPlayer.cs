@@ -228,6 +228,7 @@ namespace MyHeroMod.content.Quirks.Explosion
             clone.IsGrenadierBracersOn = IsGrenadierBracersOn;
             clone.IsStrafePanzerOn = IsStrafePanzerOn;
             clone.sweatTimer = sweatTimer;
+            clone.CurrentSweat = CurrentSweat;
             
         }
 
@@ -240,6 +241,7 @@ namespace MyHeroMod.content.Quirks.Explosion
             packet.Write(IsGrenadierBracersOn);
             packet.Write(IsStrafePanzerOn);
             packet.Write(sweatTimer);
+            packet.Write(CurrentSweat);
          
             packet.Send(toWho, fromWho);
         }
@@ -251,12 +253,13 @@ namespace MyHeroMod.content.Quirks.Explosion
              IsStrafePanzerOn != clone.IsStrafePanzerOn || sweatTimer != clone.sweatTimer)
             {
                 ModPacket packet = Mod.GetPacket();
-                packet.Write((byte)MyHeroMod.MessageType.SyncGearshift);
+                packet.Write((byte)MyHeroMod.MessageType.SyncExplosion);
                 packet.Write((byte)Player.whoAmI);
                 packet.Write(IsClusterActive);
                 packet.Write(IsGrenadierBracersOn);
                 packet.Write(IsStrafePanzerOn);
                 packet.Write(sweatTimer);
+                packet.Write(CurrentSweat);
                 packet.Send(-1, Player.whoAmI); 
             }
         }
