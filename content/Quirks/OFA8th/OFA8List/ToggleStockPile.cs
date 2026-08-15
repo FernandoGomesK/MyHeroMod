@@ -13,7 +13,7 @@ public abstract class ToggleStockPile : QuirkBaseSkill
 {
     public override string Name => "StockPile";
     public override string Description => "Activate One for All throught your entire body";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense"; 
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA8th/StockPileIcon"; 
     public override string Category => "OneForAll8th";
     public override int BaseCooldown => 60; 
     public override QuirkType RequiredQuirk => QuirkType.OneForAll8th;
@@ -56,7 +56,7 @@ public abstract class ToggleStockPile : QuirkBaseSkill
 public class StockPile : ToggleStockPile
 {
     public override string Name => "Stockpile";
-    public override string IconPath => "MyHeroMod/Assets/Skills/FullCowling5";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA8th/StockPileIcon"; 
     public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     protected override int BuffType => ModContent.BuffType<StockPileBuff>(); 
 
@@ -72,7 +72,7 @@ public class StockPile : ToggleStockPile
 public class StockPileMaximum : ToggleStockPile
 {
     public override string Name => "Stockpile Maximum";
-    public override string IconPath => "MyHeroMod/Assets/Skills/FullCowling10";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA8th/StockPileMaxIcon"; 
     public override QuirkStage RequiredStage => QuirkStage.Advanced;
     protected override int BuffType => ModContent.BuffType<StockPileBuff>();
 

@@ -17,7 +17,7 @@ public class TexasSmashSkill : QuirkBaseSkill
 {
     public override string Name => "Texas Smash";
     public override string Description => "Propel air forward with a flick of your fingers";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA8th/DetroitSmashIcon"; 
     public override string Category => "OneForAll8th";
 
     public override int BaseCooldown => 300;
