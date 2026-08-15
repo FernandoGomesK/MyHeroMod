@@ -68,7 +68,7 @@ public abstract class FullCowlingBase : QuirkBaseSkill
 public class FullCowling5 : FullCowlingBase
 {
     public override string Name => "OFA Full Cowling 5%";
-    public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/FullCowlingIcon";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/FullCowling5Icon";
     
     public override QuirkStage RequiredStage => QuirkStage.Adequation;
     protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
@@ -80,7 +80,7 @@ public class FullCowling5 : FullCowlingBase
 public class FullCowling10 : FullCowlingBase
 {
     public override string Name => "OFA Full Cowling 10%";
-    public override string IconPath => "MyHeroMod/Assets/Skills/FullCowling10";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/FullCowling10Icon";
     public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
     protected override int CowlingPercentage => 10;
@@ -89,7 +89,7 @@ public class FullCowling10 : FullCowlingBase
 public class FullCowling20: FullCowlingBase
 {
     public override string Name => "OFA Full Cowling 20%";
-    public override string IconPath => "MyHeroMod/Assets/Skills/FullCowling20";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/FullCowling20Icon";
     public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
     protected override int CowlingPercentage => 20;
@@ -97,7 +97,7 @@ public class FullCowling20: FullCowlingBase
 public class FullCowling45 : FullCowlingBase
 {
     public override string Name => "OFA Full Cowling 45%";
-    public override string IconPath => "MyHeroMod/Assets/Skills/FullCowling45";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/FullCowling45Icon";
     public override QuirkStage RequiredStage => QuirkStage.Advanced;
     protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
     protected override int CowlingPercentage => 45;

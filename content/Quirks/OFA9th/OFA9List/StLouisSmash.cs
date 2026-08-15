@@ -15,7 +15,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
     {
         public override string Name => "ST. Louis Smash";
         public override string Description => "Jump and do a diving Kick at your Cursor";
-        public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/stLouisIcon";
 
         public override int BaseCooldown => 120;
         public override string Category => "OneForAll9th";

@@ -93,7 +93,6 @@ namespace MyHeroMod
                     {
                         byte senderIndexInPacket = reader.ReadByte(); 
 
-                        
                         byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
                         if (playerIndex >= Main.maxPlayers) break; 
 
@@ -115,12 +114,22 @@ namespace MyHeroMod
                         int natureInt= reader.ReadInt32();
                         int currentStrain = reader.ReadInt32();
 
-                        string slot1Str = reader.ReadString();
-                        string slot2Str = reader.ReadString();
-                        string slot3Str = reader.ReadString();
-                        string slot4Str = reader.ReadString();
+                        // Read everything into temporary local variables first
+                        string slot1 = reader.ReadString();
+                        string slot2 = reader.ReadString();
+                        string slot3 = reader.ReadString();
+                        string slot4 = reader.ReadString();
+                        string slot5 = reader.ReadString();
+                        string slot6 = reader.ReadString();
+                        string slot7 = reader.ReadString();
+                        string slot8 = reader.ReadString();
 
+                        bool useSecondaryBar = reader.ReadBoolean();
+                        string currentRaceId = reader.ReadString();
+
+                        // Now safely fetch the ModPlayer and assign the variables!
                         TransformationPlayer transPlayer = Main.player[playerIndex].GetModPlayer<TransformationPlayer>();
+                        
                         transPlayer.ActiveQuirks = receivedQuirks;
                         transPlayer.CurrentStage = (QuirkStage)stageInt;
 
@@ -128,25 +137,45 @@ namespace MyHeroMod
                             transPlayer.Nature = (NatureType)natureInt;
 
                         transPlayer.currentStrain = currentStrain;
-                        transPlayer.Slot1 = slot1Str;
-                        transPlayer.Slot2 = slot2Str;
-                        transPlayer.Slot3 = slot3Str;
-                        transPlayer.Slot4 = slot4Str;
+                        
+                        transPlayer.Slot1 = slot1;
+                        transPlayer.Slot2 = slot2;
+                        transPlayer.Slot3 = slot3;
+                        transPlayer.Slot4 = slot4;
+                        transPlayer.Slot5 = slot5;
+                        transPlayer.Slot6 = slot6;
+                        transPlayer.Slot7 = slot7;
+                        transPlayer.Slot8 = slot8;
 
+                        transPlayer.UseSecondaryBar = useSecondaryBar;
+                        transPlayer.CurrentRaceId = currentRaceId;
+
+                        // If the server received this, package ALL of it back up and send to everyone else
                         if (Main.netMode == NetmodeID.Server)
                         {
                             ModPacket packet = GetPacket();
                             packet.Write((byte)MessageType.SyncTransformationPlayer);
                             packet.Write(playerIndex);
+                            
                             packet.Write(receivedQuirks.Count); 
                             foreach (var quirk in receivedQuirks) packet.Write((int)quirk);
+                            
                             packet.Write(stageInt);
                             packet.Write(natureInt);
                             packet.Write(currentStrain);
-                            packet.Write(slot1Str);
-                            packet.Write(slot2Str);
-                            packet.Write(slot3Str);
-                            packet.Write(slot4Str);
+                            
+                            packet.Write(slot1);
+                            packet.Write(slot2);
+                            packet.Write(slot3);
+                            packet.Write(slot4);
+                            packet.Write(slot5);
+                            packet.Write(slot6);
+                            packet.Write(slot7);
+                            packet.Write(slot8);
+                            
+                            packet.Write(useSecondaryBar);
+                            packet.Write(currentRaceId);
+                            
                             packet.Send(-1, playerIndex);
                         }
                         break;
