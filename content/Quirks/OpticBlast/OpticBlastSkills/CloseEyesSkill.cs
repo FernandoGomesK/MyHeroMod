@@ -20,7 +20,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Skills
         public override QuirkStage RequiredStage => QuirkStage.Initial;
         public override QuirkStage RequiredOfaStage => QuirkStage.Advanced;
         
-        public override int BuffType => BuffID.Darkness;
+        public override int BuffType => BuffID.Blackout;
         public override string ToggleOnText => "";
         public override string ToggleOffText => "";
         public override SoundStyle? ToggleSound => null; 

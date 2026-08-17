@@ -91,7 +91,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast
             }
 
             
-            if (!isBlockingEyes() && !Player.HasBuff(ModContent.BuffType<Heatstroke>()) && !Player.HasBuff(BuffID.Darkness))
+            if (!isBlockingEyes() && !Player.HasBuff(ModContent.BuffType<Heatstroke>()) && !Player.HasBuff(BuffID.Blackout))
             {
                 if (Main.GameUpdateCount % 6 == 0)
                 {

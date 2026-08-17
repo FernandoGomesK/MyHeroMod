@@ -26,7 +26,7 @@ public class ContinuousOpticBlastSkill : QuirkBaseSkill
         {
             var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
 
-            if (opticPlayer.CurrentPercentage == OpticBlastPlayer.Percentage.Zero || player.HasBuff(BuffID.Darkness))
+            if (opticPlayer.CurrentPercentage == OpticBlastPlayer.Percentage.Zero || player.HasBuff(BuffID.Blackout))
             {
                 return;
             }

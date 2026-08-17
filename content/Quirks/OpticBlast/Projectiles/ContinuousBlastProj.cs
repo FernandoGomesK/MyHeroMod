@@ -33,7 +33,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
             
 
             
-            if (player.dead || !player.active || player.HasBuff(BuffID.Darkness) || opticPlayer.isBlockingEyes() || player.HasBuff(ModContent.BuffType<Heatstroke>()) || !transPlayer.HasActiveQuirk(QuirkType.OpticBlast))
+            if (player.dead || !player.active || player.HasBuff(BuffID.Blackout) || opticPlayer.isBlockingEyes() || player.HasBuff(ModContent.BuffType<Heatstroke>()) || !transPlayer.HasActiveQuirk(QuirkType.OpticBlast))
             {
                 Projectile.Kill();
                 return;

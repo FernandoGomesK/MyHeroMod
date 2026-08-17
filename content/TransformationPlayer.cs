@@ -268,29 +268,52 @@ namespace MyHeroMod.content
         }
 
         public override void UpdateBadLifeRegen()
-{
-    base.UpdateBadLifeRegen();
-
-    
-    if (currentStrain >= maxStrain && HasLethalStrainQuirk())
-    {
-        
-        int targetHealth = (int)(Player.statLifeMax2 * 0.20f);
-        
-        if (Player.statLife > targetHealth)
         {
-            
-            Player.statLife = targetHealth;
-        }
+            // Do NOT call base.UpdateBadLifeRegen() here if BasePlayer is forcing the max strain check!
+            // Instead, we handle the tiered strain penalties entirely in TransformationPlayer:
 
-        
-        CompleteReset();
-        
-        
-        Player.AddBuff(BuffID.Blackout, 180);
-        Player.AddBuff(BuffID.Slow, 180);
-    }
-}
+            if (currentStrain >= maxStrain)
+            {
+                if (HasLethalStrainQuirk())
+                {
+                    
+                    int damagePerSecond = (int)(Player.statLifeMax2 * 0.10f);
+                    if (Player.lifeRegen > 0) Player.lifeRegen = 0;
+                    Player.lifeRegen -= damagePerSecond * 2;
+                }
+                else
+                {
+                    
+                    int targetHealth = (int)(Player.statLifeMax2 * 0.20f);
+                    
+                    if (Player.statLife > targetHealth)
+                    {
+                        int damagePerSecond = (int)(Player.statLifeMax2 * 0.10f);
+                        if (Player.lifeRegen > 0) Player.lifeRegen = 0;
+                        Player.lifeRegen -= damagePerSecond * 2;
+                    }
+                    else
+                    {
+                        Player.statLife = targetHealth;
+                        if (Player.lifeRegen < 0) Player.lifeRegen = 0;
+                    }
+                }
+            }
+            else if (currentStrain >= (maxStrain * 0.75f))
+            {
+                
+                int damagePerSecond = (int)(Player.statLifeMax2 * 0.05f);
+                if (Player.lifeRegen > 0) Player.lifeRegen = 0;
+                Player.lifeRegen -= damagePerSecond * 2;
+            }
+            else if (currentStrain >= (maxStrain * 0.50f))
+            {
+                
+                int damagePerSecond = (int)(Player.statLifeMax2 * 0.02f);
+                if (Player.lifeRegen > 0) Player.lifeRegen = 0;
+                Player.lifeRegen -= damagePerSecond * 2;
+            }
+        }
 
         public bool HasActiveQuirk(QuirkType typeToCheck)
         {

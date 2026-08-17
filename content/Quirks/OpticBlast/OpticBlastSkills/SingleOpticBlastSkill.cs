@@ -49,7 +49,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Skills
 
             
             if (opticPlayer.CurrentPercentage == OpticBlastPlayer.Percentage.Zero || 
-                player.HasBuff(BuffID.Darkness) || 
+                player.HasBuff(BuffID.Blackout) || 
                 player.HasBuff(ModContent.BuffType<Heatstroke>()) ||
                 transPlayer.currentStrain >= transPlayer.maxStrain ||
                 opticPlayer.CurrentOpticBlast < meterReduction) 
