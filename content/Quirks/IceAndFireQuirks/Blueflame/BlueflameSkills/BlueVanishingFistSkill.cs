@@ -31,7 +31,7 @@ public class BlueVanishingFistSkill: QuirkBaseSkill
         }
    
     public override string Description => "Shoot a fireball";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blueflame/BlueVanishIcon";
     public override string Category => "Fire";
 
     public override int BaseCooldown => 1500;

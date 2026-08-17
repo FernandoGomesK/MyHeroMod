@@ -8,6 +8,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.BlueflameSkills
     {
         public override string Name => "Blueflame_FlashfireFist";
         public override string Category => "Blueflame";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blueflame/BlueTorchIcon";
         
         public override QuirkType RequiredQuirk => QuirkType.Blueflame;
         public override QuirkStage RequiredStage => QuirkStage.Adequation;

@@ -53,7 +53,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
 
         public override string GetDisplayName(Player player) => "Flashfire Fist: Phosphor";
         
-        public override string IconPath => "MyHeroMod/Assets/Skills/FullCowling5";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blueflame/BluePhosphorIcon";
         public override string Category => "Blueflame";
         public override QuirkType RequiredQuirk => QuirkType.Blueflame; 
         public override QuirkStage RequiredStage => QuirkStage.Final;

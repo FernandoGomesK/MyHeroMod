@@ -41,7 +41,7 @@ public class BlueFlamethrowerSkill: QuirkBaseSkill
         }
    
     public override string Description => "Shoot a constant stream of fire";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blueflame/BlueJetBurnIcon";
     public override string Category => "Fire";
 
     public override int BaseCooldown => 900;
