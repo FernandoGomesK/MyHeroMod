@@ -79,11 +79,11 @@ namespace MyHeroMod.content.Quirks.OpticBlast
 
             // 3. Spawning the Laser Beam Controller Safely
             
-           if (!isRubyGlassesEquipped && !Player.HasBuff(ModContent.BuffType<Heatstroke>()))
+           if (!isRubyGlassesEquipped && !Player.HasBuff(ModContent.BuffType<Heatstroke>()) && !Player.HasBuff(BuffID.Darkness))
             {
                 CurrentUncontrolledBlast++;
 
-                // Se superaquecer, aplica o debuff e zera a barra para ele começar a "esfriar"
+                
                 if (CurrentUncontrolledBlast >= MaxUncontrolledBlast)
                 {
                     Player.AddBuff(ModContent.BuffType<Heatstroke>(), 500);
