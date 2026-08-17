@@ -35,6 +35,17 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
             }
         }
 
+        public override string GetMorphedSkillName(Player player)
+    {
+        var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+        if (hchhPlayer.IsFlashFireFistActive)
+        {
+        
+            return "Hell Spider"; 
+        }
+        return Name;
+    }
+
         public override string GetDisplayName(Player player)
         {
             var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
@@ -69,7 +80,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
                 
                 else
                 {
-                    return 900; 
+                    return 300; 
                 }  
             }
         }
@@ -94,6 +105,54 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
             }
 
             
+            
+            
+            
+            int iceDamage = transPlayer.CurrentStage switch {
+                QuirkStage.Initial => 20, QuirkStage.Adequation => 40, QuirkStage.Intermediate => 45,
+                QuirkStage.Advanced => 60, QuirkStage.Final => 80, _ => 25
+            };
+
+            Vector2 velocity = direction * 15f;
+            Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, velocity, ModContent.ProjectileType<IceShotProj>(), (int)(iceDamage * multiplier), 2f, player.whoAmI);
+
+            
+            foreach (var modPlayer in player.ModPlayers)
+            {
+                if (modPlayer is IHeroTemperature heatUser) heatUser.ReduceHeat(15);
+            }
+            
+        }
+    }
+
+
+
+    public class HellSpiderSkill : QuirkBaseSkill
+{
+    
+    public override string Name => "Hell Spider"; 
+    public override string Description => "Release a concentrated net of fire.";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/HCHH/HellSpiderIcon"; 
+    public override string Category => "HalfColdHalfHot";
+    public override int BaseCooldown => 1500;
+    public override QuirkType RequiredQuirk => QuirkType.HalfColdHalfHot;
+    public override QuirkStage RequiredStage => QuirkStage.Adequation;
+
+    public override void OnUse(Player player)
+    {
+
+        Vector2 direction = Main.MouseWorld - player.Center;
+        direction.Normalize();
+
+             var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+            
+            float multiplier = 1.0f;
+            if (hchhPlayer.isSurgeArmGauntletsOn) 
+            {
+                multiplier += 0.5f;
+            }
+
             if (hchhPlayer.IsFlashFireFistActive)
             {
                 if (player.ownedProjectileCounts[ModContent.ProjectileType<HellSpiderController>()] > 0) return;
@@ -111,23 +170,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
                     if (modPlayer is IHeroTemperature heatUser) heatUser.AddHeat(25);
                 }
             }
-            
-            else
-            {
-                int iceDamage = transPlayer.CurrentStage switch {
-                    QuirkStage.Initial => 20, QuirkStage.Adequation => 40, QuirkStage.Intermediate => 45,
-                    QuirkStage.Advanced => 60, QuirkStage.Final => 80, _ => 25
-                };
-
-                Vector2 velocity = direction * 15f;
-                Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, velocity, ModContent.ProjectileType<IceShotProj>(), (int)(iceDamage * multiplier), 2f, player.whoAmI);
-
-                
-                foreach (var modPlayer in player.ModPlayers)
-                {
-                    if (modPlayer is IHeroTemperature heatUser) heatUser.ReduceHeat(15);
-                }
-            }
-        }
+       
     }
 }
+}
+

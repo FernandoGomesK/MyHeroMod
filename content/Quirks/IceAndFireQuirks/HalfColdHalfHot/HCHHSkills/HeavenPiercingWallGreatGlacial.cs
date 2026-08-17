@@ -20,7 +20,25 @@ public class HeavenPiercingGreatGlacial: QuirkBaseSkill
 
    
     public override string Description => "Create a row of Huge ice spikes or dash and freeze everything in your path";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string IconPath
+        {
+            get
+            {
+                Player player = Main.LocalPlayer;
+                var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+                
+                
+                if (hchhPlayer.IsPhosphorActive)
+                {
+                    return "MyHeroMod/Assets/SkillIcons/HCHH/GlacialAegirIcon";  
+                }
+                else
+                {
+                    return "MyHeroMod/Assets/SkillIcons/HCHH/HCGlacierIcon"; 
+                }
+            }
+        }
     public override string Category => "HCHH";
 
     public override int BaseCooldown => 1800;

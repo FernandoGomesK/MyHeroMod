@@ -20,7 +20,7 @@ public class FlashFreezeSkill : QuirkBaseSkill
 
    
     public override string Description => "Cool the air around yourself and quickly heat it up releasing a powerfull Heatwave";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/HCHH/FlashFreezeIcon";
     public override string Category => "HalfColdHalfHot";
 
     public override int BaseCooldown => 2400;
