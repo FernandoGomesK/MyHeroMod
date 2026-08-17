@@ -16,15 +16,16 @@ namespace MyHeroMod.content.Quirks.Flight
             
        if (isFlightShieldOn)
        {
-            drawInfo.colorArmorLegs = Color.Yellow * 1.2f;
-            drawInfo.colorArmorBody = Color.Yellow * 1.2f;
-            drawInfo.colorBodySkin = Color.Yellow * 1.2f;
-            drawInfo.colorArmorBody = Color.Yellow * 1.2f;
-
-            // Player.armorEffectDrawShadow = true; 
-                Player.armorEffectDrawOutlines = true;
-
-            Lighting.AddLight(Player.Center, Color.Yellow.ToVector3() );
+            if (flightShieldHealth > 0)
+                {
+                    drawInfo.colorArmorLegs = Color.Yellow * 1.2f;
+                    drawInfo.colorArmorBody = Color.Yellow * 1.2f;
+                    drawInfo.colorBodySkin = Color.Yellow * 1.2f;
+                    drawInfo.colorArmorBody = Color.Yellow * 1.2f;
+                    Player.armorEffectDrawOutlines = true;
+                    Lighting.AddLight(Player.Center, Color.Yellow.ToVector3() );   
+                }
+            
             
         
             

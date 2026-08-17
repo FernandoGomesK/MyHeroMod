@@ -135,7 +135,7 @@ namespace MyHeroMod.content.Quirks.Flight
 
         public override void OnHurt(Player.HurtInfo info)
         {
-            
+
             timeSinceLastHit = 0; 
         }
         

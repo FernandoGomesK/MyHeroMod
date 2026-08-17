@@ -417,6 +417,11 @@ Items: {
 		DisplayName: Overlay Head
 		Tooltip: ""
 	}
+
+	GoldenVisor: {
+		DisplayName: Golden Visor
+		Tooltip: ""
+	}
 }
 
 Buffs: {

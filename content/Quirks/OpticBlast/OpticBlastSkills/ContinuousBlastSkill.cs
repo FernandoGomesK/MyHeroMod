@@ -26,7 +26,7 @@ public class ContinuousOpticBlastSkill : QuirkBaseSkill
         {
             var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
 
-            if (opticPlayer.CurrentPercentage == OpticBlastPlayer.Percentage.Zero)
+            if (opticPlayer.CurrentPercentage == OpticBlastPlayer.Percentage.Zero || player.HasBuff(BuffID.Darkness))
             {
                 return;
             }
@@ -34,7 +34,7 @@ public class ContinuousOpticBlastSkill : QuirkBaseSkill
         {
             int damage = 35; 
 
-            // Spawn the Sustained Projectile
+            
             Projectile.NewProjectile(
                 player.GetSource_FromThis(), 
                 player.Center, 

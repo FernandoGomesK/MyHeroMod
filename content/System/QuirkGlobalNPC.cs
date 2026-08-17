@@ -80,6 +80,18 @@ namespace MyHeroMod.content.System
                 NPCID.EaterofWorldsBody, 
                 NPCID.EaterofWorldsTail,
                 ModContent.NPCType<AllForOneBoss>(),
+                NPCID.TargetDummy,      
+                NPCID.CultistTablet,    
+                NPCID.SpikeBall,        
+                NPCID.BlazingWheel,     
+                NPCID.BurningSphere,   
+                NPCID.ChaosBall,       
+                NPCID.DetonatingBubble, 
+                NPCID.WaterSphere,      
+                NPCID.VileSpit,         
+                NPCID.AncientLight,     
+                NPCID.AncientDoom,      
+                NPCID.Spore,            
             };
 
             

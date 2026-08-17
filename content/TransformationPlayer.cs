@@ -39,8 +39,7 @@ namespace MyHeroMod.content
         public NatureType Nature = NatureType.None;
         public int ChannelTime = 0;
 
-        public int maxStrain = 100;
-        public int currentStrain = 0;
+        
     
         
         public List<string> UnlockedSkills = new List<string>();
@@ -92,18 +91,7 @@ namespace MyHeroMod.content
             _ => quirk.ToString()
         };
 
-        public override void PostUpdateEquips()
-        {
-            maxStrain = CurrentStage switch
-            {
-                QuirkStage.Initial => 300,
-                QuirkStage.Adequation => 500,
-                QuirkStage.Intermediate => 600,
-                QuirkStage.Advanced => 800,
-                QuirkStage.Final => 1200,
-                _ => 0
-            };
-        }
+        
 
         public override void PostUpdateMiscEffects()
         {
@@ -121,6 +109,19 @@ namespace MyHeroMod.content
                 Player.AddBuff(BuffID.Confused, 2); 
                 Player.AddBuff(BuffID.Silenced, 2);
             }
+        }
+
+        public override void PostUpdateEquips()
+        {
+            maxStrain = CurrentStage switch
+            {
+                QuirkStage.Initial => 300,
+                QuirkStage.Adequation => 500,
+                QuirkStage.Intermediate => 600,
+                QuirkStage.Advanced => 800,
+                QuirkStage.Final => 1200,
+                _ => 0
+            };
         }
 
         public override void PreUpdate()
