@@ -79,6 +79,7 @@ namespace MyHeroMod
             // CreateButton("Speed Force", QuirkType.SpeedForce, Color.Yellow);
             CreateButton("DarkShadow", QuirkType.DarkShadow, Color.Black);
             CreateButton("Rabbit", QuirkType.Rabbit, Color.White);
+            
 
 
             // red X to close
@@ -117,6 +118,25 @@ namespace MyHeroMod
 
                 transPlayer.ActiveQuirks.Clear();
                 transPlayer.ActiveQuirks.Add(quirk);
+
+                if (quirk == QuirkType.OpticBlast)
+                {
+                    
+                    if (Main.rand.Next(100) < 80)
+                    {
+                        transPlayer.CurrentVariant = QuirkVariant.PinkBeam;
+                        Main.NewText("Your awakened: Beams from your eyes!", Color.HotPink);
+                    }
+                    else
+                    {
+                        transPlayer.CurrentVariant = QuirkVariant.Default;
+                    }
+                }
+                else 
+                {
+                    
+                    transPlayer.CurrentVariant = QuirkVariant.Default;
+                }
 
                 transPlayer.UpdateUnlockedSkills();
 

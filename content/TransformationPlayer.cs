@@ -20,6 +20,13 @@ namespace MyHeroMod.content
                             Decay, Rivet, SpringLikeLimbs, Rabbit, DarkShadow, Overhaul,
                             ZeroGravity, FierceWings, OpticBlast }
 
+    public enum QuirkVariant
+{
+    Default,    
+    PinkBeam,  
+    
+}
+
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 
     public class TransformationPlayer : BasePlayer
@@ -28,6 +35,7 @@ namespace MyHeroMod.content
         public int naturalQuirkLimit = 1;
 
         public QuirkStage CurrentStage = QuirkStage.Initial;
+        public QuirkVariant CurrentVariant = QuirkVariant.Default;
         public bool ManualStageOverride = false;
         public bool hasRolledInitialTraits = false;
         
@@ -171,8 +179,11 @@ namespace MyHeroMod.content
             
             tag["ActiveQuirkList"] = quirkNames;
             tag["CurrentStageName"] = CurrentStage.ToString();
-            tag["PlayerNature"] = (int)Nature;
             
+            // --- NEW: Save Variant ---
+            tag["CurrentVariantName"] = CurrentVariant.ToString(); 
+            
+            tag["PlayerNature"] = (int)Nature;
             
             tag["Slot1Name"] = Slot1;
             tag["Slot2Name"] = Slot2;
@@ -203,6 +214,12 @@ namespace MyHeroMod.content
              
                 if (Enum.TryParse(tag.GetString("CurrentStageName"), out QuirkStage parsedStage)) CurrentStage = parsedStage;
                 
+                // --- NEW: Load Variant ---
+                if (tag.ContainsKey("CurrentVariantName"))
+                {
+                    if (Enum.TryParse(tag.GetString("CurrentVariantName"), out QuirkVariant parsedVariant))
+                        CurrentVariant = parsedVariant;
+                }
                 
                 if (tag.ContainsKey("Slot1Name")) Slot1 = tag.GetString("Slot1Name");
                 if (tag.ContainsKey("Slot2Name")) Slot2 = tag.GetString("Slot2Name");
@@ -233,17 +250,9 @@ namespace MyHeroMod.content
 
         public void ResetSlot()
         {
-            Slot1 = "None";
-            Slot2 = "None";
-            Slot3 = "None";
-            Slot4 = "None";
-            Slot5 = "None";
-            Slot6 = "None";
-            Slot7 = "None";
-            Slot8 = "None";
+            Slot1 = "None"; Slot2 = "None"; Slot3 = "None"; Slot4 = "None";
+            Slot5 = "None"; Slot6 = "None"; Slot7 = "None"; Slot8 = "None";
         }
-
-        
 
         public bool HasActiveQuirk(QuirkType typeToCheck)
         {
@@ -263,7 +272,6 @@ namespace MyHeroMod.content
 
         public override void OnEnterWorld() 
         {
-
             UpdateUnlockedSkills();
             ProgressionSystem.UpdateStage(this);
 
@@ -306,97 +314,94 @@ namespace MyHeroMod.content
         }
         
         public override void CopyClientState(ModPlayer clientClone)
-{
-    TransformationPlayer clone = clientClone as TransformationPlayer;
-    clone.ActiveQuirks = new List<QuirkType>(ActiveQuirks); 
-    clone.CurrentStage = CurrentStage;
-    
-    
-    clone.Slot1 = Slot1; clone.Slot2 = Slot2; clone.Slot3 = Slot3; clone.Slot4 = Slot4;
-    clone.Slot5 = Slot5; clone.Slot6 = Slot6; clone.Slot7 = Slot7; clone.Slot8 = Slot8;
-    
-    clone.Nature = Nature;
-    clone.currentStrain = currentStrain;
-
-
-    clone.UseSecondaryBar = UseSecondaryBar;
-    clone.CurrentRaceId = CurrentRaceId;
-}
-
-public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
-{
-    ModPacket packet = Mod.GetPacket();
-    packet.Write((byte)MyHeroMod.MessageType.SyncTransformationPlayer); 
-    packet.Write((byte)Player.whoAmI); 
-    
-    packet.Write(ActiveQuirks.Count);
-    foreach (var quirk in ActiveQuirks)
-    {
-        packet.Write((int)quirk);
-    }
-
-    packet.Write((int)CurrentStage); 
-    packet.Write((int)Nature);
-    packet.Write(currentStrain); 
-    
-    packet.Write(Slot1 ?? "None"); packet.Write(Slot2 ?? "None");
-    packet.Write(Slot3 ?? "None"); packet.Write(Slot4 ?? "None");
-    packet.Write(Slot5 ?? "None"); packet.Write(Slot6 ?? "None");
-    packet.Write(Slot7 ?? "None"); packet.Write(Slot8 ?? "None");
-    
-    
-    packet.Write(UseSecondaryBar);
-    packet.Write(CurrentRaceId ?? "Human");
-
-    packet.Send(toWho, fromWho);
-}
-
-public override void SendClientChanges(ModPlayer clientPlayer)
-{
-    TransformationPlayer clone = clientPlayer as TransformationPlayer;
-
-    bool quirksChanged = ActiveQuirks.Count != clone.ActiveQuirks.Count;
-    if (!quirksChanged)
-    {
-        for (int i = 0; i < ActiveQuirks.Count; i++)
         {
-            if (ActiveQuirks[i] != clone.ActiveQuirks[i]) quirksChanged = true;
-        }
-    }
-    
-    
-    if (quirksChanged || CurrentStage != clone.CurrentStage || Nature != clone.Nature || currentStrain != clone.currentStrain ||
-        Slot1 != clone.Slot1 || Slot2 != clone.Slot2 || Slot3 != clone.Slot3 || Slot4 != clone.Slot4 ||
-        Slot5 != clone.Slot5 || Slot6 != clone.Slot6 || Slot7 != clone.Slot7 || Slot8 != clone.Slot8 ||
-        UseSecondaryBar != clone.UseSecondaryBar || CurrentRaceId != clone.CurrentRaceId)
-    {
-        ModPacket packet = Mod.GetPacket();
-        packet.Write((byte)MyHeroMod.MessageType.SyncTransformationPlayer);
-        packet.Write((byte)Player.whoAmI);
-        
-        packet.Write(ActiveQuirks.Count);
-        foreach (var quirk in ActiveQuirks)
-        {
-            packet.Write((int)quirk);
+            TransformationPlayer clone = clientClone as TransformationPlayer;
+            clone.ActiveQuirks = new List<QuirkType>(ActiveQuirks); 
+            clone.CurrentStage = CurrentStage;
+            clone.CurrentVariant = CurrentVariant; 
+            
+            clone.Slot1 = Slot1; clone.Slot2 = Slot2; clone.Slot3 = Slot3; clone.Slot4 = Slot4;
+            clone.Slot5 = Slot5; clone.Slot6 = Slot6; clone.Slot7 = Slot7; clone.Slot8 = Slot8;
+            
+            clone.Nature = Nature;
+            clone.currentStrain = currentStrain;
+
+            clone.UseSecondaryBar = UseSecondaryBar;
+            clone.CurrentRaceId = CurrentRaceId;
         }
 
-        packet.Write((int)CurrentStage);
-        packet.Write((int)Nature); 
-        packet.Write(currentStrain); 
-        
-        packet.Write(Slot1 ?? "None"); packet.Write(Slot2 ?? "None");
-        packet.Write(Slot3 ?? "None"); packet.Write(Slot4 ?? "None");
-        
-        
-        packet.Write(Slot5 ?? "None"); packet.Write(Slot6 ?? "None");
-        packet.Write(Slot7 ?? "None"); packet.Write(Slot8 ?? "None");
-        
-        
-        packet.Write(UseSecondaryBar);
-        packet.Write(CurrentRaceId ?? "Human");
+        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        {
+            ModPacket packet = Mod.GetPacket();
+            packet.Write((byte)MyHeroMod.MessageType.SyncTransformationPlayer); 
+            packet.Write((byte)Player.whoAmI); 
+            
+            packet.Write(ActiveQuirks.Count);
+            foreach (var quirk in ActiveQuirks)
+            {
+                packet.Write((int)quirk);
+            }
 
-        packet.Send(-1, Player.whoAmI); 
+            packet.Write((int)CurrentStage);
+            packet.Write((int)CurrentVariant); 
+            packet.Write((int)Nature);
+            packet.Write(currentStrain); 
+            
+            packet.Write(Slot1 ?? "None"); packet.Write(Slot2 ?? "None");
+            packet.Write(Slot3 ?? "None"); packet.Write(Slot4 ?? "None");
+            packet.Write(Slot5 ?? "None"); packet.Write(Slot6 ?? "None");
+            packet.Write(Slot7 ?? "None"); packet.Write(Slot8 ?? "None");
+            
+            packet.Write(UseSecondaryBar);
+            packet.Write(CurrentRaceId ?? "Human");
+
+            packet.Send(toWho, fromWho);
+        }
+
+        public override void SendClientChanges(ModPlayer clientPlayer)
+        {
+            TransformationPlayer clone = clientPlayer as TransformationPlayer;
+
+            bool quirksChanged = ActiveQuirks.Count != clone.ActiveQuirks.Count;
+            if (!quirksChanged)
+            {
+                for (int i = 0; i < ActiveQuirks.Count; i++)
+                {
+                    if (ActiveQuirks[i] != clone.ActiveQuirks[i]) quirksChanged = true;
+                }
+            }
+            
+            if (quirksChanged || CurrentStage != clone.CurrentStage || CurrentVariant != clone.CurrentVariant || // NEW
+                Nature != clone.Nature || currentStrain != clone.currentStrain ||
+                Slot1 != clone.Slot1 || Slot2 != clone.Slot2 || Slot3 != clone.Slot3 || Slot4 != clone.Slot4 ||
+                Slot5 != clone.Slot5 || Slot6 != clone.Slot6 || Slot7 != clone.Slot7 || Slot8 != clone.Slot8 ||
+                UseSecondaryBar != clone.UseSecondaryBar || CurrentRaceId != clone.CurrentRaceId)
+            {
+                ModPacket packet = Mod.GetPacket();
+                packet.Write((byte)MyHeroMod.MessageType.SyncTransformationPlayer);
+                packet.Write((byte)Player.whoAmI);
+                
+                packet.Write(ActiveQuirks.Count);
+                foreach (var quirk in ActiveQuirks)
+                {
+                    packet.Write((int)quirk);
+                }
+
+                packet.Write((int)CurrentStage);
+                packet.Write((int)CurrentVariant); 
+                packet.Write((int)Nature); 
+                packet.Write(currentStrain); 
+                
+                packet.Write(Slot1 ?? "None"); packet.Write(Slot2 ?? "None");
+                packet.Write(Slot3 ?? "None"); packet.Write(Slot4 ?? "None");
+                packet.Write(Slot5 ?? "None"); packet.Write(Slot6 ?? "None");
+                packet.Write(Slot7 ?? "None"); packet.Write(Slot8 ?? "None");
+                
+                packet.Write(UseSecondaryBar);
+                packet.Write(CurrentRaceId ?? "Human");
+
+                packet.Send(-1, Player.whoAmI); 
+            }
+        }
     }
 }
-
-    }}

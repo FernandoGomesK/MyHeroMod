@@ -6,6 +6,7 @@ using MyHeroMod.content.System;
 using MyHeroMod.content.Buffs;
 using Terraria.Graphics.CameraModifiers;
 using MyHeroMod.content.Debuffs;
+using System;
 
 namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
 {
@@ -32,7 +33,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
             
 
             
-            if (player.dead || !player.active || player.HasBuff(BuffID.Darkness) || opticPlayer.isRubyGlassesEquipped || player.HasBuff(ModContent.BuffType<Heatstroke>()) || !transPlayer.HasActiveQuirk(QuirkType.OpticBlast))
+            if (player.dead || !player.active || player.HasBuff(BuffID.Darkness) || opticPlayer.isBlockingEyes() || player.HasBuff(ModContent.BuffType<Heatstroke>()) || !transPlayer.HasActiveQuirk(QuirkType.OpticBlast))
             {
                 Projectile.Kill();
                 return;
@@ -66,54 +67,55 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
                 Main.instance.CameraModifiers.Add(rumble);
             }
 
-            // --- THE THICK BEAM DUST LOGIC ---
+           
             
             
             Vector2 perpendicular = new Vector2(-Projectile.velocity.Y, Projectile.velocity.X);
+            bool isPink = (transPlayer.CurrentVariant == QuirkVariant.PinkBeam);
 
-            // 2. Spawn multiple dust particles per frame (15 per frame = 900 per second!)
+            // Determine dust types based on variant
+            int coreDustType = isPink ? DustID.PinkTorch : DustID.RedTorch;
+            int unstableDustType = isPink ? DustID.PinkFairy : DustID.VampireHeal;
 
-            for (int i1 = 0; i1 < 5; i1++)
+            
+            for (int i = 0; i < 15; i++)
             {
-                // Pick a random distance along the 600-pixel length
                 float lengthOffset = Main.rand.NextFloat(0, visionLength);
-                
-                // Pick a random distance along the 100-pixel width (-50 to +50)
-                float widthOffset = Main.rand.NextFloat(-visionWidth / 1f, visionWidth / 1f);
-                
-                // Combine them to get the exact spawn position
-                Vector2 dustPos = startPoint + (Projectile.velocity * lengthOffset) + (perpendicular * widthOffset);
-
-                Dust beamDust = Dust.NewDustPerfect(dustPos, DustID.RedTorch, Vector2.Zero);
-                beamDust.noGravity = true;
-                beamDust.scale = Main.rand.NextFloat(1.5f, 3f); // Make the dust randomly large and chunky
-                
-                // Optional: Give the dust a tiny bit of forward velocity so the beam looks like it's flowing
-                beamDust.velocity = Projectile.velocity * Main.rand.NextFloat(1f, 4f); 
-            }
-
-
-            for (int i2 = 0; i2 < 15; i2++)
-            {
-                
-                float lengthOffset = Main.rand.NextFloat(0, visionLength);
-                
-                
-                float widthOffset = Main.rand.NextFloat(-visionWidth / 2f, visionWidth / 2f);
-                
+                float widthOffset = Main.rand.NextFloat(-visionWidth / 2.5f, visionWidth / 2.5f);
                 
                 Vector2 dustPos = startPoint + (Projectile.velocity * lengthOffset) + (perpendicular * widthOffset);
 
-                Dust beamDust = Dust.NewDustPerfect(dustPos, DustID.RedTorch, Vector2.Zero);
+                Dust beamDust = Dust.NewDustPerfect(dustPos, coreDustType, Vector2.Zero);
                 beamDust.noGravity = true;
                 beamDust.scale = Main.rand.NextFloat(1.5f, 3f); 
+                beamDust.velocity = Projectile.velocity * Main.rand.NextFloat(2f, 6f); 
                 
                 
-                beamDust.velocity = Projectile.velocity * Main.rand.NextFloat(1f, 4f); 
+                if (i % 3 == 0)
+                {
+                    if (isPink) Lighting.AddLight(dustPos, 0.8f, 0.2f, 0.6f);
+                    else Lighting.AddLight(dustPos, 0.8f, 0.1f, 0.1f);
+                }
             }
 
-            // --- COLLISION AND DAMAGE LOGIC ---
             
+            for (int i = 0; i < 10; i++)
+            {
+                float lengthOffset = Main.rand.NextFloat(0, visionLength);
+                float widthOffset = Main.rand.NextFloat(-visionWidth / 1.5f, visionWidth / 1.5f); // Wider spread
+                
+                Vector2 dustPos = startPoint + (Projectile.velocity * lengthOffset) + (perpendicular * widthOffset);
+
+                Dust darkDust = Dust.NewDustPerfect(dustPos, unstableDustType, Vector2.Zero);
+                darkDust.noGravity = true;
+                darkDust.scale = Main.rand.NextFloat(1.2f, 2f); 
+                
+                
+                float pushDirection = Math.Sign(widthOffset); 
+                darkDust.velocity = (perpendicular * pushDirection * Main.rand.NextFloat(2f, 7f)) + (Projectile.velocity * Main.rand.NextFloat(1f, 3f)); 
+            }
+
+           
             foreach (NPC npc in Main.ActiveNPCs)
             {
                 if (npc.friendly || npc.townNPC) continue;
@@ -124,7 +126,6 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
                 {
                     if (Collision.CanHitLine(player.position, player.width, player.height, npc.position, npc.width, npc.height))
                     {
-                        
                         if (Main.rand.NextBool(10)) 
                         {
                             npc.SimpleStrikeNPC(Projectile.damage, player.direction, false, 0f, DamageClass.Generic, true, player.luck);
@@ -132,4 +133,6 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
                     }
                 }
             }
-        }}}
+        }
+    }
+}

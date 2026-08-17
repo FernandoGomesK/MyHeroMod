@@ -28,6 +28,12 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
         {
             Player player = Main.player[Projectile.owner];
             var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+            bool isPink = (transPlayer.CurrentVariant == QuirkVariant.PinkBeam);
+
+            int coreDustType = isPink ? DustID.PinkTorch : DustID.RedTorch;
+            int unstableDustType = isPink ? DustID.PinkFairy : DustID.VampireHeal;
 
             // 1. KILL CONDITIONS (Dead, inactive, or out of energy)
             if (player.dead || !player.active || opticPlayer.CurrentOpticBlast <= 0)
@@ -89,7 +95,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
                 
                 Vector2 dustPos = startPoint + (Projectile.velocity * lengthOffset) + (perpendicular * widthOffset);
 
-                Dust beamDust = Dust.NewDustPerfect(dustPos, DustID.RedTorch, Vector2.Zero);
+                Dust beamDust = Dust.NewDustPerfect(dustPos, coreDustType, Vector2.Zero);
                 beamDust.noGravity = true;
                 beamDust.scale = Main.rand.NextFloat(1.5f, 3f); 
                 beamDust.velocity = Projectile.velocity * Main.rand.NextFloat(1f, 4f); 
@@ -108,7 +114,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
                     {
                         if (Main.rand.NextBool(3)) // Hits every ~3 frames
                         {
-                            // Multiplies the base damage by whatever Percentage the player toggled!
+                            
                             float multiplier = GetDamageMultiplier(opticPlayer.CurrentPercentage);
                             int finalDamage = (int)(Projectile.damage * multiplier);
 

@@ -14,7 +14,6 @@ namespace MyHeroMod.content.System
             var transPlayer = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
             Array quirksArray = Enum.GetValues(typeof(QuirkType));
 
-        
             if (transPlayer.ActiveQuirks.Count >= quirksArray.Length - 1)
             {
                 Main.NewText("Your body cannot physically hold any more Quirks!", Color.Red);
@@ -27,27 +26,43 @@ namespace MyHeroMod.content.System
                 int randomIndex = Main.rand.Next(0, quirksArray.Length);
                 quirkType = (QuirkType)quirksArray.GetValue(randomIndex);
             }
-            
             while (quirkType == QuirkType.Quirkless || transPlayer.HasActiveQuirk(quirkType));
 
-            
             if (transPlayer.ActiveQuirks.Count >= transPlayer.naturalQuirkLimit)
             {
-                
                 Main.NewText("Your body feels heavy... taking another Quirk is mutating your cells!", Color.DarkRed);
             }
 
-            
             transPlayer.ActiveQuirks.Add(quirkType);
-            transPlayer.UpdateUnlockedSkills();
 
             
+            if (quirkType == QuirkType.OpticBlast)
+            {
+                
+                if (Main.rand.Next(100) < 80)
+                {
+                    transPlayer.CurrentVariant = QuirkVariant.PinkBeam;
+                    Main.NewText("You awakened: Beams From your Eyes", Color.HotPink);
+                }
+                else
+                {
+                    transPlayer.CurrentVariant = QuirkVariant.Default;
+                    Main.NewText($"You awakened: An Optic Blast?!", Color.Yellow);
+                }
+            }
+            else 
+            {
+            
+                transPlayer.CurrentVariant = QuirkVariant.Default;
+                Main.NewText($"You awakened: {quirkType}!", Color.Yellow);
+            }
+            
+            transPlayer.UpdateUnlockedSkills();
+
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
                 transPlayer.SendClientChanges(transPlayer);
             }
-
-            Main.NewText($"You awakened: {quirkType}!", Color.Yellow);
         }
     }
 }
