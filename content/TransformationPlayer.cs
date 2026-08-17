@@ -254,6 +254,44 @@ namespace MyHeroMod.content
             Slot5 = "None"; Slot6 = "None"; Slot7 = "None"; Slot8 = "None";
         }
 
+        public bool HasLethalStrainQuirk()
+        {
+            foreach (var quirk in ActiveQuirks)
+            {
+            
+                if (quirk == QuirkType.OneForAll9th || quirk == QuirkType.Blueflame)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public override void UpdateBadLifeRegen()
+{
+    base.UpdateBadLifeRegen();
+
+    
+    if (currentStrain >= maxStrain && HasLethalStrainQuirk())
+    {
+        
+        int targetHealth = (int)(Player.statLifeMax2 * 0.20f);
+        
+        if (Player.statLife > targetHealth)
+        {
+            
+            Player.statLife = targetHealth;
+        }
+
+        
+        CompleteReset();
+        
+        
+        Player.AddBuff(BuffID.Blackout, 180);
+        Player.AddBuff(BuffID.Slow, 180);
+    }
+}
+
         public bool HasActiveQuirk(QuirkType typeToCheck)
         {
             if (ActiveQuirks.Contains(typeToCheck)) return true;
