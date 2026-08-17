@@ -5,7 +5,8 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.Quirks.OpticBlast.Projectiles; 
-using Terraria.Graphics.CameraModifiers; 
+using Terraria.Graphics.CameraModifiers;
+using System;
 
 namespace MyHeroMod.content.Quirks.OpticBlast
 {
@@ -94,11 +95,29 @@ namespace MyHeroMod.content.Quirks.OpticBlast
             {
                 if (Main.GameUpdateCount % 6 == 0)
                 {
-                    transPlayer.currentStrain++;
+                    int strainIncrease = (int)(transPlayer.maxStrain * 0.01f); 
+                    transPlayer.currentStrain += Math.Max(1, strainIncrease);
                 }
 
                 Player.moveSpeed *= 0.2f;
                 Player.statDefense -= 15;
+
+                Vector2 aimDirection = Main.MouseWorld - Player.Center;
+                aimDirection = aimDirection.SafeNormalize(Vector2.Zero);
+
+                float recoilStrength = transPlayer.CurrentStage switch
+                {
+                    QuirkStage.Initial => 0.8f,
+                    QuirkStage.Adequation => 0.5f,
+                    QuirkStage.Intermediate => 0.3f,
+                    QuirkStage.Advanced => 0.15f,
+                    QuirkStage.Final => 0.05f,
+                    _ => 0.8f
+                };
+
+                
+                Player.velocity.X -= aimDirection.X * recoilStrength;
+   
 
                 if (transPlayer.currentStrain >= transPlayer.maxStrain)
                 {

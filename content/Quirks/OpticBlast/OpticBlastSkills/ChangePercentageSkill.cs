@@ -12,7 +12,7 @@ using Terraria.Audio;
     {
         public override string Name => "Change Percentage";
         public override string Description => "Change the percentage of your Optic Blast";
-        public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash"; 
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/OpticBlast/ChangePercentageIcon";
         public override string Category => "OpticBlast";
 
         public override int BaseCooldown => 60;
