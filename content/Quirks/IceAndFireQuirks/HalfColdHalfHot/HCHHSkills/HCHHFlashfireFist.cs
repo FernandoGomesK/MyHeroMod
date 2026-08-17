@@ -8,6 +8,7 @@ public class HCHHFlashfireFist : BaseToggleFlashfireFistSkill
     {
         public override string Name => "HCHH_FlashfireFist";
         public override string Category => "HalfColdHalfHot";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/HCHH/IgniteIcon";
         
         public override QuirkType RequiredQuirk => QuirkType.HalfColdHalfHot;
         public override QuirkStage RequiredStage => QuirkStage.Adequation;

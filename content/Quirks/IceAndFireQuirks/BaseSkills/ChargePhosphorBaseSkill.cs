@@ -67,8 +67,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
         public override string Name => "Phosphor";
 
         public override string GetDisplayName(Player player) => "Flashfire Fist: Phosphor";
-        public override string IconPath => "MyHeroMod/Assets/Skills/FullCowling10";
-        public override string Category => "HalfColdHalfHot";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/HCHH/HCPhosphorIcon";
+                public override string Category => "HalfColdHalfHot";
         public override QuirkType RequiredQuirk => QuirkType.HalfColdHalfHot;
         public override QuirkStage RequiredStage => QuirkStage.Advanced;
         

@@ -15,6 +15,26 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
     {
         public override string Name => "Ice Spike";
 
+         public override string IconPath
+        {
+            get
+            {
+                Player player = Main.LocalPlayer;
+                var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+                
+                
+                if (hchhPlayer.IsFlashFireFistActive)
+                {
+                    return "MyHeroMod/Assets/SkillIcons/HCHH/HellSpiderIcon";  
+                }
+                else
+                {
+                    return "MyHeroMod/Assets/SkillIcons/HCHH/IceShotIcon"; 
+                }
+            }
+        }
+
         public override string GetDisplayName(Player player)
         {
             var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
@@ -30,7 +50,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
             
         }
         public override string Description => "Shoot an Ice Spike. Evolves based on your active stance.";
-        public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+        
         public override string Category => "HalfColdHalfHot";
 
         public override int BaseCooldown 

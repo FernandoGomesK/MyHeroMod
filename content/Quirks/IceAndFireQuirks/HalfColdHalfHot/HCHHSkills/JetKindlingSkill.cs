@@ -15,9 +15,35 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot.Skills
     {
         public override string Name => "Jet Kindling";
         public override string Description => "Shoot a constant stream of fire or ice.";
-        public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+        // public override string IconPath => 
+
+        public override string IconPath
+        {
+            get
+            {
+                Player player = Main.LocalPlayer;
+                var hchhPlayer = player.GetModPlayer<HalfColdHalfHotPlayer>();
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+                
+                if (hchhPlayer.IsPhosphorActive)
+                {
+                    
+                    return "MyHeroMod/Assets/SkillIcons/HCHH/PaleBladeIcon";
+                }
+                else if (hchhPlayer.IsFlashFireFistActive)
+                {
+                    return "MyHeroMod/Assets/SkillIcons/HCHH/JetKindlingIcon";  
+                }
+                else
+                {
+                    return "MyHeroMod/Assets/SkillIcons/HCHH/IceThrowerIcon"; 
+                }
+            }
+        }
+
+
         public override string Category => "Fire";
-        public override int BaseCooldown => 120;
+        public override int BaseCooldown => 700;
         public override QuirkType RequiredQuirk => QuirkType.HalfColdHalfHot;
         public override QuirkStage RequiredStage => QuirkStage.Initial;
         public override bool IsDefaultSkill => false;
