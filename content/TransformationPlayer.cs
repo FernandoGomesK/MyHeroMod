@@ -269,11 +269,11 @@ namespace MyHeroMod.content
 
         public override void UpdateBadLifeRegen()
         {
-            // Do NOT call base.UpdateBadLifeRegen() here if BasePlayer is forcing the max strain check!
-            // Instead, we handle the tiered strain penalties entirely in TransformationPlayer:
 
-            if (currentStrain >= maxStrain)
+            // ====================================== 100 percent ==========================================
+            if (currentStrain >= (maxStrain * 0.75f))
             {
+                // --------------------------- lethal -----------------------
                 if (HasLethalStrainQuirk())
                 {
                     
@@ -281,10 +281,11 @@ namespace MyHeroMod.content
                     if (Player.lifeRegen > 0) Player.lifeRegen = 0;
                     Player.lifeRegen -= damagePerSecond * 2;
                 }
+                // --------------------------- non-lethal -----------------------
                 else
                 {
                     
-                    int targetHealth = (int)(Player.statLifeMax2 * 0.20f);
+                    int targetHealth = (int)(Player.statLifeMax2 * 0.25f);
                     
                     if (Player.statLife > targetHealth)
                     {
@@ -294,24 +295,82 @@ namespace MyHeroMod.content
                     }
                     else
                     {
-                        Player.statLife = targetHealth;
+                        if (Player.statLife >= targetHealth)
+                        {
+                            Player.statLife = targetHealth;
                         if (Player.lifeRegen < 0) Player.lifeRegen = 0;
+                        }
+                        
                     }
                 }
             }
-            else if (currentStrain >= (maxStrain * 0.75f))
-            {
-                
-                int damagePerSecond = (int)(Player.statLifeMax2 * 0.05f);
-                if (Player.lifeRegen > 0) Player.lifeRegen = 0;
-                Player.lifeRegen -= damagePerSecond * 2;
-            }
+            // ====================================== 75 percent ==========================================
             else if (currentStrain >= (maxStrain * 0.50f))
             {
+                // --------------------------- lethal -----------------------
+                if (HasLethalStrainQuirk())
+                {
+                    int damagePerSecond = (int)(Player.statLifeMax2 * 0.05f);
+                    if (Player.lifeRegen > 0) Player.lifeRegen = 0;
+                    Player.lifeRegen -= damagePerSecond * 2;
+                }
+                // --------------------------- non-lethal -----------------------
+                else
+                {
+                    
+                    int targetHealth = (int)(Player.statLifeMax2 * 0.50f);
+                    
+                    if (Player.statLife > targetHealth)
+                    {
+                        int damagePerSecond = (int)(Player.statLifeMax2 * 0.05f);
+                        if (Player.lifeRegen > 0) Player.lifeRegen = 0;
+                        Player.lifeRegen -= damagePerSecond * 2;
+                    }
+                    else
+                    {
+                          if (Player.statLife >= targetHealth)
+                        {
+                            Player.statLife = targetHealth;
+                        if (Player.lifeRegen < 0) Player.lifeRegen = 0;
+                        }
+                    }
+                }
                 
-                int damagePerSecond = (int)(Player.statLifeMax2 * 0.02f);
-                if (Player.lifeRegen > 0) Player.lifeRegen = 0;
-                Player.lifeRegen -= damagePerSecond * 2;
+            }
+
+             // ====================================== 25 percent ==========================================
+            else if (currentStrain >= (maxStrain * 0.25f))
+            {
+                // --------------------------- lethal -----------------------
+                if (HasLethalStrainQuirk())
+                {
+                    int damagePerSecond = (int)(Player.statLifeMax2 * 0.02f);
+                    if (Player.lifeRegen > 0) Player.lifeRegen = 0;
+                    Player.lifeRegen -= damagePerSecond * 2;          
+                }
+                // --------------------------- non-lethal -----------------------
+                else
+                {
+                    
+                    int targetHealth = (int)(Player.statLifeMax2 * 0.75f);
+                    
+                    if (Player.statLife > targetHealth)
+                    {
+                        int damagePerSecond = (int)(Player.statLifeMax2 * 0.02f);
+                        if (Player.lifeRegen > 0) Player.lifeRegen = 0;
+                        Player.lifeRegen -= damagePerSecond * 2;
+                    }
+                    else
+                    {
+                        if (Player.statLife >= targetHealth)
+                        {
+                            Player.statLife = targetHealth;
+                        if (Player.lifeRegen < 0) Player.lifeRegen = 0;
+                        }
+                    }
+                }
+                
+                
             }
         }
 
