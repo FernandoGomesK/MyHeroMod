@@ -14,7 +14,7 @@ public class ApMachineGunSkill : QuirkBaseSkill
 {
     public override string Name => "Ap Machine Gun";
     public override string Description => "Shoot a concentrated penetrating Projectile";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Explosion/ApMachineIcon";
     public override string Category => "Explosion";
 
     public override int BaseCooldown => 300;

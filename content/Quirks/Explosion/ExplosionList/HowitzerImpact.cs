@@ -19,7 +19,8 @@ public class HowitzerImpactSkill : QuirkBaseSkill
    
     public override string Name => "Howitzer Impact";
     public override string Description => "Shoot a concentrated penetrating Projectile";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Explosion/HowitzerIcon";
+
     public override string Category => "Explosion";
 
     public override int BaseCooldown => 520;

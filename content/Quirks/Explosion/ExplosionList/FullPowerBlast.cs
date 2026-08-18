@@ -18,7 +18,8 @@ public class FullPowerBlastSkill : QuirkBaseSkill
 {
     public override string Name => "Full Power Blast";
     public override string Description => "Shoot a concentrated penetrating Projectile";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Explosion/FullPowerIcon";
+
     public override string Category => "Explosion";
 
     public override int BaseCooldown => 30;

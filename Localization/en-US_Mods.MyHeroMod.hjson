@@ -954,5 +954,15 @@ Configs: {
 			Label: Enable Impact Frames
 			Tooltip: Toggles the flashing white background and black silhouettes on ultimate attacks. Disable if you are sensitive to flashing lights.
 		}
+
+		ReduceFlashIntensity: {
+			Label: Reduce Flash Intensity
+			Tooltip: ""
+		}
+
+		ImpactFrameIntensity: {
+			Label: Impact Frame Intensity
+			Tooltip: ""
+		}
 	}
 }

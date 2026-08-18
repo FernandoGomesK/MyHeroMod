@@ -6,6 +6,7 @@ using Terraria.Audio;
 using MyHeroMod.content.Dusts;
 using System;
 using Terraria.Graphics.CameraModifiers;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Quirks.Explosion.Projectiles
 {
@@ -136,6 +137,11 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
             float shakeIntensity = isCluster ? 30f : 20f;
             PunchCameraModifier shake = new PunchCameraModifier(Projectile.Center, Main.rand.NextVector2CircularEdge(1f, 1f), shakeIntensity, 15f, 20, 2000f, "FullCowlingShake");
             Main.instance.CameraModifiers.Add(shake);
+        
+            ImpactFrameSystem.Trigger(Color.White, false, "MyHeroMod/Assets/Effects/BlankImpactImage", "MyHeroMod/Assets/Effects/HowitzerCluster/HowitzerCluster1",
+             "MyHeroMod/Assets/Effects/HowitzerCluster/HowitzerCluster2", "MyHeroMod/Assets/Effects/HowitzerCluster/HowitzerCluster3",
+             "MyHeroMod/Assets/Effects/HowitzerCluster/HowitzerCluster4","MyHeroMod/Assets/Effects/HowitzerCluster/HowitzerCluster5"   );
+            
 
             
             float scaleMulti = isCluster ? 1.5f : 1.0f;

@@ -12,6 +12,7 @@ using MyHeroMod.content.Dusts;
 using MyHeroMod.content.Buffs;
 using KhacesCore.Content.System.Interfaces;
 using MyHeroMod.content.Projectiles;
+using System;
 
 
 namespace MyHeroMod.content.Quirks.Explosion
@@ -58,7 +59,15 @@ namespace MyHeroMod.content.Quirks.Explosion
             
             if (IsClusterActive)
             {
+                var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
                 Player.AddBuff(ModContent.BuffType<ClusterBuff>(),2 );
+
+                if (Main.GameUpdateCount % 6 == 0)
+                {
+                    int strainIncrease = (int)(transPlayer.maxStrain * 0.001f); 
+                    transPlayer.currentStrain += Math.Max(1, strainIncrease);
+                }
             }
 
             if (mainPlayer.CurrentStage >= QuirkStage.Advanced && mainPlayer.HasActiveQuirk(QuirkType.Explosion) && IsClusterActive)

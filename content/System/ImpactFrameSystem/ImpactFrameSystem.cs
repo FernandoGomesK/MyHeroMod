@@ -64,6 +64,8 @@ namespace MyHeroMod.content.System
 
         public override void PostDrawTiles()
         {
+            var config = ModContent.GetInstance<MyHeroConfig>();
+
             if (ImpactTimer <= 0 || !ModContent.GetInstance<MyHeroConfig>().EnableImpactFrames)
                 return;
 
@@ -71,13 +73,15 @@ namespace MyHeroMod.content.System
 
             int totalImageFrames = ImpactTextures != null ? ImpactTextures.Length * FramesPerStage : 0;
 
+            float intensity = config.ImpactFrameIntensity;
+
             
             if (ImpactTimer > totalImageFrames)
             {
                 Main.spriteBatch.Draw(
                     TextureAssets.MagicPixel.Value,
                     new Rectangle(0, 0, Main.screenWidth, Main.screenHeight),
-                    Color.White 
+                    Color.White * intensity
                 );
             }
            
@@ -93,7 +97,7 @@ namespace MyHeroMod.content.System
                     customImpact,
                     new Rectangle(0, 0, Main.screenWidth, Main.screenHeight),
                     null, 
-                    ActiveColor,
+                    ActiveColor * intensity,
                     0f, 
                     Vector2.Zero, 
                     ActiveSpriteEffect,

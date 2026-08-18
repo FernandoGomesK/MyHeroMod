@@ -15,6 +15,7 @@ using MyHeroMod.content.Quirks.Explosion.Projectiles;
 using System.Diagnostics;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.StunGrenade;
 using MyHeroMod.content.Projectiles;
+using Terraria.Graphics.CameraModifiers;
 
 
 
@@ -23,7 +24,8 @@ public class StunGrenadeSkill : QuirkBaseSkill
    
     public override string Name => "Stun Grenade";
     public override string Description => "Shoot a concentrated penetrating Projectile";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Explosion/StunGrenadeIcon";
+
     public override string Category => "Explosion";
 
     public override int BaseCooldown => 30;
@@ -38,6 +40,9 @@ public class StunGrenadeSkill : QuirkBaseSkill
     {
            var transPlayer = player.GetModPlayer<TransformationPlayer>();
             var explodePlayer = player.GetModPlayer<ExplosionPlayer>();
+            var isCluster = explodePlayer.IsClusterActive;
+
+            
 
                  
 
@@ -111,5 +116,8 @@ public class StunGrenadeSkill : QuirkBaseSkill
                 player.whoAmI
             );
             explodePlayer.CurrentSweat += 15;
+            float shakeIntensity = isCluster ? 10f : 5f;
+            PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), shakeIntensity, 15f, 20, 2000f, "FullCowlingShake");
+            Main.instance.CameraModifiers.Add(shake);
         }
     }

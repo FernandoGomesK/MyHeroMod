@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using System;
 using Terraria.Graphics.CameraModifiers;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Quirks.Explosion.Projectiles.FullPower
 {
@@ -104,6 +105,8 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.FullPower
 
             PunchCameraModifier shake = new PunchCameraModifier(Projectile.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "FullCowlingShake");
             Main.instance.CameraModifiers.Add(shake);
+
+            ImpactFrameSystem.Trigger(Color.Orange, false, "MyHeroMod/Assets/Effects/BlankImpactImage", "MyHeroMod/Assets/Effects/BlankImpactImage");
         }   
     }
 }
