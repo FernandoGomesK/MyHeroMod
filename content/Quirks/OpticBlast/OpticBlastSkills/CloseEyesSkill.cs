@@ -12,7 +12,22 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Skills
     {
         public override string Name => "Close Eyes";
         public override string Description => "Close your eyes to stop uncontrolled optic blasts, at the cost of your vision.";
-        public override string IconPath => "MyHeroMod/Assets/Skills/FaJinIcon";
+        public override string IconPath
+        {
+            get
+            {   
+                Player player = Main.LocalPlayer;
+
+                if (player.HasBuff(BuffID.Blackout))
+                {
+                    return "MyHeroMod/Assets/SkillIcons/OpticBlast/OpenEyesIcon";
+                }
+                else
+                {
+                    return "MyHeroMod/Assets/SkillIcons/OpticBlast/CloseEyesIcon";
+                }
+            }
+        }
         public override string Category => "OpticBlast";
         public override int BaseCooldown => 30;
 

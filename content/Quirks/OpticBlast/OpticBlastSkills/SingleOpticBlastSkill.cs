@@ -17,7 +17,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Skills
     {
         public override string Name => "Optic Blast";
         public override string Description => "Shoot a concentrated penetrating Projectile";
-        public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/OpticBlast/SimpleBlastIcon";
         public override string Category => "OpticBlast";
 
         public override int BaseCooldown => 20;
