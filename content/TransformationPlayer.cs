@@ -18,7 +18,7 @@ namespace MyHeroMod.content
                             Float, Flight, Gearshift, FaJin, SmokeScreen, DangerSense,
                             BlackWhip, Tape, Overclock, Erasure, SuperRegeneration, SlideAndGlide,
                             Decay, Rivet, SpringLikeLimbs, Rabbit, DarkShadow, Overhaul,
-                            ZeroGravity, FierceWings, OpticBlast }
+                            ZeroGravity, FierceWings, OpticBlast, Hardening }
 
     public enum QuirkVariant
 {
@@ -116,6 +116,28 @@ namespace MyHeroMod.content
                 Player.statDefense -= 20; 
                 Player.AddBuff(BuffID.Confused, 2); 
                 Player.AddBuff(BuffID.Silenced, 2);
+                Player.AddBuff(BuffID.Darkness, 2);
+            }
+            else if (QuirkCount >= naturalQuirkLimit + 3)
+            {
+                Player.moveSpeed *= 0.5f; 
+                Player.statDefense -= 20; 
+                Player.AddBuff(BuffID.Confused, 2); 
+                Player.AddBuff(BuffID.Silenced, 2);
+                Player.AddBuff(BuffID.Darkness, 2);
+                Player.AddBuff(BuffID.Blackout, 2);
+                Player.AddBuff(BuffID.Obstructed, 2);
+            }
+            else if (QuirkCount >= naturalQuirkLimit + 4)
+            {
+                Player.moveSpeed *= 0.5f; 
+                Player.statDefense -= 20; 
+                Player.AddBuff(BuffID.Confused, 2); 
+                Player.AddBuff(BuffID.Silenced, 2);
+                Player.AddBuff(BuffID.Darkness, 2);
+                Player.AddBuff(BuffID.Blackout, 2);
+                Player.AddBuff(BuffID.Obstructed, 2);
+                Player.AddBuff(BuffID.Weak, 2);
             }
         }
 
@@ -339,7 +361,7 @@ namespace MyHeroMod.content
             }
 
              // ====================================== 25 percent ==========================================
-             
+
             else if (currentStrain >= (maxStrain * 0.25f))
             {
                 // --------------------------- lethal -----------------------
