@@ -30,7 +30,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
             var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            bool isPink = (transPlayer.CurrentVariant == QuirkVariant.PinkBeam);
+            bool isPink = (transPlayer.CurrentVariant == QuirkVariant.Variant1);
 
             int coreDustType = isPink ? DustID.PinkTorch : DustID.RedTorch;
             int unstableDustType = isPink ? DustID.PinkFairy : DustID.VampireHeal;

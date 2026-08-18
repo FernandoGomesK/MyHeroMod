@@ -708,6 +708,16 @@ Buffs: {
 		// DisplayName: Flashfire Fist Buff
 		// Description: Mods.MyHeroMod.Buffs.FlashfireFistBuff.Description
 	}
+
+	HardenBuff: {
+		// DisplayName: Harden Buff
+		// Description: Mods.MyHeroMod.Buffs.HardenBuff.Description
+	}
+
+	UnbreakableBuff: {
+		// DisplayName: Unbreakable Buff
+		// Description: Mods.MyHeroMod.Buffs.UnbreakableBuff.Description
+	}
 }
 
 DeathMessage: "{0} destruiu o seu próprio corpo com 100% de poder!"

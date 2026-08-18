@@ -41,7 +41,7 @@ namespace MyHeroMod.content.System
                 
                 if (Main.rand.Next(100) < 80)
                 {
-                    transPlayer.CurrentVariant = QuirkVariant.PinkBeam;
+                    transPlayer.CurrentVariant = QuirkVariant.Variant1;
                     Main.NewText("You awakened: Beams From your Eyes", Color.HotPink);
                 }
                 else

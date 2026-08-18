@@ -71,7 +71,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Projectiles
             
             
             Vector2 perpendicular = new Vector2(-Projectile.velocity.Y, Projectile.velocity.X);
-            bool isPink = (transPlayer.CurrentVariant == QuirkVariant.PinkBeam);
+            bool isPink = (transPlayer.CurrentVariant == QuirkVariant.Variant1);
 
             // Determine dust types based on variant
             int coreDustType = isPink ? DustID.PinkTorch : DustID.RedTorch;
