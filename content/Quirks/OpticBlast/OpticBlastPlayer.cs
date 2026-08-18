@@ -152,6 +152,12 @@ namespace MyHeroMod.content.Quirks.OpticBlast
                         Player.whoAmI
                     );
 
+                    if (Main.myPlayer == Player.whoAmI)
+                    {
+                        Color impactColor = (transPlayer.CurrentVariant == QuirkVariant.Variant1) ? Color.Pink : Color.Red;
+                        ImpactFrameSystem.Trigger(impactColor, false, "MyHeroMod/Assets/Effects/BlankImpactImage", "MyHeroMod/Assets/Effects/BlankImpactImage");
+                    }
+
                     Terraria.Audio.SoundEngine.PlaySound(
                         new Terraria.Audio.SoundStyle("MyHeroMod/Assets/Sounds/SingleOpticBlast"), 
                         Player.position

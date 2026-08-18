@@ -38,6 +38,8 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Skills
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
             var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
 
+            
+
            int meterReduction = opticPlayer.CurrentPercentage switch
             {
                 OpticBlastPlayer.Percentage.TwentyFive => 20,
