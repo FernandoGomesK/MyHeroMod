@@ -6,6 +6,7 @@ using MyHeroMod.content.Buffs;
 using KhacesCore.Content.System.Interfaces;
 using Terraria.Audio;
 using KhacesCore.Content.System.BaseProjectiles;
+using Terraria.ID;
 
 
 namespace MyHeroMod.content.Quirks.FaJin
@@ -23,6 +24,8 @@ namespace MyHeroMod.content.Quirks.FaJin
         {
             speed += 10f; 
             isEnhanced = true;  
+            dustType = DustID.RedTorch;
+            explosionColor = Color.Red;
             Player.ClearBuff(ModContent.BuffType<FaJinBuff>());
             FaJinCharges = 0;  
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FaJinSound"), Player.Center);

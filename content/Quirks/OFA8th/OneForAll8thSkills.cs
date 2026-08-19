@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using KhacesCore.Content.System.Interfaces;
 using Terraria.Audio;
+using Terraria.ID;
 
 namespace MyHeroMod.content.Quirks.OFA8th
 {
@@ -27,6 +28,13 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 QuirkStage.Intermediate => 35f, QuirkStage.Advanced => 40f,
                 QuirkStage.Final => 60f, _ => 80f
             };
+            if (transPlayer.CurrentStage>= QuirkStage.Adequation)
+            {
+                isEnhanced = true;
+                dustType = DustID.Cloud;
+                explosionColor = Color.White; 
+            }
+            
 
             speed = dashSpeed + formModifier;
 

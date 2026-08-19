@@ -59,6 +59,7 @@ namespace MyHeroMod.content.Quirks.Explosion
             else
             {
                 hideNormalDash = false;
+                isEnhanced = true;
                 explosionColor = Color.Orange; 
                 dustType = DustID.FireworkFountain_Red; 
             }
