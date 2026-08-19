@@ -34,6 +34,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast
             regenTimer = 0;
             isRubyGlassesEquipped = false;
             isGoldenVisorEquipped = false;
+            Player.ClearBuff(BuffID.Blackout);
         }
 
         public override void ResetEffects()
