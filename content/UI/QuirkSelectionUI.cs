@@ -132,6 +132,19 @@ namespace MyHeroMod
                         transPlayer.CurrentVariant = QuirkVariant.Default;
                     }
                 }
+                else if (quirk == QuirkType.Engine)
+                {
+                    
+                    if (Main.rand.Next(100) < 48)
+                    {
+                        transPlayer.CurrentVariant = QuirkVariant.Variant1;
+                        Main.NewText("Engine Tensei", Color.White);
+                    }
+                    else
+                    {
+                        transPlayer.CurrentVariant = QuirkVariant.Default;
+                    }
+                }
                 else 
                 {
                     

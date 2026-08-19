@@ -422,6 +422,11 @@ Items: {
 		DisplayName: Golden Visor
 		Tooltip: ""
 	}
+
+	TenseiExhaustArms: {
+		DisplayName: Tensei Exhaust Arms
+		Tooltip: ""
+	}
 }
 
 Buffs: {

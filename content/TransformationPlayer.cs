@@ -292,6 +292,11 @@ namespace MyHeroMod.content
         public override void UpdateBadLifeRegen()
         {
 
+            if (HasActiveQuirk(QuirkType.SuperRegeneration) && !HasLethalStrainQuirk())
+            {
+                return;
+            }
+
             // ====================================== 100 percent ==========================================
             if (currentStrain >= (maxStrain * 0.75f))
             {

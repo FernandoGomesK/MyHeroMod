@@ -4,6 +4,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
 using MyHeroMod.content.Buffs;
+using System.Diagnostics;
 
 namespace MyHeroMod.content.Quirks.Engine
 {
@@ -15,27 +16,27 @@ namespace MyHeroMod.content.Quirks.Engine
         
         public override bool GetDefaultVisibility(PlayerDrawSet drawInfo)
         {
-            // Só fica visível se o jogador não estiver morto e tiver o Buff ativado
              var transPlayer = drawInfo.drawPlayer.GetModPlayer<TransformationPlayer>();
             
-            
-            return drawInfo.drawPlayer.active && 
-                   !drawInfo.drawPlayer.dead && 
-                   transPlayer.HasActiveQuirk(QuirkType.Engine);
+             
+             return drawInfo.drawPlayer.active && 
+                    !drawInfo.drawPlayer.dead && 
+                    transPlayer.HasActiveQuirk(QuirkType.Engine) && 
+                    transPlayer.CurrentVariant != QuirkVariant.Variant1;
         }
-
         
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
             Player player = drawInfo.drawPlayer;
             var transPlayer = drawInfo.drawPlayer.GetModPlayer<TransformationPlayer>();
 
-            // Carregue a sua textura (Troque o caminho para o local exato da sua imagem!)
+        
+            
             string texturePath = transPlayer.CurrentStage >= QuirkStage.Intermediate 
                 ? "MyHeroMod/content/Quirks/Engine/Visuals/Exhausts2" 
                 : "MyHeroMod/content/Quirks/Engine/Visuals/Exhausts";
 
-            // Carrega a textura escolhida (agora acessível para o DrawData!)
+            
             Texture2D texture = ModContent.Request<Texture2D>(texturePath).Value;
             
 
@@ -58,7 +59,7 @@ namespace MyHeroMod.content.Quirks.Engine
                 player.legFrame, 
                 drawColor,
                 player.legRotation, 
-                new Vector2(player.legFrame.Width / 2f, player.legFrame.Height / 2f), // Ponto de origem muda para o centro do frame
+                new Vector2(player.legFrame.Width / 2f, player.legFrame.Height / 2f), 
                 1f, 
                 drawInfo.playerEffect, 
                 0

@@ -50,6 +50,19 @@ namespace MyHeroMod.content.System
                     Main.NewText($"You awakened: An Optic Blast?!", Color.Yellow);
                 }
             }
+            else if (quirkType == QuirkType.Engine)
+            {
+                if (Main.rand.Next(100) < 48)
+                {
+                    transPlayer.CurrentVariant = QuirkVariant.Variant1;
+                    Main.NewText("You awakened: Engine(Tensei)", Color.White);
+                }
+                else
+                {
+                    transPlayer.CurrentVariant = QuirkVariant.Default;
+                    Main.NewText("You awakened: Engine(Tenya)", Color.White);
+                }
+            }
             else 
             {
             
