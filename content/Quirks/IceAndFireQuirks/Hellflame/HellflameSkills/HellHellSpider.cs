@@ -12,6 +12,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Skills
         
         public override QuirkType RequiredQuirk => QuirkType.HellFlames;
         public override QuirkStage RequiredStage => QuirkStage.Intermediate;
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Hellflame/HellHellSpiderIcon";
         protected override int HeatCost => 45;
 
         public override int BaseCooldown => 1500;

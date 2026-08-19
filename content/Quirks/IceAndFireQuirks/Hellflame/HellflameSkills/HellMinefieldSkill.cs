@@ -14,7 +14,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
         public override string GetDisplayName(Player player) => "Hell Minefield";
         
         public override string Description => "Release a wave of fire that leaves explosive mines along the ground.";
-        public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Hellflame/HellHellMineIcon";
   
         public override string Category => "HellFlames"; 
 

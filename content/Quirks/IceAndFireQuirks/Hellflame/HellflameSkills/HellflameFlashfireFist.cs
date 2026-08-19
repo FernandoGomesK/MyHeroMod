@@ -9,6 +9,8 @@ public class HellflameFlashFireFist : BaseToggleFlashfireFistSkill
       
         public override string Name => "Hellflame_FlashfireFist"; 
         public override string Category => "HellFlames";
+
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Hellflame/HellFlashIcon";
         
         public override QuirkType RequiredQuirk => QuirkType.HellFlames;
         public override QuirkStage RequiredStage => QuirkStage.Adequation;

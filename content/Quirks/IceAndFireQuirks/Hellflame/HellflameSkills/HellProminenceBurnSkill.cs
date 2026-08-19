@@ -27,7 +27,7 @@ public class HellProminenceBurnSkill: QuirkBaseSkill
         
    
     public override string Description => "Shoot a fireball";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Hellflame/HellProminenceIcon";
     public override string Category => "Fire";
 
     public override int BaseCooldown => 3600;

@@ -16,7 +16,23 @@ public class GearShiftStrikeSkill : QuirkBaseSkill
 
     
     public override string Description => "Dash Forward reaching for your foes";
-    public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string IconPath
+        {
+            get
+            {   
+                Player player = Main.LocalPlayer;
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+                if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
+                {
+                    return "MyHeroMod/Assets/SkillIcons/Gearshift/OFAGearStrikeIcon"; 
+                }
+                else
+                {
+                    return "MyHeroMod/Assets/SkillIcons/Gearshift/GearStrikeIcon"; 
+                }
+            }
+        } 
     public override string Category => "Gearshift";
 
     public override int BaseCooldown => 300;

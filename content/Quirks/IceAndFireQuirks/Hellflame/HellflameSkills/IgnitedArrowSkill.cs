@@ -24,7 +24,7 @@ public class IgnitedArrowSkill: QuirkBaseSkill
     public override string GetDisplayName(Player player) => "Ignited Arrow";
    
     public override string Description => "Shoot a arrow of Fire";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Hellflame/HellArrowIcon";
     public override string Category => "Fire";
 
     public override int BaseCooldown => 900;

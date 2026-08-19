@@ -12,7 +12,23 @@ public class BlackWhipStunSkill : QuirkBaseSkill
 {
     public override string Name => "Black Whip Stun";
     public override string Description => "Attack with BlackWhip Stunning";
-    public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string IconPath
+        {
+            get
+            {   
+                Player player = Main.LocalPlayer;
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+                if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
+                {
+                    return "MyHeroMod/Assets/SkillIcons/Blackwhip/OFABlackwhipStunIcon"; 
+                }
+                else
+                {
+                    return "MyHeroMod/Assets/SkillIcons/Blackwhip/BlackwhipStunIcon"; 
+                }
+            }
+        } 
     public override string Category => "BlackWhip";
 
     public override int BaseCooldown => 60;

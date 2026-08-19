@@ -15,7 +15,24 @@ public class BlackWhipHookSkill : QuirkBaseSkill
     {
          public override string Name => "Black Whip Hook";
     public override string Description => "Shoot a hook made from blackwhip at you cursor and pull yourself towards it";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string IconPath
+        {
+            get
+            {   
+                Player player = Main.LocalPlayer;
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+                if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
+                {
+                    return "MyHeroMod/Assets/SkillIcons/Blackwhip/OFABlackwhipIcon"; 
+                    
+                }
+                else
+                {
+                    return "MyHeroMod/Assets/SkillIcons/Blackwhip/BlackwhipIcon"; 
+                }
+            }
+        } 
     public override string Category => "BlackWhip";
 
     public override int BaseCooldown => 30;
