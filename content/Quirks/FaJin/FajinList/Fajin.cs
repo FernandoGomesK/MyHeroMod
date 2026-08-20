@@ -12,7 +12,7 @@ namespace MyHeroMod.content.Quirks.FaJin.Skills
         public override string Name => "Fa Jin";
         public override string Description => "Toggle Fa Jin energy buildup.";
 
-        public override string IconPath => "MyHeroMod/Assets/Skills/FaJinIcon";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Fajin/Fajin";
         public override string Category => "FaJin";
         public override int BaseCooldown => 30;
 

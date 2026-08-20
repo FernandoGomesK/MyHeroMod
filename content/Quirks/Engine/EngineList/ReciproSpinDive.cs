@@ -13,7 +13,7 @@ public class ReciproSpinDiveSkill : QuirkBaseSkill
 {
     public override string Name => "Recipro Spin Dive";
     public override string Description => "Spin and dive at your Cursor";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash"; 
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Engine/SpinKickIcon";
     public override string Category => "Engine";
 
     public override int BaseCooldown => 120;

@@ -16,7 +16,7 @@ public class PinpointFocusSkill : QuirkBaseSkill
     {
     public override string Name => "Pinpoint Focus";
     public override string Description => "Shoot a tendril of blackwhip";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blackwhip/PinpointBlackIcon";
     public override string Category => "BlackWhip";
 
     public override int BaseCooldown => 30;
