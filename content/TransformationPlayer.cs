@@ -290,119 +290,47 @@ namespace MyHeroMod.content
         }
 
         public override void UpdateBadLifeRegen()
-        {
+{
+    if (HasActiveQuirk(QuirkType.SuperRegeneration) && !HasLethalStrainQuirk())
+        return;
 
-            if (HasActiveQuirk(QuirkType.SuperRegeneration) && !HasLethalStrainQuirk())
-            {
-                return;
-            }
+    float strainRatio = maxStrain > 0 ? (float)currentStrain / maxStrain : 0f;
+    if (strainRatio < 0.25f)
+        return;
 
-            // ====================================== 100 percent ==========================================
-            if (currentStrain >= (maxStrain * 0.75f))
-            {
-                // --------------------------- lethal -----------------------
-                if (HasLethalStrainQuirk())
-                {
-                    
-                    int damagePerSecond = (int)(Player.statLifeMax2 * 0.10f);
-                    if (Player.lifeRegen > 0) Player.lifeRegen = 0;
-                    Player.lifeRegen -= damagePerSecond * 2;
-                }
-                // --------------------------- non-lethal -----------------------
-                else
-                {
-                    int targetHealth = (int)(Player.statLifeMax2 * 0.25f);
-                    
-                
-                    if (Player.statLife > targetHealth)
-                    {
-                        int damagePerSecond = (int)(Player.statLifeMax2 * 0.10f);
-                        
-                        if (Player.lifeRegen > 0) Player.lifeRegen = 0; 
-                        Player.lifeRegenTime = 0;
-                        
-                        Player.lifeRegen -= damagePerSecond * 2;
-                    }
-                    
-                    else 
-                    {
-                        if (Player.lifeRegen > 0) 
-                        {
-                            Player.lifeRegen = 0; 
-                        }
-                    }
-                }
-            }
-            // ====================================== 75 percent ==========================================
-            else if (currentStrain >= (maxStrain * 0.50f))
-            {
-                // --------------------------- lethal -----------------------
-                if (HasLethalStrainQuirk())
-                {
-                    int damagePerSecond = (int)(Player.statLifeMax2 * 0.05f);
-                    if (Player.lifeRegen > 0) Player.lifeRegen = 0;
-                    Player.lifeRegen -= damagePerSecond * 2;
-                }
-                // --------------------------- non-lethal -----------------------
-                else
-                {
-                    
-                    int targetHealth = (int)(Player.statLifeMax2 * 0.50f);
-                    
-                    if (Player.statLife > targetHealth)
-                    {
-                        int damagePerSecond = (int)(Player.statLifeMax2 * 0.05f);
-                        if (Player.lifeRegen > 0) Player.lifeRegen = 0;
-                        Player.lifeRegen -= damagePerSecond * 2;
-                    }
-                    else
-                    {
-                          if (Player.statLife >= targetHealth)
-                        {
-                            Player.statLife = targetHealth;
-                        if (Player.lifeRegen < 0) Player.lifeRegen = 0;
-                        }
-                    }
-                }
-                
-            }
+    bool lethal = HasLethalStrainQuirk();
 
-             // ====================================== 25 percent ==========================================
+    // Escalating drain as strain climbs. Previously the 75% tier (0.010f)
+    // was accidentally weaker than the 50% tier (0.05f) for lethal quirks - fixed here.
+    float damagePercent = strainRatio switch
+    {
+        >= 0.75f => lethal ? 0.06f : 0.10f,
+        >= 0.50f => lethal ? 0.03f : 0.05f,
+        _        => lethal ? 0.01f : 0.02f, // 25%-50% band
+    };
 
-            else if (currentStrain >= (maxStrain * 0.25f))
-            {
-                // --------------------------- lethal -----------------------
-                if (HasLethalStrainQuirk())
-                {
-                    int damagePerSecond = (int)(Player.statLifeMax2 * 0.02f);
-                    if (Player.lifeRegen > 0) Player.lifeRegen = 0;
-                    Player.lifeRegen -= damagePerSecond * 2;          
-                }
-                // --------------------------- non-lethal -----------------------
-                else
-                {
-                    
-                    int targetHealth = (int)(Player.statLifeMax2 * 0.75f);
-                    
-                    if (Player.statLife > targetHealth)
-                    {
-                        int damagePerSecond = (int)(Player.statLifeMax2 * 0.02f);
-                        if (Player.lifeRegen > 0) Player.lifeRegen = 0;
-                        Player.lifeRegen -= damagePerSecond * 2;
-                    }
-                    else
-                    {
-                        if (Player.statLife >= targetHealth)
-                        {
-                            Player.statLife = targetHealth;
-                        if (Player.lifeRegen < 0) Player.lifeRegen = 0;
-                        }
-                    }
-                }
-                
-                
-            }
-        }
+    // Lethal quirks now stop at 5% max HP instead of having no floor at all.
+    // Non-lethal keeps the original "clamp to a target health band" idea, generalized.
+    int floorPercent = lethal ? 5 : strainRatio switch
+    {
+        >= 0.75f => 25,
+        >= 0.50f => 50,
+        _        => 75,
+    };
+    int floorHealth = (int)(Player.statLifeMax2 * (floorPercent / 100f));
+
+    if (Player.statLife > floorHealth)
+    {
+        int damagePerSecond = (int)(Player.statLifeMax2 * damagePercent);
+        if (Player.lifeRegen > 0) Player.lifeRegen = 0;
+        Player.lifeRegen -= damagePerSecond * 2;
+    }
+    else
+    {
+        Player.statLife = floorHealth;
+        if (Player.lifeRegen < 0) Player.lifeRegen = 0;
+    }
+}
 
         public bool HasActiveQuirk(QuirkType typeToCheck)
         {

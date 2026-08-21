@@ -244,30 +244,32 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
             
 
-            int strainDrain = (transPlayer.CurrentStage, percentage) switch
+           int strainDrain = (transPlayer.CurrentStage, percentage) switch
             {
-                (QuirkStage.Initial, 5) => 10,
+                // Initial has no Full Cowling skill unlocked (all variants require Adequation+),
+                // so this branch is unreachable — left out rather than kept as dead code.
 
-                (QuirkStage.Adequation, 5) => 8,
+                (QuirkStage.Adequation, 5)  => 8,
                 (QuirkStage.Adequation, 10) => 15,
                 (QuirkStage.Adequation, 20) => 20,
                 (QuirkStage.Adequation, 45) => 50,
 
-                (QuirkStage.Intermediate, 5) => 5,
+                (QuirkStage.Intermediate, 5)  => 4,
                 (QuirkStage.Intermediate, 10) => 10,
                 (QuirkStage.Intermediate, 20) => 15,
                 (QuirkStage.Intermediate, 45) => 40,
 
-                (QuirkStage.Advanced, 5) => 2,
+                (QuirkStage.Advanced, 5)  => 2,
                 (QuirkStage.Advanced, 10) => 5,
-                (QuirkStage.Advanced, 20) => 15,
+                (QuirkStage.Advanced, 20) => 8,   
                 (QuirkStage.Advanced, 45) => 30,
 
-                (QuirkStage.Final, 5) => 0,
-                (QuirkStage.Final, 10) => 5,
-                (QuirkStage.Final, 20) => 8,
-                (QuirkStage.Final, 45) => 10,
-                _ => 0 
+                (QuirkStage.Final, 5)  => 0,
+                (QuirkStage.Final, 10) => 3,      
+                (QuirkStage.Final, 20) => 4,
+                (QuirkStage.Final, 45) => 15,
+
+                _ => 0
             };
 
             if (ParallelProcessing > 0)
