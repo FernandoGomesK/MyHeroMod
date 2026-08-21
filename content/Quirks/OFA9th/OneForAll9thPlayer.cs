@@ -20,15 +20,39 @@ using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackChain;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhipStun;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.PinpointFocus;
+using MyHeroMod.content.System.Interfaces;
 
 
 
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
-    public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter, IDashModifier
+    public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter, IDashModifier, IStrainSource
     {
 
+        // ============================ Strain ==================================
+
+         public int StrainPenaltyPerSecond { get; set; }
+
+        public void AddStrain(int amount)
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            transPlayer.currentStrain += amount;
+
+            if (transPlayer.currentStrain <= 0)
+            {
+                transPlayer.currentStrain = 0;
+            }
+            else if (transPlayer.currentStrain >= transPlayer.maxStrain)
+            {
+                transPlayer.currentStrain = transPlayer.maxStrain;
+                Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>()); 
+            }
+        }
+
+        // ======================= Support Items ===========================================================
+
+        
         public bool isAirForceOn = false;
 
         public bool isIronSolesOn = false;
@@ -54,7 +78,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         
         public int percentage = 0;
-        public int strainTimer = 0;
+        
 
         
         
@@ -67,7 +91,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             percentage = 0;
             isFullCowlingBuffActive = false;
             Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
-            strainTimer = 0;
+            StrainPenaltyPerSecond = 0;
 
         }
 
@@ -77,7 +101,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             ElectricSoundTimer = 0;
             percentage = 0;
             isFullCowlingBuffActive = false;
-            strainTimer = 0;
+            StrainPenaltyPerSecond = 0;
         }
         
 
@@ -207,6 +231,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             
             if (!Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th))
             {
+                StrainPenaltyPerSecond = 0;
                 return; 
             }
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
@@ -246,9 +271,6 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
            int strainDrain = (transPlayer.CurrentStage, percentage) switch
             {
-                // Initial has no Full Cowling skill unlocked (all variants require Adequation+),
-                // so this branch is unreachable — left out rather than kept as dead code.
-
                 (QuirkStage.Adequation, 5)  => 8,
                 (QuirkStage.Adequation, 10) => 15,
                 (QuirkStage.Adequation, 20) => 20,
@@ -284,43 +306,19 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
             if (isFullCowlingBuffActive)
             {
-                strainTimer++;
-                
                 
                 HandleFullCowlingEffects();
                 Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
                 ElectricSoundTimer++;
 
-                if (strainTimer >= 60)
-                {
-                    transPlayer.currentStrain += strainDrain;
-                    if (transPlayer.currentStrain >= transPlayer.maxStrain)
-                {
-                    transPlayer.currentStrain = transPlayer.maxStrain; 
-                    Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
-                }
-                strainTimer = 0;
-                }
-
                 
-                
-                
+                StrainPenaltyPerSecond = strainDrain;
             }
-            else if (transPlayer.currentStrain > 0)
+            else
             {
-                
-                strainTimer++;
-                if (strainTimer >= 60) 
-                {
-                    transPlayer.currentStrain -= 5; 
-                    strainTimer = 0; 
-
-                    if (transPlayer.currentStrain < 0) 
-                    {
-                        transPlayer.currentStrain = 0;
-                    }
-                }
+                StrainPenaltyPerSecond = transPlayer.currentStrain > 0 ? -5 : 0;
             }
+
             }
 
        // --- MULTIPLAYER ---

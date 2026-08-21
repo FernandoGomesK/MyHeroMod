@@ -11,15 +11,34 @@ using System.Collections.Generic;
 using MyHeroMod.content.Dusts;
 using MyHeroMod.content.Buffs;
 using KhacesCore.Content.System.Interfaces;
+using MyHeroMod.content.System.Interfaces;
 using MyHeroMod.content.Projectiles;
 using System;
 
 
 namespace MyHeroMod.content.Quirks.Explosion
 {
-    public partial class ExplosionPlayer : ModPlayer, IFlightModifier, IDashModifier
+    public partial class ExplosionPlayer : ModPlayer, IFlightModifier, IDashModifier, IStrainSource
     {
     
+        public int StrainPenaltyPerSecond { get; set; }
+
+        public void AddStrain(int amount)
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            transPlayer.currentStrain += amount;
+
+            if (transPlayer.currentStrain <= 0)
+            {
+                transPlayer.currentStrain = 0;
+            }
+            else if (transPlayer.currentStrain >= transPlayer.maxStrain)
+            {
+                transPlayer.currentStrain = transPlayer.maxStrain;
+                IsClusterActive = false;
+                Player.ClearBuff(ModContent.BuffType<ClusterBuff>()); 
+            }
+        }
         
 
         public bool IsClusterActive = false;
@@ -61,13 +80,14 @@ namespace MyHeroMod.content.Quirks.Explosion
             {
                 var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-                Player.AddBuff(ModContent.BuffType<ClusterBuff>(),2 );
+                Player.AddBuff(ModContent.BuffType<ClusterBuff>(), 2);
 
-                if (Main.GameUpdateCount % 6 == 0)
-                {
-                    int strainIncrease = (int)(transPlayer.maxStrain * 0.001f); 
-                    transPlayer.currentStrain += Math.Max(1, strainIncrease);
-                }
+                StrainPenaltyPerSecond = Math.Max(1, (int)(transPlayer.maxStrain * 0.01f));
+            }
+            else
+            {
+                var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+                StrainPenaltyPerSecond = transPlayer.currentStrain > 0 ? -5 : 0;
             }
 
             if (mainPlayer.CurrentStage >= QuirkStage.Advanced && mainPlayer.HasActiveQuirk(QuirkType.Explosion) && IsClusterActive)

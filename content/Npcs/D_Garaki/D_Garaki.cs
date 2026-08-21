@@ -107,6 +107,7 @@ namespace MyHeroMod.content.Npcs.D_Garaki
             npcShop.Add(ModContent.ItemType<QuirkSyringe>());
             npcShop.Add(ModContent.ItemType<QuirkGene>());
             npcShop.Add(ModContent.ItemType<QuirkRemover>());
+            npcShop.Add(ModContent.ItemType<GeneActivator>());
             npcShop.Add(ModContent.ItemType<SummonHim>());
             
            
