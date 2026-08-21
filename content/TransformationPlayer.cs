@@ -311,23 +311,25 @@ namespace MyHeroMod.content
                 // --------------------------- non-lethal -----------------------
                 else
                 {
-                    
                     int targetHealth = (int)(Player.statLifeMax2 * 0.25f);
                     
+                
                     if (Player.statLife > targetHealth)
                     {
                         int damagePerSecond = (int)(Player.statLifeMax2 * 0.10f);
-                        if (Player.lifeRegen > 0) Player.lifeRegen = 0;
+                        
+                        if (Player.lifeRegen > 0) Player.lifeRegen = 0; 
+                        Player.lifeRegenTime = 0;
+                        
                         Player.lifeRegen -= damagePerSecond * 2;
                     }
-                    else
+                    
+                    else 
                     {
-                        if (Player.statLife >= targetHealth)
+                        if (Player.lifeRegen > 0) 
                         {
-                            Player.statLife = targetHealth;
-                        if (Player.lifeRegen < 0) Player.lifeRegen = 0;
+                            Player.lifeRegen = 0; 
                         }
-                        
                     }
                 }
             }

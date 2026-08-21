@@ -69,15 +69,19 @@ namespace MyHeroMod.content.Quirks.ZeroGravity
                 if (isZeroGravityActive && !Player.mount.Active && Player.velocity.Y != 0)
                 {
                     if (Player.controlJump) 
-                    {
-                        Player.velocity.Y = -0.5f; 
-                        Player.fallStart = (int)(Player.position.Y / 16f); 
-                    }
-                    else if (Player.velocity.Y > 0)
-                    {
-                        Player.velocity.Y *= 0.25f; 
-                        Player.fallStart = (int)(Player.position.Y / 16f);
-                    }
+                {
+                    Player.velocity.Y = -1.5f; 
+                    Player.fallStart = (int)(Player.position.Y / 16f); 
+                }
+                else if(Player.controlDown)
+                {
+                    Player.velocity.Y = +3.5f; 
+                }
+                
+                else if (Player.velocity.Y > 0)
+                {
+                    Player.velocity.Y *= 0.25f; 
+                }
 
                     if (Main.rand.NextBool(4))
                         Dust.NewDust(Player.position, Player.width, Player.height, DustID.PinkFairy);
