@@ -300,17 +300,15 @@ namespace MyHeroMod.content
 
     bool lethal = HasLethalStrainQuirk();
 
-    // Escalating drain as strain climbs. Previously the 75% tier (0.010f)
-    // was accidentally weaker than the 50% tier (0.05f) for lethal quirks - fixed here.
+
     float damagePercent = strainRatio switch
     {
         >= 0.75f => lethal ? 0.06f : 0.10f,
         >= 0.50f => lethal ? 0.03f : 0.05f,
-        _        => lethal ? 0.01f : 0.02f, // 25%-50% band
+        _        => lethal ? 0.01f : 0.02f,
     };
 
-    // Lethal quirks now stop at 5% max HP instead of having no floor at all.
-    // Non-lethal keeps the original "clamp to a target health band" idea, generalized.
+    
     int floorPercent = lethal ? 5 : strainRatio switch
     {
         >= 0.75f => 25,

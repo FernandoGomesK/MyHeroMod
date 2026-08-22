@@ -1,111 +1,111 @@
-    public enum QuirkSkills
-        {
-            None,
-            // General Skills (These Are Can be used with any of the quirks or the support ones)
+    // public enum QuirkSkills
+    //     {
+    //         None,
+    //         // General Skills (These Are Can be used with any of the quirks or the support ones)
 
-            Jump, Punch, Dash, CruiseFlight,
-            // Ofa
-            SuperJump,
+    //         Jump, Punch, Dash, CruiseFlight,
+    //         // Ofa
+    //         SuperJump,
 
-            // Rivet
+    //         // Rivet
 
-            RivetStab,
+    //         RivetStab,
 
-            // All For One
+    //         // All For One
 
-            StealQuirk, SeeQuirks,
+    //         StealQuirk, SeeQuirks,
 
-            // Decay
+    //         // Decay
 
-            RangeTouch, DashTouch, GroundTouch,
+    //         RangeTouch, DashTouch, GroundTouch,
 
-            // Flight 
+    //         // Flight 
 
-            Flight,
-            FlightShield,
+    //         Flight,
+    //         FlightShield,
 
-            // Slide and glide / Flight
+    //         // Slide and glide / Flight
 
-            Slide,
+    //         Slide,
 
-            SaGFlight,
-            ScrappyThrust,
-            ShootyGoBlam,
-            ShoothyGoBBB,
-            SlideShield,
+    //         SaGFlight,
+    //         ScrappyThrust,
+    //         ShootyGoBlam,
+    //         ShoothyGoBBB,
+    //         SlideShield,
         
 
-            //Erasure
+    //         //Erasure
 
-            Erase,
+    //         Erase,
 
-            // Engine
+    //         // Engine
 
-            ToggleEngine, Recipro, ReciproExtend, ReciproSpin, ReciproSpinDive,
+    //         ToggleEngine, Recipro, ReciproExtend, ReciproSpin, ReciproSpinDive,
 
-            // Ofa 8th
-            PrimeDetroitSmash, CaliforniaSmash, TexasSmash, CarolinaSmash, StockPile, StockPileMaximum,
+    //         // Ofa 8th
+    //         PrimeDetroitSmash, CaliforniaSmash, TexasSmash, CarolinaSmash, StockPile, StockPileMaximum,
 
-            // Ofa 9th
-            DelawareSmash, DetroitSmash, ManchesterSmash, STLouisSmash, OneForAllFullCowling5, OneForAllFullCowling8, OneForAllFullCowling45,
-            BlackWhipHook, OneForAllFullCowling100, BlackWhipSurge, Float, DangerSense, ToggleDangerSense, FaJinStore, Smokescreen, Gearshift,
+    //         // Ofa 9th
+    //         DelawareSmash, DetroitSmash, ManchesterSmash, STLouisSmash, OneForAllFullCowling5, OneForAllFullCowling8, OneForAllFullCowling45,
+    //         BlackWhipHook, OneForAllFullCowling100, BlackWhipSurge, Float, DangerSense, ToggleDangerSense, FaJinStore, Smokescreen, Gearshift,
 
-            // Hell Flames
-            FlashFireFist, ProminenceBurn, JetBurn, HellSpider, IgnitedArrow,
+    //         // Hell Flames
+    //         FlashFireFist, ProminenceBurn, JetBurn, HellSpider, IgnitedArrow,
 
-            // Blue Flames
-            BlueFlashFireFist, BlueRage, BluePhosphor, BlueFireWave, BlueHellMineField, BlueProminenceBurn,
-            BlueFireBall, BlueVanishingFist, BlueFlamethrower, BlueJetBurn, BlueHellSpider,
+    //         // Blue Flames
+    //         BlueFlashFireFist, BlueRage, BluePhosphor, BlueFireWave, BlueHellMineField, BlueProminenceBurn,
+    //         BlueFireBall, BlueVanishingFist, BlueFlamethrower, BlueJetBurn, BlueHellSpider,
 
-            // HCHH
-            HCFireFist, HeavenPiercingWall, FlashFreezeHeatWave, JetKindling, HCHellSpider, HCPhosphor,
+    //         // HCHH
+    //         HCFireFist, HeavenPiercingWall, FlashFreezeHeatWave, JetKindling, HCHellSpider, HCPhosphor,
 
-            // Explosion
-            ExplosionBlast, StunGrenade, FullPowerBlast, ApShot, ApMachineGun, HowitzerImpact, Cluster,
+    //         // Explosion
+    //         ExplosionBlast, StunGrenade, FullPowerBlast, ApShot, ApMachineGun, HowitzerImpact, Cluster,
 
-            // Danger Sense
-            DangerActivate,
+    //         // Danger Sense
+    //         DangerActivate,
 
-            // tape
+    //         // tape
 
-            ShootSwingingTape, PullTape,
+    //         ShootSwingingTape, PullTape,
 
-            // Overclock
+    //         // Overclock
 
-            Overclock,
+    //         Overclock,
 
-            // Spring Like Limbs
+    //         // Spring Like Limbs
 
-            ToggleSprings,
+    //         ToggleSprings,
 
-            // Overhaul
+    //         // Overhaul
 
-            DisassembleHeal,
-            DashDisassemble,
-            DisassembleRange,
-            GroundDisassemble,
-            RangeHeal,
-            Chimera,
-            RockShoot,
+    //         DisassembleHeal,
+    //         DashDisassemble,
+    //         DisassembleRange,
+    //         GroundDisassemble,
+    //         RangeHeal,
+    //         Chimera,
+    //         RockShoot,
 
-            // Zero Gravity
+    //         // Zero Gravity
 
-            GravityTouch, SelfFloat, GravityRelease,
+    //         GravityTouch, SelfFloat, GravityRelease,
 
-            // Optic Blast
+    //         // Optic Blast
 
-            SingleOpticBlast, ChangePercentage, ContinuousOpticBlast,
+    //         SingleOpticBlast, ChangePercentage, ContinuousOpticBlast,
 
-            // Speed Force
+    //         // Speed Force
 
-            ToggleSpeedForce,
+    //         ToggleSpeedForce,
 
-            // Darkshadow
+    //         // Darkshadow
 
-            ToggleDarkShadow,
-            PiercingTwilight,
-            ToggleBlackAbyss,
-            CovertBlackOpsArms,
+    //         ToggleDarkShadow,
+    //         PiercingTwilight,
+    //         ToggleBlackAbyss,
+    //         CovertBlackOpsArms,
 
 
-        }
+    //     }
