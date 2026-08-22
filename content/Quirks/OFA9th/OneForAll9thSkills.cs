@@ -8,6 +8,7 @@ using KhacesCore.Content.System.Interfaces;
 using Terraria.Audio;
 using MyHeroMod.content.Projectiles;
 using Terraria.ID;
+using MyHeroMod.content.Quirks.FaJin;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
@@ -60,12 +61,50 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 onomatopoeiaType = ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>();
             }
             }
+        }
 
-            
-            
+        public int CalculateStageDamage(int initial, int adequation, int intermediate, int advanced, int finalDmg)
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            return transPlayer.CurrentStage switch
+            {
+                QuirkStage.Initial => initial,
+                QuirkStage.Adequation => adequation,
+                QuirkStage.Intermediate => intermediate,
+                QuirkStage.Advanced => advanced,
+                QuirkStage.Final => finalDmg,
+                _ => initial
+            };
+        }
+        public float GetFullCowlingMultiplier()
+        {
+            return percentage switch
+            {
+                45 => 0.45f,
+                20 => 0.20f,
+                10 => 0.10f,
+                5 => 0.05f,
+                _ => 1f
+            };
+        }
 
+        public float ConsumeFaJin(out bool usedFaJin)
+        {
+            if (Player.HasBuff(ModContent.BuffType<FaJinBuff>()))
+            {
+                var faJinPlayer = Player.GetModPlayer<FajinPlayer>();
+                faJinPlayer.FaJinCharges = 0;
+                Player.ClearBuff(ModContent.BuffType<FaJinBuff>());
+                usedFaJin = true;
+                return 0.55f;
+            }
             
-            
+            usedFaJin = false;
+            return 0f;
+        }
+        public float GetIronSolesMultiplier()
+        {
+            return isIronSolesOn ? 1.30f : 1f;
         }
     }
 }

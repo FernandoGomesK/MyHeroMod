@@ -32,16 +32,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
             var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            
-            int MaxDamage = transPlayer.CurrentStage switch
-            {
-                QuirkStage.Initial => 50,
-                QuirkStage.Adequation => 150,
-                QuirkStage.Intermediate => 300,
-                QuirkStage.Advanced => 550,
-                QuirkStage.Final => 1200,
-                _ => 150
-            };
+            int MaxDamage = ofaPlayer.CalculateStageDamage(50,150,300,550,1200);
 
             bool consumeFinger = false;
             bool hurtPlayer = false;
