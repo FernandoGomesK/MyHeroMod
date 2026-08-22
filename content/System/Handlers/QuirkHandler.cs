@@ -7,7 +7,6 @@ namespace MyHeroMod.content.Handlers
 {
     public class QuirkHandler : ModPlayer
     {
-        // Define the complexity of each quirk
         public int GetQuirkCost(QuirkType quirk)
         {
             return quirk switch
@@ -27,25 +26,33 @@ namespace MyHeroMod.content.Handlers
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             int totalQuirkWeight = 0;
+            int baseCapacity = 0;
 
-            // 1. Calculate total weight
-            foreach (var quirk in transPlayer.ActiveQuirks)
+            if (transPlayer.ActiveQuirks.Count > 0)
             {
-                totalQuirkWeight += GetQuirkCost(quirk);
+                baseCapacity = GetQuirkCost(transPlayer.ActiveQuirks[0]);
+                
+                foreach (var quirk in transPlayer.ActiveQuirks)
+                {
+                    totalQuirkWeight += GetQuirkCost(quirk);
+                }
             }
 
-            // 2. Apply Nature discounts to weight (e.g., Higher Brain Power reduces complex quirk load)
+            // (Optional) Higher Brain Power reduces the weight of complex mental quirks
             if (transPlayer.Nature == NatureType.HigherBrainPower && transPlayer.HasActiveQuirk(QuirkType.Overhaul))    
             {
                 totalQuirkWeight -= 1; 
             }
 
-            // 3. Calculate Capacity
-            int currentCapacity = transPlayer.naturalQuirkLimit;
+            // 2. Calculate Final Capacity
+            int currentCapacity = baseCapacity;
+            
+            // Add bonus capacity from Natures
             if (transPlayer.Nature == NatureType.StrongMinded) currentCapacity += 2;
             if (transPlayer.Nature == NatureType.PerfectVessel) currentCapacity += 4;
 
-            // 4. Apply Overload Debuffs if they exceed capacity
+ 
+        
             int overloadAmount = totalQuirkWeight - currentCapacity;
             ApplyOverloadPenalties(overloadAmount);
         }
@@ -59,7 +66,14 @@ namespace MyHeroMod.content.Handlers
                 Player.moveSpeed *= 0.8f;
                 Player.GetDamage(DamageClass.Generic) *= 0.9f;
             }
-            else if (overloadAmount >= 2)
+            else if (overloadAmount == 2)
+            {
+                Player.moveSpeed *= 0.5f;
+                Player.statDefense -= 20;
+                Player.AddBuff(BuffID.Confused, 2);
+                Player.AddBuff(BuffID.Weak, 2);
+            }
+            else if (overloadAmount >= 3)
             {
                 Player.moveSpeed *= 0.5f;
                 Player.statDefense -= 20;
@@ -67,11 +81,8 @@ namespace MyHeroMod.content.Handlers
                 Player.AddBuff(BuffID.Weak, 2);
                 
                 // Cellular decay simulation
-                if (overloadAmount >= 3)
-                {
-                    Player.statLifeMax2 = (int)(Player.statLifeMax2 * 0.5f);
-                    Player.AddBuff(BuffID.Blackout, 2);
-                }
+                Player.statLifeMax2 = (int)(Player.statLifeMax2 * 0.5f);
+                Player.AddBuff(BuffID.Blackout, 2);
             }
         }
     }
