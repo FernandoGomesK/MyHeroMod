@@ -316,7 +316,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             }
             else
             {
-                StrainPenaltyPerSecond = transPlayer.currentStrain > 0 ? -5 : 0;
+                StrainPenaltyPerSecond = 0;
             }
 
             }

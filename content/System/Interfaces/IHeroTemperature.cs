@@ -26,4 +26,10 @@ namespace MyHeroMod.content.System.Interfaces
         int BreathChangePerSecond { get; set; }
         void AddBreath(int amount);
     }
+
+    public interface IHeroSweat
+    {
+        int SweatChangePerSecond { get; set; }
+        void AddSweat(int amount);
+    }
 }

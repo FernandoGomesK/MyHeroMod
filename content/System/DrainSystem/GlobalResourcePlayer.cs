@@ -24,6 +24,9 @@ namespace MyHeroMod.content.System
 
                     if (modPlayer is IHeroBreath breathUser && breathUser.BreathChangePerSecond != 0)
                         breathUser.AddBreath(breathUser.BreathChangePerSecond);
+
+                    if (modPlayer is IHeroSweat sweatUser && sweatUser.SweatChangePerSecond != 0)
+                        sweatUser.AddSweat(sweatUser.SweatChangePerSecond);
                 }
             }
         }
