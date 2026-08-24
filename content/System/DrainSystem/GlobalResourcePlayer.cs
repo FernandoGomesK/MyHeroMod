@@ -21,6 +21,9 @@ namespace MyHeroMod.content.System
                     {
                         strainUser.AddStrain(strainUser.StrainPenaltyPerSecond);
                     }
+
+                    if (modPlayer is IHeroBreath breathUser && breathUser.BreathChangePerSecond != 0)
+                        breathUser.AddBreath(breathUser.BreathChangePerSecond);
                 }
             }
         }

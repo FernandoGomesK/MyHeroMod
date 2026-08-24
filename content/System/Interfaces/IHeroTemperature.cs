@@ -20,4 +20,10 @@ namespace MyHeroMod.content.System.Interfaces
         int StrainPenaltyPerSecond { get; set; }
         void AddStrain(int amount);
     }
+
+    public interface IHeroBreath
+    {
+        int BreathChangePerSecond { get; set; }
+        void AddBreath(int amount);
+    }
 }

@@ -41,7 +41,6 @@ namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
                     _ => 10
                 };
 
-                // Ativa a lógica das asas
                 if (player.wingsLogic == 0)
                 {
                     player.wingsLogic = 29; 
