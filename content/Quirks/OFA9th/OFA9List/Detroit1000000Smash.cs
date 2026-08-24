@@ -27,22 +27,6 @@ public class Detroit1000000SmashSkill : QuirkBaseSkill
     public override bool IsDefaultSkill => false;
     
 
-    public override bool CheckUnlock(TransformationPlayer player)
-    {
-        // var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
-
-        // if (player.HasActiveQuirk(QuirkType.AllForOne) && (afoPlayer.HasInternalQuirk(QuirkType.OneForAll8th) || afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th)))
-        // {
-        //     return true;
-        // }
-        if (player.HasActiveQuirk(QuirkType.OneForAll9th))
-            {
-                return true;
-            }
-
-        return false;
-    }
-
     public override void OnUse(Player player)
     {
         

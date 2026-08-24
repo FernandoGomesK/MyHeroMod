@@ -1,4 +1,15 @@
  public enum NatureType
     {
-        None, ThermalResistance, ColdResistance, HeatResistance, NauseaResistance, StrongMinded, PerfectVessel, Resourceful, HigherBrainPower
+        None,
+        Aerodynamic,
+        ThermalResistance,
+        ColdResistance,
+        HeatResistance,
+    
+        StrongMinded,
+        PerfectVessel,
+        Resourceful,
+        HigherBrainPower,
+        ResistantBody
+
     }

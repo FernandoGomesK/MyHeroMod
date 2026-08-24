@@ -723,6 +723,11 @@ Buffs: {
 		// DisplayName: Unbreakable Buff
 		// Description: Mods.MyHeroMod.Buffs.UnbreakableBuff.Description
 	}
+
+	ResistantBodyBuff: {
+		// DisplayName: Resistant Body Buff
+		// Description: Mods.MyHeroMod.Buffs.ResistantBodyBuff.Description
+	}
 }
 
 DeathMessage: "{0} destruiu o seu próprio corpo com 100% de poder!"

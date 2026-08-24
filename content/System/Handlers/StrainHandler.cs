@@ -23,9 +23,13 @@ namespace MyHeroMod.content.Handlers
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             
-            
-            StrainPenaltyPerSecond = -2; 
+           StrainPenaltyPerSecond = -5; 
 
+        if (transPlayer.Nature == NatureType.ResistantBody)
+        {
+            StrainPenaltyPerSecond = -10;
+        }
+            
     
             // if (transPlayer.Nature == NatureType.Resourceful)
             // {

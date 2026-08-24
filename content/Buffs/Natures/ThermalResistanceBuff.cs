@@ -1,9 +1,9 @@
 using Terraria.ModLoader;
 using Terraria;
 
-namespace MyHeroMod.content.Buffs 
+namespace MyHeroMod.content.Buffs.Natures
 {
-    public class ColdResistanceBuff : ModBuff
+    public class ThermalResistanceBuff : ModBuff
     {
         
         

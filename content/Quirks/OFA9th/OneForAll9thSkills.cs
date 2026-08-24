@@ -111,7 +111,18 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public void HurtPlayer(float playerdamage, double finalDamage)
         {
+           
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+           
+            if (transPlayer.Nature == NatureType.ResistantBody)
+            {
+                playerdamage *= 0.5f; 
+            }
+
+            
             Player.statLife -= (int)(Player.statLifeMax2 * playerdamage);
+            
             
             if (Player.statLife <= 0)
             {

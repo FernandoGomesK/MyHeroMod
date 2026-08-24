@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
+using MyHeroMod.content.Buffs.Natures;
 
 namespace MyHeroMod.content.Handlers
 {
@@ -12,13 +13,13 @@ namespace MyHeroMod.content.Handlers
             
             int buffToAdd = transPlayer.Nature switch
             {
-                NatureType.ThermalResistance => ModContent.BuffType<Buffs.ThermalResistanceBuff>(),
-                NatureType.ColdResistance => ModContent.BuffType<Buffs.ColdResistanceBuff>(),
-                NatureType.HeatResistance => ModContent.BuffType<Buffs.HeatResistanceBuff>(),
-                NatureType.NauseaResistance => ModContent.BuffType<Buffs.NauseaResistanceBuff>(),
-                NatureType.StrongMinded => ModContent.BuffType<Buffs.StrongMindedBuff>(),
-                NatureType.PerfectVessel => ModContent.BuffType<Buffs.PerfectVesselBuff>(),
-                NatureType.Resourceful => ModContent.BuffType<Buffs.ResourcefulBuff>(),
+                NatureType.ThermalResistance => ModContent.BuffType<ThermalResistanceBuff>(),
+                NatureType.ColdResistance => ModContent.BuffType<ColdResistanceBuff>(),
+                NatureType.HeatResistance => ModContent.BuffType<HeatResistanceBuff>(),
+                NatureType.StrongMinded => ModContent.BuffType<StrongMindedBuff>(),
+                NatureType.PerfectVessel => ModContent.BuffType<PerfectVesselBuff>(),
+                NatureType.Resourceful => ModContent.BuffType<ResourcefulBuff>(),
+                NatureType.ResistantBody => ModContent.BuffType<ResistantBodyBuff>(),
                 _ => -1
             };
 
