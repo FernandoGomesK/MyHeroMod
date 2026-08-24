@@ -903,6 +903,7 @@ Projectiles: {
 	// FlashFreezeOnomatopoeia.DisplayName: Flash Freeze Onomatopoeia
 	// KindlingOnomatopoeia.DisplayName: Kindling Onomatopoeia
 	// FlashfireOnomatopoeia.DisplayName: Flashfire Onomatopoeia
+	// ChargeDetroit8Proj.DisplayName: Charge Detroit8 Proj
 }
 
 NPCs: {

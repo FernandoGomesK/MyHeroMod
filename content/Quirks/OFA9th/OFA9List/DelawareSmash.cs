@@ -112,14 +112,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
             
             if (hurtPlayer)
             {
-                player.statLife -= (int)(player.statLifeMax2 * 0.05f);
-                if (player.statLife <= 0)
-                {
-                    var reason = PlayerDeathReason.ByCustomReason(
-                        Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", player.name)
-                    );
-                    player.KillMe(reason, FinalDamage, 0);        
-                }
+                ofaPlayer.HurtPlayer(0.05f, FinalDamage); 
             }
 
 

@@ -63,6 +63,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
             }
         }
 
+        // ========================================= Calculating Damage ==================================================================
+
         public int CalculateStageDamage(int initial, int adequation, int intermediate, int advanced, int finalDmg)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
@@ -106,5 +108,20 @@ namespace MyHeroMod.content.Quirks.OFA9th
         {
             return isIronSolesOn ? 1.30f : 1f;
         }
+
+        public void HurtPlayer(float playerdamage, double finalDamage)
+        {
+            Player.statLife -= (int)(Player.statLifeMax2 * playerdamage);
+            
+            if (Player.statLife <= 0)
+            {
+                var reason = PlayerDeathReason.ByCustomReason(
+                    Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name)
+                );
+                Player.KillMe(reason, finalDamage, 0);        
+            }
+        }
+
+
     }
 }
