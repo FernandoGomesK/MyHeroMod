@@ -5,39 +5,23 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System.Interfaces;
-using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.Overclock
 {
-    public partial class OverclockPlayer : ModPlayer, IDashModifier, IQuirkResetter, IHeroBreath
+    public partial class OverclockPlayer : ModPlayer, IDashModifier, IQuirkResetter
     {
         public int form = 0;
         public bool isOverclockBuffActive = false;
 
         public int maxBreath = 0;
         
-        public int currentBreath = 90; 
+       
+        public float currentBreath = 90f; 
         
+        
+        public float breathDrainRate = 1f; 
+
         private int ElectricSoundTimer = 0;
-
-        public int BreathChangePerSecond { get; set; }
-
-        public void AddBreath(int amount)
-        {
-            currentBreath += amount;
-
-
-            if (currentBreath > maxBreath) currentBreath = maxBreath;
-
-            
-            if (currentBreath <= 0)
-            {
-                currentBreath = 0; 
-                isOverclockBuffActive = false;
-                Player.ClearBuff(ModContent.BuffType<OverclockBuff>());
-                CombatText.NewText(Player.getRect(), Color.Red, "BREATH!");
-            }
-        }
 
         public void FullReset()
         {
@@ -46,21 +30,14 @@ namespace MyHeroMod.content.Quirks.Overclock
 
         public override void OnRespawn()
         {
-            
             currentBreath = maxBreath;
             isOverclockBuffActive = false;
         }
-
-        // public override void ResetEffects()
-        // {
-        //     isOverclockBuffActive = false; 
-        // }
 
         public override void PreUpdate()
         { 
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            
             maxBreath = transPlayer.CurrentStage switch {
                 QuirkStage.Initial => 80, 
                 QuirkStage.Adequation => 100, 
@@ -70,27 +47,38 @@ namespace MyHeroMod.content.Quirks.Overclock
                 _ => 90
             };
             
-            
             if (currentBreath > maxBreath)
             {
                 currentBreath = maxBreath;
             }
         }
 
-        
+        public override void ResetEffects()
+        {
+            isOverclockBuffActive = false; 
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            
+            breathDrainRate = 1f; 
+
+           
+            if (transPlayer.Nature == NatureType.HigherBrainPower)
+            {
+            
+                breathDrainRate = 0.66f; 
+            }
+        }
 
         public override void PostUpdate()
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            
             if (!transPlayer.HasActiveQuirk(QuirkType.Overclock)) return;
 
             if (Player.HasBuff(ModContent.BuffType<OverclockBuff>()))
             {
-                // TimeStopSystem.IsTimeStopped = true; 
- 
-                currentBreath--;
+                
+                currentBreath -= breathDrainRate;
                 
                 if (currentBreath <= 0)
                 {
@@ -104,39 +92,10 @@ namespace MyHeroMod.content.Quirks.Overclock
             {
                 if (currentBreath < maxBreath)
                 {
-                    currentBreath++; 
+                    
+                    currentBreath += 1f; 
                 }
-            }
-        }
-
-        public override void ResetEffects()
-        {
-            isOverclockBuffActive = Player.HasBuff(ModContent.BuffType<OverclockBuff>());
-            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-
-        
-            if (isOverclockBuffActive)
-            {
-                
-                int drainAmount = -60; 
-
-            
-                if (transPlayer.Nature == NatureType.HigherBrainPower)
-                {
-                    drainAmount = -40; 
-                }
-
-                BreathChangePerSecond = drainAmount;
-            }
-            else 
-            {
-                // Recovers 60 breath per second when not active
-                BreathChangePerSecond = 60; 
-                
-                // Stop the global system from trying to add breath if we are already full
-                if (currentBreath >= maxBreath) BreathChangePerSecond = 0;
             }
         }
     }
 }
-    
