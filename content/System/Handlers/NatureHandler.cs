@@ -13,6 +13,7 @@ namespace MyHeroMod.content.Handlers
             
             int buffToAdd = transPlayer.Nature switch
             {
+                NatureType.Aerodynamic => ModContent.BuffType<AerodynamicBuff>(),
                 NatureType.ThermalResistance => ModContent.BuffType<ThermalResistanceBuff>(),
                 NatureType.ColdResistance => ModContent.BuffType<ColdResistanceBuff>(),
                 NatureType.HeatResistance => ModContent.BuffType<HeatResistanceBuff>(),
@@ -20,6 +21,7 @@ namespace MyHeroMod.content.Handlers
                 NatureType.PerfectVessel => ModContent.BuffType<PerfectVesselBuff>(),
                 NatureType.Resourceful => ModContent.BuffType<ResourcefulBuff>(),
                 NatureType.ResistantBody => ModContent.BuffType<ResistantBodyBuff>(),
+                NatureType.KinecticAbsorber => ModContent.BuffType<KinecticAbsorberBuff>(),
                 _ => -1
             };
 

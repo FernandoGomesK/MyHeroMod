@@ -10,6 +10,7 @@
         PerfectVessel,
         Resourceful,
         HigherBrainPower,
-        ResistantBody
+        ResistantBody,
+        KinecticAbsorber,
 
     }

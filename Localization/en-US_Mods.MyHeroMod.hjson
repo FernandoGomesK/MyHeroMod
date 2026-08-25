@@ -724,6 +724,11 @@ Buffs: {
 		DisplayName: Resistant Body Buff
 		Description: Mods.MyHeroMod.Buffs.ResistantBodyBuff.Description
 	}
+
+	GravityAwakenBuff: {
+		DisplayName: Gravity Awaken Buff
+		Description: Mods.MyHeroMod.Buffs.GravityAwakenBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own body with 100% power!"

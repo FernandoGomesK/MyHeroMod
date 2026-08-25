@@ -31,19 +31,35 @@ namespace MyHeroMod.content.Quirks.ZeroGravity
 
         public override void PostUpdateEquips()
         {
+            
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            var additionalNauseaBonus = 0;
 
-            NauseaMax = transPlayer.CurrentStage switch 
+            var levelNauseaMax = transPlayer.CurrentStage switch 
                 {
                     QuirkStage.Initial => 300, QuirkStage.Adequation => 500,
                     QuirkStage.Intermediate => 700, QuirkStage.Advanced => 900,
                     QuirkStage.Final => 1200, _ => 20
                 };
+
+            if (transPlayer.Nature == NatureType.HigherBrainPower)
+            {
+               additionalNauseaBonus = 300; 
+            }
             
+
+            NauseaMax = levelNauseaMax + additionalNauseaBonus;
         }
 
         public override void PostUpdateMiscEffects()
         {
+
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            float ascendingSpeed = 1.5f;
+            if (transPlayer.Nature == NatureType.Aerodynamic)
+            {
+                ascendingSpeed = 3.5f;
+            }
         
             int floatingNpcCount = 0;
             for (int i = 0; i < Main.maxNPCs; i++)
@@ -70,7 +86,7 @@ namespace MyHeroMod.content.Quirks.ZeroGravity
                 {
                     if (Player.controlJump) 
                 {
-                    Player.velocity.Y = -1.5f; 
+                    Player.velocity.Y = -ascendingSpeed; 
                     Player.fallStart = (int)(Player.position.Y / 16f); 
                 }
                 else if(Player.controlDown)
