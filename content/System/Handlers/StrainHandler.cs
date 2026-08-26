@@ -87,11 +87,8 @@ namespace MyHeroMod.content.Handlers
                 if (Player.lifeRegen > 0) Player.lifeRegen = 0;
                 Player.lifeRegen -= damagePerSecond * 2;
             }
-            else
-            {
-                Player.statLife = floorHealth;
-                if (Player.lifeRegen < 0) Player.lifeRegen = 0;
-            }
+           
+            
         }
     }
 }

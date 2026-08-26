@@ -926,6 +926,8 @@ Projectiles: {
 	FlashfireOnomatopoeia.DisplayName: Flashfire Onomatopoeia
 	ChargeDetroit8Proj.DisplayName: Charge Detroit8 Proj
 	AutomaticBlackWhipProj.DisplayName: Automatic Black Whip Proj
+	FooshOnomatopoeia.DisplayName: Foosh Onomatopoeia
+	BlueFooshOnomatopoeia.DisplayName: Blue Foosh Onomatopoeia
 }
 
 NPCs: {

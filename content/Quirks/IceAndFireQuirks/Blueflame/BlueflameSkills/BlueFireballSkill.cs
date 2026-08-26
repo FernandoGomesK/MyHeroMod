@@ -14,6 +14,8 @@ using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.System.Interfaces;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles.BlueFireball;
+using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Projectiles.Fire;
 
 
 
@@ -108,6 +110,26 @@ public class BlueFireballSkill: QuirkBaseSkill
                 2f, 
                 player.whoAmI
             );
+
+        
+
+            Vector2 textPosition = player.Center + new Vector2(player.direction * 65f, -30f);
+
+                var projectile = ModContent.ProjectileType<BlueFooshOnomatopoeia>();
+                if (transPlayer.CurrentStage >= QuirkStage.Advanced)
+            {
+                projectile = ModContent.ProjectileType<FooshOnomatopoeia>();
+            }
+
+                Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                textPosition,
+                Vector2.Zero, 
+                projectile,
+                0, 
+                0f, 
+                player.whoAmI
+                );
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/CremationSound") { Volume = 0.5f, PitchVariance = 1.0f }, player.Center);
         }
 
