@@ -743,6 +743,11 @@ Buffs: {
 		// DisplayName: Kinectic Absorber Buff
 		// Description: Mods.MyHeroMod.Buffs.KinecticAbsorberBuff.Description
 	}
+
+	AutomaticWhipBuff: {
+		// DisplayName: Automatic Whip Buff
+		// Description: Mods.MyHeroMod.Buffs.AutomaticWhipBuff.Description
+	}
 }
 
 DeathMessage: "{0} destruiu o seu próprio corpo com 100% de poder!"

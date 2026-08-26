@@ -12,14 +12,14 @@ using MyHeroMod.content.Quirks.BlackWhip.Projectiles;
 
 namespace MyHeroMod.content.Quirks.BlackWhip
 {
-    // Added IStrainSource to manage the cost of the Overlay state
+   
     public partial class BlackWhipPlayer : ModPlayer, IStrainSource
     {
         public bool isOverlayActive = false;
         public bool isAutomaticWhipActive = false;
         public int overlayAutoAttackTimer = 0;
 
-        // --- IStrainSource Implementation ---
+    
         public int StrainPenaltyPerSecond { get; set; }
 
         public void AddStrain(int amount)
@@ -31,30 +31,31 @@ namespace MyHeroMod.content.Quirks.BlackWhip
             if (transPlayer.currentStrain >= transPlayer.maxStrain)
             {
                 transPlayer.currentStrain = transPlayer.maxStrain;
-                // If they max out on strain, the berserk state forcibly ends!
+            
                 Player.ClearBuff(ModContent.BuffType<OverlayBuff>());
             }
         }
 
-        public override void ResetEffects()
+       public override void ResetEffects()
         {
+            
             isOverlayActive = Player.HasBuff(ModContent.BuffType<OverlayBuff>());
-            isAutomaticWhipActive = false;
+            isAutomaticWhipActive = Player.HasBuff(ModContent.BuffType<AutomaticWhipBuff>());
 
-            if (!isOverlayActive)
+           
+            if (!isOverlayActive && !isAutomaticWhipActive)
             {
                 overlayAutoAttackTimer = 0;
                 StrainPenaltyPerSecond = 0; 
             }
             else
             {
-                // Drains 15 Strain per second while Overlay is active
-                StrainPenaltyPerSecond = 15; 
+                
+                StrainPenaltyPerSecond = isOverlayActive ? 15 : 0; 
             }
         }
 
-        // --- Visual Transformation ---
-        // Moved inside the class brackets!
+        
         public override void FrameEffects()
         {
             if (isOverlayActive)
@@ -66,10 +67,10 @@ namespace MyHeroMod.content.Quirks.BlackWhip
             }
         }
 
-        // --- Autonomous Attack Logic ---
+       
         public override void PostUpdate()
         {
-            if (isOverlayActive)
+            if (isOverlayActive || isAutomaticWhipActive)
             {
                 overlayAutoAttackTimer++;
 
@@ -125,8 +126,9 @@ namespace MyHeroMod.content.Quirks.BlackWhip
                     finalVelocity = baseVelocity.RotatedByRandom(MathHelper.ToRadians(25));
                 }
 
+
                 Projectile.NewProjectile(
-                    Player.GetSource_Buff(Player.FindBuffIndex(ModContent.BuffType<OverlayBuff>())), 
+                    Player.GetSource_FromThis(), 
                     Player.Center, 
                     finalVelocity, 
                     ModContent.ProjectileType<AutomaticBlackWhipProj>(), 
