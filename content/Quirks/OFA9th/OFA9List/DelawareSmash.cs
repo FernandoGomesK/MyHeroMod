@@ -19,7 +19,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
         public override string Name => "Delaware Smash";
         public override string Description => "Propel air forward with a flick of your fingers";
         public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/DelawareSmashIcon";
-        public override int BaseCooldown => 120;
+        public override int BaseCooldown => 200;
         public override string Category => "OneForAll9th";
 
         public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;

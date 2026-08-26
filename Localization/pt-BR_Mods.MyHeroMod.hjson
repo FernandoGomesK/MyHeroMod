@@ -431,6 +431,16 @@ Items: {
 		// DisplayName: Tensei Exhaust Arms
 		// Tooltip: ""
 	}
+
+	AirGauntlets: {
+		// DisplayName: Air Gauntlets
+		// Tooltip: ""
+	}
+
+	MidGauntlets: {
+		// DisplayName: Mid Gauntlets
+		// Tooltip: ""
+	}
 }
 
 Buffs: {

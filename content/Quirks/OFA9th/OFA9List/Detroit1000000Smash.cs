@@ -19,7 +19,7 @@ public class Detroit1000000SmashSkill : QuirkBaseSkill
     public override string Description => "Propel air forward with a massive punch";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
-    public override int BaseCooldown => 120;
+    public override int BaseCooldown => 3600;
     public override string Category => "OneForAll9th";
 
     public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;

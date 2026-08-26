@@ -19,7 +19,7 @@ public class DetroitSmashSkill : QuirkBaseSkill
     public override string Description => "Propel air forward with a massive punch";
     public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/DetroitSmashIcon";
 
-    public override int BaseCooldown => 120;
+    public override int BaseCooldown => 900;
     public override string Category => "OneForAll9th";
 
     public override QuirkType RequiredQuirk => QuirkType.Quirkless;
@@ -28,20 +28,7 @@ public class DetroitSmashSkill : QuirkBaseSkill
     
 
 
-    public override bool CheckUnlock(TransformationPlayer player)
-    {
-        var afoPlayer = player.Player.GetModPlayer<AllForOnePlayer>();
-
-        if (player.HasActiveQuirk(QuirkType.OneForAll8th) || player.HasActiveQuirk(QuirkType.OneForAll9th))
-            return player.CurrentStage >= QuirkStage.Initial;
-
-        if (player.HasActiveQuirk(QuirkType.AllForOne) && (afoPlayer.HasInternalQuirk(QuirkType.OneForAll8th) || afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th)))
-        {
-            return true;
-        }
-
-        return false;
-    }
+   
 
     public override void OnUse(Player player)
     {

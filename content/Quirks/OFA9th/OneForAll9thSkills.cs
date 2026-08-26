@@ -109,6 +109,11 @@ namespace MyHeroMod.content.Quirks.OFA9th
             return isIronSolesOn ? 1.30f : 1f;
         }
 
+        public float GetAirForceMultiplier()
+        {
+            return isAirForceOn ? 0.5f : 1f;
+        }
+
         public void HurtPlayer(float playerdamage, double finalDamage)
         {
            

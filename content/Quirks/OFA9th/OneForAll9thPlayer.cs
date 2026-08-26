@@ -56,6 +56,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public bool isAirForceOn = false;
 
         public bool isIronSolesOn = false;
+        public bool isMidGauntletsOn = false;
 
         // Full Cowling
         public bool isFullCowlingBuffActive = false;
@@ -264,10 +265,6 @@ namespace MyHeroMod.content.Quirks.OFA9th
         }
     }
 
-
-            
-
-            
 
            int strainDrain = (transPlayer.CurrentStage, percentage) switch
             {
