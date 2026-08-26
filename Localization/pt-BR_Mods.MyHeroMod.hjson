@@ -733,6 +733,16 @@ Buffs: {
 		// DisplayName: Gravity Awaken Buff
 		// Description: Mods.MyHeroMod.Buffs.GravityAwakenBuff.Description
 	}
+
+	AerodynamicBuff: {
+		// DisplayName: Aerodynamic Buff
+		// Description: Mods.MyHeroMod.Buffs.AerodynamicBuff.Description
+	}
+
+	KinecticAbsorberBuff: {
+		// DisplayName: Kinectic Absorber Buff
+		// Description: Mods.MyHeroMod.Buffs.KinecticAbsorberBuff.Description
+	}
 }
 
 DeathMessage: "{0} destruiu o seu próprio corpo com 100% de poder!"
@@ -914,6 +924,7 @@ Projectiles: {
 	// KindlingOnomatopoeia.DisplayName: Kindling Onomatopoeia
 	// FlashfireOnomatopoeia.DisplayName: Flashfire Onomatopoeia
 	// ChargeDetroit8Proj.DisplayName: Charge Detroit8 Proj
+	// AutomaticBlackWhipProj.DisplayName: Automatic Black Whip Proj
 }
 
 NPCs: {
