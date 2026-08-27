@@ -17,7 +17,7 @@ public class AwakenGravitySkill : QuirkBaseSkill
 {
     public override string Name => "Awaken";
     public override string Description => "Power Up Zero Gravity.";
-    public override string IconPath => "Quirks/GearShift/Gearshift";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/ZeroGravity/AwakenIcon";
     public override string Category => "Zero Gravity";
     public override int BaseCooldown => 1200;
     public override QuirkType RequiredQuirk => QuirkType.ZeroGravity;
@@ -39,8 +39,16 @@ public class AwakenGravitySkill : QuirkBaseSkill
 
             var transformPlayer = player.GetModPlayer<TransformationPlayer>();
 
+            var timer = transformPlayer.CurrentStage switch
+            {
+               
+                QuirkStage.Advanced => 500,
+                QuirkStage.Final => 800,
+                _ => 0
+            };
+
             
-            player.AddBuff(ModContent.BuffType<GravityAwakenBuff>(), 360000);
+            player.AddBuff(ModContent.BuffType<GravityAwakenBuff>(),timer);
          
             
            

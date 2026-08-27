@@ -8,7 +8,7 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles{
     {
         public override void SetStaticDefaults()
         {
-            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 150; 
+            ProjectileID.Sets.TrailCacheLength[Projectile.type] = 30;
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2; 
         }
 
@@ -28,20 +28,41 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles{
 
         public override void AI()
         {
-         
-            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            Vector2 targetCenter = Vector2.Zero;
+            bool hasTarget = false;
+            float closestDistance = 400f;
+
+          
+            for (int i = 0; i < Main.maxNPCs; i++)
+            {
+                NPC npc = Main.npc[i];
+
+                if (npc.active && !npc.friendly && npc.CanBeChasedBy())
+                {
+                    float distance = Vector2.Distance(Projectile.Center, npc.Center);
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        targetCenter = npc.Center;
+                        hasTarget = true;
+                    }
+                }
+            }
+
+            if (hasTarget)
+            {
+                Vector2 targetDirection = (targetCenter - Projectile.Center).SafeNormalize(Vector2.Zero);
+                float speed = Projectile.velocity.Length();
+                if (speed < 8f) speed = 8f;
+
+                
+                Projectile.velocity = Vector2.Normalize(Vector2.Lerp(Projectile.velocity, targetDirection * speed, 0.15f)) * speed;
+            }
 
             
-            if (Projectile.ai[0] == 0)
-            {
-               
-                Projectile.timeLeft -= 1; 
-            }
-            else
-            {
-            
-            }
+            Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
         }
+
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

@@ -16,7 +16,7 @@ public class GravityTouchSkill : QuirkBaseSkill
 
     
     public override string Description => "Negate the gravitational pull of objects at a distance";
-    public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/ZeroGravity/GravityTouchIcon";
     public override string Category => "ZeroGravity";
 
     public override int BaseCooldown => 120;
@@ -28,6 +28,17 @@ public class GravityTouchSkill : QuirkBaseSkill
 
     public override void OnUse(Player player)
     {
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+        int baseDamage = transPlayer.CurrentStage switch
+            {
+                QuirkStage.Initial => 10,
+                QuirkStage.Adequation => 20,
+                QuirkStage.Intermediate => 60,
+                QuirkStage.Advanced => 120,
+                QuirkStage.Final => 220,
+                _ => 20
+            };
+
         Vector2 Velocity = Main.MouseWorld - player.Center;
             Velocity.Normalize();
             Velocity *= 15f;
@@ -37,7 +48,7 @@ public class GravityTouchSkill : QuirkBaseSkill
                 player.Center,
                 Velocity,
                 ModContent.ProjectileType<GravityTouchProj>(),
-                8, 
+                baseDamage, 
                 2f, 
                 player.whoAmI);
         
