@@ -1009,5 +1009,10 @@ Configs: {
 			Label: Impact Frame Intensity
 			Tooltip: ""
 		}
+
+		DecayDestroys: {
+			Label: Decay Destroys
+			Tooltip: ""
+		}
 	}
 }
