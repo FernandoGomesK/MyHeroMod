@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using Terraria.DataStructures;
 
 namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
 {
@@ -11,6 +12,7 @@ namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
         public override void SetStaticDefaults()
         {
             ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
+            Main.RegisterItemAnimation(Item.type, new DrawAnimationVertical(6, 4));
             
         }
         
