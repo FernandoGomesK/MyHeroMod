@@ -15,9 +15,14 @@ namespace MyHeroMod.content.Handlers
                 QuirkType.AllForOne => 4,
                 QuirkType.Overhaul => 3,
                 QuirkType.Decay => 3,
-                QuirkType.Explosion => 2,
                 QuirkType.Tape => 1,
                 QuirkType.Quirkless => 0,
+                QuirkType.HalfColdHalfHot => 3,
+                QuirkType.FaJin => 1,
+                QuirkType.Engine =>3,
+                QuirkType.Float =>1,
+                QuirkType.OpticBlast => 3,
+                QuirkType.Overclock => 3,
                 _ => 2 
             };
         }
@@ -38,18 +43,16 @@ namespace MyHeroMod.content.Handlers
                 }
             }
 
-            // (Optional) Higher Brain Power reduces the weight of complex mental quirks
-            if (transPlayer.Nature == NatureType.HigherBrainPower && transPlayer.HasActiveQuirk(QuirkType.Overhaul))    
-            {
-                totalQuirkWeight -= 1; 
-            }
+            
+            
 
-            // 2. Calculate Final Capacity
+         
             int currentCapacity = baseCapacity;
             
-            // Add bonus capacity from Natures
+            
             if (transPlayer.Nature == NatureType.StrongMinded) currentCapacity += 2;
-            if (transPlayer.Nature == NatureType.PerfectVessel) currentCapacity += 4;
+            
+            // if (transPlayer.Nature == NatureType.PerfectVessel) currentCapacity += 4;
 
  
         

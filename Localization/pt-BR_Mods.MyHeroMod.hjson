@@ -943,6 +943,7 @@ Projectiles: {
 	// FooshOnomatopoeia.DisplayName: Foosh Onomatopoeia
 	// BlueFooshOnomatopoeia.DisplayName: Blue Foosh Onomatopoeia
 	// GravityBubbleProj.DisplayName: Gravity Bubble Proj
+	// ThousandFingersProj.DisplayName: Thousand Fingers Proj
 }
 
 NPCs: {

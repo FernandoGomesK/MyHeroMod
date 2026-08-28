@@ -147,6 +147,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
     {
+
+        // if (transPlayer.ActiveQuirks >= 1);
         
         if (transPlayer.CurrentStage >= QuirkStage.Initial)
             InternalQuirks.Add(QuirkType.OneForAll9th); 
