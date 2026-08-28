@@ -15,11 +15,11 @@ namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 5; // Defesa do capacete
+            Item.defense = 5; 
         }
         public override void UpdateEquip(Player player)
         {
-            // Aumenta a vida máxima em 20 quando equipado
+        
             player.statLifeMax2 += 20;
             Lighting.AddLight(player.Center, Color.OrangeRed.ToVector3() * 0.4f);
 
@@ -35,7 +35,7 @@ namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
         {
             CreateRecipe()
                 .AddIngredient(ItemID.Silk, 10)
-                .AddIngredient(ItemID.IronBar, 10) 
+                .AddIngredient(RecipeGroupID.IronBar, 10)
                 .AddIngredient(ItemID.Torch, 5)
                 .AddTile(TileID.Anvils)
                 .Register();

@@ -39,7 +39,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
         }
         public override void SetDefaults()
         {
-            Item.width = 18; // Tamanho do item no chão/inventário
+            Item.width = 18; 
             Item.height = 18;
             Item.value = Item.sellPrice(gold: 1);
             Item.rare = ItemRarityID.Yellow;

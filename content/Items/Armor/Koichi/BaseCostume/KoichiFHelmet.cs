@@ -25,7 +25,7 @@ namespace MyHeroMod.content.Items.Armor.Koichi.BaseCostume
         {
             CreateRecipe()
             .AddIngredient(ItemID.Silk, 10)
-            .AddIngredient(ItemID.IronBar, 5)
+            .AddIngredient(RecipeGroupID.IronBar, 5)
             .AddTile(TileID.Loom)
             .Register();
         }

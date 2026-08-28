@@ -55,7 +55,7 @@ namespace MyHeroMod.content.Items.Armor.Todoroki.ThirdTodorokiCostume
         {
             CreateRecipe()
                 .AddIngredient(ItemID.Silk, 10) // Exemplo
-                .AddIngredient(ItemID.IronBar, 10)
+                .AddIngredient(RecipeGroupID.IronBar, 10)
                 .AddIngredient(ItemID.HellstoneBar, 10)
                 .AddTile(TileID.Anvils)
                 .Register();
