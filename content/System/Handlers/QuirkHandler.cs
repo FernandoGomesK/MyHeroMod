@@ -12,17 +12,25 @@ namespace MyHeroMod.content.Handlers
             return quirk switch
             {
                 QuirkType.OneForAll9th => 4,
+                QuirkType.OneForAll8th => 4,
                 QuirkType.AllForOne => 4,
+
                 QuirkType.Overhaul => 3,
                 QuirkType.Decay => 3,
-                QuirkType.Tape => 1,
-                QuirkType.Quirkless => 0,
                 QuirkType.HalfColdHalfHot => 3,
-                QuirkType.FaJin => 1,
-                QuirkType.Engine =>3,
-                QuirkType.Float =>1,
+                QuirkType.Explosion => 3,
+                QuirkType.Blueflame => 3,
+                QuirkType.HellFlames => 3,
+                QuirkType.Engine => 3,
                 QuirkType.OpticBlast => 3,
                 QuirkType.Overclock => 3,
+                QuirkType.SuperRegeneration => 3,
+
+                QuirkType.Tape => 1,
+                QuirkType.FaJin => 1,
+                QuirkType.Float => 1,
+                QuirkType.Quirkless => 0,
+
                 _ => 2 
             };
         }
@@ -30,32 +38,23 @@ namespace MyHeroMod.content.Handlers
         public override void PostUpdateMiscEffects()
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-            int totalQuirkWeight = 0;
-            int baseCapacity = 0;
 
-            if (transPlayer.ActiveQuirks.Count > 0)
+            int totalQuirkWeight = 0;
+            foreach (var quirk in transPlayer.ActiveQuirks)
             {
-                baseCapacity = GetQuirkCost(transPlayer.ActiveQuirks[0]);
-                
-                foreach (var quirk in transPlayer.ActiveQuirks)
-                {
-                    totalQuirkWeight += GetQuirkCost(quirk);
-                }
+                totalQuirkWeight += GetQuirkCost(quirk);
             }
 
             
-            
+            int currentCapacity = 4;
 
-         
-            int currentCapacity = baseCapacity;
-            
-            
-            if (transPlayer.Nature == NatureType.StrongMinded) currentCapacity += 2;
-            
-            // if (transPlayer.Nature == NatureType.PerfectVessel) currentCapacity += 4;
+           
+            if (transPlayer.Nature == NatureType.StrongMinded) 
+                currentCapacity += 2; 
 
- 
-        
+            if (transPlayer.Nature == NatureType.PerfectVessel) 
+                currentCapacity += 4; 
+
             int overloadAmount = totalQuirkWeight - currentCapacity;
             ApplyOverloadPenalties(overloadAmount);
         }
@@ -83,7 +82,7 @@ namespace MyHeroMod.content.Handlers
                 Player.AddBuff(BuffID.Confused, 2);
                 Player.AddBuff(BuffID.Weak, 2);
                 
-                // Cellular decay simulation
+               
                 Player.statLifeMax2 = (int)(Player.statLifeMax2 * 0.5f);
                 Player.AddBuff(BuffID.Blackout, 2);
             }
