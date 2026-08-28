@@ -24,7 +24,7 @@ namespace MyHeroMod.content.Items
             Item.rare = ItemRarityID.Blue;
             Item.consumable = true;
             Item.UseSound = SoundID.Item3;
-            Item.value = Item.buyPrice(gold: 15);
+            Item.value = Item.buyPrice(gold: 50);
         }
 
          public override bool CanUseItem(Player player)
