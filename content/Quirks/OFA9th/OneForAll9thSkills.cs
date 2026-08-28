@@ -9,6 +9,7 @@ using Terraria.Audio;
 using MyHeroMod.content.Projectiles;
 using Terraria.ID;
 using MyHeroMod.content.Quirks.FaJin;
+using KhacesCore.Content.System;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
@@ -21,6 +22,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>();
+            var dashPlayer = Player.GetModPlayer<DashPlayer>();
             
             
             if (!transPlayer.HasActiveQuirk(QuirkType.OneForAll9th)) return;
@@ -30,12 +32,13 @@ namespace MyHeroMod.content.Quirks.OFA9th
             if (transPlayer.CurrentStage == QuirkStage.Initial) 
             {
                 speed = 80;
-                Player.statLife -= 50;
-                if (Player.statLife <= 0)
+                
+                if (!hasTakenDashDamage) 
                 {
-                    var reason = PlayerDeathReason.ByCustomReason(Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name));
-                    Player.KillMe(reason, 100, 0);        
+                    ApplyRecoilDamage(0.50f);
+                    hasTakenDashDamage = true; 
                 }
+
                 onomatopoeiaType = ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>();
                 isEnhanced = true;
                 dustType = DustID.Cloud;
@@ -114,27 +117,32 @@ namespace MyHeroMod.content.Quirks.OFA9th
             return isAirForceOn ? 0.5f : 1f;
         }
 
-        public void HurtPlayer(float playerdamage, double finalDamage)
+        public void ApplyRecoilDamage(float healthPercent)
         {
-           
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-           
+            
             if (transPlayer.Nature == NatureType.ResistantBody)
             {
-                playerdamage *= 0.5f; 
+                healthPercent *= 0.5f; 
             }
 
+            int damageToTake = (int)(Player.statLifeMax2 * healthPercent);
+
             
-            Player.statLife -= (int)(Player.statLifeMax2 * playerdamage);
-            
-            
-            if (Player.statLife <= 0)
+            if (Player.statLife > damageToTake)
             {
+                Player.statLife -= damageToTake;
+                CombatText.NewText(Player.getRect(), CombatText.DamagedFriendly, damageToTake, dramatic: true);
+            }
+            else
+            {
+            
+                Player.statLife = 0;
                 var reason = PlayerDeathReason.ByCustomReason(
                     Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name)
                 );
-                Player.KillMe(reason, finalDamage, 0);        
+                Player.KillMe(reason, damageToTake, 0);
             }
         }
 

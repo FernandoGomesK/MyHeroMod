@@ -16,7 +16,7 @@ namespace MyHeroMod.content.Items.Support
             Item.width = 28;
             Item.height = 32;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Green;
+            Item.rare = ItemRarityID.Lime;
             Item.value = Item.sellPrice(gold: 1);
             
             Item.handOnSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOn);
@@ -34,13 +34,14 @@ namespace MyHeroMod.content.Items.Support
         }
 
         public override void AddRecipes()
-        {   
-            CreateRecipe()
-            .AddIngredient(ItemID.HellstoneBar, 10) 
-            .AddIngredient(ItemID.Bone, 20)         
-            .AddTile(TileID.Anvils)
-            .Register();
-            }
+        {
+            Recipe recipe = CreateRecipe();
+            recipe.AddIngredient(ItemID.ChlorophyteBar, 12);
+            recipe.AddIngredient(ItemID.Silk, 10);
+            recipe.AddIngredient(ItemID.SoulofFright, 5);
+            recipe.AddTile(TileID.MythrilAnvil);
+            recipe.Register();
+        }
         
         
         }

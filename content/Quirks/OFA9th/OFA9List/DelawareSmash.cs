@@ -112,7 +112,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
             
             if (hurtPlayer)
             {
-                ofaPlayer.HurtPlayer(0.05f, FinalDamage); 
+                ofaPlayer.ApplyRecoilDamage(0.05f); 
             }
 
 

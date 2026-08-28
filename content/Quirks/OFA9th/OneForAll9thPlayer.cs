@@ -79,6 +79,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         
         public int percentage = 0;
+
+        public bool hasTakenDashDamage = false;
         
 
         
@@ -189,6 +191,17 @@ namespace MyHeroMod.content.Quirks.OFA9th
             
             isFullCowlingBuffActive = false;
             ParallelProcessing = 0;
+            isMidGauntletsOn = false;
+            isAirForceOn = false;  
+            isIronSolesOn = false;
+
+
+            var dashPlayer = Player.GetModPlayer<DashPlayer>();
+            
+            if (!dashPlayer.IsDashing) 
+            {
+                hasTakenDashDamage = false;
+            }
 
             
             if (!Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th))
@@ -250,22 +263,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 Player.AddBuff(ModContent.BuffType<FingersBuff>(), 2); 
             }
 
-            var dashPlayer = Player.GetModPlayer<DashPlayer>();
-
-    if (dashPlayer.IsDashing)
-    {
-        if (transPlayer.CurrentStage == QuirkStage.Initial)
-        {
             
-            Player.statLife -= 4;
-            
-            if (Player.statLife <= 0)
-            {
-                var reason = PlayerDeathReason.ByCustomReason(Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name));
-                Player.KillMe(reason, 100, 0);
-            }
-        }
-    }
 
 
            int strainDrain = (transPlayer.CurrentStage, percentage) switch
@@ -301,6 +299,11 @@ namespace MyHeroMod.content.Quirks.OFA9th
                     int multiQuirkTax = (ParallelProcessing - 1) * 3;
                     strainDrain += multiQuirkTax;
                 }
+            }
+
+            if (isMidGauntletsOn)
+            {
+                strainDrain = (int)(strainDrain * 0.65f);
             }
 
             if (isFullCowlingBuffActive)

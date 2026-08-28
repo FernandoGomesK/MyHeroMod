@@ -114,7 +114,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             
                 if (hurtPlayer)
                 {
-                    ofaPlayer.HurtPlayer(0.25f, FinalDamage); 
+                    ofaPlayer.ApplyRecoilDamage(0.25f); 
                 }
     
             

@@ -37,11 +37,12 @@ namespace MyHeroMod.content.Items.Support
         public override void AddRecipes()
         {   
             CreateRecipe()
-            .AddIngredient(ItemID.HellstoneBar, 10) 
-            .AddIngredient(ItemID.Bone, 20)         
-            .AddTile(TileID.Anvils)
-            .Register();
-            }
+                .AddIngredient(ModContent.ItemType<MidGauntlets>(), 1)
+                .AddIngredient(ModContent.ItemType<AirForce>(), 1)
+                .AddTile(TileID.TinkerersWorkbench) 
+                .AddIngredient(ItemID.SoulofFlight, 5) 
+                .Register(); 
+        }
         
         
         }
