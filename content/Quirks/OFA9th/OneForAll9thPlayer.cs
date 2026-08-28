@@ -20,18 +20,43 @@ using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackChain;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhipStun;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.PinpointFocus;
+using MyHeroMod.content.System.Interfaces;
 
 
 
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
-    public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter, IDashModifier
+    public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter, IDashModifier, IStrainSource
     {
 
+        // ============================ Strain ==================================
+
+         public int StrainPenaltyPerSecond { get; set; }
+
+        public void AddStrain(int amount)
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            transPlayer.currentStrain += amount;
+
+            if (transPlayer.currentStrain <= 0)
+            {
+                transPlayer.currentStrain = 0;
+            }
+            else if (transPlayer.currentStrain >= transPlayer.maxStrain)
+            {
+                transPlayer.currentStrain = transPlayer.maxStrain;
+                Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>()); 
+            }
+        }
+
+        // ======================= Support Items ===========================================================
+
+        
         public bool isAirForceOn = false;
 
         public bool isIronSolesOn = false;
+        public bool isMidGauntletsOn = false;
 
         // Full Cowling
         public bool isFullCowlingBuffActive = false;
@@ -54,7 +79,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         
         public int percentage = 0;
-        public int strainTimer = 0;
+
+        public bool hasTakenDashDamage = false;
+        
 
         
         
@@ -67,7 +94,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             percentage = 0;
             isFullCowlingBuffActive = false;
             Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
-            strainTimer = 0;
+            StrainPenaltyPerSecond = 0;
 
         }
 
@@ -77,7 +104,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             ElectricSoundTimer = 0;
             percentage = 0;
             isFullCowlingBuffActive = false;
-            strainTimer = 0;
+            StrainPenaltyPerSecond = 0;
         }
         
 
@@ -122,6 +149,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
     {
+
+        // if (transPlayer.ActiveQuirks >= 1);
         
         if (transPlayer.CurrentStage >= QuirkStage.Initial)
             InternalQuirks.Add(QuirkType.OneForAll9th); 
@@ -162,6 +191,17 @@ namespace MyHeroMod.content.Quirks.OFA9th
             
             isFullCowlingBuffActive = false;
             ParallelProcessing = 0;
+            isMidGauntletsOn = false;
+            isAirForceOn = false;  
+            isIronSolesOn = false;
+
+
+            var dashPlayer = Player.GetModPlayer<DashPlayer>();
+            
+            if (!dashPlayer.IsDashing) 
+            {
+                hasTakenDashDamage = false;
+            }
 
             
             if (!Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th))
@@ -207,6 +247,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             
             if (!Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th))
             {
+                StrainPenaltyPerSecond = 0;
                 return; 
             }
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
@@ -222,52 +263,32 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 Player.AddBuff(ModContent.BuffType<FingersBuff>(), 2); 
             }
 
-            var dashPlayer = Player.GetModPlayer<DashPlayer>();
+            
 
-    if (dashPlayer.IsDashing)
-    {
-        if (transPlayer.CurrentStage == QuirkStage.Initial)
-        {
-            
-            Player.statLife -= 4;
-            
-            if (Player.statLife <= 0)
+
+           int strainDrain = (transPlayer.CurrentStage, percentage) switch
             {
-                var reason = PlayerDeathReason.ByCustomReason(Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", Player.name));
-                Player.KillMe(reason, 100, 0);
-            }
-        }
-    }
-
-
-            
-
-            
-
-            int strainDrain = (transPlayer.CurrentStage, percentage) switch
-            {
-                (QuirkStage.Initial, 5) => 10,
-
-                (QuirkStage.Adequation, 5) => 8,
+                (QuirkStage.Adequation, 5)  => 8,
                 (QuirkStage.Adequation, 10) => 15,
                 (QuirkStage.Adequation, 20) => 20,
                 (QuirkStage.Adequation, 45) => 50,
 
-                (QuirkStage.Intermediate, 5) => 5,
+                (QuirkStage.Intermediate, 5)  => 4,
                 (QuirkStage.Intermediate, 10) => 10,
                 (QuirkStage.Intermediate, 20) => 15,
                 (QuirkStage.Intermediate, 45) => 40,
 
-                (QuirkStage.Advanced, 5) => 2,
+                (QuirkStage.Advanced, 5)  => 2,
                 (QuirkStage.Advanced, 10) => 5,
-                (QuirkStage.Advanced, 20) => 15,
+                (QuirkStage.Advanced, 20) => 8,   
                 (QuirkStage.Advanced, 45) => 30,
 
-                (QuirkStage.Final, 5) => 0,
-                (QuirkStage.Final, 10) => 5,
-                (QuirkStage.Final, 20) => 8,
-                (QuirkStage.Final, 45) => 10,
-                _ => 0 
+                (QuirkStage.Final, 5)  => 0,
+                (QuirkStage.Final, 10) => 3,      
+                (QuirkStage.Final, 20) => 4,
+                (QuirkStage.Final, 45) => 15,
+
+                _ => 0
             };
 
             if (ParallelProcessing > 0)
@@ -280,45 +301,26 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 }
             }
 
+            if (isMidGauntletsOn)
+            {
+                strainDrain = (int)(strainDrain * 0.65f);
+            }
+
             if (isFullCowlingBuffActive)
             {
-                strainTimer++;
-                
                 
                 HandleFullCowlingEffects();
                 Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
                 ElectricSoundTimer++;
 
-                if (strainTimer >= 60)
-                {
-                    transPlayer.currentStrain += strainDrain;
-                    if (transPlayer.currentStrain >= transPlayer.maxStrain)
-                {
-                    transPlayer.currentStrain = transPlayer.maxStrain; 
-                    Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
-                }
-                strainTimer = 0;
-                }
-
                 
-                
-                
+                StrainPenaltyPerSecond = strainDrain;
             }
-            else if (transPlayer.currentStrain > 0)
+            else
             {
-                
-                strainTimer++;
-                if (strainTimer >= 60) 
-                {
-                    transPlayer.currentStrain -= 5; 
-                    strainTimer = 0; 
-
-                    if (transPlayer.currentStrain < 0) 
-                    {
-                        transPlayer.currentStrain = 0;
-                    }
-                }
+                StrainPenaltyPerSecond = 0;
             }
+
             }
 
        // --- MULTIPLAYER ---

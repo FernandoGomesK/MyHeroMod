@@ -10,9 +10,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Explosion;
 using Terraria.DataStructures;
 using MyHeroMod.content.Projectiles;
-
 using MyHeroMod.content.Quirks.Explosion.Projectiles.FullPower;
-
 
 public class FullPowerBlastSkill : QuirkBaseSkill
 {
@@ -28,105 +26,106 @@ public class FullPowerBlastSkill : QuirkBaseSkill
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
     
-
-
-            public override void OnUse(Player player)
+    public override void OnUse(Player player)
     {
-
         var explodePlayer = player.GetModPlayer<ExplosionPlayer>();
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-         float damageMultiplier = 1.0f;
-        int MaxDamage = 45;
-         
+       
+        bool canFire = false;
+        float damageMultiplier = 1.0f;
 
-            switch(transPlayer.CurrentStage){
-                case QuirkStage.Initial:
-                MaxDamage = 25;
-                break;
-            
-                case QuirkStage.Adequation:
-                MaxDamage = 55;
-                break;
-          
-                case QuirkStage.Intermediate:
-                MaxDamage = 90;
-                break;
-            
-                case QuirkStage.Advanced:
-                MaxDamage = 160;
-                break;
-          
-                case QuirkStage.Final:
-                MaxDamage = 320;
-                break;
+        if (explodePlayer.IsGrenadierBracersOn)
+        {
         
-                default:
-                MaxDamage =45;
-                break;
-                    
+            if (explodePlayer.CurrentSweat >= 30)
+            {
+                explodePlayer.CurrentSweat -= 30; 
+                damageMultiplier += 1.0f; 
+                canFire = true;
             }
+        }
+        else
+        {
+         
+            int requiredSweat = transPlayer.Nature == NatureType.Resourceful ? 15 : 30;
+            int drainAmount = transPlayer.Nature == NatureType.Resourceful ? 10 : 20;
+
+            if (explodePlayer.CurrentSweat >= requiredSweat)
+            {
+                explodePlayer.CurrentSweat -= drainAmount;
+                canFire = true;
+                
+             
+                ApplyRecoil(player, transPlayer); 
+            }
+        }
+
+        if (!canFire)
+        {
+            CombatText.NewText(player.getRect(), Color.Orange, "Not enough sweat!");
+            return; 
+        }
 
         
+        int MaxDamage = transPlayer.CurrentStage switch {
+            QuirkStage.Initial => 25,
+            QuirkStage.Adequation => 55,
+            QuirkStage.Intermediate => 90,
+            QuirkStage.Advanced => 160,
+            QuirkStage.Final => 320,
+            _ => 45
+        };
 
-        
         if (player.HasBuff(ModContent.BuffType<ClusterBuff>()))
         {
             damageMultiplier += 2.5f; 
         }
 
-        
-        if (explodePlayer.IsGrenadierBracersOn && explodePlayer.CurrentSweat >= 30)
-        {
-            explodePlayer.CurrentSweat -= 30; 
-            damageMultiplier += 1.0f; 
-        }
-        else
-        {
-           
-            ApplyRecoil(player); 
-        }
-        var finalDamage = (int)(damageMultiplier* MaxDamage);
+        var finalDamage = (int)(damageMultiplier * MaxDamage);
 
-         
-           
-        
-        
-
+    
         CombatText.NewText(player.getRect(), Color.Orange, "DIE!");
             
-
-
         SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/Explosion2Sound") { Volume = 1.5f, PitchVariance = 0.3f }, player.Center);
-         Vector2 Velocity = Main.MouseWorld - player.Center;
-            Velocity.Normalize();
-            Velocity *= 15f;
+        
+        Vector2 Velocity = Main.MouseWorld - player.Center;
+        Velocity.Normalize();
+        Velocity *= 15f;
 
-            Vector2 textPosition = player.Center + new Vector2(0, -30f);
-            Projectile.NewProjectile(
-                player.GetSource_FromThis(),
-                textPosition,
-                Vector2.Zero, 
-                ModContent.ProjectileType<BoomOnomatopoeia>(),
-                0, 
-                0f, 
-                player.whoAmI
-                );
+        Vector2 textPosition = player.Center + new Vector2(0, -30f);
+        Projectile.NewProjectile(
+            player.GetSource_FromThis(),
+            textPosition,
+            Vector2.Zero, 
+            ModContent.ProjectileType<BoomOnomatopoeia>(),
+            0, 
+            0f, 
+            player.whoAmI
+        );
 
-            Projectile.NewProjectile(
-                player.GetSource_FromThis(),
-                player.Center,
-                Velocity,
-                ModContent.ProjectileType<FullPowerProj>(),
-                finalDamage, 
-                2f, 
-                player.whoAmI
-            );
-             }
+        Projectile.NewProjectile(
+            player.GetSource_FromThis(),
+            player.Center,
+            Velocity,
+            ModContent.ProjectileType<FullPowerProj>(),
+            finalDamage, 
+            2f, 
+            player.whoAmI
+        );
+    }
 
-             private void ApplyRecoil(Player player)
+  
+    private void ApplyRecoil(Player player, TransformationPlayer transPlayer)
     {
-        int recoilDamage = (int)(player.statLifeMax2 * 0.05f); 
+        float recoilPercentage = 0.05f; 
+        
+        if (transPlayer.Nature == NatureType.ResistantBody)
+        {
+            recoilPercentage *= 0.5f;
+        }
+
+        int recoilDamage = (int)(player.statLifeMax2 * recoilPercentage); 
         player.statLife -= recoilDamage;
         
         CombatText.NewText(player.getRect(), Color.Red, "-" + recoilDamage); 
@@ -139,8 +138,3 @@ public class FullPowerBlastSkill : QuirkBaseSkill
         }
     }
 }
-
-            
-
-          
-   

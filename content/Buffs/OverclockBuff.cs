@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.Gearshift;
 using MyHeroMod.content.Quirks.Overclock;
+using MyHeroMod.content.Dusts;
 
 namespace MyHeroMod.content.Buffs
 {
@@ -31,8 +32,20 @@ namespace MyHeroMod.content.Buffs
             player.noFallDmg = true;
 
             
+            if (Main.rand.NextFloat() < 0.6f) 
+            {
+                int dustType = ModContent.DustType<ElectricityDust>();
 
-            
+                
+                Vector2 spawnOffset = Main.rand.NextVector2CircularEdge(35f, 45f); 
+                Vector2 dustSpawnPos = player.Center + spawnOffset;
+
+                
+                Vector2 dustVelocity = new Vector2(spawnOffset.X * 0.05f, -Main.rand.NextFloat(1f, 3f));
+
+               
+                Dust.NewDustPerfect(dustSpawnPos, dustType, dustVelocity, 0, Color.Yellow, 1.2f);
+            }
 
            
 

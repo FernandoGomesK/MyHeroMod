@@ -24,7 +24,25 @@ public class ReciproSkill : QuirkBaseSkill
 
     
     public override string Description => "Supercharge your engines for a short period of time";
-    public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+     public override string IconPath
+        {
+            get
+            {   
+                Player player = Main.LocalPlayer;
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+                if (transPlayer.CurrentVariant == QuirkVariant.Variant1)
+                {
+                    return "MyHeroMod/Assets/SkillIcons/Engine/TenseiBoostIcon"; 
+                    
+                    
+                }
+                else
+                {
+                    return "MyHeroMod/Assets/SkillIcons/Engine/TenyaBoostIcon"; 
+                }
+            }
+        } 
     public override string Category => "Engine";
 
     public override int BaseCooldown => 30;

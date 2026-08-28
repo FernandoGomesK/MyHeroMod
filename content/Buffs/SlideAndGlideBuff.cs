@@ -41,7 +41,6 @@ namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
                     _ => 10
                 };
 
-                // Ativa a lógica das asas
                 if (player.wingsLogic == 0)
                 {
                     player.wingsLogic = 29; 
@@ -50,11 +49,13 @@ namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
 
                 
                 player.noFallDmg = true;
-                player.spikedBoots = 2;
-                    
 
-                
-                player.spikedBoots = 2; 
+                if (mainPlayer.CurrentStage >= QuirkStage.Intermediate)
+                {
+                    player.spikedBoots = 2;
+                }
+               
+                    
                 
                 
                 bool isGrounded = player.velocity.Y == 0f;

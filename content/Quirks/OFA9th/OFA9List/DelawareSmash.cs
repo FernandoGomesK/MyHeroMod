@@ -19,7 +19,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
         public override string Name => "Delaware Smash";
         public override string Description => "Propel air forward with a flick of your fingers";
         public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/DelawareSmashIcon";
-        public override int BaseCooldown => 120;
+        public override int BaseCooldown => 200;
         public override string Category => "OneForAll9th";
 
         public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
@@ -32,16 +32,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
             var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            
-            int MaxDamage = transPlayer.CurrentStage switch
-            {
-                QuirkStage.Initial => 50,
-                QuirkStage.Adequation => 150,
-                QuirkStage.Intermediate => 300,
-                QuirkStage.Advanced => 550,
-                QuirkStage.Final => 1200,
-                _ => 150
-            };
+            int MaxDamage = ofaPlayer.CalculateStageDamage(50,150,300,550,1200);
 
             bool consumeFinger = false;
             bool hurtPlayer = false;
@@ -121,14 +112,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
             
             if (hurtPlayer)
             {
-                player.statLife -= (int)(player.statLifeMax2 * 0.05f);
-                if (player.statLife <= 0)
-                {
-                    var reason = PlayerDeathReason.ByCustomReason(
-                        Terraria.Localization.NetworkText.FromKey("Mods.MyHeroMod.DeathMessage", player.name)
-                    );
-                    player.KillMe(reason, FinalDamage, 0);        
-                }
+                ofaPlayer.ApplyRecoilDamage(0.05f); 
             }
 
 

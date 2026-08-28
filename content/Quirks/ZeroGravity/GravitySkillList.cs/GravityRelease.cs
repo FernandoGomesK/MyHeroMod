@@ -12,7 +12,7 @@ public class GravityReleaseSkill : QuirkBaseSkill
 {
     public override string Name => "Release";
     public override string Description => "Negate the gravitational pull of objects at a distance";
-    public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/ZeroGravity/ReleaseIcon";
     public override string Category => "ZeroGravity";
 
     public override int BaseCooldown => 120;

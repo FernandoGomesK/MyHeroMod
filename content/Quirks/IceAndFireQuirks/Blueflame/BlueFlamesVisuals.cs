@@ -88,8 +88,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
             Main.dust[d].velocity += Player.velocity * 0.3f;
         }
 
-        protected new void UpdateFlyingDust()
-        {
+        protected override void UpdateFlyingDust()
+        {       
             bool isFlying = (Player.velocity.Y != 0) && (Player.wingTime > 0 || Player.rocketDelay > 0) && !Player.mount.Active;
             
             if (isFlying)

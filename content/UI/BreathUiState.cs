@@ -49,9 +49,13 @@ namespace MyHeroMod.content.UI
             spriteBatch.Draw(barFill, drawPos, fillRect, Color.White);
 
             // Opcional: Desenha o número por cima da barra (ex: "80 / 100")
-            string text = $"{overPlayer.currentBreath} / {overPlayer.maxBreath}";
+            int displayBreath = (int)overPlayer.currentBreath; 
+            string text = $"{displayBreath} / {overPlayer.maxBreath}";
+
+            Color textColor = quotient <= 0.25f ? Color.Red : Color.Cyan;
+
             Vector2 textPos = drawPos + new Vector2(barFrame.Width / 2f - 20f, barFrame.Height);
-            Utils.DrawBorderString(spriteBatch, text, textPos, Color.Cyan, 0.8f);
+            Utils.DrawBorderString(spriteBatch, text, textPos, textColor, 0.8f);
 
             base.Draw(spriteBatch);
         }

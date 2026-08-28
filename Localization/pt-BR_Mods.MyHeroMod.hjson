@@ -431,6 +431,16 @@ Items: {
 		// DisplayName: Tensei Exhaust Arms
 		// Tooltip: ""
 	}
+
+	AirGauntlets: {
+		// DisplayName: Air Gauntlets
+		// Tooltip: ""
+	}
+
+	MidGauntlets: {
+		// DisplayName: Mid Gauntlets
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -723,6 +733,31 @@ Buffs: {
 		// DisplayName: Unbreakable Buff
 		// Description: Mods.MyHeroMod.Buffs.UnbreakableBuff.Description
 	}
+
+	ResistantBodyBuff: {
+		// DisplayName: Resistant Body Buff
+		// Description: Mods.MyHeroMod.Buffs.ResistantBodyBuff.Description
+	}
+
+	GravityAwakenBuff: {
+		// DisplayName: Gravity Awaken Buff
+		// Description: Mods.MyHeroMod.Buffs.GravityAwakenBuff.Description
+	}
+
+	AerodynamicBuff: {
+		// DisplayName: Aerodynamic Buff
+		// Description: Mods.MyHeroMod.Buffs.AerodynamicBuff.Description
+	}
+
+	KinecticAbsorberBuff: {
+		// DisplayName: Kinectic Absorber Buff
+		// Description: Mods.MyHeroMod.Buffs.KinecticAbsorberBuff.Description
+	}
+
+	AutomaticWhipBuff: {
+		// DisplayName: Automatic Whip Buff
+		// Description: Mods.MyHeroMod.Buffs.AutomaticWhipBuff.Description
+	}
 }
 
 DeathMessage: "{0} destruiu o seu próprio corpo com 100% de poder!"
@@ -903,6 +938,12 @@ Projectiles: {
 	// FlashFreezeOnomatopoeia.DisplayName: Flash Freeze Onomatopoeia
 	// KindlingOnomatopoeia.DisplayName: Kindling Onomatopoeia
 	// FlashfireOnomatopoeia.DisplayName: Flashfire Onomatopoeia
+	// ChargeDetroit8Proj.DisplayName: Charge Detroit8 Proj
+	// AutomaticBlackWhipProj.DisplayName: Automatic Black Whip Proj
+	// FooshOnomatopoeia.DisplayName: Foosh Onomatopoeia
+	// BlueFooshOnomatopoeia.DisplayName: Blue Foosh Onomatopoeia
+	// GravityBubbleProj.DisplayName: Gravity Bubble Proj
+	// ThousandFingersProj.DisplayName: Thousand Fingers Proj
 }
 
 NPCs: {
@@ -971,6 +1012,11 @@ Configs: {
 
 		ImpactFrameIntensity: {
 			// Label: Impact Frame Intensity
+			// Tooltip: ""
+		}
+
+		DecayDestroys: {
+			// Label: Decay Destroys
 			// Tooltip: ""
 		}
 	}

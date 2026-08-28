@@ -54,7 +54,8 @@ namespace MyHeroMod.content.Items.Armor.Cristopher
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.IronBar, 20) // Exemplo
+               
+                .AddIngredient(RecipeGroupID.IronBar, 20)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

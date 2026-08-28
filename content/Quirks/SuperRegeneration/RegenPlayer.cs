@@ -3,27 +3,51 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Debuffs;
 using System;
+using MyHeroMod.content.System.Interfaces;
+
 
 namespace MyHeroMod.content.Quirks.SuperRegeneration
 {
-    public partial class RegenPlayer : ModPlayer
+    public partial class RegenPlayer : ModPlayer,  IStrainSource
     {
+        public int StrainPenaltyPerSecond { get; set; }
+
+        public void AddStrain(int amount)
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            transPlayer.currentStrain += amount;
+
+            if (transPlayer.currentStrain <= 0)
+            {
+                transPlayer.currentStrain = 0;
+            }
+            else if (transPlayer.currentStrain >= transPlayer.maxStrain)
+            {
+                transPlayer.currentStrain = transPlayer.maxStrain;
+            }
+        }
+
+
         public override void PostUpdate()
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             if (!transPlayer.HasActiveQuirk(QuirkType.SuperRegeneration))
             {
+                StrainPenaltyPerSecond = 0; 
                 return;
             }
 
-            if (Player.statLife < Player.statLifeMax2)
+            bool isHealing = Player.statLife < Player.statLifeMax2;
+
+            if (isHealing)
             {
-                if (Main.GameUpdateCount % 12 == 0)
-                {
-                    int strainIncrease = (int)(transPlayer.maxStrain * 0.01f);
-                    transPlayer.currentStrain += Math.Max(1, strainIncrease);
-                }
+                
+                StrainPenaltyPerSecond = Math.Max(5, (int)(transPlayer.maxStrain * 0.05f));
+            }
+            else
+            {
+                StrainPenaltyPerSecond = transPlayer.currentStrain > 0 ? -5 : 0;
             }
         }
 
