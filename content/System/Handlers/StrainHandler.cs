@@ -29,14 +29,7 @@ namespace MyHeroMod.content.Handlers
         {
             StrainPenaltyPerSecond = -10;
         }
-            
-    
-            // if (transPlayer.Nature == NatureType.Resourceful)
-            // {
-            //     StrainPenaltyPerSecond -= 2; 
-            // }
-
-            
+                  
             if (transPlayer.currentStrain <= 0 && StrainPenaltyPerSecond < 0)
             {
                 StrainPenaltyPerSecond = 0;

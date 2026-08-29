@@ -5,6 +5,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass;
+using MyHeroMod.content.System;
 
 
 namespace MyHeroMod.content.Items.Support
@@ -17,9 +18,6 @@ namespace MyHeroMod.content.Items.Support
         
         public override void SetDefaults()
         {
-            
-
-
             Item.width = 24;
             Item.height = 24;
             Item.accessory = true;
@@ -43,16 +41,13 @@ namespace MyHeroMod.content.Items.Support
                 }
             }
         }
-            
-            
-            
-        
+             
         public override void AddRecipes()
         {   
             CreateRecipe()
-            .AddIngredient(RecipeGroupID.IronBar, 20)      
+            .AddRecipeGroup(RecipeSystem.IronAndLeadGroup, 20) 
             .AddTile(TileID.Anvils)
             .Register();
             }
         }
-        }
+}

@@ -25,12 +25,7 @@ namespace MyHeroMod.content.Items.Support
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
-        {
-        
-            // var iAndFPlaayer = player.GetModPlayer<BaseIceAndFirePlayer>();
-
-            // iAndFPlaayer.isCombatVestBetaOn = true;
-            
+        {        
             foreach (var modPlayer in player.ModPlayers)
             {
                 
@@ -50,6 +45,6 @@ namespace MyHeroMod.content.Items.Support
             .AddIngredient(ItemID.IceBlock, 5) 
             .AddTile(TileID.Anvils)
             .Register();
-            }
         }
-        }
+    }
+}

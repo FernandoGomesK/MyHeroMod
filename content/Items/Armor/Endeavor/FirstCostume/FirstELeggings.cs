@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
 {
@@ -35,7 +36,7 @@ namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
         {
             CreateRecipe()
                 .AddIngredient(ItemID.Silk, 10)
-                .AddIngredient(RecipeGroupID.IronBar, 10)
+                .AddRecipeGroup(RecipeSystem.IronAndLeadGroup, 10)
                 .AddIngredient(ItemID.Torch, 5)
                 .AddTile(TileID.Anvils)
                 .Register();

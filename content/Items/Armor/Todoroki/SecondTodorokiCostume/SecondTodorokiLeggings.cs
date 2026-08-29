@@ -14,11 +14,11 @@ namespace MyHeroMod.content.Items.Armor.Todoroki.SecondTodorokiCostume
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 5; // Defesa do capacete
+            Item.defense = 5;
         }
         public override void UpdateEquip(Player player)
         {
-            // Aumenta a vida máxima em 20 quando equipado
+            
             player.statLifeMax2 += 20;
         }
         public override void AddRecipes()

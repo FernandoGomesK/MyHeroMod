@@ -293,7 +293,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
             if (ParallelProcessing > 0)
             {
-                Player.AddBuff(ModContent.BuffType<ParallelProcessingBuff>(), 2);
+                Player.AddBuff( ModContent.BuffType<ParallelProcessingBuff>(), 2);
                 if (ParallelProcessing > 1)
                 {
                     int multiQuirkTax = (ParallelProcessing - 1) * 3;

@@ -140,6 +140,12 @@ namespace MyHeroMod.content.Quirks.Gearshift
             
             if (wasGearshiftBuffActive && !isGearshiftBuffActive)
             {
+                var reduceRecoil = buffDuration;
+
+                if (transformPlayer.Nature == NatureType.ResistantBody)
+                {
+                    
+                }
                 
                 Player.AddBuff(ModContent.BuffType<GearshiftRecoil>(), buffDuration); 
             }

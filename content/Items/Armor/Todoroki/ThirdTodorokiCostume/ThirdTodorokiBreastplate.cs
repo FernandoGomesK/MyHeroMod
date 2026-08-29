@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.Todoroki.ThirdTodorokiCostume
 {
@@ -39,7 +40,7 @@ namespace MyHeroMod.content.Items.Armor.Todoroki.ThirdTodorokiCostume
         }
         public override void SetDefaults()
         {
-            Item.width = 18; // Tamanho do item no chão/inventário
+            Item.width = 18; 
             Item.height = 18;
             Item.value = Item.sellPrice(gold: 1);
             Item.rare = ItemRarityID.Yellow;
@@ -47,15 +48,13 @@ namespace MyHeroMod.content.Items.Armor.Todoroki.ThirdTodorokiCostume
         }
         public override void UpdateEquip(Player player)
         {
-            // Seus buffs aqui (ex: +Dano, +Velocidade)
-            // player.GetDamage(DamageClass.Generic) += 0.10f; 
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.Silk, 10) // Exemplo
-                .AddIngredient(RecipeGroupID.IronBar, 10)
+                .AddIngredient(ItemID.Silk, 10) 
+                .AddRecipeGroup(RecipeSystem.IronAndLeadGroup, 10)
                 .AddIngredient(ItemID.HellstoneBar, 10)
                 .AddTile(TileID.Anvils)
                 .Register();

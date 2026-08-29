@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.Koichi.BaseCostume
 {
@@ -25,7 +26,7 @@ namespace MyHeroMod.content.Items.Armor.Koichi.BaseCostume
         {
             CreateRecipe()
             .AddIngredient(ItemID.Silk, 10)
-            .AddIngredient(RecipeGroupID.IronBar, 5)
+            .AddRecipeGroup(RecipeSystem.IronAndLeadGroup, 4)
             .AddTile(TileID.Loom)
             .Register();
         }

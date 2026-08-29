@@ -47,14 +47,13 @@ namespace MyHeroMod.content.Items.Armor.Todoroki.FirstTodorokiCostume
         }
         public override void UpdateEquip(Player player)
         {
-            // Seus buffs aqui (ex: +Dano, +Velocidade)
-            // player.GetDamage(DamageClass.Generic) += 0.10f; 
+
         }
 
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.Silk, 10) // Exemplo
+                .AddIngredient(ItemID.Silk, 10)
                 .AddTile(TileID.Loom)
                 .Register();
         }
