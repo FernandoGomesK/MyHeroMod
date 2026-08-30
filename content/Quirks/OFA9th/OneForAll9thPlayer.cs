@@ -219,7 +219,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 if (Player.HasBuff(ModContent.BuffType<FloatBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<DangerSenseBuff>())) { ParallelProcessing++; }
-                if (Player.HasBuff(ModContent.BuffType<SmokescreenBuff>())) { ParallelProcessing++; }
+                // if (Player.HasBuff(ModContent.BuffType<SmokescreenBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<FaJinActiveBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<FullCowlingBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<OverlayBuff>())) {ParallelProcessing++;} 

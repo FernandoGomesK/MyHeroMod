@@ -9,6 +9,8 @@ using MyHeroMod.content.Quirks.OFA9th;
 using System;
 using Terraria.ID;
 using KhacesCore.Content.System;
+using MyHeroMod.content.Quirks.DangerSense;
+using MyHeroMod.content.Quirks.Smokescreen;
 
 namespace MyHeroMod.content
 {
@@ -71,6 +73,39 @@ namespace MyHeroMod.content
                 return string.Join(", ", names); 
             }
         }
+
+        public override bool FreeDodge(Player.HurtInfo info)
+        {
+            var dangerPlayer = Player.GetModPlayer<DangerSensePlayer>();
+            var smokePlayer = Player.GetModPlayer<SmokescreenPlayer>();
+
+            
+            float dangerChance = dangerPlayer.isDangerSenseActive ? dangerPlayer.dodgeChance : 0f;
+            float smokeChance = smokePlayer.isSmokescreenActive ? smokePlayer.dodgeChance : 0f;
+
+            
+            float maxChance = Math.Max(dangerChance, smokeChance);
+
+            if (maxChance > 0f && Main.rand.NextFloat() < maxChance)
+            {
+                
+                if (dangerChance >= smokeChance && dangerChance > 0f)
+                {
+                    dangerPlayer.triggerVisual();
+                    SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound") with { Volume = 2.0f }, Player.position);
+                }
+                else if (smokeChance > 0f)
+                {
+                   
+                }
+
+                Player.SetImmuneTimeForAllTypes(80); 
+                return true; 
+            }
+
+            return false; 
+        }
+    
 
         public override string DisplayPowerStage => CurrentStage switch
         {
