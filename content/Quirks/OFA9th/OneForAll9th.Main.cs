@@ -11,8 +11,6 @@ using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using Terraria.Audio;
 using System.Collections.Generic;
-
-using rail;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System.Interfaces;
 using KhacesCore.Content.System;
@@ -27,6 +25,7 @@ using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
+    // ========================================= Main ===============================================================================
     public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter, IDashModifier, IStrainSource
     {
 
@@ -82,10 +81,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public bool hasTakenDashDamage = false;
         
-
+        // ========================================== reset ========================================================================
         
-        
-
         public void FullReset()
         {
             currentFingers = 10;
@@ -107,8 +104,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             StrainPenaltyPerSecond = 0;
         }
         
-
-        
+        // ==================================================================================================================
         public override void PreUpdate()
         {
 
@@ -116,8 +112,6 @@ namespace MyHeroMod.content.Quirks.OFA9th
             {
                 return; 
             } 
-
-            
 
             if (currentFingers < MaxFingers)
             {
@@ -133,58 +127,16 @@ namespace MyHeroMod.content.Quirks.OFA9th
             {
                 fingerRegen = 0;
             }
-        
-        
-                }
+        }
                 
         public List<QuirkType> InternalQuirks = new List<QuirkType>();
         
-            
-
-        public void UnlockQuirks(){
-
-        InternalQuirks.Clear();
-        var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-
-
-        if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
-    {
-
-        // if (transPlayer.ActiveQuirks >= 1);
-        
-        if (transPlayer.CurrentStage >= QuirkStage.Initial)
-            InternalQuirks.Add(QuirkType.OneForAll9th); 
-
-        if (transPlayer.CurrentStage >= QuirkStage.Adequation)
-            
-
-        if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
-            InternalQuirks.Add(QuirkType.DangerSense);
-            InternalQuirks.Add(QuirkType.BlackWhip);
-
-        if (transPlayer.CurrentStage >= QuirkStage.Advanced)
-        {
-            InternalQuirks.Add(QuirkType.Float);
-            InternalQuirks.Add(QuirkType.SmokeScreen);
-            InternalQuirks.Add(QuirkType.FaJin);
-        }
-
-        if (transPlayer.CurrentStage >= QuirkStage.Final)
-        {
-            
-            InternalQuirks.Add(QuirkType.Gearshift);
-        }
-    }
-
-    
-        }
 
         public bool HasInternalQuirk(QuirkType type)
-{
-    return InternalQuirks.Contains(type);
-}
-        
-
+        {
+            return InternalQuirks.Contains(type);
+        }
+                
 
         public override void ResetEffects()
         {
@@ -219,13 +171,12 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 if (Player.HasBuff(ModContent.BuffType<FloatBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<GearshiftBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<DangerSenseBuff>())) { ParallelProcessing++; }
-                // if (Player.HasBuff(ModContent.BuffType<SmokescreenBuff>())) { ParallelProcessing++; }
+                if (Player.HasBuff(ModContent.BuffType<SmokescreenBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<FaJinActiveBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<FullCowlingBuff>())) { ParallelProcessing++; }
                 if (Player.HasBuff(ModContent.BuffType<OverlayBuff>())) {ParallelProcessing++;} 
                 if (Player.HasBuff(ModContent.BuffType<OverlayBuff>()) && Player.HasBuff(ModContent.BuffType<GearshiftRecoil>())) {ParallelProcessing++;} 
-                
-            
+                         
             }
             
             if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
@@ -263,9 +214,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 Player.AddBuff(ModContent.BuffType<FingersBuff>(), 2); 
             }
 
-            
-
-
+        
            int strainDrain = (transPlayer.CurrentStage, percentage) switch
             {
                 (QuirkStage.Adequation, 5)  => 8,
@@ -312,8 +261,6 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 HandleFullCowlingEffects();
                 Lighting.AddLight(Player.Center, Color.LimeGreen.ToVector3() * 1.0f);
                 ElectricSoundTimer++;
-
-                
                 StrainPenaltyPerSecond = strainDrain;
             }
             else
@@ -322,40 +269,6 @@ namespace MyHeroMod.content.Quirks.OFA9th
             }
 
             }
-
-       // --- MULTIPLAYER ---
-        public override void CopyClientState(ModPlayer targetCopy)
-        {
-            OneForAll9thPlayer clone = targetCopy as OneForAll9thPlayer;
-            clone.percentage = percentage;
-            clone.currentFingers = currentFingers;
-            
-        }
-
-        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
-        {
-            ModPacket packet = Mod.GetPacket();
-            packet.Write((byte)MyHeroMod.MessageType.SyncOFA9th); 
-            packet.Write((byte)Player.whoAmI); 
-            packet.Write((int)percentage); 
-            packet.Write(currentFingers);
-            
-            packet.Send(toWho, fromWho);
-        }
-
-        public override void SendClientChanges(ModPlayer clientPlayer)
-        {
-            OneForAll9thPlayer clone = clientPlayer as OneForAll9thPlayer;
-            
-            
-            if (percentage != clone.percentage)
-            {
-                ModPacket packet = Mod.GetPacket();
-                packet.Write((byte)MyHeroMod.MessageType.SyncOFA9th);
-                packet.Write((byte)Player.whoAmI);
-                packet.Write((int)percentage);
-                packet.Write(currentFingers);
-                packet.Send(-1, Player.whoAmI); 
-            }
-        }}}
-
+        
+    }
+}
