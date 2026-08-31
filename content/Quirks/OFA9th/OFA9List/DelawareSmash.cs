@@ -91,8 +91,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
             Main.instance.CameraModifiers.Add(shake);
 
             if (hurtPlayer)
-            {
-                
+            {    
                 ofaPlayer.ApplyRecoilDamage(0.05f); 
             }
         }
