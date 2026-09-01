@@ -13,6 +13,7 @@ using KhacesCore.Content.System;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
+    // ========================================= Combat ===============================================================================
     public partial class OneForAll9thPlayer : ModPlayer, IDashModifier
     {
 
@@ -112,9 +113,20 @@ namespace MyHeroMod.content.Quirks.OFA9th
             return isIronSolesOn ? 1.30f : 1f;
         }
 
-        public float GetAirForceMultiplier()
+        public float GetAirForceDamageMultiplier()
         {
-            return isAirForceOn ? 0.5f : 1f;
+            
+            if (!isAirForceOn) return GetFullCowlingMultiplier();
+
+           
+            return percentage switch
+            {
+                5 => 0.10f,  
+                10 => 0.20f, 
+                20 => 0.45f, 
+                45 => 0.65f,
+                _ => 1f
+            };
         }
 
         public void ApplyRecoilDamage(float healthPercent)

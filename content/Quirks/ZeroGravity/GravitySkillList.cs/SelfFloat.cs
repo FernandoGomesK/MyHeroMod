@@ -13,7 +13,7 @@ public class SelfFloatSkill : QuirkBaseSkill
     public override string Name => "Self Float";
     public override string Description => "Float around";
     public override string IconPath => "MyHeroMod/Assets/SkillIcons/ZeroGravity/SelfFloatIcon";
-    public override string Category => "ZeroGravity";
+    public override string Category => "Zero Gravity";
 
     public override int BaseCooldown => 30;
     public override QuirkType RequiredQuirk => QuirkType.ZeroGravity;

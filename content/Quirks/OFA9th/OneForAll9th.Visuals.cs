@@ -12,6 +12,7 @@ using KhacesCore.Content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
+    // ========================================= Visuals ===============================================================================
     public partial class OneForAll9thPlayer: ModPlayer, IQuirkResetter, IDashModifier
     {
 
