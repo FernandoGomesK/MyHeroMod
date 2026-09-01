@@ -72,6 +72,7 @@ public class FullCowling5 : FullCowlingBase
     
     public override QuirkStage RequiredStage => QuirkStage.Adequation;
     protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
+    public override string Category => "OneForAll9th";
 
     protected override int CowlingPercentage => 5;
 
@@ -83,6 +84,7 @@ public class FullCowling10 : FullCowlingBase
     public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/FullCowling10Icon";
     public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
+    public override string Category => "OneForAll9th";
     protected override int CowlingPercentage => 10;
 }
 
@@ -92,6 +94,7 @@ public class FullCowling20: FullCowlingBase
     public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/FullCowling20Icon";
     public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
+    public override string Category => "OneForAll9th";
     protected override int CowlingPercentage => 20;
 }
 public class FullCowling45 : FullCowlingBase
@@ -100,6 +103,7 @@ public class FullCowling45 : FullCowlingBase
     public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/FullCowling45Icon";
     public override QuirkStage RequiredStage => QuirkStage.Advanced;
     protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
+    public override string Category => "OneForAll9th";
     protected override int CowlingPercentage => 45;
 
 

@@ -18,7 +18,7 @@ public class GravityBubbleSkill : QuirkBaseSkill
     
     public override string Description => "Negate the gravitational pull of objects at a distance";
     public override string IconPath => "MyHeroMod/Assets/SkillIcons/ZeroGravity/GravityBubbleIcon";
-    public override string Category => "ZeroGravity";
+    public override string Category => "Zero Gravity";
 
     public override int BaseCooldown => 300;
     public override QuirkType RequiredQuirk => QuirkType.ZeroGravity;
