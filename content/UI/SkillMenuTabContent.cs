@@ -46,7 +46,7 @@ namespace MyHeroMod.content.UI
             
             UIPanel quirkInfoPanel = new UIPanel();
             quirkInfoPanel.Width.Set(-20, 1f);
-            quirkInfoPanel.Height.Set(100, 0); 
+            quirkInfoPanel.Height.Set(130, 0); 
             quirkInfoPanel.Left.Set(10, 0);
             quirkInfoPanel.Top.Set(10, 0);
             quirkInfoPanel.BackgroundColor = new Color(30, 30, 60);
@@ -89,7 +89,7 @@ namespace MyHeroMod.content.UI
             textContainer.IgnoresMouseInteraction = true;
             quirkInfoPanel.Append(textContainer);
 
-            infoText = new UIText("", 0.8f); 
+            infoText = new UIText("", 1.0f); 
             infoText.Width.Set(0, 1f);
             infoText.Height.Set(0, 1f);
             infoText.HAlign = 0.5f;
