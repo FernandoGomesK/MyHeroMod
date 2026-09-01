@@ -100,9 +100,9 @@ namespace MyHeroMod.content.UI
             
             UIPanel listPanel = new UIPanel();
             listPanel.Width.Set(230, 0);
-            listPanel.Height.Set(-120, 1f); 
+            listPanel.Height.Set(-150, 1f); 
             listPanel.Left.Set(10, 0);
-            listPanel.Top.Set(110, 0); 
+            listPanel.Top.Set(140, 0);         
             listPanel.BackgroundColor = new Color(20, 20, 40);
             Append(listPanel);
 
@@ -121,9 +121,9 @@ namespace MyHeroMod.content.UI
             
             UIPanel slotListPanel = new UIPanel();
             slotListPanel.Left.Set(250, 0);
-            slotListPanel.Top.Set(110, 0); 
+            slotListPanel.Top.Set(140, 0);     
             slotListPanel.Width.Set(-260, 1f);
-            slotListPanel.Height.Set(-120, 1f); 
+            slotListPanel.Height.Set(-150, 1f); 
             slotListPanel.BackgroundColor = new Color(20, 20, 40);
             Append(slotListPanel);
 
