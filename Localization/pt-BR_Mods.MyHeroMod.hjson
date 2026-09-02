@@ -456,6 +456,11 @@ Items: {
 		// DisplayName: Deku Armor Chest
 		// Tooltip: ""
 	}
+
+	DekuArmorBriefcase: {
+		// DisplayName: Deku Armor Briefcase
+		// Tooltip: ""
+	}
 }
 
 Buffs: {

@@ -4,7 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 using MyHeroMod.content.Items.Armor.Deku.DeltaArmor;
 
-namespace MyHeroMod.content.Items.Support.DekuArmor.DekuArmorChest
+namespace MyHeroMod.content.Items.Support.DekuArmor
 {
     [AutoloadEquip(EquipType.Body)]
     public class DekuArmorChest : ModItem
@@ -17,7 +17,7 @@ namespace MyHeroMod.content.Items.Support.DekuArmor.DekuArmorChest
         {
             if (Main.netMode == NetmodeID.Server) return;
 
-            CapeSlotID = EquipLoader.AddEquipTexture(Mod, "MyHeroMod/content/Items/Support/DekuArmor/DekuArmorChest/DekuArmorCape", EquipType.Back, this);
+            CapeSlotID = EquipLoader.AddEquipTexture(Mod, "MyHeroMod/content/Items/Support/DekuArmor/DekuArmorCape", EquipType.Back, this);
             
         }
 

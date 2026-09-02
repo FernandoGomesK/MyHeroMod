@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.Items.Support.DekuArmor;
 
-namespace MyHeroMod.content.Items.Support.DekuArmor.DekuArmorBoots
+namespace MyHeroMod.content.Items.Support.DekuArmor
 {
     [AutoloadEquip(EquipType.Legs)]
     public class DekuArmorBoots : ModItem
