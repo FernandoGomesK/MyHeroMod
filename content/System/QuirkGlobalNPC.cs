@@ -16,6 +16,7 @@ using MyHeroMod.content.Npcs.Bosses.AllForOne;
 using Terraria.ModLoader.IO;
 using System.IO;
 using System;
+using MyHeroMod.content.Npcs.Enemies.Nomu;
 
 namespace MyHeroMod.content.System
 {
@@ -99,6 +100,13 @@ namespace MyHeroMod.content.System
             {
                 if (npc.type == id) return;
             }
+
+            if (npc.type == ModContent.NPCType<NomuNPC>())
+            {
+                HasQuirk = true;
+                AssignedQuirk = QuirkType.SuperRegeneration;
+                return;
+            } 
 
             bool isBossAlive = false;
             for (int i = 0; i < Main.maxNPCs; i++)

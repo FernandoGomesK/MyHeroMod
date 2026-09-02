@@ -1011,6 +1011,8 @@ NPCs: {
 			Princess_LovesNPC: "{NPCName} is always trying their best to smile!"
 		}
 	}
+
+	NomuNPC.DisplayName: Nomu N P C
 }
 
 Configs: {
