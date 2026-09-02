@@ -8,8 +8,10 @@ using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
 {
+
     public class DarkShadowBodyProj : ModProjectile
     {
+        Color shadowColor = new Color(24, 0, 33);
         
         public int mediumFrame = 0;
         public int mediumFrameCounter = 0;
@@ -79,7 +81,39 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Vector2 direction = hoverPosition - Projectile.Center;
             float distance = direction.Length();
 
-            if (distance > 10f)
+            float maxAllowedRange = (darkPlayer.darkShadowBodyRange > 0 ? darkPlayer.darkShadowBodyRange : 120f) + 30f;
+
+            
+            if (distance > 2000f) 
+            {
+                Projectile.Center = hoverPosition;
+                Projectile.velocity = Vector2.Zero;
+            }
+            else if (distance > maxAllowedRange)
+            {
+                for (int i = 0; i < 3; i++) 
+                {
+                    int dustIndex = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Shadowflame, 0f, 0f, 100, shadowColor, 1.5f);
+                    if (dustIndex >= 0)
+                    {
+                        Dust dust = Main.dust[dustIndex];
+                        dust.noGravity = true;
+                        dust.velocity *= 0.3f; 
+                    }
+                }
+                
+                direction.Normalize();
+                
+              
+                float excessDistance = distance - maxAllowedRange;
+                
+                
+                float dynamicSpeed = 25f + (excessDistance * 0.15f);
+                
+             
+                Projectile.velocity = (Projectile.velocity * 2f + direction * dynamicSpeed) / 3f;
+            }
+            else if (distance > 10f)
             {
                 direction.Normalize();
                 Projectile.velocity = (Projectile.velocity * 10f + direction * 6f) / 11f; 
@@ -94,7 +128,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Vector2 playerPoint = player.Center;
             float tailX = Projectile.spriteDirection == 1 ? 0f : Projectile.width;
             Vector2 darkShadowTail = Projectile.position + new Vector2(tailX, Projectile.height);
-            Color shadowColor = new Color(24, 0, 33);
+            
 
             int dustAmount = darkPlayer.isMediumDarkShadowOn ? 8 : 5; 
 
@@ -109,11 +143,11 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
                 dust.velocity = Main.rand.NextVector2Circular(0.5f, 0.5f);
             }
 
-            // 2. LÓGICA DE ANIMAÇÃO INDEPENDENTE
+            
             if (darkPlayer.isMediumDarkShadowOn)
             {
                 mediumFrameCounter++;
-                // Troca de frame a cada 5 ticks (diminua para animar mais rápido, aumente para mais devagar)
+                
                 if (mediumFrameCounter >= 5) 
                 {
                     mediumFrame++;
