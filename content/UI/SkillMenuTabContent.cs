@@ -202,15 +202,20 @@ namespace MyHeroMod.content.UI
             RefreshCategory();
         }
 
-        private void RefreshCategory()
+       private void RefreshCategory()
         {
             string currentCategory = activeCategories[currentCategoryIndex];
             skillList.Clear(); 
 
+            
             if (Enum.TryParse(currentCategory, out QuirkType parsedQuirk))
             {
                 string displayName = quirkHandlerRef.GetQuirkDisplayName(parsedQuirk);
                 infoText.SetText($"[c/00FFFF:{displayName}:] {quirkHandlerRef.GetQuirkDescription(parsedQuirk)}");
+            }
+            else if (currentCategory == "Deku Armor")
+            {
+                infoText.SetText($"[c/00FFFF:Deku Armor:] Advanced support equipment designed to replicate Quirks.");
             }
             else
             {

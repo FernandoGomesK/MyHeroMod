@@ -20,7 +20,7 @@ namespace MyHeroMod.content.Buffs
             var transformPlayer = player.GetModPlayer<TransformationPlayer>();
             var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
 
-
+            
             if (ofaPlayer.percentage == 45)
             {
                 player.moveSpeed += 3f; 

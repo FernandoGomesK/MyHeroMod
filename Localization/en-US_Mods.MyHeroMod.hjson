@@ -437,6 +437,21 @@ Items: {
 		DisplayName: Mid Gauntlets
 		Tooltip: ""
 	}
+
+	DekuArmorGauntlets: {
+		DisplayName: Deku Armor Gauntlets
+		Tooltip: ""
+	}
+
+	DekuArmorBoots: {
+		DisplayName: Deku Armor Boots
+		Tooltip: ""
+	}
+
+	DekuArmorChest: {
+		DisplayName: Deku Armor Chest
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -940,6 +955,8 @@ Projectiles: {
 	BlueFooshOnomatopoeia.DisplayName: Blue Foosh Onomatopoeia
 	GravityBubbleProj.DisplayName: Gravity Bubble Proj
 	ThousandFingersProj.DisplayName: Thousand Fingers Proj
+	ChargearmorDetroitProj.DisplayName: Chargearmor Detroit Proj
+	DetroitArmorSmashProj.DisplayName: Detroit Armor Smash Proj
 }
 
 NPCs: {

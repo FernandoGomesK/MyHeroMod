@@ -13,6 +13,11 @@ namespace MyHeroMod.content.System
         public virtual QuirkStage RequiredStage => QuirkStage.Initial;
         public virtual QuirkStage RequiredOfaStage => RequiredStage;
         public virtual bool IsDefaultSkill => false;
+
+        public virtual bool isItemSkill => false;
+        
+    
+        public virtual int RequiredItemId => 0;
         
 
         public virtual bool isOfaSkill => false;
@@ -29,11 +34,41 @@ namespace MyHeroMod.content.System
             return true;
         }
 
-       public virtual bool CheckUnlock(TransformationPlayer player)
+       public virtual bool CheckItemSkill(Player player)
+        {
+            if (!isItemSkill) return true; 
+
+            if (RequiredItemId > 0)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if (!player.armor[i].IsAir && player.armor[i].type == RequiredItemId)
+                        return true;
+                }
+
+                return false; 
+            }
+            
+            return true; 
+        }
+
+      public virtual bool CheckUnlock(TransformationPlayer player)
         {
             if (IsDefaultSkill) return true;
 
-        
+           
+            if (isItemSkill)
+            {
+              
+                if (!CheckItemSkill(player.Player))
+                    return false; 
+
+              
+                if (RequiredQuirk == QuirkType.Quirkless)
+                    return true;
+            }
+
+            
             if (player.HasActiveQuirk(QuirkType.OneForAll9th))
             {
                 var ofaPlayer = player.Player.GetModPlayer<OneForAll9thPlayer>();
@@ -42,7 +77,6 @@ namespace MyHeroMod.content.System
                     return player.CurrentStage >= RequiredOfaStage; 
                 }
             }
-
             
             if (player.HasActiveQuirk(QuirkType.AllForOne))
             {
@@ -53,7 +87,6 @@ namespace MyHeroMod.content.System
                 }
             }
 
-        
             return player.HasActiveQuirk(RequiredQuirk) && player.CurrentStage >= RequiredStage;
         }
         
