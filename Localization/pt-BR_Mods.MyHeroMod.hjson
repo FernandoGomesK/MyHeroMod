@@ -461,6 +461,11 @@ Items: {
 		// DisplayName: Deku Armor Briefcase
 		// Tooltip: ""
 	}
+
+	NomuVatItem: {
+		// DisplayName: Nomu Vat Item
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -1045,3 +1050,5 @@ Configs: {
 		}
 	}
 }
+
+// Tiles.NomuVat.MapEntry: Nomu Vat

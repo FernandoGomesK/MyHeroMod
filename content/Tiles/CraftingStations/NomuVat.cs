@@ -13,31 +13,30 @@ namespace MyHeroMod.content.Tiles.CraftingStations
     {
         public override void SetStaticDefaults()
         {
-            
             Main.tileFrameImportant[Type] = true;
             Main.tileNoAttach[Type] = true;
             Main.tileLavaDeath[Type] = false;
 
+           
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style2x2);
             
-            TileObjectData.newTile.CopyFrom(TileObjectData.Style3x2);
+          
+            TileObjectData.newTile.Height = 3; 
             
-            
-            TileObjectData.newTile.CoordinateHeights = new[] { 16, 18 };
+           
+            TileObjectData.newTile.CoordinateHeights = new[] { 16, 16, 16 };
             TileObjectData.addTile(Type);
 
-            
             LocalizedText name = CreateMapEntryName();
-            
-            AddMapEntry(new Color(100, 150, 200), name); 
+            AddMapEntry(new Color(50, 200, 100), name); 
 
-            
-            DustType = DustID.Iron;
+            DustType = DustID.Glass; 
         }
         
-        // This makes sure the station actually drops its item when broken
         public override void KillMultiTile(int i, int j, int frameX, int frameY)
         {
-            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 48, 32, ModContent.ItemType<NomuVatItem>());
+         
+            Item.NewItem(new EntitySource_TileBreak(i, j), i * 16, j * 16, 32, 48, ModContent.ItemType<NomuVatItem>());
         }
     }
 }
