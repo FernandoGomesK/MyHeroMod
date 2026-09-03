@@ -21,6 +21,8 @@ namespace MyHeroMod.content
                             BlackWhip, Tape, Overclock, Erasure, SuperRegeneration, SlideAndGlide,
                             Decay, Rivet, SpringLikeLimbs, Rabbit, DarkShadow, Overhaul,
                             ZeroGravity, FierceWings, OpticBlast,  }
+
+    
 // Hardening
     public enum QuirkVariant
 {

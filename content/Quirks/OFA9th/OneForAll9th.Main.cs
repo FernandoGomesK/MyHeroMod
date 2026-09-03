@@ -33,7 +33,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public bool isQuirkless = false;
 
-        public int becomeQuirklessTimer = 2000;
+        public int becomeQuirklessTimer = 1200;
 
 
         // ============================ Strain ==================================
@@ -44,14 +44,15 @@ namespace MyHeroMod.content.Quirks.OFA9th
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            // If the player is in the "losing One For All" state, drain the timer instead of adding strain
+           
             if (isQuirkless)
             {
                 becomeQuirklessTimer -= amount;
 
                 if (becomeQuirklessTimer <= 0)
                 {
-                    becomeQuirklessTimer = 0;
+                    
+
                     
                     if (transPlayer.ActiveQuirks.Contains(QuirkType.OneForAll9th))
                     {
@@ -61,14 +62,18 @@ namespace MyHeroMod.content.Quirks.OFA9th
                        
                         Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
                         FullReset();
+
                     }
+
+                    becomeQuirklessTimer = 1200;
+                    isQuirkless = false;
                 }
                 
             
                 return;
             }
 
-            // Standard Strain Logic
+            
             transPlayer.currentStrain += amount;
 
             if (transPlayer.currentStrain <= 0)
