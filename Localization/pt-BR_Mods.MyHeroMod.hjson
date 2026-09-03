@@ -481,6 +481,11 @@ Items: {
 		// DisplayName: Zero Beta Boots
 		// Tooltip: ""
 	}
+
+	WristHooks: {
+		// DisplayName: Wrist Hooks
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -986,6 +991,7 @@ Projectiles: {
 	// ThousandFingersProj.DisplayName: Thousand Fingers Proj
 	// ChargearmorDetroitProj.DisplayName: Chargearmor Detroit Proj
 	// DetroitArmorSmashProj.DisplayName: Detroit Armor Smash Proj
+	// WristHookProjectile.DisplayName: Wrist Hook Projectile
 }
 
 NPCs: {

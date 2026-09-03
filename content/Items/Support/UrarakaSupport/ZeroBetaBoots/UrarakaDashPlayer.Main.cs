@@ -23,7 +23,7 @@ namespace MyHeroMod.content.Items.Support.UrarakaSupport
                 isEnhanced = false;
                 dustType = DustID.Cloud;
                 explosionColor = Color.White;          
-                speed = 15;
+                speed = 30;
                 speed *= 1.30f;
 
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/AirPressureSoundEffect") with { Volume = 0.8f }, Player.position);
