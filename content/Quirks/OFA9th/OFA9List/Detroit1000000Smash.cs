@@ -19,7 +19,21 @@ public class Detroit1000000SmashSkill : QuirkBaseSkill
     public override string Description => "Propel air forward with a massive punch";
     public override string IconPath => "MyHeroMod/Assets/Skills/DelawareSmash";
 
-    public override int BaseCooldown => 3600;
+    public override string GetDisplayName(Player player)
+        {
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+            if (transPlayer.CurrentStage == QuirkStage.Final)
+            {
+               return "Rising Smash"; 
+            } 
+            else
+            {
+                return "Detroit 1000000 Smash";
+            }
+            
+        }
+
+    public override int BaseCooldown => 20;
     public override string Category => "OneForAll9th";
 
     public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
@@ -32,9 +46,21 @@ public class Detroit1000000SmashSkill : QuirkBaseSkill
         
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-       
-        
-        Projectile.NewProjectile(
+        if (transPlayer.CurrentStage == QuirkStage.Final)
+            {
+                Projectile.NewProjectile(
+            player.GetSource_FromThis(), 
+            player.Center, 
+            Vector2.Zero, 
+            ModContent.ProjectileType<ChargeFinalSmashProj>(), 
+            0, 
+            0f, 
+            player.whoAmI
+        );
+            }
+        else
+            {
+            Projectile.NewProjectile(
             player.GetSource_FromThis(), 
             player.Center, 
             Vector2.Zero, 
@@ -43,6 +69,11 @@ public class Detroit1000000SmashSkill : QuirkBaseSkill
             0f, 
             player.whoAmI
         );
+            }
+
+       
+        
+        
     }
 }
 }

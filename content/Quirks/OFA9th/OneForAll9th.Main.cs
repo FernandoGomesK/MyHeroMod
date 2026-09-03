@@ -29,13 +29,46 @@ namespace MyHeroMod.content.Quirks.OFA9th
     public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter, IDashModifier, IStrainSource
     {
 
+        // ========================================= isQuirkless =======================================================================
+
+        public bool isQuirkless = false;
+
+        public int becomeQuirklessTimer = 2000;
+
+
         // ============================ Strain ==================================
 
          public int StrainPenaltyPerSecond { get; set; }
 
-        public void AddStrain(int amount)
+       public void AddStrain(int amount)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            // If the player is in the "losing One For All" state, drain the timer instead of adding strain
+            if (isQuirkless)
+            {
+                becomeQuirklessTimer -= amount;
+
+                if (becomeQuirklessTimer <= 0)
+                {
+                    becomeQuirklessTimer = 0;
+                    
+                    if (transPlayer.ActiveQuirks.Contains(QuirkType.OneForAll9th))
+                    {
+                        
+                        transPlayer.ActiveQuirks.Remove(QuirkType.OneForAll9th);
+                        
+                       
+                        Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
+                        FullReset();
+                    }
+                }
+                
+            
+                return;
+            }
+
+            // Standard Strain Logic
             transPlayer.currentStrain += amount;
 
             if (transPlayer.currentStrain <= 0)

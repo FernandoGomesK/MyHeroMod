@@ -998,6 +998,7 @@ Projectiles: {
 	ChargearmorDetroitProj.DisplayName: Chargearmor Detroit Proj
 	DetroitArmorSmashProj.DisplayName: Detroit Armor Smash Proj
 	WristHookProjectile.DisplayName: Wrist Hook Projectile
+	ChargeFinalSmashProj.DisplayName: Charge Final Smash Proj
 }
 
 NPCs: {
