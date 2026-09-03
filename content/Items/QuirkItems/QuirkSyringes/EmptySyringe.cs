@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using MyHeroMod.content;
 
-namespace MyHeroMod.content.Items
+namespace MyHeroMod.content.Items.QuirkItems.QuirkSyringes
 {
     public class EmptySyringe : ModItem
     {

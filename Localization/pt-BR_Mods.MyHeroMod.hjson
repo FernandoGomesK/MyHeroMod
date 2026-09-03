@@ -486,6 +486,16 @@ Items: {
 		// DisplayName: Wrist Hooks
 		// Tooltip: ""
 	}
+
+	OneForAll9thGene: {
+		// DisplayName: One For All9th Gene
+		// Tooltip: ""
+	}
+
+	OneForAll9thSyringe: {
+		// DisplayName: One For All9th Syringe
+		// Tooltip: ""
+	}
 }
 
 Buffs: {

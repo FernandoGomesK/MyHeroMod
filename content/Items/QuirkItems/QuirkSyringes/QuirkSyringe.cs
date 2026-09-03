@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using MyHeroMod.content.System;
 
-namespace MyHeroMod.content.Items
+namespace MyHeroMod.content.Items.QuirkItems.QuirkSyringes
 {
     public class QuirkSyringe : ModItem
     {
@@ -40,8 +40,8 @@ namespace MyHeroMod.content.Items
         public override void AddRecipes()
 {
     CreateRecipe()
-        .AddIngredient(ModContent.ItemType<Items.QuirkGene>(), 1) 
-        .AddIngredient(ModContent.ItemType<Items.EmptySyringe>(), 1) 
+        .AddIngredient(ModContent.ItemType<QuirkGene>(), 1) 
+        .AddIngredient(ModContent.ItemType<EmptySyringe>(), 1) 
         .AddTile(TileID.WorkBenches)         
         .Register();                         
 }

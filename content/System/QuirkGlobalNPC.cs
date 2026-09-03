@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.System; // Para acessar o QuirkType
 using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.OFA8th.Projectiles.TexasSmash;
@@ -17,6 +16,7 @@ using Terraria.ModLoader.IO;
 using System.IO;
 using System;
 using MyHeroMod.content.Npcs.Enemies.Nomu;
+using MyHeroMod.content.Items.QuirkItems.QuirkGenes;
 
 namespace MyHeroMod.content.System
 {
@@ -221,13 +221,28 @@ namespace MyHeroMod.content.System
                 }
             }
         }
+
+        private int GetSpecificGeneDrop(QuirkType npcQuirk)
+        {
+            switch (npcQuirk)
+            {
+                case QuirkType.Explosion: 
+                    return ModContent.ItemType<OneForAll9thGene>();      
+                
+                default:    
+                    return ModContent.ItemType<Items.QuirkGene>();
+            }
+        }
         public override void OnKill(NPC npc)
         {
             if (Main.netMode == NetmodeID.MultiplayerClient) return;
 
             if (HasQuirk && Main.rand.NextBool(2))
             {
-                Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<Items.QuirkGene>());
+                
+                int geneToDrop = GetSpecificGeneDrop(this.AssignedQuirk); 
+        
+                Item.NewItem(npc.GetSource_Loot(), npc.getRect(), geneToDrop);
             }
         }
 
