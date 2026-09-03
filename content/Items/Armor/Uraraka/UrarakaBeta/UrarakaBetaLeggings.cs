@@ -3,10 +3,10 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using MyHeroMod.content.System;
 
-namespace MyHeroMod.content.Items.Armor.Uraraka.UrarakaAlpha
+namespace MyHeroMod.content.Items.Armor.Uraraka.UrarakaBeta
 {
     [AutoloadEquip(EquipType.Legs)]
-    public class UrarakaAlphaLeggings : ModItem
+    public class UrarakaBetaLeggings : ModItem
     {
         
         public override void SetDefaults()

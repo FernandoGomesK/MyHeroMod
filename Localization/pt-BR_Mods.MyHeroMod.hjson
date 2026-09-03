@@ -466,6 +466,21 @@ Items: {
 		// DisplayName: Nomu Vat Item
 		// Tooltip: ""
 	}
+
+	UrarakaAlphaLeggings: {
+		// DisplayName: Uraraka Alpha Leggings
+		// Tooltip: ""
+	}
+
+	UrarakaBetaLeggings: {
+		// DisplayName: Uraraka Beta Leggings
+		// Tooltip: ""
+	}
+
+	ZeroBetaBoots: {
+		// DisplayName: Zero Beta Boots
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
