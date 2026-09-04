@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Personalities;
 using System.Collections.Generic;
 using MyHeroMod.content.Items.Support;
+using MyHeroMod.content.Items.Support.UrarakaSupport.ZeroBetaBoots;
 
 namespace MyHeroMod.content.Npcs.Mei_Hatsume
 {
@@ -92,8 +93,10 @@ namespace MyHeroMod.content.Npcs.Mei_Hatsume
             
             npcShop.Add(ModContent.ItemType<AirForce>());
             npcShop.Add(ModContent.ItemType<IronSoles>());
-            
-           
+            npcShop.Add(ModContent.ItemType<MidGauntlets>());
+            npcShop.Add(ModContent.ItemType<ZeroBetaBoots>());
+            npcShop.Add(ModContent.ItemType<MidGauntlets>());
+
             npcShop.Add(ItemID.IronBar); 
             
             npcShop.Register();
