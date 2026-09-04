@@ -3,22 +3,23 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Personalities;
 using System.Collections.Generic;
-using MyHeroMod.content.Items.Support; // Para ele poder vender seus itens!
+using MyHeroMod.content.Items.Support; 
 using MyHeroMod.content.Items;
 using MyHeroMod.content.Npcs.Bosses.AllForOne.Projectiles;
 using MyHeroMod.content.Quirks.Rivet.Projectiles;
 using MyHeroMod.content.Items.QuirkItems.QuirkSyringes;
+using MyHeroMod.content.Npcs.Enemies.Nomu; 
 
 namespace MyHeroMod.content.Npcs.D_Garaki
 {
-    // A tag AutoloadHead é obrigatória para NPCs de cidade, ela cria o ícone dele no minimapa!
     [AutoloadHead]
     public class D_Garaki : ModNPC
     {
+       
+        public bool awaitingNomuConfirm = false;
+
         public override void SetStaticDefaults()
         {
-            
-            
             Main.npcFrameCount[NPC.type] = 25; 
             NPCID.Sets.ExtraFramesCount[NPC.type] = 9;
             NPCID.Sets.AttackFrameCount[NPC.type] = 4;
@@ -41,29 +42,23 @@ namespace MyHeroMod.content.Npcs.D_Garaki
             NPC.HitSound = SoundID.NPCHit1;
             NPC.DeathSound = SoundID.NPCDeath1;
             NPC.knockBackResist = 0.5f;
-
         
             AnimationType = NPCID.Guide; 
         }
 
-        
         public override List<string> SetNPCNameList()
         {
             return new List<string>() { "Doc. Garaki"};
         }
 
-        
         public override bool CanTownNPCSpawn(int numTownNPCs)
         {
-            
             for (int k = 0; k < 255; k++)
             {
                 Player player = Main.player[k];
                 if (!player.active) continue;
                 
-                
                 var transPlayer = player.GetModPlayer<TransformationPlayer>();
-                
                 
                 if (player.HasItem(ModContent.ItemType<QuirkGene>()) || 
                     player.HasItem(ModContent.ItemType<QuirkSyringe>()) || 
@@ -75,35 +70,82 @@ namespace MyHeroMod.content.Npcs.D_Garaki
             return false;
         }
 
-        
         public override string GetChat()
         {
+            
+            awaitingNomuConfirm = false; 
+
             int dialog = Main.rand.Next(3); 
-            if (dialog == 0) return "My Master";
+            if (dialog == 0) return "My Master will be at full strength soon, but you may be usefull.";
             if (dialog == 1) return "Will You help me return him to his glory?";
-            return "You look kind of worthy";
+            return "Prove your worthiness";
         }
 
-        
         public override void SetChatButtons(ref string button, ref string button2)
         {
-            button = "Quirk Modifications"; 
-        }
-
-        // O que acontece quando clica no botão
-        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
-        {
-            if (firstButton)
+            if (awaitingNomuConfirm)
             {
-                shopName = "QuirkShop";
+                button = "Pay 50 Gold"; 
+                button2 = "Cancel";
+            }
+            else
+            {
+                button = "Quirk Modifications"; 
+                button2 = "Call my Nomus";
             }
         }
 
-        
+        public override void OnChatButtonClicked(bool firstButton, ref string shopName)
+        {
+            Player player = Main.LocalPlayer;
+
+            if (awaitingNomuConfirm)
+            {
+                if (firstButton) 
+                {
+                 
+                    int cost = Item.buyPrice(0, 50, 0, 0); 
+                    
+                 
+                    if (player.BuyItem(cost)) 
+                    {
+                        Main.npcChatText = "Excellent! Here he comes!";
+                        
+                        
+                        int spawnX = (int)player.Center.X + (player.direction * 300);
+                        int spawnY = (int)player.Center.Y - 20;
+                        NPC.NewNPC(NPC.GetSource_FromAI(), spawnX, spawnY, ModContent.NPCType<NomuNPC>());
+                    }
+                    else
+                    {
+                        Main.npcChatText = "Science needs money! You do not have 50 gold.";
+                    }
+                }
+                else 
+                {
+                    Main.npcChatText = "Science needs money...";
+                }
+
+               
+                awaitingNomuConfirm = false; 
+            }
+            else
+            {
+                if (firstButton)
+                {
+                    shopName = "QuirkShop";
+                }
+                else 
+                {
+                    awaitingNomuConfirm = true;
+                    Main.npcChatText = "Deploying a Nomu requires resources. It will cost you 50 Gold Coins. Proceed?";
+                }
+            }
+        }
+
         public override void AddShops()
         {
             var npcShop = new NPCShop(Type, "QuirkShop");
-            
             
             npcShop.Add(ModContent.ItemType<QuirkSyringe>());
             npcShop.Add(ModContent.ItemType<QuirkGene>());
@@ -111,13 +153,9 @@ namespace MyHeroMod.content.Npcs.D_Garaki
             npcShop.Add(ModContent.ItemType<GeneActivator>());
             npcShop.Add(ModContent.ItemType<SummonHim>());
             
-           
-            
-            
             npcShop.Register();
         }
 
-        
         public override void TownNPCAttackStrength(ref int damage, ref float knockback)
         {
             damage = 20;

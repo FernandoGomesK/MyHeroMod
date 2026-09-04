@@ -496,6 +496,21 @@ Items: {
 		// DisplayName: One For All9th Syringe
 		// Tooltip: ""
 	}
+
+	ExplosionGene: {
+		// DisplayName: Explosion Gene
+		// Tooltip: ""
+	}
+
+	SpecialBodyModificatorGene: {
+		// DisplayName: Special Body Modificator Gene
+		// Tooltip: ""
+	}
+
+	OneForAll9thEssence: {
+		// DisplayName: One For All9th Essence
+		// Tooltip: ""
+	}
 }
 
 Buffs: {

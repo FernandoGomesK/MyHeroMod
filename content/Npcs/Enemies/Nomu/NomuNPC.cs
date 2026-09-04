@@ -3,6 +3,8 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using System;
 using Terraria.Audio;
+using Terraria.GameContent.ItemDropRules;
+using MyHeroMod.content.Items.QuirkItems;
 
 namespace MyHeroMod.content.Npcs.Enemies.Nomu
 {
@@ -43,6 +45,11 @@ namespace MyHeroMod.content.Npcs.Enemies.Nomu
             
             
             randomSfxTimer = Main.rand.Next(180, 480);
+        }
+
+        public override void ModifyNPCLoot(NPCLoot npcLoot)
+        {
+            npcLoot.Add(ItemDropRule.Common(ModContent.ItemType<NomuFragment>(), 10, 1, 1));
         }
 
         public override bool PreAI()

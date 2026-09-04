@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Items;
+using MyHeroMod.content.Tiles.CraftingStations;
 
 namespace MyHeroMod.content.Items.QuirkItems.QuirkSyringes
 {
@@ -52,7 +53,7 @@ namespace MyHeroMod.content.Items.QuirkItems.QuirkSyringes
             CreateRecipe()
                 .AddIngredient(RequiredGeneType, 1)
                 .AddIngredient(ModContent.ItemType<EmptySyringe>(), 1)
-                .AddTile(TileID.WorkBenches) 
+                .AddTile(ModContent.TileType<NomuVat>()) 
                 .Register();
         }
     }
