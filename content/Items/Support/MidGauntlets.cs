@@ -17,7 +17,7 @@ namespace MyHeroMod.content.Items.Support
             Item.height = 32;
             Item.accessory = true;
             Item.rare = ItemRarityID.Lime;
-            Item.value = Item.sellPrice(gold: 1);
+            Item.value = Item.sellPrice(gold: 4);
             
             Item.handOnSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOn);
             Item.handOffSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOff);

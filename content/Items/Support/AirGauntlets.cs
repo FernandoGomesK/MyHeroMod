@@ -16,8 +16,8 @@ namespace MyHeroMod.content.Items.Support
             Item.width = 28;
             Item.height = 32;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Green;
-            Item.value = Item.sellPrice(gold: 1);
+            Item.rare = ItemRarityID.Yellow;
+            Item.value = Item.sellPrice(gold: 8);
             
             Item.handOnSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOn);
             Item.handOffSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOff);

@@ -76,7 +76,6 @@ namespace MyHeroMod.content.Npcs.Mei_Hatsume
             button = "Support Shop"; 
         }
 
-        // O que acontece quando clica no botão
         public override void OnChatButtonClicked(bool firstButton, ref string shopName)
         {
             if (firstButton)
@@ -91,12 +90,13 @@ namespace MyHeroMod.content.Npcs.Mei_Hatsume
             var npcShop = new NPCShop(Type, "SupportShop");
             
             
-            npcShop.Add(ModContent.ItemType<AirForce>());
-            npcShop.Add(ModContent.ItemType<IronSoles>());
-            npcShop.Add(ModContent.ItemType<MidGauntlets>());
-            npcShop.Add(ModContent.ItemType<ZeroBetaBoots>());
-            npcShop.Add(ModContent.ItemType<MidGauntlets>());
+            npcShop.Add(ModContent.ItemType<IronSoles>(), Condition.DownedEaterOfWorlds);
+            npcShop.Add(ModContent.ItemType<IronSoles>(), Condition.DownedBrainOfCthulhu);
+            npcShop.Add(ModContent.ItemType<AirForce>(), Condition.DownedSkeletron);
 
+            npcShop.Add(ModContent.ItemType<ZeroBetaBoots>()); 
+            npcShop.Add(ModContent.ItemType<RubyGlasses>());
+            npcShop.Add(ModContent.ItemType<SurgeArmGauntlets>());
             npcShop.Add(ItemID.IronBar); 
             
             npcShop.Register();
