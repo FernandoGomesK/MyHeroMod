@@ -62,6 +62,13 @@ namespace MyHeroMod.content.Buffs
 
             
             float spawnChance = 0.2f + (ofaPlayer.percentage / 100f); 
+            
+        
+            
+            bool hasExplosion = transformPlayer.HasActiveQuirk(QuirkType.Explosion);
+
+            
+            Color cowlinkColor = hasExplosion ? Color.Orange : new Color(0, 255, 162);
 
             if (Main.rand.NextFloat() < spawnChance) 
             {
@@ -72,10 +79,9 @@ namespace MyHeroMod.content.Buffs
                 
                 Vector2 dustVelocity = new Vector2(spawnOffset.X * 0.05f, -Main.rand.NextFloat(1f, 3f));
 
-                Color cowlinkColor = new Color(0, 255, 162); 
-            
                 float dustScale = 1.0f + (ofaPlayer.percentage / 150f); 
 
+            
                 Dust.NewDustPerfect(dustSpawnPos, dustType, dustVelocity, 0, cowlinkColor, dustScale);
             }
         }
