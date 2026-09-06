@@ -11,6 +11,7 @@ namespace MyHeroMod.content.Items.QuirkItems
     {
         public QuirkType ofaType;
         public string OriginPlayerName = "Unknown";
+        public int timeUsed = 0;
 
         public override void SetDefaults()
         {
@@ -29,6 +30,7 @@ namespace MyHeroMod.content.Items.QuirkItems
         {
             tag["ofaType"] = (int)ofaType;
             tag["OriginPlayerName"] = OriginPlayerName;
+            tag["TimeUsed"] = timeUsed;
         }
 
         public override void LoadData(TagCompound tag)
@@ -38,6 +40,7 @@ namespace MyHeroMod.content.Items.QuirkItems
             
             if (tag.ContainsKey("OriginPlayerName"))
                 OriginPlayerName = tag.GetString("OriginPlayerName");
+            
         }
 
         public override bool CanUseItem(Player player)
