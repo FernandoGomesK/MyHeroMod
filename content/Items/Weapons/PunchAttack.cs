@@ -3,7 +3,9 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content;
+using MyHeroMod.content.Quirks.OFA9th; // Required for OneForAll9thPlayer
 using MyHeroMod.content.Quirks.OFA9th.Projectiles; 
+using MyHeroMod.content.Dusts; // Required for ElectricityDust
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.GameContent;
@@ -42,7 +44,6 @@ namespace MyHeroMod.content.Items.Weapons
         {
             var modPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            
             switch (modPlayer.CurrentStage)
             {
                 case QuirkStage.Initial:
@@ -71,8 +72,8 @@ namespace MyHeroMod.content.Items.Weapons
         public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
         {
             var modPlayer = player.GetModPlayer<TransformationPlayer>();
+            var ofa9Player = player.GetModPlayer<OneForAll9thPlayer>();
 
-           
             float rangeMultiplier = modPlayer.CurrentStage switch
             {
                 QuirkStage.Initial => 0.4f,       
@@ -83,7 +84,6 @@ namespace MyHeroMod.content.Items.Weapons
                 _ => 0.6f
             };
 
-            
             Vector2 adjustedVelocity = velocity * rangeMultiplier;
 
             Vector2 perturbedSpeed = adjustedVelocity.RotatedByRandom(MathHelper.ToRadians(20)); 
@@ -96,6 +96,23 @@ namespace MyHeroMod.content.Items.Weapons
             
             Vector2 perturbedPosition = position + offset;
             int textureStyle = Main.rand.Next(1); 
+
+            
+            if (ofa9Player.isFullCowlingBuffActive)
+            {
+                int dustType = ModContent.DustType<ElectricityDust>();
+                Color cowlinkColor = new Color(0, 255, 162);
+                float dustScale = 1.0f + (ofa9Player.percentage / 100f);
+
+             
+                int dustCount = Main.rand.Next(1, 4);
+                for (int i = 0; i < dustCount; i++)
+                {
+                    Vector2 dustVel = perturbedSpeed * Main.rand.NextFloat(0.3f, 0.7f);
+                    Dust dust = Dust.NewDustPerfect(perturbedPosition, dustType, dustVel, 0, cowlinkColor, dustScale);
+                    dust.noGravity = true; 
+                }
+            }
 
             Projectile.NewProjectile(
                 source, 

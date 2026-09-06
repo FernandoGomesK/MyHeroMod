@@ -106,7 +106,9 @@ namespace MyHeroMod.content.UI
                 barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/EmbersBarFrame").Value;
 
                 
-                float maxTimer = ofa9Player.becomeQuirklessTimer;
+                float maxTimer = 1200f  ;
+                if (maxTimer <= 0) maxTimer = 1f; // Prevent division by zero fallback
+
                 quotient = MathHelper.Clamp((float)ofa9Player.becomeQuirklessTimer / maxTimer, 0f, 1f);
             }
             else
@@ -157,6 +159,8 @@ namespace MyHeroMod.content.UI
             if (ofa9Player.isQuirkless)
             {
                 float maxTimer = 1200f;
+                if (maxTimer <= 0) maxTimer = 1f;
+
                 float percentual = MathHelper.Clamp(((float)ofa9Player.becomeQuirklessTimer / maxTimer) * 100f, 0f, 100f);
                 text = $"{percentual:F1}%";
             }

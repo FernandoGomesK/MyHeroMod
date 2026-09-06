@@ -33,7 +33,12 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public bool isQuirkless = false;
 
+        public int timeUsed = 0;
+        public int maxTimeUsed = 7200;
         public int becomeQuirklessTimer = 1200;
+
+
+
 
 
         // ============================ Strain ==================================
