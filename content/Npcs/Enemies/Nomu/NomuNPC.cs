@@ -31,7 +31,7 @@ namespace MyHeroMod.content.Npcs.Enemies.Nomu
             NPC.height = 58; 
             NPC.damage = 20;
             NPC.defense = 10;
-            NPC.lifeMax = 100;
+            NPC.lifeMax = 200;
             NPC.value = Item.buyPrice(silver: 5);
             NPC.knockBackResist = 0.5f;
 
