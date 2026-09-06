@@ -1014,6 +1014,7 @@ Projectiles: {
 	DetroitArmorSmashProj.DisplayName: Detroit Armor Smash Proj
 	WristHookProjectile.DisplayName: Wrist Hook Projectile
 	ChargeFinalSmashProj.DisplayName: Charge Final Smash Proj
+	FinalDetroitSmashProj.DisplayName: Final Detroit Smash Proj
 }
 
 NPCs: {
