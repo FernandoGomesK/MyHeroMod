@@ -17,7 +17,7 @@ public class ToggleAutomaticShadowSkill : QuirkBaseSkill
 {
     public override string Name => "Toggle Automatic Dark Shadow";
     public override string Description => "Summon DarkShadow.";
-    public override string IconPath => "Quirks/GearShift/Gearshift";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Darkshadow/AutomaticShadowIcon";
     public override string Category => "DarkShadow";
     public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.DarkShadow;

@@ -11,7 +11,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Skills
     {
         public override string Name => "Piercing Twilight Claws";
         public override string Description => "Lança as garras do Dark Shadow à distância.";
-        public override string IconPath => "MyHeroMod/Assets/Skills/ClawAttack";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Darkshadow/PiercingTwiIcon";
         public override string Category => "DarkShadow";
         
         public override int BaseCooldown => 15; 
