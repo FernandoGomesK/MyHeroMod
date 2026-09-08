@@ -31,6 +31,7 @@ namespace MyHeroMod.content.Quirks.OFA.Skills
 
             if (transPlayer.HasActiveQuirk(OFAType))
             {
+                int capturedTimeUsed = 0;
                 
                 if (OFAType == QuirkType.OneForAll9th)
                 {
@@ -45,6 +46,8 @@ namespace MyHeroMod.content.Quirks.OFA.Skills
 
                 
                     ofa9thPlayer.isQuirkless = true; 
+                    ofa9thPlayer.becomeQuirklessTimer = 1200 + ofa9thPlayer.EmbersTime;
+                    capturedTimeUsed = ofa9thPlayer.timeUsed;
                     
                 }
 
@@ -53,8 +56,10 @@ namespace MyHeroMod.content.Quirks.OFA.Skills
             
                 if (Main.item[itemIndex].ModItem is BaseQuirkEssence essenceItem)
                 {
+                    
                     essenceItem.OriginPlayerName = player.name;
                     essenceItem.EssenceQuirkType = OFAType; 
+                    essenceItem.timeUsed = capturedTimeUsed;
                 }
 
                 Main.NewText("You have passed on One For All...", Color.LightGoldenrodYellow);

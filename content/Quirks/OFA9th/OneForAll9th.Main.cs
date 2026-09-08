@@ -19,6 +19,7 @@ using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackChain;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhipStun;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.PinpointFocus;
 using MyHeroMod.content.System.Interfaces;
+using System;
 
 
 
@@ -34,7 +35,11 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public bool isQuirkless = false;
 
         public int timeUsed = 0;
-        public int maxTimeUsed = 7200;
+        public readonly int maxTimeUsed = 7200;
+        
+      
+        public int EmbersTime => Math.Min(timeUsed, maxTimeUsed);
+        
         public int becomeQuirklessTimer = 1200;
 
 
@@ -71,6 +76,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                     }
 
                     becomeQuirklessTimer = 1200;
+                    timeUsed = 0;
                     isQuirkless = false;
                 }
                 
@@ -80,6 +86,10 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
             
             transPlayer.currentStrain += amount;
+            if (timeUsed < maxTimeUsed)
+            {
+                timeUsed += 1;
+            }
 
             if (transPlayer.currentStrain <= 0)
             {

@@ -38,6 +38,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             clone.percentage = percentage;
             clone.becomeQuirklessTimer = becomeQuirklessTimer;
             clone.currentFingers = currentFingers;
+            clone.timeUsed = timeUsed;
             clone.isQuirkless = isQuirkless;
             
         }
@@ -50,6 +51,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             packet.Write((int)percentage); 
             packet.Write(currentFingers);
             packet.Write(becomeQuirklessTimer); 
+            packet.Write(timeUsed);
             packet.Write(isQuirkless);           
             packet.Send(toWho, fromWho);
         }
@@ -60,8 +62,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             
             if (percentage != clone.percentage || 
                 currentFingers != clone.currentFingers || 
-                isQuirkless != clone.isQuirkless || 
-                becomeQuirklessTimer != clone.becomeQuirklessTimer)
+                isQuirkless != clone.isQuirkless)
             {
                 ModPacket packet = Mod.GetPacket();
                 packet.Write((byte)MyHeroMod.MessageType.SyncOFA9th);
@@ -69,7 +70,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 packet.Write((int)percentage);
                 packet.Write(currentFingers);
                 packet.Write(becomeQuirklessTimer);
+                packet.Write(timeUsed);
                 packet.Write(isQuirkless);
+                
                 packet.Send(-1, Player.whoAmI); 
             }
         }
@@ -80,6 +83,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
             tag["ofa9_currentFingers"] = currentFingers;
             tag["ofa9_isQuirkless"] = isQuirkless;
             tag["ofa9_becomeQuirklessTimer"] = becomeQuirklessTimer;
+            tag["ofa9_timeUsed"] = timeUsed;
         }
 
         public override void LoadData(TagCompound tag)
@@ -95,6 +99,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
             if (tag.ContainsKey("ofa9_becomeQuirklessTimer"))
                 becomeQuirklessTimer = tag.GetInt("ofa9_becomeQuirklessTimer");
+            if (tag.ContainsKey("ofa9_timeUsed"))
+                timeUsed = tag.GetInt("ofa9_timeUsed");
         }
     }
 }

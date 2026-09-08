@@ -5,6 +5,7 @@ using Terraria.ModLoader.IO;
 using MyHeroMod.content.System;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.AllForOne;
+using MyHeroMod.content.Quirks.OFA9th;
 
 namespace MyHeroMod.content.Items.QuirkItems.QuirkEssences
 {
@@ -79,11 +80,21 @@ namespace MyHeroMod.content.Items.QuirkItems.QuirkEssences
                 {
                     transPlayer.ActiveQuirks.Add(EssenceQuirkType);
                
-                    
                     if (EssenceQuirkType == QuirkType.OneForAll9th || EssenceQuirkType == QuirkType.OneForAll8th)
+                    {
                         Main.NewText($"You have inherited One For All from {OriginPlayerName}!", Color.LightGoldenrodYellow);
+                        
+                        
+                        if (EssenceQuirkType == QuirkType.OneForAll9th)
+                        {
+                            var ofa9thPlayer = player.GetModPlayer<OneForAll9thPlayer>();
+                            ofa9thPlayer.timeUsed += this.timeUsed; 
+                        }
+                    }
                     else
+                    {
                         Main.NewText($"You have inherited a quirk from {OriginPlayerName}!", Color.LightGoldenrodYellow);
+                    }
                 }
             }
             return true;

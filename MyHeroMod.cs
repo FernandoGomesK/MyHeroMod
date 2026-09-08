@@ -209,6 +209,7 @@ namespace MyHeroMod
                             int percentage9 = reader.ReadInt32();
                             int fingers = reader.ReadInt32();
                             int becomeQuirklessTimer = reader.ReadInt32();
+                            int timeUsed = reader.ReadInt32();
                             bool isQuirkless = reader.ReadBoolean();
 
                             byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
@@ -220,6 +221,7 @@ namespace MyHeroMod
                             ofa9.percentage = percentage9;
                             ofa9.currentFingers = fingers;
                             ofa9.becomeQuirklessTimer = becomeQuirklessTimer;
+                            ofa9.timeUsed = timeUsed;
                             ofa9.isQuirkless = isQuirkless;
 
                             if (Main.netMode == NetmodeID.Server)
@@ -230,6 +232,7 @@ namespace MyHeroMod
                                 packet.Write(percentage9);
                                 packet.Write(fingers);
                                 packet.Write(becomeQuirklessTimer);
+                                packet.Write(timeUsed);
                                 packet.Write(isQuirkless);
                                 packet.Send(-1, playerIndex);
                             }

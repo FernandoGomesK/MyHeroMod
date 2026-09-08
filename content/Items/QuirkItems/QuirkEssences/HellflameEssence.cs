@@ -3,12 +3,12 @@ using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.QuirkItems.QuirkEssences
 {
-    public class DarkshadowEssence : BaseQuirkEssence
+    public class HellflameEssence : BaseQuirkEssence
     {
         public override void SetDefaults()
         {
             base.SetDefaults();
-            EssenceQuirkType = QuirkType.DarkShadow;
+            EssenceQuirkType = QuirkType.HellFlames;
         }
     }
 }
