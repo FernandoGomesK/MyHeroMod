@@ -527,6 +527,11 @@ Items: {
 		DisplayName: B N D Breastplate
 		Tooltip: ""
 	}
+
+	ExplosionEssence: {
+		DisplayName: Explosion Essence
+		Tooltip: ""
+	}
 }
 
 Buffs: {

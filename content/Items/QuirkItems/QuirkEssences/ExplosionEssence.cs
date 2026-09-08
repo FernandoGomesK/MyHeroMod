@@ -1,16 +1,14 @@
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
 
-namespace MyHeroMod.content.Items.QuirkItems
+namespace MyHeroMod.content.Items.QuirkItems.QuirkEssences
 {
-    public class OneForAll9thEssence : OneForAllEssence
+    public class ExplosionEssence : BaseQuirkEssence
     {
         public override void SetDefaults()
         {
             base.SetDefaults();
-            ofaType = QuirkType.OneForAll9th;
+            EssenceQuirkType = QuirkType.Explosion;
         }
-
-    
     }
 }

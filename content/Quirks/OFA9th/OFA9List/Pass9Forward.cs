@@ -8,6 +8,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA.Skills;
 using MyHeroMod.content.Items.QuirkItems;
+using MyHeroMod.content.Items.QuirkItems.QuirkEssences;
 
 namespace MyHeroMod.content.Quirks.OFA.Skills
 {
@@ -47,13 +48,13 @@ namespace MyHeroMod.content.Quirks.OFA.Skills
                     
                 }
 
-                int itemIndex = Item.NewItem(player.GetSource_FromThis(), player.getRect(), EssenceItemType);
+                int itemIndex = Item.NewItem(player.GetSource_DropAsItem(), player.getRect(), EssenceItemType);
 
-                
-                if (Main.item[itemIndex].ModItem is OneForAllEssence essenceItem)
+            
+                if (Main.item[itemIndex].ModItem is BaseQuirkEssence essenceItem)
                 {
                     essenceItem.OriginPlayerName = player.name;
-                    essenceItem.ofaType = OFAType;
+                    essenceItem.EssenceQuirkType = OFAType; 
                 }
 
                 Main.NewText("You have passed on One For All...", Color.LightGoldenrodYellow);
