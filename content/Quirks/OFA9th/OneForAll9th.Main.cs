@@ -274,21 +274,25 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 (QuirkStage.Adequation, 10) => 15,
                 (QuirkStage.Adequation, 20) => 20,
                 (QuirkStage.Adequation, 45) => 50,
+                (QuirkStage.Adequation, 100) => 100,
 
                 (QuirkStage.Intermediate, 5)  => 4,
                 (QuirkStage.Intermediate, 10) => 10,
                 (QuirkStage.Intermediate, 20) => 15,
                 (QuirkStage.Intermediate, 45) => 40,
+                (QuirkStage.Intermediate, 100) => 100,
 
                 (QuirkStage.Advanced, 5)  => 2,
                 (QuirkStage.Advanced, 10) => 5,
                 (QuirkStage.Advanced, 20) => 8,   
                 (QuirkStage.Advanced, 45) => 30,
+                (QuirkStage.Advanced, 100) => 60,
 
                 (QuirkStage.Final, 5)  => 0,
                 (QuirkStage.Final, 10) => 3,      
                 (QuirkStage.Final, 20) => 4,
                 (QuirkStage.Final, 45) => 15,
+                (QuirkStage.Final, 100) => 30,
 
                 _ => 0
             };

@@ -105,6 +105,17 @@ public class FullCowling45 : FullCowlingBase
     protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
     public override string Category => "OneForAll9th";
     protected override int CowlingPercentage => 45;
+}
 
+public class FullCowling100: FullCowlingBase
+{
+    public override string Name => "OFA Full Cowling 100%";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/FullCowling100Icon";
+    
+    public override QuirkStage RequiredStage => QuirkStage.Adequation;
+    protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
+    public override string Category => "OneForAll9th";
+
+    protected override int CowlingPercentage => 100;
 
 }
