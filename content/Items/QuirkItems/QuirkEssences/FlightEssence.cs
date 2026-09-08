@@ -1,4 +1,4 @@
-using Terraria.ModLoader;
+    using Terraria.ModLoader;
 using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.QuirkItems.QuirkEssences

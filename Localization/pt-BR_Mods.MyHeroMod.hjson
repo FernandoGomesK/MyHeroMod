@@ -536,6 +536,36 @@ Items: {
 		// DisplayName: Explosion Essence
 		// Tooltip: ""
 	}
+
+	BlueflameEssence: {
+		// DisplayName: Blueflame Essence
+		// Tooltip: ""
+	}
+
+	DarkshadowEssence: {
+		// DisplayName: Darkshadow Essence
+		// Tooltip: ""
+	}
+
+	DecayEssence: {
+		// DisplayName: Decay Essence
+		// Tooltip: ""
+	}
+
+	EngineEssence: {
+		// DisplayName: Engine Essence
+		// Tooltip: ""
+	}
+
+	FlightEssence: {
+		// DisplayName: Flight Essence
+		// Tooltip: ""
+	}
+
+	HellflameEssence: {
+		// DisplayName: Hellflame Essence
+		// Tooltip: ""
+	}
 }
 
 Buffs: {

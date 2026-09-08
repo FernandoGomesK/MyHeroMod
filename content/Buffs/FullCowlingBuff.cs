@@ -17,9 +17,21 @@ namespace MyHeroMod.content.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             var transformPlayer = player.GetModPlayer<TransformationPlayer>();
-            var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
+            var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>(); 
 
-            if (ofaPlayer.percentage == 45)
+            if (ofaPlayer.percentage == 100)
+            {
+                
+                player.moveSpeed += 6.0f; 
+                player.jumpSpeedBoost += 6f;
+                player.statDefense += 30;  
+                player.GetDamage(DamageClass.Melee) += 0.40f;
+                player.GetAttackSpeed(DamageClass.Melee) += 0.40f;
+                player.noFallDmg = true;
+                ofaPlayer.isFullCowlingBuffActive = true;
+                
+            }
+            else if (ofaPlayer.percentage == 45)
             {
                 player.moveSpeed += 3f; 
                 player.jumpSpeedBoost += 5f;

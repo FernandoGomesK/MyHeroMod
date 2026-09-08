@@ -64,6 +64,11 @@ namespace MyHeroMod.content.UI
                 Width.Set(48f, 0f);  
                 Height.Set(32f, 0f); 
             }
+            else if (ofa9Player.percentage == 100)
+            {
+                Width.Set(72f, 0f);  
+                Height.Set(32f, 0f); 
+            }
             else
             {
                 Width.Set(24f, 0f);  
@@ -119,6 +124,7 @@ namespace MyHeroMod.content.UI
                     10 => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FullCowlingBarFill10").Value,
                     20 => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FullCowlingBarFill20").Value,
                     45 => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FullCowlingBarFill45").Value,
+                    100 => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FullCowlingBarFill100").Value,
                     _ => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FullCowlingBarFill").Value,
                 };
 
@@ -128,6 +134,7 @@ namespace MyHeroMod.content.UI
                     10 => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FullCowlingBarFrame10").Value,
                     20 => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FullCowlingBarFrame20").Value,
                     45 => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FullCowlingBarFrame45").Value,
+                    100 => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FullCowlingBarFrame100").Value,
                     _ => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FullCowlingBarFrame").Value,
                 };
 

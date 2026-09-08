@@ -39,14 +39,6 @@ namespace MyHeroMod.content.Items.QuirkItems.QuirkGenes
         }
 
 
-//         public override void AddRecipes()
-// {
-//     CreateRecipe()
-//         .AddIngredient(ModContent.ItemType<Items.QuirkGene>(), 1) 
-//         .AddIngredient(ModContent.ItemType<Items.EmptySyringe>(), 1) 
-//         .AddTile(TileID.WorkBenches)         
-//         .Register();                         
-// }
 
     
         
