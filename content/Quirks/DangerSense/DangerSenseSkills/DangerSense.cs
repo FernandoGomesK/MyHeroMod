@@ -10,7 +10,7 @@ public class DangerSenseSkill : QuirkBaseSkill
 {
     public override string Name => "DangerSense";
     public override string Description => "Activates DangerSense Overtime";
-    public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Dangersense/DangersenseOvertime";
 
     public override int BaseCooldown => 30;
 

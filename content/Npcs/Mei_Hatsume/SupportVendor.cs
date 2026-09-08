@@ -97,8 +97,6 @@ namespace MyHeroMod.content.Npcs.Mei_Hatsume
             npcShop.Add(ModContent.ItemType<ZeroBetaBoots>()); 
             npcShop.Add(ModContent.ItemType<RubyGlasses>());
             npcShop.Add(ModContent.ItemType<SurgeArmGauntlets>());
-            npcShop.Add(ItemID.IronBar); 
-            
             npcShop.Register();
         }
 

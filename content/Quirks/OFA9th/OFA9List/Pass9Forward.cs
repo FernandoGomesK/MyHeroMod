@@ -15,7 +15,7 @@ namespace MyHeroMod.content.Quirks.OFA.Skills
     {
         public override string Name => "One For All: Pass Forward";
         public override string Description => "Pass the torch to a new successor. You will retain the embers of One For All for a limited time.";
-        public override string IconPath => "MyHeroMod/Assets/Skills/DangerSense"; 
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA/PassForwardIcon";
         public override int BaseCooldown => 3600; 
         public override string Category => "OneForAll";
         public override bool IsDefaultSkill => false;
