@@ -71,13 +71,33 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 
         public void AddHeat(int amount)
         {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            
+            if (amount > 0 && (transPlayer.Nature == NatureType.HeatResistance || transPlayer.Nature == NatureType.ThermalResistance))
+            {
+                amount = (int)(amount * 0.5f);
+            }
+           
+            else if (amount < 0 && (transPlayer.Nature == NatureType.ColdResistance || transPlayer.Nature == NatureType.ThermalResistance))
+            {
+                amount = (int)(amount * 0.5f);
+            }
+
             Temperature += amount;
+            
             if (Temperature > MaxTemperature) Temperature = MaxTemperature;
             if (Temperature < MinTemperature) Temperature = MinTemperature; 
         }
 
         public void ReduceHeat(int amount)
         {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (amount < 0 && (transPlayer.Nature == NatureType.ColdResistance || transPlayer.Nature == NatureType.ThermalResistance))
+            {
+                amount = (int)(amount * 0.5f);
+            }
             Temperature -= amount;
             if (Temperature < MinTemperature) Temperature = MinTemperature;
         }
@@ -97,10 +117,42 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 
             if (CurrentStrain >= MaxStrain)
             {
-                Player.AddBuff(ModContent.BuffType<Heatstroke>(), 300);
-                Player.ClearBuff(ModContent.BuffType<FlashfireFistBuff>());
+                ApplyMaxStrainPenalty();
             }
         }
+
+        protected virtual void ApplyMaxStrainPenalty()
+        {
+            Player.AddBuff(ModContent.BuffType<Heatstroke>(), 300);
+            Player.ClearBuff(ModContent.BuffType<FlashfireFistBuff>());
+        }
+
+        private int CalculateEnvironmentalHeat()
+        {
+            int envHeat = 0;
+
+            
+            if (Player.onFire || Player.onFire2 || Player.onFire3) envHeat += 10;
+            if (Player.lavaWet) envHeat += 15;
+            
+            if (Player.ZoneDesert || Player.ZoneUnderworldHeight) envHeat += 2;
+            if (Player.ZoneJungle) envHeat += 1;
+
+            
+            if (Player.wet && !Player.lavaWet && !Player.honeyWet) envHeat -= 8;
+            
+         
+            if (Player.HasBuff(BuffID.Frostburn) || Player.HasBuff(BuffID.Frostburn2)) envHeat -= 10;
+            if (Player.HasBuff(BuffID.Chilled) || Player.HasBuff(BuffID.Frozen)) envHeat -= 5;
+            
+            
+            if (Player.ZoneSnow) envHeat -= 3;
+            if (Player.ZoneSkyHeight) envHeat -= 1; 
+
+            return envHeat;
+        }
+
+        
 
         
 
@@ -200,7 +252,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
                     else HeatPerSecond = 0;                       
                 }
 
-                
+                HeatPerSecond += CalculateEnvironmentalHeat();
+
                 if (IsPhosphorActive)
                 {
                     HeatPerSecond -= PhosphorCoolingRate;
@@ -217,6 +270,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
                 HeatPerSecond = 0;
             }
             
+        var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             
         bool isOverheating = Temperature >= (MaxTemperature * 0.75f);
         bool isFreezing = MinTemperature < 0 && Temperature <= (MinTemperature * 0.75f);
@@ -226,7 +280,19 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 
         if (isOverheating || isFreezing)
         {
-            StrainPenaltyPerSecond = 20; 
+            int penalty = 20;
+
+            
+            if (isOverheating && (transPlayer.Nature == NatureType.HeatResistance || transPlayer.Nature == NatureType.ThermalResistance))
+            {
+                penalty = 10; 
+            }
+            if (isFreezing && (transPlayer.Nature == NatureType.ColdResistance || transPlayer.Nature == NatureType.ThermalResistance))
+            {
+                penalty = 10; 
+            }
+
+            StrainPenaltyPerSecond = penalty; 
         }
         else if (isSafeHot || isSafeCold)
         {
@@ -237,11 +303,9 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
             StrainPenaltyPerSecond = 0;  
         }
 
-            
-
-            UpdateFlyingDust();
+        UpdateFlyingDust();
         }
-        protected void UpdateFlyingDust()
+        protected virtual void UpdateFlyingDust()
         {
             bool isFlying = (Player.velocity.Y != 0) && (Player.wingTime > 0 || Player.rocketDelay > 0) && !Player.mount.Active;
             if (isFlying)

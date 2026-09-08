@@ -19,9 +19,20 @@ namespace MyHeroMod.content.Quirks.Smokescreen
 
         public override void ResetEffects()
         {
+            dodgeChance = 0;
             
             isSmokescreenActive = false;
         }   
+
+        //  public override bool FreeDodge(Player.HurtInfo info)
+        // {
+        //     if (isSmokescreenActive && TryDodge(info))
+        //     {
+        //         return true; 
+        //     }
+            
+        //     return false;
+        // }
 
         
     }

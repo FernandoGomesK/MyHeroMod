@@ -27,7 +27,7 @@ namespace MyHeroMod.content.Quirks.Explosion
 
             int halfSweat = MaxSweat / 2;
             float sweatBonus = 0f;
-
+            float clusterBonus = 0f;
         
             if (CurrentSweat >= MaxSweat)
             {
@@ -48,13 +48,16 @@ namespace MyHeroMod.content.Quirks.Explosion
                 _ => 80f
             };
 
-            speed = dashSpeed + sweatBonus;
+           
                 
             if (Player.HasBuff(ModContent.BuffType<ClusterBuff>()))
             {
-                hideNormalDash = true;
+                hideNormalDash = false;
+                isEnhanced = true;
                 explosionColor = Color.Orange; 
                 dustType = ModContent.DustType<ClusterDust>(); 
+                clusterBonus = 30f;
+
             }
             else
             {
@@ -64,6 +67,7 @@ namespace MyHeroMod.content.Quirks.Explosion
                 dustType = DustID.FireworkFountain_Red; 
             }
 
+            speed = dashSpeed + sweatBonus + clusterBonus;
             onomatopoeiaType = ModContent.ProjectileType<BoomOnomatopoeia>(); 
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/Explosion2Sound"), Player.Center);
         }

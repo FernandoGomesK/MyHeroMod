@@ -9,7 +9,7 @@ public class SmokescreenSkill : BaseToggleSkill
 {
     public override string Name => "Smoke Screen";
     public override string Description => "creates a Smokescreen";
-    public override string IconPath => "Quirks/Smokescreen/Smokescreen";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Smokescreen/ToggleSmokescreenIcon";
     public override string Category => "Smokescreen";
     public override int BaseCooldown => 30;
     public override QuirkType RequiredQuirk => QuirkType.SmokeScreen;

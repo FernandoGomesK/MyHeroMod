@@ -18,7 +18,7 @@ public class ToggleOverlaySkill : QuirkBaseSkill
 {
     public override string Name => "Toggle Overlay";
     public override string Description => "Activate Overlay transformation.";
-    public override string IconPath => "Quirks/GearShift/Gearshift";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blackwhip/OverlayIcon";
     public override string Category => "BlackWhip";
     public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.BlackWhip;

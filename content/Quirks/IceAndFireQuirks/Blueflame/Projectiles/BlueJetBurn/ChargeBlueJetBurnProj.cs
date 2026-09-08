@@ -2,6 +2,7 @@ using KhacesCore.Content.System.BaseProjectiles;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Projectiles.Fire;
 using MyHeroMod.content.Projectiles.GreyOnomatopoeias;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Hellflame.Projectiles;
 using MyHeroMod.content.System;
@@ -156,32 +157,26 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Projectiles
                 60f
             );
             }
-            Vector2 textPosition = player.Center + new Vector2(0, -30f);
-            if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
-            {   
+            Vector2 textPosition = player.Center + new Vector2(player.direction * 65f, -30f);
+
+                var projectile = ModContent.ProjectileType<BlueFooshOnomatopoeia>();
+                if (transPlayer.CurrentStage >= QuirkStage.Advanced)
+            {
+                projectile = ModContent.ProjectileType<FooshOnomatopoeia>();
+            }
+
             
                 Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 textPosition,
                 Vector2.Zero, 
-                ModContent.ProjectileType<BurnOnomatopoeia>(),
+                projectile,
                 0, 
                 0f, 
                 player.whoAmI
                 );
-            }
-            else
-            {
-                // int projID = Projectile.NewProjectile(
-                // player.GetSource_FromThis(),
-                // textPosition,
-                // Vector2.Zero, 
-                // ModContent.ProjectileType<GreyBurnOnomatopoeia>(),
-                // 0,  
-                // 0f, 
-                // player.whoAmI
-                // );
-            }   
+
+            
 
 
             

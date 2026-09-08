@@ -15,6 +15,8 @@ namespace MyHeroMod.content.System
 
         public static RecipeGroup EvilIronGroup;
 
+        public static RecipeGroup IronAndLeadGroup;
+
         public override void AddRecipeGroups()
         {
             
@@ -33,6 +35,9 @@ namespace MyHeroMod.content.System
             
             CobaltBarGroup = new RecipeGroup(() => "Any Cobalt/Palladium Bar", ItemID.CobaltBar, ItemID.PalladiumBar);
             RecipeGroup.RegisterGroup("MyHeroMod:CobaltBar", CobaltBarGroup);
+
+            IronAndLeadGroup = new RecipeGroup(() =>"Any Iron/Lead Bar", ItemID.LeadBar, ItemID.IronBar);
+            RecipeGroup.RegisterGroup("MyHero:Iron Bar", IronAndLeadGroup);
         }
     }
 }

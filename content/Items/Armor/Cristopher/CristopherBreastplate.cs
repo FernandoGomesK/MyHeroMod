@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.Cristopher
 {
@@ -54,7 +55,8 @@ namespace MyHeroMod.content.Items.Armor.Cristopher
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.IronBar, 20) // Exemplo
+               
+                .AddRecipeGroup(RecipeSystem.IronAndLeadGroup, 20)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

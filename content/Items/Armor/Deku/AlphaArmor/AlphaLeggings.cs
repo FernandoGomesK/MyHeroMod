@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
 {
@@ -25,7 +26,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
         {
             CreateRecipe()
             .AddIngredient(ItemID.Silk, 20)
-            .AddIngredient(RecipeGroupID.IronBar, 15)
+            .AddRecipeGroup(RecipeSystem.IronAndLeadGroup, 15)
             .AddTile(TileID.Loom)
             .Register();
         }

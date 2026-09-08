@@ -20,5 +20,8 @@ namespace MyHeroMod.content.System
         [DrawTicks]
         [Slider] 
         public float ImpactFrameIntensity { get; set; } 
+
+        public bool DecayDestroys { get; set; }
+        
     }
 }

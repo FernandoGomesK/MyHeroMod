@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics; // Necessário para o PreDraw
+using Microsoft.Xna.Framework.Graphics; 
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -9,9 +9,9 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
 {
     public class DarkShadowFrontHandProj : ModProjectile
     {
+        Color shadowColor = new Color(24, 0, 33);
         public override void SetDefaults()
         {
-            // Tamanho inicial padrão (mão pequena)
             Projectile.width = 26; 
             Projectile.height = 16;
             Projectile.friendly = true;
@@ -46,13 +46,28 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
 
             Projectile.timeLeft = 2;
 
+            // --- NOVO: ENCONTRAR O CORPO PRIMEIRO ---
+            // A mão deve flutuar ao redor do CORPO do Dark Shadow, não do jogador.
+            Vector2 anchorPosition = player.Center;
+            int anchorDirection = player.direction;
+            
+            for (int i = 0; i < Main.maxProjectiles; i++)
+            {
+                Projectile p = Main.projectile[i];
+                if (p.active && p.owner == player.whoAmI && p.type == ModContent.ProjectileType<DarkShadowBodyProj>())
+                {
+                    anchorPosition = p.Center + new Vector2(0f, 10f); // Usa a posição do corpo
+                    anchorDirection = p.spriteDirection; // Vira para onde o corpo está olhando
+                    break; 
+                }
+            }
+
             // 2. LÓGICA DE POSIÇÃO E HITBOX DINÂMICAS
             float hoverX = -18f;
             float hoverY = -20f;
 
             if (darkPlayer.isCBOArmsOn)
             {
-                // Modo Black Abyss: Braços gigantes avançados na FRENTE
                 Projectile.width = 50; 
                 Projectile.height = 50;
                 hoverX = +30f; 
@@ -60,7 +75,6 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             }
             else if (darkPlayer.isMediumDarkShadowOn)
             {
-                // Modo Noite (Médio): Braços gigantes na posição normal da frente
                 Projectile.width = 50; 
                 Projectile.height = 50;
                 hoverX = -18f; 
@@ -68,18 +82,50 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             }
             else
             {
-                // Modo Dia (Normal)
                 Projectile.width = 26; 
                 Projectile.height = 16;
                 hoverX = -18f; 
                 hoverY = -20f;
             }
 
-            Vector2 hoverPosition = player.Center + new Vector2(hoverX * player.direction, hoverY);
+            // A mão agora usa o anchorPosition (Corpo) em vez do player.Center!
+            Vector2 hoverPosition = anchorPosition + new Vector2(hoverX * anchorDirection, hoverY);
             Vector2 direction = hoverPosition - Projectile.Center;
             float distance = direction.Length();
 
-            if (distance > 10f)
+            float maxAllowedRange = (darkPlayer.darkShadowBodyRange > 0 ? darkPlayer.darkShadowBodyRange : 120f) + 30f;
+
+            // Teleport Check: Ensures the hand instantly catches up to the anchor
+            if (distance > 2000f) // Safeguard for Magic Mirrors/Recalls across the map
+            {
+                Projectile.Center = hoverPosition;
+                Projectile.velocity = Vector2.Zero;
+            }
+            else if (distance > maxAllowedRange)
+            {
+                for (int i = 0; i < 3; i++) 
+                {
+                    int dustIndex = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Shadowflame, 0f, 0f, 100, shadowColor, 1.5f);
+                    if (dustIndex >= 0)
+                    {
+                        Dust dust = Main.dust[dustIndex];
+                        dust.noGravity = true;
+                        dust.velocity *= 0.3f; 
+                    }
+                }
+                
+                direction.Normalize();
+                
+                
+                float excessDistance = distance - maxAllowedRange;
+                
+        
+                float dynamicSpeed = 25f + (excessDistance * 0.15f);
+                
+           
+                Projectile.velocity = (Projectile.velocity * 2f + direction * dynamicSpeed) / 3f;
+            }
+            else if (distance > 10f)
             {
                 direction.Normalize();
                 Projectile.velocity = (Projectile.velocity * 10f + direction * 8f) / 11f; 
@@ -89,27 +135,16 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
                 Projectile.velocity *= 0.8f; 
             }
 
-            Projectile.spriteDirection = player.direction;
+            Projectile.spriteDirection = anchorDirection;
 
-            // 3. CORDÃO UMBRAL CUSTOMIZADO (#180021)
-            Vector2 cordStartPos = player.Center; 
-            for (int i = 0; i < Main.maxProjectiles; i++)
-            {
-                Projectile p = Main.projectile[i];
-                if (p.active && p.owner == player.whoAmI && p.type == ModContent.ProjectileType<DarkShadowBodyProj>())
-                {
-                    cordStartPos = p.Center + new Vector2(0f, 10f); 
-                    break; 
-                }
-            }
-
-            Color shadowColor = new Color(24, 0, 33);
+            // (#180021)
+            
             
             if (Projectile.alpha == 0)
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    Vector2 cordPos = Vector2.Lerp(cordStartPos, Projectile.Center, Main.rand.NextFloat());
+                    Vector2 cordPos = Vector2.Lerp(anchorPosition, Projectile.Center, Main.rand.NextFloat());
                     cordPos += Main.rand.NextVector2Circular(4f, 4f); 
                     
                     Dust dust = Dust.NewDustPerfect(cordPos, DustID.WhiteTorch, Vector2.Zero, 0, shadowColor);
@@ -130,7 +165,6 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Player player = Main.player[Projectile.owner];
             var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();
 
-            // Se o CBO Arms ou o Medium Mode estiverem ativos, carrega a textura grande
             if (darkPlayer.isCBOArmsOn || darkPlayer.isMediumDarkShadowOn)
             {
                 var Path = "MyHeroMod/content/Quirks/DarkShadow/Projectiles/BigDarkShadowFrontHandProj";
@@ -152,10 +186,10 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
                     0
                 );
 
-                return false; // Esconde a mão base pequena
+                return false; 
             }
 
-            return true; // Desenha a textura original se estiver de dia/forma base
+            return true; 
         }
     }
 }

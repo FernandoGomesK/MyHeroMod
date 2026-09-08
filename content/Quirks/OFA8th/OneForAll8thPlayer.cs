@@ -40,6 +40,10 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 Player.moveSpeed += 1.5f;
                 Player.jumpSpeedBoost += 1.5f;
                 Player.noFallDmg = true;
+
+                Player.statDefense += 15;
+                Player.GetDamage(DamageClass.Melee) += 0.20f;
+                Player.GetAttackSpeed(DamageClass.Melee) += 0.15f;
             }
 
         }

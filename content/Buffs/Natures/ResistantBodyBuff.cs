@@ -1,0 +1,22 @@
+using Terraria.ModLoader;
+using Terraria;
+
+namespace MyHeroMod.content.Buffs.Natures
+{
+    public class ResistantBodyBuff : ModBuff
+    {
+        
+        
+        public override void SetStaticDefaults()
+        {
+            Main.buffNoSave[Type] = true; 
+            Main.buffNoTimeDisplay[Type] = true; 
+            Main.debuff[Type] = false; 
+        }
+
+        public override void Update(Player player, ref int buffIndex)
+        {
+            
+        }
+    }
+}

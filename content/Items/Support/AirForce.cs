@@ -16,8 +16,8 @@ namespace MyHeroMod.content.Items.Support
             Item.width = 28;
             Item.height = 32;
             Item.accessory = true;
-            Item.rare = ItemRarityID.Green;
-            Item.value = Item.sellPrice(gold: 1);
+            Item.rare = ItemRarityID.Orange;
+            Item.value = Item.buyPrice(gold: 5);
             
             Item.handOnSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOn);
             Item.handOffSlot = EquipLoader.GetEquipSlot(Mod, Name, EquipType.HandsOff);
@@ -36,10 +36,10 @@ namespace MyHeroMod.content.Items.Support
         public override void AddRecipes()
         {   
             CreateRecipe()
-            .AddIngredient(ItemID.HellstoneBar, 10) 
-            .AddIngredient(ItemID.Bone, 20)         
-            .AddTile(TileID.Anvils)
-            .Register();
+                .AddIngredient(ItemID.HellstoneBar, 10) 
+                .AddIngredient(ItemID.Bone, 20)          
+                .AddTile(TileID.Anvils)
+                .Register();
             }
         
         

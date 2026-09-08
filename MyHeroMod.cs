@@ -208,6 +208,8 @@ namespace MyHeroMod
                             byte senderIndexInPacket = reader.ReadByte();
                             int percentage9 = reader.ReadInt32();
                             int fingers = reader.ReadInt32();
+                            int becomeQuirklessTimer = reader.ReadInt32();
+                            bool isQuirkless = reader.ReadBoolean();
 
                             byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
                             if (playerIndex >= Main.maxPlayers) break;
@@ -216,6 +218,9 @@ namespace MyHeroMod
 
                             var ofa9 = Main.player[playerIndex].GetModPlayer<OneForAll9thPlayer>();
                             ofa9.percentage = percentage9;
+                            ofa9.currentFingers = fingers;
+                            ofa9.becomeQuirklessTimer = becomeQuirklessTimer;
+                            ofa9.isQuirkless = isQuirkless;
 
                             if (Main.netMode == NetmodeID.Server)
                             {
@@ -224,6 +229,8 @@ namespace MyHeroMod
                                 packet.Write(playerIndex);
                                 packet.Write(percentage9);
                                 packet.Write(fingers);
+                                packet.Write(becomeQuirklessTimer);
+                                packet.Write(isQuirkless);
                                 packet.Send(-1, playerIndex);
                             }
                             break;
@@ -288,20 +295,20 @@ namespace MyHeroMod
                             bool cluster = reader.ReadBoolean();
                             bool grenadier = reader.ReadBoolean();
                             bool panzer = reader.ReadBoolean();
-                            int sweattimer = reader.ReadInt32();
-                            int currentSweat = reader.ReadInt32();
+                            
+                           
 
                             byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
                             if (playerIndex >= Main.maxPlayers) break;
 
-                            sweattimer = Math.Max(0, sweattimer);
+                            
 
                             var explode = Main.player[playerIndex].GetModPlayer<ExplosionPlayer>();
                             explode.IsClusterActive = cluster;
                             explode.IsGrenadierBracersOn = grenadier;
                             explode.IsStrafePanzerOn = panzer;
-                            explode.sweatTimer = sweattimer;
-                            explode.CurrentSweat = currentSweat;
+                            
+                            
 
                             if (Main.netMode == NetmodeID.Server)
                             {
@@ -311,8 +318,8 @@ namespace MyHeroMod
                                 packet.Write(cluster);
                                 packet.Write(grenadier);
                                 packet.Write(panzer);
-                                packet.Write(sweattimer);
-                                packet.Write(currentSweat);
+                                
+                                
                                 packet.Send(-1, playerIndex);
                             }
                             break;

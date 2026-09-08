@@ -17,7 +17,7 @@ public class ToggleBlackAbyssSkill : QuirkBaseSkill
 {
     public override string Name => "Toggle Black Abyss";
     public override string Description => "Activate Black Abyss transformation.";
-    public override string IconPath => "Quirks/GearShift/Gearshift";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Darkshadow/BlackAbyssIcon";
     public override string Category => "DarkShadow";
     public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.DarkShadow;

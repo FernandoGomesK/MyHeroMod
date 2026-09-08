@@ -24,8 +24,12 @@ namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
                     
                 if (player.controlJump) 
                 {
-                    player.velocity.Y = -0.5f; 
+                    player.velocity.Y = -1.5f; 
                     player.fallStart = (int)(player.position.Y / 16f); 
+                }
+                else if(player.controlDown)
+                {
+                    player.velocity.Y = +3.5f; 
                 }
                 
                 else if (player.velocity.Y > 0)

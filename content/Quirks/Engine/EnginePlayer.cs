@@ -47,7 +47,10 @@ namespace MyHeroMod.content.Quirks.Engine
                 }
                 else
                 {
+                    if (Main.GameUpdateCount % 12 == 0)
+                {
                     momentumTimer -= 5;
+                }
                     if (momentumTimer < 0) momentumTimer = 0;
                 }
 

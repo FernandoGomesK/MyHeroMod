@@ -36,5 +36,92 @@ namespace MyHeroMod.content.Quirks.Explosion
                 
             }
         }
+
+        public override void PostUpdate()
+        {
+            if (!Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.Explosion))
+            {
+                return; 
+            }   
+            
+            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            // ===================Flight Effects========================================================
+
+            if (mainPlayer.HasActiveQuirk(QuirkType.Explosion) && mainPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+            if (Player.velocity.Y != 0 && !Player.mount.Active)
+                {
+                    
+                    if (Main.rand.NextBool(10)) 
+                    {
+                        int dustFire = Dust.NewDust(
+                            Player.position + new Vector2(-5, Player.height - 10), 
+                            Player.width / 2, 
+                            10, 
+                            DustID.Torch, 
+                            0, 2f, 100, default, 3.5f 
+                        );
+                        int dustSmoke = Dust.NewDust(
+                            Player.position + new Vector2(-5, Player.height - 10), 
+                            Player.width / 2, 
+                            10, 
+                            DustID.Ash, 
+                            0, 2f, 100, default, 3.5f 
+                        );
+                        Main.dust[dustFire].noGravity = true;
+                        Main.dust[dustFire].velocity *= 0.5f; 
+                        Main.dust[dustSmoke].noGravity = true;
+                        Main.dust[dustSmoke].velocity *= 0.5f;
+                    }
+
+                
+                    if (Main.rand.NextBool(10))
+                    {
+                        int dustFire2 = Dust.NewDust(
+                            Player.position + new Vector2(Player.width / 2, Player.height - 10), 
+                            Player.width / 2, 
+                            10, 
+                            DustID.Torch, 
+                            0, 2f, 100, default, 3.5f
+                        );
+                        int dustSmoke2 = Dust.NewDust(
+                            Player.position + new Vector2(Player.width / -5, Player.height - 10), 
+                            Player.width / 2, 
+                            10, 
+                            DustID.Ash, 
+                            0, 2f, 100, default, 3.5f 
+                        );
+                        Main.dust[dustFire2].noGravity = true;
+                        Main.dust[dustFire2].velocity *= 0.5f;
+                        Main.dust[dustSmoke2].noGravity = true;
+                        Main.dust[dustSmoke2].velocity *= 0.5f;
+                    }
+                
+                    if (Main.rand.NextBool(6) && IsClusterActive)
+                    {
+                         int dustFire2 = Dust.NewDust(
+                            Player.position + new Vector2(Player.width / 2, Player.height - 10), 
+                            Player.width / 2, 
+                            10, 
+                            ModContent.DustType<ClusterDust>(), 
+                            0, 2f, 100, default, 2.5f
+                        );
+                        int dustSmoke2 = Dust.NewDust(
+                            Player.position + new Vector2(Player.width / -5, Player.height - 10), 
+                            Player.width / 2, 
+                            10, 
+                            ModContent.DustType<ClusterDust>(), 
+                            0, 2f, 100, default, 2.5f 
+                        );
+                        Main.dust[dustFire2].noGravity = true;
+                        Main.dust[dustFire2].velocity *= 0.5f;
+                        Main.dust[dustSmoke2].noGravity = true;
+                        Main.dust[dustSmoke2].velocity *= 0.5f;
+                        
+                    }
+                }
+        }
+    }
     }   
 }

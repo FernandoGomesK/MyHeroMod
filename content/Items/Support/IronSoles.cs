@@ -13,11 +13,11 @@ namespace MyHeroMod.content.Items.Support
         
         public override void SetDefaults()
         {
-            Item.width = 22;
-            Item.height = 18;
+            Item.width = 32;
+            Item.height = 22;
             Item.accessory = true;
             Item.rare = ItemRarityID.Green;
-            Item.value = Item.sellPrice(gold: 1);
+            Item.value = Item.buyPrice(gold: 3);
             
         }
 
@@ -30,11 +30,17 @@ namespace MyHeroMod.content.Items.Support
         public override void AddRecipes()
         {   
             CreateRecipe()
-            .AddIngredient(ItemID.TissueSample, 10)  
-            .AddIngredient(ItemID.ShadowScale, 10)
-            .AddIngredient(ItemID.IronGreaves, 1)       
-            .AddTile(TileID.Anvils)
-            .Register();
+                .AddIngredient(ItemID.ShadowScale, 10)
+                .AddIngredient(ItemID.IronGreaves, 1)        
+                .AddTile(TileID.Anvils)
+                .Register();
+
+        
+            CreateRecipe()
+                .AddIngredient(ItemID.TissueSample, 10)  
+                .AddIngredient(ItemID.IronGreaves, 1)        
+                .AddTile(TileID.Anvils)
+                .Register();
             }
         
         }

@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.System; // Para acessar o QuirkType
 using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.OFA8th.Projectiles.TexasSmash;
@@ -16,6 +15,8 @@ using MyHeroMod.content.Npcs.Bosses.AllForOne;
 using Terraria.ModLoader.IO;
 using System.IO;
 using System;
+using MyHeroMod.content.Npcs.Enemies.Nomu;
+using MyHeroMod.content.Items.QuirkItems.QuirkGenes;
 
 namespace MyHeroMod.content.System
 {
@@ -100,6 +101,13 @@ namespace MyHeroMod.content.System
                 if (npc.type == id) return;
             }
 
+            if (npc.type == ModContent.NPCType<NomuNPC>())
+            {
+                HasQuirk = true;
+                AssignedQuirk = QuirkType.SuperRegeneration;
+                return;
+            } 
+
             bool isBossAlive = false;
             for (int i = 0; i < Main.maxNPCs; i++)
             {
@@ -120,44 +128,29 @@ namespace MyHeroMod.content.System
             if (Main.rand.NextBool(quirkChance))
             {
                 HasQuirk = true;
+                AssignedQuirk = RandomQuirkSelection.GetRandomQuirkForNPC();
 
-                int random = Main.rand.Next(15);
-                switch (random)
-                {
-                
-                    case 0: AssignedQuirk = QuirkType.HellFlames; break;
-                    case 1: AssignedQuirk = QuirkType.HalfColdHalfHot; break;
-                    case 2: AssignedQuirk = QuirkType.Blueflame; break; 
-                    case 3: AssignedQuirk = QuirkType.OneForAll9th; break;
-                    case 4: AssignedQuirk = QuirkType.OneForAll8th; break;
-                    case 5: AssignedQuirk = QuirkType.Overclock; break;
-                    case 6: AssignedQuirk = QuirkType.Float; break;
-                    case 7: AssignedQuirk = QuirkType.DangerSense; break;
-                    case 8: AssignedQuirk = QuirkType.BlackWhip; break;
-                    case 9: AssignedQuirk = QuirkType.Gearshift; break;
-                    case 10: AssignedQuirk = QuirkType.FaJin; break;
-                    case 11: AssignedQuirk = QuirkType.SmokeScreen; break;
-                    case 12: AssignedQuirk = QuirkType.Explosion; break;
-                    case 13: AssignedQuirk = QuirkType.SuperRegeneration; break;
-                    case 14: AssignedQuirk = QuirkType.Erasure; break;
-                    
-                }
+                     
+                        if (AssignedQuirk == QuirkType.Quirkless)
+                        {
+                            HasQuirk = false;
+                            return;
+                        }
 
-                if (npc.boss){
-                    npc.lifeMax = (int)(npc.lifeMax * 1.5f); 
-                    npc.life = npc.lifeMax;
-                    npc.damage = (int)(npc.damage * 1.5f);
+                        if (npc.boss)
+                        {
+                            npc.lifeMax = (int)(npc.lifeMax * 1.5f); 
+                            npc.life = npc.lifeMax;
+                            npc.damage = (int)(npc.damage * 1.5f);
+                        }
+                        else
+                        {
+                            npc.lifeMax = (int)(npc.lifeMax * 4f); 
+                            npc.life = npc.lifeMax;
+                            npc.damage = (int)(npc.damage * 3f);
+                        }
+                    }
                 }
-                else
-                {
-                     npc.lifeMax = (int)(npc.lifeMax * 4f); 
-                npc.life = npc.lifeMax;
-                npc.damage = (int)(npc.damage * 3f);
-                }
-                
-               
-            }
-        }
 
         public override void ResetEffects(NPC npc)
 {
@@ -203,29 +196,23 @@ namespace MyHeroMod.content.System
         }
 
         // 2. DESENHA AS PARTÍCULAS (POEYRA)
-        public override void DrawEffects(NPC npc, ref Color drawColor)
+       public override void DrawEffects(NPC npc, ref Color drawColor)
         {
-            
             if (HasQuirk && ErasureTimer == 0)
             {
                 if (Main.GameUpdateCount % 3 == 0)
                 {
-                    int dustType = DustID.MagicMirror; 
+                    
+                    int dustType = DustID.WhiteTorch; 
 
                     if (AssignedQuirk == QuirkType.HellFlames) dustType = DustID.Torch; 
-                    if (AssignedQuirk == QuirkType.Blueflame) dustType = DustID.BlueTorch; 
-                    if (AssignedQuirk == QuirkType.HalfColdHalfHot) dustType = DustID.IceTorch; 
-                    
-                    if (AssignedQuirk == QuirkType.OneForAll8th) dustType = DustID.YellowTorch; 
-                    if (AssignedQuirk == QuirkType.Overclock) dustType = DustID.YellowTorch;
-                    if (AssignedQuirk == QuirkType.Float) dustType = DustID.WhiteTorch;
-                    if (AssignedQuirk == QuirkType.DangerSense) dustType = DustID.WhiteTorch;
-                    if (AssignedQuirk == QuirkType.BlackWhip) dustType = DustID.WhiteTorch;
-                    if (AssignedQuirk == QuirkType.Gearshift) dustType = DustID.WhiteTorch;
-                    if (AssignedQuirk == QuirkType.FaJin) dustType = DustID.WhiteTorch;
-                    if (AssignedQuirk == QuirkType.SmokeScreen) dustType = DustID.WhiteTorch;
-                    if (AssignedQuirk == QuirkType.Explosion) dustType = DustID.OrangeTorch;
-                    if (AssignedQuirk == QuirkType.Erasure) dustType = DustID.Wraith;
+                    else if (AssignedQuirk == QuirkType.Blueflame) dustType = DustID.BlueTorch; 
+                    else if (AssignedQuirk == QuirkType.HalfColdHalfHot) dustType = DustID.IceTorch; 
+                    else if (AssignedQuirk == QuirkType.OneForAll8th || AssignedQuirk == QuirkType.Overclock) dustType = DustID.YellowTorch; 
+                    else if (AssignedQuirk == QuirkType.Explosion) dustType = DustID.OrangeTorch;
+                    else if (AssignedQuirk == QuirkType.Erasure) dustType = DustID.Wraith;
+                    else if (AssignedQuirk == QuirkType.Decay) dustType = DustID.Ash; 
+                    else if (AssignedQuirk == QuirkType.AllForOne) dustType = DustID.Shadowflame;
 
                     Dust d = Dust.NewDustDirect(npc.position, npc.width, npc.height, dustType);
                     d.velocity *= 0.5f;
@@ -234,13 +221,28 @@ namespace MyHeroMod.content.System
                 }
             }
         }
+
+        private int GetSpecificGeneDrop(QuirkType npcQuirk)
+        {
+            switch (npcQuirk)
+            {
+                case QuirkType.Explosion: 
+                    return ModContent.ItemType<OneForAll9thGene>();      
+                
+                default:    
+                    return ModContent.ItemType<Items.QuirkGene>();
+            }
+        }
         public override void OnKill(NPC npc)
         {
             if (Main.netMode == NetmodeID.MultiplayerClient) return;
 
             if (HasQuirk && Main.rand.NextBool(2))
             {
-                Item.NewItem(npc.GetSource_Loot(), npc.getRect(), ModContent.ItemType<Items.QuirkGene>());
+                
+                int geneToDrop = GetSpecificGeneDrop(this.AssignedQuirk); 
+        
+                Item.NewItem(npc.GetSource_Loot(), npc.getRect(), geneToDrop);
             }
         }
 
@@ -385,7 +387,7 @@ namespace MyHeroMod.content.System
                     case QuirkType.SuperRegeneration:
                         if (npc.life < npc.lifeMax)
                         {
-                            npc.life += 2; 
+                            npc.life += 1; 
                             if (npc.life > npc.lifeMax) npc.life = npc.lifeMax;
                             npc.netUpdate = true;
                         }

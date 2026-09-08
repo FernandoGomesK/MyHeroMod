@@ -37,41 +37,14 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
             var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-            
-            int MaxDamage = transPlayer.CurrentStage switch
-            {
-                QuirkStage.Initial => 130,
-                QuirkStage.Adequation => 350,
-                QuirkStage.Intermediate => 500,
-                QuirkStage.Advanced => 950,
-                QuirkStage.Final => 2200,
-                _ => 130
-            };
+            int MaxDamage = ofaPlayer.CalculateStageDamage(130, 350,500,950,2200);
+
+            float DamageMultiplier = ofaPlayer.GetFullCowlingMultiplier();  
+            DamageMultiplier += ofaPlayer.ConsumeFaJin(out bool usedFaJin); 
+            float ironSolesMultiplier = ofaPlayer.GetIronSolesMultiplier();
 
             
-            float DamageMultiplier = ofaPlayer.percentage switch
-            {
-                45 => 0.45f,
-                20 => 0.20f,
-                10 => 0.10f,
-                5 => 0.05f,
-                _ => 1f
-            };
-
-            bool usedFaJin = false;
-
-            
-            if (player.HasBuff(ModContent.BuffType<FaJinBuff>()))
-            {
-                var faJinPlayer = player.GetModPlayer<FajinPlayer>();
-                DamageMultiplier += 0.55f;
-                faJinPlayer.FaJinCharges = 0; 
-                player.ClearBuff(ModContent.BuffType<FaJinBuff>());
-                usedFaJin = true;
-            }
-
-           
-            float ironSolesMultiplier = ofaPlayer.isIronSolesOn ? 1.30f : 1f;
+    
             int FinalDamage = (int)(MaxDamage * DamageMultiplier * ironSolesMultiplier);
             
             string attackName = usedFaJin ? "Faux " : "";
@@ -88,7 +61,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
             
             CombatText.NewText(player.getRect(), Color.LimeGreen, attackName);
 
-            // 7. Fire Projectile
+         
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,

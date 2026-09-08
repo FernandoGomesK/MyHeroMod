@@ -11,7 +11,7 @@ public class FloatSkill : BaseToggleSkill
 {
     public override string Name => "Float";
     public override string Description => "Begin To float to the skies";
-    public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Float/Float";
     public override string Category => "Float";
     public override int OnomatopoeiaProjType => ModContent.ProjectileType<FloatOnomatopoeia>();
 

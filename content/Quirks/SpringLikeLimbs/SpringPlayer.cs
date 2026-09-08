@@ -1,4 +1,5 @@
 using System;
+using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
@@ -9,7 +10,7 @@ using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.SpringLikeLimbs
 {
-    public partial class SpringLikeLimbsPlayer : ModPlayer, IQuirkResetter
+    public partial class SpringLikeLimbsPlayer : ModPlayer, IQuirkResetter, IDashModifier
     
     {
         public bool isSpringActive = false;
@@ -57,9 +58,10 @@ namespace MyHeroMod.content.Quirks.SpringLikeLimbs
             
             if (!transPlayer.HasActiveQuirk(QuirkType.SpringLikeLimbs)) return;
 
-            if (isSpringActive) 
+            if (isSpringActive || Player.HasBuff(ModContent.BuffType<SpringLikeLimbsBuff>())) 
             {
-                speed = 25f;             
+                speed = 50f;  
+                isEnhanced = true;           
             }
         
         }

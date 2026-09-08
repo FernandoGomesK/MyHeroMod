@@ -431,6 +431,86 @@ Items: {
 		// DisplayName: Tensei Exhaust Arms
 		// Tooltip: ""
 	}
+
+	AirGauntlets: {
+		// DisplayName: Air Gauntlets
+		// Tooltip: ""
+	}
+
+	MidGauntlets: {
+		// DisplayName: Mid Gauntlets
+		// Tooltip: ""
+	}
+
+	DekuArmorGauntlets: {
+		// DisplayName: Deku Armor Gauntlets
+		// Tooltip: ""
+	}
+
+	DekuArmorBoots: {
+		// DisplayName: Deku Armor Boots
+		// Tooltip: ""
+	}
+
+	DekuArmorChest: {
+		// DisplayName: Deku Armor Chest
+		// Tooltip: ""
+	}
+
+	DekuArmorBriefcase: {
+		// DisplayName: Deku Armor Briefcase
+		// Tooltip: ""
+	}
+
+	NomuVatItem: {
+		// DisplayName: Nomu Vat Item
+		// Tooltip: ""
+	}
+
+	UrarakaAlphaLeggings: {
+		// DisplayName: Uraraka Alpha Leggings
+		// Tooltip: ""
+	}
+
+	UrarakaBetaLeggings: {
+		// DisplayName: Uraraka Beta Leggings
+		// Tooltip: ""
+	}
+
+	ZeroBetaBoots: {
+		// DisplayName: Zero Beta Boots
+		// Tooltip: ""
+	}
+
+	WristHooks: {
+		// DisplayName: Wrist Hooks
+		// Tooltip: ""
+	}
+
+	OneForAll9thGene: {
+		// DisplayName: One For All9th Gene
+		// Tooltip: ""
+	}
+
+	OneForAll9thSyringe: {
+		// DisplayName: One For All9th Syringe
+		// Tooltip: ""
+	}
+
+	ExplosionGene: {
+		// DisplayName: Explosion Gene
+		// Tooltip: ""
+	}
+
+	SpecialBodyModificatorGene: {
+		// DisplayName: Special Body Modificator Gene
+		// Tooltip: ""
+	}
+
+	OneForAll9thEssence: {
+		// DisplayName: One For All9th Essence
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -723,6 +803,31 @@ Buffs: {
 		// DisplayName: Unbreakable Buff
 		// Description: Mods.MyHeroMod.Buffs.UnbreakableBuff.Description
 	}
+
+	ResistantBodyBuff: {
+		// DisplayName: Resistant Body Buff
+		// Description: Mods.MyHeroMod.Buffs.ResistantBodyBuff.Description
+	}
+
+	GravityAwakenBuff: {
+		// DisplayName: Gravity Awaken Buff
+		// Description: Mods.MyHeroMod.Buffs.GravityAwakenBuff.Description
+	}
+
+	AerodynamicBuff: {
+		// DisplayName: Aerodynamic Buff
+		// Description: Mods.MyHeroMod.Buffs.AerodynamicBuff.Description
+	}
+
+	KinecticAbsorberBuff: {
+		// DisplayName: Kinectic Absorber Buff
+		// Description: Mods.MyHeroMod.Buffs.KinecticAbsorberBuff.Description
+	}
+
+	AutomaticWhipBuff: {
+		// DisplayName: Automatic Whip Buff
+		// Description: Mods.MyHeroMod.Buffs.AutomaticWhipBuff.Description
+	}
 }
 
 DeathMessage: "{0} destruiu o seu próprio corpo com 100% de poder!"
@@ -903,6 +1008,17 @@ Projectiles: {
 	// FlashFreezeOnomatopoeia.DisplayName: Flash Freeze Onomatopoeia
 	// KindlingOnomatopoeia.DisplayName: Kindling Onomatopoeia
 	// FlashfireOnomatopoeia.DisplayName: Flashfire Onomatopoeia
+	// ChargeDetroit8Proj.DisplayName: Charge Detroit8 Proj
+	// AutomaticBlackWhipProj.DisplayName: Automatic Black Whip Proj
+	// FooshOnomatopoeia.DisplayName: Foosh Onomatopoeia
+	// BlueFooshOnomatopoeia.DisplayName: Blue Foosh Onomatopoeia
+	// GravityBubbleProj.DisplayName: Gravity Bubble Proj
+	// ThousandFingersProj.DisplayName: Thousand Fingers Proj
+	// ChargearmorDetroitProj.DisplayName: Chargearmor Detroit Proj
+	// DetroitArmorSmashProj.DisplayName: Detroit Armor Smash Proj
+	// WristHookProjectile.DisplayName: Wrist Hook Projectile
+	// ChargeFinalSmashProj.DisplayName: Charge Final Smash Proj
+	// FinalDetroitSmashProj.DisplayName: Final Detroit Smash Proj
 }
 
 NPCs: {
@@ -952,6 +1068,8 @@ NPCs: {
 			// Princess_LovesNPC: "{NPCName} is always trying their best to smile!"
 		}
 	}
+
+	// NomuNPC.DisplayName: Nomu N P C
 }
 
 Configs: {
@@ -973,5 +1091,12 @@ Configs: {
 			// Label: Impact Frame Intensity
 			// Tooltip: ""
 		}
+
+		DecayDestroys: {
+			// Label: Decay Destroys
+			// Tooltip: ""
+		}
 	}
 }
+
+// Tiles.NomuVat.MapEntry: Nomu Vat

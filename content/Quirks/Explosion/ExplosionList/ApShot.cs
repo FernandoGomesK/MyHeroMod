@@ -21,7 +21,7 @@ public class ApShotSkill : QuirkBaseSkill
 
     public override string Category => "Explosion";
 
-    public override int BaseCooldown => 30;
+    public override int BaseCooldown => 300;
 
     public override QuirkType RequiredQuirk => QuirkType.Explosion;
     public override QuirkStage RequiredStage => QuirkStage.Adequation;
@@ -101,7 +101,8 @@ CombatText.NewText(player.getRect(), Color.Orange, "AP-SHOT!");
                 2f, 
                 player.whoAmI
             );
-            explodePlayer.CurrentSweat += 15;
+
+            explodePlayer.AddSweat(15);
             PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "FullCowlingShake");
             Main.instance.CameraModifiers.Add(shake);
         }}

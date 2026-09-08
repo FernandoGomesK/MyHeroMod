@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
 {
@@ -39,7 +40,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
         }
         public override void SetDefaults()
         {
-            Item.width = 18; // Tamanho do item no chão/inventário
+            Item.width = 18; 
             Item.height = 18;
             Item.value = Item.sellPrice(gold: 1);
             Item.rare = ItemRarityID.Yellow;
@@ -54,7 +55,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
         {
             CreateRecipe()
             .AddIngredient(ItemID.Silk, 20)
-            .AddIngredient(RecipeGroupID.IronBar, 15)
+            .AddRecipeGroup(RecipeSystem.IronAndLeadGroup, 15)
             .AddTile(TileID.Loom)
             .Register();
         }

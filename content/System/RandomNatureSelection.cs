@@ -32,6 +32,10 @@ namespace MyHeroMod.content.System
             {
                 Main.NewText("Your body doesn't seem to have any special traits.", Color.Gray);
             }
+            else if (natureType == NatureType.PerfectVessel)
+            {
+                SelectRandomNature();
+            }
             else
             {
                 Main.NewText($"Your body developed a special trait: {natureType}!", Color.LightGreen);

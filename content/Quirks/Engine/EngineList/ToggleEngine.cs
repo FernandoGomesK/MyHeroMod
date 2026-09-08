@@ -9,7 +9,24 @@ public class ToggleEngineSkill : QuirkBaseSkill
 {
     public override string Name => "Engine";
     public override string Description => "Start your engines";
-    public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string IconPath
+        {
+            get
+            {   
+                Player player = Main.LocalPlayer;
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+                if (transPlayer.CurrentVariant == QuirkVariant.Variant1)
+                {
+                    return "MyHeroMod/Assets/SkillIcons/Engine/ToggleTenseiIcon"; 
+                    
+                }
+                else
+                {
+                    return "MyHeroMod/Assets/SkillIcons/Engine/ToggleTenyaIcon"; 
+                }
+            }
+        } 
     public override string Category => "Engine";
 
     public override int BaseCooldown => 30;

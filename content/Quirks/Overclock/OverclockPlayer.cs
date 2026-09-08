@@ -15,8 +15,12 @@ namespace MyHeroMod.content.Quirks.Overclock
 
         public int maxBreath = 0;
         
-        public int currentBreath = 90; 
+       
+        public float currentBreath = 90f; 
         
+        
+        public float breathDrainRate = 1f; 
+
         private int ElectricSoundTimer = 0;
 
         public void FullReset()
@@ -26,21 +30,14 @@ namespace MyHeroMod.content.Quirks.Overclock
 
         public override void OnRespawn()
         {
-            
             currentBreath = maxBreath;
             isOverclockBuffActive = false;
-        }
-
-        public override void ResetEffects()
-        {
-            isOverclockBuffActive = false; 
         }
 
         public override void PreUpdate()
         { 
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            
             maxBreath = transPlayer.CurrentStage switch {
                 QuirkStage.Initial => 80, 
                 QuirkStage.Adequation => 100, 
@@ -50,10 +47,25 @@ namespace MyHeroMod.content.Quirks.Overclock
                 _ => 90
             };
             
-            
             if (currentBreath > maxBreath)
             {
                 currentBreath = maxBreath;
+            }
+        }
+
+        public override void ResetEffects()
+        {
+            isOverclockBuffActive = false; 
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            
+            breathDrainRate = 1f; 
+
+           
+            if (transPlayer.Nature == NatureType.HigherBrainPower)
+            {
+            
+                breathDrainRate = 0.66f; 
             }
         }
 
@@ -61,14 +73,12 @@ namespace MyHeroMod.content.Quirks.Overclock
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            
             if (!transPlayer.HasActiveQuirk(QuirkType.Overclock)) return;
 
             if (Player.HasBuff(ModContent.BuffType<OverclockBuff>()))
             {
-                // TimeStopSystem.IsTimeStopped = true; 
-
-                currentBreath--;
+                
+                currentBreath -= breathDrainRate;
                 
                 if (currentBreath <= 0)
                 {
@@ -82,7 +92,8 @@ namespace MyHeroMod.content.Quirks.Overclock
             {
                 if (currentBreath < maxBreath)
                 {
-                    currentBreath++; 
+                    
+                    currentBreath += 1f; 
                 }
             }
         }

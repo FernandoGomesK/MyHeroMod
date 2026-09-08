@@ -113,7 +113,7 @@ public class HowitzerImpactSkill : QuirkBaseSkill
                 10f, 
                 player.whoAmI
             );
-            explodePlayer.CurrentSweat += 15;
+            explodePlayer.AddSweat(15);
         }
 
         

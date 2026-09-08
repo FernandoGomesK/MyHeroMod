@@ -9,6 +9,8 @@ using MyHeroMod.content.Quirks.OFA9th;
 using System;
 using Terraria.ID;
 using KhacesCore.Content.System;
+using MyHeroMod.content.Quirks.DangerSense;
+using MyHeroMod.content.Quirks.Smokescreen;
 
 namespace MyHeroMod.content
 {
@@ -19,6 +21,8 @@ namespace MyHeroMod.content
                             BlackWhip, Tape, Overclock, Erasure, SuperRegeneration, SlideAndGlide,
                             Decay, Rivet, SpringLikeLimbs, Rabbit, DarkShadow, Overhaul,
                             ZeroGravity, FierceWings, OpticBlast,  }
+
+    
 // Hardening
     public enum QuirkVariant
 {
@@ -72,6 +76,39 @@ namespace MyHeroMod.content
             }
         }
 
+        public override bool FreeDodge(Player.HurtInfo info)
+        {
+            var dangerPlayer = Player.GetModPlayer<DangerSensePlayer>();
+            var smokePlayer = Player.GetModPlayer<SmokescreenPlayer>();
+
+            
+            float dangerChance = dangerPlayer.isDangerSenseActive ? dangerPlayer.dodgeChance : 0f;
+            float smokeChance = smokePlayer.isSmokescreenActive ? smokePlayer.dodgeChance : 0f;
+
+            
+            float maxChance = Math.Max(dangerChance, smokeChance);
+
+            if (maxChance > 0f && Main.rand.NextFloat() < maxChance)
+            {
+                
+                if (dangerChance >= smokeChance && dangerChance > 0f)
+                {
+                    dangerPlayer.triggerVisual();
+                    SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound") with { Volume = 2.0f }, Player.position);
+                }
+                else if (smokeChance > 0f)
+                {
+                   
+                }
+
+                Player.SetImmuneTimeForAllTypes(80); 
+                return true; 
+            }
+
+            return false; 
+        }
+    
+
         public override string DisplayPowerStage => CurrentStage switch
         {
             QuirkStage.Initial => "Initial",
@@ -103,42 +140,7 @@ namespace MyHeroMod.content
 
         public override void PostUpdateMiscEffects()
         {
-            int QuirkCount = ActiveQuirks.Count;
-
-            if (QuirkCount == naturalQuirkLimit + 1)
-            {
-                Player.moveSpeed *= 0.8f;
-                Player.GetDamage(DamageClass.Generic) *= 0.9f; 
-            }
-            else if (QuirkCount >= naturalQuirkLimit + 2)
-            {
-                Player.moveSpeed *= 0.5f; 
-                Player.statDefense -= 20; 
-                Player.AddBuff(BuffID.Confused, 2); 
-                Player.AddBuff(BuffID.Silenced, 2);
-                Player.AddBuff(BuffID.Darkness, 2);
-            }
-            else if (QuirkCount >= naturalQuirkLimit + 3)
-            {
-                Player.moveSpeed *= 0.5f; 
-                Player.statDefense -= 20; 
-                Player.AddBuff(BuffID.Confused, 2); 
-                Player.AddBuff(BuffID.Silenced, 2);
-                Player.AddBuff(BuffID.Darkness, 2);
-                Player.AddBuff(BuffID.Blackout, 2);
-                Player.AddBuff(BuffID.Obstructed, 2);
-            }
-            else if (QuirkCount >= naturalQuirkLimit + 4)
-            {
-                Player.moveSpeed *= 0.5f; 
-                Player.statDefense -= 20; 
-                Player.AddBuff(BuffID.Confused, 2); 
-                Player.AddBuff(BuffID.Silenced, 2);
-                Player.AddBuff(BuffID.Darkness, 2);
-                Player.AddBuff(BuffID.Blackout, 2);
-                Player.AddBuff(BuffID.Obstructed, 2);
-                Player.AddBuff(BuffID.Weak, 2);
-            }
+        
         }
 
         public override void PostUpdateEquips()
@@ -157,37 +159,14 @@ namespace MyHeroMod.content
         public override void PreUpdate()
         {
 
-            
-
             base.PreUpdate();
-            
-            int buffToAdd = Nature switch
-            {
-                NatureType.ThermalResistance => ModContent.BuffType<Buffs.ThermalResistanceBuff>(),
-                NatureType.ColdResistance => ModContent.BuffType<Buffs.ColdResistanceBuff>(),
-                NatureType.HeatResistance => ModContent.BuffType<Buffs.HeatResistanceBuff>(),
-                NatureType.NauseaResistance => ModContent.BuffType<Buffs.NauseaResistanceBuff>(), 
-                NatureType.StrongMinded => ModContent.BuffType<Buffs.StrongMindedBuff>(),
-                NatureType.PerfectVessel => ModContent.BuffType<Buffs.PerfectVesselBuff>(),
-                NatureType.Resourceful => ModContent.BuffType<Buffs.ResourcefulBuff>(),
-                _ => -1 
-            };
-
-            if (buffToAdd != -1)
-            {
-                Player.AddBuff(buffToAdd, 2);
-            }
+        
         }
 
         public override void ResetEffects()
         {
             base.ResetEffects();
             
-            naturalQuirkLimit = 1;
-            if (Nature == NatureType.StrongMinded)
-            {
-                naturalQuirkLimit = 2; 
-            }
         }
 
     
@@ -276,131 +255,24 @@ namespace MyHeroMod.content
             Slot5 = "None"; Slot6 = "None"; Slot7 = "None"; Slot8 = "None";
         }
 
-        public bool HasLethalStrainQuirk()
-        {
-            foreach (var quirk in ActiveQuirks)
-            {
+        // public bool HasLethalStrainQuirk()
+        // {
+        //     foreach (var quirk in ActiveQuirks)
+        //     {
             
-                if (quirk == QuirkType.OneForAll9th || quirk == QuirkType.Blueflame)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+        //         if (quirk == QuirkType.OneForAll9th || quirk == QuirkType.Blueflame)
+        //         {
+        //             return true;
+        //         }
+        //     }
+        //     return false;
+        // }
 
         public override void UpdateBadLifeRegen()
         {
-
-            if (HasActiveQuirk(QuirkType.SuperRegeneration) && !HasLethalStrainQuirk())
-            {
-                return;
-            }
-
-            // ====================================== 100 percent ==========================================
-            if (currentStrain >= (maxStrain * 0.75f))
-            {
-                // --------------------------- lethal -----------------------
-                if (HasLethalStrainQuirk())
-                {
-                    
-                    int damagePerSecond = (int)(Player.statLifeMax2 * 0.10f);
-                    if (Player.lifeRegen > 0) Player.lifeRegen = 0;
-                    Player.lifeRegen -= damagePerSecond * 2;
-                }
-                // --------------------------- non-lethal -----------------------
-                else
-                {
-                    
-                    int targetHealth = (int)(Player.statLifeMax2 * 0.25f);
-                    
-                    if (Player.statLife > targetHealth)
-                    {
-                        int damagePerSecond = (int)(Player.statLifeMax2 * 0.10f);
-                        if (Player.lifeRegen > 0) Player.lifeRegen = 0;
-                        Player.lifeRegen -= damagePerSecond * 2;
-                    }
-                    else
-                    {
-                        if (Player.statLife >= targetHealth)
-                        {
-                            Player.statLife = targetHealth;
-                        if (Player.lifeRegen < 0) Player.lifeRegen = 0;
-                        }
-                        
-                    }
-                }
-            }
-            // ====================================== 75 percent ==========================================
-            else if (currentStrain >= (maxStrain * 0.50f))
-            {
-                // --------------------------- lethal -----------------------
-                if (HasLethalStrainQuirk())
-                {
-                    int damagePerSecond = (int)(Player.statLifeMax2 * 0.05f);
-                    if (Player.lifeRegen > 0) Player.lifeRegen = 0;
-                    Player.lifeRegen -= damagePerSecond * 2;
-                }
-                // --------------------------- non-lethal -----------------------
-                else
-                {
-                    
-                    int targetHealth = (int)(Player.statLifeMax2 * 0.50f);
-                    
-                    if (Player.statLife > targetHealth)
-                    {
-                        int damagePerSecond = (int)(Player.statLifeMax2 * 0.05f);
-                        if (Player.lifeRegen > 0) Player.lifeRegen = 0;
-                        Player.lifeRegen -= damagePerSecond * 2;
-                    }
-                    else
-                    {
-                          if (Player.statLife >= targetHealth)
-                        {
-                            Player.statLife = targetHealth;
-                        if (Player.lifeRegen < 0) Player.lifeRegen = 0;
-                        }
-                    }
-                }
-                
-            }
-
-             // ====================================== 25 percent ==========================================
-
-            else if (currentStrain >= (maxStrain * 0.25f))
-            {
-                // --------------------------- lethal -----------------------
-                if (HasLethalStrainQuirk())
-                {
-                    int damagePerSecond = (int)(Player.statLifeMax2 * 0.02f);
-                    if (Player.lifeRegen > 0) Player.lifeRegen = 0;
-                    Player.lifeRegen -= damagePerSecond * 2;          
-                }
-                // --------------------------- non-lethal -----------------------
-                else
-                {
-                    
-                    int targetHealth = (int)(Player.statLifeMax2 * 0.75f);
-                    
-                    if (Player.statLife > targetHealth)
-                    {
-                        int damagePerSecond = (int)(Player.statLifeMax2 * 0.02f);
-                        if (Player.lifeRegen > 0) Player.lifeRegen = 0;
-                        Player.lifeRegen -= damagePerSecond * 2;
-                    }
-                    else
-                    {
-                        if (Player.statLife >= targetHealth)
-                        {
-                            Player.statLife = targetHealth;
-                        if (Player.lifeRegen < 0) Player.lifeRegen = 0;
-                        }
-                    }
-                }
-                
-                
-            }
+   
         }
+    
 
         public bool HasActiveQuirk(QuirkType typeToCheck)
         {

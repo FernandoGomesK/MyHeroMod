@@ -90,21 +90,25 @@ namespace MyHeroMod.content.Quirks.DangerSense;
 
         public override void ResetEffects()
         {
-            
-        
+            dodgeChance = 0f;
 
             if (!HasDangerSenseAccess())
             {
                 isDangerSenseActive = false;
-                return;
-            }   
-
-            if (!isDangerSenseActive)
-            {
-                dodgeChance = 0f;
-            }
-
+            } 
         }
+
+        
+
+        // public override bool FreeDodge(Player.HurtInfo info)
+        // {
+        //     if (isDangerSenseActive && TryDodge(info))
+        //     {
+        //         return true; 
+        //     }
+            
+        //     return false;
+        // }
         
         public override void PreUpdate()
         {

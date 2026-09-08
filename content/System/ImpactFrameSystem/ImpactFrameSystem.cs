@@ -9,7 +9,7 @@ namespace MyHeroMod.content.System
 {
     public class ImpactFrameSystem : ModSystem
     {
-        public static int ImpactTimer = 4;
+        public static int ImpactTimer = 0;
         
        
         public static string[] ImpactTextures;

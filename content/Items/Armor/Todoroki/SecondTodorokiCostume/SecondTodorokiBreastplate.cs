@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.Todoroki.SecondTodorokiCostume
 {
@@ -54,8 +55,8 @@ namespace MyHeroMod.content.Items.Armor.Todoroki.SecondTodorokiCostume
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.Silk, 10) // Exemplo
-                .AddIngredient(ItemID.IronBar, 10)
+                .AddIngredient(ItemID.Silk, 10) 
+                .AddRecipeGroup(RecipeSystem.IronAndLeadGroup, 10)
                 .AddTile(TileID.Anvils)
                 .Register();
         }

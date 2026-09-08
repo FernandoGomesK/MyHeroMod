@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 using Microsoft.Xna.Framework;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
 {
@@ -40,7 +41,7 @@ namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
         }
         public override void SetDefaults()
         {
-            Item.width = 18; // Tamanho do item no chão/inventário
+            Item.width = 18; 
             Item.height = 18;
             Item.value = Item.sellPrice(gold: 1);
             Item.rare = ItemRarityID.Yellow;
@@ -48,8 +49,7 @@ namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
         }
         public override void UpdateEquip(Player player)
         {
-            // Seus buffs aqui (ex: +Dano, +Velocidade)
-            // player.GetDamage(DamageClass.Generic) += 0.10f; 
+            
             Lighting.AddLight(player.Center, Color.OrangeRed.ToVector3() * 0.4f);
 
             if (Main.rand.NextBool(10))
@@ -65,7 +65,7 @@ namespace MyHeroMod.content.Items.Armor.Endeavor.FirstCostume
         {
             CreateRecipe()
                 .AddIngredient(ItemID.Silk, 10)
-                .AddIngredient(ItemID.IronBar, 10) // 
+                .AddRecipeGroup(RecipeSystem.IronAndLeadGroup, 15)
                 .AddIngredient(ItemID.Torch, 5)
                 .AddTile(TileID.Anvils)
                 .Register();

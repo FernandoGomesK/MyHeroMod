@@ -32,5 +32,10 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
             }
             base.PostUpdate(); 
         }
+
+        protected override void ApplyMaxStrainPenalty()
+        {
+            
+        }
     }
 }
