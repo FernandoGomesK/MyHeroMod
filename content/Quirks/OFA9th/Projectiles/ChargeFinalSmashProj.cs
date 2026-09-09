@@ -183,7 +183,16 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 
             var OfaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
 
-            OfaPlayer.isQuirkless = true;
+            if (OfaPlayer.isQuirkless == false)
+            {
+                OfaPlayer.isQuirkless = true;
+            }
+            else if (OfaPlayer.isQuirkless == true)
+            {
+                OfaPlayer.becomeQuirklessTimer -= 5000;
+            }
+            
+
 
             int maxDamage = transPlayer.CurrentStage switch
             {
@@ -193,7 +202,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 
             Vector2 Direction = Main.MouseWorld - player.Center;
             Direction.Normalize();
-            Vector2 Velocity = Direction * 35f;
+            Vector2 Velocity = Direction * 25f;
             Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
 
             Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<FinalDetroitSmashProj>(), maxDamage, 15f, player.whoAmI);

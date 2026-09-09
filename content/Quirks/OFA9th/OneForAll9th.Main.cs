@@ -20,6 +20,7 @@ using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhipStun;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.PinpointFocus;
 using MyHeroMod.content.System.Interfaces;
 using System;
+using MyHeroMod.content.Quirks.AllForOne;
 
 
 
@@ -53,6 +54,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
        public void AddStrain(int amount)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            var AFOPlayer = Player.GetModPlayer<AllForOnePlayer>();
 
            
             if (isQuirkless)
@@ -63,17 +65,22 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 {
                     
 
-                    
+                
+
+                  
                     if (transPlayer.ActiveQuirks.Contains(QuirkType.OneForAll9th))
                     {
-                        
                         transPlayer.ActiveQuirks.Remove(QuirkType.OneForAll9th);
-                        
-                       
-                        Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
-                        FullReset();
-
                     }
+                    
+                    if (AFOPlayer.HasInternalQuirk(QuirkType.OneForAll9th))
+                    {
+                        AFOPlayer.InternalQuirks.Remove(QuirkType.OneForAll9th);
+                    }
+
+                
+                    Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
+                    FullReset();
 
                     becomeQuirklessTimer = 1200;
                     timeUsed = 0;
