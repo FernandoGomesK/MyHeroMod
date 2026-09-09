@@ -12,60 +12,82 @@ namespace MyHeroMod.content.System
 {
     public class OneForAllEyeAnim : PlayerDrawLayer
     {
-        // Define que vai desenhar DEPOIS da cabeça (por cima)
+        
         public override Position GetDefaultPosition() => new AfterParent(PlayerDrawLayers.Head);
 
-        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) {
-        var player = drawInfo.drawPlayer.GetModPlayer<OneForAll9thPlayer>();
-        var afoPlayer = drawInfo.drawPlayer.GetModPlayer<AllForOnePlayer>();
-        var mp = drawInfo.drawPlayer.GetModPlayer<TransformationPlayer>();
-        
-        bool hasOFA = mp.HasActiveQuirk(QuirkType.OneForAll9th) || (mp.HasActiveQuirk(QuirkType.AllForOne) && afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th));
-        
-        return hasOFA && player.isFullCowlingBuffActive && player.percentage == 45 && !drawInfo.drawPlayer.dead;
-    }
+        public override bool GetDefaultVisibility(PlayerDrawSet drawInfo) 
+        {
+            var player = drawInfo.drawPlayer.GetModPlayer<OneForAll9thPlayer>();
+            var afoPlayer = drawInfo.drawPlayer.GetModPlayer<AllForOnePlayer>();
+            var mp = drawInfo.drawPlayer.GetModPlayer<TransformationPlayer>();
+            
+            bool hasOFA = mp.HasActiveQuirk(QuirkType.OneForAll9th) || (mp.HasActiveQuirk(QuirkType.AllForOne) && afoPlayer.HasInternalQuirk(QuirkType.OneForAll9th));
+            
+           
+            return hasOFA && player.isFullCowlingBuffActive && player.percentage >= 45 && !drawInfo.drawPlayer.dead;
+        }
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
             Player player = drawInfo.drawPlayer;
+            var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
+            var mp = player.GetModPlayer<TransformationPlayer>();
+            bool hasExplosion = mp.ActiveQuirks.Contains(QuirkType.Explosion);
 
-            // CARREGUE A TEXTURA
-            // Certifique-se que o caminho está correto!
-            Texture2D texture = ModContent.Request<Texture2D>("MyHeroMod/content/Quirks/OFA9th/Visuals/OneForAllEyeAnim").Value;
+            Texture2D texture;
+            Color drawColor = Color.White;
 
-            // LÓGICA DE ANIMAÇÃO
-            int frameCount = 4; // Total de quadros na imagem
-            int frameSpeed = 5; // Velocidade (quanto menor, mais rápido). 5 é rápido, 10 é médio.
+            if (ofaPlayer.percentage >= 65)
+            {
+                if (hasExplosion)
+                {
+                    texture = ModContent.Request<Texture2D>("MyHeroMod/content/Quirks/OFA9th/Visuals/ColorlessOneForAllEye100Anim").Value;
+                    drawColor = Color.Orange;
+                }
+                else
+                {
+                    texture = ModContent.Request<Texture2D>("MyHeroMod/content/Quirks/OFA9th/Visuals/OneForAllEye100Anim").Value;
+                }
+            }
+            else 
+            {
+                if (hasExplosion)
+                {
+                    texture = ModContent.Request<Texture2D>("MyHeroMod/content/Quirks/OFA9th/Visuals/ColorlessOneForAllEyeAnim").Value;
+                    drawColor = Color.Orange;
+                }
+                else
+                {
+                  texture = ModContent.Request<Texture2D>("MyHeroMod/content/Quirks/OFA9th/Visuals/OneForAllEyeAnim").Value;  
+                }
+                
+            }
+
             
-            // Calcula qual quadro mostrar baseado no tempo do jogo
+            int frameCount = 4; 
+            int frameSpeed = 5; 
             int currentFrame = (int)((Main.GameUpdateCount / frameSpeed) % frameCount);
-
-            // TAMANHO DO QUADRO
-            // Se você seguiu minha recomendação, frameHeight será 56.
             int frameHeight = texture.Height / frameCount; 
 
-            // Recorta o pedaço certo da imagem
+          
             Rectangle sourceRect = new Rectangle(0, currentFrame * frameHeight, texture.Width, frameHeight);
 
-            // POSIÇÃO
-            // Essa fórmula alinha o centro do seu sprite 40x56 com o centro do sprite do jogador
+            
             Vector2 drawPos = (drawInfo.Position - Main.screenPosition) + new Vector2(player.width / 2, player.height - player.bodyFrame.Height + 4) + drawInfo.headVect;
             drawPos.Y += player.gfxOffY;
             Vector2 ajuste = new Vector2(-20f, 0f);
-
-
-            
             drawPos += ajuste;
-            // Cria o dado de desenho
+
+           
             DrawData drawData = new DrawData(
                 texture,
-                drawPos.Floor(), // .Floor() evita tremedeira
+                drawPos.Floor(), 
                 sourceRect,
-                Color.White, // COR BRANCA = BRILHO MÁXIMO (Fogo)
+                drawColor, 
                 player.headRotation,
-                drawInfo.headVect, // Usa o mesmo pivô da cabeça original
+                drawInfo.headVect, 
                 1f,
-                drawInfo.playerEffect, // Garante que vire para esquerda/direita junto com o player
+                drawInfo.playerEffect,
                 0
             );
 
