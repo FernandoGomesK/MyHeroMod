@@ -74,8 +74,8 @@ namespace MyHeroMod
                 SyncExplosion,
                 SyncAllForOne,
                 SyncFaJin,
-
                 StealNPCQuirk,
+                StealPlayerQuirk,
 
             }
 
@@ -150,7 +150,6 @@ namespace MyHeroMod
                         transPlayer.UseSecondaryBar = useSecondaryBar;
                         transPlayer.CurrentRaceId = currentRaceId;
 
-                        // If the server received this, package ALL of it back up and send to everyone else
                         if (Main.netMode == NetmodeID.Server)
                         {
                             ModPacket packet = GetPacket();
@@ -429,6 +428,33 @@ namespace MyHeroMod
                                         }
                                     }
                                 }
+                            }
+                            break;
+                        }
+                        case MessageType.StealPlayerQuirk:
+                        {
+                            byte senderIndexInPacket = reader.ReadByte();
+                            int targetPlayerIndex = reader.ReadInt32();
+                            int rawStolenQuirk = reader.ReadInt32();
+
+                            byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
+                            if (playerIndex >= Main.maxPlayers || targetPlayerIndex >= Main.maxPlayers) break;
+
+                            var afoPlayer = Main.player[playerIndex].GetModPlayer<AllForOnePlayer>();
+                            QuirkType stolenQuirk = (QuirkType)rawStolenQuirk;
+
+                            if (!afoPlayer.InternalQuirks.Contains(stolenQuirk))
+                            {
+                                afoPlayer.InternalQuirks.Add(stolenQuirk);
+                            }
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                ModPacket packet = GetPacket();
+                                packet.Write((byte)MessageType.StealPlayerQuirk);
+                                packet.Write(playerIndex);
+                                packet.Write(targetPlayerIndex);
+                                packet.Write(rawStolenQuirk);
+                                packet.Send(-1, playerIndex);
                             }
                             break;
                         }

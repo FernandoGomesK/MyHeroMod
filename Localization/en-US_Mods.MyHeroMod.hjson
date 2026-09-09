@@ -1076,6 +1076,7 @@ Projectiles: {
 	ChargeFinalSmashProj.DisplayName: Charge Final Smash Proj
 	FinalDetroitSmashProj.DisplayName: Final Detroit Smash Proj
 	TrackedFeatherProj.DisplayName: Tracked Feather Proj
+	StealPlayerHandProj.DisplayName: Steal Player Hand Proj
 }
 
 NPCs: {

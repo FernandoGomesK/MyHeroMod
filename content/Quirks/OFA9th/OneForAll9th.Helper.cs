@@ -14,7 +14,18 @@ namespace MyHeroMod.content.Quirks.OFA9th
         public bool hasLostGearshift = false;
         public bool hasLostBlackwhip = false;
 
-       
+       public void MarkQuirkLost(QuirkType quirk)
+        {
+            switch (quirk)
+            {
+                case QuirkType.DangerSense: hasLostDangerSense = true; break;
+                case QuirkType.BlackWhip: hasLostBlackwhip = true; break;
+                case QuirkType.Float: hasLostFloat = true; break;
+                case QuirkType.SmokeScreen: hasLostSmokescreen = true; break;
+                case QuirkType.FaJin: hasLostFajin = true; break;
+                case QuirkType.Gearshift: hasLostGearshift = true; break;
+            }
+        }
         private static void GrantQuirkOnce(List<QuirkType> list, QuirkType quirk, bool hasLost = false)
         {
             if (hasLost) return;
@@ -81,5 +92,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 }
             }
         }
+
+
+        
     }
 }
