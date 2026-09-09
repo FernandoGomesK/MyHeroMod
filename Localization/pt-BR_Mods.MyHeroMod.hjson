@@ -566,6 +566,11 @@ Items: {
 		// DisplayName: Hellflame Essence
 		// Tooltip: ""
 	}
+
+	NomuFragment: {
+		// DisplayName: Nomu Fragment
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
