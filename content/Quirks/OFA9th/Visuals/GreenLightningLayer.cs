@@ -39,14 +39,24 @@ public class GreenLightningLayer : PlayerDrawLayer
 
         
         bool hasExplosion = mp.HasActiveQuirk(QuirkType.Explosion) || (mp.HasActiveQuirk(QuirkType.AllForOne) && afoPlayer.HasInternalQuirk(QuirkType.Explosion));
+        bool hasAFO = mp.HasActiveQuirk(QuirkType.AllForOne);
 
         Texture2D texture;
         Color drawColor;
 
-        if (hasExplosion) {
+        if  (hasAFO)
+        {
+            texture = baseLightningTexture.Value;
+            drawColor = Color.Red;
+        }
+        else if (hasExplosion) 
+        {
             texture = baseLightningTexture.Value;
             drawColor = Color.Orange;
-        } else {
+        } 
+        
+        else 
+        {
             texture = fullCowlingTexture.Value;
             drawColor = Color.White;
         }

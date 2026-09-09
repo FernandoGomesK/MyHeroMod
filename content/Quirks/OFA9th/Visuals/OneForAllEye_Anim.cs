@@ -33,16 +33,22 @@ namespace MyHeroMod.content.System
             var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
             var mp = player.GetModPlayer<TransformationPlayer>();
             bool hasExplosion = mp.ActiveQuirks.Contains(QuirkType.Explosion);
+            bool hasAFO = mp.ActiveQuirks.Contains(QuirkType.AllForOne);
 
             Texture2D texture;
             Color drawColor = Color.White;
 
             if (ofaPlayer.percentage >= 65)
             {
-                if (hasExplosion)
+                if (hasAFO)
                 {
                     texture = ModContent.Request<Texture2D>("MyHeroMod/content/Quirks/OFA9th/Visuals/ColorlessOneForAllEye100Anim").Value;
-                    drawColor = Color.Orange;
+                    drawColor = Color.Red;
+                }
+                else if (hasExplosion)
+                {
+                    texture = ModContent.Request<Texture2D>("MyHeroMod/content/Quirks/OFA9th/Visuals/ColorlessOneForAllEye100Anim").Value;
+                    drawColor = Color.Orange;                    
                 }
                 else
                 {
@@ -51,7 +57,12 @@ namespace MyHeroMod.content.System
             }
             else 
             {
-                if (hasExplosion)
+                if (hasAFO)
+                {
+                    texture = ModContent.Request<Texture2D>("MyHeroMod/content/Quirks/OFA9th/Visuals/ColorlessOneForAllEyeAnim").Value;
+                    drawColor = Color.Red;
+                }
+                else if (hasExplosion)
                 {
                     texture = ModContent.Request<Texture2D>("MyHeroMod/content/Quirks/OFA9th/Visuals/ColorlessOneForAllEyeAnim").Value;
                     drawColor = Color.Orange;

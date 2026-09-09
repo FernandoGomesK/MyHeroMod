@@ -78,9 +78,15 @@ namespace MyHeroMod.content.Buffs
         
             
             bool hasExplosion = transformPlayer.HasActiveQuirk(QuirkType.Explosion);
+            bool hasAFO = transformPlayer.HasActiveQuirk(QuirkType.AllForOne);
 
+            Color cowlinkColor = (hasAFO, hasExplosion) switch 
+            {
+                (true, _) => Color.Red,          
+                (false, true) => Color.Orange,  
+                _ => new Color(0, 255, 162)      
+            };
             
-            Color cowlinkColor = hasExplosion ? Color.Orange : new Color(0, 255, 162);
 
             if (Main.rand.NextFloat() < spawnChance) 
             {
