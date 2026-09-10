@@ -33,6 +33,7 @@ public abstract class ToggleStockPile : QuirkBaseSkill
 
         var OfaPlayer = player.GetModPlayer<OneForAll8thPlayer>();
         
+        
         if (player.HasBuff(BuffType))
     {
         
