@@ -46,7 +46,7 @@ namespace MyHeroMod.content.Quirks.OFA.Skills
 
                 
                     ofa9thPlayer.isQuirkless = true; 
-                    ofa9thPlayer.becomeQuirklessTimer = 1200 + ofa9thPlayer.EmbersTime;
+                    // ofa9thPlayer.becomeQuirklessTimer = 1200 + ofa9thPlayer.EmbersTime;
                     capturedTimeUsed = ofa9thPlayer.timeUsed;
                     
                 }

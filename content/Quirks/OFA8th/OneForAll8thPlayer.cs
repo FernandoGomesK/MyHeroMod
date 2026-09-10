@@ -21,44 +21,43 @@ namespace MyHeroMod.content.Quirks.OFA8th
 {
     public partial class OneForAll8thPlayer : ModPlayer, IQuirkResetter, IDashModifier, IStrainSource
     {
-       // ===================================== Embers ==========================================================
+        // ===================================== Embers ==========================================================
 
-       public bool isQuirkless = false;
+        public bool isQuirkless = false;
 
         public int timeUsed = 0;
         public readonly int maxTimeUsed = 7200;
         
-      
-        public int EmbersTime => Math.Min(timeUsed, maxTimeUsed);
+        public int EmbersTime => Math.Max(maxTimeUsed - timeUsed, 0); 
         
-        public int becomeQuirklessTimer = 1200;
+        public int baseQuirklessTimer = 1200;
 
-        
+        // Total max capacity
+        public int EmberBar => EmbersTime + Math.Max(baseQuirklessTimer, 0); 
 
-        public int currentFormTimer = 200; 
+        // The max value for your gauge
+        public int maxFormTimer => EmberBar / 6;
 
-
-        public int MaxFormTimer => isQuirkless ? (becomeQuirklessTimer / 6) : 200;
+        // The active gauge that goes up and down
+        public int currentFormTimer = 0; 
 
         // ============================ Strain ==================================
 
         public int StrainPenaltyPerSecond { get; set; }
 
-       public void AddStrain(int amount)
+        public void AddStrain(int amount)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             var AFOPlayer = Player.GetModPlayer<AllForOnePlayer>();
 
-           
             if (isQuirkless)
             {
-                becomeQuirklessTimer -= amount;
-                transPlayer.currentStrain += amount;
-                if (timeUsed < maxTimeUsed)
-                {
-                    timeUsed += 1;
-                }
+                // Chunk down the base capacity AND the active gauge so it reflects immediately
+                baseQuirklessTimer -= amount;
+                currentFormTimer -= amount;
 
+                // Standard strain application
+                transPlayer.currentStrain += amount;
                 if (transPlayer.currentStrain <= 0)
                 {
                     transPlayer.currentStrain = 0;
@@ -66,67 +65,53 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 else if (transPlayer.currentStrain >= transPlayer.maxStrain)
                 {
                     transPlayer.currentStrain = transPlayer.maxStrain;
-                    Player.ClearBuff(ModContent.BuffType<StockPileBuff>()); 
+                    Player.ClearBuff(ModContent.BuffType<StockPileBuff>());
                 }
 
-                if (becomeQuirklessTimer <= 0)
+                // If taking this strain chunk completely zeroed out the gauge, strip the quirk
+                if (currentFormTimer <= 0)
                 {
-                    
-
                     if (transPlayer.ActiveQuirks.Contains(QuirkType.OneForAll8th))
-                    {
                         transPlayer.ActiveQuirks.Remove(QuirkType.OneForAll8th);
-                    }
-                    
-                    if (AFOPlayer.HasInternalQuirk(QuirkType.OneForAll8th))
-                    {
-                        AFOPlayer.InternalQuirks.Remove(QuirkType.OneForAll8th);
-                    }
 
-                
+                    if (AFOPlayer.HasInternalQuirk(QuirkType.OneForAll8th))
+                        AFOPlayer.InternalQuirks.Remove(QuirkType.OneForAll8th);
+
                     Player.ClearBuff(ModContent.BuffType<StockPileBuff>());
                     FullReset();
 
-                    becomeQuirklessTimer = 1200;
                     timeUsed = 0;
                     isQuirkless = false;
                 }
-                
-            
+
                 return;
             }
 
-            
+            // Normal logic for when NOT quirkless
             transPlayer.currentStrain += amount;
-            if (timeUsed < maxTimeUsed)
-            {
-                timeUsed += 1;
-            }
+            if (timeUsed < maxTimeUsed) { timeUsed += 1; }
 
-            if (transPlayer.currentStrain <= 0)
-            {
-                transPlayer.currentStrain = 0;
-            }
+            if (transPlayer.currentStrain <= 0) { transPlayer.currentStrain = 0; }
             else if (transPlayer.currentStrain >= transPlayer.maxStrain)
             {
                 transPlayer.currentStrain = transPlayer.maxStrain;
-                Player.ClearBuff(ModContent.BuffType<StockPileBuff>()); 
+                Player.ClearBuff(ModContent.BuffType<StockPileBuff>());
             }
         }
 
-
-
+        public int form = 0;
         
-       public int form = 0;
         public void FullReset()
         {
             form = 0; 
+            currentFormTimer = maxFormTimer; // Refill the clock on a full reset
             Player.ClearBuff(ModContent.BuffType<StockPileBuff>());
         }
+
         public override void OnRespawn()
         {
-
-            Player.GetModPlayer<TransformationPlayer>().ActiveForm = "None";    
+            form = 0;
+            Player.ClearBuff(ModContent.BuffType<StockPileBuff>());
         }
 
         public override void PostUpdateMiscEffects()
@@ -145,62 +130,56 @@ namespace MyHeroMod.content.Quirks.OFA8th
             if (form != 0)
             {
                 StrainPenaltyPerSecond = strainDrain;
-                
 
+                // --- CLOCK DRAIN LOGIC ---
                 if (isQuirkless)
                 {
                     if (currentFormTimer > 0)
                     {
-                        currentFormTimer--;
+                        currentFormTimer--; // Drain 1 tick per frame
                     }
                     else
                     {
-                       
+                        // Embers ran out from continuous use!
                         var transPlayer = Player.GetModPlayer<TransformationPlayer>();
                         var AFOPlayer = Player.GetModPlayer<AllForOnePlayer>();
 
                         if (transPlayer.ActiveQuirks.Contains(QuirkType.OneForAll8th))
-                        {
                             transPlayer.ActiveQuirks.Remove(QuirkType.OneForAll8th);
-                        }
-                        
-                        if (AFOPlayer.HasInternalQuirk(QuirkType.OneForAll8th))
-                        {
-                            AFOPlayer.InternalQuirks.Remove(QuirkType.OneForAll8th);
-                        }
 
-                        becomeQuirklessTimer = 1200;
+                        if (AFOPlayer.HasInternalQuirk(QuirkType.OneForAll8th))
+                            AFOPlayer.InternalQuirks.Remove(QuirkType.OneForAll8th);
+
+                        baseQuirklessTimer = 1200;
                         timeUsed = 0;
                         isQuirkless = false;
                         
                         FullReset();
-                        transPlayer.ActiveForm = "None"; // Force them out of the transformation
-                    }    
-                }            
+                        transPlayer.ActiveForm = "None";
+                    }
+                }
             }
             else
             {
                 StrainPenaltyPerSecond = 0;
-                
-                // --- REGEN LOGIC ---
-                // If out of form and using embers, recharge the clock just like Temperature
-                if (isQuirkless && currentFormTimer < MaxFormTimer)
+
+                // --- CLOCK REGEN LOGIC ---
+                if (isQuirkless && currentFormTimer < maxFormTimer)
                 {
-                    currentFormTimer++;
+                    currentFormTimer++; // Regenerate 1 tick per frame when idle
                     
-                    // Clamp it just in case MaxFormTimer shrunk due to AddStrain taking chunks out of becomeQuirklessTimer
-                    if (currentFormTimer > MaxFormTimer) 
+                    if (currentFormTimer > maxFormTimer) 
                     {
-                        currentFormTimer = MaxFormTimer;
+                        currentFormTimer = maxFormTimer;
                     }
                 }
             }
         }
-            public override void PostUpdateEquips()
+
+        public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
             
-
             if (mainPlayer.HasActiveQuirk(QuirkType.OneForAll8th) && mainPlayer.CurrentStage >= QuirkStage.Adequation)
             {
                 Player.moveSpeed += 1.5f;
@@ -211,7 +190,6 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 Player.GetDamage(DamageClass.Melee) += 0.20f;
                 Player.GetAttackSpeed(DamageClass.Melee) += 0.15f;
             }
-
         }
 
         // --- MULTIPLAYER ---
@@ -242,10 +220,5 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 packet.Send(-1, Player.whoAmI); 
             }
         }
-
-        
     }
 }
-
-
-        

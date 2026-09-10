@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using MyHeroMod.content.Quirks.ZeroGravity;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Quirks.OFA8th;
 
 namespace MyHeroMod.content.UI
 {
@@ -37,6 +38,9 @@ namespace MyHeroMod.content.UI
 
             Player player = Main.LocalPlayer;
             var ofa9Player = player.GetModPlayer<OneForAll9thPlayer>();
+            var ofa8Player = player.GetModPlayer<OneForAll8thPlayer>();
+            var emberBar = ofa9Player.EmberBar;
+
 
            
             if (ofa9Player.isQuirkless)
@@ -95,9 +99,11 @@ namespace MyHeroMod.content.UI
             Player player = Main.LocalPlayer;
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
             var ofa9Player = player.GetModPlayer<OneForAll9thPlayer>();
+            var ofa8Player = player.GetModPlayer<OneForAll8thPlayer>();
             var hasGear = player.HasBuff(ModContent.BuffType<GearshiftBuff>());
+            var emberBar = ofa9Player.EmberBar;
 
-            if (!transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
+            if (!transPlayer.HasActiveQuirk(QuirkType.OneForAll9th) || !transPlayer.HasActiveQuirk(QuirkType.OneForAll8th) && ofa8Player.isQuirkless)
                 return;
 
             Texture2D barFill;
@@ -114,7 +120,7 @@ namespace MyHeroMod.content.UI
                 float maxTimer = 1200f  ;
                 if (maxTimer <= 0) maxTimer = 1f; // Prevent division by zero fallback
 
-                quotient = MathHelper.Clamp((float)ofa9Player.becomeQuirklessTimer / maxTimer, 0f, 1f);
+                quotient = MathHelper.Clamp((float)emberBar / maxTimer, 0f, 1f);
             }
             else
             {
@@ -168,7 +174,7 @@ namespace MyHeroMod.content.UI
                 float maxTimer = 1200f;
                 if (maxTimer <= 0) maxTimer = 1f;
 
-                float percentual = MathHelper.Clamp(((float)ofa9Player.becomeQuirklessTimer / maxTimer) * 100f, 0f, 100f);
+                float percentual = MathHelper.Clamp(((float)emberBar / maxTimer) * 100f, 0f, 100f);
                 text = $"{percentual:F1}%";
             }
             else

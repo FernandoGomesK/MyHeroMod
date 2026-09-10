@@ -219,7 +219,7 @@ namespace MyHeroMod
                             var ofa9 = Main.player[playerIndex].GetModPlayer<OneForAll9thPlayer>();
                             ofa9.percentage = percentage9;
                             ofa9.currentFingers = fingers;
-                            ofa9.becomeQuirklessTimer = becomeQuirklessTimer;
+                           
                             ofa9.timeUsed = timeUsed;
                             ofa9.isQuirkless = isQuirkless;
 

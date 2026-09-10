@@ -189,7 +189,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             }
             else if (OfaPlayer.isQuirkless == true)
             {
-                OfaPlayer.becomeQuirklessTimer -= 5000;
+                // OfaPlayer.becomeQuirklessTimer -= 5000;
             }
             
 
