@@ -183,15 +183,19 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 
             var OfaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
 
-            if (OfaPlayer.isQuirkless == false)
+
+            // this actually drains the embers, the method is the same used for the embers when quirkless 
+
+            if (!OfaPlayer.isQuirkless)
             {
                 OfaPlayer.isQuirkless = true;
+                OfaPlayer.SetEmbers();
             }
-            else if (OfaPlayer.isQuirkless == true)
+            else
             {
-                // OfaPlayer.becomeQuirklessTimer -= 5000;
+                OfaPlayer.AddStrain(5000);
             }
-            
+                        
 
 
             int maxDamage = transPlayer.CurrentStage switch

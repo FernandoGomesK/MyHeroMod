@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA.Skills;
 using MyHeroMod.content.Items.QuirkItems;
 using MyHeroMod.content.Items.QuirkItems.QuirkEssences;
+using MyHeroMod.content.Quirks.OFA8th;
 
 namespace MyHeroMod.content.Quirks.OFA.Skills
 {
@@ -37,18 +38,29 @@ namespace MyHeroMod.content.Quirks.OFA.Skills
                 {
                     var ofa9thPlayer = player.GetModPlayer<OneForAll9thPlayer>();
                     
-                  
                     if (ofa9thPlayer.isQuirkless)
                     {
                         Main.NewText("You have already passed on One For All. Only embers remain.", Color.Red);
                         return;
                     }
 
-                
-                    ofa9thPlayer.isQuirkless = true; 
-                    // ofa9thPlayer.becomeQuirklessTimer = 1200 + ofa9thPlayer.EmbersTime;
+                    ofa9thPlayer.isQuirkless = true;
+                    ofa9thPlayer.SetEmbers();
                     capturedTimeUsed = ofa9thPlayer.timeUsed;
-                    
+                }
+                else if (OFAType == QuirkType.OneForAll8th)
+                {
+                    var ofa8thPlayer = player.GetModPlayer<OneForAll8thPlayer>();
+
+                    if (ofa8thPlayer.isQuirkless)
+                    {
+                        Main.NewText("You have already passed on One For All. Only embers remain.", Color.Red);
+                        return;
+                    }
+
+                    ofa8thPlayer.isQuirkless = true;
+                    ofa8thPlayer.SetEmbers();
+                    capturedTimeUsed = ofa8thPlayer.timeUsed;
                 }
 
                 int itemIndex = Item.NewItem(player.GetSource_DropAsItem(), player.getRect(), EssenceItemType);
@@ -75,7 +87,8 @@ namespace MyHeroMod.content.Quirks.OFA.Skills
        
         public override QuirkType OFAType => QuirkType.OneForAll9th;
         public override int EssenceItemType => ModContent.ItemType<OneForAll9thEssence>();
-        
         public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
         public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     }
+
+    

@@ -6,6 +6,7 @@ using MyHeroMod.content.System;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.Quirks.OFA9th;
+using MyHeroMod.content.Quirks.OFA8th;
 
 namespace MyHeroMod.content.Items.QuirkItems.QuirkEssences
 {
@@ -83,12 +84,16 @@ namespace MyHeroMod.content.Items.QuirkItems.QuirkEssences
                     if (EssenceQuirkType == QuirkType.OneForAll9th || EssenceQuirkType == QuirkType.OneForAll8th)
                     {
                         Main.NewText($"You have inherited One For All from {OriginPlayerName}!", Color.LightGoldenrodYellow);
-                        
-                        
+    
                         if (EssenceQuirkType == QuirkType.OneForAll9th)
                         {
                             var ofa9thPlayer = player.GetModPlayer<OneForAll9thPlayer>();
-                            ofa9thPlayer.timeUsed += this.timeUsed; 
+                            ofa9thPlayer.timeUsed += this.timeUsed;
+                        }
+                        else
+                        {
+                            var ofa8thPlayer = player.GetModPlayer<OneForAll8thPlayer>();
+                            ofa8thPlayer.timeUsed += this.timeUsed;
                         }
                     }
                     else

@@ -37,17 +37,18 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public int timeUsed = 0;
         public readonly int maxTimeUsed = 7200;
-        
-      
-        public int EmbersTime => Math.Min(timeUsed, maxTimeUsed);
 
-        public int baseQuirklessTimer = 1200;
-        
-        
+        public readonly int baseEmbersAmount = 1200;
+        public int embersAmount = 0;
 
-        // ============================ Strain ==================================
+        public int EmberBar => Math.Max(embersAmount, 0);
 
-         public int StrainPenaltyPerSecond { get; set; }
+        public void SetEmbers()
+        {
+            embersAmount = timeUsed + baseEmbersAmount;
+        }
+
+        public int StrainPenaltyPerSecond { get; set; }
 
         public void AddStrain(int amount)
         {
@@ -56,34 +57,12 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
             if (isQuirkless)
             {
-                int remaining = amount;
+                
+                embersAmount -= amount;
 
-                if (timeUsed > 0)
+                if (embersAmount <= 0)
                 {
-                    int fromEmbers = Math.Min(timeUsed, remaining);
-                    timeUsed -= fromEmbers;
-                    remaining -= fromEmbers;
-                }
-
-                if (remaining > 0)
-                {
-                    baseQuirklessTimer -= remaining;
-                }
-
-                if (baseQuirklessTimer <= 0)
-                {
-                    if (transPlayer.ActiveQuirks.Contains(QuirkType.OneForAll9th))
-                        transPlayer.ActiveQuirks.Remove(QuirkType.OneForAll9th);
-
-                    if (AFOPlayer.HasInternalQuirk(QuirkType.OneForAll9th))
-                        AFOPlayer.InternalQuirks.Remove(QuirkType.OneForAll9th);
-
-                    Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
-                    FullReset();
-
-                    baseQuirklessTimer = 1200;
-                    timeUsed = 0;
-                    isQuirkless = false;
+                    RemoveOneForAll9th(transPlayer, AFOPlayer);
                 }
 
                 return;
@@ -100,7 +79,21 @@ namespace MyHeroMod.content.Quirks.OFA9th
             }
         }
 
-        public int EmberBar => Math.Max(EmbersTime, 0) + Math.Max(baseQuirklessTimer, 0);
+        private void RemoveOneForAll9th(TransformationPlayer transPlayer, AllForOnePlayer AFOPlayer)
+        {
+            if (transPlayer.ActiveQuirks.Contains(QuirkType.OneForAll9th))
+                transPlayer.ActiveQuirks.Remove(QuirkType.OneForAll9th);
+
+            if (AFOPlayer.HasInternalQuirk(QuirkType.OneForAll9th))
+                AFOPlayer.InternalQuirks.Remove(QuirkType.OneForAll9th);
+
+            Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
+            FullReset();
+
+            embersAmount = 0;
+            timeUsed = 0;
+            isQuirkless = false;
+        }
 
         // ======================= Support Items ===========================================================
 

@@ -92,7 +92,6 @@ namespace MyHeroMod
                     case MessageType.SyncTransformationPlayer:
                     {
                         byte senderIndexInPacket = reader.ReadByte(); 
-
                         byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
                         if (playerIndex >= Main.maxPlayers) break; 
 
@@ -109,12 +108,13 @@ namespace MyHeroMod
                         }
 
                         int stageInt = reader.ReadInt32();
-                        stageInt = Math.Clamp(stageInt, (int)QuirkStage.Initial, (int)QuirkStage.Final);
-
+                        
+                        // 1. ADD THIS TO READ THE VARIANT
+                        int variantInt = reader.ReadInt32(); 
+                        
                         int natureInt= reader.ReadInt32();
                         int currentStrain = reader.ReadInt32();
 
-                        // Read everything into temporary local variables first
                         string slot1 = reader.ReadString();
                         string slot2 = reader.ReadString();
                         string slot3 = reader.ReadString();
@@ -127,11 +127,14 @@ namespace MyHeroMod
                         bool useSecondaryBar = reader.ReadBoolean();
                         string currentRaceId = reader.ReadString();
 
-                        // Now safely fetch the ModPlayer and assign the variables!
                         TransformationPlayer transPlayer = Main.player[playerIndex].GetModPlayer<TransformationPlayer>();
                         
                         transPlayer.ActiveQuirks = receivedQuirks;
                         transPlayer.CurrentStage = (QuirkStage)stageInt;
+                        
+                        // 2. APPLY THE VARIANT TO THE PLAYER
+                        if (Enum.IsDefined(typeof(QuirkVariant), variantInt))
+                            transPlayer.CurrentVariant = (QuirkVariant)variantInt;
 
                         if (Enum.IsDefined(typeof(NatureType), natureInt))
                             transPlayer.Nature = (NatureType)natureInt;
@@ -160,6 +163,10 @@ namespace MyHeroMod
                             foreach (var quirk in receivedQuirks) packet.Write((int)quirk);
                             
                             packet.Write(stageInt);
+                            
+                            // 3. FORWARD THE VARIANT TO OTHER CLIENTS
+                            packet.Write(variantInt); 
+                            
                             packet.Write(natureInt);
                             packet.Write(currentStrain);
                             
@@ -180,34 +187,13 @@ namespace MyHeroMod
                         break;
                     }
 
-                    case MessageType.SyncOFA8th:
-                    {
-                        byte senderIndexInPacket = reader.ReadByte();
-                        int form = reader.ReadInt32();
-
-                        byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
-                        if (playerIndex >= Main.maxPlayers) break;
-
-                        var ofa8 = Main.player[playerIndex].GetModPlayer<OneForAll8thPlayer>();
-                        ofa8.form = form;
-
-                        if (Main.netMode == NetmodeID.Server)
-                        {
-                            ModPacket packet = GetPacket();
-                            packet.Write((byte)MessageType.SyncOFA8th);
-                            packet.Write(playerIndex);
-                            packet.Write(form);
-                            packet.Send(-1, playerIndex);
-                        }
-                        break;
-                    }
-
                         case MessageType.SyncOFA9th:
                         {
                             byte senderIndexInPacket = reader.ReadByte();
                             int percentage9 = reader.ReadInt32();
                             int fingers = reader.ReadInt32();
-                            int becomeQuirklessTimer = reader.ReadInt32();
+                            
+                            
                             int timeUsed = reader.ReadInt32();
                             bool isQuirkless = reader.ReadBoolean();
 
@@ -219,7 +205,6 @@ namespace MyHeroMod
                             var ofa9 = Main.player[playerIndex].GetModPlayer<OneForAll9thPlayer>();
                             ofa9.percentage = percentage9;
                             ofa9.currentFingers = fingers;
-                           
                             ofa9.timeUsed = timeUsed;
                             ofa9.isQuirkless = isQuirkless;
 
@@ -230,9 +215,32 @@ namespace MyHeroMod
                                 packet.Write(playerIndex);
                                 packet.Write(percentage9);
                                 packet.Write(fingers);
-                                packet.Write(becomeQuirklessTimer);
+                                
+                                
                                 packet.Write(timeUsed);
                                 packet.Write(isQuirkless);
+                                packet.Send(-1, playerIndex);
+                            }
+                            break;
+                        }
+
+                        case MessageType.SyncOFA8th:
+                        {
+                            byte senderIndex = reader.ReadByte();
+                            int form = reader.ReadInt32();
+
+                            byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndex;
+                            if (playerIndex >= Main.maxPlayers) break;
+
+                            var ofa8 = Main.player[playerIndex].GetModPlayer<OneForAll8thPlayer>();
+                            ofa8.form = form;
+
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                ModPacket packet = GetPacket();
+                                packet.Write((byte)MessageType.SyncOFA8th);
+                                packet.Write(playerIndex);
+                                packet.Write(form);
                                 packet.Send(-1, playerIndex);
                             }
                             break;
@@ -297,20 +305,16 @@ namespace MyHeroMod
                             bool cluster = reader.ReadBoolean();
                             bool grenadier = reader.ReadBoolean();
                             bool panzer = reader.ReadBoolean();
-                            
-                           
+                            int currentSweat = reader.ReadInt32(); 
 
                             byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
                             if (playerIndex >= Main.maxPlayers) break;
-
-                            
 
                             var explode = Main.player[playerIndex].GetModPlayer<ExplosionPlayer>();
                             explode.IsClusterActive = cluster;
                             explode.IsGrenadierBracersOn = grenadier;
                             explode.IsStrafePanzerOn = panzer;
-                            
-                            
+                            explode.CurrentSweat = currentSweat; 
 
                             if (Main.netMode == NetmodeID.Server)
                             {
@@ -320,8 +324,7 @@ namespace MyHeroMod
                                 packet.Write(cluster);
                                 packet.Write(grenadier);
                                 packet.Write(panzer);
-                                
-                                
+                                packet.Write(currentSweat); 
                                 packet.Send(-1, playerIndex);
                             }
                             break;
@@ -331,14 +334,17 @@ namespace MyHeroMod
                         {
                             byte senderIndexInPacket = reader.ReadByte();
                             int quirkCount = reader.ReadInt32();
-
                             byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
+                            
+                            var afoPlayer = Main.player[playerIndex].GetModPlayer<AllForOnePlayer>();
+
+                            
                             if (playerIndex >= Main.maxPlayers) break;
 
                             int maxQuirks = Enum.GetValues(typeof(QuirkType)).Length;
                             quirkCount = Math.Clamp(quirkCount, 0, maxQuirks);
 
-                            var afoPlayer = Main.player[playerIndex].GetModPlayer<AllForOnePlayer>();
+                            
                             afoPlayer.InternalQuirks.Clear();
 
                             for (int i = 0; i < quirkCount; i++)
@@ -432,33 +438,38 @@ namespace MyHeroMod
                             break;
                         }
                         case MessageType.StealPlayerQuirk:
+                        byte attackerId = reader.ReadByte();
+                        byte targetId = reader.ReadByte();
+                        QuirkType stolenQuirk = (QuirkType)reader.ReadInt32();
+
+                        Player target = Main.player[targetId];
+                        Player attacker = Main.player[attackerId];
+
+                        
+                        var targetTrans = target.GetModPlayer<TransformationPlayer>();
+                        var targetOfa9th = target.GetModPlayer<OneForAll9thPlayer>();
+                        
+                        targetTrans.ActiveQuirks.Remove(stolenQuirk);
+                        targetOfa9th.MarkQuirkLost(stolenQuirk);
+                        targetTrans.UpdateUnlockedSkills();
+                        targetOfa9th.UnlockQuirks();
+
+                        
+                        var afosyncPlayer = attacker.GetModPlayer<AllForOnePlayer>();
+                        afosyncPlayer.TryStealQuirk(stolenQuirk);
+                        attacker.GetModPlayer<TransformationPlayer>().UpdateUnlockedSkills();
+                        if (Main.netMode == NetmodeID.Server)
                         {
-                            byte senderIndexInPacket = reader.ReadByte();
-                            int targetPlayerIndex = reader.ReadInt32();
-                            int rawStolenQuirk = reader.ReadInt32();
-
-                            byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
-                            if (playerIndex >= Main.maxPlayers || targetPlayerIndex >= Main.maxPlayers) break;
-
-                            var afoPlayer = Main.player[playerIndex].GetModPlayer<AllForOnePlayer>();
-                            QuirkType stolenQuirk = (QuirkType)rawStolenQuirk;
-
-                            if (!afoPlayer.InternalQuirks.Contains(stolenQuirk))
-                            {
-                                afoPlayer.InternalQuirks.Add(stolenQuirk);
-                            }
-                            if (Main.netMode == NetmodeID.Server)
-                            {
-                                ModPacket packet = GetPacket();
-                                packet.Write((byte)MessageType.StealPlayerQuirk);
-                                packet.Write(playerIndex);
-                                packet.Write(targetPlayerIndex);
-                                packet.Write(rawStolenQuirk);
-                                packet.Send(-1, playerIndex);
-                            }
+                            ModPacket packet = GetPacket();
+                            packet.Write((byte)MessageType.StealPlayerQuirk);
+                            packet.Write(attackerId);
+                            packet.Write(targetId);
+                            packet.Write((int)stolenQuirk);
+                            packet.Send(-1, whoAmI); 
+                        }
                             break;
                         }
-                    }
+                    
                 }   
                 catch (Exception e)
                 {

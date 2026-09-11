@@ -224,8 +224,11 @@ namespace MyHeroMod.content.Quirks.Explosion
         public override void SendClientChanges(ModPlayer clientPlayer)
         {
             ExplosionPlayer clone = clientPlayer as ExplosionPlayer;
-            if (IsClusterActive != clone.IsClusterActive || IsGrenadierBracersOn != clone.IsGrenadierBracersOn ||
-             IsStrafePanzerOn != clone.IsStrafePanzerOn)
+            
+            if (IsClusterActive != clone.IsClusterActive || 
+                IsGrenadierBracersOn != clone.IsGrenadierBracersOn ||
+                IsStrafePanzerOn != clone.IsStrafePanzerOn ||
+                CurrentSweat != clone.CurrentSweat)
             {
                 ModPacket packet = Mod.GetPacket();
                 packet.Write((byte)MyHeroMod.MessageType.SyncExplosion);
@@ -233,7 +236,6 @@ namespace MyHeroMod.content.Quirks.Explosion
                 packet.Write(IsClusterActive);
                 packet.Write(IsGrenadierBracersOn);
                 packet.Write(IsStrafePanzerOn);
-              
                 packet.Write(CurrentSweat);
                 packet.Send(-1, Player.whoAmI); 
             }

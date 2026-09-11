@@ -11,6 +11,6 @@ namespace MyHeroMod.content.Quirks.OFA8th
 {
     public partial class OneForAll8thPlayer : ModPlayer, IDashModifier
     {
-        
+    
     }
 }

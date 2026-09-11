@@ -567,6 +567,11 @@ Items: {
 		DisplayName: Nomu Fragment
 		Tooltip: ""
 	}
+
+	OneForAll8thEssence: {
+		DisplayName: One For All8th Essence
+		Tooltip: ""
+	}
 }
 
 Buffs: {

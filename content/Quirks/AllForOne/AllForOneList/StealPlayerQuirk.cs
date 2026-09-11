@@ -38,6 +38,5 @@ public class StealPlayerQuirkSkill : QuirkBaseSkill
                 15, 
                 2f, 
                 player.whoAmI);
-
     }
 }
