@@ -27,6 +27,17 @@ public class PullTapeSkill : QuirkBaseSkill
 
     public override void OnUse(Player player)
     {
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+        int baseDamage = transPlayer.CurrentStage switch
+        {
+            QuirkStage.Initial => 20,
+            QuirkStage.Adequation => 50,
+            QuirkStage.Intermediate => 90,
+            QuirkStage.Advanced => 150,
+            QuirkStage.Final => 250,
+            _ => 20
+        };
 
         if (player.ownedProjectileCounts[ModContent.ProjectileType<PullTapeProjectile>()] >= 2) 
             {
@@ -43,7 +54,7 @@ public class PullTapeSkill : QuirkBaseSkill
                 player.Center, 
                 velocity, 
                 ModContent.ProjectileType<PullTapeProjectile>(), 
-                0,  
+                baseDamage,  
                 0f, 
                 player.whoAmI);
 

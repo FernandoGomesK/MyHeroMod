@@ -626,6 +626,41 @@ Items: {
 		// DisplayName: Slide N Glide Essence
 		// Tooltip: ""
 	}
+
+	SpringLikeEssence: {
+		// DisplayName: Spring Like Essence
+		// Tooltip: ""
+	}
+
+	SuperRegenEssence: {
+		// DisplayName: Super Regen Essence
+		// Tooltip: ""
+	}
+
+	ErasureEssence: {
+		// DisplayName: Erasure Essence
+		// Tooltip: ""
+	}
+
+	FajinEssence: {
+		// DisplayName: Fajin Essence
+		// Tooltip: ""
+	}
+
+	FierceWingsEssence: {
+		// DisplayName: Fierce Wings Essence
+		// Tooltip: ""
+	}
+
+	FloatEssence: {
+		// DisplayName: Float Essence
+		// Tooltip: ""
+	}
+
+	GearshiftEssence: {
+		// DisplayName: Gearshift Essence
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
