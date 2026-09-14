@@ -195,6 +195,8 @@ namespace MyHeroMod
                             
                             
                             int timeUsed = reader.ReadInt32();
+                            int embersAmount = reader.ReadInt32();
+                            int initialEmbers = reader.ReadInt32();
                             bool isQuirkless = reader.ReadBoolean();
 
                             byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
@@ -206,6 +208,8 @@ namespace MyHeroMod
                             ofa9.percentage = percentage9;
                             ofa9.currentFingers = fingers;
                             ofa9.timeUsed = timeUsed;
+                            ofa9.embersAmount = embersAmount;
+                            ofa9.initialEmbers = initialEmbers;
                             ofa9.isQuirkless = isQuirkless;
 
                             if (Main.netMode == NetmodeID.Server)
@@ -218,6 +222,8 @@ namespace MyHeroMod
                                 
                                 
                                 packet.Write(timeUsed);
+                                packet.Write(embersAmount);
+                                packet.Write(initialEmbers);
                                 packet.Write(isQuirkless);
                                 packet.Send(-1, playerIndex);
                             }
@@ -228,12 +234,20 @@ namespace MyHeroMod
                         {
                             byte senderIndex = reader.ReadByte();
                             int form = reader.ReadInt32();
+                            int timeUsed = reader.ReadInt32();
+                            int emberAmount = reader.ReadInt32();
+                            int initialEmbers = reader.ReadInt32();
+                            bool isQuirkless = reader.ReadBoolean();
 
                             byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndex;
                             if (playerIndex >= Main.maxPlayers) break;
 
                             var ofa8 = Main.player[playerIndex].GetModPlayer<OneForAll8thPlayer>();
                             ofa8.form = form;
+                            ofa8.timeUsed = timeUsed;
+                            ofa8.embersAmount = emberAmount;
+                            ofa8.initialEmbers = initialEmbers;
+                            ofa8.isQuirkless = isQuirkless;
 
                             if (Main.netMode == NetmodeID.Server)
                             {
@@ -241,6 +255,10 @@ namespace MyHeroMod
                                 packet.Write((byte)MessageType.SyncOFA8th);
                                 packet.Write(playerIndex);
                                 packet.Write(form);
+                                packet.Write(timeUsed);
+                                packet.Write(emberAmount);
+                                packet.Write(initialEmbers);
+                                packet.Write(isQuirkless);
                                 packet.Send(-1, playerIndex);
                             }
                             break;

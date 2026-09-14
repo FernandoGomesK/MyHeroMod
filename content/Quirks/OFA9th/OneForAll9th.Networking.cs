@@ -36,9 +36,10 @@ namespace MyHeroMod.content.Quirks.OFA9th
         {
             OneForAll9thPlayer clone = targetCopy as OneForAll9thPlayer;
             clone.percentage = percentage;
-            // clone.becomeQuirklessTimer = becomeQuirklessTimer;
             clone.currentFingers = currentFingers;
             clone.timeUsed = timeUsed;
+            clone.embersAmount = embersAmount;
+            clone.initialEmbers = initialEmbers;
             clone.isQuirkless = isQuirkless;
             
         }
@@ -50,8 +51,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
             packet.Write((byte)Player.whoAmI); 
             packet.Write((int)percentage); 
             packet.Write(currentFingers);
-            // packet.Write(becomeQuirklessTimer); 
             packet.Write(timeUsed);
+            packet.Write(embersAmount);
+            packet.Write(initialEmbers);
             packet.Write(isQuirkless);           
             packet.Send(toWho, fromWho);
         }
@@ -69,8 +71,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 packet.Write((byte)Player.whoAmI);
                 packet.Write((int)percentage);
                 packet.Write(currentFingers);
-                // packet.Write(becomeQuirklessTimer);
                 packet.Write(timeUsed);
+                packet.Write(embersAmount);
+                packet.Write(initialEmbers);
                 packet.Write(isQuirkless);
                 
                 packet.Send(-1, Player.whoAmI); 
@@ -82,8 +85,9 @@ namespace MyHeroMod.content.Quirks.OFA9th
             tag["ofa9_percentage"] = percentage;
             tag["ofa9_currentFingers"] = currentFingers;
             tag["ofa9_isQuirkless"] = isQuirkless;
-            // tag["ofa9_becomeQuirklessTimer"] = becomeQuirklessTimer;
             tag["ofa9_timeUsed"] = timeUsed;
+            tag["ofa9_embersAmount"] = embersAmount;
+            tag["ofa9_initialEmbers"] = initialEmbers; 
         }
 
         public override void LoadData(TagCompound tag)
@@ -97,10 +101,17 @@ namespace MyHeroMod.content.Quirks.OFA9th
             if (tag.ContainsKey("ofa9_isQuirkless"))
                 isQuirkless = tag.GetBool("ofa9_isQuirkless");
 
-            // if (tag.ContainsKey("ofa9_becomeQuirklessTimer"))
-            //     becomeQuirklessTimer = tag.GetInt("ofa9_becomeQuirklessTimer");
             if (tag.ContainsKey("ofa9_timeUsed"))
                 timeUsed = tag.GetInt("ofa9_timeUsed");
+
+            if (tag.ContainsKey("ofa9_embersAmount"))
+                embersAmount = tag.GetInt("ofa9_embersAmount");
+
+            if (tag.ContainsKey("ofa9_initialEmbers"))
+                initialEmbers = tag.GetInt("ofa9_initialEmbers");
+
+
+
         }
     }
 }

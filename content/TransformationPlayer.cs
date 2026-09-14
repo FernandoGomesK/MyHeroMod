@@ -11,6 +11,7 @@ using Terraria.ID;
 using KhacesCore.Content.System;
 using MyHeroMod.content.Quirks.DangerSense;
 using MyHeroMod.content.Quirks.Smokescreen;
+using Microsoft.Xna.Framework;
 
 namespace MyHeroMod.content
 {
@@ -36,6 +37,7 @@ namespace MyHeroMod.content
     public class TransformationPlayer : BasePlayer
     {
         public List<QuirkType> ActiveQuirks = new List<QuirkType>(); 
+        
         public int naturalQuirkLimit = 1;
 
         public QuirkStage CurrentStage = QuirkStage.Initial;
@@ -158,9 +160,20 @@ namespace MyHeroMod.content
 
         public override void PreUpdate()
         {
-
             base.PreUpdate();
-        
+            
+            
+            if (ActiveQuirks.Contains(QuirkType.OneForAll8th) && ActiveQuirks.Contains(QuirkType.OneForAll9th))
+            {
+                var ofa9Player = Player.GetModPlayer<OneForAll9thPlayer>();
+                if (ActiveQuirks.Contains(QuirkType.OneForAll9th))
+                {
+                    ofa9Player.timeUsed += 200;
+                    
+                }
+                ActiveQuirks.Remove(QuirkType.OneForAll8th);   
+                CombatText.NewText(Player.getRect(), Color.Orange, "Your one for all power has been absorbed!", true);             
+            }
         }
 
         public override void ResetEffects()

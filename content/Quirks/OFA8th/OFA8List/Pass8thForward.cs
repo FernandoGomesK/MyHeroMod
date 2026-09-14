@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 
 public class PassForward8th: PassForwardBase
     {
+    public override string Name => "PassForward8th";
         public override QuirkType OFAType => QuirkType.OneForAll8th;
         public override int EssenceItemType => ModContent.ItemType<OneForAll8thEssence>();
         

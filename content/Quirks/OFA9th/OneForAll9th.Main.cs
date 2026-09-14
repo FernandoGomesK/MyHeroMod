@@ -21,6 +21,7 @@ using MyHeroMod.content.Quirks.BlackWhip.Projectiles.PinpointFocus;
 using MyHeroMod.content.System.Interfaces;
 using System;
 using MyHeroMod.content.Quirks.AllForOne;
+using Humanizer;
 
 
 
@@ -40,12 +41,14 @@ namespace MyHeroMod.content.Quirks.OFA9th
 
         public readonly int baseEmbersAmount = 1200;
         public int embersAmount = 0;
+        public int initialEmbers = 0;
 
         public int EmberBar => Math.Max(embersAmount, 0);
 
         public void SetEmbers()
         {
             embersAmount = timeUsed + baseEmbersAmount;
+            initialEmbers = timeUsed + baseEmbersAmount;
         }
 
         public int StrainPenaltyPerSecond { get; set; }
@@ -138,6 +141,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
             isFullCowlingBuffActive = false;
             Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
             StrainPenaltyPerSecond = 0;
+            isQuirkless = false;
+            timeUsed = 0;
 
         }
 
@@ -159,6 +164,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 return; 
             } 
 
+         
             if (currentFingers < MaxFingers)
             {
                 fingerRegen++;

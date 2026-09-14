@@ -9,6 +9,7 @@ using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA8th;
 using System;
+using MyHeroMod.content.Quirks.AllForOne;
 
 public abstract class ToggleStockPile : QuirkBaseSkill
 {
@@ -41,28 +42,23 @@ public abstract class ToggleStockPile : QuirkBaseSkill
         }
         else
         {
-            // Define your upfront cost and minimum time (e.g., 20 seconds = 1200 ticks)
+            
             int upfrontCost = 100;
             int minDurationTicks = 1200; 
 
             if (ofaPlayer.isQuirkless)
             {
-            
-                if (ofaPlayer.embersAmount < upfrontCost + minDurationTicks)
+    
+                if (ofaPlayer.embersAmount < upfrontCost)
                 {
                     CombatText.NewText(player.getRect(), Color.Orange, "Embers too low!");
                     return;
                 }
 
-                
                 ofaPlayer.embersAmount -= upfrontCost;
-                
                 
                 int calculatedDuration = Math.Max(ofaPlayer.embersAmount, minDurationTicks);
                 
-                
-                ofaPlayer.embersAmount -= calculatedDuration;
-
                 ofaPlayer.form = stockform;
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/watashigakita"), player.position);
@@ -71,6 +67,13 @@ public abstract class ToggleStockPile : QuirkBaseSkill
                 
                
                 player.AddBuff(BuffType, calculatedDuration);
+
+                if (ofaPlayer.embersAmount <= 0)
+                {
+                    var transPlayer = player.GetModPlayer<TransformationPlayer>();
+                    var afoPlayer = player.GetModPlayer<AllForOnePlayer>();
+                    ofaPlayer.RemoveOneForAll8th(transPlayer, afoPlayer);
+                }
             }
             else
             {

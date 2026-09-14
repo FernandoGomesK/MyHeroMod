@@ -101,7 +101,7 @@ namespace MyHeroMod.content.UI
         var ofa9Player = player.GetModPlayer<OneForAll9thPlayer>();
         var ofa8Player = player.GetModPlayer<OneForAll8thPlayer>();
         var hasGear = player.HasBuff(ModContent.BuffType<GearshiftBuff>());
-        var emberBar = ofa9Player.EmberBar;
+        int emberBar = ofa9Player.isQuirkless ? ofa9Player.EmberBar : (ofa8Player.isQuirkless ? ofa8Player.EmberBar : 0);
 
         
         bool hasOFA9 = transPlayer.HasActiveQuirk(QuirkType.OneForAll9th);
@@ -115,7 +115,17 @@ namespace MyHeroMod.content.UI
         float quotient = 1f;
 
         
-        if (ofa9Player.isQuirkless || (hasOFA8Quirkless && !hasOFA9))
+        if (ofa9Player.isQuirkless)
+        {
+            barFill = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/EmbersBarFill").Value;
+            barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/EmbersBarFrame").Value;
+            
+            float maxTimer = 1200f;
+            if (maxTimer <= 0) maxTimer = 1f; 
+
+            quotient = MathHelper.Clamp((float)emberBar / maxTimer, 0f, 1f);
+        }
+        else if (ofa8Player.isQuirkless)
         {
             barFill = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/EmbersBarFill").Value;
             barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/EmbersBarFrame").Value;
@@ -165,18 +175,27 @@ namespace MyHeroMod.content.UI
         Rectangle fillRect = new Rectangle(0, emptySpace, barFill.Width, fillHeight);
         Vector2 fillDrawPos = drawPos + new Vector2(0, emptySpace);
     
-        Color fillColor = (ofa9Player.isQuirkless || hasOFA8Quirkless) ? Color.White : (hasGear ? Color.Blue : Color.LimeGreen);
+        Color fillColor = (ofa9Player.isQuirkless ||  ofa8Player.isQuirkless) ? Color.White : (hasGear ? Color.Blue : Color.LimeGreen);
 
         spriteBatch.Draw(barFill, fillDrawPos, fillRect, fillColor);
         
         string text;
-        if (ofa9Player.isQuirkless || hasOFA8Quirkless)
+        if (ofa9Player.isQuirkless)
         {
-            float maxTimer = 1200f;
+            float maxTimer = ofa9Player.initialEmbers;
             if (maxTimer <= 0) maxTimer = 1f;
 
             float percentual = MathHelper.Clamp(((float)emberBar / maxTimer) * 100f, 0f, 100f);
             text = $"{percentual:F1}%";
+        }
+        else if (ofa8Player.isQuirkless)
+        {
+            float maxTimer = ofa8Player.initialEmbers;
+            if (maxTimer <= 0) maxTimer = 1f;
+
+            float percentual = MathHelper.Clamp(((float)emberBar / maxTimer) * 100f, 0f, 100f);
+            text = $"{percentual:F1}%";
+                
         }
         else
         {
