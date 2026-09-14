@@ -455,7 +455,7 @@ Items: {
 
 	DekuArmorBriefcase: {
 		DisplayName: Deku Armor Briefcase
-		Tooltip: "A briefcase that holds power similar to One For All"
+		Tooltip: A briefcase that holds power similar to One For All
 	}
 
 	NomuVatItem: {
@@ -505,32 +505,32 @@ Items: {
 
 	OneForAll9thEssence: {
 		DisplayName: One For All9th Essence
-		Tooltip: "Contains the essence for One For All(9th)"
+		Tooltip: Contains the essence for One For All(9th)
 	}
 
 	DecayEssence: {
 		DisplayName: Decay Essence
-		Tooltip: "Contains the essence for Decay"
+		Tooltip: Contains the essence for Decay
 	}
 
 	DecayGene: {
 		DisplayName: Decay Gene
-		Tooltip: "Contains the genes for Decay"
+		Tooltip: Contains the genes for Decay
 	}
 
 	DecaySyringe: {
 		DisplayName: Decay Syringe
-		Tooltip: "Contains the mutations for Decay"
+		Tooltip: Contains the mutations for Decay
 	}
 
 	ExplosionEssence: {
 		DisplayName: Explosion Essence
-		Tooltip: "Contains the essence for Explosion"
+		Tooltip: Contains the essence for Explosion
 	}
 
 	ExplosionSyringe: {
 		DisplayName: Explosion Syringe
-		Tooltip: "Contains the mutations for Explosion"
+		Tooltip: Contains the mutations for Explosion
 	}
 
 	BNDBreastplate: {
@@ -547,8 +547,6 @@ Items: {
 		DisplayName: Darkshadow Essence
 		Tooltip: ""
 	}
-
-	
 
 	EngineEssence: {
 		DisplayName: Engine Essence

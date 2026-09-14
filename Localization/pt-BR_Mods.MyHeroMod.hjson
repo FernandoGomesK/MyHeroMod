@@ -459,7 +459,7 @@ Items: {
 
 	DekuArmorBriefcase: {
 		// DisplayName: Deku Armor Briefcase
-		// Tooltip: ""
+		// Tooltip: A briefcase that holds power similar to One For All
 	}
 
 	NomuVatItem: {
@@ -509,31 +509,36 @@ Items: {
 
 	OneForAll9thEssence: {
 		// DisplayName: One For All9th Essence
-		// Tooltip: ""
+		// Tooltip: Contains the essence for One For All(9th)
+	}
+
+	DecayEssence: {
+		// DisplayName: Decay Essence
+		// Tooltip: Contains the essence for Decay
 	}
 
 	DecayGene: {
 		// DisplayName: Decay Gene
-		// Tooltip: ""
+		// Tooltip: Contains the genes for Decay
 	}
 
 	DecaySyringe: {
 		// DisplayName: Decay Syringe
-		// Tooltip: ""
-	}
-
-	ExplosionSyringe: {
-		// DisplayName: Explosion Syringe
-		// Tooltip: ""
-	}
-
-	BNDBreastplate: {
-		// DisplayName: B N D Breastplate
-		// Tooltip: ""
+		// Tooltip: Contains the mutations for Decay
 	}
 
 	ExplosionEssence: {
 		// DisplayName: Explosion Essence
+		// Tooltip: Contains the essence for Explosion
+	}
+
+	ExplosionSyringe: {
+		// DisplayName: Explosion Syringe
+		// Tooltip: Contains the mutations for Explosion
+	}
+
+	BNDBreastplate: {
+		// DisplayName: B N D Breastplate
 		// Tooltip: ""
 	}
 
@@ -544,11 +549,6 @@ Items: {
 
 	DarkshadowEssence: {
 		// DisplayName: Darkshadow Essence
-		// Tooltip: ""
-	}
-
-	DecayEssence: {
-		// DisplayName: Decay Essence
 		// Tooltip: ""
 	}
 
@@ -1156,12 +1156,12 @@ Configs: {
 
 		ImpactFrameIntensity: {
 			// Label: Impact Frame Intensity
-			// Tooltip: ""
+			// Tooltip: Reduces the Impact frames intensity without disabling it.
 		}
 
 		DecayDestroys: {
 			// Label: Decay Destroys
-			// Tooltip: ""
+			// Tooltip: Toggle the decay quirk being able to destroy blocks
 		}
 	}
 }

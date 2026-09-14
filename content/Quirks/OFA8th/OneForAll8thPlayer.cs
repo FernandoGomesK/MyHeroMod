@@ -32,9 +32,6 @@ namespace MyHeroMod.content.Quirks.OFA8th
         public int embersAmount = 0;
 
         public int EmberBar => Math.Max(embersAmount, 0);
-        public int maxFormTimer => EmberBar / 6;
-
-        public int currentFormTimer = 0;
 
         public void SetEmbers()
         {
@@ -52,10 +49,6 @@ namespace MyHeroMod.content.Quirks.OFA8th
 
             if (isQuirkless)
             {
-                
-                embersAmount -= amount;
-                currentFormTimer -= amount;
-
                 transPlayer.currentStrain += amount;
                 if (transPlayer.currentStrain <= 0)
                 {
@@ -65,11 +58,6 @@ namespace MyHeroMod.content.Quirks.OFA8th
                 {
                     transPlayer.currentStrain = transPlayer.maxStrain;
                     Player.ClearBuff(ModContent.BuffType<StockPileBuff>());
-                }
-
-                if (embersAmount <= 0)
-                {
-                    RemoveOneForAll8th(transPlayer, AFOPlayer);
                 }
 
                 return;
@@ -86,7 +74,7 @@ namespace MyHeroMod.content.Quirks.OFA8th
             }
         }
 
-        private void RemoveOneForAll8th(TransformationPlayer transPlayer, AllForOnePlayer AFOPlayer)
+        public void RemoveOneForAll8th(TransformationPlayer transPlayer, AllForOnePlayer AFOPlayer)
         {
             if (transPlayer.ActiveQuirks.Contains(QuirkType.OneForAll8th))
                 transPlayer.ActiveQuirks.Remove(QuirkType.OneForAll8th);
@@ -107,7 +95,6 @@ namespace MyHeroMod.content.Quirks.OFA8th
         public void FullReset()
         {
             form = 0; 
-            currentFormTimer = maxFormTimer; 
             Player.ClearBuff(ModContent.BuffType<StockPileBuff>());
         }
 
@@ -133,40 +120,12 @@ namespace MyHeroMod.content.Quirks.OFA8th
             if (form != 0)
             {
                 StrainPenaltyPerSecond = strainDrain;
-
-                if (isQuirkless)
-                {
-                    if (currentFormTimer > 0)
-                    {
-                        currentFormTimer--;
-                    }
-                    else
-                    {
-                        var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-                        var AFOPlayer = Player.GetModPlayer<AllForOnePlayer>();
-
-                        RemoveOneForAll8th(transPlayer, AFOPlayer);
-                    }
-                }
             }
             else
             {
                 StrainPenaltyPerSecond = 0;
-
-                if (isQuirkless && currentFormTimer < maxFormTimer)
-                {
-                    currentFormTimer++;
-
-                    if (currentFormTimer > maxFormTimer)
-                    {
-                        currentFormTimer = maxFormTimer;
-                    }
-                }
             }
         }
-                
-            
-        
 
         public override void PostUpdateEquips()
         {
