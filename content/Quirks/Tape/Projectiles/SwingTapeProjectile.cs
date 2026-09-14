@@ -33,8 +33,6 @@ namespace MyHeroMod.content.Quirks.Tape.Projectiles
 
     if (player.dead || !player.active || player.controlJump)
     {
-        // Impulso ao soltar: mantém a velocidade tangencial atual (já está correta)
-        // Mas remove o "freio" artificial que o Terraria aplica ao matar projéteis
         
         Projectile.Kill();
         return;
@@ -48,7 +46,7 @@ namespace MyHeroMod.content.Quirks.Tape.Projectiles
 
     bool hitSolid = Collision.SolidCollision(nextPos, Projectile.width, Projectile.height);
 
-    // Checa plataformas manualmente via tile
+
     bool hitPlatform = false;
     int tileX = (int)((nextPos.X + Projectile.width / 2) / 16);
     int tileY = (int)((nextPos.Y + Projectile.height / 2) / 16);

@@ -6,7 +6,6 @@ using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.Tape.Projectiles
 {
-    // Renomeei para BlackWhipProjectile para evitar conflitos
     public class PullTapeProjectile : ModProjectile
     {
         public override string Texture => "MyHeroMod/content/Quirks/Tape/Projectiles/SwingTapeProjectile";
@@ -15,7 +14,7 @@ namespace MyHeroMod.content.Quirks.Tape.Projectiles
         public override void SetDefaults()
         {
             
-            Projectile.CloneDefaults(ProjectileID.GemHookAmethyst);
+            Projectile.CloneDefaults(ProjectileID.SquirrelHook);
             Projectile.width = 18;
             Projectile.height = 18;
             
@@ -29,6 +28,8 @@ namespace MyHeroMod.content.Quirks.Tape.Projectiles
 
         
         public override void GrappleRetreatSpeed(Player player, ref float speed) => speed = 18f;
+
+        public override void GrapplePullSpeed(Player player, ref float speed) => speed = 25f;
 
         
         public override bool PreDraw(ref Color lightColor)
@@ -51,7 +52,7 @@ namespace MyHeroMod.content.Quirks.Tape.Projectiles
             float rotation = vectorToPlayer.ToRotation() - 1.57f;
             bool chainConnected = true;
 
-            // Loop para desenhar os elos
+            
             while (chainConnected)
             {
                 float length = vectorToPlayer.Length();
@@ -78,7 +79,6 @@ namespace MyHeroMod.content.Quirks.Tape.Projectiles
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
 
-            Lighting.AddLight(Projectile.Center, 0.2f, 0.8f, 0.6f); 
             
         }
     }

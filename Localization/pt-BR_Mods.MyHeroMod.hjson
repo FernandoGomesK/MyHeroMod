@@ -576,6 +576,56 @@ Items: {
 		// DisplayName: One For All8th Essence
 		// Tooltip: ""
 	}
+
+	BlackwhipEssence: {
+		// DisplayName: Blackwhip Essence
+		// Tooltip: ""
+	}
+
+	DangersenseEssence: {
+		// DisplayName: Dangersense Essence
+		// Tooltip: ""
+	}
+
+	OpticBlastEssence: {
+		// DisplayName: Optic Blast Essence
+		// Tooltip: ""
+	}
+
+	TapeEssence: {
+		// DisplayName: Tape Essence
+		// Tooltip: ""
+	}
+
+	ZeroGravityEssence: {
+		// DisplayName: Zero Gravity Essence
+		// Tooltip: ""
+	}
+
+	OverclockEssence: {
+		// DisplayName: Overclock Essence
+		// Tooltip: ""
+	}
+
+	OverhaulEssence: {
+		// DisplayName: Overhaul Essence
+		// Tooltip: ""
+	}
+
+	RabbitEssence: {
+		// DisplayName: Rabbit Essence
+		// Tooltip: ""
+	}
+
+	RivetEssence: {
+		// DisplayName: Rivet Essence
+		// Tooltip: ""
+	}
+
+	SlideNGlideEssence: {
+		// DisplayName: Slide N Glide Essence
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
