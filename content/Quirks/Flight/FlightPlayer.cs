@@ -64,19 +64,23 @@ namespace MyHeroMod.content.Quirks.Flight
             {
                 isFlightShieldOn = true;
                 var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+                var flightShieldBonusHealth = 0;
 
-                // var flightShieldBaseHealth = 0;
-                flightShieldMaxHealth = transPlayer.CurrentStage switch 
+               
+                var flightShieldBaseHealth = transPlayer.CurrentStage switch 
                 {
                     QuirkStage.Initial => 20, QuirkStage.Adequation => 50,
                     QuirkStage.Intermediate => 60, QuirkStage.Advanced => 80,
                     QuirkStage.Final => 120, _ => 20
                 };
-                
 
-                // if (transPlayer.hasNature(Nature))
 
-                // flightShieldMaxHealth = flightShieldBaseHealth + shieldBonus;
+                if (transPlayer.Nature == NatureType.KinecticAbsorber)
+                {
+                    flightShieldBonusHealth = 250;
+                }
+
+                flightShieldMaxHealth = flightShieldBaseHealth + flightShieldBonusHealth;
             }
             else
             {

@@ -1,17 +1,18 @@
+using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using Terraria.Audio;
-using MyHeroMod.content.System;
-using MyHeroMod.content.System.Interfaces;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Debuffs;
+using MyHeroMod.content.System;
+using MyHeroMod.content.System.Interfaces;
 using ReLogic.Utilities;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 {
-    public abstract class BaseIceAndFirePlayer : ModPlayer, IQuirkResetter, IHeroTemperature
+    public abstract class BaseIceAndFirePlayer : ModPlayer, IQuirkResetter, IHeroTemperature, IFlightModifier
     {
         protected SlotId _loopSoundSlot;
 
@@ -216,7 +217,14 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
             
             if (mainPlayer.CurrentStage >= FlightUnlockStage && !Player.HasBuff<Heatstroke>())
             {
-                Player.wingTimeMax = 50;
+                Player.wingTimeMax = mainPlayer.CurrentStage switch
+                {
+                    QuirkStage.Adequation => 50,
+                    QuirkStage.Intermediate => 300,
+                    QuirkStage.Advanced => 560,
+                    QuirkStage.Final => 36000000,
+                    _ => 50
+                };
                 if (Player.wingsLogic == 0)
                 {
                     Player.wingsLogic = 29; 
@@ -226,7 +234,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
             }
         }
 
-       public override void PostUpdate()
+        public override void PostUpdate()
         {
 
 
@@ -270,41 +278,75 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
                 HeatPerSecond = 0;
             }
             
-        var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             
-        bool isOverheating = Temperature >= (MaxTemperature * 0.75f);
-        bool isFreezing = MinTemperature < 0 && Temperature <= (MinTemperature * 0.75f);
+            bool isOverheating = Temperature >= (MaxTemperature * 0.75f);
+            bool isFreezing = MinTemperature < 0 && Temperature <= (MinTemperature * 0.75f);
 
-        bool isSafeHot = Temperature >= 0 && Temperature <= (MaxTemperature * 0.25f);
-        bool isSafeCold = Temperature < 0 && Temperature >= (MinTemperature * 0.25f);
+            bool isSafeHot = Temperature >= 0 && Temperature <= (MaxTemperature * 0.25f);
+            bool isSafeCold = Temperature < 0 && Temperature >= (MinTemperature * 0.25f);
 
-        if (isOverheating || isFreezing)
-        {
-            int penalty = 20;
+            if (isOverheating || isFreezing)
+            {
+                int penalty = 20;
 
             
-            if (isOverheating && (transPlayer.Nature == NatureType.HeatResistance || transPlayer.Nature == NatureType.ThermalResistance))
-            {
-                penalty = 10; 
+                if (isOverheating && (transPlayer.Nature == NatureType.HeatResistance || transPlayer.Nature == NatureType.ThermalResistance))
+                {
+                    penalty = 10; 
+                }
+                if (isFreezing && (transPlayer.Nature == NatureType.ColdResistance || transPlayer.Nature == NatureType.ThermalResistance))
+                {
+                    penalty = 10; 
+                }
+
+                StrainPenaltyPerSecond = penalty; 
             }
-            if (isFreezing && (transPlayer.Nature == NatureType.ColdResistance || transPlayer.Nature == NatureType.ThermalResistance))
+            else if (isSafeHot || isSafeCold)
             {
-                penalty = 10; 
+                StrainPenaltyPerSecond = -5; 
+            }
+            else 
+            {
+                StrainPenaltyPerSecond = 0;  
             }
 
-            StrainPenaltyPerSecond = penalty; 
-        }
-        else if (isSafeHot || isSafeCold)
-        {
-            StrainPenaltyPerSecond = -5; 
-        }
-        else 
-        {
-            StrainPenaltyPerSecond = 0;  
+            UpdateFlyingDust();
         }
 
-        UpdateFlyingDust();
+        public void ModifyFlight(ref float speed)
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+
+            if (!transPlayer.HasActiveQuirk(QuirkType.HellFlames) &&
+                !transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot) &&
+                !transPlayer.HasActiveQuirk(QuirkType.Blueflame))
+            {
+                return;
+            }
+
+            float dashSpeed = transPlayer.CurrentStage switch
+            { 
+                QuirkStage.Adequation => 15f,
+                QuirkStage.Intermediate => 16f,
+                QuirkStage.Advanced => 35f,
+                QuirkStage.Final => 40f,
+                _ => 8f
+            };
+
+            speed = dashSpeed;
         }
+
+        public bool CanCruiseFlight()
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            return transPlayer.HasActiveQuirk(QuirkType.HellFlames) ||
+                transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot) ||
+                transPlayer.HasActiveQuirk(QuirkType.Blueflame);
+        }
+
+
         protected virtual void UpdateFlyingDust()
         {
             bool isFlying = (Player.velocity.Y != 0) && (Player.wingTime > 0 || Player.rocketDelay > 0) && !Player.mount.Active;

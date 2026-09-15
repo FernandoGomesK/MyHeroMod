@@ -40,31 +40,37 @@ namespace MyHeroMod
     }
 
         public override void Unload()
-{
-    if (Main.netMode != NetmodeID.Server)
-    {
-        try
         {
-            if (Filters.Scene != null)
+            if (Main.netMode == NetmodeID.Server)
+                return;
+
+           
+            Main.QueueMainThreadAction(() =>
             {
-                
-                if (Filters.Scene["MyHeroMod:TimeStop"] != null &&
-                    Filters.Scene["MyHeroMod:TimeStop"].IsActive())
+                try
                 {
-                    Filters.Scene.Deactivate("MyHeroMod:TimeStop");
+                    if (Filters.Scene != null)
+                    {
+                        string key = "MyHeroMod:TimeStop";
+                        var filter = Filters.Scene[key];
+                        if (filter != null && filter.IsActive())
+                            Filters.Scene.Deactivate(key);
+
+
+                        if (Filters.Scene["MyHeroMod:TimeStop"].IsActive())
+                        {
+                            Filters.Scene["MyHeroMod:TimeStop"].Deactivate();
+                        }
+                    }
                 }
-
-                Filters.Scene["MyHeroMod:TimeStop"] = null;
-            }
+                catch (Exception e)
+                {
+                    Logger.Warn("TimeStop filter unload failed: " + e.Message);
+                }
+            });
         }
-        catch (Exception e)
-        {
-            Logger.Warn("TimeStop filter unload failed: " + e.Message);
-        }
-    }
-}
 
-    public enum MessageType : byte
+        public enum MessageType : byte
             {
                 SyncTransformationPlayer,
                 SyncOFA8th,
@@ -79,7 +85,7 @@ namespace MyHeroMod
 
             }
 
-            // 2. LER AS MENSAGENS QUE CHEGAM
+            
             public override void HandlePacket(BinaryReader reader, int whoAmI)
             {
                 MessageType msgType = (MessageType)reader.ReadByte();
@@ -132,7 +138,7 @@ namespace MyHeroMod
                         transPlayer.ActiveQuirks = receivedQuirks;
                         transPlayer.CurrentStage = (QuirkStage)stageInt;
                         
-                        // 2. APPLY THE VARIANT TO THE PLAYER
+                        
                         if (Enum.IsDefined(typeof(QuirkVariant), variantInt))
                             transPlayer.CurrentVariant = (QuirkVariant)variantInt;
 
@@ -164,7 +170,7 @@ namespace MyHeroMod
                             
                             packet.Write(stageInt);
                             
-                            // 3. FORWARD THE VARIANT TO OTHER CLIENTS
+                           
                             packet.Write(variantInt); 
                             
                             packet.Write(natureInt);
