@@ -65,13 +65,18 @@ namespace MyHeroMod.content.Quirks.Flight
                 isFlightShieldOn = true;
                 var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-                
+                // var flightShieldBaseHealth = 0;
                 flightShieldMaxHealth = transPlayer.CurrentStage switch 
                 {
                     QuirkStage.Initial => 20, QuirkStage.Adequation => 50,
                     QuirkStage.Intermediate => 60, QuirkStage.Advanced => 80,
                     QuirkStage.Final => 120, _ => 20
                 };
+                
+
+                // if (transPlayer.hasNature(Nature))
+
+                // flightShieldMaxHealth = flightShieldBaseHealth + shieldBonus;
             }
             else
             {
@@ -153,9 +158,9 @@ namespace MyHeroMod.content.Quirks.Flight
 
             float dashSpeed = transPlayer.CurrentStage switch 
             {
-                QuirkStage.Initial => 8f, QuirkStage.Adequation => 12f,
-                QuirkStage.Intermediate => 15f, QuirkStage.Advanced => 18f,
-                QuirkStage.Final => 20f, _ => 8f
+                QuirkStage.Initial => 8f, QuirkStage.Adequation => 15f,
+                QuirkStage.Intermediate => 16f, QuirkStage.Advanced => 35f,
+                QuirkStage.Final => 40f, _ => 8f
             };
 
             speed = dashSpeed ;
