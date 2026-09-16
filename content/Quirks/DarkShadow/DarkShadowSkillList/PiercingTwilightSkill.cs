@@ -5,7 +5,7 @@ using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.DarkShadow;
 using MyHeroMod.content.Quirks.DarkShadow.Projectiles;
 
-namespace MyHeroMod.content.Quirks.DarkShadow.Skills
+namespace MyHeroMod.content.Quirks.DarkShadow.DarkShadowSkillList
 {
     public class PiercingTwilightClawsSkill : QuirkBaseSkill
     {
@@ -27,13 +27,13 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Skills
             int projectileToSpawn = -1;
             int handIndex = -1;
             
-            if (!darkPlayer.isFrontHandAttacking) 
+            if (!darkPlayer.IsFrontHandAttacking) 
             {
                 // Mão da frente livre! Usa o sprite/projétil da frente.
                 projectileToSpawn = ModContent.ProjectileType<DarkShadowLongFrontHandProj>();
                 handIndex = 0;
             }
-            else if (!darkPlayer.isBackHandAttacking) 
+            else if (!darkPlayer.IsBackHandAttacking) 
             {
                 // Mão da frente está ocupada. A de trás está livre? Usa o de trás!
                 projectileToSpawn = ModContent.ProjectileType<DarkShadowLongBackHandProj>();

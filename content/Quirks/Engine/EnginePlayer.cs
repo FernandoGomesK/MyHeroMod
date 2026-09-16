@@ -6,6 +6,8 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MyHeroMod.content.System.Interfaces;
+using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.Engine
 {

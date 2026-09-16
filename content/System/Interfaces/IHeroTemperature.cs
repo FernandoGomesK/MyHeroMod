@@ -1,6 +1,8 @@
 
 
 
+using KhacesCore.Content.System.Interfaces;
+
 namespace MyHeroMod.content.System.Interfaces
 {
     public interface IHeroTemperature : IStrainSource
@@ -12,13 +14,6 @@ namespace MyHeroMod.content.System.Interfaces
         void AddHeat(int amount);
         void ReduceHeat(int amount);
 
-    }
-
-
-    public interface IStrainSource
-    {
-        int StrainPenaltyPerSecond { get; set; }
-        void AddStrain(int amount);
     }
 
     public interface IHeroBreath

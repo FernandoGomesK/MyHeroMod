@@ -1,40 +1,41 @@
-using Terraria;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework;
-using Terraria.ModLoader;
-using Terraria.ID;
-using MyHeroMod.content;
-using MyHeroMod.content.System;
-using Terraria.Audio;
-using System.Collections.Generic;
-using MyHeroMod.content.Dusts;
-using MyHeroMod.content.Buffs;
+using KhacesCore.Content.System;
 using KhacesCore.Content.System.Interfaces;
-using MyHeroMod.content.System.Interfaces;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MyHeroMod.content;
+using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Dusts;
 using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.System;
+using MyHeroMod.content.System.Interfaces;
 using System;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 
 namespace MyHeroMod.content.Quirks.Explosion
 {
     public partial class ExplosionPlayer : ModPlayer, IFlightModifier, IDashModifier, IStrainSource
     {
-    
+        public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
         public int StrainPenaltyPerSecond { get; set; }
 
         public void AddStrain(int amount)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-            transPlayer.currentStrain += amount;
+            Core.currentStrain += amount;
 
-            if (transPlayer.currentStrain <= 0)
+            if (Core.currentStrain <= 0)
             {
-                transPlayer.currentStrain = 0;
+                Core.currentStrain = 0;
             }
-            else if (transPlayer.currentStrain >= transPlayer.maxStrain)
+            else if (Core.currentStrain >= Core.maxStrain)
             {
-                transPlayer.currentStrain = transPlayer.maxStrain;
+                Core.currentStrain = Core.maxStrain;
                 IsClusterActive = false;
                 Player.ClearBuff(ModContent.BuffType<ClusterBuff>()); 
             }
@@ -114,7 +115,7 @@ namespace MyHeroMod.content.Quirks.Explosion
 
                 Player.AddBuff(ModContent.BuffType<ClusterBuff>(), 2);
 
-                StrainPenaltyPerSecond = Math.Max(1, (int)(transPlayer.maxStrain * 0.01f));
+                StrainPenaltyPerSecond = Math.Max(1, (int)(Core.maxStrain * 0.01f));
             }
             else
             {

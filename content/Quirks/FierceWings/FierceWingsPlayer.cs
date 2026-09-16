@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System.Interfaces;
+using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.FierceWings
 {

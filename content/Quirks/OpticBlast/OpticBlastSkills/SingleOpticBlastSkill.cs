@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OpticBlast.Projectiles;
 using MyHeroMod.content.Quirks.OpticBlast;
 using System.Diagnostics.Metrics;
+using KhacesCore.Content.System;
 
 namespace MyHeroMod.content.Quirks.OpticBlast.Skills 
 {
@@ -27,6 +28,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Skills
         public override QuirkStage RequiredStage => QuirkStage.Initial;
         public override bool IsDefaultSkill => false;
 
+
        
         
             
@@ -37,6 +39,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Skills
         {
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
             var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
+            var corePlayer = player.GetModPlayer<CorePlayer>();
 
             
 
@@ -53,7 +56,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast.Skills
             if (opticPlayer.CurrentPercentage == OpticBlastPlayer.Percentage.Zero || 
                 player.HasBuff(BuffID.Blackout) || 
                 player.HasBuff(ModContent.BuffType<Heatstroke>()) ||
-                transPlayer.currentStrain >= transPlayer.maxStrain ||
+                corePlayer.currentStrain >= corePlayer.maxStrain ||
                 opticPlayer.CurrentOpticBlast < meterReduction) 
             {
                 return; 

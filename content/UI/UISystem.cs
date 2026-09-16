@@ -47,8 +47,7 @@ namespace MyHeroMod
         private UserInterface fullCowlingUserInterface;
         internal FullCowlingUIState fullCowlingUIState;
 
-        private UserInterface StrainUserInterface;
-        internal StrainUIState StrainUIState;
+        
 
 
         public override void Load()
@@ -111,10 +110,7 @@ namespace MyHeroMod
                 fullCowlingUserInterface = new UserInterface();
                 fullCowlingUserInterface.SetState(fullCowlingUIState);
 
-                StrainUIState = new StrainUIState();
-                StrainUIState.Activate();
-                StrainUserInterface = new UserInterface();
-                StrainUserInterface.SetState(StrainUIState);
+                
 
                 if (!Main.dedServ)
     {
@@ -162,8 +158,7 @@ namespace MyHeroMod
             fullCowlingUIState = null;
             fullCowlingUserInterface = null;
 
-            StrainUIState = null;
-            StrainUserInterface = null;
+            
         }
 
         // public static void ToggleSkillMenu()
@@ -255,8 +250,7 @@ namespace MyHeroMod
             if (fullCowlingUserInterface != null)
                 fullCowlingUserInterface.Update(gameTime);
 
-            if (StrainUserInterface != null)
-                StrainUserInterface.Update(gameTime);
+            
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -400,18 +394,7 @@ namespace MyHeroMod
                 InterfaceScaleType.UI)
             );
 
-            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                "MyHeroMod: Strain Bar",
-                delegate
-                {
-                    if (StrainUserInterface != null)
-                    {
-                        StrainUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
-                    return true;
-                },
-                InterfaceScaleType.UI)
-            );
+            
         }
     }
 }

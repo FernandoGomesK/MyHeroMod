@@ -7,6 +7,7 @@ using MyHeroMod.content.Quirks.ZeroGravity;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.OFA8th;
+using KhacesCore.Content.System;
 
 namespace MyHeroMod.content.UI
 {
@@ -94,14 +95,15 @@ namespace MyHeroMod.content.UI
             Recalculate();
         }
 
-         protected override void DrawSelf(SpriteBatch spriteBatch)
-    {
-        Player player = Main.LocalPlayer;
-        var transPlayer = player.GetModPlayer<TransformationPlayer>();
-        var ofa9Player = player.GetModPlayer<OneForAll9thPlayer>();
-        var ofa8Player = player.GetModPlayer<OneForAll8thPlayer>();
-        var hasGear = player.HasBuff(ModContent.BuffType<GearshiftBuff>());
-        int emberBar = ofa9Player.isQuirkless ? ofa9Player.EmberBar : (ofa8Player.isQuirkless ? ofa8Player.EmberBar : 0);
+        protected override void DrawSelf(SpriteBatch spriteBatch)
+        {
+            Player player = Main.LocalPlayer;
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+            var ofa9Player = player.GetModPlayer<OneForAll9thPlayer>();
+            var ofa8Player = player.GetModPlayer<OneForAll8thPlayer>();
+            var corePlayer = player.GetModPlayer<CorePlayer>();
+            var hasGear = player.HasBuff(ModContent.BuffType<GearshiftBuff>());
+            int emberBar = ofa9Player.isQuirkless ? ofa9Player.EmberBar : (ofa8Player.isQuirkless ? ofa8Player.EmberBar : 0);
 
         
         bool hasOFA9 = transPlayer.HasActiveQuirk(QuirkType.OneForAll9th);
@@ -157,9 +159,9 @@ namespace MyHeroMod.content.UI
                 _ => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FullCowlingBarFrame").Value,
             };
 
-            if (transPlayer.maxStrain >= 0)
+            if (corePlayer.maxStrain >= 0)
             {
-                quotient = 1f - ((float)transPlayer.currentStrain / transPlayer.maxStrain);
+                quotient = 1f - ((float)corePlayer.currentStrain / corePlayer.maxStrain);
             }
             quotient = MathHelper.Clamp(quotient, 0f, 1f);
         }
@@ -199,8 +201,8 @@ namespace MyHeroMod.content.UI
         }
         else
         {
-            int remainingStrain = transPlayer.maxStrain - (int)transPlayer.currentStrain;
-            text = $"{remainingStrain} / {transPlayer.maxStrain}";
+            int remainingStrain = corePlayer.maxStrain - (int)corePlayer.currentStrain;
+            text = $"{remainingStrain} / {corePlayer.maxStrain}";
         }
 
         Vector2 textPos = drawPos + new Vector2(barFrame.Width / 2f - 20f, barFrame.Height + 5f);

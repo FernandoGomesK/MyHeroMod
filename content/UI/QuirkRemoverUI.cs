@@ -7,6 +7,7 @@ using Terraria.ID;
 using MyHeroMod.content;
 using Terraria.Audio;
 using MyHeroMod.content.Quirks.AllForOne;
+using KhacesCore.Content.System;
 
 namespace MyHeroMod
 {
@@ -86,6 +87,7 @@ namespace MyHeroMod
             if (Main.LocalPlayer == null || !Main.LocalPlayer.active) return;
             // var afoPlayer = Main.LocalPlayer.GetModPlayer<AllForOnePlayer>();
             var transPlayer = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
+            var corePlayer = Main.LocalPlayer.GetModPlayer<CorePlayer>();
 
             // Se o AFO não tiver roubado nada ainda
             if (transPlayer.ActiveQuirks.Count == 0)
@@ -123,7 +125,7 @@ foreach (QuirkType quirk in transPlayer.ActiveQuirks)
                     SoundEngine.PlaySound(SoundID.NPCDeath11);
                     
                     transPlayer.ActiveQuirks.Remove(quirk);
-                    transPlayer.ResetSlot();
+                    corePlayer.ResetSlots();
                     transPlayer.UpdateUnlockedSkills();
 
                     if (Main.netMode == NetmodeID.MultiplayerClient)

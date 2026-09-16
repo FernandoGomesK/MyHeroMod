@@ -1,8 +1,9 @@
 using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System.Interfaces;
+using KhacesCore.Content.System.Interfaces;
 
-namespace MyHeroMod.content.System
+namespace MyHeroMod.content.System.DrainSystem
 {
     public class GlobalResourcePlayer : ModPlayer
     {

@@ -7,6 +7,7 @@ using Terraria.ModLoader;
 using KhacesCore.Content.System.GeneralSkills;
 using KhacesCore.Content.Buffs;
 using KhacesCore.Content.System.Interfaces;
+using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.Flight
 {

@@ -1,3 +1,4 @@
+using KhacesCore.Content.System;
 using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
@@ -12,7 +13,7 @@ using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 {
-    public abstract class BaseIceAndFirePlayer : ModPlayer, IQuirkResetter, IHeroTemperature, IFlightModifier
+    public abstract class BaseIceAndFirePlayer : ModPlayer, IQuirkResetter, IHeroTemperature, IFlightModifier, IStrainSource
     {
         protected SlotId _loopSoundSlot;
 
@@ -36,37 +37,33 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
             }
         }
 
-    
         public int Temperature { get; set; } = 0;
         public int HeatPerSecond { get; set; }
         public int StrainPenaltyPerSecond { get; set; }
+        public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
 
-        
         public int CurrentStrain
         {
-            get => Player.GetModPlayer<TransformationPlayer>().currentStrain;
-            set => Player.GetModPlayer<TransformationPlayer>().currentStrain = value;
+            get => Core.currentStrain;
+            set => Core.currentStrain = value;
         }
-        public int MaxStrain => Player.GetModPlayer<TransformationPlayer>().maxStrain;
+        public int MaxStrain => Core.maxStrain;
 
         public abstract int MaxTemperature { get; }
         public abstract int MinTemperature { get; }
         public abstract int FlashfireHeatRate { get; }
-        
-        
+
         public virtual int StrainPenaltyThreshold => (int)(MaxTemperature * 0.75f);
-        
-        
+
         public virtual QuirkStage FlightUnlockStage => QuirkStage.Adequation;
 
-        
         public bool IsFlashFireFistActive = false;
         public bool IsPhosphorActive = false;
         public bool isCombatVestAlphaOn = false;
         public bool isCombatVestBetaOn = false;
         public bool isSurgeArmGauntletsOn = false;
 
-        public virtual int PhosphorCoolingRate => 0; 
+        public virtual int PhosphorCoolingRate => 0;
         public virtual bool PhosphorFreezesTemperature => false;
         public virtual bool PhosphorTurnsOff => false;
 
@@ -74,21 +71,19 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            
             if (amount > 0 && (transPlayer.Nature == NatureType.HeatResistance || transPlayer.Nature == NatureType.ThermalResistance))
             {
                 amount = (int)(amount * 0.5f);
             }
-           
             else if (amount < 0 && (transPlayer.Nature == NatureType.ColdResistance || transPlayer.Nature == NatureType.ThermalResistance))
             {
                 amount = (int)(amount * 0.5f);
             }
 
             Temperature += amount;
-            
+
             if (Temperature > MaxTemperature) Temperature = MaxTemperature;
-            if (Temperature < MinTemperature) Temperature = MinTemperature; 
+            if (Temperature < MinTemperature) Temperature = MinTemperature;
         }
 
         public void ReduceHeat(int amount)
@@ -105,18 +100,16 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 
         public void AddStrain(int amount)
         {
-            CurrentStrain += amount;
-            
-            
-            if (CurrentStrain < 0) CurrentStrain = 0; 
+            // USE CorePlayer's centralized math for clamping
+            Core.AddStrain(amount);
 
-           
             if (amount > 0)
             {
                 CombatText.NewText(Player.getRect(), Color.Cyan, $"{amount} Strain!", false, true);
             }
 
-            if (CurrentStrain >= MaxStrain)
+            // CHECK against the CorePlayer's updated strain value
+            if (Core.currentStrain >= Core.maxStrain)
             {
                 ApplyMaxStrainPenalty();
             }
@@ -132,30 +125,22 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
         {
             int envHeat = 0;
 
-            
             if (Player.onFire || Player.onFire2 || Player.onFire3) envHeat += 10;
             if (Player.lavaWet) envHeat += 15;
-            
+
             if (Player.ZoneDesert || Player.ZoneUnderworldHeight) envHeat += 2;
             if (Player.ZoneJungle) envHeat += 1;
 
-            
             if (Player.wet && !Player.lavaWet && !Player.honeyWet) envHeat -= 8;
-            
-         
+
             if (Player.HasBuff(BuffID.Frostburn) || Player.HasBuff(BuffID.Frostburn2)) envHeat -= 10;
             if (Player.HasBuff(BuffID.Chilled) || Player.HasBuff(BuffID.Frozen)) envHeat -= 5;
-            
-            
+
             if (Player.ZoneSnow) envHeat -= 3;
-            if (Player.ZoneSkyHeight) envHeat -= 1; 
+            if (Player.ZoneSkyHeight) envHeat -= 1;
 
             return envHeat;
         }
-
-        
-
-        
 
         public override void ResetEffects()
         {
@@ -169,7 +154,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
         public virtual void FullReset()
         {
             Temperature = 0;
-            
             IsFlashFireFistActive = false;
             IsPhosphorActive = false;
             Player.ClearBuff(ModContent.BuffType<PhosphorBuff>());
@@ -190,7 +174,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
             Player.ClearBuff(ModContent.BuffType<FlashfireFistBuff>());
         }
 
-       public override void PreUpdate()
+        public override void PreUpdate()
         {
             if (IsPhosphorActive && Player.statLife <= 0.75 * Player.statLifeMax2 && PhosphorTurnsOff)
             {
@@ -198,7 +182,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
                 IsPhosphorActive = false;
             }
 
-            
             if (Player.HasBuff<PhosphorBuff>() && PhosphorFreezesTemperature)
             {
                 Temperature = 0;
@@ -209,12 +192,12 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
         public override void PostUpdateEquips()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-            
+
             if (IsFlashFireFistActive) Player.AddBuff(ModContent.BuffType<FlashfireFistBuff>(), 2);
             if (Temperature > 0 || Temperature < 0) Player.AddBuff(ModContent.BuffType<TemperatureBuff>(), 2);
             if (Temperature >= MaxTemperature) Player.AddBuff(ModContent.BuffType<Heatstroke>(), 2);
             if (Temperature <= MinTemperature && MinTemperature < 0) Player.AddBuff(ModContent.BuffType<FrostBite>(), 2);
-            
+
             if (mainPlayer.CurrentStage >= FlightUnlockStage && !Player.HasBuff<Heatstroke>())
             {
                 Player.wingTimeMax = mainPlayer.CurrentStage switch
@@ -227,7 +210,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
                 };
                 if (Player.wingsLogic == 0)
                 {
-                    Player.wingsLogic = 29; 
+                    Player.wingsLogic = 29;
                     Player.wings = -1;
                 }
                 Player.noFallDmg = true;
@@ -236,28 +219,26 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 
         public override void PostUpdate()
         {
-
-
             if (!IsFlashFireFistActive)
             {
                 StopLoopSound();
             }
-        
+
             if (!IsPhosphorActive || !PhosphorFreezesTemperature)
             {
                 if (IsFlashFireFistActive)
                 {
-                    HeatPerSecond = FlashfireHeatRate; 
+                    HeatPerSecond = FlashfireHeatRate;
                 }
                 else
                 {
                     int recoveryRate = 1;
-                    if (isCombatVestAlphaOn) recoveryRate += 1; 
-                    if (isCombatVestBetaOn)  recoveryRate += 5; 
+                    if (isCombatVestAlphaOn) recoveryRate += 1;
+                    if (isCombatVestBetaOn) recoveryRate += 5;
 
-                    if (Temperature > 0) HeatPerSecond = -recoveryRate;      
-                    else if (Temperature < 0) HeatPerSecond = recoveryRate;  
-                    else HeatPerSecond = 0;                       
+                    if (Temperature > 0) HeatPerSecond = -recoveryRate;
+                    else if (Temperature < 0) HeatPerSecond = recoveryRate;
+                    else HeatPerSecond = 0;
                 }
 
                 HeatPerSecond += CalculateEnvironmentalHeat();
@@ -267,19 +248,18 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
                     HeatPerSecond -= PhosphorCoolingRate;
                     if (Temperature <= -50 && HeatPerSecond < 0)
                     {
-                        Temperature = -50; 
-                        HeatPerSecond = 0; 
+                        Temperature = -50;
+                        HeatPerSecond = 0;
                     }
                 }
             }
             else
             {
-                
                 HeatPerSecond = 0;
             }
-            
+
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-            
+
             bool isOverheating = Temperature >= (MaxTemperature * 0.75f);
             bool isFreezing = MinTemperature < 0 && Temperature <= (MinTemperature * 0.75f);
 
@@ -290,25 +270,24 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
             {
                 int penalty = 20;
 
-            
                 if (isOverheating && (transPlayer.Nature == NatureType.HeatResistance || transPlayer.Nature == NatureType.ThermalResistance))
                 {
-                    penalty = 10; 
+                    penalty = 10;
                 }
                 if (isFreezing && (transPlayer.Nature == NatureType.ColdResistance || transPlayer.Nature == NatureType.ThermalResistance))
                 {
-                    penalty = 10; 
+                    penalty = 10;
                 }
 
-                StrainPenaltyPerSecond = penalty; 
+                StrainPenaltyPerSecond = penalty;
             }
             else if (isSafeHot || isSafeCold)
             {
-                StrainPenaltyPerSecond = -5; 
+                StrainPenaltyPerSecond = -5;
             }
-            else 
+            else
             {
-                StrainPenaltyPerSecond = 0;  
+                StrainPenaltyPerSecond = 0;
             }
 
             UpdateFlyingDust();
@@ -318,7 +297,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-
             if (!transPlayer.HasActiveQuirk(QuirkType.HellFlames) &&
                 !transPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot) &&
                 !transPlayer.HasActiveQuirk(QuirkType.Blueflame))
@@ -327,7 +305,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
             }
 
             float dashSpeed = transPlayer.CurrentStage switch
-            { 
+            {
                 QuirkStage.Adequation => 15f,
                 QuirkStage.Intermediate => 16f,
                 QuirkStage.Advanced => 35f,
@@ -346,19 +324,18 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
                 transPlayer.HasActiveQuirk(QuirkType.Blueflame);
         }
 
-
         protected virtual void UpdateFlyingDust()
         {
             bool isFlying = (Player.velocity.Y != 0) && (Player.wingTime > 0 || Player.rocketDelay > 0) && !Player.mount.Active;
             if (isFlying)
             {
-                if (Main.rand.NextBool(2)) 
+                if (Main.rand.NextBool(2))
                 {
                     int dustFire = Dust.NewDust(Player.position + new Vector2(-5, Player.height - 10), Player.width / 2, 10, DustID.Torch, 0, 2f, 100, default, 1.5f);
                     Main.dust[dustFire].noGravity = true;
-                    Main.dust[dustFire].velocity *= 0.5f; 
+                    Main.dust[dustFire].velocity *= 0.5f;
                 }
-                
+
                 if (MinTemperature < 0 && Main.rand.NextBool(2))
                 {
                     int dustIce = Dust.NewDust(Player.position + new Vector2(Player.width / 2, Player.height - 10), Player.width / 2, 10, DustID.IceTorch, 0, 2f, 100, default, 1.5f);

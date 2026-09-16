@@ -7,6 +7,7 @@ using Terraria.Audio;
 using Terraria.ID;
 using JetBrains.Annotations;
 using Terraria.ModLoader.IO;
+using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.OFA8th
 {

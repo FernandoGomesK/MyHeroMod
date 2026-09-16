@@ -9,6 +9,7 @@ using MyHeroMod.content.System;
 using Microsoft.Xna.Framework.Graphics;
 using KhacesCore.Content.System.Interfaces;
 using KhacesCore.Content.System.BaseProjectiles;
+using MyHeroMod.content.System.Interfaces;
 
 
 namespace MyHeroMod.content.Quirks.Gearshift

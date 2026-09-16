@@ -9,7 +9,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
 {
     public class DarkShadowFrontHandProj : ModProjectile
     {
-        Color shadowColor = new Color(24, 0, 33);
+        Color shadowColor = new(24, 0, 33);
         public override void SetDefaults()
         {
             Projectile.width = 26; 
@@ -34,7 +34,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
                 return;
             }
 
-            if (darkPlayer.isFrontHandAttacking)
+            if (darkPlayer.IsFrontHandAttacking)
             {
                 Projectile.alpha = 255;
                 return;
@@ -93,7 +93,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Vector2 direction = hoverPosition - Projectile.Center;
             float distance = direction.Length();
 
-            float maxAllowedRange = (darkPlayer.darkShadowBodyRange > 0 ? darkPlayer.darkShadowBodyRange : 120f) + 30f;
+            float maxAllowedRange = (darkPlayer.DarkShadowBodyRange > 0 ? darkPlayer.DarkShadowBodyRange : 120f) + 30f;
 
             // Teleport Check: Ensures the hand instantly catches up to the anchor
             if (distance > 2000f) // Safeguard for Magic Mirrors/Recalls across the map
@@ -170,7 +170,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
                 var Path = "MyHeroMod/content/Quirks/DarkShadow/Projectiles/BigDarkShadowFrontHandProj";
                 Texture2D bigTexture = ModContent.Request<Texture2D>(Path).Value;
 
-                Vector2 drawOrigin = new Vector2(bigTexture.Width * 0.5f, bigTexture.Height * 0.5f);
+                Vector2 drawOrigin = new(bigTexture.Width * 0.5f, bigTexture.Height * 0.5f);
                 Vector2 drawPos = Projectile.Center - Main.screenPosition;
                 SpriteEffects effects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 

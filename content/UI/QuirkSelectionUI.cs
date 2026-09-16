@@ -1,11 +1,12 @@
+using KhacesCore.Content.System;
 using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.GameContent.UI.Elements;
-using Terraria.UI;
-using Terraria.ModLoader;
-using Terraria.ID;
 using MyHeroMod.content;
+using Terraria;
 using Terraria.Audio;
+using Terraria.GameContent.UI.Elements;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.UI;
 
 namespace MyHeroMod
 {
@@ -14,6 +15,7 @@ namespace MyHeroMod
         public UIPanel MainPanel;
         public UIList quirkList;
         public UIScrollbar scrollbar;
+
 
         public override void OnInitialize()
         {
@@ -112,9 +114,10 @@ namespace MyHeroMod
 
                 Player player = Main.LocalPlayer;
                 var transPlayer = player.GetModPlayer<TransformationPlayer>();
+                var corePlayer = player.GetModPlayer<CorePlayer>();
 
                 transPlayer.CompleteReset();
-                transPlayer.ResetSlot();
+                corePlayer.ResetSlots();
 
                 transPlayer.ActiveQuirks.Clear();
                 transPlayer.ActiveQuirks.Add(quirk);

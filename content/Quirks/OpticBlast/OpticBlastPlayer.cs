@@ -1,12 +1,14 @@
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+using KhacesCore.Content.System;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.System;
 using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.Quirks.OpticBlast.Projectiles; 
-using Terraria.Graphics.CameraModifiers;
+using MyHeroMod.content.System;
+using MyHeroMod.content.System.Interfaces;
 using System;
+using Terraria;
+using Terraria.Graphics.CameraModifiers;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.OpticBlast
 {
@@ -24,8 +26,9 @@ namespace MyHeroMod.content.Quirks.OpticBlast
         public int MaxOpticBlast = 100;
         public int MinOpticBlast = 0;
         public int CurrentOpticBlast = 100;
-        public int regenTimer = 0; 
+        public int regenTimer = 0;
 
+        public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
         public void FullReset()
         {
             MaxOpticBlast = 100;
@@ -96,8 +99,8 @@ namespace MyHeroMod.content.Quirks.OpticBlast
             {
                 if (Main.GameUpdateCount % 6 == 0)
                 {
-                    int strainIncrease = (int)(transPlayer.maxStrain * 0.01f); 
-                    transPlayer.currentStrain += Math.Max(1, strainIncrease);
+                    int strainIncrease = (int)(Core.maxStrain * 0.01f); 
+                    Core.currentStrain += Math.Max(1, strainIncrease);
                 }
 
                 Player.moveSpeed *= 0.2f;
@@ -120,7 +123,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast
                 Player.velocity.X -= aimDirection.X * recoilStrength;
    
 
-                if (transPlayer.currentStrain >= transPlayer.maxStrain)
+                if (Core.currentStrain >= Core.maxStrain)
                 {
                     Player.AddBuff(ModContent.BuffType<Heatstroke>(), 500);
                     Player.AddBuff(BuffID.Obstructed, 300);  

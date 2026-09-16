@@ -10,6 +10,7 @@ using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.OFA9th;
 using Humanizer;
 using MyHeroMod.content.Quirks.Erasure.Projectiles;
+using MyHeroMod.content.System.Interfaces;
 
 
 namespace MyHeroMod.content.Quirks.Erasure;

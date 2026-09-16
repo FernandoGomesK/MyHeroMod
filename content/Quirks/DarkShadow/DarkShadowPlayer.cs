@@ -20,10 +20,10 @@ namespace MyHeroMod.content.Quirks.DarkShadow
         public int AutomaticAttackTimer = 0;
         public int AutomaticAttackCooldown = 60; 
 
-        public int darkShadowBodyRange => isMediumDarkShadowOn ? 120 : 50;
+        public int DarkShadowBodyRange => isMediumDarkShadowOn ? 120 : 50;
         
-        public bool isFrontHandAttacking => Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowLongFrontHandProj>()] > 0;
-        public bool isBackHandAttacking => Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowLongBackHandProj>()] > 0;
+        public bool IsFrontHandAttacking => Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowLongFrontHandProj>()] > 0;
+        public bool IsBackHandAttacking => Player.ownedProjectileCounts[ModContent.ProjectileType<DarkShadowLongBackHandProj>()] > 0;
         
         public override void ResetEffects()
         {

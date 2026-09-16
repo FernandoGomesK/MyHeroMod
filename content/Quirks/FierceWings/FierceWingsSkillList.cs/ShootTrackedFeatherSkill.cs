@@ -23,12 +23,12 @@ public class ShootTrackedFeatherSkill : QuirkBaseSkill
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     
     public override bool IsDefaultSkill => false;
-    public override bool CanUse(Player player)
-    {
-        var featherPlayer = player.GetModPlayer<FierceWingsPlayer>();
+    //public override bool CanUse(Player player)
+    //{
+    //    var featherPlayer = player.GetModPlayer<FierceWingsPlayer>();
     
-        return featherPlayer.currentFeathers >= 20 && base.CanUse(player);
-    }
+    //    return featherPlayer.currentFeathers >= 20 && base.CanUse(player);
+    //}
     
     public override void OnUse(Player player)
     {

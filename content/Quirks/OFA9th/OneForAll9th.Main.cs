@@ -31,7 +31,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
     // ========================================= Main ===============================================================================
     public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter, IDashModifier, IStrainSource
     {
-
+        public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
         // ========================================= isQuirkless =======================================================================
 
         public bool isQuirkless = false;
@@ -71,13 +71,13 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 return;
             }
 
-            transPlayer.currentStrain += amount;
+            Core.currentStrain += amount;
             if (timeUsed < maxTimeUsed) { timeUsed += 1; }
 
-            if (transPlayer.currentStrain <= 0) { transPlayer.currentStrain = 0; }
-            else if (transPlayer.currentStrain >= transPlayer.maxStrain)
+            if (Core.currentStrain <= 0) { Core.currentStrain = 0; }
+            else if (Core.currentStrain >= Core.maxStrain)
             {
-                transPlayer.currentStrain = transPlayer.maxStrain;
+                Core.currentStrain = Core.maxStrain;
                 Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
             }
         }

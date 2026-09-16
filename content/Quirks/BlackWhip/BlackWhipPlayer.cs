@@ -1,14 +1,17 @@
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
-using System.Collections.Generic;
+using KhacesCore.Content.System;
+using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
-using Terraria.Audio;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Quirks.BlackWhip.Projectiles;
+using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhipStun;
 using MyHeroMod.content.System;
 using MyHeroMod.content.System.Interfaces;
-using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhipStun;
-using MyHeroMod.content.Quirks.BlackWhip.Projectiles;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
+using Terraria.ModLoader;
+
 
 namespace MyHeroMod.content.Quirks.BlackWhip
 {
@@ -19,18 +22,20 @@ namespace MyHeroMod.content.Quirks.BlackWhip
         public bool isAutomaticWhipActive = false;
         public int overlayAutoAttackTimer = 0;
 
-    
+        public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
+
+
         public int StrainPenaltyPerSecond { get; set; }
 
         public void AddStrain(int amount)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-            transPlayer.currentStrain += amount;
+            Core.currentStrain += amount;
 
-            if (transPlayer.currentStrain <= 0) transPlayer.currentStrain = 0;
-            if (transPlayer.currentStrain >= transPlayer.maxStrain)
+            if (Core.currentStrain <= 0) Core.currentStrain = 0;
+            if (Core.currentStrain >= Core.maxStrain)
             {
-                transPlayer.currentStrain = transPlayer.maxStrain;
+                Core.currentStrain = Core.maxStrain;
             
                 Player.ClearBuff(ModContent.BuffType<OverlayBuff>());
             }
@@ -98,9 +103,9 @@ namespace MyHeroMod.content.Quirks.BlackWhip
             };
 
             int projectileCount = 1;
-            
-            IClosestEnemyFinder finder = new TargetFinder();
-            NPC target = finder.FindClosestEnemy(Player, 400f, false);
+
+            KhacesCore.Content.System.Interfaces.TargetFinder targetFinder = new();
+            NPC target = ((KhacesCore.Content.System.Interfaces.IClosestEnemyFinder)targetFinder).FindClosestEnemy(Player, 400f, false);
 
             Vector2 baseVelocity;
             float hasTargetFlag; 

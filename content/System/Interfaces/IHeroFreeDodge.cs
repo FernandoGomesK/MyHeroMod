@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ModLoader;
 
 
-namespace MyHeroMod.content.System
+namespace MyHeroMod.content.System.Interfaces
 {
     public interface IHeroDodgeModifier
     {

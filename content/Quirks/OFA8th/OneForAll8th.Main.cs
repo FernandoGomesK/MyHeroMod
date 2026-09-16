@@ -1,27 +1,30 @@
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.ModLoader;
-using Terraria.ID;
-using MyHeroMod.content;
-using MyHeroMod.content.Quirks;
-using MyHeroMod.content.Quirks.OFA8th.Projectiles;
-using Terraria.Audio;
-using MyHeroMod.content.System;
-using System.Collections.Generic;
+using Humanizer;
+using KhacesCore.Content.System;
 using KhacesCore.Content.System.Interfaces;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MyHeroMod.content;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Quirks;
+using MyHeroMod.content.Quirks.AllForOne;
+using MyHeroMod.content.Quirks.OFA8th.Projectiles;
+using MyHeroMod.content.System;
 using MyHeroMod.content.System.Interfaces;
 using System;
-using MyHeroMod.content.Quirks.AllForOne;
-using Humanizer;
+using System.Collections.Generic;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
 
 namespace MyHeroMod.content.Quirks.OFA8th
 {
     public partial class OneForAll8thPlayer : ModPlayer, IQuirkResetter, IDashModifier, IStrainSource
     {
+
+        public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
         // ===================================== Embers ==========================================================
 
         public bool isQuirkless = false;
@@ -53,28 +56,28 @@ namespace MyHeroMod.content.Quirks.OFA8th
             if (isQuirkless)
             {
                 embersAmount -= amount;
-                transPlayer.currentStrain += amount;
-                if (transPlayer.currentStrain <= 0)
+                Core.currentStrain += amount;
+                if ( Core.currentStrain <= 0)
                 {
-                    transPlayer.currentStrain = 0;
+                    Core.currentStrain = 0;
                 }
-                else if (transPlayer.currentStrain >= transPlayer.maxStrain)
+                else if (Core.currentStrain >= Core.maxStrain)
                 {
-                    transPlayer.currentStrain = transPlayer.maxStrain;
+                    Core.currentStrain = Core.maxStrain;
                     Player.ClearBuff(ModContent.BuffType<StockPileBuff>());
                 }
 
                 return;
             }
 
-            transPlayer.currentStrain += amount;
+            Core.currentStrain += amount;
             
            if (timeUsed < maxTimeUsed) { timeUsed += 1; }
 
-            if (transPlayer.currentStrain <= 0) { transPlayer.currentStrain = 0; }
-            else if (transPlayer.currentStrain >= transPlayer.maxStrain)
+            if (Core.currentStrain <= 0) { Core.currentStrain = 0; }
+            else if (Core.currentStrain >= Core.maxStrain)
             {
-                transPlayer.currentStrain = transPlayer.maxStrain;
+                Core.currentStrain = Core.maxStrain;
                 Player.ClearBuff(ModContent.BuffType<StockPileBuff>());
             }
         }

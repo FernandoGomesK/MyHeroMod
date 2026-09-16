@@ -13,6 +13,7 @@ using KhacesCore.Content.System;
 using KhacesCore.Content.System.BaseProjectiles;
 using MyHeroMod.content.Handlers;
 using Terraria.ModLoader;
+using MyHeroMod.content.System.Handlers;
 
 namespace MyHeroMod.content.UI
 {
@@ -22,14 +23,15 @@ namespace MyHeroMod.content.UI
         private string hoveredTooltip = null; 
         
         
-        private UIList skillList;
-        private UIText infoText;
-        private UIText selectedSkillText;
+        private readonly UIList skillList;
+        private readonly UIText infoText;
+        private readonly UIText selectedSkillText;
         
         private List<string> activeCategories = new List<string>();
         private int currentCategoryIndex = 0;
 
         private TransformationPlayer playerRef;
+        private CorePlayer coreRef;
         private QuirkHandler quirkHandlerRef;
 
         public SkillMenuTabContent()
@@ -38,6 +40,7 @@ namespace MyHeroMod.content.UI
             Height.Set(0, 1f);
 
             playerRef = Main.LocalPlayer.GetModPlayer<TransformationPlayer>();
+            coreRef = Main.LocalPlayer.GetModPlayer<CorePlayer>();
             quirkHandlerRef = Main.LocalPlayer.GetModPlayer<QuirkHandler>();
             playerRef.UpdateUnlockedSkills();
 
@@ -202,16 +205,15 @@ namespace MyHeroMod.content.UI
             RefreshCategory();
         }
 
-       private void RefreshCategory()
+        private void RefreshCategory()
         {
             string currentCategory = activeCategories[currentCategoryIndex];
-            skillList.Clear(); 
+            skillList.Clear();
 
-            
             if (Enum.TryParse(currentCategory, out QuirkType parsedQuirk))
-            {
-                string displayName = quirkHandlerRef.GetQuirkDisplayName(parsedQuirk);
-                infoText.SetText($"[c/00FFFF:{displayName}:] {quirkHandlerRef.GetQuirkDescription(parsedQuirk)}");
+            {        
+                string displayName = QuirkHandler.GetQuirkDisplayName(parsedQuirk);
+                infoText.SetText($"[c/00FFFF:{displayName}:] {QuirkHandler.GetQuirkDescription(parsedQuirk)}");
             }
             else if (currentCategory == "Deku Armor")
             {
@@ -278,8 +280,8 @@ namespace MyHeroMod.content.UI
             slotBtn.BackgroundColor = Color.DarkSlateBlue;
 
             string currentSkill = slotNum switch {
-                1 => playerRef.Slot1, 2 => playerRef.Slot2, 3 => playerRef.Slot3, 4 => playerRef.Slot4,
-                5 => playerRef.Slot5, 6 => playerRef.Slot6, 7 => playerRef.Slot7, 8 => playerRef.Slot8,
+                1 => coreRef.Slot1, 2 => coreRef.Slot2, 3 => coreRef.Slot3, 4 => coreRef.Slot4,
+                5 => coreRef.Slot5, 6 => coreRef.Slot6, 7 => coreRef.Slot7, 8 => coreRef.Slot8,
                 _ => "None"
             };
 
@@ -320,14 +322,14 @@ namespace MyHeroMod.content.UI
                 var skillInstance = SkillLibrary.GetSkill(selectedSkill);
                 
                 switch (slotNum) {
-                    case 1: playerRef.Slot1 = selectedSkill; break;
-                    case 2: playerRef.Slot2 = selectedSkill; break;
-                    case 3: playerRef.Slot3 = selectedSkill; break;
-                    case 4: playerRef.Slot4 = selectedSkill; break;
-                    case 5: playerRef.Slot5 = selectedSkill; break;
-                    case 6: playerRef.Slot6 = selectedSkill; break;
-                    case 7: playerRef.Slot7 = selectedSkill; break;
-                    case 8: playerRef.Slot8 = selectedSkill; break;
+                    case 1: coreRef.Slot1 = selectedSkill; break;
+                    case 2: coreRef.Slot2 = selectedSkill; break;
+                    case 3: coreRef.Slot3 = selectedSkill; break;
+                    case 4: coreRef.Slot4 = selectedSkill; break;
+                    case 5: coreRef.Slot5 = selectedSkill; break;
+                    case 6: coreRef.Slot6 = selectedSkill; break;
+                    case 7: coreRef.Slot7 = selectedSkill; break;
+                    case 8: coreRef.Slot8 = selectedSkill; break;
                 }
 
                 if (currentIconElement != null)
@@ -370,7 +372,7 @@ namespace MyHeroMod.content.UI
                 var font = Terraria.GameContent.FontAssets.MouseText.Value;
                 Vector2 textSize = font.MeasureString(hoveredTooltip);
 
-                Rectangle bgRect = new Rectangle((int)mousePos.X, (int)mousePos.Y, (int)textSize.X + 20, (int)textSize.Y + 20);
+                Rectangle bgRect = new((int)mousePos.X, (int)mousePos.Y, (int)textSize.X + 20, (int)textSize.Y + 20);
 
                 if (bgRect.Right > Main.screenWidth) bgRect.X = Main.screenWidth - bgRect.Width - 10;
                 if (bgRect.Bottom > Main.screenHeight) bgRect.Y = Main.screenHeight - bgRect.Height - 10;

@@ -3,6 +3,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.DarkShadow.Projectiles; 
 using MyHeroMod.content.System;
+using KhacesCore.Content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.DarkShadow
 {
@@ -12,7 +13,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow
     
         private void HandleAutomaticAttacks()
         {
-            if (isFrontHandAttacking && isBackHandAttacking) return;
+            if (IsFrontHandAttacking && IsBackHandAttacking) return;
 
             var targetFinder = new TargetFinder();
             NPC closestNPC = targetFinder.FindClosestEnemy(Player, DarkShadowRange, isUncontrolledMode);
@@ -30,11 +31,11 @@ namespace MyHeroMod.content.Quirks.DarkShadow
                     int damage = isMediumDarkShadowOn ? 80 : 40; 
                     float knockback = 5f;
 
-                    if (!isFrontHandAttacking)
+                    if (!IsFrontHandAttacking)
                     {
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, shootVelocity, ModContent.ProjectileType<DarkShadowLongFrontHandProj>(), damage, knockback, Player.whoAmI);
                     }
-                    else if (!isBackHandAttacking)
+                    else if (!IsBackHandAttacking)
                     {
                         Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, shootVelocity, ModContent.ProjectileType<DarkShadowLongBackHandProj>(), damage, knockback, Player.whoAmI);
                     }

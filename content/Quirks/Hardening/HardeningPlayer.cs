@@ -1,6 +1,8 @@
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using Terraria.ModLoader;
+using MyHeroMod.content.System.Interfaces;
+
 
 namespace MyHeroMod.content.Quirks.Hardening
 {

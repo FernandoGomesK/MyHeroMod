@@ -3,12 +3,12 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using MyHeroMod.content.System;
 
-namespace MyHeroMod.content.Handlers
+namespace MyHeroMod.content.System.Handlers
 {
     public class QuirkHandler : ModPlayer
     {
 
-        public int GetQuirkCost(QuirkType quirk)
+        public static int GetQuirkCost(QuirkType quirk)
         {
             return quirk switch
             {
@@ -36,7 +36,7 @@ namespace MyHeroMod.content.Handlers
             };
         }
 
-        public string GetQuirkDisplayName(QuirkType quirk)
+        public static string GetQuirkDisplayName(QuirkType quirk)
         {
             return quirk switch
             {
@@ -54,7 +54,7 @@ namespace MyHeroMod.content.Handlers
             };
         }
 
-        public string GetQuirkDescription(QuirkType quirk)
+        public static string GetQuirkDescription(QuirkType quirk)
         {
             int cost = GetQuirkCost(quirk);
             string desc = quirk switch

@@ -96,104 +96,57 @@ namespace MyHeroMod
                 switch (msgType)
                 {
                     case MessageType.SyncTransformationPlayer:
-                    {
-                        byte senderIndexInPacket = reader.ReadByte(); 
-                        byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
-                        if (playerIndex >= Main.maxPlayers) break; 
-
-                        int activeQuirkCount = reader.ReadInt32();
-                        int maxQuirks = Enum.GetValues(typeof(QuirkType)).Length;
-                        activeQuirkCount = Math.Clamp(activeQuirkCount, 0, maxQuirks);
-
-                        List<QuirkType> receivedQuirks = new List<QuirkType>(activeQuirkCount);
-                        for (int i = 0; i < activeQuirkCount; i++)
                         {
-                            int rawQuirk = reader.ReadInt32();
-                            if (Enum.IsDefined(typeof(QuirkType), rawQuirk))
-                                receivedQuirks.Add((QuirkType)rawQuirk);
+                            byte senderIndexInPacket = reader.ReadByte();
+                            byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
+                            if (playerIndex >= Main.maxPlayers) break;
+
+                            int activeQuirkCount = reader.ReadInt32();
+                            int maxQuirks = Enum.GetValues(typeof(QuirkType)).Length;
+                            activeQuirkCount = Math.Clamp(activeQuirkCount, 0, maxQuirks);
+
+                            List<QuirkType> receivedQuirks = new List<QuirkType>(activeQuirkCount);
+                            for (int i = 0; i < activeQuirkCount; i++)
+                            {
+                                int rawQuirk = reader.ReadInt32();
+                                if (Enum.IsDefined(typeof(QuirkType), rawQuirk))
+                                    receivedQuirks.Add((QuirkType)rawQuirk);
+                            }
+
+                            int stageInt = reader.ReadInt32();
+                            int variantInt = reader.ReadInt32();
+                            int natureInt = reader.ReadInt32();
+
+                            TransformationPlayer transPlayer = Main.player[playerIndex].GetModPlayer<TransformationPlayer>();
+
+                            transPlayer.ActiveQuirks = receivedQuirks;
+                            transPlayer.CurrentStage = (QuirkStage)stageInt;
+
+                            if (Enum.IsDefined(typeof(QuirkVariant), variantInt))
+                                transPlayer.CurrentVariant = (QuirkVariant)variantInt;
+
+                            if (Enum.IsDefined(typeof(NatureType), natureInt))
+                                transPlayer.Nature = (NatureType)natureInt;
+
+                            if (Main.netMode == NetmodeID.Server)
+                            {
+                                ModPacket packet = GetPacket();
+                                packet.Write((byte)MessageType.SyncTransformationPlayer);
+                                packet.Write(playerIndex);
+
+                                packet.Write(receivedQuirks.Count);
+                                foreach (var quirk in receivedQuirks) packet.Write((int)quirk);
+
+                                packet.Write(stageInt);
+                                packet.Write(variantInt);
+                                packet.Write(natureInt);
+
+                                packet.Send(-1, playerIndex);
+                            }
+                            break;
                         }
 
-                        int stageInt = reader.ReadInt32();
-                        
-                        // 1. ADD THIS TO READ THE VARIANT
-                        int variantInt = reader.ReadInt32(); 
-                        
-                        int natureInt= reader.ReadInt32();
-                        int currentStrain = reader.ReadInt32();
-
-                        string slot1 = reader.ReadString();
-                        string slot2 = reader.ReadString();
-                        string slot3 = reader.ReadString();
-                        string slot4 = reader.ReadString();
-                        string slot5 = reader.ReadString();
-                        string slot6 = reader.ReadString();
-                        string slot7 = reader.ReadString();
-                        string slot8 = reader.ReadString();
-
-                        bool useSecondaryBar = reader.ReadBoolean();
-                        string currentRaceId = reader.ReadString();
-
-                        TransformationPlayer transPlayer = Main.player[playerIndex].GetModPlayer<TransformationPlayer>();
-                        
-                        transPlayer.ActiveQuirks = receivedQuirks;
-                        transPlayer.CurrentStage = (QuirkStage)stageInt;
-                        
-                        
-                        if (Enum.IsDefined(typeof(QuirkVariant), variantInt))
-                            transPlayer.CurrentVariant = (QuirkVariant)variantInt;
-
-                        if (Enum.IsDefined(typeof(NatureType), natureInt))
-                            transPlayer.Nature = (NatureType)natureInt;
-
-                        transPlayer.currentStrain = currentStrain;
-                        
-                        transPlayer.Slot1 = slot1;
-                        transPlayer.Slot2 = slot2;
-                        transPlayer.Slot3 = slot3;
-                        transPlayer.Slot4 = slot4;
-                        transPlayer.Slot5 = slot5;
-                        transPlayer.Slot6 = slot6;
-                        transPlayer.Slot7 = slot7;
-                        transPlayer.Slot8 = slot8;
-
-                        transPlayer.UseSecondaryBar = useSecondaryBar;
-                        transPlayer.CurrentRaceId = currentRaceId;
-
-                        if (Main.netMode == NetmodeID.Server)
-                        {
-                            ModPacket packet = GetPacket();
-                            packet.Write((byte)MessageType.SyncTransformationPlayer);
-                            packet.Write(playerIndex);
-                            
-                            packet.Write(receivedQuirks.Count); 
-                            foreach (var quirk in receivedQuirks) packet.Write((int)quirk);
-                            
-                            packet.Write(stageInt);
-                            
-                           
-                            packet.Write(variantInt); 
-                            
-                            packet.Write(natureInt);
-                            packet.Write(currentStrain);
-                            
-                            packet.Write(slot1);
-                            packet.Write(slot2);
-                            packet.Write(slot3);
-                            packet.Write(slot4);
-                            packet.Write(slot5);
-                            packet.Write(slot6);
-                            packet.Write(slot7);
-                            packet.Write(slot8);
-                            
-                            packet.Write(useSecondaryBar);
-                            packet.Write(currentRaceId);
-                            
-                            packet.Send(-1, playerIndex);
-                        }
-                        break;
-                    }
-
-                        case MessageType.SyncOFA9th:
+                    case MessageType.SyncOFA9th:
                         {
                             byte senderIndexInPacket = reader.ReadByte();
                             int percentage9 = reader.ReadInt32();

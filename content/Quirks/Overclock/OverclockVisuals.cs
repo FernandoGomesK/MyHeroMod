@@ -8,6 +8,7 @@ using Terraria.Audio;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System.Interfaces;
+using MyHeroMod.content.System.Interfaces;
 
 
 namespace MyHeroMod.content.Quirks.Overclock

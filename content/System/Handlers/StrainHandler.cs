@@ -2,8 +2,10 @@ using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content.System.Interfaces;
+using KhacesCore.Content.System.Interfaces;
+using KhacesCore.Content.System;
 
-namespace MyHeroMod.content.Handlers
+namespace MyHeroMod.content.System.Handlers
 {
     public class StrainHandler : ModPlayer, IStrainSource
     {
@@ -13,15 +15,17 @@ namespace MyHeroMod.content.Handlers
         public void AddStrain(int amount)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-            transPlayer.currentStrain += amount;
+            var corePlayer = Player.GetModPlayer<CorePlayer>();
+            corePlayer.currentStrain += amount;
 
-            if (transPlayer.currentStrain < 0) transPlayer.currentStrain = 0;
-            if (transPlayer.currentStrain > transPlayer.maxStrain) transPlayer.currentStrain = transPlayer.maxStrain;
+            if (corePlayer.currentStrain < 0) corePlayer.currentStrain = 0;
+            if (corePlayer.currentStrain > corePlayer.maxStrain)corePlayer.currentStrain = corePlayer.maxStrain;
         }
 
         public override void ResetEffects()
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            var corePlayer = Player.GetModPlayer<CorePlayer>();
             
            StrainPenaltyPerSecond = -5; 
 
@@ -30,14 +34,14 @@ namespace MyHeroMod.content.Handlers
             StrainPenaltyPerSecond = -10;
         }
                   
-            if (transPlayer.currentStrain <= 0 && StrainPenaltyPerSecond < 0)
+            if (corePlayer.currentStrain <= 0 && StrainPenaltyPerSecond < 0)
             {
                 StrainPenaltyPerSecond = 0;
             }
         }
 
     
-        public bool HasLethalStrainQuirk(TransformationPlayer transPlayer)
+        public static bool HasLethalStrainQuirk(TransformationPlayer transPlayer)
         {
             foreach (var quirk in transPlayer.ActiveQuirks)
             {
@@ -49,11 +53,12 @@ namespace MyHeroMod.content.Handlers
         public override void UpdateBadLifeRegen()
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            var corePlayer = Player.GetModPlayer<CorePlayer>();
 
             if (transPlayer.HasActiveQuirk(QuirkType.SuperRegeneration) && !HasLethalStrainQuirk(transPlayer))
                 return;
 
-            float strainRatio = transPlayer.maxStrain > 0 ? (float)transPlayer.currentStrain / transPlayer.maxStrain : 0f;
+            float strainRatio = corePlayer.maxStrain > 0 ? (float)corePlayer.currentStrain / corePlayer.maxStrain : 0f;
             if (strainRatio < 0.25f) return;
 
             bool lethal = HasLethalStrainQuirk(transPlayer);

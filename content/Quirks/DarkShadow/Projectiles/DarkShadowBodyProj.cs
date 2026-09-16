@@ -4,14 +4,15 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.Quirks.DarkShadow;
-using MyHeroMod.content.System; 
+using MyHeroMod.content.System;
+using KhacesCore.Content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
 {
 
     public class DarkShadowBodyProj : ModProjectile
     {
-        Color shadowColor = new Color(24, 0, 33);
+        Color shadowColor = new(24, 0, 33);
         
         public int mediumFrame = 0;
         public int mediumFrameCounter = 0;
@@ -67,13 +68,12 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
 
             if (!darkPlayer.isFlying && (darkPlayer.isDarkShadowAutomatic || darkPlayer.isUncontrolledMode))
             {
-                IClosestEnemyFinder targetFinder = new TargetFinder();
-                NPC target = targetFinder.FindClosestEnemy(player, darkPlayer.DarkShadowRange, darkPlayer.isUncontrolledMode);
+                NPC target = new TargetFinder().FindClosestEnemy(player, darkPlayer.DarkShadowRange, darkPlayer.isUncontrolledMode);
 
                 if (target != null)
                 {
                     Vector2 directionToTarget = (target.Center - player.Center).SafeNormalize(Vector2.Zero);
-                    hoverPosition = player.Center + (directionToTarget * darkPlayer.darkShadowBodyRange);
+                    hoverPosition = player.Center + (directionToTarget * darkPlayer.DarkShadowBodyRange);
                     targetSpriteDirection = target.Center.X < player.Center.X ? -1 : 1;
                 }
             }
@@ -81,7 +81,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Vector2 direction = hoverPosition - Projectile.Center;
             float distance = direction.Length();
 
-            float maxAllowedRange = (darkPlayer.darkShadowBodyRange > 0 ? darkPlayer.darkShadowBodyRange : 120f) + 30f;
+            float maxAllowedRange = (darkPlayer.DarkShadowBodyRange > 0 ? darkPlayer.DarkShadowBodyRange : 120f) + 30f;
 
             
             if (distance > 2000f) 
@@ -180,10 +180,10 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
                 int frameHeight = mediumTexture.Height / 12; 
                 
                 
-                Rectangle sourceRect = new Rectangle(0, mediumFrame * frameHeight, mediumTexture.Width, frameHeight);
+                Rectangle sourceRect = new(0, mediumFrame * frameHeight, mediumTexture.Width, frameHeight);
 
                 
-                Vector2 drawOrigin = new Vector2(mediumTexture.Width * 0.5f, frameHeight * 0.5f);
+                Vector2 drawOrigin = new(mediumTexture.Width * 0.5f, frameHeight * 0.5f);
                 Vector2 drawPos = Projectile.Center - Main.screenPosition;
                 SpriteEffects effects = Projectile.spriteDirection == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
 
