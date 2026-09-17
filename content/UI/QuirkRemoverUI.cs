@@ -8,8 +8,9 @@ using MyHeroMod.content;
 using Terraria.Audio;
 using MyHeroMod.content.Quirks.AllForOne;
 using KhacesCore.Content.System;
+using MyHeroMod.content.UI;
 
-namespace MyHeroMod
+namespace MyHeroMod.content.UI
 {
     public class QuirkRemoverUI : UIState
     {

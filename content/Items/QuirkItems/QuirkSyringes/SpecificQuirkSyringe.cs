@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Items;
 using MyHeroMod.content.Tiles.CraftingStations;
+using MyHeroMod.content.UI;
+
 
 namespace MyHeroMod.content.Items.QuirkItems.QuirkSyringes
 {

@@ -7,8 +7,9 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
+using MyHeroMod.content.UI;
 
-namespace MyHeroMod
+namespace MyHeroMod.content.UI
 {
     public class QuirkSelectionUI : UIState
     {

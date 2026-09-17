@@ -10,6 +10,7 @@ using Terraria.Audio;
 
 using MyHeroMod.content.Projectiles;
 using MyHeroMod;
+using MyHeroMod.content.UI;
 
 
 namespace MyHeroMod.content.Quirks.AllForOne.AllForOneList 

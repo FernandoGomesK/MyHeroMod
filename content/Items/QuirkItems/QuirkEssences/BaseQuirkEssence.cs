@@ -7,6 +7,9 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.OFA8th;
+using MyHeroMod.content.System.Interfaces;
+using MyHeroMod.content.UI;
+
 
 namespace MyHeroMod.content.Items.QuirkItems.QuirkEssences
 {

@@ -3,7 +3,7 @@ using Terraria.ModLoader;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.Debuffs;
-using KhacesCore.Content.System; 
+using KhacesCore.Content.System;
 
 namespace MyHeroMod.content.System
 {
@@ -19,11 +19,16 @@ namespace MyHeroMod.content.System
 
         public override bool CheckUnlock(TransformationPlayer player)
         {
+           
             if (IsDefaultSkill) return true;
+
+            if (IsItemSkill && !CheckItemSkill(player.Player))
+                return false;
 
             if (IsItemSkill && RequiredQuirk == QuirkType.Quirkless)
                 return true;
 
+           
             if (player.HasActiveQuirk(QuirkType.OneForAll9th))
             {
                 var ofaPlayer = player.Player.GetModPlayer<OneForAll9thPlayer>();

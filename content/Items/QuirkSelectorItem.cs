@@ -4,8 +4,9 @@
     using Microsoft.Xna.Framework;
     using Terraria.DataStructures;
     using MyHeroMod.content;
+    using MyHeroMod.content.UI;
 
-    namespace MyHeroMod.content.Items
+namespace MyHeroMod.content.Items
     {
         public class QuirkSelectorItem : ModItem
         {
@@ -45,13 +46,13 @@
                 {
                     if (player.altFunctionUse == 2)
                     {
-                        CycleStage(player);
+                    CycleStage(player);
                     }
                     UISystem.ShowUI();
                 }
                 return true;    
             }    
-            private void CycleStage(Player player)
+            private static void CycleStage(Player player)
             {
                 var modPlayer = player.GetModPlayer<TransformationPlayer>();
 

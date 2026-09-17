@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Items.QuirkItems;
 using MyHeroMod.content.Tiles.CraftingStations;
+using MyHeroMod.content.UI;
 
 namespace MyHeroMod.content.Items.QuirkItems.QuirkGenes
 {

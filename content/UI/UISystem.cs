@@ -9,7 +9,7 @@ using MyHeroMod.content.UI;
 using MyHeroMod.content.Quirks.OpticBlast;
 using MyHeroMod.content.Buffs;
 
-namespace MyHeroMod
+namespace MyHeroMod.content.UI
 {
     public class UISystem : ModSystem
     {
@@ -223,32 +223,23 @@ namespace MyHeroMod
                 }
             }
 
-            if (temperatureUserInterface != null)
-            temperatureUserInterface.Update(gameTime);
+            temperatureUserInterface?.Update(gameTime);
             
-            if (breathUserInterface != null)
-                breathUserInterface.Update(gameTime);
+            breathUserInterface?.Update(gameTime);
 
-            if (blinkUserInterface != null)
-                blinkUserInterface.Update(gameTime);
+            blinkUserInterface?.Update(gameTime);
 
-            if (OpticBlastUserInterface != null)
-                OpticBlastUserInterface.Update(gameTime);
+            OpticBlastUserInterface?.Update(gameTime);
 
-            if (flightShieldUserInterface != null)
-                flightShieldUserInterface.Update(gameTime);
+            flightShieldUserInterface?.Update(gameTime);
 
-            if (engineGearUserInterface != null)
-                engineGearUserInterface.Update(gameTime);
+            engineGearUserInterface?.Update(gameTime);
 
-            if (SweatUserInterface != null)
-                SweatUserInterface.Update(gameTime);
+            SweatUserInterface?.Update(gameTime);
 
-            if (nauseaUserInterface != null)
-                nauseaUserInterface.Update(gameTime);
+            nauseaUserInterface?.Update(gameTime);
 
-            if (fullCowlingUserInterface != null)
-                fullCowlingUserInterface.Update(gameTime);
+            fullCowlingUserInterface?.Update(gameTime);
 
             
         }
@@ -263,10 +254,7 @@ namespace MyHeroMod
                     delegate
                     {
                         
-                        if (breathUserInterface != null)
-                        {
-                            breathUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                        }
+                        breathUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                         return true;
                     },
                     InterfaceScaleType.UI)
@@ -294,10 +282,7 @@ namespace MyHeroMod
                 "MyHeroMod: Temperature Bar",
                 delegate
                 {
-                    if (temperatureUserInterface != null)
-                    {
-                        temperatureUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    temperatureUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -307,10 +292,7 @@ namespace MyHeroMod
                 "MyHeroMod: Blink Bar",
                 delegate
                 {
-                    if (blinkUserInterface != null)
-                    {
-                        blinkUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    blinkUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -320,10 +302,7 @@ namespace MyHeroMod
                 "MyHeroMod: Flight Shield Bar",
                 delegate
                 {
-                    if (flightShieldUserInterface != null)
-                    {
-                        flightShieldUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    flightShieldUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -333,10 +312,7 @@ namespace MyHeroMod
                 "MyHeroMod: Engine Gear Bar",
                 delegate
                 {
-                    if (engineGearUserInterface != null)
-                    {
-                        engineGearUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    engineGearUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -346,10 +322,7 @@ namespace MyHeroMod
                 "MyHeroMod: Optic Blast Bar",
                 delegate
                 {
-                    if (OpticBlastUserInterface != null)
-                    {
-                        OpticBlastUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    OpticBlastUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -359,10 +332,7 @@ namespace MyHeroMod
                 "MyHeroMod: Sweat Bar",
                 delegate
                 {
-                    if (SweatUserInterface != null)
-                    {
-                        SweatUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    SweatUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -372,10 +342,7 @@ namespace MyHeroMod
                 "MyHeroMod: Nausea Bar",
                 delegate
                 {
-                    if (nauseaUserInterface != null)
-                    {
-                        nauseaUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    nauseaUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -385,10 +352,7 @@ namespace MyHeroMod
                 "MyHeroMod: Full Cowling Bar",
                 delegate
                 {
-                    if (fullCowlingUserInterface != null)
-                    {
-                        fullCowlingUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    fullCowlingUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)

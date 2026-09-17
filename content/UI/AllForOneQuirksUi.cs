@@ -10,9 +10,10 @@ using MyHeroMod.content.Quirks.AllForOne;
 using Terraria.ModLoader;
 using MyHeroMod.content.Items.QuirkItems;
 using MyHeroMod.content.Items.QuirkItems.QuirkEssences;
+using MyHeroMod.content.UI;
 
 
-namespace MyHeroMod
+namespace MyHeroMod.content.UI
 {
     public class AllForOneQuirksUI : UIState
     {
@@ -30,12 +31,12 @@ namespace MyHeroMod
             MainPanel.BackgroundColor = new Color(30, 30, 35);
             Append(MainPanel);
 
-            UIText title = new UIText("Stolen Quirks", 1f);
+            UIText title = new("Stolen Quirks", 1f);
             title.HAlign = 0.5f;
             title.Top.Set(10f, 0f);
             MainPanel.Append(title);
 
-            UIPanel listPanel = new UIPanel();
+            UIPanel listPanel = new();
             listPanel.Width.Set(340, 0);
             listPanel.Height.Set(260, 0);   
             listPanel.HAlign = 0.5f;
@@ -43,7 +44,7 @@ namespace MyHeroMod
             listPanel.BackgroundColor = new Color(20, 20, 40);
             MainPanel.Append(listPanel);
 
-            quirkList = new UIList();
+            quirkList = [];
             quirkList.Width.Set(0, 1f);
             quirkList.Height.Set(0, 1f);
             listPanel.Append(quirkList);
@@ -55,10 +56,12 @@ namespace MyHeroMod
             listPanel.Append(scrollbar);
             quirkList.SetScrollbar(scrollbar);
 
-            
 
-            UIText closeButton = new UIText("X", 1.2f); 
-            closeButton.HAlign = 0.98f; 
+
+            UIText closeButton = new("X", 1.2f)
+            {
+                HAlign = 0.98f
+            };
             closeButton.Top.Set(10f, 0f);
             closeButton.TextColor = Color.LightGray;
             
