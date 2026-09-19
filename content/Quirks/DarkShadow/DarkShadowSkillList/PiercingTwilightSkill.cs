@@ -48,19 +48,20 @@ namespace MyHeroMod.content.Quirks.DarkShadow.DarkShadowSkillList
 
             Vector2 velocity = Main.MouseWorld - player.Center;
             velocity.Normalize();
-            velocity *= 18f; 
+            velocity *= 18f;
 
-            // O jogo dispara automaticamente o sprite correto e com a camada correta!
+            int dynamicDamage = darkPlayer.GetProjectileDamage();
+
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
                 velocity,
-                projectileToSpawn, // Invoca o projétil escolhido pelo IF
-                45, 
-                4f, 
+                projectileToSpawn,
+                dynamicDamage,
+                4f,
                 player.whoAmI,
-                handIndex, 
-                0          
+                handIndex,
+                0
             );
         }
     }

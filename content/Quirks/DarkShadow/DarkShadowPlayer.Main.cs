@@ -89,12 +89,14 @@ namespace MyHeroMod.content.Quirks.DarkShadow
 
             if (isDarkShadowOn && !isBlackAbyssOn)
             {
-            
+
                 SpawnDarkShadowPart<DarkShadowBodyProj>(0);
-                SpawnDarkShadowPart<DarkShadowFrontHandProj>(10);
-                SpawnDarkShadowPart<DarkShadowBackHandProj>(10);
-    
-                if (isUncontrolledMode || isDarkShadowAutomatic) 
+
+                int currentDamage = GetProjectileDamage();
+                SpawnDarkShadowPart<DarkShadowFrontHandProj>(currentDamage);
+                SpawnDarkShadowPart<DarkShadowBackHandProj>(currentDamage);
+
+                if (isUncontrolledMode || isDarkShadowAutomatic)
                 {
                     HandleAutomaticAttacks();
                 }

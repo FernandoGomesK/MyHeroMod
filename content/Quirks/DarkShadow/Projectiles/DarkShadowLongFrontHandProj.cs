@@ -18,6 +18,8 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Projectile.tileCollide = false; 
             Projectile.penetrate = -1; 
             Projectile.timeLeft = 300;
+
+            Projectile.DamageType = DamageClass.Summon;
         }
 
         public override void AI()

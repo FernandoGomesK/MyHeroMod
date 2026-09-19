@@ -27,6 +27,8 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Projectile.ignoreWater = true;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 2;
+
+            Projectile.DamageType = DamageClass.Summon;
         }
 
         public override void AI()
