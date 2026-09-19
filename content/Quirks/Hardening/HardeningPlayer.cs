@@ -31,6 +31,19 @@ namespace MyHeroMod.content.Quirks.Hardening
             isHardeningOn = false;
             isUnbreakableOn = false;
         }
+
+        public override void FrameEffects()
+        {
+            if (Player.HasBuff(ModContent.BuffType<Buffs.HardenBuff>()))
+            {
+               
+                Player.handon = EquipLoader.GetEquipSlot(Mod, "HardeningArms", EquipType.HandsOn);
+
+             
+                Player.handoff = EquipLoader.GetEquipSlot(Mod, "hardeningArms", EquipType.HandsOff);
+            }
+
+        }
     }
     
 }
