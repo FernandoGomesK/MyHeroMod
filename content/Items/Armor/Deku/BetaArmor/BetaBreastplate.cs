@@ -40,7 +40,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.BetaArmor
         }
         public override void UpdateEquip(Player player)
         {
-            player.GetDamage(DamageClass.Melee) += 0.04f;
+            player.GetDamage(DamageClass.Melee) += 0.06f;
         }
 
         public override void AddRecipes()

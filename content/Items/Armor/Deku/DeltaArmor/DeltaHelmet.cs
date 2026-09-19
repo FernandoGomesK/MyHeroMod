@@ -1,7 +1,8 @@
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+using MyHeroMod.content.Items.Armor.Deku.BetaArmor;
 using MyHeroMod.content.Items.Armor.Deku.GammaArmor;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Items.Armor.Deku.DeltaArmor
 {
@@ -20,12 +21,27 @@ namespace MyHeroMod.content.Items.Armor.Deku.DeltaArmor
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 15; // Defesa do capacete
+            Item.defense = 15; 
         }
         public override void UpdateEquip(Player player)
         {
-            
+
+            player.GetDamage(DamageClass.Melee) += 0.08f;
         }
+
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == ModContent.ItemType<DeltaBreastplate>() && legs.type == ModContent.ItemType<DeltaLeggings>();
+        }
+
+
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = "Increases defense by 3 and melee speed by 15%";
+            player.statDefense += 2;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.15f;
+        }
+
         public override void AddRecipes()
         {
             CreateRecipe()

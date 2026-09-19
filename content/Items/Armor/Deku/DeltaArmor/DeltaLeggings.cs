@@ -15,11 +15,11 @@ namespace MyHeroMod.content.Items.Armor.Deku.DeltaArmor
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 20; // Defesa do capacete
+            Item.defense = 20; 
         }
         public override void UpdateEquip(Player player)
         {
-            
+            player.moveSpeed += 0.10f;
         }
         public override void AddRecipes()
         {

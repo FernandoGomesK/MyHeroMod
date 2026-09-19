@@ -22,14 +22,26 @@ namespace MyHeroMod.content.Items.Armor.Deku.GammaArmor
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 8; // Defesa do capacete
+            Item.defense = 8; 
         }
         public override void UpdateEquip(Player player)
         {
-            
-            
+
+            player.GetDamage(DamageClass.Melee) += 0.04f;
         }
 
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == ModContent.ItemType<GammaBreastplate>() && legs.type == ModContent.ItemType<GammaLeggings>();
+        }
+
+
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = "Increases defense by 2 and melee speed by 15%";
+            player.statDefense += 2;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.15f;
+        }
         public override void AddRecipes()
         {
             CreateRecipe()

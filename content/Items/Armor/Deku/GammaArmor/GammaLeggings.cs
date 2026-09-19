@@ -16,14 +16,14 @@ namespace MyHeroMod.content.Items.Armor.Deku.GammaArmor
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 14; // Defesa do capacete
+            Item.defense = 14; 
         }
 
         public override void UpdateEquip(Player player)
         {
-            // Aumenta a vida máxima em 20 quando equipado
-        
+            player.moveSpeed += 0.10f;
         }
+
         public override void AddRecipes()
         {
             CreateRecipe()
