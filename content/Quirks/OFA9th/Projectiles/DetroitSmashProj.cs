@@ -20,7 +20,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.DamageType = DamageClass.Generic;
+            Projectile.DamageType = DamageClass.Melee;
             Projectile.penetrate = 2;
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;

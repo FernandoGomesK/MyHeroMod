@@ -9,6 +9,12 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
     
     public class STLouisSmashController : BaseJumpKickProj
     {
+
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Projectile.DamageType = DamageClass.Melee;
+        }
         public override string Texture => "MyHeroMod/content/Quirks/Explosion/Projectiles/HowitzerImpact/HowitzerImpactProj";
         protected override float DashSpeed => 20f;
 

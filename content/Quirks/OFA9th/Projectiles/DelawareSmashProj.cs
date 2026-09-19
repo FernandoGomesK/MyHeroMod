@@ -7,6 +7,11 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 {
     public class DelawareSmashProj : BaseSimpleProj
     {
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Projectile.DamageType = DamageClass.Melee;
+        }
         public override string Texture => "MyHeroMod/Assets/Projectiles/DelawareSmashProj";
 
         public override void OnKill(int timeLeft)
