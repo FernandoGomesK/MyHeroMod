@@ -657,6 +657,11 @@ Items: {
 		DisplayName: Gearshift Essence
 		Tooltip: ""
 	}
+
+	HardeningArms: {
+		DisplayName: Hardening Arms
+		Tooltip: ""
+	}
 }
 
 Buffs: {

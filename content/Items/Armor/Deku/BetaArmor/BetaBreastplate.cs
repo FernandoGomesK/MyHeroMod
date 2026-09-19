@@ -32,7 +32,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.BetaArmor
 
         public override void SetDefaults()
         {
-            Item.width = 18; // Tamanho do item no chão/inventário
+            Item.width = 18; 
             Item.height = 18;
             Item.value = Item.sellPrice(gold: 1);
             Item.rare = ItemRarityID.Yellow;
@@ -40,8 +40,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.BetaArmor
         }
         public override void UpdateEquip(Player player)
         {
-            player.moveSpeed += 0.10f;
-            player.GetDamage(DamageClass.Generic) += 0.10f; 
+            player.GetDamage(DamageClass.Melee) += 0.04f;
         }
 
         public override void AddRecipes()

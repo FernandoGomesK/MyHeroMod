@@ -40,15 +40,15 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
         }
         public override void SetDefaults()
         {
-            Item.width = 18; 
+            Item.width = 18;
             Item.height = 18;
             Item.value = Item.sellPrice(gold: 1);
-            Item.rare = ItemRarityID.Yellow;
-            Item.defense = 4; 
+            Item.rare = ItemRarityID.Green;
+            Item.defense = 4;
         }
         public override void UpdateEquip(Player player)
         {
-            player.moveSpeed += 0.5f;
+            player.GetDamage(DamageClass.Melee) += 0.04f;
         }
 
         public override void AddRecipes()

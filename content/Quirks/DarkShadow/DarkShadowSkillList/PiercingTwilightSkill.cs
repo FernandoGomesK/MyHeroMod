@@ -50,17 +50,20 @@ namespace MyHeroMod.content.Quirks.DarkShadow.DarkShadowSkillList
             velocity.Normalize();
             velocity *= 18f;
 
-            int dynamicDamage = darkPlayer.GetProjectileDamage();
+            float baseDynamicDamage = darkPlayer.GetProjectileDamage();
+
+            
+            int finalScaledDamage = (int)player.GetTotalDamage(DamageClass.Summon).ApplyTo(baseDynamicDamage);
 
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
                 velocity,
                 projectileToSpawn,
-                dynamicDamage,
+                finalScaledDamage,
                 4f,
                 player.whoAmI,
-                handIndex,
+                handIndex,  
                 0
             );
         }
