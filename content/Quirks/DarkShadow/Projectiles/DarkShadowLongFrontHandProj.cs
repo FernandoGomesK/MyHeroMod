@@ -96,7 +96,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Player player = Main.player[Projectile.owner];
             var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();
 
-            if (darkPlayer.isCBOArmsOn)
+            if (darkPlayer.isCBOArmsOn || darkPlayer.isRagnarokDarkShadowOn || darkPlayer.isUncontrolledMode)
             {
                 
                 var Path = "MyHeroMod/content/Quirks/DarkShadow/Projectiles/BigDarkShadowLongFrontHandProj";

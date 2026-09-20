@@ -983,6 +983,11 @@ Buffs: {
 		// DisplayName: Automatic Whip Buff
 		// Description: Mods.MyHeroMod.Buffs.AutomaticWhipBuff.Description
 	}
+
+	RagnarokBuff: {
+		// DisplayName: Ragnarok Buff
+		// Description: Mods.MyHeroMod.Buffs.RagnarokBuff.Description
+	}
 }
 
 DeathMessage: "{0} destruiu o seu próprio corpo com 100% de poder!"

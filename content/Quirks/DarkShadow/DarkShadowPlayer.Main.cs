@@ -7,15 +7,25 @@ namespace MyHeroMod.content.Quirks.DarkShadow
 {
     public partial class DarkShadowPlayer : ModPlayer
     {
+        // =============================================================== Darkness ====================================================================
+
+        public int MaxDarknessBar;
+
+        public int CurrentDarkness;
+
+
+        // =============================================================================================================================================
         public bool isDarkShadowOn = false;
         public bool isBlackAbyssOn = false;
         public bool isMediumDarkShadowOn = false;
+        public bool isRagnarokDarkShadowOn = false;
         public bool isCBOArmsOn = false;
 
         public bool isFlying = false;
         public bool isUncontrolledMode = false; 
 
         public int DarkShadowRange => isMediumDarkShadowOn ? 800 : 600; 
+        
         public bool isDarkShadowAutomatic = false;
         public int AutomaticAttackTimer = 0;
         public int AutomaticAttackCooldown = 60; 
@@ -32,7 +42,8 @@ namespace MyHeroMod.content.Quirks.DarkShadow
             isDarkShadowAutomatic = false;
             isCBOArmsOn = false;
             isMediumDarkShadowOn = false;
-            isUncontrolledMode = false; 
+            isUncontrolledMode = false;
+            isRagnarokDarkShadowOn = false;
             isFlying = false;
         }
 

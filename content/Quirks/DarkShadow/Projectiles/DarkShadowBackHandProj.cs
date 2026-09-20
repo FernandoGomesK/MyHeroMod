@@ -170,7 +170,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Player player = Main.player[Projectile.owner];
             var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();
 
-            if (darkPlayer.isCBOArmsOn || darkPlayer.isMediumDarkShadowOn)
+            if (darkPlayer.isCBOArmsOn || darkPlayer.isMediumDarkShadowOn || darkPlayer.isRagnarokDarkShadowOn || darkPlayer.isUncontrolledMode)
             {
                 var Path = "MyHeroMod/content/Quirks/DarkShadow/Projectiles/BigDarkShadowBackHandProj"; 
                 Texture2D bigTexture = ModContent.Request<Texture2D>(Path).Value;
