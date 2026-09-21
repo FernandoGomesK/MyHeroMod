@@ -1,4 +1,5 @@
 using KhacesCore.Content.System;
+using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.Quirks.OpticBlast.Projectiles; 
@@ -12,12 +13,23 @@ using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.OpticBlast
 {
-    public partial class OpticBlastPlayer : ModPlayer, IQuirkResetter
+    public partial class OpticBlastPlayer : ModPlayer, IQuirkResetter, IStrainSource
     {
         public enum Percentage 
         {
             Zero, TwentyFive, Fifty, SeventyFive, Full
         };
+
+        int IStrainSource.StrainPenaltyPerSecond { get; set; }
+        bool IStrainSource.IsStrainActive => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OpticBlast);
+        bool IStrainSource.IsLethalStrain => false;
+        bool IStrainSource.CausesStrainDamage => true;
+        string IStrainSource.SourceName => "Optic Blast";
+
+        void IStrainSource.AddStrain(int amount)
+        {
+            Player.GetModPlayer<CorePlayer>().AddStrain(amount);
+        }
 
         public bool isRubyGlassesEquipped = false;
         public bool isGoldenVisorEquipped = false;
@@ -94,13 +106,13 @@ namespace MyHeroMod.content.Quirks.OpticBlast
                 Player.AddBuff(ModContent.BuffType<Heatstroke>(), 300); 
             }
 
-            
+
             if (!isBlockingEyes() && !Player.HasBuff(ModContent.BuffType<Heatstroke>()) && !Player.HasBuff(BuffID.Blackout))
             {
                 if (Main.GameUpdateCount % 6 == 0)
                 {
-                    int strainIncrease = (int)(Core.maxStrain * 0.01f); 
-                    Core.currentStrain += Math.Max(1, strainIncrease);
+                    int strainIncrease = (int)(Core.maxStrain * 0.01f);
+                    Core.AddStrain(Math.Max(1, strainIncrease));
                 }
 
                 Player.moveSpeed *= 0.2f;

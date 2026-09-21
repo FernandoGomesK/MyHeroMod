@@ -23,6 +23,8 @@ namespace MyHeroMod.content.Quirks.Explosion
     {
         public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
         public int StrainPenaltyPerSecond { get; set; }
+        bool IStrainSource.IsStrainActive => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.Explosion);
+        bool IStrainSource.CausesStrainDamage => true;
 
         public void AddStrain(int amount)
         {

@@ -6,6 +6,7 @@ using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content.System.Interfaces;
 using ReLogic.Utilities;
+using System;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
@@ -37,10 +38,21 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
             }
         }
 
+        public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
+
         public int Temperature { get; set; } = 0;
         public int HeatPerSecond { get; set; }
         public int StrainPenaltyPerSecond { get; set; }
-        public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
+
+        public virtual bool IsLethalStrain => false;
+        public virtual bool CausesStrainDamage => true;
+        public virtual string SourceName => "Fire or Ice";
+        public virtual bool IsStrainActive => false;
+
+        bool IStrainSource.IsLethalStrain => IsLethalStrain;
+        bool IStrainSource.CausesStrainDamage => CausesStrainDamage;
+        string IStrainSource.SourceName => SourceName;
+        bool IStrainSource.IsStrainActive => IsStrainActive;
 
         public int CurrentStrain
         {
@@ -67,6 +79,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
         public virtual bool PhosphorFreezesTemperature => false;
         public virtual bool PhosphorTurnsOff => false;
 
+        public virtual bool HasFlameResistance => false;
+
         public void AddHeat(int amount)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
@@ -90,7 +104,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            if (amount < 0 && (transPlayer.Nature == NatureType.ColdResistance || transPlayer.Nature == NatureType.ThermalResistance))
+    
+            if (amount > 0 && (transPlayer.Nature == NatureType.ColdResistance || transPlayer.Nature == NatureType.ThermalResistance))
             {
                 amount = (int)(amount * 0.5f);
             }
@@ -100,7 +115,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 
         public void AddStrain(int amount)
         {
-            // USE CorePlayer's centralized math for clamping
             Core.AddStrain(amount);
 
             if (amount > 0)
@@ -108,7 +122,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
                 CombatText.NewText(Player.getRect(), Color.Cyan, $"{amount} Strain!", false, true);
             }
 
-            // CHECK against the CorePlayer's updated strain value
             if (Core.currentStrain >= Core.maxStrain)
             {
                 ApplyMaxStrainPenalty();
@@ -193,6 +206,25 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
+            if (HasFlameResistance)
+            {
+                // BASE STAGE: Basic Fire Immunity
+                Player.buffImmune[BuffID.OnFire] = true;
+
+                // INTERMEDIATE STAGE: Hellfire Immunity + Hot Blocks (Meteorite/Hellstone)
+                if (mainPlayer.CurrentStage >= QuirkStage.Intermediate)
+                {
+                    Player.buffImmune[BuffID.OnFire3] = true;
+                    Player.fireWalk = true;
+                }
+
+                // ADVANCED STAGE: Total Lava Immunity
+                if (mainPlayer.CurrentStage >= QuirkStage.Advanced)
+                {
+                    Player.lavaImmune = true;
+                }
+            }
+
             if (IsFlashFireFistActive) Player.AddBuff(ModContent.BuffType<FlashfireFistBuff>(), 2);
             if (Temperature > 0 || Temperature < 0) Player.AddBuff(ModContent.BuffType<TemperatureBuff>(), 2);
             if (Temperature >= MaxTemperature) Player.AddBuff(ModContent.BuffType<Heatstroke>(), 2);
@@ -256,6 +288,22 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
             else
             {
                 HeatPerSecond = 0;
+            }
+
+            // ==============================================================================
+            // NEW: Apply HeatPerSecond to actual Temperature every 60 frames (1 second).
+            // Using AddHeat/ReduceHeat ensures the Natures are automatically applied!
+            // ==============================================================================
+            if (Main.GameUpdateCount % 60 == 0)
+            {
+                if (HeatPerSecond > 0)
+                {
+                    AddHeat(HeatPerSecond);
+                }
+                else if (HeatPerSecond < 0)
+                {
+                    ReduceHeat(Math.Abs(HeatPerSecond));
+                }
             }
 
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();

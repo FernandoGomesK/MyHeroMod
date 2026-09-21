@@ -5,6 +5,10 @@ namespace MyHeroMod.content.Quirks.HellFlames
 {
     public partial class HellFlamesPlayer : BaseIceAndFirePlayer
     {
+        public override string SourceName => "Hellflame";
+        public override bool HasFlameResistance => true;
+        public override bool IsStrainActive => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.HellFlames);
+
         public override int MaxTemperature
         {
             get 

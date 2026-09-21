@@ -23,6 +23,9 @@ namespace MyHeroMod.content.Quirks.BlackWhip
         public int overlayAutoAttackTimer = 0;
 
         public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
+        bool IStrainSource.IsStrainActive => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.Explosion);
+        bool IStrainSource.CausesStrainDamage => true;
+
 
 
         public int StrainPenaltyPerSecond { get; set; }

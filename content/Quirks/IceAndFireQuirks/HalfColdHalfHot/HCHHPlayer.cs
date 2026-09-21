@@ -7,7 +7,10 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot
    
     public partial class HalfColdHalfHotPlayer : BaseIceAndFirePlayer 
     {
-        
+        public override string SourceName => "Half-Cold Half-Hot";
+        public override bool HasFlameResistance => false;
+        public override bool IsStrainActive => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.HalfColdHalfHot);
+
         public override int MaxTemperature => 300;
         public override int MinTemperature => -300; 
         public override int FlashfireHeatRate => 10;

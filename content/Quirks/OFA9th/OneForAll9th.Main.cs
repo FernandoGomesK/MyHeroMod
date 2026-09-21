@@ -32,6 +32,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
     public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter, IDashModifier, IStrainSource
     {
         public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
+        bool IStrainSource.IsStrainActive => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th);
+        
         // ========================================= isQuirkless =======================================================================
 
         public bool isQuirkless = false;
@@ -52,6 +54,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         }
 
         public int StrainPenaltyPerSecond { get; set; }
+        public bool IsLethalStrain => true;
 
         public void AddStrain(int amount)
         {

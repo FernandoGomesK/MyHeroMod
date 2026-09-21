@@ -26,7 +26,8 @@ namespace MyHeroMod.content.Quirks.OFA8th
 
         public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
         // ===================================== Embers ==========================================================
-
+        bool IStrainSource.IsStrainActive => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll8th);
+        bool IStrainSource.CausesStrainDamage => true;
         public bool isQuirkless = false;
 
         public int timeUsed = 0;
