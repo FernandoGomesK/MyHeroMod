@@ -36,13 +36,11 @@ namespace MyHeroMod.content.Quirks.Hardening
         {
             if (Player.HasBuff(ModContent.BuffType<Buffs.HardenBuff>()))
             {
-               
-                Player.handon = EquipLoader.GetEquipSlot(Mod, "HardeningArms", EquipType.HandsOn);
-
-             
-                Player.handoff = EquipLoader.GetEquipSlot(Mod, "hardeningArms", EquipType.HandsOff);
+                Player.head = EquipLoader.GetEquipSlot(Mod, "HardeningHead", EquipType.Head);
+                Player.front = EquipLoader.GetEquipSlot(Mod, "HardeningBody", EquipType.Front);
+                Player.handon = EquipLoader.GetEquipSlot(Mod, "OverlayArms", EquipType.HandsOn);
+                Player.handoff = EquipLoader.GetEquipSlot(Mod, "OverlayArms", EquipType.HandsOff);
             }
-
         }
     }
     

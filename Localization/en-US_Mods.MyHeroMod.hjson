@@ -662,6 +662,16 @@ Items: {
 		DisplayName: Hardening Arms
 		Tooltip: ""
 	}
+
+	HardeningBody: {
+		DisplayName: Hardening Body
+		Tooltip: ""
+	}
+
+	HardeningHead: {
+		DisplayName: Hardening Head
+		Tooltip: ""
+	}
 }
 
 Buffs: {

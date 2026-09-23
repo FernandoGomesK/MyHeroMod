@@ -5,14 +5,14 @@ using Terraria.ID;
 namespace MyHeroMod.content.Quirks.Hardening.Visuals
 {
 
-    [AutoloadEquip(EquipType.Front)]
-    public class HardeningBody : ModItem
+    [AutoloadEquip(EquipType.Head)]
+    public class HardeningHead : ModItem
     {
-
         public override void SetStaticDefaults()
         {
-        }
+            ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
 
+        }
         public override void SetDefaults()
         {
             Item.width = 20;

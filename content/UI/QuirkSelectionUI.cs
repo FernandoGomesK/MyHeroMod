@@ -82,6 +82,7 @@ namespace MyHeroMod.content.UI
             // CreateButton("Speed Force", QuirkType.SpeedForce, Color.Yellow);
             CreateButton("DarkShadow", QuirkType.DarkShadow, Color.Black);
             CreateButton("Rabbit", QuirkType.Rabbit, Color.White);
+            CreateButton("Hardening", QuirkType.Hardening, Color.Red);
             
 
 
