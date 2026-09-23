@@ -47,7 +47,9 @@ namespace MyHeroMod.content.UI
         private UserInterface fullCowlingUserInterface;
         internal FullCowlingUIState fullCowlingUIState;
 
-        
+        private UserInterface redRiotShieldUserInterface;
+        internal RedRiotShieldUIState redRiotShieldUIState;
+
 
 
         public override void Load()
@@ -110,7 +112,12 @@ namespace MyHeroMod.content.UI
                 fullCowlingUserInterface = new UserInterface();
                 fullCowlingUserInterface.SetState(fullCowlingUIState);
 
-                
+                redRiotShieldUIState = new RedRiotShieldUIState();
+                redRiotShieldUIState.Activate();
+                redRiotShieldUserInterface = new UserInterface();
+                redRiotShieldUserInterface.SetState(redRiotShieldUIState);
+
+
 
                 if (!Main.dedServ)
     {
@@ -158,7 +165,10 @@ namespace MyHeroMod.content.UI
             fullCowlingUIState = null;
             fullCowlingUserInterface = null;
 
-            
+            redRiotShieldUIState = null;
+            redRiotShieldUserInterface = null;
+
+
         }
 
         // public static void ToggleSkillMenu()
@@ -240,6 +250,8 @@ namespace MyHeroMod.content.UI
             nauseaUserInterface?.Update(gameTime);
 
             fullCowlingUserInterface?.Update(gameTime);
+
+            redRiotShieldUserInterface?.Update(gameTime);
 
             
         }
@@ -358,7 +370,17 @@ namespace MyHeroMod.content.UI
                 InterfaceScaleType.UI)
             );
 
-            
+            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
+                "MyHeroMod: Red Riot Bar",
+                delegate
+                {
+                    redRiotShieldUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
+
+
         }
     }
 }

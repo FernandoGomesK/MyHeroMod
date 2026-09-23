@@ -1,10 +1,10 @@
+using MyHeroMod.content;
+using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Quirks.GeneralSkills;
+using MyHeroMod.content.System;
 using Terraria;
 using Terraria.ModLoader;
-
-using MyHeroMod.content.Buffs;
-using MyHeroMod.content.System;
-using MyHeroMod.content;
-using MyHeroMod.content.Quirks.GeneralSkills;
 
 public class ToggleHardenSkill : BaseToggleSkill
 {
@@ -17,6 +17,7 @@ public class ToggleHardenSkill : BaseToggleSkill
     public override QuirkType RequiredQuirk => QuirkType.Hardening;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
+    public override int OnomatopoeiaProjType => ModContent.ProjectileType<SklitOnomatopoeia>();
 
     public override int BuffType => ModContent.BuffType<HardenBuff>();
 

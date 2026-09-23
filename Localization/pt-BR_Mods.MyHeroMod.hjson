@@ -1191,6 +1191,11 @@ Projectiles: {
 	// FinalDetroitSmashProj.DisplayName: Final Detroit Smash Proj
 	// TrackedFeatherProj.DisplayName: Tracked Feather Proj
 	// StealPlayerHandProj.DisplayName: Steal Player Hand Proj
+	// RedGauntletProj.DisplayName: Red Gauntlet Proj
+	// ChargeUnbreakableProj.DisplayName: Charge Unbreakable Proj
+	// WhoompOnomatopoeia.DisplayName: Whoomp Onomatopoeia
+	// SklitOnomatopoeia.DisplayName: Sklit Onomatopoeia
+	// DashRingProj.DisplayName: Dash Ring Proj
 }
 
 NPCs: {
