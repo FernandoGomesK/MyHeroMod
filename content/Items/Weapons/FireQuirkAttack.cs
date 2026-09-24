@@ -1,69 +1,76 @@
-// using MyHeroMod.content.Projectiles;
-// using MyHeroMod.content.System; // Para acessar SkillData/QuirkType
-// using Terraria;
-// using Terraria.ID;
-// using Terraria.ModLoader;
-// using MyHeroMod.content; // Para TransformationPlayer
+using MyHeroMod.content.Buffs; 
+using MyHeroMod.content.Debuffs;
+using MyHeroMod.content.Quirks.IceAndFireQuirks.Projectiles;
+using MyHeroMod.content.System;
+using MyHeroMod.content.System.BaseProjectiles;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
-// namespace MyHeroMod.content.Items.Weapons
-// {
-//     public class FireQuirkAttack : ModItem
-//     {
-        
-//         public override void SetDefaults()
+namespace MyHeroMod.content.Items.Weapons
+{
+    public class FireQuirkAttack : ModItem
+    {
+        public override void SetDefaults()
+        {
+            Item.damage = 8;
+            Item.DamageType = DamageClass.Magic;
+            Item.width = 28;
+            Item.height = 30;
 
-        
-//         {
-//             // Nome e Tooltip são definidos no arquivo .hjson (Localization)
-//             Item.damage = 8; // Dano inicial fraco
-//             Item.DamageType = DamageClass.Magic; // Tipo de dano
-//             Item.width = 28;
-//             Item.height = 30;
-//             Item.useTime = 6; // Muito rápido (lança-chamas)
-//             Item.useAnimation = 6;
-//             Item.useStyle = ItemUseStyleID.Shoot;
-//             Item.noMelee = true; // Não bate com o item, só atira
-//             Item.knockBack = 0.5f;
-//             Item.value = 0; // Sem valor de venda (é uma skill)
-//             Item.rare = ItemRarityID.White;
-//             Item.autoReuse = true; // Segurar o clique atira contínuo
-//             Item.shoot = ModContent.ProjectileType<WeakFireProj>();
-//             Item.shootSpeed = 6f; // Velocidade do fogo
-//             Item.useTurn = true; // Pode virar enquanto atira
+            Item.useTime = 20;
+            Item.useAnimation = 20;
+            Item.useStyle = ItemUseStyleID.Shoot;
+            Item.noMelee = true;
+            Item.knockBack = 0.5f;
+            Item.value = 0;
+            Item.rare = ItemRarityID.White;
 
-//             Item.noUseGraphic = true; // Não mostra o item ao usar
-//         }
+            Item.channel = true;
+            Item.noUseGraphic = true;
 
-//         // --- SISTEMA DE RESTRIÇÃO ---
-//         // Impede o uso se não tiver a Quirk certa
-//         public override bool CanUseItem(Player player)
-//         {
-//             var modPlayer = player.GetModPlayer<TransformationPlayer>();
+            Item.shoot = ModContent.ProjectileType<ContinuousFlamethrowerProj>();
+            Item.shootSpeed = 0f;
+        }
 
-//             // Lista de Quirks que podem usar esse ataque
-//             bool isFireUser = modPlayer.SelectedQuirk == QuirkType.HellFlames || 
-//                               modPlayer.SelectedQuirk == QuirkType.HalfColdHalfHot;
+        public override bool CanUseItem(Player player)
+        {
+            var modPlayer = player.GetModPlayer<TransformationPlayer>();
 
-//             return isFireUser; 
-//         }
+            bool isBlueflame = modPlayer.HasActiveQuirk(QuirkType.Blueflame);
+            bool isStandardFire = modPlayer.HasActiveQuirk(QuirkType.HellFlames) || modPlayer.HasActiveQuirk(QuirkType.HalfColdHalfHot);
 
-//         // --- SISTEMA DE EVOLUÇÃO (Opcional) ---
-//         // Aumenta o dano conforme o jogador evolui a Quirk
-//         public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
-//         {
-//             var modPlayer = player.GetModPlayer<TransformationPlayer>();
-            
-//             // Exemplo: Se estiver no estágio 'Intermediário', +50% de dano
-//             if (modPlayer.CurrentStage >= QuirkStage.Intermediate)
-//             {
-//                 damage += 0.5f; 
-//             }
-//             // Se estiver no estágio 'Dominado', +100% de dano
-//             if (modPlayer.CurrentStage >= QuirkStage.Final)
-//             {
-//                 damage += 1.0f;
-//             }
-//         }
-//         }
-//         }
-        
+            if (!isBlueflame && !isStandardFire)
+            {
+                return false;
+            }
+
+            if (isStandardFire && !isBlueflame)
+            {
+                if (player.HasBuff(ModContent.BuffType<Heatstroke>()))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public override void ModifyWeaponDamage(Player player, ref StatModifier damage)
+        {
+            var modPlayer = player.GetModPlayer<TransformationPlayer>();
+
+            float stageDamage = modPlayer.CurrentStage switch
+            {
+                QuirkStage.Initial => 5f,
+                QuirkStage.Adequation => 15f,
+                QuirkStage.Intermediate => 30f,
+                QuirkStage.Advanced => 50f,
+                QuirkStage.Final => 80f,
+                _ => 5f,
+            };
+
+            damage.Flat += stageDamage;
+        }
+    }
+}

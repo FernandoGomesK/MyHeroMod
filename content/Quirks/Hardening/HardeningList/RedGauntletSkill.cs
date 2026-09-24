@@ -17,73 +17,59 @@ using Terraria.ModLoader;
 
 
 
-
-public class RadGauntletSkill : QuirkBaseSkill
+namespace MyHeroMod.content.Quirks.Hardening.HardeningList
 {
 
-    public override string Name => "Red Gauntlet";
 
-    public override string Description => "Dash and punch through a foe";
-    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blueflame/BlueVanishIcon";
-    public override string Category => "Hardening";
-
-    public override int BaseCooldown => 320;
-
-    public override QuirkType RequiredQuirk => QuirkType.Hardening;
-    public override QuirkStage RequiredStage => QuirkStage.Initial;
-    public override bool IsDefaultSkill => false;
-
-    public override void OnUse(Player player)
+    public class RadGauntletSkill : QuirkBaseSkill
     {
-        var transPlayer = player.GetModPlayer<TransformationPlayer>();
-        int BaseDamage = 0;
 
-        switch (transPlayer.CurrentStage)
+        public override string Name => "Red Gauntlet";
+
+        public override string Description => "Dash and punch through a foe";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Harden/RedGauntletIcon";
+        public override string Category => "Hardening";
+
+        public override int BaseCooldown => 320;
+
+        public override QuirkType RequiredQuirk => QuirkType.Hardening;
+        public override QuirkStage RequiredStage => QuirkStage.Initial;
+        public override bool IsDefaultSkill => false;
+
+        public override void OnUse(Player player)
         {
-            case QuirkStage.Initial:
-                BaseDamage = 90;
-                break;
-
-            case QuirkStage.Adequation:
-                BaseDamage = 140;
-                break;
-
-            case QuirkStage.Intermediate:
-                BaseDamage = 180;
-                break;
-
-            case QuirkStage.Advanced:
-                BaseDamage = 250;
-                break;
-
-            case QuirkStage.Final:
-                BaseDamage = 350;
-                break;
-
-            default:
-                BaseDamage = 20;
-                break;
-
-        }
-
-        float modifiedDamage = 1f;
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
 
-        int finalDamage = (int)(BaseDamage * modifiedDamage);
+            int BaseDamage = transPlayer.CurrentStage switch
+            {
+                QuirkStage.Initial => 90,
+                QuirkStage.Adequation => 140,
+                QuirkStage.Intermediate => 180,
+                QuirkStage.Advanced => 250,
+                QuirkStage.Final => 350,
+                _ => 90
+            };
 
-        Vector2 textPosition = player.Center + new Vector2(0, -60f);
-        Projectile.NewProjectile(
-            player.GetSource_FromThis(),
-            textPosition,
-            Vector2.Zero,
-            ModContent.ProjectileType<WhoompOnomatopoeia>(),
-            0,
-            0f,
-            player.whoAmI
-        );
+            float modifiedDamage = 1f;
 
 
-        Vector2 Velocity = Main.MouseWorld - player.Center;
+            int rawFinalDamage = (int)(BaseDamage * modifiedDamage);
+            int finalDamage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(rawFinalDamage);
+
+            Vector2 textPosition = player.Center + new Vector2(0, -60f);
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                textPosition,
+                Vector2.Zero,
+                ModContent.ProjectileType<WhoompOnomatopoeia>(),
+                0,
+                0f,
+                player.whoAmI
+            );
+
+
+            Vector2 Velocity = Main.MouseWorld - player.Center;
             Velocity.Normalize();
             Velocity *= 15f;
 
@@ -96,10 +82,11 @@ public class RadGauntletSkill : QuirkBaseSkill
                 2f,
                 player.whoAmI
             );
-           
-        
 
 
 
+
+
+        }
     }
 }

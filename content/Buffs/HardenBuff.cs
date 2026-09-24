@@ -17,7 +17,9 @@ namespace MyHeroMod.content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<HardeningPlayer>().isHardeningOn = true; 
+            player.GetModPlayer<HardeningPlayer>().isHardeningOn = true;
+            player.statDefense += 15;
+            player.GetDamage(DamageClass.Melee) += 0.10f;
         }
     }
 }

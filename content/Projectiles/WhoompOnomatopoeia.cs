@@ -10,7 +10,7 @@ namespace MyHeroMod.content.Projectiles
         public override void SetDefaults()
         {
             base.SetDefaults();
-            Projectile.width = 186;
+            Projectile.width = 160;
             Projectile.height = 36;
         }
     }

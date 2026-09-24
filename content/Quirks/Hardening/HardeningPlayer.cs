@@ -38,7 +38,14 @@ namespace MyHeroMod.content.Quirks.Hardening
 
         public override void FrameEffects()
         {
-            if (Player.HasBuff(ModContent.BuffType<Buffs.HardenBuff>()))
+            if (Player.HasBuff(ModContent.BuffType<Buffs.UnbreakableBuff>()))
+            {
+                Player.head = EquipLoader.GetEquipSlot(Mod, "UHardeningHead", EquipType.Head);
+                Player.front = EquipLoader.GetEquipSlot(Mod, "UHardeningBody", EquipType.Front);
+                Player.handon = EquipLoader.GetEquipSlot(Mod, "UHardeningArms", EquipType.HandsOn);
+                Player.handoff = EquipLoader.GetEquipSlot(Mod, "UHardeningArms", EquipType.HandsOff);
+            }
+            else if (Player.HasBuff(ModContent.BuffType<Buffs.HardenBuff>()))
             {
                 Player.head = EquipLoader.GetEquipSlot(Mod, "HardeningHead", EquipType.Head);
                 Player.front = EquipLoader.GetEquipSlot(Mod, "HardeningBody", EquipType.Front);
@@ -49,11 +56,6 @@ namespace MyHeroMod.content.Quirks.Hardening
 
         public override void PostUpdateEquips()
         {
-
-
-            var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
-
-
 
             if (Player.HasBuff<HardenBuff>())
             {
@@ -116,14 +118,16 @@ namespace MyHeroMod.content.Quirks.Hardening
 
         public override void ModifyHurt(ref Player.HurtModifiers modifiers)
         {
-            if (isUnbreakableOn)
+            if (isUnbreakableOn && hardeningHealth > 0)
             {
                 modifiers.ModifyHurtInfo += (ref Player.HurtInfo info) =>
                 {
-                    int damageToAbsorb = (int)(0.5 * Math.Min((int)hardeningHealth, info.Damage));
-                    info.Damage -= damageToAbsorb;
-                    hardeningHealth -= damageToAbsorb;
+                    int effectiveShield = (int)(hardeningHealth * 2);
 
+                    int damageBlocked = Math.Min(effectiveShield, info.Damage);
+
+                    info.Damage -= damageBlocked;
+                    hardeningHealth -= (damageBlocked / 2f);
 
                     timeSinceLastHit = 0;
 
@@ -132,16 +136,15 @@ namespace MyHeroMod.content.Quirks.Hardening
                         info.Damage = 0;
                     }
                 };
-
             }
             else if (isHardeningOn && hardeningHealth > 0)
             {
                 modifiers.ModifyHurtInfo += (ref Player.HurtInfo info) =>
                 {
                     int damageToAbsorb = Math.Min((int)hardeningHealth, info.Damage);
+
                     info.Damage -= damageToAbsorb;
                     hardeningHealth -= damageToAbsorb;
-
 
                     timeSinceLastHit = 0;
 

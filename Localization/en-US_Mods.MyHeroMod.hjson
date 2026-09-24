@@ -312,8 +312,12 @@ Items: {
 		Tooltip: ""
 	}
 
-	# --- SKILL ATTACK NAMES ---
-	FireQuirkAttack.DisplayName: Fire Attack
+	FireQuirkAttack: {
+		# --- SKILL ATTACK NAMES ---
+		DisplayName: Fire Attack
+		Tooltip: ""
+	}
+
 	BlueQuirkAttack.DisplayName: Blue Fire Attack
 
 	PunchAttack: {
@@ -670,6 +674,21 @@ Items: {
 
 	HardeningHead: {
 		DisplayName: Hardening Head
+		Tooltip: ""
+	}
+
+	UHardeningArms: {
+		DisplayName: U Hardening Arms
+		Tooltip: ""
+	}
+
+	UHardeningBody: {
+		DisplayName: U Hardening Body
+		Tooltip: ""
+	}
+
+	UHardeningHead: {
+		DisplayName: U Hardening Head
 		Tooltip: ""
 	}
 }
@@ -1192,6 +1211,8 @@ Projectiles: {
 	WhoompOnomatopoeia.DisplayName: Whoomp Onomatopoeia
 	SklitOnomatopoeia.DisplayName: Sklit Onomatopoeia
 	DashRingProj.DisplayName: Dash Ring Proj
+	RedFlamethrowerHitboxProj.DisplayName: Red Flamethrower Hitbox Proj
+	ContinuousFlamethrowerProj.DisplayName: Continuous Flamethrower Proj
 }
 
 NPCs: {

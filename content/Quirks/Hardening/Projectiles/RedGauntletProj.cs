@@ -12,6 +12,11 @@ namespace MyHeroMod.content.Quirks.Hardening.Projectiles
         protected override float DashSpeed => 40f;
         protected override int DashDuration => 20;
         protected override float HitboxThickness => 90f;
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Projectile.DamageType = DamageClass.Melee;
+        }
 
         public override void OnSpawn(Terraria.DataStructures.IEntitySource source)
         {

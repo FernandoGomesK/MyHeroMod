@@ -18,44 +18,47 @@ using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 
 
 
-
-public class UnbreakableSkill : QuirkBaseSkill
+namespace MyHeroMod.content.Quirks.Hardening.HardeningList
 {
 
-    public override string Name => "Red Riot: Unbreakable";
-
-    public override string Description => "Raise your resistant to the maximum";
-    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blueflame/BlueVanishIcon";
-    public override string Category => "Hardening";
-
-    public override int BaseCooldown => 800;
-
-    public override QuirkType RequiredQuirk => QuirkType.Hardening;
-    public override QuirkStage RequiredStage => QuirkStage.Intermediate;
-    public override bool IsDefaultSkill => false;
-
-    public override void OnUse(Player player)
+    public class UnbreakableSkill : QuirkBaseSkill
     {
-       
 
+        public override string Name => "Red Riot: Unbreakable";
 
-        Vector2 Velocity = Main.MouseWorld - player.Center;
-        Velocity.Normalize();
-        Velocity *= 0f; 
+        public override string Description => "Raise your resistant to the maximum";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Harden/UnbreakableIcon";
+        public override string Category => "Hardening";
 
-        Projectile.NewProjectile(
-            player.GetSource_FromThis(),
-            player.Center,
-            Velocity,
-            ModContent.ProjectileType<ChargeUnbreakableProj>(),
-            0,
-            2f,
-            player.whoAmI
-        );
+        public override int BaseCooldown => 800;
 
+        public override QuirkType RequiredQuirk => QuirkType.Hardening;
+        public override QuirkStage RequiredStage => QuirkStage.Intermediate;
+        public override bool IsDefaultSkill => false;
 
+        public override void OnUse(Player player)
+        {
 
 
 
+            Vector2 Velocity = Main.MouseWorld - player.Center;
+            Velocity.Normalize();
+            Velocity *= 0f;
+
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                player.Center,
+                Velocity,
+                ModContent.ProjectileType<ChargeUnbreakableProj>(),
+                0,
+                2f,
+                player.whoAmI
+            );
+
+
+
+
+
+        }
     }
 }

@@ -87,11 +87,13 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 
             if (amount > 0 && (transPlayer.Nature == NatureType.HeatResistance || transPlayer.Nature == NatureType.ThermalResistance))
             {
-                amount = (int)(amount * 0.5f);
+                // Math.Max prevents integer truncation from reducing a recovery rate of 1 down to 0
+                amount = Math.Max(1, (int)(amount * 0.5f));
             }
             else if (amount < 0 && (transPlayer.Nature == NatureType.ColdResistance || transPlayer.Nature == NatureType.ThermalResistance))
             {
-                amount = (int)(amount * 0.5f);
+                // Math.Min prevents negative numbers from truncating to 0
+                amount = Math.Min(-1, (int)(amount * 0.5f));
             }
 
             Temperature += amount;
@@ -104,10 +106,9 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-    
             if (amount > 0 && (transPlayer.Nature == NatureType.ColdResistance || transPlayer.Nature == NatureType.ThermalResistance))
             {
-                amount = (int)(amount * 0.5f);
+                amount = Math.Max(1, (int)(amount * 0.5f));
             }
             Temperature -= amount;
             if (Temperature < MinTemperature) Temperature = MinTemperature;
@@ -208,7 +209,6 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 
             if (HasFlameResistance)
             {
-                // BASE STAGE: Basic Fire Immunity
                 Player.buffImmune[BuffID.OnFire] = true;
 
                 // INTERMEDIATE STAGE: Hellfire Immunity + Hot Blocks (Meteorite/Hellstone)
@@ -258,16 +258,17 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 
             if (!IsPhosphorActive || !PhosphorFreezesTemperature)
             {
+                int recoveryRate = 1;
+                if (isCombatVestAlphaOn) recoveryRate += 1;
+                if (isCombatVestBetaOn) recoveryRate += 5;
+
+                
                 if (IsFlashFireFistActive)
                 {
                     HeatPerSecond = FlashfireHeatRate;
                 }
                 else
                 {
-                    int recoveryRate = 1;
-                    if (isCombatVestAlphaOn) recoveryRate += 1;
-                    if (isCombatVestBetaOn) recoveryRate += 5;
-
                     if (Temperature > 0) HeatPerSecond = -recoveryRate;
                     else if (Temperature < 0) HeatPerSecond = recoveryRate;
                     else HeatPerSecond = 0;
@@ -290,21 +291,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
                 HeatPerSecond = 0;
             }
 
-            // ==============================================================================
-            // NEW: Apply HeatPerSecond to actual Temperature every 60 frames (1 second).
-            // Using AddHeat/ReduceHeat ensures the Natures are automatically applied!
-            // ==============================================================================
-            if (Main.GameUpdateCount % 60 == 0)
-            {
-                if (HeatPerSecond > 0)
-                {
-                    AddHeat(HeatPerSecond);
-                }
-                else if (HeatPerSecond < 0)
-                {
-                    ReduceHeat(Math.Abs(HeatPerSecond));
-                }
-            }
+           
 
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
