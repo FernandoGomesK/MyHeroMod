@@ -1,27 +1,32 @@
-using Terraria;
-using MyHeroMod.content;
+//using KhacesCore.Content.System;
+//using MyHeroMod.content;
+//using System.Collections.Generic;
+//using Terraria;
 
-public static class ProgressionSystem {
-    public static void UpdateStage(TransformationPlayer player) {
-        if (player.ManualStageOverride) return;
+//namespace MyHeroMod.Content
+//{
+//    public static class ProgressionSystem
+//    {
 
-        QuirkStage targetStage = QuirkStage.Initial;
+//        private static readonly List<ProgressionTier<QuirkStage>> Tiers = new()
+//        {
+//            new ProgressionTier<QuirkStage>(() => NPC.downedMoonlord, QuirkStage.Final),
+//            new ProgressionTier<QuirkStage>(() => NPC.downedPlantBoss, QuirkStage.Advanced),
+//            new ProgressionTier<QuirkStage>(() => Main.hardMode, QuirkStage.Intermediate),
+//            new ProgressionTier<QuirkStage>(() => NPC.downedBoss1, QuirkStage.Adequation),
+//        };
 
-        
-        if (NPC.downedMoonlord) 
-            targetStage = QuirkStage.Final;
-        else if (NPC.downedPlantBoss) 
-            targetStage = QuirkStage.Advanced;
-        else if (Main.hardMode) 
-            targetStage = QuirkStage.Intermediate;
-        else if (NPC.downedBoss1) 
-            targetStage = QuirkStage.Adequation;
-        else 
-            targetStage = QuirkStage.Initial;
+//        public static void UpdateStage(TransformationPlayer player)
+//        {
+//            if (player.ManualStageOverride) return;
 
-        if (player.CurrentStage != targetStage) {
-            player.CurrentStage = targetStage;
-            player.UpdateUnlockedSkills();
-        }
-    }
-}
+//            QuirkStage targetStage = ProgressionEvaluator.Evaluate(Tiers, QuirkStage.Initial);
+
+//            if (player.CurrentStage != targetStage)
+//            {
+//                player.CurrentStage = targetStage;
+//                player.UpdateUnlockedSkills();
+//            }
+//        }
+//    }
+//}
