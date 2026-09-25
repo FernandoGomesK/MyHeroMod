@@ -1,15 +1,17 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using MyHeroMod.content.System;
+using Microsoft.Xna.Framework;
 
 namespace MyHeroMod.content.System.Handlers
 {
     public class QuirkHandler : ModPlayer
     {
 
+        private bool _wasOverloaded = false;
         public static int GetQuirkCost(QuirkType quirk)
         {
+
             return quirk switch
             {
                 QuirkType.OneForAll9th => 4,
@@ -108,6 +110,22 @@ namespace MyHeroMod.content.System.Handlers
                 currentCapacity += 4; 
 
             int overloadAmount = totalQuirkWeight - currentCapacity;
+
+            bool isOverloaded = overloadAmount > 0;
+
+
+            if (isOverloaded && !_wasOverloaded)
+            {
+                Main.NewText("Your body feels heavy... taking another Quirk is mutating your cells!", Color.DarkRed);
+            }
+            else if (!isOverloaded && _wasOverloaded)
+            {
+             
+                Main.NewText("Your body stabilizes as the cellular strain fades.", Color.LimeGreen);
+            }
+
+            _wasOverloaded = isOverloaded;
+
             ApplyOverloadPenalties(overloadAmount);
         }
 

@@ -1,6 +1,5 @@
 using Terraria;
 using Terraria.ModLoader;
-using MyHeroMod.content.System;
 using MyHeroMod.content.System.Interfaces;
 using KhacesCore.Content.System.Interfaces;
 using KhacesCore.Content.System;

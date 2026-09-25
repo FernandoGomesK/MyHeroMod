@@ -6,16 +6,16 @@ namespace MyHeroMod.content.System
 {
     public class RecipeSystem : ModSystem
     {
-        public static RecipeGroup EvilMaterialGroup;
-        public static RecipeGroup IronGreavesGroup;
-        
-        public static RecipeGroup CobaltBarGroup; 
+        public static RecipeGroup EvilMaterialGroup { get; set; }
+        public static RecipeGroup IronGreavesGroup { get; set; }
 
-        public static RecipeGroup AdamantineGroup;
+        public static RecipeGroup CobaltBarGroup { get; set; }
 
-        public static RecipeGroup EvilIronGroup;
+        public static RecipeGroup AdamantineGroup { get; set; }
 
-        public static RecipeGroup IronAndLeadGroup;
+        public static RecipeGroup EvilIronGroup { get; set; }
+
+        public static RecipeGroup IronAndLeadGroup { get; set; }
 
         public override void AddRecipeGroups()
         {

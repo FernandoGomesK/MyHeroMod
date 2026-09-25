@@ -70,7 +70,7 @@ namespace MyHeroMod.content.System
                 return;
 
             
-            int[] blacklistedNPCs = {
+            int[] blacklistedNPCs = [
                 NPCID.TheHungry,        
                 NPCID.TheHungryII,      
                 NPCID.Creeper,          
@@ -93,7 +93,7 @@ namespace MyHeroMod.content.System
                 NPCID.AncientLight,     
                 NPCID.AncientDoom,      
                 NPCID.Spore,            
-            };
+            ];
 
             
             foreach (int id in blacklistedNPCs)
@@ -172,7 +172,7 @@ namespace MyHeroMod.content.System
                 int currentFrame = (int)(Main.GameUpdateCount / frameSpeed) % frameCount;
 
                 int frameHeight = texture.Height / frameCount;
-                Rectangle sourceRect = new Rectangle(0, currentFrame * frameHeight, texture.Width, frameHeight);
+                Rectangle sourceRect = new(0, currentFrame * frameHeight, texture.Width, frameHeight);
 
                 
                 Vector2 drawPos = npc.Center - screenPos;
@@ -222,17 +222,78 @@ namespace MyHeroMod.content.System
             }
         }
 
-        private int GetSpecificGeneDrop(QuirkType npcQuirk)
+        private static int GetSpecificGeneDrop(QuirkType npcQuirk)
         {
             switch (npcQuirk)
             {
-                case QuirkType.Explosion: 
-                    return ModContent.ItemType<OneForAll9thGene>();      
-                
-                default:    
+                case QuirkType.Explosion:
+                    return ModContent.ItemType<OneForAll9thGene>();
+                case QuirkType.Quirkless:
+                    break;
+                case QuirkType.AllForOne:
+                    break;
+                case QuirkType.OneForAll9th:
+                    break;
+                case QuirkType.OneForAll8th:
+                    break;
+                case QuirkType.Engine:
+                    break;
+                case QuirkType.HellFlames:
+                    break;
+                case QuirkType.Blueflame:
+                    break;
+                case QuirkType.HalfColdHalfHot:
+                    break;
+                case QuirkType.Float:
+                    break;
+                case QuirkType.Flight:
+                    break;
+                case QuirkType.Gearshift:
+                    break;
+                case QuirkType.FaJin:
+                    break;
+                case QuirkType.SmokeScreen:
+                    break;
+                case QuirkType.DangerSense:
+                    break;
+                case QuirkType.BlackWhip:
+                    break;
+                case QuirkType.Tape:
+                    break;
+                case QuirkType.Overclock:
+                    break;
+                case QuirkType.Erasure:
+                    break;
+                case QuirkType.SuperRegeneration:
+                    break;
+                case QuirkType.SlideAndGlide:
+                    break;
+                case QuirkType.Decay:
+                    break;
+                case QuirkType.Rivet:
+                    break;
+                case QuirkType.SpringLikeLimbs:
+                    break;
+                case QuirkType.Rabbit:
+                    break;
+                case QuirkType.DarkShadow:
+                    break;
+                case QuirkType.Overhaul:
+                    break;
+                case QuirkType.ZeroGravity:
+                    break;
+                case QuirkType.FierceWings:
+                    break;
+                case QuirkType.OpticBlast:
+                    break;
+                case QuirkType.Hardening:
+                    break;
+                default:
                     return ModContent.ItemType<Items.QuirkGene>();
             }
+            return ModContent.ItemType<Items.QuirkGene>();
         }
+       
         public override void OnKill(NPC npc)
         {
             if (Main.netMode == NetmodeID.MultiplayerClient) return;
@@ -374,8 +435,8 @@ namespace MyHeroMod.content.System
                         
                         if (quirkTimer % 350 == 0 && isAuthority)
                         {
-                            Vector2 velocity = directionToPlayer * 15f; // Rápido
-                            int p = Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ModContent.ProjectileType<NPCErasureProj>(), 1, 0f, Main.myPlayer);
+                            Vector2 velocity = directionToPlayer * 15f; 
+                            Projectile.NewProjectile(npc.GetSource_FromAI(), npc.Center, velocity, ModContent.ProjectileType<NPCErasureProj>(), 0, 0f, Main.myPlayer);
                             
                         }
                         break;
@@ -395,21 +456,22 @@ namespace MyHeroMod.content.System
             }
         }
     }
-}}
-        
-        // public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
-        // {
-        //     if (HasQuirk)
-        //     {
-        //         
-        //         if (AssignedQuirk == QuirkType.HellFlames)
-        //         {
-        //             target.AddBuff(BuffID.OnFire, 180); 
-        //         }
-        //         else if (AssignedQuirk == QuirkType.HalfColdHalfHot)
-        //         {
-        //             target.AddBuff(BuffID.Frostburn, 180); 
-        //         }
-        //     }
-        // }
-    
+    }
+}
+
+// public override void ModifyHitPlayer(NPC npc, Player target, ref Player.HurtModifiers modifiers)
+// {
+//     if (HasQuirk)
+//     {
+//         
+//         if (AssignedQuirk == QuirkType.HellFlames)
+//         {
+//             target.AddBuff(BuffID.OnFire, 180); 
+//         }
+//         else if (AssignedQuirk == QuirkType.HalfColdHalfHot)
+//         {
+//             target.AddBuff(BuffID.Frostburn, 180); 
+//         }
+//     }
+// }
+
