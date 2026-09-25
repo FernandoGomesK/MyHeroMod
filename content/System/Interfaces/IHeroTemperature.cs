@@ -27,4 +27,11 @@ namespace MyHeroMod.content.System.Interfaces
         int SweatChangePerSecond { get; set; }
         void AddSweat(int amount);
     }
+
+    public interface IFeatherCount
+    {
+        int FeatherChangePerSecond { get; }
+        void RemoveFeathers(int amount);
+        void AddFeathers(int amount);
+    }
 }

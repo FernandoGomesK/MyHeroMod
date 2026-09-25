@@ -15,7 +15,7 @@ namespace MyHeroMod.content.UI
     {
         internal UserInterface MyInterface;
         internal QuirkSelectionUI MyQuirkUI;
-        
+
         internal AllForOneQuirksUI SeeQuirkUI;
         internal QuirkRemoverUI MyQuirkRemoverUI;
 
@@ -24,7 +24,6 @@ namespace MyHeroMod.content.UI
 
         private UserInterface temperatureUserInterface;
         internal TemperatureUIState temperatureUIState;
-
 
         private UserInterface blinkUserInterface;
         internal BlinkUIState blinkUIState;
@@ -50,16 +49,16 @@ namespace MyHeroMod.content.UI
         private UserInterface redRiotShieldUserInterface;
         internal RedRiotShieldUIState redRiotShieldUIState;
 
-
+        private UserInterface fierceUserInterface;
+        internal FierceUIState fierceUIState;
 
         public override void Load()
         {
-            if (!Main.dedServ) 
+            if (!Main.dedServ)
             {
                 MyInterface = new UserInterface();
                 MyQuirkUI = new QuirkSelectionUI();
-                // MySkillMenuUI = new SkillMenuUI();
-                
+
                 SeeQuirkUI = new AllForOneQuirksUI();
                 SeeQuirkUI.Activate();
 
@@ -75,7 +74,6 @@ namespace MyHeroMod.content.UI
                 temperatureUIState.Activate();
                 temperatureUserInterface = new UserInterface();
                 temperatureUserInterface.SetState(temperatureUIState);
-
 
                 blinkUIState = new BlinkUIState();
                 blinkUIState.Activate();
@@ -117,27 +115,26 @@ namespace MyHeroMod.content.UI
                 redRiotShieldUserInterface = new UserInterface();
                 redRiotShieldUserInterface.SetState(redRiotShieldUIState);
 
+          
+                fierceUIState = new FierceUIState();
+                fierceUIState.Activate();
+                fierceUserInterface = new UserInterface();
+                fierceUserInterface.SetState(fierceUIState);
 
-
-                if (!Main.dedServ)
-    {
-        KhacesCore.Content.System.CoreUISystem.RegisterTab(
-            "Skill Menu",
-            () => new SkillMenuTabContent()
-        );
-
-        
-    }
+                KhacesCore.Content.System.CoreUISystem.RegisterTab(
+                    "Skill Menu",
+                    () => new SkillMenuTabContent()
+                );
             }
         }
-        
+
         public override void Unload()
         {
             MyInterface = null;
             MyQuirkUI = null;
-            // MySkillMenuUI = null;
             SeeQuirkUI = null;
             MyQuirkRemoverUI = null;
+
             breathUIState = null;
             breathUserInterface = null;
 
@@ -168,23 +165,9 @@ namespace MyHeroMod.content.UI
             redRiotShieldUIState = null;
             redRiotShieldUserInterface = null;
 
-
+            fierceUIState = null;
+            fierceUserInterface = null;
         }
-
-        // public static void ToggleSkillMenu()
-        // {
-        //     var system = ModContent.GetInstance<UISystem>();
-        //     if (system.MyInterface.CurrentState is SkillMenuUI)
-        //     {
-        //         // fecha se estiver aberto
-        //         system.MyInterface.SetState(null); 
-        //     }
-        //     else
-        //     {
-        //         // abre
-        //         system.MyInterface.SetState(system.MySkillMenuUI); 
-        //     }
-        // }
 
         public static void ShowUI()
         {
@@ -219,9 +202,8 @@ namespace MyHeroMod.content.UI
 
         public override void UpdateUI(GameTime gameTime)
         {
-            if (MyInterface?.CurrentState != null) 
+            if (MyInterface?.CurrentState != null)
             {
-                // if the player presses esc the inventory closes
                 if (Terraria.GameInput.PlayerInput.Triggers.JustPressed.Inventory)
                 {
                     HideUI();
@@ -234,26 +216,18 @@ namespace MyHeroMod.content.UI
             }
 
             temperatureUserInterface?.Update(gameTime);
-            
             breathUserInterface?.Update(gameTime);
-
             blinkUserInterface?.Update(gameTime);
-
             OpticBlastUserInterface?.Update(gameTime);
-
             flightShieldUserInterface?.Update(gameTime);
-
             engineGearUserInterface?.Update(gameTime);
-
             SweatUserInterface?.Update(gameTime);
-
             nauseaUserInterface?.Update(gameTime);
-
             fullCowlingUserInterface?.Update(gameTime);
-
             redRiotShieldUserInterface?.Update(gameTime);
 
-            
+         
+            fierceUserInterface?.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -265,7 +239,6 @@ namespace MyHeroMod.content.UI
                     "MyHeroMod: Breath Bar",
                     delegate
                     {
-                        
                         breathUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                         return true;
                     },
@@ -370,6 +343,7 @@ namespace MyHeroMod.content.UI
                 InterfaceScaleType.UI)
             );
 
+            
             layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
                 "MyHeroMod: Red Riot Bar",
                 delegate
@@ -380,7 +354,16 @@ namespace MyHeroMod.content.UI
                 InterfaceScaleType.UI)
             );
 
-
+           
+            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
+                "MyHeroMod: Fierce Wings Bar",
+                delegate
+                {
+                    fierceUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
         }
     }
 }

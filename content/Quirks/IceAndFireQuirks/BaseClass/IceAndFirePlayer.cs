@@ -87,12 +87,12 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 
             if (amount > 0 && (transPlayer.Nature == NatureType.HeatResistance || transPlayer.Nature == NatureType.ThermalResistance))
             {
-                // Math.Max prevents integer truncation from reducing a recovery rate of 1 down to 0
+                
                 amount = Math.Max(1, (int)(amount * 0.5f));
             }
             else if (amount < 0 && (transPlayer.Nature == NatureType.ColdResistance || transPlayer.Nature == NatureType.ThermalResistance))
             {
-                // Math.Min prevents negative numbers from truncating to 0
+               
                 amount = Math.Min(-1, (int)(amount * 0.5f));
             }
 

@@ -1213,6 +1213,7 @@ Projectiles: {
 	DashRingProj.DisplayName: Dash Ring Proj
 	RedFlamethrowerHitboxProj.DisplayName: Red Flamethrower Hitbox Proj
 	ContinuousFlamethrowerProj.DisplayName: Continuous Flamethrower Proj
+	RedFeatherProj.DisplayName: Red Feather Proj
 }
 
 NPCs: {

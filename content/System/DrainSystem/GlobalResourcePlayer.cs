@@ -28,6 +28,9 @@ namespace MyHeroMod.content.System.DrainSystem
 
                     if (modPlayer is IHeroSweat sweatUser && sweatUser.SweatChangePerSecond != 0)
                         sweatUser.AddSweat(sweatUser.SweatChangePerSecond);
+
+                    if (modPlayer is IFeatherCount featherUser && featherUser.FeatherChangePerSecond != 0)
+                        featherUser.AddFeathers(featherUser.FeatherChangePerSecond);
                 }
             }
         }
