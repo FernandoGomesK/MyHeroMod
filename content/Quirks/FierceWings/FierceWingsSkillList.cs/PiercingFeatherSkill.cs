@@ -19,7 +19,7 @@ public class PiercingFeatherSkill : QuirkBaseSkill
 {
     public override string Name => "Piercing Feather";
     public override string Description => "Shoot a single high speed feather";
-    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Explosion/ApShotIcon";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/FierceWings/PiercingFeather";
 
     public override string Category => "Fierce Wings";
 

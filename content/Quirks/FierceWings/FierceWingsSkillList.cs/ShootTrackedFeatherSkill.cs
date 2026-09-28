@@ -14,7 +14,7 @@ public class ShootTrackedFeatherSkill : QuirkBaseSkill
 {
     public override string Name => "Tracked Feather";
     public override string Description => "Shoot a feather that follows your cursor";
-    public override string IconPath => "";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/FierceWings/TrackedFeatherIcon";
 
     public override string Category => "Fierce Wings";
 

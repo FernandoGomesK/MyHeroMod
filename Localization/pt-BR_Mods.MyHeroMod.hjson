@@ -695,6 +695,11 @@ Items: {
 		// DisplayName: U Hardening Head
 		// Tooltip: ""
 	}
+
+	FeatherBlade: {
+		// DisplayName: Feather Blade
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -1218,6 +1223,7 @@ Projectiles: {
 	// RedFlamethrowerHitboxProj.DisplayName: Red Flamethrower Hitbox Proj
 	// ContinuousFlamethrowerProj.DisplayName: Continuous Flamethrower Proj
 	// RedFeatherProj.DisplayName: Red Feather Proj
+	// FeatherBarrageProj.DisplayName: Feather Barrage Proj
 }
 
 NPCs: {
