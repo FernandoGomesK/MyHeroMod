@@ -27,6 +27,7 @@ namespace MyHeroMod.content.Quirks.FierceWings.Projectiles
             Projectile.tileCollide = true;
             Projectile.penetrate = 1;
             Projectile.timeLeft = 120;
+            Projectile.DamageType = DamageClass.Ranged;
 
         }
 

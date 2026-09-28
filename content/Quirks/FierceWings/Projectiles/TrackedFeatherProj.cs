@@ -27,7 +27,8 @@ namespace MyHeroMod.content.Quirks.FierceWings.Projectiles
             Projectile.penetrate = 1; 
             Projectile.tileCollide = true; 
             Projectile.timeLeft = 200; 
-            Projectile.extraUpdates = 1; 
+            Projectile.extraUpdates = 1;
+            Projectile.DamageType = DamageClass.Ranged;
         }
 
         public override void AI()
