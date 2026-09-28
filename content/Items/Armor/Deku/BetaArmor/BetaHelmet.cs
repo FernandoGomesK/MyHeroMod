@@ -21,12 +21,25 @@ namespace MyHeroMod.content.Items.Armor.Deku.BetaArmor
             Item.height = 18;
             Item.value = 10000;
             Item.rare = ItemRarityID.Green;
-            Item.defense = 5; // Defesa do capacete
+            Item.defense = 5; 
         }
         public override void UpdateEquip(Player player)
         {
-            // Aumenta a vida máxima em 20 quando equipado
-            
+
+            player.GetDamage(DamageClass.Melee) += 0.04f;
+        }
+
+        public override bool IsArmorSet(Item head, Item body, Item legs)
+        {
+            return body.type == ModContent.ItemType<BetaBreastplate>() && legs.type == ModContent.ItemType<BetaLeggings>();
+        }
+
+
+        public override void UpdateArmorSet(Player player)
+        {
+            player.setBonus = "Increases defense by 2 and melee speed by 5%";
+            player.statDefense += 2;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
         }
         public override void AddRecipes()
         {

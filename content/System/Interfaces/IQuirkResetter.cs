@@ -1,4 +1,4 @@
-namespace MyHeroMod.content.System
+namespace MyHeroMod.content.System.Interfaces
 {
     public interface IQuirkResetter
     {

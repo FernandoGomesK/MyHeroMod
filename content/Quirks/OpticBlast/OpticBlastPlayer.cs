@@ -1,21 +1,35 @@
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
+using KhacesCore.Content.System;
+using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.System;
 using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.Quirks.OpticBlast.Projectiles; 
-using Terraria.Graphics.CameraModifiers;
+using MyHeroMod.content.System;
+using MyHeroMod.content.System.Interfaces;
 using System;
+using Terraria;
+using Terraria.Graphics.CameraModifiers;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.OpticBlast
 {
-    public partial class OpticBlastPlayer : ModPlayer, IQuirkResetter
+    public partial class OpticBlastPlayer : ModPlayer, IQuirkResetter, IStrainSource
     {
         public enum Percentage 
         {
             Zero, TwentyFive, Fifty, SeventyFive, Full
         };
+
+        int IStrainSource.StrainPenaltyPerSecond { get; set; }
+        bool IStrainSource.IsStrainActive => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OpticBlast);
+        bool IStrainSource.IsLethalStrain => false;
+        bool IStrainSource.CausesStrainDamage => true;
+        string IStrainSource.SourceName => "Optic Blast";
+
+        void IStrainSource.AddStrain(int amount)
+        {
+            Player.GetModPlayer<CorePlayer>().AddStrain(amount);
+        }
 
         public bool isRubyGlassesEquipped = false;
         public bool isGoldenVisorEquipped = false;
@@ -24,8 +38,9 @@ namespace MyHeroMod.content.Quirks.OpticBlast
         public int MaxOpticBlast = 100;
         public int MinOpticBlast = 0;
         public int CurrentOpticBlast = 100;
-        public int regenTimer = 0; 
+        public int regenTimer = 0;
 
+        public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
         public void FullReset()
         {
             MaxOpticBlast = 100;
@@ -91,13 +106,13 @@ namespace MyHeroMod.content.Quirks.OpticBlast
                 Player.AddBuff(ModContent.BuffType<Heatstroke>(), 300); 
             }
 
-            
+
             if (!isBlockingEyes() && !Player.HasBuff(ModContent.BuffType<Heatstroke>()) && !Player.HasBuff(BuffID.Blackout))
             {
                 if (Main.GameUpdateCount % 6 == 0)
                 {
-                    int strainIncrease = (int)(transPlayer.maxStrain * 0.01f); 
-                    transPlayer.currentStrain += Math.Max(1, strainIncrease);
+                    int strainIncrease = (int)(Core.maxStrain * 0.01f);
+                    Core.AddStrain(Math.Max(1, strainIncrease));
                 }
 
                 Player.moveSpeed *= 0.2f;
@@ -120,7 +135,7 @@ namespace MyHeroMod.content.Quirks.OpticBlast
                 Player.velocity.X -= aimDirection.X * recoilStrength;
    
 
-                if (transPlayer.currentStrain >= transPlayer.maxStrain)
+                if (Core.currentStrain >= Core.maxStrain)
                 {
                     Player.AddBuff(ModContent.BuffType<Heatstroke>(), 500);
                     Player.AddBuff(BuffID.Obstructed, 300);  

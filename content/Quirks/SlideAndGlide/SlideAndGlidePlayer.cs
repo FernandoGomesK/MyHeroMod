@@ -6,6 +6,7 @@ using Terraria.ModLoader;
 using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
 using System;
+using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.SlideAndGlide
 {

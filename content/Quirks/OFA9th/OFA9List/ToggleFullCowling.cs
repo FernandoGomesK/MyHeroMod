@@ -34,36 +34,39 @@ public abstract class FullCowlingBase : QuirkBaseSkill
     public override void OnUse(Player player)
     {
         var OfaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
-        
-        
-        if (player.HasBuff(BuffType))
-        {
-            player.ClearBuff(BuffType); 
-            OfaPlayer.percentage = 0;
-            CombatText.NewText(player.getRect(), Color.Red, "Deactivated");
-        }
-        
-        else
-        {
-            CombatText.NewText(player.getRect(), Color.LightGreen, Name + " Charging!");
-            
-            
-            Projectile.NewProjectile(
-                player.GetSource_FromThis(), 
-                player.Center, 
-                Vector2.Zero, 
-                ModContent.ProjectileType<FullCowlingChargeProj>(), 
-                0, 
-                0f, 
-                player.whoAmI, 
-                ai0: 0f, 
-                ai1: 0f, 
-                ai2: CowlingPercentage 
-            );
-        }
-        
+    
+ 
+    if (player.HasBuff(BuffType) && OfaPlayer.percentage == CowlingPercentage)
+    {
+        player.ClearBuff(BuffType); 
+        OfaPlayer.percentage = 0;
+        CombatText.NewText(player.getRect(), Color.Red, "Deactivated");
     }
-}
+  
+    else if (player.HasBuff(BuffType) && OfaPlayer.percentage != CowlingPercentage)
+    {
+        OfaPlayer.percentage = CowlingPercentage;
+        CombatText.NewText(player.getRect(), Color.Cyan, $"Shifted to {CowlingPercentage}%!");
+    }
+    
+    else
+    {
+        CombatText.NewText(player.getRect(), Color.LightGreen, Name + " Charging!");
+        
+        Projectile.NewProjectile(
+            player.GetSource_FromThis(), 
+            player.Center, 
+            Vector2.Zero, 
+            ModContent.ProjectileType<FullCowlingChargeProj>(), 
+            0, 
+            0f, 
+            player.whoAmI, 
+            ai0: 0f, 
+            ai1: 0f, 
+            ai2: CowlingPercentage 
+        );
+    }
+    }
 
 public class FullCowling5 : FullCowlingBase
 {
@@ -105,6 +108,17 @@ public class FullCowling45 : FullCowlingBase
     protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
     public override string Category => "OneForAll9th";
     protected override int CowlingPercentage => 45;
+}
 
+public class FullCowling100: FullCowlingBase
+{
+    public override string Name => "OFA Full Cowling 100%";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/OFA9th/FullCowling100Icon";
+    
+    public override QuirkStage RequiredStage => QuirkStage.Adequation;
+    protected override int BuffType => ModContent.BuffType<FullCowlingBuff>(); 
+    public override string Category => "OneForAll9th";
 
+    protected override int CowlingPercentage => 100;
+}
 }

@@ -6,6 +6,7 @@ using Terraria.ID;
 using MyHeroMod.content.Buffs;
 
 using MyHeroMod.content.System;
+using MyHeroMod.content.System.Interfaces;
 
 
 namespace MyHeroMod.content.Quirks.Smokescreen

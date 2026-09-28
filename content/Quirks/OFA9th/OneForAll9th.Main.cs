@@ -19,6 +19,9 @@ using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackChain;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhipStun;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.PinpointFocus;
 using MyHeroMod.content.System.Interfaces;
+using System;
+using MyHeroMod.content.Quirks.AllForOne;
+using Humanizer;
 
 
 
@@ -28,68 +31,74 @@ namespace MyHeroMod.content.Quirks.OFA9th
     // ========================================= Main ===============================================================================
     public partial class OneForAll9thPlayer : ModPlayer, IQuirkResetter, IDashModifier, IStrainSource
     {
-
+        public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
+        bool IStrainSource.IsStrainActive => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th);
+        
         // ========================================= isQuirkless =======================================================================
 
         public bool isQuirkless = false;
 
         public int timeUsed = 0;
-        public int maxTimeUsed = 7200;
-        public int becomeQuirklessTimer = 1200;
+        public readonly int maxTimeUsed = 7200;
 
+        public readonly int baseEmbersAmount = 1200;
+        public int embersAmount = 0;
+        public int initialEmbers = 0;
 
+        public int EmberBar => Math.Max(embersAmount, 0);
 
+        public void SetEmbers()
+        {
+            embersAmount = timeUsed + baseEmbersAmount;
+            initialEmbers = timeUsed + baseEmbersAmount;
+        }
 
+        public int StrainPenaltyPerSecond { get; set; }
+        public bool IsLethalStrain => true;
 
-        // ============================ Strain ==================================
-
-         public int StrainPenaltyPerSecond { get; set; }
-
-       public void AddStrain(int amount)
+        public void AddStrain(int amount)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            var AFOPlayer = Player.GetModPlayer<AllForOnePlayer>();
 
-           
             if (isQuirkless)
             {
-                becomeQuirklessTimer -= amount;
-
-                if (becomeQuirklessTimer <= 0)
-                {
-                    
-
-                    
-                    if (transPlayer.ActiveQuirks.Contains(QuirkType.OneForAll9th))
-                    {
-                        
-                        transPlayer.ActiveQuirks.Remove(QuirkType.OneForAll9th);
-                        
-                       
-                        Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
-                        FullReset();
-
-                    }
-
-                    becomeQuirklessTimer = 1200;
-                    isQuirkless = false;
-                }
                 
-            
+                embersAmount -= amount;
+
+                if (embersAmount <= 0)
+                {
+                    RemoveOneForAll9th(transPlayer, AFOPlayer);
+                }
+
                 return;
             }
 
-            
-            transPlayer.currentStrain += amount;
+            Core.currentStrain += amount;
+            if (timeUsed < maxTimeUsed) { timeUsed += 1; }
 
-            if (transPlayer.currentStrain <= 0)
+            if (Core.currentStrain <= 0) { Core.currentStrain = 0; }
+            else if (Core.currentStrain >= Core.maxStrain)
             {
-                transPlayer.currentStrain = 0;
+                Core.currentStrain = Core.maxStrain;
+                Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
             }
-            else if (transPlayer.currentStrain >= transPlayer.maxStrain)
-            {
-                transPlayer.currentStrain = transPlayer.maxStrain;
-                Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>()); 
-            }
+        }
+
+        private void RemoveOneForAll9th(TransformationPlayer transPlayer, AllForOnePlayer AFOPlayer)
+        {
+            if (transPlayer.ActiveQuirks.Contains(QuirkType.OneForAll9th))
+                transPlayer.ActiveQuirks.Remove(QuirkType.OneForAll9th);
+
+            if (AFOPlayer.HasInternalQuirk(QuirkType.OneForAll9th))
+                AFOPlayer.InternalQuirks.Remove(QuirkType.OneForAll9th);
+
+            Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
+            FullReset();
+
+            embersAmount = 0;
+            timeUsed = 0;
+            isQuirkless = false;
         }
 
         // ======================= Support Items ===========================================================
@@ -135,6 +144,8 @@ namespace MyHeroMod.content.Quirks.OFA9th
             isFullCowlingBuffActive = false;
             Player.ClearBuff(ModContent.BuffType<FullCowlingBuff>());
             StrainPenaltyPerSecond = 0;
+            isQuirkless = false;
+            timeUsed = 0;
 
         }
 
@@ -156,6 +167,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 return; 
             } 
 
+         
             if (currentFingers < MaxFingers)
             {
                 fingerRegen++;
@@ -264,21 +276,25 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 (QuirkStage.Adequation, 10) => 15,
                 (QuirkStage.Adequation, 20) => 20,
                 (QuirkStage.Adequation, 45) => 50,
+                (QuirkStage.Adequation, 100) => 100,
 
                 (QuirkStage.Intermediate, 5)  => 4,
                 (QuirkStage.Intermediate, 10) => 10,
                 (QuirkStage.Intermediate, 20) => 15,
                 (QuirkStage.Intermediate, 45) => 40,
+                (QuirkStage.Intermediate, 100) => 100,
 
                 (QuirkStage.Advanced, 5)  => 2,
                 (QuirkStage.Advanced, 10) => 5,
                 (QuirkStage.Advanced, 20) => 8,   
                 (QuirkStage.Advanced, 45) => 30,
+                (QuirkStage.Advanced, 100) => 60,
 
                 (QuirkStage.Final, 5)  => 0,
                 (QuirkStage.Final, 10) => 3,      
                 (QuirkStage.Final, 20) => 4,
                 (QuirkStage.Final, 45) => 15,
+                (QuirkStage.Final, 100) => 30,
 
                 _ => 0
             };

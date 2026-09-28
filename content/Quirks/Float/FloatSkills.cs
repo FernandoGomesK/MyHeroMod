@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.ID;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.System.Interfaces;
 
 using MyHeroMod.content.System;
 

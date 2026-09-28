@@ -53,6 +53,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 if (ofaPlayer.percentage == 5) speed = 20;
                 else if (ofaPlayer.percentage == 10) speed = 40;
                 else if (ofaPlayer.percentage == 45) speed = 65;
+                else if (ofaPlayer.percentage == 100) speed = 100;
                 else speed = 20;
 
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.8f }, Player.position);
@@ -86,6 +87,7 @@ namespace MyHeroMod.content.Quirks.OFA9th
         {
             return percentage switch
             {
+                100 => 1.0f,
                 45 => 0.45f,
                 20 => 0.20f,
                 10 => 0.10f,

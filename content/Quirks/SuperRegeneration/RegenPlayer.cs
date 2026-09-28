@@ -4,37 +4,31 @@ using MyHeroMod.content.System;
 using MyHeroMod.content.Debuffs;
 using System;
 using MyHeroMod.content.System.Interfaces;
-
+using KhacesCore.Content.System.Interfaces;
+using KhacesCore.Content.System;
 
 namespace MyHeroMod.content.Quirks.SuperRegeneration
 {
-    public partial class RegenPlayer : ModPlayer,  IStrainSource
+    public partial class RegenPlayer : ModPlayer, IStrainSource
     {
         public int StrainPenaltyPerSecond { get; set; }
+        bool IStrainSource.IsLethalStrain => false;
+        bool IStrainSource.CausesStrainDamage => false;
+        bool IStrainSource.IsStrainActive => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.SuperRegeneration);
 
         public void AddStrain(int amount)
         {
-            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-            transPlayer.currentStrain += amount;
-
-            if (transPlayer.currentStrain <= 0)
-            {
-                transPlayer.currentStrain = 0;
-            }
-            else if (transPlayer.currentStrain >= transPlayer.maxStrain)
-            {
-                transPlayer.currentStrain = transPlayer.maxStrain;
-            }
+            Player.GetModPlayer<CorePlayer>().AddStrain(amount);
         }
-
 
         public override void PostUpdate()
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            var corePlayer = Player.GetModPlayer<CorePlayer>();
 
             if (!transPlayer.HasActiveQuirk(QuirkType.SuperRegeneration))
             {
-                StrainPenaltyPerSecond = 0; 
+                StrainPenaltyPerSecond = 0;
                 return;
             }
 
@@ -42,18 +36,18 @@ namespace MyHeroMod.content.Quirks.SuperRegeneration
 
             if (isHealing)
             {
-                
-                StrainPenaltyPerSecond = Math.Max(5, (int)(transPlayer.maxStrain * 0.05f));
+                StrainPenaltyPerSecond = Math.Max(5, (int)(corePlayer.maxStrain * 0.05f));
             }
             else
             {
-                StrainPenaltyPerSecond = transPlayer.currentStrain > 0 ? -5 : 0;
+                StrainPenaltyPerSecond = corePlayer.currentStrain > 0 ? -5 : 0;
             }
         }
 
         public override void UpdateLifeRegen()
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            var corePlayer = Player.GetModPlayer<CorePlayer>();
 
             bool hasRegenQuirk = transPlayer.HasActiveQuirk(QuirkType.SuperRegeneration);
             bool isNotErased = !Player.HasBuff(ModContent.BuffType<QuirkErased>());
@@ -71,12 +65,23 @@ namespace MyHeroMod.content.Quirks.SuperRegeneration
                     case QuirkStage.Final: regenBonus = 200; break;
                 }
 
-              
-                if (transPlayer.maxStrain > 0)
+                if (corePlayer.maxStrain > 0)
                 {
-                    float strainRatio = (float)transPlayer.currentStrain / transPlayer.maxStrain;
-                    float regenMultiplier = Math.Max(0.1f, 1f - strainRatio);
-                    regenBonus = (int)(regenBonus * regenMultiplier);
+                    float strainRatio = (float)corePlayer.currentStrain / corePlayer.maxStrain;
+
+                    if (strainRatio >= 0.90f)
+                    {
+                        regenBonus = 0;
+                        if (Player.lifeRegen > 0)
+                        {
+                            Player.lifeRegen = 0;
+                        }
+                    }
+                    else
+                    {
+                        float regenMultiplier = 1f - (strainRatio / 0.90f);
+                        regenBonus = (int)(regenBonus * Math.Max(0f, regenMultiplier));
+                    }
                 }
 
                 Player.lifeRegen += regenBonus;

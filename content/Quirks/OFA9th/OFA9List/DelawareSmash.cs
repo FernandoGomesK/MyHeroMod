@@ -55,8 +55,12 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
                 ofaPlayer.currentFingers--;
             }
 
-      
-            int FinalDamage = (int)(MaxDamage * DamageMultiplier);
+
+            float rawFinalDamage = MaxDamage * DamageMultiplier;
+
+
+            int FinalDamage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(rawFinalDamage);
+
             Vector2 Velocity = (Main.MouseWorld - player.Center).SafeNormalize(Vector2.Zero);
             
             if (hurtPlayer)

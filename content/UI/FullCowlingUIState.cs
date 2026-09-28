@@ -1,7 +1,6 @@
 using Terraria.UI;
 using Microsoft.Xna.Framework;
 using Terraria;
-using MyHeroMod.content.Quirks.OFA9th;
 
 namespace MyHeroMod.content.UI
 {

@@ -7,8 +7,13 @@ using Terraria.ID;
 using MyHeroMod.content;
 using Terraria.Audio;
 using MyHeroMod.content.Quirks.AllForOne;
+using Terraria.ModLoader;
+using MyHeroMod.content.Items.QuirkItems;
+using MyHeroMod.content.Items.QuirkItems.QuirkEssences;
+using MyHeroMod.content.UI;
 
-namespace MyHeroMod
+
+namespace MyHeroMod.content.UI
 {
     public class AllForOneQuirksUI : UIState
     {
@@ -26,12 +31,12 @@ namespace MyHeroMod
             MainPanel.BackgroundColor = new Color(30, 30, 35);
             Append(MainPanel);
 
-            UIText title = new UIText("Stolen Quirks", 1f);
+            UIText title = new("Stolen Quirks", 1f);
             title.HAlign = 0.5f;
             title.Top.Set(10f, 0f);
             MainPanel.Append(title);
 
-            UIPanel listPanel = new UIPanel();
+            UIPanel listPanel = new();
             listPanel.Width.Set(340, 0);
             listPanel.Height.Set(260, 0);   
             listPanel.HAlign = 0.5f;
@@ -39,7 +44,7 @@ namespace MyHeroMod
             listPanel.BackgroundColor = new Color(20, 20, 40);
             MainPanel.Append(listPanel);
 
-            quirkList = new UIList();
+            quirkList = [];
             quirkList.Width.Set(0, 1f);
             quirkList.Height.Set(0, 1f);
             listPanel.Append(quirkList);
@@ -47,14 +52,16 @@ namespace MyHeroMod
             scrollbar = new UIScrollbar();
             scrollbar.SetView(100f, 1000f);
             scrollbar.Height.Set(0, 1f);
-            scrollbar.HAlign = 1f; // Gruda na direita
+            scrollbar.HAlign = 1f; 
             listPanel.Append(scrollbar);
             quirkList.SetScrollbar(scrollbar);
 
-            
 
-            UIText closeButton = new UIText("X", 1.2f); 
-            closeButton.HAlign = 0.98f; 
+
+            UIText closeButton = new("X", 1.2f)
+            {
+                HAlign = 0.98f
+            };
             closeButton.Top.Set(10f, 0f);
             closeButton.TextColor = Color.LightGray;
             
@@ -74,14 +81,15 @@ namespace MyHeroMod
             
         }
 
-       public void PopulateSkillList()
+      public void PopulateSkillList()
         {
-            quirkList.Clear(); // Limpa a lista para não duplicar
+            quirkList.Clear(); 
 
-            if (Main.LocalPlayer == null || !Main.LocalPlayer.active) return;
-            var afoPlayer = Main.LocalPlayer.GetModPlayer<AllForOnePlayer>();
+            Player player = Main.LocalPlayer; 
+            if (player == null || !player.active) return;
+            
+            var afoPlayer = player.GetModPlayer<AllForOnePlayer>();
 
-            // Se o AFO não tiver roubado nada ainda
             if (afoPlayer.InternalQuirks.Count == 0)
             {
                 UIText emptyText = new UIText("No Quirks Stolen Yet...", 0.9f);
@@ -90,44 +98,60 @@ namespace MyHeroMod
                 quirkList.Add(emptyText);
                 return;
             }
-foreach (QuirkType quirk in afoPlayer.InternalQuirks)
+
+            foreach (QuirkType quirk in afoPlayer.InternalQuirks.ToArray())
             {
-                // 1. Cria uma "caixinha" para a Quirk
                 UIPanel quirkItemPanel = new UIPanel();
                 quirkItemPanel.Width.Set(0, 1f);
                 quirkItemPanel.Height.Set(40, 0);
                 quirkItemPanel.BackgroundColor = new Color(50, 50, 70);
 
-                // 2. Coloca o nome da Quirk na caixinha
                 UIText quirkText = new UIText(quirk.ToString());
                 quirkText.VAlign = 0.5f;
                 quirkText.Left.Set(10, 0);
                 quirkItemPanel.Append(quirkText);
 
-                // 3. Cria o botão de Excluir/Extrair
                 UIText extractButton = new UIText("[Remove]", 0.8f);
                 extractButton.VAlign = 0.5f;
-                extractButton.HAlign = 0.98f; // Canto direito da caixinha
+                extractButton.HAlign = 0.98f; 
                 extractButton.TextColor = Color.Salmon;
 
                 extractButton.OnMouseOver += (evt, elem) => extractButton.TextColor = Color.Red;
                 extractButton.OnMouseOut += (evt, elem) => extractButton.TextColor = Color.Salmon;
 
                 extractButton.OnLeftClick += (evt, elem) => {
-                    SoundEngine.PlaySound(SoundID.NPCDeath11); // Um som de extração
-                    
+                    SoundEngine.PlaySound(SoundID.NPCDeath11); 
                     
                     afoPlayer.InternalQuirks.Remove(quirk); 
                     
+                    int essenceItemType = quirk switch
+                    {
+                    
+                        QuirkType.OneForAll9th => ModContent.ItemType<OneForAll9thEssence>(),
+                        QuirkType.Explosion => ModContent.ItemType<ExplosionEssence>(),
+                        _ => ItemID.None 
+                    };
+
+                    if (essenceItemType != ItemID.None)
+                    {
+                        int itemIndex = Item.NewItem(player.GetSource_DropAsItem(), player.getRect(), essenceItemType);
+
+                        if (Main.item[itemIndex].ModItem is BaseQuirkEssence essenceItem)
+                        {
+                            essenceItem.OriginPlayerName = player.name;
+                        }
+                    }
+
+                    if (Main.netMode == NetmodeID.MultiplayerClient)
+                    {
+                    
+                    }
                     
                     PopulateSkillList(); 
                 };
 
                 quirkItemPanel.Append(extractButton);
-
-                // 4. Adiciona a caixinha completa na Lista Principal
                 quirkList.Add(quirkItemPanel);
             }
         }
-    }
-}
+    }}

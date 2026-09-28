@@ -1,7 +1,7 @@
+using MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass; 
+using MyHeroMod.content.System;
 using Terraria;
 using Terraria.ModLoader;
-using MyHeroMod.content.System;
-using MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass; 
 namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
 {
    
@@ -12,6 +12,17 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
         public override int MinTemperature => -200; 
         public override int FlashfireHeatRate => 20;
         public override int PhosphorCoolingRate => 10;
+        public override bool IsLethalStrain => true;
+        public override bool HasFlameResistance
+        {
+            get
+            {
+                var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+                return mainPlayer.Nature == NatureType.HeatResistance || mainPlayer.Nature == NatureType.ThermalResistance;
+            }
+        }
+        public override string SourceName => "Blueflame";
+        public override bool IsStrainActive => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.Blueflame);
 
         public override void PostUpdateEquips()
         {
@@ -24,6 +35,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
         public override void PostUpdate()
         {
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
+            
             if (!mainPlayer.HasActiveQuirk(QuirkType.Blueflame)) 
             {
                 HeatPerSecond = 0;

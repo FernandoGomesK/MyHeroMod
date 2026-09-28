@@ -44,9 +44,14 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
             float ironSolesMultiplier = ofaPlayer.GetIronSolesMultiplier();
 
             
-            int FinalDamage = (int)(MaxDamage * DamageMultiplier * ironSolesMultiplier);
+          
 
-            
+            float rawFinalDamage = MaxDamage * DamageMultiplier * ironSolesMultiplier;
+
+
+            int FinalDamage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(rawFinalDamage);
+
+
             string attackName = usedFaJin ? "Faux " : "";
             attackName += $"{(DamageMultiplier * 100):0}% Manchester Smash";
             

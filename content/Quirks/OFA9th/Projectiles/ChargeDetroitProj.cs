@@ -73,49 +73,52 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
                     hurtPlayer = true; 
                 }
 
-                
-                DamageMultiplier += ofaPlayer.ConsumeFaJin(out bool usedFaJin);
-
-                int FinalDamage = (int)(MaxDamage * DamageMultiplier);
-                
-                string attackName = usedFaJin ? "Faux " : "";
-
-                if (usedFaJin || !hurtPlayer)
-                    attackName += (DamageMultiplier * 100).ToString("0") + "% Detroit Smash";
-                else
-                    attackName += "Detroit Smash";
-
-                attackName += player.HasBuff(ModContent.BuffType<GearshiftBuff>()) ? ": Quintuple" : "!";
-                
-                CombatText.NewText(player.getRect(), Color.LimeGreen, attackName);
-
-                
-                Vector2 Direction = Main.MouseWorld - player.Center;
-                Direction.Normalize();
-                Vector2 Velocity = Direction * 15f;
-                Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
-
-                int numberOfPunches = player.HasBuff(ModContent.BuffType<GearshiftBuff>()) ? 5 : 1; 
-
-                for (int i = 0; i < numberOfPunches; i++)
-                {
-                    Vector2 spacing = Direction * (25f * i);
-                    Vector2 currentSpawn = BaseSpawnLocation - spacing;
-                    
-                    Projectile.NewProjectile(player.GetSource_FromThis(), currentSpawn, Velocity, ModContent.ProjectileType<DetroitSmashProj>(), FinalDamage, 2f, player.whoAmI);
-                    Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<PunchAttackProj>(), 0, 0f, player.whoAmI);
-                    SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
-                }
-                
-                var projectileType = player.HasBuff(ModContent.BuffType<GearshiftBuff>()) ? ModContent.ProjectileType<GearDekuDetroitSmashOnomatopoeia>() : ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>();
-                Vector2 textPosition = player.Center + new Vector2(0, -30f);
-                Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, projectileType, 0, 0f, player.whoAmI);
+            DamageMultiplier += ofaPlayer.ConsumeFaJin(out bool usedFaJin);
 
             
-                if (hurtPlayer)
-                {
-                    ofaPlayer.ApplyRecoilDamage(0.25f); 
-                }
+            float rawFinalDamage = MaxDamage * DamageMultiplier;
+
+            
+            int FinalDamage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(rawFinalDamage);
+
+            string attackName = usedFaJin ? "Faux " : "";
+
+            if (usedFaJin || !hurtPlayer)
+                attackName += (DamageMultiplier * 100).ToString("0") + "% Detroit Smash";
+            else
+                attackName += "Detroit Smash";
+
+            attackName += player.HasBuff(ModContent.BuffType<GearshiftBuff>()) ? ": Quintuple" : "!";
+                
+            CombatText.NewText(player.getRect(), Color.LimeGreen, attackName);
+
+                
+            Vector2 Direction = Main.MouseWorld - player.Center;
+            Direction.Normalize();
+            Vector2 Velocity = Direction * 15f;
+            Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
+
+            int numberOfPunches = player.HasBuff(ModContent.BuffType<GearshiftBuff>()) ? 5 : 1; 
+
+            for (int i = 0; i < numberOfPunches; i++)
+            {
+                Vector2 spacing = Direction * (25f * i);
+                Vector2 currentSpawn = BaseSpawnLocation - spacing;
+                    
+                Projectile.NewProjectile(player.GetSource_FromThis(), currentSpawn, Velocity, ModContent.ProjectileType<DetroitSmashProj>(), FinalDamage, 2f, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<PunchAttackProj>(), 0, 0f, player.whoAmI);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
+            }
+                
+            var projectileType = player.HasBuff(ModContent.BuffType<GearshiftBuff>()) ? ModContent.ProjectileType<GearDekuDetroitSmashOnomatopoeia>() : ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>();
+            Vector2 textPosition = player.Center + new Vector2(0, -30f);
+            Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, projectileType, 0, 0f, player.whoAmI);
+
+            
+            if (hurtPlayer)
+            {
+                ofaPlayer.ApplyRecoilDamage(0.25f); 
+            }
     
             
             PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "FullCowlingShake");

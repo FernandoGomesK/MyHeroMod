@@ -7,6 +7,8 @@ using MyHeroMod.content.System;
 using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.ZeroGravity.Projectiles.GravityBubble;
+using KhacesCore.Content.System.Interfaces;
+using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.ZeroGravity
 {
@@ -186,9 +188,8 @@ namespace MyHeroMod.content.Quirks.ZeroGravity
             };
 
             int projectileCount = 1;
-            
-            IClosestEnemyFinder finder = new TargetFinder();
-            NPC target = finder.FindClosestEnemy(Player, 400f, false);
+
+            NPC target = new TargetFinder().FindClosestEnemy(Player, 400f, false);
 
             Vector2 baseVelocity;
             float hasTargetFlag; 

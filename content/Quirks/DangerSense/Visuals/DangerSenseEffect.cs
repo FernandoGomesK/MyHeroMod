@@ -24,6 +24,11 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
 
         protected override void Draw(ref PlayerDrawSet drawInfo)
         {
+            Player player = drawInfo.drawPlayer;
+            var mp = player.GetModPlayer<TransformationPlayer>();
+            bool hasAFO = mp.ActiveQuirks.Contains(QuirkType.AllForOne);
+
+
             if (!drawInfo.drawPlayer.TryGetModPlayer<DangerSensePlayer>(out var modPlayer)) return;
     
             if (!ModContent.HasAsset("MyHeroMod/Assets/Effects/DangerSenseEffect")) return;
@@ -53,11 +58,22 @@ namespace MyHeroMod.content.Quirks.OFA9th.Visuals
             // Cor e Luz
             Lighting.AddLight(drawInfo.Center, Color.Cyan.ToVector3() * 0.8f);
 
+            var hasAfo = mp.ActiveQuirks.Contains(QuirkType.AllForOne);
+
+            Color drawColor = Color.Yellow;
+
+            if (hasAFO)
+            {
+                drawColor = Color.Red;
+            }
+
+
+
             DrawData drawData = new DrawData(
                 texture,
                 drawPos,
                 sourceRectangle,
-                Color.White, 
+                drawColor, 
                 0f, // Rotação
                 new Vector2(texture.Width / 2f, frameHeight / 2f), 
                 1f, // Escala

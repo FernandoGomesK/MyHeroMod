@@ -11,8 +11,8 @@ namespace MyHeroMod.content.System
     public class RandomQuirkSelection
     {
 
-        public static Dictionary<QuirkType, int> QuirkWeights = new Dictionary<QuirkType, int>
-        {
+        public static IReadOnlyDictionary<QuirkType, int> QuirkWeights { get; } = new Dictionary<QuirkType, int>
+        {   
             // S-Tier (Cost 4) - Very Rare (~1% chance each)
             // Weight: 2
             { QuirkType.OneForAll9th, 2 },
@@ -61,7 +61,7 @@ namespace MyHeroMod.content.System
 
            
             int totalWeight = 0;
-            List<KeyValuePair<QuirkType, int>> availableQuirks = new List<KeyValuePair<QuirkType, int>>();
+            List<KeyValuePair<QuirkType, int>> availableQuirks = [];
 
             foreach (var kvp in QuirkWeights)
             {
@@ -94,10 +94,10 @@ namespace MyHeroMod.content.System
             }
 
             
-            if (transPlayer.ActiveQuirks.Count >= transPlayer.naturalQuirkLimit)
-            {
-                Main.NewText("Your body feels heavy... taking another Quirk is mutating your cells!", Color.DarkRed);
-            }
+            //if (transPlayer.ActiveQuirks.Count >= transPlayer.naturalQuirkLimit)
+            //{
+            //    Main.NewText("Your body feels heavy... taking another Quirk is mutating your cells!", Color.DarkRed);
+            //}
 
            
             transPlayer.ActiveQuirks.Add(quirkType);
@@ -134,15 +134,15 @@ namespace MyHeroMod.content.System
                 transPlayer.CurrentVariant = QuirkVariant.Default;
                 Main.NewText($"You awakened: {quirkType}!", Color.Yellow);
             }
-            
+
             transPlayer.UpdateUnlockedSkills();
 
+            
             if (Main.netMode == NetmodeID.MultiplayerClient)
             {
-                transPlayer.SendClientChanges(transPlayer);
+                transPlayer.SyncPlayer(-1, Main.myPlayer, false);
             }
         }
-
         public static QuirkType GetRandomQuirkForNPC()
         {
             int totalWeight = 0;

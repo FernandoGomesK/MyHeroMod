@@ -69,7 +69,7 @@ Items: {
 
 	AirForce: {
 		DisplayName: Air Force Gloves
-		Tooltip: Increases the damage of Delaware Smash by one step.
+		Tooltip: Increases the speed and damage of Delaware Smash by one step.
 	}
 
 	# --- SYRINGES & GENES ---
@@ -312,8 +312,12 @@ Items: {
 		Tooltip: ""
 	}
 
-	# --- SKILL ATTACK NAMES ---
-	FireQuirkAttack.DisplayName: Fire Attack
+	FireQuirkAttack: {
+		# --- SKILL ATTACK NAMES ---
+		DisplayName: Fire Attack
+		Tooltip: ""
+	}
+
 	BlueQuirkAttack.DisplayName: Blue Fire Attack
 
 	PunchAttack: {
@@ -455,7 +459,7 @@ Items: {
 
 	DekuArmorBriefcase: {
 		DisplayName: Deku Armor Briefcase
-		Tooltip: ""
+		Tooltip: A briefcase that holds power similar to One For All
 	}
 
 	NomuVatItem: {
@@ -505,26 +509,191 @@ Items: {
 
 	OneForAll9thEssence: {
 		DisplayName: One For All9th Essence
-		Tooltip: ""
+		Tooltip: Contains the essence for One For All(9th)
+	}
+
+	DecayEssence: {
+		DisplayName: Decay Essence
+		Tooltip: Contains the essence for Decay
 	}
 
 	DecayGene: {
 		DisplayName: Decay Gene
-		Tooltip: ""
+		Tooltip: Contains the genes for Decay
 	}
 
 	DecaySyringe: {
 		DisplayName: Decay Syringe
-		Tooltip: ""
+		Tooltip: Contains the mutations for Decay
+	}
+
+	ExplosionEssence: {
+		DisplayName: Explosion Essence
+		Tooltip: Contains the essence for Explosion
 	}
 
 	ExplosionSyringe: {
 		DisplayName: Explosion Syringe
-		Tooltip: ""
+		Tooltip: Contains the mutations for Explosion
 	}
 
 	BNDBreastplate: {
 		DisplayName: B N D Breastplate
+		Tooltip: ""
+	}
+
+	BlueflameEssence: {
+		DisplayName: Blueflame Essence
+		Tooltip: ""
+	}
+
+	DarkshadowEssence: {
+		DisplayName: Darkshadow Essence
+		Tooltip: ""
+	}
+
+	EngineEssence: {
+		DisplayName: Engine Essence
+		Tooltip: ""
+	}
+
+	FlightEssence: {
+		DisplayName: Flight Essence
+		Tooltip: ""
+	}
+
+	HellflameEssence: {
+		DisplayName: Hellflame Essence
+		Tooltip: ""
+	}
+
+	NomuFragment: {
+		DisplayName: Nomu Fragment
+		Tooltip: ""
+	}
+
+	OneForAll8thEssence: {
+		DisplayName: One For All8th Essence
+		Tooltip: ""
+	}
+
+	BlackwhipEssence: {
+		DisplayName: Blackwhip Essence
+		Tooltip: ""
+	}
+
+	DangersenseEssence: {
+		DisplayName: Dangersense Essence
+		Tooltip: ""
+	}
+
+	OpticBlastEssence: {
+		DisplayName: Optic Blast Essence
+		Tooltip: ""
+	}
+
+	TapeEssence: {
+		DisplayName: Tape Essence
+		Tooltip: ""
+	}
+
+	ZeroGravityEssence: {
+		DisplayName: Zero Gravity Essence
+		Tooltip: ""
+	}
+
+	OverclockEssence: {
+		DisplayName: Overclock Essence
+		Tooltip: ""
+	}
+
+	OverhaulEssence: {
+		DisplayName: Overhaul Essence
+		Tooltip: ""
+	}
+
+	RabbitEssence: {
+		DisplayName: Rabbit Essence
+		Tooltip: ""
+	}
+
+	RivetEssence: {
+		DisplayName: Rivet Essence
+		Tooltip: ""
+	}
+
+	SlideNGlideEssence: {
+		DisplayName: Slide N Glide Essence
+		Tooltip: ""
+	}
+
+	SpringLikeEssence: {
+		DisplayName: Spring Like Essence
+		Tooltip: ""
+	}
+
+	SuperRegenEssence: {
+		DisplayName: Super Regen Essence
+		Tooltip: ""
+	}
+
+	ErasureEssence: {
+		DisplayName: Erasure Essence
+		Tooltip: ""
+	}
+
+	FajinEssence: {
+		DisplayName: Fajin Essence
+		Tooltip: ""
+	}
+
+	FierceWingsEssence: {
+		DisplayName: Fierce Wings Essence
+		Tooltip: ""
+	}
+
+	FloatEssence: {
+		DisplayName: Float Essence
+		Tooltip: ""
+	}
+
+	GearshiftEssence: {
+		DisplayName: Gearshift Essence
+		Tooltip: ""
+	}
+
+	HardeningArms: {
+		DisplayName: Hardening Arms
+		Tooltip: ""
+	}
+
+	HardeningBody: {
+		DisplayName: Hardening Body
+		Tooltip: ""
+	}
+
+	HardeningHead: {
+		DisplayName: Hardening Head
+		Tooltip: ""
+	}
+
+	UHardeningArms: {
+		DisplayName: U Hardening Arms
+		Tooltip: ""
+	}
+
+	UHardeningBody: {
+		DisplayName: U Hardening Body
+		Tooltip: ""
+	}
+
+	UHardeningHead: {
+		DisplayName: U Hardening Head
+		Tooltip: ""
+	}
+
+	FeatherBlade: {
+		DisplayName: Feather Blade
 		Tooltip: ""
 	}
 }
@@ -844,6 +1013,11 @@ Buffs: {
 		DisplayName: Automatic Whip Buff
 		Description: Mods.MyHeroMod.Buffs.AutomaticWhipBuff.Description
 	}
+
+	RagnarokBuff: {
+		DisplayName: Ragnarok Buff
+		Description: Mods.MyHeroMod.Buffs.RagnarokBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own body with 100% power!"
@@ -1035,6 +1209,17 @@ Projectiles: {
 	WristHookProjectile.DisplayName: Wrist Hook Projectile
 	ChargeFinalSmashProj.DisplayName: Charge Final Smash Proj
 	FinalDetroitSmashProj.DisplayName: Final Detroit Smash Proj
+	TrackedFeatherProj.DisplayName: Tracked Feather Proj
+	StealPlayerHandProj.DisplayName: Steal Player Hand Proj
+	RedGauntletProj.DisplayName: Red Gauntlet Proj
+	ChargeUnbreakableProj.DisplayName: Charge Unbreakable Proj
+	WhoompOnomatopoeia.DisplayName: Whoomp Onomatopoeia
+	SklitOnomatopoeia.DisplayName: Sklit Onomatopoeia
+	DashRingProj.DisplayName: Dash Ring Proj
+	RedFlamethrowerHitboxProj.DisplayName: Red Flamethrower Hitbox Proj
+	ContinuousFlamethrowerProj.DisplayName: Continuous Flamethrower Proj
+	RedFeatherProj.DisplayName: Red Feather Proj
+	FeatherBarrageProj.DisplayName: Feather Barrage Proj
 }
 
 NPCs: {
@@ -1105,12 +1290,12 @@ Configs: {
 
 		ImpactFrameIntensity: {
 			Label: Impact Frame Intensity
-			Tooltip: ""
+			Tooltip: Reduces the Impact frames intensity without disabling it.
 		}
 
 		DecayDestroys: {
 			Label: Decay Destroys
-			Tooltip: ""
+			Tooltip: Toggle the decay quirk being able to destroy blocks
 		}
 	}
 }

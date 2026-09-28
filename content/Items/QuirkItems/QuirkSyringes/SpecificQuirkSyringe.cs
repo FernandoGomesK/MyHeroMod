@@ -4,6 +4,8 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Items;
 using MyHeroMod.content.Tiles.CraftingStations;
+using MyHeroMod.content.UI;
+
 
 namespace MyHeroMod.content.Items.QuirkItems.QuirkSyringes
 {
@@ -50,11 +52,16 @@ namespace MyHeroMod.content.Items.QuirkItems.QuirkSyringes
         
         public override void AddRecipes()
         {
-            CreateRecipe()
-                .AddIngredient(RequiredGeneType, 1)
-                .AddIngredient(ModContent.ItemType<EmptySyringe>(), 1)
-                .AddTile(ModContent.TileType<NomuVat>()) 
-                .Register();
+            if (GetType() == typeof(SpecificQuirkSyringe)) return;
+
+            if (RequiredGeneType > 0)
+            {
+                CreateRecipe()
+                    .AddIngredient(RequiredGeneType, 1)
+                    .AddIngredient(ModContent.ItemType<EmptySyringe>(), 1)
+                    .AddTile(ModContent.TileType<NomuVat>())
+                    .Register();
+            }
         }
     }
 }

@@ -5,7 +5,7 @@ using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.DarkShadow;
 using MyHeroMod.content.Quirks.DarkShadow.Projectiles;
 
-namespace MyHeroMod.content.Quirks.DarkShadow.Skills
+namespace MyHeroMod.content.Quirks.DarkShadow.DarkShadowSkillList
 {
     public class PiercingTwilightClawsSkill : QuirkBaseSkill
     {
@@ -27,13 +27,13 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Skills
             int projectileToSpawn = -1;
             int handIndex = -1;
             
-            if (!darkPlayer.isFrontHandAttacking) 
+            if (!darkPlayer.IsFrontHandAttacking) 
             {
                 // Mão da frente livre! Usa o sprite/projétil da frente.
                 projectileToSpawn = ModContent.ProjectileType<DarkShadowLongFrontHandProj>();
                 handIndex = 0;
             }
-            else if (!darkPlayer.isBackHandAttacking) 
+            else if (!darkPlayer.IsBackHandAttacking) 
             {
                 // Mão da frente está ocupada. A de trás está livre? Usa o de trás!
                 projectileToSpawn = ModContent.ProjectileType<DarkShadowLongBackHandProj>();
@@ -48,19 +48,23 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Skills
 
             Vector2 velocity = Main.MouseWorld - player.Center;
             velocity.Normalize();
-            velocity *= 18f; 
+            velocity *= 18f;
 
-            // O jogo dispara automaticamente o sprite correto e com a camada correta!
+            float baseDynamicDamage = darkPlayer.GetProjectileDamage();
+
+            
+            int finalScaledDamage = (int)player.GetTotalDamage(DamageClass.Summon).ApplyTo(baseDynamicDamage);
+
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
                 velocity,
-                projectileToSpawn, // Invoca o projétil escolhido pelo IF
-                45, 
-                4f, 
+                projectileToSpawn,
+                finalScaledDamage,
+                4f,
                 player.whoAmI,
-                handIndex, 
-                0          
+                handIndex,  
+                0
             );
         }
     }

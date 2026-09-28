@@ -1,62 +1,97 @@
+using KhacesCore.Content.System;
+using KhacesCore.Content.System.Interfaces;
+using Microsoft.Xna.Framework;
+using MyHeroMod.content.Quirks.AllForOne;
+using MyHeroMod.content.Quirks.DangerSense;
+using MyHeroMod.content.Quirks.OFA9th;
+using MyHeroMod.content.Quirks.Smokescreen;
+using MyHeroMod.content.System;
+using MyHeroMod.content.System.Interfaces;
+using System;
+using System.Collections.Generic;
 using Terraria;
+using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
-using Terraria.Audio;
-using System.Collections.Generic; 
-using MyHeroMod.content.System;
-using MyHeroMod.content.Quirks.AllForOne;
-using MyHeroMod.content.Quirks.OFA9th;
-using System;
-using Terraria.ID;
-using KhacesCore.Content.System;
-using MyHeroMod.content.Quirks.DangerSense;
-using MyHeroMod.content.Quirks.Smokescreen;
 
 namespace MyHeroMod.content
 {
-    // --- ENUMS ---
-    public enum QuirkType { Quirkless, AllForOne, OneForAll9th, OneForAll8th,
-                            Explosion, Engine, HellFlames, Blueflame, HalfColdHalfHot,
-                            Float, Flight, Gearshift, FaJin, SmokeScreen, DangerSense,
-                            BlackWhip, Tape, Overclock, Erasure, SuperRegeneration, SlideAndGlide,
-                            Decay, Rivet, SpringLikeLimbs, Rabbit, DarkShadow, Overhaul,
-                            ZeroGravity, FierceWings, OpticBlast,  }
+    /// <summary>
+    /// All of the quirks available in the mod
+    /// </summary>
+    public enum QuirkType
+    {
+        Quirkless, AllForOne, OneForAll9th, OneForAll8th,
+        Explosion, Engine, HellFlames, Blueflame, HalfColdHalfHot,
+        Float, Flight, Gearshift, FaJin, SmokeScreen, DangerSense,
+        BlackWhip, Tape, Overclock, Erasure, SuperRegeneration, SlideAndGlide,
+        Decay, Rivet, SpringLikeLimbs, Rabbit, DarkShadow, Overhaul,
+        ZeroGravity, FierceWings, OpticBlast, Hardening
+    }
 
-    
-// Hardening
+    /// <summary>
+    /// Quirk Variants, that mainly change the visuals for now (I.E pink or red Eye Beams)
+    /// </summary>
     public enum QuirkVariant
-{
-    Default,    
-    Variant1,  
-    
-}
+    {
+        Default,
+        Variant1,
+    }
 
+    /// <summary>
+    /// player progression states, mirroring CorePlayer.
+    /// </summary>
     public enum QuirkStage { Initial, Adequation, Intermediate, Advanced, Final }
 
-    public class TransformationPlayer : BasePlayer
+    /// <summary>
+    /// ModPlayer central do MyHeroMod: guarda os quirks ativos do jogador, o estágio e a
+    /// variante de progressão, e implementa <see cref="IPowerSystem"/> para se integrar ao Core.
+    /// </summary>
+    public class TransformationPlayer : BasePlayer, IPowerSystem
     {
-        public List<QuirkType> ActiveQuirks = new List<QuirkType>(); 
-        public int naturalQuirkLimit = 1;
+        #region Campos e Propriedades
 
+        /// <summary>List with the player current Active Quirks</summary>
+        public List<QuirkType> ActiveQuirks = [];
+
+        /// <summary>Current progression stage (mirrors CorePlayer).</summary>
         public QuirkStage CurrentStage = QuirkStage.Initial;
+
+        /// <summary>Current variant of the quirk.</summary>
         public QuirkVariant CurrentVariant = QuirkVariant.Default;
-        public bool ManualStageOverride = false;
+
+        /// <summary>Inticates if the initial traits (quirk + nature) have already been rolled.</summary>
         public bool hasRolledInitialTraits = false;
-        
-        
+
+        /// <summary>Name of the form/transformation active (mostly legacy).</summary>
         public string ActiveForm = "None";
 
-        
-
+        /// <summary>Nature (passive buffs to quirks) of the player.</summary>
         public NatureType Nature = NatureType.None;
+
+        /// <summary>Channel time to activate certain skills.</summary>
         public int ChannelTime = 0;
 
-        
-    
-        
-        public List<string> UnlockedSkills = new List<string>();
+        /// <summary>ID of the skills unlocked by the player.</summary>
+        public List<string> UnlockedSkills = [];
 
-       public override string DisplayPowerName
+        /// <summary>pointer to the corePlayer.</summary>
+        public CorePlayer Core => Player.GetModPlayer<CorePlayer>();
+
+        #endregion
+
+
+        #region IPowerSystem
+
+        /// <inheritdoc/>
+        public bool IsEnabled => true;
+
+        /// <inheritdoc/>
+        public string PowerTypeName => "Quirk";
+
+        /// <summary>Friendly dsiplay name of the active quirks of the player.</summary>
+        public override string DisplayPowerName
         {
             get
             {
@@ -66,49 +101,16 @@ namespace MyHeroMod.content
                 if (ActiveQuirks.Count == 0)
                     return "Quirkless";
 
-                
-                List<string> names = new List<string>();
+                List<string> names = [];
                 foreach (var quirk in ActiveQuirks)
                 {
                     names.Add(GetFriendlyQuirkName(quirk));
                 }
-                return string.Join(", ", names); 
+                return string.Join(", ", names);
             }
         }
 
-        public override bool FreeDodge(Player.HurtInfo info)
-        {
-            var dangerPlayer = Player.GetModPlayer<DangerSensePlayer>();
-            var smokePlayer = Player.GetModPlayer<SmokescreenPlayer>();
-
-            
-            float dangerChance = dangerPlayer.isDangerSenseActive ? dangerPlayer.dodgeChance : 0f;
-            float smokeChance = smokePlayer.isSmokescreenActive ? smokePlayer.dodgeChance : 0f;
-
-            
-            float maxChance = Math.Max(dangerChance, smokeChance);
-
-            if (maxChance > 0f && Main.rand.NextFloat() < maxChance)
-            {
-                
-                if (dangerChance >= smokeChance && dangerChance > 0f)
-                {
-                    dangerPlayer.triggerVisual();
-                    SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound") with { Volume = 2.0f }, Player.position);
-                }
-                else if (smokeChance > 0f)
-                {
-                   
-                }
-
-                Player.SetImmuneTimeForAllTypes(80); 
-                return true; 
-            }
-
-            return false; 
-        }
-    
-
+        /// <summary>Frienfly name of the current powerStage.</summary>
         public override string DisplayPowerStage => CurrentStage switch
         {
             QuirkStage.Initial => "Initial",
@@ -119,7 +121,195 @@ namespace MyHeroMod.content
             _ => "N/A"
         };
 
-        private string GetFriendlyQuirkName(QuirkType quirk) => quirk switch
+        /// <summary>
+        /// Called by the core to recalculate the unlocked Skills
+        ///  <see cref="QuirkStage"/>
+        /// </summary>
+        public void OnCoreStageChanged(int stageIndex)
+        {
+            int maxIndex = Enum.GetValues(typeof(QuirkStage)).Length - 1;
+
+            CurrentStage = (QuirkStage)Math.Clamp(
+                stageIndex,
+                0,
+                maxIndex
+            );
+
+            UpdateUnlockedSkills();
+        }
+
+        #endregion
+
+
+        #region Ciclo de Atualização
+
+        /// <summary>Adjusts the maximum strain according to the current power stage</summary>
+        public override void PostUpdateEquips()
+        {
+            Core.maxStrain = CurrentStage switch
+            {
+                QuirkStage.Initial => 300,
+                QuirkStage.Adequation => 500,
+                QuirkStage.Intermediate => 600,
+                QuirkStage.Advanced => 800,
+                QuirkStage.Final => 1200,
+                _ => 100
+            };
+        }
+
+        /// <summary>
+
+        /// Makes sure One for All 9th and 8th don't coexist, all for one 9th absorbs
+        /// One for all 8th and sums 200 on the used time timer
+        /// </summary>
+        public override void PreUpdate()
+        {
+            base.PreUpdate();
+
+            if (ActiveQuirks.Contains(QuirkType.OneForAll8th) && ActiveQuirks.Contains(QuirkType.OneForAll9th))
+            {
+                var ofa9Player = Player.GetModPlayer<OneForAll9thPlayer>();
+                if (ActiveQuirks.Contains(QuirkType.OneForAll9th))
+                {
+                    ofa9Player.timeUsed += 200;
+                }
+                ActiveQuirks.Remove(QuirkType.OneForAll8th);
+                CombatText.NewText(Player.getRect(), Color.Orange, "Your one for all power has been absorbed!", true);
+            }
+        }
+
+        /// <summary>
+        /// Dadges using the higher chance between Dangersense and Smokescreen.
+        /// if the hit is dodged, triggers the visual and sound effect
+        /// </summary>
+        public override bool FreeDodge(Player.HurtInfo info)
+        {
+            var dangerPlayer = Player.GetModPlayer<DangerSensePlayer>();
+            var smokePlayer = Player.GetModPlayer<SmokescreenPlayer>();
+
+            float dangerChance = dangerPlayer.isDangerSenseActive ? dangerPlayer.dodgeChance : 0f;
+            float smokeChance = smokePlayer.isSmokescreenActive ? smokePlayer.dodgeChance : 0f;
+
+            float maxChance = Math.Max(dangerChance, smokeChance);
+
+            if (maxChance > 0f && Main.rand.NextFloat() < maxChance)
+            {
+                if (dangerChance >= smokeChance && dangerChance > 0f)
+                {
+                    dangerPlayer.TriggerVisual();
+                    SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound") with { Volume = 2.0f }, Player.position);
+                }
+                else if (smokeChance > 0f)
+                {
+                }
+
+                Player.SetImmuneTimeForAllTypes(80);
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// When entering the world, recaculates skills, the stage, if initial trais where rolled
+        /// </summary>
+        public override void OnEnterWorld()
+        {
+            UpdateUnlockedSkills();
+
+            if (Main.LocalPlayer == Player)
+            {
+                CorePlayer core = Player.GetModPlayer<CorePlayer>();
+                OnCoreStageChanged(core.CurrentStageIndex);
+            }
+
+            if (!hasRolledInitialTraits)
+            {
+                RandomNatureSelection.SelectRandomNature();
+                RandomQuirkSelection.SelectRandomQuirk();
+                hasRolledInitialTraits = true;
+            }
+        }
+
+        #endregion
+
+
+        #region Persistência (Save/Load)
+
+        /// <summary>Saves the active quirks, the variant, the nature and if rolled initial traits.</summary>
+        public override void SaveData(TagCompound tag)
+        {
+            List<string> quirkNames = [];
+
+            foreach (var quirk in ActiveQuirks)
+            {
+                quirkNames.Add(quirk.ToString());
+            }
+
+            tag["ActiveQuirkList"] = quirkNames;
+            tag["CurrentVariantName"] = CurrentVariant.ToString();
+            tag["PlayerNature"] = (int)Nature;
+            tag["HasRolledInitialTraits"] = hasRolledInitialTraits;
+        }
+
+        /// <summary>
+        /// Loads Data. Mantains compatibility with the old architecture
+        /// </summary>
+        public override void LoadData(TagCompound tag)
+        {
+            ActiveQuirks.Clear();
+
+            if (tag.ContainsKey("ActiveQuirkList"))
+            {
+                IList<string> savedQuirks =
+                    tag.GetList<string>("ActiveQuirkList");
+
+                foreach (var quirkName in savedQuirks)
+                {
+                    if (Enum.TryParse(quirkName, out QuirkType parsedQuirk))
+                    {
+                        ActiveQuirks.Add(parsedQuirk);
+                    }
+                }
+
+                if (tag.ContainsKey("CurrentVariantName"))
+                {
+                    if (Enum.TryParse(
+                        tag.GetString("CurrentVariantName"),
+                        out QuirkVariant parsedVariant))
+                    {
+                        CurrentVariant = parsedVariant;
+                    }
+                }
+            }
+            else if (tag.ContainsKey("SelectedQuirk")) // compatibilidade com saves antigos
+            {
+                ActiveQuirks.Add(
+                    (QuirkType)tag.GetInt("SelectedQuirk")
+                );
+            }
+
+            if (tag.ContainsKey("PlayerNature"))
+            {
+                Nature = (NatureType)tag.GetInt("PlayerNature");
+            }
+
+            if (tag.ContainsKey("HasRolledInitialTraits"))
+            {
+                hasRolledInitialTraits =
+                    tag.GetBool("HasRolledInitialTraits");
+            }
+
+            UpdateUnlockedSkills();
+        }
+
+        #endregion
+
+
+        #region Utilitários de Quirk
+
+        /// <summary>Friendly name for exhibition<see cref="QuirkType"/>.</summary>
+        private static string GetFriendlyQuirkName(QuirkType quirk) => quirk switch
         {
             QuirkType.OneForAll9th => "One For All (9th)",
             QuirkType.OneForAll8th => "One For All (8th)",
@@ -136,152 +326,18 @@ namespace MyHeroMod.content
             _ => quirk.ToString()
         };
 
-        
-
-        public override void PostUpdateMiscEffects()
-        {
-        
-        }
-
-        public override void PostUpdateEquips()
-        {
-            maxStrain = CurrentStage switch
-            {
-                QuirkStage.Initial => 300,
-                QuirkStage.Adequation => 500,
-                QuirkStage.Intermediate => 600,
-                QuirkStage.Advanced => 800,
-                QuirkStage.Final => 1200,
-                _ => 0
-            };
-        }
-
-        public override void PreUpdate()
-        {
-
-            base.PreUpdate();
-        
-        }
-
-        public override void ResetEffects()
-        {
-            base.ResetEffects();
-            
-        }
-
-    
-        public override void SaveData(TagCompound tag)
-        {
-            List<string> quirkNames = new List<string>();
-            foreach (var quirk in ActiveQuirks)
-            {
-                quirkNames.Add(quirk.ToString());
-            }
-            
-            tag["ActiveQuirkList"] = quirkNames;
-            tag["CurrentStageName"] = CurrentStage.ToString();
-            
-            // --- NEW: Save Variant ---
-            tag["CurrentVariantName"] = CurrentVariant.ToString(); 
-            
-            tag["PlayerNature"] = (int)Nature;
-            
-            tag["Slot1Name"] = Slot1;
-            tag["Slot2Name"] = Slot2;
-            tag["Slot3Name"] = Slot3;
-            tag["Slot4Name"] = Slot4;
-            tag["Slot5Name"] = Slot5;
-            tag["Slot6Name"] = Slot6;
-            tag["Slot7Name"] = Slot7;
-            tag["Slot8Name"] = Slot8;
-            
-            tag["HasRolledInitialTraits"] = hasRolledInitialTraits;
-        }
-
-        public override void LoadData(TagCompound tag)
-        {
-            ActiveQuirks.Clear();
-
-            if (tag.ContainsKey("ActiveQuirkList"))
-            {
-                IList<string> savedQuirks = tag.GetList<string>("ActiveQuirkList");
-                foreach (var quirkName in savedQuirks)
-                {
-                    if (Enum.TryParse(quirkName, out QuirkType parsedQuirk))
-                    {
-                        ActiveQuirks.Add(parsedQuirk);
-                    }
-                }
-             
-                if (Enum.TryParse(tag.GetString("CurrentStageName"), out QuirkStage parsedStage)) CurrentStage = parsedStage;
-                
-                // --- NEW: Load Variant ---
-                if (tag.ContainsKey("CurrentVariantName"))
-                {
-                    if (Enum.TryParse(tag.GetString("CurrentVariantName"), out QuirkVariant parsedVariant))
-                        CurrentVariant = parsedVariant;
-                }
-                
-                if (tag.ContainsKey("Slot1Name")) Slot1 = tag.GetString("Slot1Name");
-                if (tag.ContainsKey("Slot2Name")) Slot2 = tag.GetString("Slot2Name");
-                if (tag.ContainsKey("Slot3Name")) Slot3 = tag.GetString("Slot3Name");
-                if (tag.ContainsKey("Slot4Name")) Slot4 = tag.GetString("Slot4Name");
-                if (tag.ContainsKey("Slot5Name")) Slot5 = tag.GetString("Slot5Name");
-                if (tag.ContainsKey("Slot6Name")) Slot6 = tag.GetString("Slot6Name");
-                if (tag.ContainsKey("Slot7Name")) Slot7 = tag.GetString("Slot7Name");
-                if (tag.ContainsKey("Slot8Name")) Slot8 = tag.GetString("Slot8Name");
-            }
-            else if (tag.ContainsKey("SelectedQuirk"))
-            {
-                ActiveQuirks.Add((QuirkType)tag.GetInt("SelectedQuirk"));
-                if (tag.ContainsKey("CurrentStage")) CurrentStage = (QuirkStage)tag.GetInt("CurrentStage");
-            }
-
-            if (tag.ContainsKey("PlayerNature")) 
-            {
-                Nature = (NatureType)tag.GetInt("PlayerNature");
-            }
-            if (tag.ContainsKey("HasRolledInitialTraits"))
-            {
-                hasRolledInitialTraits = tag.GetBool("HasRolledInitialTraits");
-            }
-            
-            UpdateUnlockedSkills();
-        }
-
-        public void ResetSlot()
-        {
-            Slot1 = "None"; Slot2 = "None"; Slot3 = "None"; Slot4 = "None";
-            Slot5 = "None"; Slot6 = "None"; Slot7 = "None"; Slot8 = "None";
-        }
-
-        // public bool HasLethalStrainQuirk()
-        // {
-        //     foreach (var quirk in ActiveQuirks)
-        //     {
-            
-        //         if (quirk == QuirkType.OneForAll9th || quirk == QuirkType.Blueflame)
-        //         {
-        //             return true;
-        //         }
-        //     }
-        //     return false;
-        // }
-
-        public override void UpdateBadLifeRegen()
-        {
-   
-        }
-    
-
+        /// <summary>
+        /// Verifies if the player has an active quirk, including stolen internal quirks
+        /// via All For One or through One For All (9th)
+        /// </summary>
         public bool HasActiveQuirk(QuirkType typeToCheck)
         {
             if (ActiveQuirks.Contains(typeToCheck)) return true;
-            
-            var afoPlayer = Player.GetModPlayer<AllForOnePlayer>();
-            var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>(); 
 
-            if ((ActiveQuirks.Contains(QuirkType.AllForOne) && afoPlayer.HasInternalQuirk(typeToCheck)) || 
+            var afoPlayer = Player.GetModPlayer<AllForOnePlayer>();
+            var ofaPlayer = Player.GetModPlayer<OneForAll9thPlayer>();
+
+            if ((ActiveQuirks.Contains(QuirkType.AllForOne) && afoPlayer.HasInternalQuirk(typeToCheck)) ||
                 (ActiveQuirks.Contains(QuirkType.OneForAll9th) && ofaPlayer.HasInternalQuirk(typeToCheck)))
             {
                 return true;
@@ -290,24 +346,22 @@ namespace MyHeroMod.content
             return false;
         }
 
-        public override void OnEnterWorld() 
+        /// <summary>Recalculates from the SkillLibrary, which skills are unlocked now </summary>
+        public void UpdateUnlockedSkills()
         {
-            UpdateUnlockedSkills();
-            ProgressionSystem.UpdateStage(this);
-
-            if (!hasRolledInitialTraits)            
+            UnlockedSkills.Clear();
+            foreach (var skillId in SkillLibrary.GetAllIds())
             {
-                RandomNatureSelection.SelectRandomNature();
-                RandomQuirkSelection.SelectRandomQuirk();
-                hasRolledInitialTraits = true;
+                var skill = SkillLibrary.GetSkill(skillId);
+
+                if (skill is QuirkBaseSkill quirkSkill && quirkSkill.CheckUnlock(this))
+                {
+                    UnlockedSkills.Add(skillId);
+                }
             }
         }
 
-        public override void PostUpdate()
-        {
-            ProgressionSystem.UpdateStage(this);
-        }
-
+        /// <summary>Activates the Complete reset when resetting the quirk <see cref="IQuirkResetter"/>.</summary>
         public void CompleteReset()
         {
             foreach (var modPlayer in Player.ModPlayers)
@@ -319,109 +373,96 @@ namespace MyHeroMod.content
             }
         }
 
-        public void UpdateUnlockedSkills() 
-        {
-            UnlockedSkills.Clear();
-            foreach (var skillId in SkillLibrary.GetAllIds()) 
-            {
-                var skill = SkillLibrary.GetSkill(skillId);
-                
-                if (skill is QuirkBaseSkill quirkSkill && quirkSkill.CheckUnlock(this)) 
-                {
-                    UnlockedSkills.Add(skillId);
-                }
-            }
-        }
-        
+        #endregion
+
+
+        #region Multiplayer Synchronization
+
+        /// <summary>Copies the latest relevant state to the clone using it as the "last known state" in the server.</summary>
         public override void CopyClientState(ModPlayer clientClone)
         {
             TransformationPlayer clone = clientClone as TransformationPlayer;
-            clone.ActiveQuirks = new List<QuirkType>(ActiveQuirks); 
+            clone.ActiveQuirks = [.. ActiveQuirks];
             clone.CurrentStage = CurrentStage;
-            clone.CurrentVariant = CurrentVariant; 
-            
-            clone.Slot1 = Slot1; clone.Slot2 = Slot2; clone.Slot3 = Slot3; clone.Slot4 = Slot4;
-            clone.Slot5 = Slot5; clone.Slot6 = Slot6; clone.Slot7 = Slot7; clone.Slot8 = Slot8;
-            
+            clone.CurrentVariant = CurrentVariant;
             clone.Nature = Nature;
-            clone.currentStrain = currentStrain;
-
-            clone.UseSecondaryBar = UseSecondaryBar;
-            clone.CurrentRaceId = CurrentRaceId;
         }
 
-        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
+        /// <summary>Sends the complete state of the player when entering the world.</summary>
+        public override void SyncPlayer(
+            int toWho,
+            int fromWho,
+            bool newPlayer)
         {
             ModPacket packet = Mod.GetPacket();
-            packet.Write((byte)MyHeroMod.MessageType.SyncTransformationPlayer); 
-            packet.Write((byte)Player.whoAmI); 
-            
+
+            packet.Write(
+                (byte)MyHeroMod.MessageType.SyncTransformationPlayer
+            );
+
+            packet.Write((byte)Player.whoAmI);
+
             packet.Write(ActiveQuirks.Count);
+
             foreach (var quirk in ActiveQuirks)
             {
                 packet.Write((int)quirk);
             }
 
-            packet.Write((int)CurrentStage);
-            packet.Write((int)CurrentVariant); 
+            packet.Write((int)CurrentVariant);
             packet.Write((int)Nature);
-            packet.Write(currentStrain); 
-            
-            packet.Write(Slot1 ?? "None"); packet.Write(Slot2 ?? "None");
-            packet.Write(Slot3 ?? "None"); packet.Write(Slot4 ?? "None");
-            packet.Write(Slot5 ?? "None"); packet.Write(Slot6 ?? "None");
-            packet.Write(Slot7 ?? "None"); packet.Write(Slot8 ?? "None");
-            
-            packet.Write(UseSecondaryBar);
-            packet.Write(CurrentRaceId ?? "Human");
 
             packet.Send(toWho, fromWho);
         }
 
-        public override void SendClientChanges(ModPlayer clientPlayer)
+        /// <summary> Only sends the synchronization if something changed (delta sync).</summary>
+        public override void SendClientChanges(
+            ModPlayer clientPlayer)
         {
-            TransformationPlayer clone = clientPlayer as TransformationPlayer;
+            TransformationPlayer clone =
+                clientPlayer as TransformationPlayer;
 
-            bool quirksChanged = ActiveQuirks.Count != clone.ActiveQuirks.Count;
+            bool quirksChanged =
+                ActiveQuirks.Count != clone.ActiveQuirks.Count;
+
             if (!quirksChanged)
             {
                 for (int i = 0; i < ActiveQuirks.Count; i++)
                 {
-                    if (ActiveQuirks[i] != clone.ActiveQuirks[i]) quirksChanged = true;
+                    if (ActiveQuirks[i] != clone.ActiveQuirks[i])
+                    {
+                        quirksChanged = true;
+                        break;
+                    }
                 }
             }
-            
-            if (quirksChanged || CurrentStage != clone.CurrentStage || CurrentVariant != clone.CurrentVariant || // NEW
-                Nature != clone.Nature || currentStrain != clone.currentStrain ||
-                Slot1 != clone.Slot1 || Slot2 != clone.Slot2 || Slot3 != clone.Slot3 || Slot4 != clone.Slot4 ||
-                Slot5 != clone.Slot5 || Slot6 != clone.Slot6 || Slot7 != clone.Slot7 || Slot8 != clone.Slot8 ||
-                UseSecondaryBar != clone.UseSecondaryBar || CurrentRaceId != clone.CurrentRaceId)
+
+            if (quirksChanged ||
+                CurrentVariant != clone.CurrentVariant ||
+                Nature != clone.Nature)
             {
                 ModPacket packet = Mod.GetPacket();
-                packet.Write((byte)MyHeroMod.MessageType.SyncTransformationPlayer);
+
+                packet.Write(
+                    (byte)MyHeroMod.MessageType.SyncTransformationPlayer
+                );
+
                 packet.Write((byte)Player.whoAmI);
-                
+
                 packet.Write(ActiveQuirks.Count);
+
                 foreach (var quirk in ActiveQuirks)
                 {
                     packet.Write((int)quirk);
                 }
 
-                packet.Write((int)CurrentStage);
-                packet.Write((int)CurrentVariant); 
-                packet.Write((int)Nature); 
-                packet.Write(currentStrain); 
-                
-                packet.Write(Slot1 ?? "None"); packet.Write(Slot2 ?? "None");
-                packet.Write(Slot3 ?? "None"); packet.Write(Slot4 ?? "None");
-                packet.Write(Slot5 ?? "None"); packet.Write(Slot6 ?? "None");
-                packet.Write(Slot7 ?? "None"); packet.Write(Slot8 ?? "None");
-                
-                packet.Write(UseSecondaryBar);
-                packet.Write(CurrentRaceId ?? "Human");
+                packet.Write((int)CurrentVariant);
+                packet.Write((int)Nature);
 
-                packet.Send(-1, Player.whoAmI); 
+                packet.Send(-1, Player.whoAmI);
             }
         }
+
+        #endregion
     }
 }

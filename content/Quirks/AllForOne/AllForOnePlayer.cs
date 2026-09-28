@@ -9,6 +9,7 @@ using Terraria.GameContent.Bestiary;
 using MyHeroMod.content.Quirks.OFA9th;
 using Terraria.ModLoader.IO;
 using System;
+using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.AllForOne
 {

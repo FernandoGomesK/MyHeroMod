@@ -9,13 +9,13 @@ using MyHeroMod.content.UI;
 using MyHeroMod.content.Quirks.OpticBlast;
 using MyHeroMod.content.Buffs;
 
-namespace MyHeroMod
+namespace MyHeroMod.content.UI
 {
     public class UISystem : ModSystem
     {
         internal UserInterface MyInterface;
         internal QuirkSelectionUI MyQuirkUI;
-        
+
         internal AllForOneQuirksUI SeeQuirkUI;
         internal QuirkRemoverUI MyQuirkRemoverUI;
 
@@ -24,7 +24,6 @@ namespace MyHeroMod
 
         private UserInterface temperatureUserInterface;
         internal TemperatureUIState temperatureUIState;
-
 
         private UserInterface blinkUserInterface;
         internal BlinkUIState blinkUIState;
@@ -47,18 +46,19 @@ namespace MyHeroMod
         private UserInterface fullCowlingUserInterface;
         internal FullCowlingUIState fullCowlingUIState;
 
-        private UserInterface StrainUserInterface;
-        internal StrainUIState StrainUIState;
+        private UserInterface redRiotShieldUserInterface;
+        internal RedRiotShieldUIState redRiotShieldUIState;
 
+        private UserInterface fierceUserInterface;
+        internal FierceUIState fierceUIState;
 
         public override void Load()
         {
-            if (!Main.dedServ) 
+            if (!Main.dedServ)
             {
                 MyInterface = new UserInterface();
                 MyQuirkUI = new QuirkSelectionUI();
-                // MySkillMenuUI = new SkillMenuUI();
-                
+
                 SeeQuirkUI = new AllForOneQuirksUI();
                 SeeQuirkUI.Activate();
 
@@ -74,7 +74,6 @@ namespace MyHeroMod
                 temperatureUIState.Activate();
                 temperatureUserInterface = new UserInterface();
                 temperatureUserInterface.SetState(temperatureUIState);
-
 
                 blinkUIState = new BlinkUIState();
                 blinkUIState.Activate();
@@ -111,30 +110,31 @@ namespace MyHeroMod
                 fullCowlingUserInterface = new UserInterface();
                 fullCowlingUserInterface.SetState(fullCowlingUIState);
 
-                StrainUIState = new StrainUIState();
-                StrainUIState.Activate();
-                StrainUserInterface = new UserInterface();
-                StrainUserInterface.SetState(StrainUIState);
+                redRiotShieldUIState = new RedRiotShieldUIState();
+                redRiotShieldUIState.Activate();
+                redRiotShieldUserInterface = new UserInterface();
+                redRiotShieldUserInterface.SetState(redRiotShieldUIState);
 
-                if (!Main.dedServ)
-    {
-        KhacesCore.Content.System.CoreUISystem.RegisterTab(
-            "Skill Menu",
-            () => new SkillMenuTabContent()
-        );
+          
+                fierceUIState = new FierceUIState();
+                fierceUIState.Activate();
+                fierceUserInterface = new UserInterface();
+                fierceUserInterface.SetState(fierceUIState);
 
-        
-    }
+                KhacesCore.Content.System.CoreUISystem.RegisterTab(
+                    "Skill Menu",
+                    () => new SkillMenuTabContent()
+                );
             }
         }
-        
+
         public override void Unload()
         {
             MyInterface = null;
             MyQuirkUI = null;
-            // MySkillMenuUI = null;
             SeeQuirkUI = null;
             MyQuirkRemoverUI = null;
+
             breathUIState = null;
             breathUserInterface = null;
 
@@ -162,24 +162,12 @@ namespace MyHeroMod
             fullCowlingUIState = null;
             fullCowlingUserInterface = null;
 
-            StrainUIState = null;
-            StrainUserInterface = null;
-        }
+            redRiotShieldUIState = null;
+            redRiotShieldUserInterface = null;
 
-        // public static void ToggleSkillMenu()
-        // {
-        //     var system = ModContent.GetInstance<UISystem>();
-        //     if (system.MyInterface.CurrentState is SkillMenuUI)
-        //     {
-        //         // fecha se estiver aberto
-        //         system.MyInterface.SetState(null); 
-        //     }
-        //     else
-        //     {
-        //         // abre
-        //         system.MyInterface.SetState(system.MySkillMenuUI); 
-        //     }
-        // }
+            fierceUIState = null;
+            fierceUserInterface = null;
+        }
 
         public static void ShowUI()
         {
@@ -214,9 +202,8 @@ namespace MyHeroMod
 
         public override void UpdateUI(GameTime gameTime)
         {
-            if (MyInterface?.CurrentState != null) 
+            if (MyInterface?.CurrentState != null)
             {
-                // if the player presses esc the inventory closes
                 if (Terraria.GameInput.PlayerInput.Triggers.JustPressed.Inventory)
                 {
                     HideUI();
@@ -228,35 +215,19 @@ namespace MyHeroMod
                 }
             }
 
-            if (temperatureUserInterface != null)
-            temperatureUserInterface.Update(gameTime);
-            
-            if (breathUserInterface != null)
-                breathUserInterface.Update(gameTime);
+            temperatureUserInterface?.Update(gameTime);
+            breathUserInterface?.Update(gameTime);
+            blinkUserInterface?.Update(gameTime);
+            OpticBlastUserInterface?.Update(gameTime);
+            flightShieldUserInterface?.Update(gameTime);
+            engineGearUserInterface?.Update(gameTime);
+            SweatUserInterface?.Update(gameTime);
+            nauseaUserInterface?.Update(gameTime);
+            fullCowlingUserInterface?.Update(gameTime);
+            redRiotShieldUserInterface?.Update(gameTime);
 
-            if (blinkUserInterface != null)
-                blinkUserInterface.Update(gameTime);
-
-            if (OpticBlastUserInterface != null)
-                OpticBlastUserInterface.Update(gameTime);
-
-            if (flightShieldUserInterface != null)
-                flightShieldUserInterface.Update(gameTime);
-
-            if (engineGearUserInterface != null)
-                engineGearUserInterface.Update(gameTime);
-
-            if (SweatUserInterface != null)
-                SweatUserInterface.Update(gameTime);
-
-            if (nauseaUserInterface != null)
-                nauseaUserInterface.Update(gameTime);
-
-            if (fullCowlingUserInterface != null)
-                fullCowlingUserInterface.Update(gameTime);
-
-            if (StrainUserInterface != null)
-                StrainUserInterface.Update(gameTime);
+         
+            fierceUserInterface?.Update(gameTime);
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
@@ -268,11 +239,7 @@ namespace MyHeroMod
                     "MyHeroMod: Breath Bar",
                     delegate
                     {
-                        
-                        if (breathUserInterface != null)
-                        {
-                            breathUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                        }
+                        breathUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                         return true;
                     },
                     InterfaceScaleType.UI)
@@ -300,10 +267,7 @@ namespace MyHeroMod
                 "MyHeroMod: Temperature Bar",
                 delegate
                 {
-                    if (temperatureUserInterface != null)
-                    {
-                        temperatureUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    temperatureUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -313,10 +277,7 @@ namespace MyHeroMod
                 "MyHeroMod: Blink Bar",
                 delegate
                 {
-                    if (blinkUserInterface != null)
-                    {
-                        blinkUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    blinkUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -326,10 +287,7 @@ namespace MyHeroMod
                 "MyHeroMod: Flight Shield Bar",
                 delegate
                 {
-                    if (flightShieldUserInterface != null)
-                    {
-                        flightShieldUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    flightShieldUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -339,10 +297,7 @@ namespace MyHeroMod
                 "MyHeroMod: Engine Gear Bar",
                 delegate
                 {
-                    if (engineGearUserInterface != null)
-                    {
-                        engineGearUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    engineGearUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -352,10 +307,7 @@ namespace MyHeroMod
                 "MyHeroMod: Optic Blast Bar",
                 delegate
                 {
-                    if (OpticBlastUserInterface != null)
-                    {
-                        OpticBlastUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    OpticBlastUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -365,10 +317,7 @@ namespace MyHeroMod
                 "MyHeroMod: Sweat Bar",
                 delegate
                 {
-                    if (SweatUserInterface != null)
-                    {
-                        SweatUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    SweatUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -378,10 +327,7 @@ namespace MyHeroMod
                 "MyHeroMod: Nausea Bar",
                 delegate
                 {
-                    if (nauseaUserInterface != null)
-                    {
-                        nauseaUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    nauseaUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
@@ -391,23 +337,29 @@ namespace MyHeroMod
                 "MyHeroMod: Full Cowling Bar",
                 delegate
                 {
-                    if (fullCowlingUserInterface != null)
-                    {
-                        fullCowlingUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    fullCowlingUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)
             );
 
+            
             layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                "MyHeroMod: Strain Bar",
+                "MyHeroMod: Red Riot Bar",
                 delegate
                 {
-                    if (StrainUserInterface != null)
-                    {
-                        StrainUserInterface.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    }
+                    redRiotShieldUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
+                    return true;
+                },
+                InterfaceScaleType.UI)
+            );
+
+           
+            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
+                "MyHeroMod: Fierce Wings Bar",
+                delegate
+                {
+                    fierceUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
                     return true;
                 },
                 InterfaceScaleType.UI)

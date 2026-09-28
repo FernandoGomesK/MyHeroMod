@@ -33,13 +33,13 @@ namespace MyHeroMod.content.Items
         }
 
         public override void AddRecipes()
-{
-    CreateRecipe()
-        .AddIngredient(ModContent.ItemType<Items.QuirkGene>(), 32) 
-        
-        .AddTile(TileID.WorkBenches)         
-        .Register();                         
-}
+        {
+            CreateRecipe()
+            .AddIngredient(ModContent.ItemType<Items.QuirkGene>(), 32) 
+            
+            .AddTile(TileID.WorkBenches)         
+            .Register();                         
+        }
 
 
         public override bool CanUseItem(Player player)
@@ -50,8 +50,6 @@ namespace MyHeroMod.content.Items
 
         public override bool? UseItem(Player player)
         {
-            
-
             if (Main.myPlayer == player.whoAmI)
             {
                 
@@ -69,5 +67,5 @@ namespace MyHeroMod.content.Items
             }
             return true;
         }    
-        }
-        }
+    }
+}

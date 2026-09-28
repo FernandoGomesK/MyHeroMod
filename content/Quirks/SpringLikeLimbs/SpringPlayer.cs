@@ -3,6 +3,7 @@ using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
+using MyHeroMod.content.System.Interfaces;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;

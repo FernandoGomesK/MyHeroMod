@@ -6,6 +6,7 @@ using Terraria.Audio;
 using MyHeroMod.content.System;
 using Terraria.GameContent.Bestiary;
 using MyHeroMod.content.Quirks.OFA9th;
+using MyHeroMod.content.System.Interfaces;
 
 
 namespace MyHeroMod.content.Quirks.DangerSense;
@@ -67,7 +68,7 @@ namespace MyHeroMod.content.Quirks.DangerSense;
                {
             Player.SetImmuneTimeForAllTypes(80); 
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DangerSenseSound") with { Volume = 2.0f }, Player.position);
-            triggerVisual(); 
+            TriggerVisual(); 
             return true; 
         }
         }
@@ -121,7 +122,7 @@ namespace MyHeroMod.content.Quirks.DangerSense;
         }
         
 
-        public void triggerVisual()
+        public void TriggerVisual()
         {
             VisualTimer = VisualMaxTimer;
         }

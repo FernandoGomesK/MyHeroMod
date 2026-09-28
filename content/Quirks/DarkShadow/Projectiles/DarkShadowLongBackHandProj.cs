@@ -19,7 +19,9 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Projectile.hostile = false;
             Projectile.tileCollide = false; 
             Projectile.penetrate = -1; 
-            Projectile.timeLeft = 300; 
+            Projectile.timeLeft = 300;
+
+            Projectile.DamageType = DamageClass.Summon;
         }
 
         public override void AI()
@@ -94,7 +96,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow.Projectiles
             Player player = Main.player[Projectile.owner];
             var darkPlayer = player.GetModPlayer<DarkShadowPlayer>();
 
-            if (darkPlayer.isCBOArmsOn)
+            if (darkPlayer.isCBOArmsOn || darkPlayer.isRagnarokDarkShadowOn || darkPlayer.isUncontrolledMode)
             {
                 var Path = "MyHeroMod/content/Quirks/DarkShadow/Projectiles/BigDarkShadowLongBackHandProj";
                 

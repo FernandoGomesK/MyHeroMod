@@ -9,6 +9,7 @@ using Terraria.Audio;
 
 using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.OFA9th;
+using MyHeroMod.content.System.Interfaces;
 
 
 namespace MyHeroMod.content.Quirks.FaJin

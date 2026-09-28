@@ -72,7 +72,7 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles{
         public override bool PreDraw(ref Color lightColor)
         {
             Microsoft.Xna.Framework.Graphics.Texture2D texture = Terraria.GameContent.TextureAssets.Projectile[Projectile.type].Value;
-            Vector2 drawOrigin = new Vector2(texture.Width * 0.5f, texture.Height * 0.5f);
+            Vector2 drawOrigin = new(texture.Width * 0.5f, texture.Height * 0.5f);
 
             for (int k = 0; k < Projectile.oldPos.Length; k++)
             {

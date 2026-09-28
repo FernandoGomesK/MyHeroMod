@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
 using MyHeroMod.content.System;
+using MyHeroMod.content.UI;
 
 namespace MyHeroMod.content.Items.QuirkItems.QuirkSyringes
 {

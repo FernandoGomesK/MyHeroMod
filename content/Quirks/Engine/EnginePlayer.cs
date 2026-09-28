@@ -6,6 +6,8 @@ using System;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
+using MyHeroMod.content.System.Interfaces;
+
 
 namespace MyHeroMod.content.Quirks.Engine
 {
@@ -33,7 +35,7 @@ namespace MyHeroMod.content.Quirks.Engine
 
         public override void PostUpdateMiscEffects()
         {
-            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+            //var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
             if (isEngineOn)
             {

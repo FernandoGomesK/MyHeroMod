@@ -6,6 +6,7 @@ using Terraria.DataStructures;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Items.QuirkItems;
 using MyHeroMod.content.Tiles.CraftingStations;
+using MyHeroMod.content.UI;
 
 namespace MyHeroMod.content.Items.QuirkItems.QuirkGenes
 {
@@ -39,14 +40,6 @@ namespace MyHeroMod.content.Items.QuirkItems.QuirkGenes
         }
 
 
-//         public override void AddRecipes()
-// {
-//     CreateRecipe()
-//         .AddIngredient(ModContent.ItemType<Items.QuirkGene>(), 1) 
-//         .AddIngredient(ModContent.ItemType<Items.EmptySyringe>(), 1) 
-//         .AddTile(TileID.WorkBenches)         
-//         .Register();                         
-// }
 
     
         

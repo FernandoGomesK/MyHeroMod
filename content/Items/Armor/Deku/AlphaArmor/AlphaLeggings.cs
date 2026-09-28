@@ -17,11 +17,12 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
             Item.rare = ItemRarityID.Green;
             Item.defense = 3; 
         }
+
         public override void UpdateEquip(Player player)
         {
-            // Aumenta a vida máxima em 20 quando equipado
-            
+            player.moveSpeed += 0.05f;
         }
+
         public override void AddRecipes()
         {
             CreateRecipe()

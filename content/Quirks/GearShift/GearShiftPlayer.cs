@@ -11,6 +11,7 @@ using KhacesCore.Content.System;
 using KhacesCore.Content.System.Interfaces;
 using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.Debuffs;
+using MyHeroMod.content.System.Interfaces;
 
 
 

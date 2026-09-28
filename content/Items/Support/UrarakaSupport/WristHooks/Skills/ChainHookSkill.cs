@@ -26,7 +26,7 @@ public class ChainHookSkill : QuirkBaseSkill
     public override QuirkType RequiredQuirk => QuirkType.Quirkless;
     public override QuirkStage RequiredStage => QuirkStage.Initial;
 
-    public override bool isItemSkill => true;
+    public override bool IsItemSkill => true;
     public override int RequiredItemId => ModContent.ItemType<WristHooks>();
 
     

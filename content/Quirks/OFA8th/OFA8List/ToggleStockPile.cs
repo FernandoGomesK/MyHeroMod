@@ -8,6 +8,8 @@ using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA8th;
+using System;
+using MyHeroMod.content.Quirks.AllForOne;
 
 public abstract class ToggleStockPile : QuirkBaseSkill
 {
@@ -28,28 +30,62 @@ public abstract class ToggleStockPile : QuirkBaseSkill
     
     protected abstract int BuffType { get; }
 
-    public override void OnUse(Player player)
+   public override void OnUse(Player player)
     {
+        var ofaPlayer = player.GetModPlayer<OneForAll8thPlayer>();
 
-        var OfaPlayer = player.GetModPlayer<OneForAll8thPlayer>();
-        
         if (player.HasBuff(BuffType))
-    {
-        
-        player.ClearBuff(BuffType); 
-        OfaPlayer.form = 0;
-        CombatText.NewText(player.getRect(), Color.Red, "Deactivated");
-    }
+        {
+            player.ClearBuff(BuffType); 
+            ofaPlayer.form = 0;
+            CombatText.NewText(player.getRect(), Color.Red, "Deactivated");
+        }
         else
-    {
-        OfaPlayer.form = stockform;
-        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
-        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/watashigakita"), player.position);
-        Main.NewText(Name, Color.LightGreen);
-        CombatText.NewText(player.getRect(), Color.Yellow, "WATASHI GA KITA!");
-        player.AddBuff(ModContent.BuffType<StockPileBuff>(), 3600000);
-    }
+        {
+            
+            int upfrontCost = 100;
+            int minDurationTicks = 1200; 
+
+            if (ofaPlayer.isQuirkless)
+            {
     
+                if (ofaPlayer.embersAmount < upfrontCost)
+                {
+                    CombatText.NewText(player.getRect(), Color.Orange, "Embers too low!");
+                    return;
+                }
+
+                ofaPlayer.embersAmount -= upfrontCost;
+                
+                int calculatedDuration = Math.Max(ofaPlayer.embersAmount, minDurationTicks);
+                
+                ofaPlayer.form = stockform;
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/watashigakita"), player.position);
+                Main.NewText(Name, Color.LightGreen);
+                CombatText.NewText(player.getRect(), Color.Yellow, "WATASHI GA KITA!");
+                
+               
+                player.AddBuff(BuffType, calculatedDuration);
+
+                if (ofaPlayer.embersAmount <= 0)
+                {
+                    var transPlayer = player.GetModPlayer<TransformationPlayer>();
+                    var afoPlayer = player.GetModPlayer<AllForOnePlayer>();
+                    ofaPlayer.RemoveOneForAll8th(transPlayer, afoPlayer);
+                }
+            }
+            else
+            {
+              
+                ofaPlayer.form = stockform;
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/watashigakita"), player.position);
+                Main.NewText(Name, Color.LightGreen);
+                CombatText.NewText(player.getRect(), Color.Yellow, "WATASHI GA KITA!");
+                player.AddBuff(BuffType, 3600000);
+            }
+        }
     }
 }
 
