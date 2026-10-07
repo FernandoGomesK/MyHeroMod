@@ -19,8 +19,8 @@ public class SeeQuirksSkill : QuirkBaseSkill
 {
     public override string Name => "See";
     public override string Description => "See all quirks in you mighty possession.";
-    public override string IconPath => "Quirks/GearShift/Gearshift";
-    public override string Category => "AllForOne";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/AFO/SeeQuirksIcon";
+        public override string Category => "AllForOne";
     public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.AllForOne;
     public override QuirkStage RequiredStage => QuirkStage.Initial;

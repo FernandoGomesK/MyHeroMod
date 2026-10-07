@@ -17,7 +17,7 @@ public class OverclockSkill : QuirkBaseSkill
 {
     public override string Name => "Overclock";
     public override string Description => "Speed up your brain for a limited time.";
-    public override string IconPath => "Quirks/GearShift/Gearshift";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Overclock/OverclockIcon";
     public override string Category => "Overclock";
     public override int BaseCooldown => 60;
     public override QuirkType RequiredQuirk => QuirkType.Overclock;
