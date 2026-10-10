@@ -11,48 +11,50 @@ using MyHeroMod.content.Dusts;
 using Terraria.Audio;
 using MyHeroMod.content.Quirks.Overclock;
 
-
-
-public class OverclockSkill : QuirkBaseSkill
+namespace MyHeroMod.content.Quirks.Overclock.OverclockList
 {
-    public override string Name => "Overclock";
-    public override string Description => "Speed up your brain for a limited time.";
-    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Overclock/OverclockIcon";
-    public override string Category => "Overclock";
-    public override int BaseCooldown => 60;
-    public override QuirkType RequiredQuirk => QuirkType.Overclock;
-    public override QuirkStage RequiredStage => QuirkStage.Initial;
-    public override bool IsDefaultSkill => false;
 
-
-    public override void OnUse(Player player)
+    public class OverclockSkill : QuirkBaseSkill
     {
-        var overclockPlayer = player.GetModPlayer<OverclockPlayer>();
+        public override string Name => "Overclock";
+        public override string Description => "Speed up your brain for a limited time.";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Overclock/OverclockIcon";
+        public override string Category => "Overclock";
+        public override int BaseCooldown => 60;
+        public override QuirkType RequiredQuirk => QuirkType.Overclock;
+        public override QuirkStage RequiredStage => QuirkStage.Initial;
+        public override bool IsDefaultSkill => false;
 
-        if (player.HasBuff(ModContent.BuffType<OverclockBuff>()))
+
+        public override void OnUse(Player player)
         {
-            player.ClearBuff(ModContent.BuffType<OverclockBuff>());
-            overclockPlayer.isOverclockBuffActive = false;
+            var overclockPlayer = player.GetModPlayer<OverclockPlayer>();
 
-        }
-        else
-        {
-
-            var transformPlayer = player.GetModPlayer<TransformationPlayer>();
-
-            
-            player.AddBuff(ModContent.BuffType<OverclockBuff>(), 360000);
-            Main.NewText("Overclock!", Color.Yellow);
-            
-            var ElectricityDust = ModContent.DustType<ElectricityDust>();
-            
-            for (int i = 0; i < 20; i++)
+            if (player.HasBuff(ModContent.BuffType<OverclockBuff>()))
             {
-                Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
-                Dust.NewDust(player.position, player.width, player.height, ElectricityDust, speed.X, speed.Y, 0, Color.Yellow, 2f);
+                player.ClearBuff(ModContent.BuffType<OverclockBuff>());
+                overclockPlayer.isOverclockBuffActive = false;
+
             }
-            
-             
+            else
+            {
+
+                //var transformPlayer = player.GetModPlayer<TransformationPlayer>();
+
+
+                player.AddBuff(ModContent.BuffType<OverclockBuff>(), 360000);
+                Main.NewText("Overclock!", Color.Yellow);
+
+                var ElectricityDust = ModContent.DustType<ElectricityDust>();
+
+                for (int i = 0; i < 20; i++)
+                {
+                    Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
+                    Dust.NewDust(player.position, player.width, player.height, ElectricityDust, speed.X, speed.Y, 0, Color.Yellow, 2f);
+                }
+
+
+            }
         }
     }
 }

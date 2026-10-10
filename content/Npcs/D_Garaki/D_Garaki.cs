@@ -104,22 +104,35 @@ namespace MyHeroMod.content.Npcs.D_Garaki
                 if (firstButton) 
                 {
                  
-                    int cost = Item.buyPrice(0, 50, 0, 0); 
-                    
-                 
-                    if (player.BuyItem(cost)) 
+                    int cost = Item.buyPrice(0, 50, 0, 0);
+
+
+                    if (player.BuyItem(cost))
                     {
                         Main.npcChatText = "Excellent! Here he comes!";
-                        
-                        
+
                         int spawnX = (int)player.Center.X + (player.direction * 300);
                         int spawnY = (int)player.Center.Y - 20;
-                        NPC.NewNPC(NPC.GetSource_FromAI(), spawnX, spawnY, ModContent.NPCType<NomuNPC>());
+                        int nomuType = ModContent.NPCType<NomuNPC>();
+
+                        if (Main.netMode == NetmodeID.SinglePlayer)
+                        {
+                            NPC.NewNPC(player.GetSource_FromThis(), spawnX, spawnY, ModContent.NPCType<NomuNPC>());
+                        }
+                        else
+                        {
+                            ModPacket packet = Mod.GetPacket();
+                            packet.Write((byte)MyHeroMod.MessageType.SpawnNomu);
+                            packet.Write(spawnX);
+                            packet.Write(spawnY);
+                            packet.Send(); 
+                        }
                     }
                     else
                     {
                         Main.npcChatText = "Science needs money! You do not have 50 gold.";
                     }
+
                 }
                 else 
                 {
