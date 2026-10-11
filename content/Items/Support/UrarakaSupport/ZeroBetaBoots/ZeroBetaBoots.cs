@@ -23,6 +23,8 @@ namespace MyHeroMod.content.Items.Support.UrarakaSupport.ZeroBetaBoots
             zeroDashPlayer.isUrarakaDashBootsOn = true;
         }
 
+        
+
         public override void AddRecipes()
         {   
             

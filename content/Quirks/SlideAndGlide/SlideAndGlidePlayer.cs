@@ -1,12 +1,14 @@
-using MyHeroMod.content.Buffs;
-using MyHeroMod.content.System;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+using KhacesCore.Content.Buffs;
 using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
-using System;
+using MyHeroMod.content.Buffs;
+using MyHeroMod.content.System;
 using MyHeroMod.content.System.Interfaces;
+using System;
+using Terraria;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.SlideAndGlide
 {
@@ -25,14 +27,14 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide
             isSlideOn = false;
         }
 
-        public override void PostUpdate()
-        {
-            
-            if (greenLegsTimer > 0)
-            {
-                greenLegsTimer--;
-            }
-        }
+        //public override void PostUpdate()
+        //{
+
+        //    if (greenLegsTimer > 0)
+        //    {
+        //        greenLegsTimer--;
+        //    }
+        //}
 
         public bool IsOnGround()
         {
@@ -45,27 +47,32 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide
             return Math.Abs(Player.velocity.X) > 0.1f || Math.Abs(Player.velocity.Y) > 0.1f;
         }
 
+        bool IsSliding =>
+    (isSlideOn || Player.HasBuff(ModContent.BuffType<SlideAndGlideBuff>()))
+    && IsOnGround() && isMoving();
+
         public override void PostUpdateMiscEffects()
         {
-        
-            if ((isSlideOn || Player.HasBuff(ModContent.BuffType<SlideAndGlideBuff>())) && IsOnGround() && isMoving())
+            if (IsSliding)
             {
-                Player.fullRotation = Player.direction == 1 ? MathHelper.PiOver2 : -MathHelper.PiOver2;
+                // Face the mouse. Only the local player knows where the mouse is;
+                // the direction is synced to the other clients.
+                if (Player.whoAmI == Main.myPlayer)
+                    Player.ChangeDir(Main.MouseWorld.X > Player.Center.X ? 1 : -1);
 
-            
+                Player.fullRotation = Player.direction == 1 ? MathHelper.PiOver2 : -MathHelper.PiOver2;
                 Player.fullRotationOrigin = new Vector2(Player.width / 2, Player.height / 2);
 
-                Player.legFrame.Y = Player.legFrame.Height * 5; 
+                Player.legFrame.Y = Player.legFrame.Height * 5;
                 Player.bodyFrame.Y = Player.bodyFrame.Height * 5;
             }
             else
             {
-                
                 Player.fullRotation = 0f;
             }
         }
 
-            public void ModifyFlight(ref float speed)
+        public void ModifyFlight(ref float speed)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             
@@ -116,5 +123,7 @@ namespace MyHeroMod.content.Quirks.SlideAndGlide
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
             return transPlayer.HasActiveQuirk(QuirkType.SlideAndGlide) && transPlayer.CurrentStage >= QuirkStage.Advanced;
         }
+
+       
     }
 }

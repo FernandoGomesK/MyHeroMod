@@ -11,7 +11,7 @@ public class ToggleFlight : BaseToggleSkill
 {
     public override string Name => "Flight";
     public override string Description => "Begin To fly to the skies";
-    public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Flight/ToggleFlightIcon";
     public override string Category => "Flight";
 
     public override int BaseCooldown => 30;

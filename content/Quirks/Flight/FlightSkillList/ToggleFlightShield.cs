@@ -10,7 +10,7 @@ public class ToggleFlightShieldSkill : BaseToggleSkill
 {
     public override string Name => "Shield";
     public override string Description => "Cover yourself with a shield";
-    public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Flight/FlightShieldIcon";
     public override string Category => "Flight";
 
     public override int BaseCooldown => 30;
