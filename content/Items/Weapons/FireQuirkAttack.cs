@@ -72,5 +72,13 @@ namespace MyHeroMod.content.Items.Weapons
 
             damage.Flat += stageDamage;
         }
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .Register();
+        }
     }
+
+
+
 }

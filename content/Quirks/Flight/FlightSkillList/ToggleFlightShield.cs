@@ -10,12 +10,12 @@ public class ToggleFlightShieldSkill : BaseToggleSkill
 {
     public override string Name => "Shield";
     public override string Description => "Cover yourself with a shield";
-    public override string IconPath => "MyHeroMod/Assets/Skills/Float/Float";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Flight/FlightShieldIcon";
     public override string Category => "Flight";
 
     public override int BaseCooldown => 30;
     public override QuirkType RequiredQuirk => QuirkType.Flight;
-    public override QuirkStage RequiredStage => QuirkStage.Intermediate;
+    public override QuirkStage RequiredStage => QuirkStage.Adequation;
     public override bool IsDefaultSkill => false;
 
     public override int BuffType => ModContent.BuffType<FlightShieldBuff>();

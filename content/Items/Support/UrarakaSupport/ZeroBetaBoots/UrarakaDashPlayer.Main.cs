@@ -1,5 +1,6 @@
-using Microsoft.Xna.Framework;
 using KhacesCore.Content.System.Interfaces;
+using Microsoft.Xna.Framework;
+using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -14,7 +15,13 @@ namespace MyHeroMod.content.Items.Support.UrarakaSupport
         {
             isUrarakaDashBootsOn = false;
         }
-
+        public override void ModifyHurt(ref Player.HurtModifiers modifiers)
+        {
+            if (isUrarakaDashBootsOn && modifiers.DamageSource.SourceOtherIndex == 0)
+            {
+                modifiers.FinalDamage *= 0.5f;
+            }
+        }
 
         public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, ref Microsoft.Xna.Framework.Color explosionColor, ref int dustType, ref int onomatopoeiaType)
         {

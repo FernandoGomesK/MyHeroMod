@@ -2,6 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.Tiles.CraftingStations;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Placeable
 {
@@ -29,7 +30,7 @@ namespace MyHeroMod.content.Items.Placeable
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ItemID.IronBar, 10)
+                .AddRecipeGroup(RecipeSystem.IronAndLeadGroup, 10)
                 .AddIngredient(ItemID.Wood, 10)
                 .AddTile(TileID.WorkBenches)
                 .Register();

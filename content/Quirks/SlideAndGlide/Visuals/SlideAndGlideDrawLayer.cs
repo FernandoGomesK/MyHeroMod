@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using MyHeroMod.content.Buffs;
 
-namespace MyHeroMod.content.Quirks.SlideAndGlide
+namespace MyHeroMod.content.Quirks.SlideAndGlide.Visuals
 {
     public class SlideAndGlideDrawLayer : PlayerDrawLayer
     {

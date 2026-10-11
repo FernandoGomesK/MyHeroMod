@@ -6,29 +6,32 @@ using MyHeroMod.content.Buffs;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content;
 
-public class DangerSenseSkill : QuirkBaseSkill
+namespace MyHeroMod.content.Quirks.DangerSense.DangerSenseSkills
 {
-    public override string Name => "DangerSense: Overdrive";
-    public override string Description => "Activates DangerSense Overdrive";
-    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Dangersense/DangersenseOvertime";
-
-    public override int BaseCooldown => 30;
-
-    public override QuirkType RequiredQuirk => QuirkType.DangerSense;
-    public override QuirkStage RequiredStage => QuirkStage.Initial;
-    public override QuirkStage RequiredOfaStage => QuirkStage.Advanced;
-    public override bool IsDefaultSkill => false;
-    
-    public override string Category => "DangerSense";
-
-    public override void OnUse(Player player)
+    public class DangerSenseSkill : QuirkBaseSkill
     {
-        var dsPlayer = player.GetModPlayer<DangerSensePlayer>();
+        public override string Name => "DangerSense: Overdrive";
+        public override string Description => "Activates DangerSense Overdrive";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Dangersense/DangersenseOvertime";
 
-        if (dsPlayer.CurrentStage >= QuirkStage.Adequation)
+        public override int BaseCooldown => 30;
+
+        public override QuirkType RequiredQuirk => QuirkType.DangerSense;
+        public override QuirkStage RequiredStage => QuirkStage.Initial;
+        public override QuirkStage RequiredOfaStage => QuirkStage.Advanced;
+        public override bool IsDefaultSkill => false;
+
+        public override string Category => "DangerSense";
+
+        public override void OnUse(Player player)
         {
-            player.AddBuff(ModContent.BuffType<OvertimeBuff>(), 300);
-            CombatText.NewText(player.getRect(), Color.Yellow, "Overtime!");
+            var dsPlayer = player.GetModPlayer<DangerSensePlayer>();
+
+            if (dsPlayer.CurrentStage >= QuirkStage.Adequation)
+            {
+                player.AddBuff(ModContent.BuffType<OvertimeBuff>(), 300);
+                CombatText.NewText(player.getRect(), Color.Yellow, "Overtime!");
+            }
         }
     }
-    }
+}

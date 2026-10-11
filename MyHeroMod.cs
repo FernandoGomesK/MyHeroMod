@@ -1,24 +1,27 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MyHeroMod.content;
+using MyHeroMod.content.Npcs.Enemies.Nomu;
+using MyHeroMod.content.Quirks.AllForOne;
+using MyHeroMod.content.Quirks.Erasure;
+using MyHeroMod.content.Quirks.Explosion;
+using MyHeroMod.content.Quirks.FaJin;
+using MyHeroMod.content.Quirks.Gearshift;
+using MyHeroMod.content.Quirks.OFA8th;
+using MyHeroMod.content.Quirks.OFA9th;
+using MyHeroMod.content.System;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Terraria.ModLoader;
-using System.IO;
 using Terraria;
-using Terraria.ID;
-using MyHeroMod.content.System;
-using MyHeroMod.content;
-using MyHeroMod.content.Quirks.OFA8th;
-using MyHeroMod.content.Quirks.OFA9th;
-using MyHeroMod.content.Quirks.Gearshift;
-using MyHeroMod.content.Quirks.Erasure;
-using MyHeroMod.content.Quirks.Explosion;
-using MyHeroMod.content.Quirks.AllForOne;
+using Terraria.DataStructures;
 using Terraria.Graphics.Effects;
 using Terraria.Graphics.Shaders;
-using Microsoft.Xna.Framework.Graphics;
-using MyHeroMod.content.Quirks.FaJin;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MyHeroMod
 {
@@ -95,6 +98,7 @@ namespace MyHeroMod
             SyncFaJin,
             StealNPCQuirk,
             StealPlayerQuirk,
+            SpawnNomu
         }
 
         #endregion
@@ -153,6 +157,9 @@ namespace MyHeroMod
 
                     case MessageType.StealPlayerQuirk:
                         HandleStealPlayerQuirk(reader, whoAmI);
+                        break;
+                    case MessageType.SpawnNomu:
+                        HandleSpawnNomu(reader, whoAmI);
                         break;
                 }
             }
@@ -511,6 +518,22 @@ namespace MyHeroMod
                 packet.Write((int)stolenQuirk);
                 packet.Send(-1, whoAmI);
             }
+        }
+
+        private void HandleSpawnNomu(BinaryReader reader, int whoAmI)
+        {
+            int x = reader.ReadInt32();
+            int y = reader.ReadInt32();
+
+            if (Main.netMode != NetmodeID.Server)
+                return;
+
+           
+            Player sender = Main.player[whoAmI];
+            if (!sender.active || Vector2.Distance(sender.Center, new Vector2(x, y)) > 1000f)
+                return;
+
+            NPC.NewNPC(new EntitySource_WorldEvent(), x, y, ModContent.NPCType<NomuNPC>());
         }
 
         #endregion
