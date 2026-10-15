@@ -3,7 +3,6 @@ using Terraria.ModLoader;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
-using MyHeroMod.content.Quirks.SpeedForce;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
 

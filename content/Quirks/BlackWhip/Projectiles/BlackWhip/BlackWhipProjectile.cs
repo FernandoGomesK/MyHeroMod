@@ -33,6 +33,8 @@ namespace MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip
 
         
         public override void GrappleRetreatSpeed(Player player, ref float speed) => speed = 18f;
+        public override void GrapplePullSpeed(Player player, ref float speed) => speed = 25f;
+
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {

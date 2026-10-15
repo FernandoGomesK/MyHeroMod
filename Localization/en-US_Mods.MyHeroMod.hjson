@@ -1220,6 +1220,7 @@ Projectiles: {
 	ContinuousFlamethrowerProj.DisplayName: Continuous Flamethrower Proj
 	RedFeatherProj.DisplayName: Red Feather Proj
 	FeatherBarrageProj.DisplayName: Feather Barrage Proj
+	ManchesterDashEffect.DisplayName: Manchester Dash Effect
 }
 
 NPCs: {

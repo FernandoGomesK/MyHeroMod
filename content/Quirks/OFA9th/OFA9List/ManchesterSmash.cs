@@ -9,7 +9,7 @@ using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.FaJin;
 
-namespace MyHeroMod.content.Quirks.OFA9th.Skills 
+namespace MyHeroMod.content.Quirks.OFA9th.Skills
 {
     public class ManchesterSmashSkill : QuirkBaseSkill
     {
@@ -22,11 +22,9 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
         public override QuirkType RequiredQuirk => QuirkType.OneForAll9th;
         public override QuirkStage RequiredStage => QuirkStage.Intermediate;
         public override bool IsDefaultSkill => false;
-        
 
         public override void OnUse(Player player)
         {
-            
             if (!player.HasBuff(ModContent.BuffType<FullCowlingBuff>()))
             {
                 CombatText.NewText(player.getRect(), Color.Red, "Requires Full Cowling!");
@@ -36,51 +34,53 @@ namespace MyHeroMod.content.Quirks.OFA9th.Skills
             var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-           int MaxDamage = ofaPlayer.CalculateStageDamage(180, 450, 700, 1300, 2800);
-    
-   
-            float DamageMultiplier = ofaPlayer.GetFullCowlingMultiplier();  
-            DamageMultiplier += ofaPlayer.ConsumeFaJin(out bool usedFaJin); 
+            int MaxDamage = ofaPlayer.CalculateStageDamage(180, 450, 700, 1300, 2800);
+
+            float DamageMultiplier = ofaPlayer.GetFullCowlingMultiplier();
+            DamageMultiplier += ofaPlayer.ConsumeFaJin(out bool usedFaJin);
             float ironSolesMultiplier = ofaPlayer.GetIronSolesMultiplier();
 
-            
-          
+            bool usedSlingshot = ofaPlayer.TryConsumeBlackWhipSlingshot(player);
+            float slingshotMultiplier = usedSlingshot ? 1.50f : 1.0f; 
 
-            float rawFinalDamage = MaxDamage * DamageMultiplier * ironSolesMultiplier;
-
-
+            float rawFinalDamage = MaxDamage * DamageMultiplier * ironSolesMultiplier * slingshotMultiplier;
             int FinalDamage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(rawFinalDamage);
 
+            string attackName = "";
+          
+            if (usedFaJin) attackName += "Faux ";
 
-            string attackName = usedFaJin ? "Faux " : "";
-            attackName += $"{(DamageMultiplier * 100):0}% Manchester Smash";
-            
+            attackName += $"{(int)(DamageMultiplier * 100)}% Manchester Smash";
+
             if (player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
             {
                 attackName += ": OVERDRIVE";
             }
-            else 
+            else
             {
                 attackName += "!";
             }
-            
-            CombatText.NewText(player.getRect(), Color.LimeGreen, attackName);
 
-            
+            Color textColor = usedSlingshot ? Color.MediumPurple : Color.LimeGreen;
+            CombatText.NewText(player.getRect(), textColor, attackName);
+
             float isFaJinactiveFloat = usedFaJin ? 1f : 0f;
+            float isSlingshotFloat = usedSlingshot ? 1f : 0f;
+            float usedBoth = (usedFaJin && usedSlingshot) ? 1f : 0f;
 
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
-                Vector2.Zero, 
+                Vector2.Zero,
                 ModContent.ProjectileType<ManchesterSmashController>(),
                 FinalDamage,
-                10f, 
+                10f,
                 player.whoAmI,
-                0f,
-                isFaJinactiveFloat
+                ai0: isSlingshotFloat,
+                ai1: isFaJinactiveFloat,
+                ai2: usedBoth
             );
-            
+
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.8f }, player.position);
         }
     }

@@ -1,15 +1,18 @@
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.DataStructures;
-using Microsoft.Xna.Framework;
-using MyHeroMod.content.System;
-using MyHeroMod.content.Buffs;
-using KhacesCore.Content.System.Interfaces;
-using Terraria.Audio;
-using MyHeroMod.content.Projectiles;
-using Terraria.ID;
-using MyHeroMod.content.Quirks.FaJin;
 using KhacesCore.Content.System;
+using KhacesCore.Content.System.Interfaces;
+using Microsoft.Xna.Framework;
+using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip;
+using MyHeroMod.content.Quirks.FaJin;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles;
+using MyHeroMod.content.System;
+using System.Linq;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Quirks.OFA9th
 {
@@ -82,6 +85,25 @@ namespace MyHeroMod.content.Quirks.OFA9th
                 QuirkStage.Final => finalDmg,
                 _ => initial
             };
+        }
+
+        public bool TryConsumeBlackWhipSlingshot(Player player)
+        {
+            if (player.ownedProjectileCounts[ModContent.ProjectileType<BlackWhipProjectile>()] >= 1)
+            {
+                var blackwhips = Main.projectile.Where(p => p.active && p.owner == player.whoAmI && p.type == ModContent.ProjectileType<BlackWhipProjectile>());
+
+                bool consumedAny = false;
+                foreach (var whip in blackwhips)
+                {
+                    whip.Kill();
+                    consumedAny = true;
+                }
+
+                return consumedAny;
+            }
+
+            return false;
         }
         public float GetFullCowlingMultiplier()
         {

@@ -1,8 +1,9 @@
+using KhacesCore.Content.System.BaseProjectiles;
 using Microsoft.Xna.Framework;
+using MyHeroMod.content.Quirks.Hardening.Projectiles;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using KhacesCore.Content.System.BaseProjectiles;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 {
@@ -15,8 +16,36 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             Projectile.DamageType = DamageClass.Melee;
         }
         public override string Texture => "MyHeroMod/content/Quirks/Explosion/Projectiles/HowitzerImpact/HowitzerImpactProj";
-        
-        protected override float DashSpeed => Projectile.ai[1] == 1f ? 40f : 25f;
+
+        protected override float DashSpeed
+        {
+            get
+            {
+                bool isSlingshot = Projectile.ai[0] == 1f;
+                bool isFaJin = Projectile.ai[1] == 1f;
+                bool usedBoth = Projectile.ai[2] == 1f;
+
+                if (usedBoth) return 55f;
+                if (isFaJin) return 40f;     
+                if (isSlingshot) return 35f;  
+                return 25f;                 
+            }
+        }
+
+        public override void OnLaunch(Player player)
+        {
+            if (Main.myPlayer != Projectile.owner) return; 
+
+            Projectile.NewProjectile(
+                Projectile.GetSource_FromThis(),
+                player.Center,
+                Vector2.Zero,
+                ModContent.ProjectileType<ManchesterDashEffect>(),
+                0,
+                0f,
+                player.whoAmI
+            );
+        }
 
         public override void SpawnHoverDust(Player player)
         {
