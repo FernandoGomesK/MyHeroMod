@@ -83,7 +83,8 @@ namespace MyHeroMod.content.UI
             CreateButton("DarkShadow", QuirkType.DarkShadow, Color.Black);
             CreateButton("Rabbit", QuirkType.Rabbit, Color.White);
             CreateButton("Hardening", QuirkType.Hardening, Color.Red);
-            
+            CreateButton("Jet", QuirkType.Jet, Color.LightBlue);
+
 
 
             // red X to close

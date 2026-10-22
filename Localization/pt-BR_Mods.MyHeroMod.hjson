@@ -1225,6 +1225,8 @@ Projectiles: {
 	// RedFeatherProj.DisplayName: Red Feather Proj
 	// FeatherBarrageProj.DisplayName: Feather Barrage Proj
 	// ManchesterDashEffect.DisplayName: Manchester Dash Effect
+	// SingleHeadbuttProj.DisplayName: Single Headbutt Proj
+	// DashChainProj.DisplayName: Dash Chain Proj
 }
 
 NPCs: {
