@@ -26,12 +26,10 @@ public class SingleHeadbuttSkill : QuirkBaseSkill
     public override QuirkStage RequiredStage => QuirkStage.Initial;
     public override bool IsDefaultSkill => false;
 
-
     public override void OnUse(Player player)
     {
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
         var jetPlayer = player.GetModPlayer<JetPlayer>();
-
 
         int MaxDamage = transPlayer.CurrentStage switch
         {
@@ -43,36 +41,32 @@ public class SingleHeadbuttSkill : QuirkBaseSkill
             _ => 130
         };
 
-
-
-
-
         var extraDamage = 0;
         if (jetPlayer.isIronSolesOn)
         {
             extraDamage = 50;
         }
 
-
-
         var DamageMultiplier = 1f;
-
         var attackName = "Jet Headbutt!";
 
-
-
-
-
         int FinalDamage = (int)(MaxDamage * DamageMultiplier) + extraDamage;
-
 
         CombatText.NewText(player.getRect(), Color.Cyan, attackName);
 
 
+        Vector2 dashDirection = Main.MouseWorld - player.Center;
+        if (dashDirection != Vector2.Zero)
+        {
+            dashDirection.Normalize(); 
+        }
+
+        Vector2 dashVelocity = dashDirection * 55f;
+
         Projectile.NewProjectile(
             player.GetSource_FromThis(),
             player.Center,
-            Vector2.Zero,
+            dashVelocity, 
             ModContent.ProjectileType<SingleHeadbuttProj>(),
             FinalDamage,
             10f,

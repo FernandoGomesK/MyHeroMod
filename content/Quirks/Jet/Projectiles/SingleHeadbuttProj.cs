@@ -31,10 +31,22 @@ namespace MyHeroMod.content.Quirks.Hardening.Projectiles
                 0f,
                 player.whoAmI
             );
+        }
 
+        public override void AI()
+        {
+          
+            base.AI();
+
+            Player player = Main.player[Projectile.owner];
+
+            
             player.velocity = Projectile.velocity;
-            player.fullRotation = player.velocity.ToRotation() + MathHelper.PiOver2;
-            player.fullRotationOrigin = player.Size / 2;
+
+            player.fullRotation = Projectile.velocity.ToRotation() + MathHelper.PiOver2;
+            player.fullRotationOrigin = player.Size / 2f;
+
+            player.direction = Projectile.velocity.X > 0 ? 1 : -1;
         }
 
         protected override void SpawnDashVisuals(Player player)
@@ -69,7 +81,7 @@ namespace MyHeroMod.content.Quirks.Hardening.Projectiles
 
 
 
-            //target.AddBuff(BuffID.Frostburn, 180);
+           
         }
     }
 }

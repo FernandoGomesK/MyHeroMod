@@ -15,8 +15,8 @@ namespace MyHeroMod.content.Quirks.Jet.Projectiles
 
         public override void SetStaticDefaults()
         {
-            // Tell Terraria this sprite sheet has 6 vertical frames
-            Main.projFrames[Projectile.type] = 6;
+            // Tell Terraria this sprite sheet has 10 vertical frames
+            Main.projFrames[Projectile.type] = 10;
         }
 
         public override void SetDefaults()
@@ -46,13 +46,13 @@ namespace MyHeroMod.content.Quirks.Jet.Projectiles
             }
 
             // --- ANIMATION LOGIC ---
-            // Advance the frame every 4 ticks (15 FPS)
-            if (++Projectile.frameCounter >= 4)
+            
+            if (++Projectile.frameCounter >= 2)
             {
                 Projectile.frameCounter = 0;
-                if (++Projectile.frame >= 6)
+                if (++Projectile.frame >= 10)
                 {
-                    Projectile.frame = 0; // Loop back to the first frame
+                    Projectile.frame = 0; 
                 }
             }
 
