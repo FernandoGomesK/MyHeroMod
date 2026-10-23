@@ -701,6 +701,11 @@ Items: {
 		DisplayName: Torino Breastplate
 		Tooltip: ""
 	}
+
+	TorinoLeggings: {
+		DisplayName: Torino Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {
