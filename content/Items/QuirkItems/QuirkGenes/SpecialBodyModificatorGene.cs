@@ -49,8 +49,7 @@ namespace MyHeroMod.content.Items.QuirkItems.QuirkGenes
             if (Main.myPlayer == player.whoAmI)
             {
                 var transPlayer = player.GetModPlayer<TransformationPlayer>();
-                
-                RandomNatureSelection.SelectRandomNature();
+               
                 if (transPlayer.Nature == NatureType.ResistantBody)
                 {
                     transPlayer.Nature = NatureType.PerfectVessel;

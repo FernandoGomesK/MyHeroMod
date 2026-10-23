@@ -696,6 +696,11 @@ Items: {
 		DisplayName: Feather Blade
 		Tooltip: ""
 	}
+
+	TorinoBreastplate: {
+		DisplayName: Torino Breastplate
+		Tooltip: ""
+	}
 }
 
 Buffs: {

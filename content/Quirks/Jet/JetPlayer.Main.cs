@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -22,9 +23,11 @@ namespace MyHeroMod.content.Quirks.Jet
             isIronSolesOn = false;
         }
 
-        public override void PostUpdate()
+        public override void PostUpdateEquips()
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+
             if (transPlayer.HasActiveQuirk(QuirkType.Jet))
             {
                 Player.wingTimeMax = 220;
@@ -32,11 +35,19 @@ namespace MyHeroMod.content.Quirks.Jet
                 if (Player.wingsLogic == 0)
                 {
                     Player.wingsLogic = 29;
-                    Player.wings = -1;
+                    Player.wings = 0; 
                 }
 
                 Player.noFallDmg = true;
+            }
+        }
 
+        public override void PostUpdate()
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (transPlayer.HasActiveQuirk(QuirkType.Jet))
+            {
                 UpdateFlyingDust();
             }
         }
@@ -44,7 +55,7 @@ namespace MyHeroMod.content.Quirks.Jet
         ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-
+            var player = Player;
 
             if (!transPlayer.HasActiveQuirk(QuirkType.Jet)) return;
 
@@ -66,19 +77,22 @@ namespace MyHeroMod.content.Quirks.Jet
 
             speed = dashSpeed;
 
-            // SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash1") with { Volume = 0.8f }, Player.position);
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/SteamSoundEffect") with { Volume = 0.5f }, player.position);
+
+            int bulletSound = Main.rand.Next(1, 5);
+            string bulletSoundPath = $"MyHeroMod/Assets/Sounds/BulletPass{bulletSound}";
+
+
+            SoundEngine.PlaySound(new SoundStyle(bulletSoundPath) with { Volume = 0.5f }, player.position);
         }
 
         public void ModifyFlight(ref float speed)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
+            if (!transPlayer.HasActiveQuirk(QuirkType.Jet)) return;
 
-            if (!transPlayer.HasActiveQuirk(QuirkType.Flight)) return;
-
-
-
-            float dashSpeed = transPlayer.CurrentStage switch
+            float flightSpeed = transPlayer.CurrentStage switch
             {
                 QuirkStage.Initial => 8f,
                 QuirkStage.Adequation => 15f,
@@ -88,7 +102,7 @@ namespace MyHeroMod.content.Quirks.Jet
                 _ => 8f
             };
 
-            speed = dashSpeed;
+            speed = flightSpeed;
         }
 
         public bool CanCruiseFlight()

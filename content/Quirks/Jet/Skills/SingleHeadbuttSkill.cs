@@ -28,6 +28,8 @@ public class SingleHeadbuttSkill : QuirkBaseSkill
 
     public override void OnUse(Player player)
     {
+
+        
         var transPlayer = player.GetModPlayer<TransformationPlayer>();
         var jetPlayer = player.GetModPlayer<JetPlayer>();
 
@@ -73,6 +75,14 @@ public class SingleHeadbuttSkill : QuirkBaseSkill
             player.whoAmI
         );
 
-        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
+
+
+        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/SteamSoundEffect") with { Volume = 0.5f }, player.position);
+
+        int bulletSound = Main.rand.Next(1, 5);
+        string bulletSoundPath = $"MyHeroMod/Assets/Sounds/BulletPass{bulletSound}";
+
+    
+        SoundEngine.PlaySound(new SoundStyle(bulletSoundPath) with { Volume = 0.5f }, player.position);
     }
 }

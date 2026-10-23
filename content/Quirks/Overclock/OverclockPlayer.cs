@@ -36,18 +36,30 @@ namespace MyHeroMod.content.Quirks.Overclock
         }
 
         public override void PreUpdate()
-        { 
+        {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            maxBreath = transPlayer.CurrentStage switch {
-                QuirkStage.Initial => 80, 
-                QuirkStage.Adequation => 100, 
+            int baseBreath = transPlayer.CurrentStage switch
+            {
+                QuirkStage.Initial => 80,
+                QuirkStage.Adequation => 100,
                 QuirkStage.Intermediate => 150,
-                QuirkStage.Advanced => 240, 
-                QuirkStage.Final => 300, 
+                QuirkStage.Advanced => 240,
+                QuirkStage.Final => 300,
                 _ => 90
             };
-            
+
+
+            int bonusBreath = 0;
+
+            if (transPlayer.Nature == NatureType.HigherBrainPower)
+            {
+                bonusBreath = 50;
+            }
+
+
+            maxBreath = baseBreath + bonusBreath;
+
             if (currentBreath > maxBreath)
             {
                 currentBreath = maxBreath;

@@ -61,6 +61,6 @@ public class DashChainSkill : QuirkBaseSkill
             player.whoAmI
         );
 
-        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
+        SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/DashChainSound") with { Volume = 0.5f }, player.position);
     }
 }

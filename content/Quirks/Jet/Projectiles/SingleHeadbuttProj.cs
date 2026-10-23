@@ -10,7 +10,7 @@ namespace MyHeroMod.content.Quirks.Hardening.Projectiles
     public class SingleHeadbuttProj : BaseDashProj
     {
 
-        protected override float DashSpeed => 55f;
+        protected override float DashSpeed => 85f;
         protected override int DashDuration => 20;
         protected override float HitboxThickness => 90f;
         public override void SetDefaults()
