@@ -4,22 +4,21 @@ using Terraria;
 using Terraria.UI;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
-using MyHeroMod.content.Quirks.Flight;
-using MyHeroMod.content.Quirks.Explosion;
+using MyHeroMod.content.Quirks.FierceWings;
 
-namespace MyHeroMod.content.UI
+namespace MyHeroMod.content.UI.FierceWingsUI
 {
-  
-    public class DraggableSweatBar : UIElement
+
+    public class DraggableFierceBar : UIElement
     {
         private Vector2 offset;
         public bool dragging;
 
-        // Quando o jogador clica com o botão esquerdo
+
         public override void LeftMouseDown(UIMouseEvent evt)
         {
             base.LeftMouseDown(evt);
-            
+
             if (Main.playerInventory)
             {
                 offset = new Vector2(evt.MousePosition.X - Left.Pixels, evt.MousePosition.Y - Top.Pixels);
@@ -27,21 +26,21 @@ namespace MyHeroMod.content.UI
             }
         }
 
-        // Quando o jogador solta o botão esquerdo
+
         public override void LeftMouseUp(UIMouseEvent evt)
         {
             base.LeftMouseUp(evt);
             dragging = false;
         }
 
-        // Atualiza a posição a cada frame se estiver arrastando
+
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
 
             if (dragging)
             {
-                // Move o elemento para onde o mouse está, mantendo o offset de onde clicou
+
                 Left.Set(Main.mouseX - offset.X, 0f);
                 Top.Set(Main.mouseY - offset.Y, 0f);
                 Recalculate();
@@ -53,7 +52,7 @@ namespace MyHeroMod.content.UI
             if (dimensions.X > Main.screenWidth - dimensions.Width) Left.Set(Main.screenWidth - dimensions.Width, 0f);
             if (dimensions.Y < 0) Top.Set(0, 0f);
             if (dimensions.Y > Main.screenHeight - dimensions.Height) Top.Set(Main.screenHeight - dimensions.Height, 0f);
-            
+
             Recalculate();
         }
 
@@ -62,39 +61,38 @@ namespace MyHeroMod.content.UI
         {
             Player player = Main.LocalPlayer;
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
-            var explosionPlayer = player.GetModPlayer<ExplosionPlayer>();
+            var fiercePlayer = player.GetModPlayer<FierceWingsPlayer>();
 
-            // Se não tiver a Quirk, apenas não desenha nada
-            if (!transPlayer.HasActiveQuirk(QuirkType.Explosion))
+            if (!transPlayer.HasActiveQuirk(QuirkType.FierceWings))
                 return;
 
-            Texture2D barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/SweatBarFrame").Value;
-            Texture2D barFill = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/SweatBarFill").Value;
 
-            
+            Texture2D barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FeatherBarFrame").Value;
+            Texture2D barFill = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/FeatherBarFill").Value;
+
             CalculatedStyle dimensions = GetDimensions();
             Vector2 drawPos = new Vector2(dimensions.X, dimensions.Y);
 
             float quotient = 1f;
-            if (explosionPlayer.MaxSweat > 0)
+            if (fiercePlayer.maxfeathers > 0)
             {
-                quotient = (float)explosionPlayer.CurrentSweat / explosionPlayer.MaxSweat;
+                quotient = (float)fiercePlayer.currentFeathers / fiercePlayer.maxfeathers;
             }
             quotient = MathHelper.Clamp(quotient, 0f, 1f);
 
+
             spriteBatch.Draw(barFrame, drawPos, Color.White);
 
-            int fillHeight = (int)(barFill.Height * quotient);
-            int emptySpace = barFill.Height - fillHeight;
 
-            Rectangle fillRect = new Rectangle(0, emptySpace, barFill.Width, fillHeight);
-            Vector2 fillDrawPos = drawPos + new Vector2(0, emptySpace);
+            Rectangle fillRect = new Rectangle(0, 0, (int)(barFill.Width * quotient), barFill.Height);
+            spriteBatch.Draw(barFill, drawPos, fillRect, Color.White);
 
-            spriteBatch.Draw(barFill, fillDrawPos, fillRect, Color.White);
 
-            string text = $"{(int)explosionPlayer.CurrentSweat} / {explosionPlayer.MaxSweat}";
+            string text = $"{fiercePlayer.currentFeathers} / {fiercePlayer.maxfeathers}";
+            Color textColor = quotient <= 0.25f ? Color.Red : Color.Cyan;
+
             Vector2 textPos = drawPos + new Vector2(barFrame.Width / 2f - 20f, barFrame.Height + 5f);
-            Utils.DrawBorderString(spriteBatch, text, textPos, Color.Cyan, 0.8f);
+            Utils.DrawBorderString(spriteBatch, text, textPos, textColor, 0.8f);
         }
     }
 }

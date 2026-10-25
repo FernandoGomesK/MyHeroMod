@@ -8,7 +8,7 @@ using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.Erasure;
 using System;
 
-namespace MyHeroMod.content.UI
+namespace MyHeroMod.content.UI.ErasureUI
 {
     public class BlinkUIState : UIState
     {

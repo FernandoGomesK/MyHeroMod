@@ -4,11 +4,11 @@ using Terraria;
 using Terraria.UI;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
-using MyHeroMod.content.Quirks.OpticBlast;
+using MyHeroMod.content.Quirks.Engine;
 
-namespace MyHeroMod.content.UI
+namespace MyHeroMod.content.UI.EngineUI
 {
-    public class DraggableOpticChargeBar : UIElement
+    public class DraggableEngineGear : UIElement
     {
         private Vector2 offset;
         public bool dragging;
@@ -48,39 +48,33 @@ namespace MyHeroMod.content.UI
             Recalculate();
         }
 
+       
         protected override void DrawSelf(SpriteBatch spriteBatch)
         {
             Player player = Main.LocalPlayer;
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
-            var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
+            var enginePlayer = player.GetModPlayer<EnginePlayer>(); 
 
-            if (!transPlayer.HasActiveQuirk(QuirkType.OpticBlast))
+            
+            if (!transPlayer.HasActiveQuirk(QuirkType.Engine))
                 return;
 
-            Texture2D barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastBarFrame").Value;
-            Texture2D barFill = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastBarFill").Value;
+            
+            Texture2D textureToDraw = enginePlayer.currentGear switch
+            {
+                1 => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/EngineGear1").Value,
+                2 => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/EngineGear2").Value,
+                3 => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/EngineGear3").Value,
+                4 => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/EngineGear4").Value,
+                5 => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/EngineGear5").Value,
+                _ => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/EngineGears").Value 
+            };
 
             CalculatedStyle dimensions = GetDimensions();
             Vector2 drawPos = new Vector2(dimensions.X, dimensions.Y);
 
-            float quotient = 1f;
-            if (opticPlayer.MaxOpticBlast > 0)
-            {
-                quotient = (float)opticPlayer.CurrentOpticBlast / opticPlayer.MaxOpticBlast;
-            }
-            quotient = MathHelper.Clamp(quotient, 0f, 1f);
-
-            
-            spriteBatch.Draw(barFrame, drawPos, Color.White);
-
-            
-            Rectangle fillRect = new Rectangle(0, 0, (int)(barFill.Width * quotient), barFill.Height);
-            spriteBatch.Draw(barFill, drawPos, fillRect, Color.White);
-
-            
-            string text = $"{opticPlayer.CurrentOpticBlast} / {opticPlayer.MaxOpticBlast}";
-            Vector2 textPos = drawPos + new Vector2(barFrame.Width / 2f - 20f, barFrame.Height + 5f);
-            Utils.DrawBorderString(spriteBatch, text, textPos, Color.Cyan, 0.8f);
+           
+            spriteBatch.Draw(textureToDraw, drawPos, Color.White);
         }
     }
 }

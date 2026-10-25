@@ -232,7 +232,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
 
             if (mainPlayer.CurrentStage >= FlightUnlockStage && !Player.HasBuff<Heatstroke>())
             {
-                Player.wingTimeMax = mainPlayer.CurrentStage switch
+                int flightQuirkWingTime = mainPlayer.CurrentStage switch
                 {
                     QuirkStage.Adequation => 50,
                     QuirkStage.Intermediate => 300,
@@ -240,10 +240,16 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseClass
                     QuirkStage.Final => 36000000,
                     _ => 50
                 };
+
+                if (Player.wingTimeMax < flightQuirkWingTime)
+                {
+                    Player.wingTimeMax = flightQuirkWingTime;
+                }
+
                 if (Player.wingsLogic == 0)
                 {
                     Player.wingsLogic = 29;
-                    Player.wings = -1;
+                    Player.wings = 0;
                 }
                 Player.noFallDmg = true;
             }

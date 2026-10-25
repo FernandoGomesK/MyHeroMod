@@ -30,7 +30,13 @@ namespace MyHeroMod.content.Quirks.Jet
 
             if (transPlayer.HasActiveQuirk(QuirkType.Jet))
             {
-                Player.wingTimeMax = 220;
+
+                int flightQuirkWingTime = 220;
+
+                if (Player.wingTimeMax < flightQuirkWingTime)
+                {
+                    Player.wingTimeMax = flightQuirkWingTime;
+                }
 
                 if (Player.wingsLogic == 0)
                 {

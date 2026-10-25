@@ -68,13 +68,19 @@ namespace MyHeroMod.content.Quirks.DarkShadow
 
             if (transPlayer.CurrentStage >= QuirkStage.Intermediate && hasFormBuff)
             {
-                Player.wingTimeMax = 360000;
+                int flightQuirkWingTime = 360000;
+
+                if (Player.wingTimeMax < flightQuirkWingTime)
+                {
+                    Player.wingTimeMax = flightQuirkWingTime;
+                }
+
                 Player.noFallDmg = true;
 
                 if (Player.wingsLogic == 0)
                 {
                     Player.wingsLogic = 29; 
-                    Player.wings = -1; 
+                    Player.wings = 0; 
                 }
             }
         }

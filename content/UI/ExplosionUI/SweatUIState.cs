@@ -1,8 +1,8 @@
 using Terraria.UI;
 using Microsoft.Xna.Framework;
-using Terraria; 
+using Terraria;
 
-namespace MyHeroMod.content.UI
+namespace MyHeroMod.content.UI.ExplosionUI
 {
     public class SweatUIState : UIState
     {

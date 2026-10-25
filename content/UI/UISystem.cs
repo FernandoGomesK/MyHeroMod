@@ -4,58 +4,55 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.UI;
 
-using MyHeroMod.content;
-using MyHeroMod.content.UI;
 using MyHeroMod.content.Quirks.OpticBlast;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.UI.AllForOneUI;
+using MyHeroMod.content.UI.ErasureUI;
+using MyHeroMod.content.UI.OverclockUI;
+using MyHeroMod.content.UI.TemperatureUI;
+using MyHeroMod.content.UI.EngineUI;
+using MyHeroMod.content.UI.FierceWingsUI;
+using MyHeroMod.content.UI.FlightUI;
+using MyHeroMod.content.UI.FullCowlUI;
+using MyHeroMod.content.UI.ZeroGravityUI;
+using MyHeroMod.content.UI.OpticUI;
+using MyHeroMod.content.UI.RedRiotUI;
+using MyHeroMod.content.UI.ExplosionUI;
 
 namespace MyHeroMod.content.UI
 {
     public class UISystem : ModSystem
     {
+       
         internal UserInterface MyInterface;
         internal QuirkSelectionUI MyQuirkUI;
-
         internal AllForOneQuirksUI SeeQuirkUI;
         internal QuirkRemoverUI MyQuirkRemoverUI;
 
-        private UserInterface breathUserInterface;
-        internal BreathUIState breathUIState;
+       
+        private class HudBar
+        {
+            public UserInterface Interface;
+            public UIState State;
+            public string LayerName;
 
-        private UserInterface temperatureUserInterface;
-        internal TemperatureUIState temperatureUIState;
+            public HudBar(UIState state, string layerName)
+            {
+                State = state;
+                State.Activate();
+                Interface = new UserInterface();
+                Interface.SetState(State);
+                LayerName = layerName;
+            }
+        }
 
-        private UserInterface blinkUserInterface;
-        internal BlinkUIState blinkUIState;
-
-        private UserInterface flightShieldUserInterface;
-        internal FlightShieldUIState flightShieldUIState;
-
-        private UserInterface engineGearUserInterface;
-        internal EngineGearUIState engineGearUIState;
-
-        private UserInterface OpticBlastUserInterface;
-        internal OpticChargeUIState OpticBlastUIState;
-
-        private UserInterface SweatUserInterface;
-        internal SweatUIState sweatUIState;
-
-        private UserInterface nauseaUserInterface;
-        internal NauseaUIState nauseaUIState;
-
-        private UserInterface fullCowlingUserInterface;
-        internal FullCowlingUIState fullCowlingUIState;
-
-        private UserInterface redRiotShieldUserInterface;
-        internal RedRiotShieldUIState redRiotShieldUIState;
-
-        private UserInterface fierceUserInterface;
-        internal FierceUIState fierceUIState;
+        private List<HudBar> activeHudBars;
 
         public override void Load()
         {
             if (!Main.dedServ)
             {
+                // Initialize Menus
                 MyInterface = new UserInterface();
                 MyQuirkUI = new QuirkSelectionUI();
 
@@ -65,61 +62,21 @@ namespace MyHeroMod.content.UI
                 MyQuirkRemoverUI = new QuirkRemoverUI();
                 MyQuirkRemoverUI.Activate();
 
-                breathUIState = new BreathUIState();
-                breathUIState.Activate();
-                breathUserInterface = new UserInterface();
-                breathUserInterface.SetState(breathUIState);
-
-                temperatureUIState = new TemperatureUIState();
-                temperatureUIState.Activate();
-                temperatureUserInterface = new UserInterface();
-                temperatureUserInterface.SetState(temperatureUIState);
-
-                blinkUIState = new BlinkUIState();
-                blinkUIState.Activate();
-                blinkUserInterface = new UserInterface();
-                blinkUserInterface.SetState(blinkUIState);
-
-                flightShieldUIState = new FlightShieldUIState();
-                flightShieldUIState.Activate();
-                flightShieldUserInterface = new UserInterface();
-                flightShieldUserInterface.SetState(flightShieldUIState);
-
-                engineGearUIState = new EngineGearUIState();
-                engineGearUIState.Activate();
-                engineGearUserInterface = new UserInterface();
-                engineGearUserInterface.SetState(engineGearUIState);
-
-                OpticBlastUIState = new OpticChargeUIState();
-                OpticBlastUIState.Activate();
-                OpticBlastUserInterface = new UserInterface();
-                OpticBlastUserInterface.SetState(OpticBlastUIState);
-
-                sweatUIState = new SweatUIState();
-                sweatUIState.Activate();
-                SweatUserInterface = new UserInterface();
-                SweatUserInterface.SetState(sweatUIState);
-
-                nauseaUIState = new NauseaUIState();
-                nauseaUIState.Activate();
-                nauseaUserInterface = new UserInterface();
-                nauseaUserInterface.SetState(nauseaUIState);
-
-                fullCowlingUIState = new FullCowlingUIState();
-                fullCowlingUIState.Activate();
-                fullCowlingUserInterface = new UserInterface();
-                fullCowlingUserInterface.SetState(fullCowlingUIState);
-
-                redRiotShieldUIState = new RedRiotShieldUIState();
-                redRiotShieldUIState.Activate();
-                redRiotShieldUserInterface = new UserInterface();
-                redRiotShieldUserInterface.SetState(redRiotShieldUIState);
-
-          
-                fierceUIState = new FierceUIState();
-                fierceUIState.Activate();
-                fierceUserInterface = new UserInterface();
-                fierceUserInterface.SetState(fierceUIState);
+              
+                activeHudBars = new List<HudBar>
+                {
+                    new HudBar(new BreathUIState(), "MyHeroMod: Breath Bar"),
+                    new HudBar(new TemperatureUIState(), "MyHeroMod: Temperature Bar"),
+                    new HudBar(new BlinkUIState(), "MyHeroMod: Blink Bar"),
+                    new HudBar(new FlightShieldUIState(), "MyHeroMod: Flight Shield Bar"),
+                    new HudBar(new EngineGearUIState(), "MyHeroMod: Engine Gear Bar"),
+                    new HudBar(new OpticChargeUIState(), "MyHeroMod: Optic Blast Bar"),
+                    new HudBar(new SweatUIState(), "MyHeroMod: Sweat Bar"),
+                    new HudBar(new NauseaUIState(), "MyHeroMod: Nausea Bar"),
+                    new HudBar(new FullCowlingUIState(), "MyHeroMod: Full Cowling Bar"),
+                    new HudBar(new RedRiotShieldUIState(), "MyHeroMod: Red Riot Bar"),
+                    new HudBar(new FierceUIState(), "MyHeroMod: Fierce Wings Bar")
+                };
 
                 KhacesCore.Content.System.CoreUISystem.RegisterTab(
                     "Skill Menu",
@@ -135,40 +92,15 @@ namespace MyHeroMod.content.UI
             SeeQuirkUI = null;
             MyQuirkRemoverUI = null;
 
-            breathUIState = null;
-            breathUserInterface = null;
-
-            temperatureUIState = null;
-            temperatureUserInterface = null;
-
-            blinkUIState = null;
-            blinkUserInterface = null;
-
-            flightShieldUIState = null;
-            flightShieldUserInterface = null;
-
-            engineGearUIState = null;
-            engineGearUserInterface = null;
-
-            OpticBlastUIState = null;
-            OpticBlastUserInterface = null;
-
-            sweatUIState = null;
-            SweatUserInterface = null;
-
-            nauseaUIState = null;
-            nauseaUserInterface = null;
-
-            fullCowlingUIState = null;
-            fullCowlingUserInterface = null;
-
-            redRiotShieldUIState = null;
-            redRiotShieldUserInterface = null;
-
-            fierceUIState = null;
-            fierceUserInterface = null;
+           
+            if (activeHudBars != null)
+            {
+                activeHudBars.Clear();
+                activeHudBars = null;
+            }
         }
 
+       
         public static void ShowUI()
         {
             var system = ModContent.GetInstance<UISystem>();
@@ -215,37 +147,19 @@ namespace MyHeroMod.content.UI
                 }
             }
 
-            temperatureUserInterface?.Update(gameTime);
-            breathUserInterface?.Update(gameTime);
-            blinkUserInterface?.Update(gameTime);
-            OpticBlastUserInterface?.Update(gameTime);
-            flightShieldUserInterface?.Update(gameTime);
-            engineGearUserInterface?.Update(gameTime);
-            SweatUserInterface?.Update(gameTime);
-            nauseaUserInterface?.Update(gameTime);
-            fullCowlingUserInterface?.Update(gameTime);
-            redRiotShieldUserInterface?.Update(gameTime);
-
-         
-            fierceUserInterface?.Update(gameTime);
+            
+            if (activeHudBars != null)
+            {
+                foreach (var hud in activeHudBars)
+                {
+                    hud.Interface?.Update(gameTime);
+                }
+            }
         }
 
         public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers)
         {
-            int resourceBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
-            if (resourceBarIndex != -1)
-            {
-                layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                    "MyHeroMod: Breath Bar",
-                    delegate
-                    {
-                        breathUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
-                        return true;
-                    },
-                    InterfaceScaleType.UI)
-                );
-            }
-
+            
             int mouseTextIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Mouse Text"));
             if (mouseTextIndex != -1)
             {
@@ -263,107 +177,23 @@ namespace MyHeroMod.content.UI
                 );
             }
 
-            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                "MyHeroMod: Temperature Bar",
-                delegate
-                {
-                    temperatureUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    return true;
-                },
-                InterfaceScaleType.UI)
-            );
-
-            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                "MyHeroMod: Blink Bar",
-                delegate
-                {
-                    blinkUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    return true;
-                },
-                InterfaceScaleType.UI)
-            );
-
-            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                "MyHeroMod: Flight Shield Bar",
-                delegate
-                {
-                    flightShieldUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    return true;
-                },
-                InterfaceScaleType.UI)
-            );
-
-            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                "MyHeroMod: Engine Gear Bar",
-                delegate
-                {
-                    engineGearUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    return true;
-                },
-                InterfaceScaleType.UI)
-            );
-
-            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                "MyHeroMod: Optic Blast Bar",
-                delegate
-                {
-                    OpticBlastUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    return true;
-                },
-                InterfaceScaleType.UI)
-            );
-
-            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                "MyHeroMod: Sweat Bar",
-                delegate
-                {
-                    SweatUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    return true;
-                },
-                InterfaceScaleType.UI)
-            );
-
-            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                "MyHeroMod: Nausea Bar",
-                delegate
-                {
-                    nauseaUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    return true;
-                },
-                InterfaceScaleType.UI)
-            );
-
-            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                "MyHeroMod: Full Cowling Bar",
-                delegate
-                {
-                    fullCowlingUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    return true;
-                },
-                InterfaceScaleType.UI)
-            );
-
             
-            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                "MyHeroMod: Red Riot Bar",
-                delegate
+            int resourceBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
+            if (resourceBarIndex != -1 && activeHudBars != null)
+            {
+                foreach (var hud in activeHudBars)
                 {
-                    redRiotShieldUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    return true;
-                },
-                InterfaceScaleType.UI)
-            );
-
-           
-            layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-                "MyHeroMod: Fierce Wings Bar",
-                delegate
-                {
-                    fierceUserInterface?.Draw(Main.spriteBatch, Main.gameTimeCache);
-                    return true;
-                },
-                InterfaceScaleType.UI)
-            );
+                    layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
+                        hud.LayerName,
+                        delegate
+                        {
+                            hud.Interface?.Draw(Main.spriteBatch, Main.gameTimeCache);
+                            return true;
+                        },
+                        InterfaceScaleType.UI)
+                    );
+                }
+            }
         }
     }
 }

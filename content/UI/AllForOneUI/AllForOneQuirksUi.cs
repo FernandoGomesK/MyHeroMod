@@ -4,16 +4,14 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.UI;
 using MyHeroMod.content.System;
 using Terraria.ID;
-using MyHeroMod.content;
 using Terraria.Audio;
 using MyHeroMod.content.Quirks.AllForOne;
 using Terraria.ModLoader;
 using MyHeroMod.content.Items.QuirkItems;
 using MyHeroMod.content.Items.QuirkItems.QuirkEssences;
-using MyHeroMod.content.UI;
 
 
-namespace MyHeroMod.content.UI
+namespace MyHeroMod.content.UI.AllForOneUI
 {
     public class AllForOneQuirksUI : UIState
     {

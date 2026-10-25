@@ -5,9 +5,9 @@ using Terraria.GameContent;
 using Terraria.ModLoader;
 using Terraria.UI;
 using MyHeroMod.content.Quirks.Overclock; // Para ler o seu OverclockPlayer
-using MyHeroMod.content.System; // Para ler o TransformationPlayer
+using MyHeroMod.content.System;
 
-namespace MyHeroMod.content.UI
+namespace MyHeroMod.content.UI.OverclockUI
 {
     public class BreathUIState : UIState
     {

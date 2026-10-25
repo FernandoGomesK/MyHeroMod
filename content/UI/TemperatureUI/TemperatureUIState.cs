@@ -10,7 +10,7 @@ using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 using MyHeroMod.content.Quirks.HellFlames;
 
-namespace MyHeroMod.content.UI
+namespace MyHeroMod.content.UI.TemperatureUI
 {
     public class TemperatureUIState : UIState
     {

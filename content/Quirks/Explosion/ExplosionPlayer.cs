@@ -126,7 +126,13 @@ namespace MyHeroMod.content.Quirks.Explosion
 
             if (mainPlayer.CurrentStage >= QuirkStage.Advanced && mainPlayer.HasActiveQuirk(QuirkType.Explosion) && IsClusterActive)
             {
-                Player.wingTimeMax = 150;
+
+                int flightQuirkWingTime = 150;
+
+                if (Player.wingTimeMax < flightQuirkWingTime)
+                {
+                    Player.wingTimeMax = flightQuirkWingTime;
+                }
 
                 if (Player.wingsLogic == 0)
                 {

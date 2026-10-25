@@ -40,26 +40,30 @@ namespace MyHeroMod.content.Quirks.Flight
 
         public override void PostUpdateEquips()
         {
-            
-            
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            
-            if (!mainPlayer.HasActiveQuirk(QuirkType.Flight))  
+            if (!mainPlayer.HasActiveQuirk(QuirkType.Flight))
                 return;
 
             if (Player.HasBuff<FlightBuff>())
             {
-                Player.wingTimeMax =360000;
+                
+                int flightQuirkWingTime = 360000;
+
+                if (Player.wingTimeMax < flightQuirkWingTime)
+                {
+                    Player.wingTimeMax = flightQuirkWingTime;
+                }
 
                 if (Player.wingsLogic == 0)
                 {
-                    Player.wingsLogic = 29; 
-                    Player.wings = -1; 
+                    Player.wingsLogic = 29;
+                    Player.wings = 0;
                 }
 
                 Player.noFallDmg = true;
             }
+
 
             if (Player.HasBuff<FlightShieldBuff>())
             {
