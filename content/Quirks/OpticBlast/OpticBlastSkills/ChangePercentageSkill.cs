@@ -34,25 +34,25 @@ namespace MyHeroMod.content.Quirks.OpticBlast.OpticBlastSkills{
         {
             opticPlayer.CurrentPercentage = OpticBlastPlayer.Percentage.TwentyFive;
             text += "25%!";
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/OpticBlast25percent"), player.position);
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/OpticBlast25percent") with { Volume = 0.6f }, player.position);
         }
         else if (opticPlayer.CurrentPercentage == OpticBlastPlayer.Percentage.TwentyFive)
         {
             opticPlayer.CurrentPercentage = OpticBlastPlayer.Percentage.Fifty;
             text += "50%!";
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/OpticBlast50percent"), player.position);
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/OpticBlast50percent") with { Volume = 0.6f }, player.position);
         }
         else if (opticPlayer.CurrentPercentage == OpticBlastPlayer.Percentage.Fifty)
         {
             opticPlayer.CurrentPercentage = OpticBlastPlayer.Percentage.SeventyFive;
             text += "75%!";
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/OpticBlast75percent"), player.position);
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/OpticBlast75percent") with { Volume = 0.6f }, player.position);
         }
         else if (opticPlayer.CurrentPercentage == OpticBlastPlayer.Percentage.SeventyFive)
         {
             opticPlayer.CurrentPercentage = OpticBlastPlayer.Percentage.Full;
             text += "100%!";
-            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/OpticBlast100percent"), player.position);
+            SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/OpticBlast100percent") with { Volume = 0.6f }, player.position);
         }
         else
         {

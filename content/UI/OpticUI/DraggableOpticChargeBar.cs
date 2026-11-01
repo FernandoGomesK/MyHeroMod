@@ -1,86 +1,110 @@
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.UI;
-using Terraria.ModLoader;
-using MyHeroMod.content.System;
-using MyHeroMod.content.Quirks.OpticBlast;
+//using Microsoft.Xna.Framework;
+//using Microsoft.Xna.Framework.Graphics;
+//using Terraria;
+//using Terraria.UI;
+//using Terraria.ModLoader;
+//using MyHeroMod.content.System;
+//using MyHeroMod.content.Quirks.OpticBlast;
 
-namespace MyHeroMod.content.UI.OpticUI
-{
-    public class DraggableOpticChargeBar : UIElement
-    {
-        private Vector2 offset;
-        public bool dragging;
+//namespace MyHeroMod.content.UI.OpticUI
+//{
+//    // 1. THE STATE
+//    public class OpticChargeUIState : UIState
+//    {
+//        public OpticChargeBar OpticBar;
 
-        public override void LeftMouseDown(UIMouseEvent evt)
-        {
-            base.LeftMouseDown(evt);
-            if (Main.playerInventory)
-            {
-                offset = new Vector2(evt.MousePosition.X - Left.Pixels, evt.MousePosition.Y - Top.Pixels);
-                dragging = true;
-            }
-        }
+//        public override void OnInitialize()
+//        {
+//            OpticBar = new OpticChargeBar();
+//            Append(OpticBar);
+//        }
+//    }
 
-        public override void LeftMouseUp(UIMouseEvent evt)
-        {
-            base.LeftMouseUp(evt);
-            dragging = false;
-        }
+//    // 2. THE ELEMENT
+//    public class OpticChargeBar : BaseDraggableBar
+//    {
+//        protected override void AutoPosition()
+//        {
+//            Player player = Main.LocalPlayer;
+//            var transPlayer = player.GetModPlayer<TransformationPlayer>();
 
-        public override void Update(GameTime gameTime)
-        {
-            base.Update(gameTime);
-            if (dragging)
-            {
-                Left.Set(Main.mouseX - offset.X, 0f);
-                Top.Set(Main.mouseY - offset.Y, 0f);
-                Recalculate();
-            }
+//            int uiSlot = 0;
 
-            CalculatedStyle dimensions = GetDimensions();
-            if (dimensions.X < 0) Left.Set(0, 0f);
-            if (dimensions.X > Main.screenWidth - dimensions.Width) Left.Set(Main.screenWidth - dimensions.Width, 0f);
-            if (dimensions.Y < 0) Top.Set(0, 0f);
-            if (dimensions.Y > Main.screenHeight - dimensions.Height) Top.Set(Main.screenHeight - dimensions.Height, 0f);
-            
-            Recalculate();
-        }
+//            // Push the UI down if other Quirks are active
+//            if (transPlayer.HasActiveQuirk(QuirkType.Engine)) uiSlot++;
+//            if (transPlayer.HasActiveQuirk(QuirkType.Flight)) uiSlot++;
+//            if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th) || transPlayer.HasActiveQuirk(QuirkType.OneForAll8th)) uiSlot++;
 
-        protected override void DrawSelf(SpriteBatch spriteBatch)
-        {
-            Player player = Main.LocalPlayer;
-            var transPlayer = player.GetModPlayer<TransformationPlayer>();
-            var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
+//            Left.Set(Main.screenWidth - 355f, 0f);
 
-            if (!transPlayer.HasActiveQuirk(QuirkType.OpticBlast))
-                return;
+//            Top.Set(10f + (uiSlot * 76f), 0f);
+//        }
 
-            Texture2D barFrame = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastBarFrame").Value;
-            Texture2D barFill = ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastBarFill").Value;
+//        public override void Update(GameTime gameTime)
+//        {
+//            base.Update(gameTime);
 
-            CalculatedStyle dimensions = GetDimensions();
-            Vector2 drawPos = new Vector2(dimensions.X, dimensions.Y);
+//            Player player = Main.LocalPlayer;
+//            var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
 
-            float quotient = 1f;
-            if (opticPlayer.MaxOpticBlast > 0)
-            {
-                quotient = (float)opticPlayer.CurrentOpticBlast / opticPlayer.MaxOpticBlast;
-            }
-            quotient = MathHelper.Clamp(quotient, 0f, 1f);
+//            if (opticPlayer.CurrentPercentage == OpticBlastPlayer.Percentage.Full)
+//            {
+//                Width.Set(110f, 0f);
+//                Height.Set(28f, 0f);
+//            }
+//            else
+//            {
+//                Width.Set(100f, 0f);
+//                Height.Set(28f, 0f);
+//            }
+//        }
 
-            
-            spriteBatch.Draw(barFrame, drawPos, Color.White);
+//        protected override void DrawSelf(SpriteBatch spriteBatch)
+//        {
+//            Player player = Main.LocalPlayer;
+//            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+//            var opticPlayer = player.GetModPlayer<OpticBlastPlayer>();
 
-            
-            Rectangle fillRect = new Rectangle(0, 0, (int)(barFill.Width * quotient), barFill.Height);
-            spriteBatch.Draw(barFill, drawPos, fillRect, Color.White);
+//            if (!transPlayer.HasActiveQuirk(QuirkType.OpticBlast))
+//                return;
 
-            
-            string text = $"{opticPlayer.CurrentOpticBlast} / {opticPlayer.MaxOpticBlast}";
-            Vector2 textPos = drawPos + new Vector2(barFrame.Width / 2f - 20f, barFrame.Height + 5f);
-            Utils.DrawBorderString(spriteBatch, text, textPos, Color.Cyan, 0.8f);
-        }
-    }
-}
+//            Texture2D barFrame = opticPlayer.CurrentPercentage switch
+//            {
+//                OpticBlastPlayer.Percentage.Zero => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastUI/00OpticBlastBarFrame").Value,
+//                OpticBlastPlayer.Percentage.TwentyFive => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastUI/25OpticBlastBarFrame").Value,
+//                OpticBlastPlayer.Percentage.Fifty => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastUI/50OpticBlastBarFrame").Value,
+//                OpticBlastPlayer.Percentage.SeventyFive => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastUI/75OpticBlastBarFrame").Value,
+//                OpticBlastPlayer.Percentage.Full => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastUI/100OpticBlastBarFrame").Value,
+//                _ => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastUI/00OpticBlastBarFrame").Value
+//            };
+
+//            Texture2D barFill = opticPlayer.CurrentPercentage switch
+//            {
+//                OpticBlastPlayer.Percentage.Zero => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastUI/00OpticBlastBarFill").Value,
+//                OpticBlastPlayer.Percentage.TwentyFive => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastUI/25OpticBlastBarFill").Value,
+//                OpticBlastPlayer.Percentage.Fifty => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastUI/50OpticBlastBarFill").Value,
+//                OpticBlastPlayer.Percentage.SeventyFive => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastUI/75OpticBlastBarFill").Value,
+//                OpticBlastPlayer.Percentage.Full => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastUI/100OpticBlastBarFill").Value,
+//                _ => ModContent.Request<Texture2D>("MyHeroMod/Assets/UI/OpticBlastUI/00OpticBlastBarFill").Value
+//            };
+
+//            CalculatedStyle dimensions = GetDimensions();
+//            Vector2 drawPos = new Vector2(dimensions.X, dimensions.Y);
+
+//            float quotient = 1f;
+//            if (opticPlayer.MaxOpticBlast > 0)
+//            {
+//                quotient = (float)opticPlayer.CurrentOpticBlast / opticPlayer.MaxOpticBlast;
+//            }
+//            quotient = MathHelper.Clamp(quotient, 0f, 1f);
+
+//            spriteBatch.Draw(barFrame, drawPos, Color.White);
+//            Rectangle fillRect = new Rectangle(0, 0, (int)(barFill.Width * quotient), barFill.Height);
+//            spriteBatch.Draw(barFill, drawPos, fillRect, Color.White);
+
+//            string text = $"{opticPlayer.CurrentOpticBlast} / {opticPlayer.MaxOpticBlast}";
+//            Vector2 textPos = drawPos + new Vector2(barFrame.Width / 2f - 20f, barFrame.Height + 5f);
+//            Utils.DrawBorderString(spriteBatch, text, textPos, Color.Cyan, 0.8f);
+//        }
+//    }
+//}
