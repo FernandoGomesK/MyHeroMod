@@ -706,6 +706,11 @@ Items: {
 		DisplayName: Torino Leggings
 		Tooltip: ""
 	}
+
+	GranTorinoMask: {
+		DisplayName: Gran Torino Mask
+		Tooltip: ""
+	}
 }
 
 Buffs: {

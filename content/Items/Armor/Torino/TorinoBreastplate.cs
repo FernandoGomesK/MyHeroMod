@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 using MyHeroMod.content.Items.Armor.Deku.DeltaArmor;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.Items.Armor.Torino
 {
@@ -49,8 +50,10 @@ namespace MyHeroMod.content.Items.Armor.Torino
         public override void AddRecipes()
         {
             CreateRecipe()
-                
-                .Register();
+            .AddIngredient(ItemID.Silk, 20)
+            .AddRecipeGroup(RecipeSystem.IronAndLeadGroup, 15)
+            .AddTile(TileID.Loom)
+            .Register();
         }
 
     }
