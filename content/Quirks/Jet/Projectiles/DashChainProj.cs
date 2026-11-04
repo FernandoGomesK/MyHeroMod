@@ -10,12 +10,12 @@ namespace MyHeroMod.content.Quirks.Jet.Projectiles
 {
     public class DashChainProj : ModProjectile
     {
-        // Pointing directly to your new animation sprite sheet
+
         public override string Texture => "MyHeroMod/content/Quirks/Jet/Projectiles/TorinoChainProj";
 
         public override void SetStaticDefaults()
         {
-            // Tell Terraria this sprite sheet has 10 vertical frames
+            
             Main.projFrames[Projectile.type] = 10;
         }
 
@@ -65,7 +65,6 @@ namespace MyHeroMod.content.Quirks.Jet.Projectiles
             player.controlUseTile = false;
             player.AddBuff(BuffID.Invisibility, 2);
 
-            // --- PARTICLES & LIGHTING ---
             if (Main.rand.NextBool(2))
             {
                 Vector2 randomDustPos = Projectile.position + new Vector2(Main.rand.NextFloat(Projectile.width), Main.rand.NextFloat(Projectile.height));
@@ -79,8 +78,7 @@ namespace MyHeroMod.content.Quirks.Jet.Projectiles
 
         public override bool PreDraw(ref Color lightColor)
         {
-            // 1. DRAW THE DULL CYAN BACKGROUND
-            // Grab Terraria's built-in 1x1 white pixel to stretch into the background square
+
             Texture2D magicPixel = TextureAssets.MagicPixel.Value;
             Rectangle bgRect = new Rectangle(
                 (int)(Projectile.position.X - Main.screenPosition.X),
@@ -103,31 +101,28 @@ namespace MyHeroMod.content.Quirks.Jet.Projectiles
                 SpriteEffects.None
             );
 
-            // 2. DRAW THE 6-FRAME ANIMATION (TorinoChainProj)
             Texture2D animTexture = TextureAssets.Projectile[Type].Value;
 
-            // Calculate the height of a single frame
+ 
             int frameHeight = animTexture.Height / Main.projFrames[Projectile.type];
 
-            // Select the exact slice of the sprite sheet based on Projectile.frame
             Rectangle sourceRect = new Rectangle(0, Projectile.frame * frameHeight, animTexture.Width, frameHeight);
 
-            // Set the origin to the center of the frame
+
             Vector2 drawOrigin = new Vector2(animTexture.Width / 2f, frameHeight / 2f);
 
-            // Draw the animation directly in the center of the hitbox
             Main.EntitySpriteDraw(
                 animTexture,
                 Projectile.Center - Main.screenPosition,
                 sourceRect,
-                Color.White, // Ignore level lighting so the attack always looks bright
+                Color.White,
                 Projectile.rotation,
                 drawOrigin,
                 Projectile.scale,
                 SpriteEffects.None
             );
 
-            return false; // Tells Terraria we already handled the drawing
+            return false; 
         }
     }
 }

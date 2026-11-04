@@ -1,8 +1,8 @@
-using Terraria;
-using Terraria.ModLoader;
-using Terraria.ID;
 using MyHeroMod.content.Items.Armor.Deku.BetaArmor;
 using MyHeroMod.content.System;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 namespace MyHeroMod.content.Items.Armor.Deku.GammaArmor
 {
@@ -11,11 +11,29 @@ namespace MyHeroMod.content.Items.Armor.Deku.GammaArmor
     {
         public override void SetStaticDefaults()
         {
-            ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
-            
+            if (!Main.dedServ)
+            {
+                int equipSlotDown = EquipLoader.GetEquipSlot(Mod, "MyHeroMod/content/Items/Armor/Deku/GammaArmor/GammaHelmet_Head_Down", EquipType.Head);
+
+                if (equipSlotDown > 0)
+                {
+                    ArmorIDs.Head.Sets.DrawFullHair[equipSlotDown] = true;
+                }
+            }
         }
-        
-        
+
+        public override void EquipFrameEffects(Player player, EquipType type)
+        {
+            var GammaManager = player.GetModPlayer<GammaDekuManager>();
+
+            if (!GammaManager.isCowlUp)
+            {
+                int equipSlotDown = EquipLoader.GetEquipSlot(Mod, "MyHeroMod/content/Items/Armor/Deku/GammaArmor/GammaHelmet_Head_Down", EquipType.Head);
+                player.head = equipSlotDown;
+            }
+        }
+
+
         public override void SetDefaults()
         {
             Item.width = 18;
@@ -45,8 +63,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.GammaArmor
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<BetaHelmet>(), 1)
-                
+                .AddIngredient(ModContent.ItemType<BetaHelmet>(), 1) 
                 .AddRecipeGroup(RecipeSystem.AdamantineGroup, 12)
                 .AddIngredient(ItemID.SoulofMight, 5)
                 .AddTile(TileID.Anvils)

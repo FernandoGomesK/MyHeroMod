@@ -1,5 +1,4 @@
-using MyHeroMod.content.Items.Armor.Deku.BetaArmor;
-using MyHeroMod.content.Items.Armor.Deku.GammaArmor;
+
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -11,10 +10,28 @@ namespace MyHeroMod.content.Items.Armor.Deku.DeltaArmor
     {
         public override void SetStaticDefaults()
         {
-            ArmorIDs.Head.Sets.DrawFullHair[Item.headSlot] = true;
-            
+            if (!Main.dedServ)
+            {
+                int equipSlotDown = EquipLoader.GetEquipSlot(Mod, "DeltaHelmet_Head_Down", EquipType.Head);
+
+                if (equipSlotDown > 0)
+                {
+                    ArmorIDs.Head.Sets.DrawFullHair[equipSlotDown] = true;
+                }
+            }
         }
-        
+
+        public override void EquipFrameEffects(Player player, EquipType type)
+        {
+            var deltaManager = player.GetModPlayer<DeltaDekuManager>();
+
+            if (!deltaManager.isCowlUp)
+            {
+                int equipSlotDown = EquipLoader.GetEquipSlot(Mod, "DeltaHelmet_Head_Down", EquipType.Head);
+                player.head = equipSlotDown;
+            }
+        }
+
         public override void SetDefaults()
         {
             Item.width = 18;
@@ -45,7 +62,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.DeltaArmor
         public override void AddRecipes()
         {
             CreateRecipe()
-                .AddIngredient(ModContent.ItemType<GammaHelmet>(), 1)
+                .AddIngredient(ModContent.ItemType<DeltaHelmet>(), 1)
                 .AddIngredient(ItemID.ChlorophyteBar, 15) 
                 .AddIngredient(ItemID.Ectoplasm, 5)
                 .AddTile(TileID.Anvils)

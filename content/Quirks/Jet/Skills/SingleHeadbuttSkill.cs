@@ -17,7 +17,7 @@ public class SingleHeadbuttSkill : QuirkBaseSkill
 {
     public override string Name => "Jet Headbutt";
     public override string Description => "Dash with your jets, headbutting forward";
-    public override string IconPath => "MyHeroMod/Assets/Skills/SingleHeadbutt";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Jet/SingleHeadbuttIcon";
     public override string Category => "Jet";
 
     public override int BaseCooldown => 120;

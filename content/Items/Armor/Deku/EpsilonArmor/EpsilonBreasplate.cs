@@ -3,6 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 using MyHeroMod.content.Items.Armor.Deku.DeltaArmor;
+using MyHeroMod.content.Items.Armor.Torino;
 
 namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
 {
@@ -50,6 +51,7 @@ namespace MyHeroMod.content.Items.Armor.Deku.EpsilonArmor
         {
             CreateRecipe()
                 .AddIngredient(ModContent.ItemType<DeltaBreastplate>(), 1)
+                .AddIngredient(ModContent.ItemType<TorinoBreastplate>(), 1)
                 .AddIngredient(ItemID.BeetleHusk, 10)
                 .AddIngredient(ItemID.Ectoplasm, 5)
                 .AddTile(TileID.Anvils)
