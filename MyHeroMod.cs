@@ -41,6 +41,11 @@ namespace MyHeroMod
 
                 Filters.Scene["MyHeroMod:TimeStop"] = new Filter(new ScreenShaderData(screenAsset, "GreyscaleEffect"), EffectPriority.VeryHigh);
                 Filters.Scene["MyHeroMod:TimeStop"].Load();
+
+                EquipLoader.AddEquipTexture(this, "MyHeroMod/content/Items/Armor/Deku/AlphaArmor/AlphaHelmet_Head_Down", EquipType.Head, name: "AlphaHelmet_Head_Down");
+                EquipLoader.AddEquipTexture(this, "MyHeroMod/content/Items/Armor/Deku/BetaArmor/BetaHelmet_Head_Down", EquipType.Head, name: "BetaHelmet_Head_Down");
+                EquipLoader.AddEquipTexture(this, "MyHeroMod/content/Items/Armor/Deku/GammaArmor/GammaHelmet_Head_Down", EquipType.Head, name: "GammaHelmet_Head_Down");
+                EquipLoader.AddEquipTexture(this, "MyHeroMod/content/Items/Armor/Deku/DeltaArmor/DeltaHelmet_Head_Down", EquipType.Head, name: "DeltaHelmet_Head_Down");
             }
         }
 

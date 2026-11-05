@@ -8,7 +8,19 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
     [AutoloadEquip(EquipType.Head)]
     public class AlphaHelmet : ModItem
     {
-        
+        public override void SetStaticDefaults()
+        {
+            if (!Main.dedServ)
+            {
+                int equipSlotDown = EquipLoader.GetEquipSlot(Mod, "AlphaHelmet_Head_Down", EquipType.Head);
+
+                if (equipSlotDown > 0)
+                {
+                    ArmorIDs.Head.Sets.DrawFullHair[equipSlotDown] = true;
+                }
+            }
+        }
+
         public override void SetDefaults()
         {
             Item.width = 18;
@@ -17,9 +29,9 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
             Item.rare = ItemRarityID.Green;
             Item.defense = 2;
         }
+
         public override void UpdateEquip(Player player)
         {
-                
             player.GetDamage(DamageClass.Melee) += 0.03f;
         }
 
@@ -28,12 +40,22 @@ namespace MyHeroMod.content.Items.Armor.Deku.AlphaArmor
             return body.type == ModContent.ItemType<AlphaBreastplate>() && legs.type == ModContent.ItemType<AlphaLeggings>();
         }
 
-        
         public override void UpdateArmorSet(Player player)
         {
             player.setBonus = "Increases defense by 2 and melee speed by 5%";
             player.statDefense += 2;
             player.GetAttackSpeed(DamageClass.Melee) += 0.05f;
+        }
+
+        public override void EquipFrameEffects(Player player, EquipType type)
+        {
+            var alphaManager = player.GetModPlayer<AlphaDekuManager>();
+
+            if (!alphaManager.isCowlUp)
+            {
+                int equipSlotDown = EquipLoader.GetEquipSlot(Mod, "AlphaHelmet_Head_Down", EquipType.Head);
+                player.head = equipSlotDown;
+            }
         }
 
         public override void AddRecipes()
