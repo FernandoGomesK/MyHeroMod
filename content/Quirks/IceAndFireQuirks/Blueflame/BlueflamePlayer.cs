@@ -12,6 +12,9 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
         public override int MinTemperature => -200; 
         public override int FlashfireHeatRate => 20;
         public override int PhosphorCoolingRate => 10;
+        public int ExplosionLimit => 100;
+        public int currentExplosionCount = 0;
+        public bool isConcentrating = false;
         public override bool IsLethalStrain => true;
         public override bool HasFlameResistance
         {
