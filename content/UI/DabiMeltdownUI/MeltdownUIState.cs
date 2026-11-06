@@ -39,7 +39,7 @@ namespace MyHeroMod.content.UI.DabiMeltdownUI
             }
 
             Left.Set(Main.screenWidth - 355f, 0f);
-            Top.Set(10f + (uiSlot * 76f), 0f); 
+            Top.Set(10f + (uiSlot * 76f), 0f);
         }
 
         protected override void DrawSelf(SpriteBatch spriteBatch)
@@ -57,7 +57,7 @@ namespace MyHeroMod.content.UI.DabiMeltdownUI
             CalculatedStyle dimensions = GetDimensions();
             Vector2 drawPos = new Vector2(dimensions.X, dimensions.Y);
 
-            float quotient = 0f; 
+            float quotient = 0f;
             if (blueflamePlayer.currentExplosionCount > 0)
             {
                 quotient = (float)blueflamePlayer.currentExplosionCount / blueflamePlayer.ExplosionLimit;

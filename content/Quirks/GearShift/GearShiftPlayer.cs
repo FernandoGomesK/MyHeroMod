@@ -20,7 +20,6 @@ using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.Gearshift
 {
-    // PARTE 1: DADOS E LÓGICA
     public partial class GearshiftPlayer : ModPlayer, IDashModifier, IQuirkResetter
     {
         // Variáveis de Estado
@@ -33,7 +32,8 @@ namespace MyHeroMod.content.Quirks.Gearshift
         public int ActivationTimer = 0;     
         public int ActivationMaxTime = 40;  
         public bool wasGearshiftBuffActive = false;
-        
+
+        public Vector2[] oldPos = new Vector2[10];
 
         public void FullReset()
         {
@@ -86,6 +86,22 @@ namespace MyHeroMod.content.Quirks.Gearshift
                     );
                 }
             }
+
+            if (isGearshiftBuffActive)
+            {
+                for (int i = oldPos.Length - 1; i > 0; i--)
+                {
+                    oldPos[i] = oldPos[i - 1];
+                }
+                oldPos[0] = Player.position;
+            }
+            else
+            {
+                for (int i = 0; i < oldPos.Length; i++)
+                {
+                    oldPos[i] = Player.position;
+                }
+            }
         }
         private void ActivateGearshift()
         {
@@ -121,6 +137,11 @@ namespace MyHeroMod.content.Quirks.Gearshift
                 velocity *= 2.5f; 
                 damage = (int)(damage * 1.3f); 
             }
+        }
+        public override void PostUpdateMiscEffects()
+        {
+            if (isGearshiftBuffActive)
+                Player.GetModPlayer<AfterimagePlayer>().Request(AfterimagePalettes.Blue);
         }
 
         public override void PostUpdateBuffs()

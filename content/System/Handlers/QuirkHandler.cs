@@ -1,17 +1,17 @@
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using Microsoft.Xna.Framework;
+using MyHeroMod.content.System;
 
 namespace MyHeroMod.content.System.Handlers
 {
     public class QuirkHandler : ModPlayer
     {
-
         private bool _wasOverloaded = false;
+
         public static int GetQuirkCost(QuirkType quirk)
         {
-
             return quirk switch
             {
                 QuirkType.OneForAll9th => 4,
@@ -34,7 +34,7 @@ namespace MyHeroMod.content.System.Handlers
                 QuirkType.Float => 1,
                 QuirkType.Quirkless => 0,
 
-                _ => 2 
+                _ => 2
             };
         }
 
@@ -53,6 +53,20 @@ namespace MyHeroMod.content.System.Handlers
                 QuirkType.ZeroGravity => "Zero Gravity",
                 QuirkType.SmokeScreen => "Smoke Screen",
                 _ => quirk.ToString()
+            };
+        }
+
+        public static string GetVariantDisplayName(QuirkType quirk, QuirkVariant variant)
+        {
+            if (variant == QuirkVariant.Default)
+                return string.Empty;
+
+            return (quirk, variant) switch
+            {
+                (QuirkType.Overclock, QuirkVariant.Variant1) => "Neural Upgrade",
+                (QuirkType.Engine, QuirkVariant.Variant1) => "Tensei Exhaust",
+                (QuirkType.OpticBlast, QuirkVariant.Variant1) => "Red Optic Blast",
+                _ => variant.ToString()
             };
         }
 
@@ -84,10 +98,9 @@ namespace MyHeroMod.content.System.Handlers
                 QuirkType.Flight => "Surround yourself with a powerful shield that allows for flight and defense.",
                 _ => "A unique superhuman ability."
             };
-            
+
             return quirk == QuirkType.Quirkless ? desc : $"{desc}\n[c/FFFF00:Capacity Cost: {cost}]";
         }
-
 
         public override void PostUpdateMiscEffects()
         {
@@ -99,20 +112,17 @@ namespace MyHeroMod.content.System.Handlers
                 totalQuirkWeight += GetQuirkCost(quirk);
             }
 
-            
             int currentCapacity = 4;
 
-           
-            if (transPlayer.Nature == NatureType.StrongMinded) 
-                currentCapacity += 2; 
+            if (transPlayer.Nature == NatureType.StrongMinded)
+                currentCapacity += 2;
 
-            if (transPlayer.Nature == NatureType.PerfectVessel) 
-                currentCapacity += 4; 
+            if (transPlayer.Nature == NatureType.PerfectVessel)
+                currentCapacity += 4;
 
             int overloadAmount = totalQuirkWeight - currentCapacity;
 
             bool isOverloaded = overloadAmount > 0;
-
 
             if (isOverloaded && !_wasOverloaded)
             {
@@ -120,7 +130,6 @@ namespace MyHeroMod.content.System.Handlers
             }
             else if (!isOverloaded && _wasOverloaded)
             {
-             
                 Main.NewText("Your body stabilizes as the cellular strain fades.", Color.LimeGreen);
             }
 
@@ -151,8 +160,7 @@ namespace MyHeroMod.content.System.Handlers
                 Player.statDefense -= 20;
                 Player.AddBuff(BuffID.Confused, 2);
                 Player.AddBuff(BuffID.Weak, 2);
-                
-               
+
                 Player.statLifeMax2 = (int)(Player.statLifeMax2 * 0.5f);
                 Player.AddBuff(BuffID.Blackout, 2);
             }

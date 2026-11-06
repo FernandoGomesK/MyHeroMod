@@ -18,11 +18,11 @@ namespace MyHeroMod.content.System
 
             if (transPlayer.CurrentStage == QuirkStage.Adequation)
             {
-                pool.Add(ModContent.NPCType<NomuNPC>(), 0.05f);
+                pool.Add(ModContent.NPCType<NomuNPC>(), 0.01f);
             }
             else if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
             {
-                pool.Add(ModContent.NPCType<NomuNPC>(), 0.15f);
+                pool.Add(ModContent.NPCType<NomuNPC>(), 0.05f);
             }
         }
     }

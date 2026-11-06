@@ -35,12 +35,16 @@ namespace MyHeroMod
         /// </summary>
         public override void Load()
         {
-            if (Main.netMode != Terraria.ID.NetmodeID.Server)
+            if (Main.netMode != NetmodeID.Server)
             {
-                ReLogic.Content.Asset<Effect> screenAsset = ModContent.Request<Effect>("MyHeroMod/Assets/Effects/TimeStopShader", ReLogic.Content.AssetRequestMode.ImmediateLoad);
+                var screenAsset = ModContent.Request<Effect>("MyHeroMod/Assets/Effects/TimeStopShader", ReLogic.Content.AssetRequestMode.ImmediateLoad);
+                var neuralAsset = ModContent.Request<Effect>("MyHeroMod/Assets/Effects/TimeStopNeural", ReLogic.Content.AssetRequestMode.ImmediateLoad);
 
                 Filters.Scene["MyHeroMod:TimeStop"] = new Filter(new ScreenShaderData(screenAsset, "GreyscaleEffect"), EffectPriority.VeryHigh);
                 Filters.Scene["MyHeroMod:TimeStop"].Load();
+
+                Filters.Scene["MyHeroMod:TimeStopNeural"] = new Filter(new ScreenShaderData(neuralAsset, "SandevistanEffect"), EffectPriority.VeryHigh);
+                Filters.Scene["MyHeroMod:TimeStopNeural"].Load();
 
                 EquipLoader.AddEquipTexture(this, "MyHeroMod/content/Items/Armor/Deku/AlphaArmor/AlphaHelmet_Head_Down", EquipType.Head, name: "AlphaHelmet_Head_Down");
                 EquipLoader.AddEquipTexture(this, "MyHeroMod/content/Items/Armor/Deku/BetaArmor/BetaHelmet_Head_Down", EquipType.Head, name: "BetaHelmet_Head_Down");
@@ -63,17 +67,10 @@ namespace MyHeroMod
             {
                 try
                 {
-                    if (Filters.Scene != null)
+                    foreach (string key in new[] { "MyHeroMod:TimeStop", "MyHeroMod:TimeStopNeural" })
                     {
-                        string key = "MyHeroMod:TimeStop";
-                        var filter = Filters.Scene[key];
-                        if (filter != null && filter.IsActive())
+                        if (Filters.Scene[key].IsActive())
                             Filters.Scene.Deactivate(key);
-
-                        if (Filters.Scene["MyHeroMod:TimeStop"].IsActive())
-                        {
-                            Filters.Scene["MyHeroMod:TimeStop"].Deactivate();
-                        }
                     }
                 }
                 catch (Exception e)
@@ -392,11 +389,13 @@ namespace MyHeroMod
             int quirkCount = reader.ReadInt32();
             byte playerIndex = Main.netMode == NetmodeID.Server ? (byte)whoAmI : senderIndexInPacket;
 
-            var afoPlayer = Main.player[playerIndex].GetModPlayer<AllForOnePlayer>();
+            
 
             if (playerIndex >= Main.maxPlayers) return;
 
+            var afoPlayer = Main.player[playerIndex].GetModPlayer<AllForOnePlayer>();
             int maxQuirks = Enum.GetValues(typeof(QuirkType)).Length;
+
             quirkCount = Math.Clamp(quirkCount, 0, maxQuirks);
 
             afoPlayer.InternalQuirks.Clear();

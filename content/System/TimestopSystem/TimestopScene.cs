@@ -8,11 +8,10 @@ namespace MyHeroMod.content.System
     public class TimeStopScene : ModSceneEffect
     {
         private static float _intensity = 0f;
-        private const float FadeSpeed = 0.04f; // velocidade do fade (0.0 a 1.0)
+        private const float FadeSpeed = 0.04f;
 
         public override bool IsSceneEffectActive(Player player)
         {
-            // Mantém o efeito ativo enquanto ainda há intensidade para fazer fade out
             return _intensity > 0f || TimeStopSystem.IsTimeStopped;
         }
 
@@ -20,26 +19,44 @@ namespace MyHeroMod.content.System
 
         public override void SpecialVisuals(Player player, bool isActive)
         {
-            // Fade in ou fade out suave
+
+
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+            bool isNeuralUpgrade = transPlayer.CurrentVariant == QuirkVariant.Variant1;
+
+            //if (TimeStopSystem.IsTimeStopped && Main.GameUpdateCount % 60 == 0)
+            //    Main.NewText($"Variant: {transPlayer.CurrentVariant} | neural: {isNeuralUpgrade}");
+
+            string activeFilterKey = isNeuralUpgrade ? "MyHeroMod:TimeStopNeural" : "MyHeroMod:TimeStop";
+            string inactiveFilterKey = isNeuralUpgrade ? "MyHeroMod:TimeStop" : "MyHeroMod:TimeStopNeural";
+
+            float maxIntensity = isNeuralUpgrade ? 0.6f : 0.5f;
+
             if (TimeStopSystem.IsTimeStopped)
-                _intensity = MathHelper.Min(_intensity + FadeSpeed, 0.5f);
+                _intensity = MathHelper.Min(_intensity + FadeSpeed, maxIntensity);
             else
                 _intensity = MathHelper.Max(_intensity - FadeSpeed, 0f);
 
             if (_intensity > 0f)
             {
-                var filter = Filters.Scene["MyHeroMod:TimeStop"];
+                if (Filters.Scene[inactiveFilterKey].IsActive())
+                    Filters.Scene.Deactivate(inactiveFilterKey);
+                    
+                var filter = Filters.Scene[activeFilterKey];
 
                 if (!filter.IsActive())
-                    Filters.Scene.Activate("MyHeroMod:TimeStop");
+                    Filters.Scene.Activate(activeFilterKey);
 
-                // Aplica a opacidade do filtro
                 filter.GetShader().UseOpacity(_intensity);
             }
             else
             {
-                if (Filters.Scene["MyHeroMod:TimeStop"].IsActive())
-                    Filters.Scene.Deactivate("MyHeroMod:TimeStop");
+                if (Filters.Scene[activeFilterKey].IsActive())
+                    Filters.Scene.Deactivate(activeFilterKey);
+
+                if (Filters.Scene[inactiveFilterKey].IsActive())
+                    Filters.Scene.Deactivate(inactiveFilterKey);
             }
         }
     }
