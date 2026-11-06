@@ -1033,6 +1033,11 @@ Buffs: {
 		DisplayName: Ragnarok Buff
 		Description: Mods.MyHeroMod.Buffs.RagnarokBuff.Description
 	}
+
+	ConcentratingBuff: {
+		DisplayName: Concentrating Buff
+		Description: Mods.MyHeroMod.Buffs.ConcentratingBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own body with 100% power!"
@@ -1238,6 +1243,7 @@ Projectiles: {
 	ManchesterDashEffect.DisplayName: Manchester Dash Effect
 	SingleHeadbuttProj.DisplayName: Single Headbutt Proj
 	DashChainProj.DisplayName: Dash Chain Proj
+	BlueflameMassiveExplosion.DisplayName: Blueflame Massive Explosion
 }
 
 NPCs: {

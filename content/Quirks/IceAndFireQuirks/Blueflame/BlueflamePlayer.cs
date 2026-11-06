@@ -45,7 +45,15 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
                 StrainPenaltyPerSecond = 0;
                 return;
             }
-            base.PostUpdate(); 
+            base.PostUpdate();
+
+            explode();
+        }
+
+        public override void ResetEffects()
+        {
+            base.ResetEffects();
+            isConcentrating = false;
         }
 
         protected override void ApplyMaxStrainPenalty()

@@ -15,45 +15,30 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
             if (!mainPlayer.HasActiveQuirk(QuirkType.Blueflame)) return;
 
-            if (isConcentrating)
+            if (Main.GameUpdateCount % 60 == 0)
             {
-                if (Temperature >= (MaxTemperature / 2))
+                if (isConcentrating && Temperature >= (MaxTemperature / 2))
                 {
-                    if (Main.GameUpdateCount % 60 == 0)
+                    if (currentExplosionCount < ExplosionLimit)
                     {
-                        if (currentExplosionCount < ExplosionLimit)
-                        {
-                            currentExplosionCount++;
-                        }
-                        if (currentExplosionCount > ExplosionLimit)
-                        {
-                            currentExplosionCount = ExplosionLimit;
-                        }
-                        if (currentExplosionCount >= ExplosionLimit)
-                        {
-                            Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BlueflameMassiveExplosion>(), 20000, 10f, Player.whoAmI);
-                            currentExplosionCount = 0;
-                            Temperature = 0; 
-                        }
+                        currentExplosionCount++;
                     }
-                    else
+
+                    if (currentExplosionCount >= ExplosionLimit)
                     {
-                        if (Main.GameUpdateCount % 60 == 0)
-                        {
-                            if (currentExplosionCount > 0)
-                            {
-                                currentExplosionCount--;
-                            }
-                            if (currentExplosionCount < 0)
-                            {
-                                currentExplosionCount = 0;
-                            }
-                        }
+                        Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center, Vector2.Zero, ModContent.ProjectileType<BlueflameMassiveExplosion>(), 20000, 10f, Player.whoAmI);
+                        currentExplosionCount = 0;
+                        Temperature = 0;
+                    }
+                }
+                else
+                {
+                    if (currentExplosionCount > 0)
+                    {
+                        currentExplosionCount--;
                     }
                 }
             }
         }
-
-      
     }
 }

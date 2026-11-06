@@ -18,6 +18,7 @@ using MyHeroMod.content.UI.ZeroGravityUI;
 using MyHeroMod.content.UI.OpticUI;
 using MyHeroMod.content.UI.RedRiotUI;
 using MyHeroMod.content.UI.ExplosionUI;
+using MyHeroMod.content.UI.DabiMeltdownUI;
 
 namespace MyHeroMod.content.UI
 {
@@ -75,7 +76,8 @@ namespace MyHeroMod.content.UI
                     new HudBar(new NauseaUIState(), "MyHeroMod: Nausea Bar"),
                     new HudBar(new FullCowlingUIState(), "MyHeroMod: Full Cowling Bar"),
                     new HudBar(new RedRiotShieldUIState(), "MyHeroMod: Red Riot Bar"),
-                    new HudBar(new FierceUIState(), "MyHeroMod: Fierce Wings Bar")
+                    new HudBar(new FierceUIState(), "MyHeroMod: Fierce Wings Bar"),
+                    new HudBar(new MeltdownUIState(), "MyHeroMod: Meltdown Bar")
                 };
 
                 KhacesCore.Content.System.CoreUISystem.RegisterTab(
