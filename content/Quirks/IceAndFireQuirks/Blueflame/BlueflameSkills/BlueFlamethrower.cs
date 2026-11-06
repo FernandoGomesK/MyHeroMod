@@ -41,8 +41,32 @@ public class BlueFlamethrowerSkill: QuirkBaseSkill
         }
    
     public override string Description => "Shoot a constant stream of fire";
-    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blueflame/BlueJetBurnIcon";
-    public override string Category => "Fire";
+    public override string IconPath
+    {
+        get
+        {
+            Player player = Main.LocalPlayer;
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+            if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
+            {
+                return "MyHeroMod/Assets/SkillIcons/Blueflame/BlueFlamethrower/BlueJetBurnIcon";
+            }
+            if (transPlayer.CurrentStage == QuirkStage.Adequation)
+            {
+                return "MyHeroMod/Assets/SkillIcons/Blueflame/BlueFlamethrower/MidBJetBurnIcon";
+            }
+            else if (transPlayer.CurrentStage == QuirkStage.Initial)
+            {
+                return "MyHeroMod/Assets/SkillIcons/Blueflame/BlueFlamethrower/InitBJetBurnIcon";
+            }
+            else
+            {
+                return "MyHeroMod/Assets/SkillIcons/Blueflame/BlueFlamethrower/BlueJetBurnIcon";
+            }
+
+        }
+    }
+    public override string Category => "Blueflame";
 
     public override int BaseCooldown => 900;
 

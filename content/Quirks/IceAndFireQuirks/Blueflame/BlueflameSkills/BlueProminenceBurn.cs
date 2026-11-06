@@ -28,7 +28,7 @@ public class BlueProminenceSkill: QuirkBaseSkill
    
     public override string Description => "Shoot a fireball";
     public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blueflame/BlueProminenceIcon";
-    public override string Category => "Fire";
+    public override string Category => "Blueflame";
 
     public override int BaseCooldown => 1200;
 

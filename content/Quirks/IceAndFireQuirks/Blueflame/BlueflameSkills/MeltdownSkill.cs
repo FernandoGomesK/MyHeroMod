@@ -24,7 +24,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Skills
         public override string Name => "Meltdown";
         public override string Description => "Detonate yourself";
         public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blueflame/BlueFireballIcon";
-        public override string Category => "Fire";
+        public override string Category => "Blueflame";
 
         public override int BaseCooldown => 10800;
 
