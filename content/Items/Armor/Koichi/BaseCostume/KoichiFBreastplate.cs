@@ -4,10 +4,10 @@ using Terraria.ModLoader;
 using Terraria.GameContent.Creative;
 using MyHeroMod.content.System;
 
-namespace MyHeroMod.content.Items.Armor.Koichi.BaseCostume
+namespace MyHeroMod.content.Items.Vanities.AllMightClothes
 {
     [AutoloadEquip(EquipType.Body)]
-    public class KoichiFBreastplate : ModItem
+    public class AllMightShirt : ModItem
     {
         public static int FemaleBodySlot;
 

@@ -6,13 +6,13 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System;
-        public bool wasGearshiftBuffActive = false;
+using KhacesCore.Content.System.Interfaces;
+using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Debuffs;
+using MyHeroMod.content.System.Interfaces;
 
-        public bool GearActivation = false;
-        public int ActivationTimer = 0;
-        public int ActivationMaxTime = 40;
-
-        // ---------- Tabelas por estágio ----------
+namespace MyHeroMod.content.Quirks.Gearshift
+{
     // PARTE 1: DADOS E LÓGICA
     public partial class GearshiftPlayer : ModPlayer, IDashModifier, IQuirkResetter
     {
@@ -89,6 +89,17 @@ using KhacesCore.Content.System;
         {
             if (!GearActivation)
                 return;
+
+            ActivationTimer++;
+            Player.velocity *= 0.8f;
+
+            if (Main.rand.NextBool(2))
+            {
+                Dust d = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, Color.Cyan, 0.5f);
+                d.noGravity = true;
+                d.velocity *= 0.5f;
+            }
+
             if (ActivationTimer >= ActivationMaxTime)
             {
                 GearActivation = false;
@@ -126,6 +137,11 @@ using KhacesCore.Content.System;
                 Player.whoAmI
             );
         }
+
+        public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (isGearshiftBuffActive)
+            {
                 velocity *= 2.5f;
                 damage = (int)(damage * 1.3f);
             }

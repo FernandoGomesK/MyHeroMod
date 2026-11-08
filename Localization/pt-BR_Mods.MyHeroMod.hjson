@@ -715,6 +715,26 @@ Items: {
 		// DisplayName: Gran Torino Mask
 		// Tooltip: ""
 	}
+
+	UAJacket: {
+		// DisplayName: U A Jacket
+		// Tooltip: ""
+	}
+
+	AllMightPants: {
+		// DisplayName: All Might Pants
+		// Tooltip: ""
+	}
+
+	AllMightPantsRed: {
+		// DisplayName: All Might Pants Red
+		// Tooltip: ""
+	}
+
+	AllMightShirt: {
+		// DisplayName: All Might Shirt
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
