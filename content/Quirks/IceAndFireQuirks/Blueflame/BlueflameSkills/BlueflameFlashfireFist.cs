@@ -8,10 +8,27 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.BlueflameSkills
     {
         public override string Name => "Blueflame_FlashfireFist";
         public override string Category => "Blueflame";
-        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blueflame/BlueTorchIcon";
-        
+        public override string IconPath
+        {
+            get
+            {
+                Player player = Main.LocalPlayer;
+                var transPlayer = player.GetModPlayer<TransformationPlayer>();
+                if (transPlayer.CurrentStage >= QuirkStage.Intermediate)
+                {
+                    return "MyHeroMod/Assets/SkillIcons/Blueflame/Forms/BlueFistIcon";
+                }
+                else
+                {
+                    return "MyHeroMod/Assets/SkillIcons/Blueflame/Forms/BlueTorchIcon";
+                }
+
+            }
+        }
+
         public override QuirkType RequiredQuirk => QuirkType.Blueflame;
         public override QuirkStage RequiredStage => QuirkStage.Adequation;
+     
 
         public override string GetDisplayName(Player player)
         {

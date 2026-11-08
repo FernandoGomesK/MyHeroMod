@@ -22,6 +22,7 @@ namespace MyHeroMod.content.Buffs
             
            
             var overclockPlayer = player.GetModPlayer<OverclockPlayer>();
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
             
             overclockPlayer.isOverclockBuffActive = true;
 
@@ -31,21 +32,28 @@ namespace MyHeroMod.content.Buffs
             player.jumpSpeedBoost += 4.0f; 
             player.noFallDmg = true;
 
-            
-            if (Main.rand.NextFloat() < 0.6f) 
+            if (transPlayer.CurrentVariant == QuirkVariant.Variant1)
             {
-                int dustType = ModContent.DustType<ElectricityDust>();
-
-                
-                Vector2 spawnOffset = Main.rand.NextVector2CircularEdge(35f, 45f); 
-                Vector2 dustSpawnPos = player.Center + spawnOffset;
-
-                
-                Vector2 dustVelocity = new Vector2(spawnOffset.X * 0.05f, -Main.rand.NextFloat(1f, 3f));
-
-               
-                Dust.NewDustPerfect(dustSpawnPos, dustType, dustVelocity, 0, Color.Yellow, 1.2f);
+                return;
             }
+            else
+            {
+                if (Main.rand.NextFloat() < 0.6f)
+                {
+                    int dustType = ModContent.DustType<ElectricityDust>();
+
+
+                    Vector2 spawnOffset = Main.rand.NextVector2CircularEdge(35f, 45f);
+                    Vector2 dustSpawnPos = player.Center + spawnOffset;
+
+
+                    Vector2 dustVelocity = new Vector2(spawnOffset.X * 0.05f, -Main.rand.NextFloat(1f, 3f));
+
+
+                    Dust.NewDustPerfect(dustSpawnPos, dustType, dustVelocity, 0, Color.Yellow, 1.2f);
+                }
+            }
+            
 
            
 

@@ -27,7 +27,6 @@ namespace MyHeroMod.content.Quirks.Overclock
         
         if (Player.HasBuff(ModContent.BuffType<OverclockBuff>()))
         {
-        // This adds a blue tint/glow to the character sprite itself
         drawInfo.colorArmorBody = Color.Yellow;
         drawInfo.colorArmorHead = Color.Yellow;
         drawInfo.colorArmorLegs = Color.Yellow;

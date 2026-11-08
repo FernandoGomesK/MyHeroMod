@@ -116,6 +116,19 @@ namespace MyHeroMod.content.System
                     Main.NewText($"You awakened: An Optic Blast?!", Color.Yellow);
                 }
             }
+            else if (quirkType == QuirkType.Overclock)
+            {
+                if (Main.rand.Next(100) < 80)
+                {
+                    transPlayer.CurrentVariant = QuirkVariant.Variant1;
+                    Main.NewText("You awakened: Neural Upgrade", Color.Green);
+                }
+                else
+                {
+                    transPlayer.CurrentVariant = QuirkVariant.Default;
+                    Main.NewText($"You awakened: Overclock", Color.Yellow);
+                }
+            }
             else if (quirkType == QuirkType.Engine)
             {
                 if (Main.rand.Next(100) < 48)

@@ -15,13 +15,22 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame
             var mainPlayer = Player.GetModPlayer<TransformationPlayer>();
             if (!mainPlayer.HasActiveQuirk(QuirkType.Blueflame)) return;
 
+
+            int addition = currentExplosionCount switch
+            {
+                >= 75 => 8,
+                >= 50 => 4,
+                >= 25 => 2,
+                _ => 1 
+            };
+
             if (Main.GameUpdateCount % 60 == 0)
             {
                 if (isConcentrating && Temperature >= (MaxTemperature / 2))
                 {
                     if (currentExplosionCount < ExplosionLimit)
                     {
-                        currentExplosionCount++;
+                        currentExplosionCount += addition;
                     }
 
                     if (currentExplosionCount >= ExplosionLimit)

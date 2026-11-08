@@ -211,9 +211,15 @@ namespace MyHeroMod.content.UI
             skillList.Clear();
 
             if (Enum.TryParse(currentCategory, out QuirkType parsedQuirk))
-            {        
+            {
                 string displayName = QuirkHandler.GetQuirkDisplayName(parsedQuirk);
-                infoText.SetText($"[c/00FFFF:{displayName}:] {QuirkHandler.GetQuirkDescription(parsedQuirk)}");
+                string variantName = QuirkHandler.GetVariantDisplayName(parsedQuirk, playerRef.CurrentVariant);
+
+                string headerTitle = string.IsNullOrEmpty(variantName)
+                    ? displayName
+                    : $"{displayName} - {variantName}";
+
+                infoText.SetText($"[c/00FFFF:{headerTitle}:] {QuirkHandler.GetQuirkDescription(parsedQuirk)}");
             }
             else if (currentCategory == "Deku Armor")
             {
@@ -224,39 +230,39 @@ namespace MyHeroMod.content.UI
                 infoText.SetText($"[c/00FFFF:{currentCategory}:] General techniques and abilities.");
             }
 
-            foreach (var skillId in SkillLibrary.GetAllIds()) 
+            foreach (var skillId in SkillLibrary.GetAllIds())
             {
-                var skillInstance = SkillLibrary.GetSkill(skillId); 
+                var skillInstance = SkillLibrary.GetSkill(skillId);
                 if (skillInstance == null || skillInstance.Category != currentCategory) continue;
-                
+
                 bool unlocked = skillInstance is QuirkBaseSkill qs ? qs.CheckUnlock(playerRef) : skillInstance.CanUse(playerRef.Player);
                 if (!unlocked) continue;
-                        
+
                 UIPanel button = new UIPanel();
                 button.Width.Set(0, 1f);
-                button.Height.Set(50, 0); 
+                button.Height.Set(50, 0);
                 button.BackgroundColor = new Color(60, 60, 100);
 
                 UIImage icon = new UIImage(GetIconAsset(skillInstance));
-                icon.Width.Set(32, 0); 
-                icon.Height.Set(32, 0); 
+                icon.Width.Set(32, 0);
+                icon.Height.Set(32, 0);
                 icon.Left.Set(5, 0);
                 icon.VAlign = 0.5f;
-                icon.IgnoresMouseInteraction = true; 
+                icon.IgnoresMouseInteraction = true;
                 button.Append(icon);
 
                 UIText text = new UIText(skillInstance.GetDisplayName(Main.LocalPlayer), 0.7f);
-                text.Left.Set(45, 0); 
+                text.Left.Set(45, 0);
                 text.VAlign = 0.5f;
                 text.IgnoresMouseInteraction = true;
                 button.Append(text);
 
                 button.OnMouseOver += (evt, elem) => button.BackgroundColor = new Color(80, 80, 140);
                 button.OnMouseOut += (evt, elem) => button.BackgroundColor = new Color(60, 60, 100);
-                
+
                 button.OnLeftClick += (evt, elem) =>
                 {
-                    selectedSkill = skillId; 
+                    selectedSkill = skillId;
                     selectedSkillText.SetText($"Currently Selected: [c/00FF00:{skillInstance.GetDisplayName(Main.LocalPlayer)}]");
                     SoundEngine.PlaySound(SoundID.MenuTick);
                 };
@@ -268,7 +274,7 @@ namespace MyHeroMod.content.UI
 
                 skillList.Add(button);
             }
-            
+
             Recalculate();
         }
 

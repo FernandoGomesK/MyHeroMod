@@ -13,12 +13,12 @@ namespace MyHeroMod.content.Quirks.FaJin.Skills
         public override string Name => "Concentrate";
         public override string Description => "Toggle Explosion energy buildup.";
 
-        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Fajin/Fajin";
-        public override string Category => "Blueglame";
+        public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blueflame/ConcentrateIcon";
+        public override string Category => "Blueflame";
         public override int BaseCooldown => 30;
 
         public override QuirkType RequiredQuirk => QuirkType.Blueflame;
-        public override QuirkStage RequiredStage => QuirkStage.Initial;
+        public override QuirkStage RequiredStage => QuirkStage.Intermediate;
 
         public override int BuffType => ModContent.BuffType<ConcentratingBuff>();
         public override string ToggleOnText => "";

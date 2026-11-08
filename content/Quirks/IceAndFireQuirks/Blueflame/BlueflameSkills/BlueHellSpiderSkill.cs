@@ -17,7 +17,8 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame.Skills
    
             return "Flashfire Fist: Hell Spider"; 
         }
-        
+        public override string Category => "Blueflame";
+
         public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blueflame/BlueSpiderIcon";
         public override QuirkType RequiredQuirk => QuirkType.Blueflame;
         public override QuirkStage RequiredStage => QuirkStage.Intermediate;    

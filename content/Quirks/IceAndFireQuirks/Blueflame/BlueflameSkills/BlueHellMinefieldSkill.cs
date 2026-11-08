@@ -18,7 +18,7 @@ namespace MyHeroMod.content.Quirks.IceAndFireQuirks.BaseSkills
         public override string Description => "Release a wave of fire that leaves explosive mines along the ground.";
         public override string IconPath => "MyHeroMod/Assets/SkillIcons/Blueflame/BlueHellmineIcon";
   
-        public override string Category => "HellFlames"; 
+        public override string Category => "Blueflame"; 
 
         public override int BaseCooldown => 2100;
         public override QuirkType RequiredQuirk => QuirkType.Blueflame;

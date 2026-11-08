@@ -6,13 +6,13 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System;
-using KhacesCore.Content.System.Interfaces;
-using MyHeroMod.content.Projectiles;
-using MyHeroMod.content.Debuffs;
-using MyHeroMod.content.System.Interfaces;
+        public bool wasGearshiftBuffActive = false;
 
-namespace MyHeroMod.content.Quirks.Gearshift
-{
+        public bool GearActivation = false;
+        public int ActivationTimer = 0;
+        public int ActivationMaxTime = 40;
+
+        // ---------- Tabelas por estágio ----------
     // PARTE 1: DADOS E LÓGICA
     public partial class GearshiftPlayer : ModPlayer, IDashModifier, IQuirkResetter
     {
@@ -74,7 +74,6 @@ namespace MyHeroMod.content.Quirks.Gearshift
 
         // ---------- Velocidade de corrida ----------
         // Roda depois dos acessórios (Hermes Boots etc.), então o bônus não é sobrescrito.
-        // (Movido do GearshiftBuff.Update)
         public override void PostUpdateRunSpeeds()
         {
             if (!isGearshiftBuffActive)
@@ -90,17 +89,6 @@ namespace MyHeroMod.content.Quirks.Gearshift
         {
             if (!GearActivation)
                 return;
-
-            ActivationTimer++;
-            Player.velocity *= 0.8f;
-
-            if (Main.rand.NextBool(2))
-            {
-                Dust d = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, Color.Cyan, 0.5f);
-                d.noGravity = true;
-                d.velocity *= 0.5f;
-            }
-
             if (ActivationTimer >= ActivationMaxTime)
             {
                 GearActivation = false;
@@ -138,14 +126,19 @@ namespace MyHeroMod.content.Quirks.Gearshift
                 Player.whoAmI
             );
         }
-
-        public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            if (isGearshiftBuffActive)
-            {
                 velocity *= 2.5f;
                 damage = (int)(damage * 1.3f);
             }
+        }
+
+        // ---------- Visual: rastro / afterimage ----------
+        // O histórico de posições e o desenho ficam no AfterimagePlayer / SpeedAfterimageLayer.
+        // Aqui só pedimos o efeito enquanto o buff estiver ativo (todo tick).
+
+        public override void PostUpdateMiscEffects()
+        {
+            if (isGearshiftBuffActive)
+                Player.GetModPlayer<AfterimagePlayer>().Request(AfterimagePalettes.Blue);
         }
 
         // ---------- Recoil ao fim do buff ----------

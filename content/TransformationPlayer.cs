@@ -6,6 +6,7 @@ using MyHeroMod.content.Quirks.DangerSense;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.Smokescreen;
 using MyHeroMod.content.System;
+using MyHeroMod.content.System.Handlers;
 using MyHeroMod.content.System.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -90,7 +91,7 @@ namespace MyHeroMod.content
         /// <inheritdoc/>
         public string PowerTypeName => "Quirk";
 
-        /// <summary>Friendly dsiplay name of the active quirks of the player.</summary>
+        /// <summary>Friendly display name of the active quirks of the player, including variants.</summary>
         public override string DisplayPowerName
         {
             get
@@ -110,7 +111,7 @@ namespace MyHeroMod.content
             }
         }
 
-        /// <summary>Frienfly name of the current powerStage.</summary>
+        /// <summary>Friendly name of the current powerStage.</summary>
         public override string DisplayPowerStage => CurrentStage switch
         {
             QuirkStage.Initial => "Initial",
@@ -123,7 +124,7 @@ namespace MyHeroMod.content
 
         /// <summary>
         /// Called by the core to recalculate the unlocked Skills
-        ///  <see cref="QuirkStage"/>
+        /// <see cref="QuirkStage"/>
         /// </summary>
         public void OnCoreStageChanged(int stageIndex)
         {
@@ -158,7 +159,6 @@ namespace MyHeroMod.content
         }
 
         /// <summary>
-
         /// Makes sure One for All 9th and 8th don't coexist, all for one 9th absorbs
         /// One for all 8th and sums 200 on the used time timer
         /// </summary>
@@ -179,7 +179,7 @@ namespace MyHeroMod.content
         }
 
         /// <summary>
-        /// Dadges using the higher chance between Dangersense and Smokescreen.
+        /// Dodges using the higher chance between Dangersense and Smokescreen.
         /// if the hit is dodged, triggers the visual and sound effect
         /// </summary>
         public override bool FreeDodge(Player.HurtInfo info)
@@ -211,7 +211,7 @@ namespace MyHeroMod.content
         }
 
         /// <summary>
-        /// When entering the world, recaculates skills, the stage, if initial trais where rolled
+        /// When entering the world, recalculates skills, the stage, if initial traits were rolled
         /// </summary>
         public override void OnEnterWorld()
         {
@@ -253,7 +253,7 @@ namespace MyHeroMod.content
         }
 
         /// <summary>
-        /// Loads Data. Mantains compatibility with the old architecture
+        /// Loads Data. Maintains compatibility with the old architecture
         /// </summary>
         public override void LoadData(TagCompound tag)
         {
@@ -308,23 +308,14 @@ namespace MyHeroMod.content
 
         #region Utilitários de Quirk
 
-        /// <summary>Friendly name for exhibition<see cref="QuirkType"/>.</summary>
-        private static string GetFriendlyQuirkName(QuirkType quirk) => quirk switch
+        /// <summary>Friendly name for exhibition of <see cref="QuirkType"/>, including variant names when applicable.</summary>
+        public string GetFriendlyQuirkName(QuirkType quirk)
         {
-            QuirkType.OneForAll9th => "One For All (9th)",
-            QuirkType.OneForAll8th => "One For All (8th)",
-            QuirkType.AllForOne => "All For One",
-            QuirkType.HalfColdHalfHot => "Half-Cold Half-Hot",
-            QuirkType.BlackWhip => "Black Whip",
-            QuirkType.SmokeScreen => "Smoke Screen",
-            QuirkType.SuperRegeneration => "Super Regeneration",
-            QuirkType.SlideAndGlide => "Slide and Glide",
-            QuirkType.SpringLikeLimbs => "Spring-Like Limbs",
-            QuirkType.ZeroGravity => "Zero Gravity",
-            QuirkType.FierceWings => "Fierce Wings",
-            QuirkType.OpticBlast => "Optic Blast",
-            _ => quirk.ToString()
-        };
+            string baseName = QuirkHandler.GetQuirkDisplayName(quirk);
+            string variantName = QuirkHandler.GetVariantDisplayName(quirk, CurrentVariant);
+
+            return !string.IsNullOrEmpty(variantName) ? $"{baseName} ({variantName})" : baseName;
+        }
 
         /// <summary>
         /// Verifies if the player has an active quirk, including stolen internal quirks
