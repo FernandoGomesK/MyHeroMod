@@ -1,9 +1,8 @@
-using Terraria;
-using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.OFA9th;
-using MyHeroMod.content.Quirks.Gearshift;
+using Terraria;
 using Terraria.ID;
+using Terraria.ModLoader;
+using MyHeroMod.content.Quirks.Gearshift;
 
 namespace MyHeroMod.content.Buffs
 {
@@ -17,36 +16,33 @@ namespace MyHeroMod.content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            var gearshiftPlayer = player.GetModPlayer<GearshiftPlayer>();
-            gearshiftPlayer.isGearshiftBuffActive = true;
+
+            player.GetModPlayer<GearshiftPlayer>().isGearshiftBuffActive = true;
 
             player.moveSpeed += 1.0f;
-            player.accRunSpeed += 5.0f; 
-            player.maxRunSpeed += 5.0f; 
-            player.jumpSpeedBoost += 2.0f; 
+            player.jumpSpeedBoost += 2.0f;
+            player.GetAttackSpeed(DamageClass.Generic) += 0.4f;
+            player.GetAttackSpeed(DamageClass.Ranged) += 0.8f;
             player.noFallDmg = true;
 
-            
-            if (Main.rand.NextBool(2)) 
+            if (Main.rand.NextBool(2))
             {
                 Vector2 offset = new Vector2(Main.rand.Next(-10, 11), Main.rand.Next(-10, 11));
-                
+
                 int dustIndex = Dust.NewDust(
-                    player.position + offset, 
-                    player.width, 
-                    player.height, 
-                    DustID.Electric, 
+                    player.position + offset,
+                    player.width,
+                    player.height,
+                    DustID.Electric,
                     0f,
-                    0f, 
-                    0, 
-                    Color.Green, 
-                    0.5f 
+                    0f,
+                    0,
+                    Color.Cyan, 
+                    0.5f
                 );
 
-            
-                Main.dust[dustIndex].velocity.X *= 0.1f; 
-                Main.dust[dustIndex].velocity.Y = -1.2f; 
-                
+                Main.dust[dustIndex].velocity.X *= 0.1f;
+                Main.dust[dustIndex].velocity.Y = -1.2f;
                 Main.dust[dustIndex].noGravity = true;
             }
         }
