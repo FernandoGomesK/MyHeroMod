@@ -1,7 +1,6 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
@@ -13,20 +12,43 @@ using MyHeroMod.content.System.Interfaces;
 
 namespace MyHeroMod.content.Quirks.Gearshift
 {
-    // PARTE 1: DADOS E LÓGICA
+    /// <summary>
+    /// State management for the Gearshift quirk: activation charge-up, buff and recoil handling,
+    /// movement and shooting bonuses, and the afterimage request.
+    /// </summary>
     public partial class GearshiftPlayer : ModPlayer, IDashModifier, IQuirkResetter
     {
-        // Variáveis de Estado
-        public bool isGearshiftBuffActive = false;
-        public bool wasGearshiftBuffActive = false;
+        #region Tuning
 
-        public bool GearActivation = false;
-        public int ActivationTimer = 0;
-        public int ActivationMaxTime = 40;
+        /// <summary>Run speed bonus while Gearshift is active and the player has One For All 9th.</summary>
+        public const float RunSpeedBoostOneForAll = 5.0f;
 
-        // ---------- Tabelas por estágio ----------
+        /// <summary>Run speed bonus while Gearshift is active without One For All 9th.</summary>
+        public const float RunSpeedBoostDefault = 2.0f;
 
-        private static int GetBuffDuration(QuirkStage stage) => stage switch
+        /// <summary>Multiplier applied to the velocity of every projectile shot while Gearshift is active.</summary>
+        public const float ProjectileVelocityMultiplier = 2.5f;
+
+        /// <summary>Multiplier applied to the damage of every attack shot while Gearshift is active.</summary>
+        public const float ProjectileDamageMultiplier = 1.3f;
+
+        /// <summary>Recoil duration multiplier for players with the Resistant Body nature.</summary>
+        public const float ResistantBodyRecoilMultiplier = 0.75f;
+
+        /// <summary>Velocity multiplier applied every tick during the activation charge-up.</summary>
+        public const float ActivationVelocityDamping = 0.8f;
+
+        /// <summary>Number of dust particles spawned in the burst when the charge-up finishes.</summary>
+        public const int ActivationBurstDustCount = 20;
+
+        /// <summary>Offset from the player's center where the onomatopoeia projectile spawns.</summary>
+        private static readonly Vector2 OnomatopoeiaOffset = new(0f, -60f);
+
+        /// <summary>Color shared by every Gearshift dust effect.</summary>
+        private static readonly Color DustColor = Color.Cyan;
+
+        /// <summary>Gets the Gearshift buff duration (in ticks) for the given stage.</summary>
+        public static int GetBuffDuration(QuirkStage stage) => stage switch
         {
             QuirkStage.Initial => 380,
             QuirkStage.Adequation => 590,
@@ -36,7 +58,8 @@ namespace MyHeroMod.content.Quirks.Gearshift
             _ => 6000
         };
 
-        private static int GetRecoilDuration(QuirkStage stage) => stage switch
+        /// <summary>Gets the base recoil debuff duration (in ticks) for the given stage.</summary>
+        public static int GetRecoilDuration(QuirkStage stage) => stage switch
         {
             QuirkStage.Initial => 187,
             QuirkStage.Adequation => 375,
@@ -46,8 +69,33 @@ namespace MyHeroMod.content.Quirks.Gearshift
             _ => 6000
         };
 
-        // ---------- Reset ----------
+        #endregion
 
+        #region State
+
+        /// <summary>True on every tick in which the Gearshift buff is active. Reset each tick in <see cref="ResetEffects"/>.</summary>
+        public bool isGearshiftBuffActive = false;
+
+        /// <summary>Value of <see cref="isGearshiftBuffActive"/> on the previous tick.</summary>
+        public bool wasGearshiftBuffActive = false;
+
+        /// <summary>True while the activation charge-up is running.</summary>
+        public bool GearActivation = false;
+
+        /// <summary>Ticks elapsed in the current activation charge-up.</summary>
+        public int ActivationTimer = 0;
+
+        /// <summary>Ticks the activation charge-up lasts before the buff is applied.</summary>
+        public int ActivationMaxTime = 40;
+
+        /// <summary>True if this ModPlayer belongs to the client's own player.</summary>
+        private bool IsLocalPlayer => Player.whoAmI == Main.myPlayer;
+
+        #endregion
+
+        #region Reset
+
+        /// <inheritdoc cref="IQuirkResetter.FullReset"/>
         public void FullReset()
         {
             ResetGearshiftState();
@@ -58,10 +106,11 @@ namespace MyHeroMod.content.Quirks.Gearshift
             ResetGearshiftState();
         }
 
+        /// <summary>Clears the buff and cancels any activation in progress.</summary>
         private void ResetGearshiftState()
         {
             isGearshiftBuffActive = false;
-            GearActivation = false; // evita a ativação terminar depois de morrer/resetar
+            GearActivation = false;
             ActivationTimer = 0;
             Player.ClearBuff(ModContent.BuffType<GearshiftBuff>());
         }
@@ -72,18 +121,38 @@ namespace MyHeroMod.content.Quirks.Gearshift
             isGearshiftBuffActive = false;
         }
 
-        // ---------- Velocidade de corrida ----------
-        // Roda depois dos acessórios (Hermes Boots etc.), então o bônus não é sobrescrito.
+        #endregion
+
+        #region Movement and combat
+
+        /// <summary>
+        /// Applies the run speed bonus. Runs after accessories 
+        /// so the bonus is not overwritten.
+        /// </summary>
         public override void PostUpdateRunSpeeds()
         {
             if (!isGearshiftBuffActive)
                 return;
 
-            Player.maxRunSpeed += 5.0f;
-            Player.accRunSpeed += 5.0f;
+            bool hasOneForAll = Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th);
+            float speedBoost = hasOneForAll ? RunSpeedBoostOneForAll : RunSpeedBoostDefault;
+
+            Player.maxRunSpeed += speedBoost;
+            Player.accRunSpeed += speedBoost;
         }
 
-        // ---------- Ativação ----------
+        public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
+        {
+            if (!isGearshiftBuffActive)
+                return;
+
+            velocity *= ProjectileVelocityMultiplier;
+            damage = (int)(damage * ProjectileDamageMultiplier);
+        }
+
+        #endregion
+
+        #region Activation
 
         public override void PreUpdate()
         {
@@ -91,11 +160,11 @@ namespace MyHeroMod.content.Quirks.Gearshift
                 return;
 
             ActivationTimer++;
-            Player.velocity *= 0.8f;
+            Player.velocity *= ActivationVelocityDamping;
 
-            if (Main.rand.NextBool(2))
+            if (Main.netMode != NetmodeID.Server && Main.rand.NextBool(2))
             {
-                Dust d = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, Color.Cyan, 0.5f);
+                Dust d = Dust.NewDustDirect(Player.position, Player.width, Player.height, DustID.Electric, 0, 0, 100, DustColor, 0.5f);
                 d.noGravity = true;
                 d.velocity *= 0.5f;
             }
@@ -108,28 +177,31 @@ namespace MyHeroMod.content.Quirks.Gearshift
             }
         }
 
+        /// <summary>
+        /// Finishes the charge-up. The dust burst runs on every client; the buff and the
+        /// onomatopoeia projectile are only created by the owner, because the buff is synced by vanilla
+        /// and the projectile is replicated by the server (creating them everywhere would duplicate them).
+        /// </summary>
         private void ActivateGearshift()
         {
-            // Efeito visual: roda em todos os clientes
-            for (int i = 0; i < 20; i++)
+            if (Main.netMode != NetmodeID.Server)
             {
-                Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
-                Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, speed.X, speed.Y, 0, Color.Cyan, 2f);
+                for (int i = 0; i < ActivationBurstDustCount; i++)
+                {
+                    Vector2 speed = Main.rand.NextVector2Circular(8f, 8f);
+                    Dust.NewDust(Player.position, Player.width, Player.height, DustID.Electric, speed.X, speed.Y, 0, DustColor, 2f);
+                }
             }
 
-            // Buff e projétil só no dono do jogador.
-            // Nos outros clientes, o buff chega pela sincronização do vanilla e o projétil
-            // é replicado pelo servidor; criar aqui duplicaria o projétil N vezes.
-            if (Player.whoAmI != Main.myPlayer)
+            if (!IsLocalPlayer)
                 return;
 
             var transformPlayer = Player.GetModPlayer<TransformationPlayer>();
             Player.AddBuff(ModContent.BuffType<GearshiftBuff>(), GetBuffDuration(transformPlayer.CurrentStage));
 
-            Vector2 textPosition = Player.Center + new Vector2(0, -60f);
             Projectile.NewProjectile(
                 Player.GetSource_FromThis(),
-                textPosition,
+                Player.Center + OnomatopoeiaOffset,
                 Vector2.Zero,
                 ModContent.ProjectileType<OverdriveOnomatopoeia>(),
                 0,
@@ -138,18 +210,9 @@ namespace MyHeroMod.content.Quirks.Gearshift
             );
         }
 
-        public override void ModifyShootStats(Item item, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-        {
-            if (isGearshiftBuffActive)
-            {
-                velocity *= 2.5f;
-                damage = (int)(damage * 1.3f);
-            }
-        }
+        #endregion
 
-        // ---------- Visual: rastro / afterimage ----------
-        // O histórico de posições e o desenho ficam no AfterimagePlayer / SpeedAfterimageLayer.
-        // Aqui só pedimos o efeito enquanto o buff estiver ativo (todo tick).
+        #region Visuals
 
         public override void PostUpdateMiscEffects()
         {
@@ -157,55 +220,36 @@ namespace MyHeroMod.content.Quirks.Gearshift
                 Player.GetModPlayer<AfterimagePlayer>().Request(AfterimagePalettes.Blue);
         }
 
-        // ---------- Recoil ao fim do buff ----------
+        #endregion
 
+        #region Recoil
+
+        /// <summary>
+        /// Applies the recoil debuff on the tick the Gearshift buff ends.
+        /// Only the owner applies it; other clients receive the debuff through vanilla buff sync.
+        /// </summary>
         public override void PostUpdateBuffs()
         {
-            // Só o dono aplica; os outros clientes recebem o debuff sincronizado
-            if (Player.whoAmI != Main.myPlayer)
+            if (!IsLocalPlayer)
                 return;
 
             if (!wasGearshiftBuffActive || isGearshiftBuffActive)
                 return;
 
             var transformPlayer = Player.GetModPlayer<TransformationPlayer>();
+
+            if (!transformPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
+                return;
+
             int recoilDuration = GetRecoilDuration(transformPlayer.CurrentStage);
 
             if (transformPlayer.Nature == NatureType.ResistantBody)
-                recoilDuration = (int)(recoilDuration * 0.75f);
+                recoilDuration = (int)(recoilDuration * ResistantBodyRecoilMultiplier);
 
             if (recoilDuration > 0)
                 Player.AddBuff(ModContent.BuffType<GearshiftRecoil>(), recoilDuration);
         }
 
-        // ---------- Netcode ----------
-
-        public override void CopyClientState(ModPlayer targetCopy)
-        {
-            GearshiftPlayer clone = targetCopy as GearshiftPlayer;
-            clone.GearActivation = GearActivation;
-        }
-
-        public override void SyncPlayer(int toWho, int fromWho, bool newPlayer)
-        {
-            ModPacket packet = Mod.GetPacket();
-            packet.Write((byte)MyHeroMod.MessageType.SyncGearshift);
-            packet.Write((byte)Player.whoAmI);
-            packet.Write(GearActivation);
-            packet.Send(toWho, fromWho);
-        }
-
-        public override void SendClientChanges(ModPlayer clientPlayer)
-        {
-            GearshiftPlayer clone = clientPlayer as GearshiftPlayer;
-            if (GearActivation != clone.GearActivation)
-            {
-                ModPacket packet = Mod.GetPacket();
-                packet.Write((byte)MyHeroMod.MessageType.SyncGearshift);
-                packet.Write((byte)Player.whoAmI);
-                packet.Write(GearActivation);
-                packet.Send(-1, Player.whoAmI);
-            }
-        }
+        #endregion
     }
 }

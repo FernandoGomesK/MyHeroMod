@@ -1264,6 +1264,7 @@ Projectiles: {
 	SingleHeadbuttProj.DisplayName: Single Headbutt Proj
 	DashChainProj.DisplayName: Dash Chain Proj
 	BlueflameMassiveExplosion.DisplayName: Blueflame Massive Explosion
+	SmokePointProj.DisplayName: Smoke Point Proj
 }
 
 NPCs: {
