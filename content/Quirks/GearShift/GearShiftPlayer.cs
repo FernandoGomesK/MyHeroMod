@@ -9,6 +9,8 @@ using KhacesCore.Content.System.Interfaces;
 using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.System.Interfaces;
+using Steamworks;
+using MyHeroMod.content.Buffs.Gearshift;
 
 namespace MyHeroMod.content.Quirks.Gearshift
 {
@@ -76,6 +78,8 @@ namespace MyHeroMod.content.Quirks.Gearshift
         /// <summary>True on every tick in which the Gearshift buff is active. Reset each tick in <see cref="ResetEffects"/>.</summary>
         public bool isGearshiftBuffActive = false;
 
+        public bool isTopGearActive = false;
+
         /// <summary>Value of <see cref="isGearshiftBuffActive"/> on the previous tick.</summary>
         public bool wasGearshiftBuffActive = false;
 
@@ -113,12 +117,14 @@ namespace MyHeroMod.content.Quirks.Gearshift
             GearActivation = false;
             ActivationTimer = 0;
             Player.ClearBuff(ModContent.BuffType<GearshiftBuff>());
+            Player.ClearBuff(ModContent.BuffType<TopGearBuff>());
         }
 
         public override void ResetEffects()
         {
             wasGearshiftBuffActive = isGearshiftBuffActive;
             isGearshiftBuffActive = false;
+            isTopGearActive = false;
         }
 
         #endregion
@@ -233,21 +239,28 @@ namespace MyHeroMod.content.Quirks.Gearshift
             if (!IsLocalPlayer)
                 return;
 
-            if (!wasGearshiftBuffActive || isGearshiftBuffActive)
-                return;
+            if (wasGearshiftBuffActive && !isGearshiftBuffActive)
+            {
 
-            var transformPlayer = Player.GetModPlayer<TransformationPlayer>();
+                var transformPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            if (!transformPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
-                return;
+                Player.ClearBuff(ModContent.BuffType<TopGearBuff>());
+                if (transformPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
+                {
 
-            int recoilDuration = GetRecoilDuration(transformPlayer.CurrentStage);
+                    Player.ClearBuff(ModContent.BuffType<TopGearBuff>());
+                    int recoilDuration = GetRecoilDuration(transformPlayer.CurrentStage);
 
-            if (transformPlayer.Nature == NatureType.ResistantBody)
-                recoilDuration = (int)(recoilDuration * ResistantBodyRecoilMultiplier);
+                    if (transformPlayer.Nature == NatureType.ResistantBody)
+                    {
+                      
+                        recoilDuration = (int)(recoilDuration * ResistantBodyRecoilMultiplier);
+                    }
 
-            if (recoilDuration > 0)
-                Player.AddBuff(ModContent.BuffType<GearshiftRecoil>(), recoilDuration);
+                    if (recoilDuration > 0)
+                        Player.AddBuff(ModContent.BuffType<GearshiftRecoil>(), recoilDuration);
+                }
+            }
         }
 
         #endregion

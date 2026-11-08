@@ -17,9 +17,5 @@
         <ProjectReference Include="..\KhacesCore\KhacesCore.csproj" />
     </ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="content\Buffs\Gearshift\" />
-	</ItemGroup>
-
 
 </Project>

@@ -1,6 +1,8 @@
 using Terraria;
 using Terraria.ModLoader;
-using MyHeroMod.content.Buffs; 
+using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.Gearshift;
+
 
 namespace MyHeroMod.content.System
 {
@@ -23,6 +25,12 @@ namespace MyHeroMod.content.System
                 {
                     IsTimeStopped = true;
                     break; 
+                }
+
+                if (p.active && !p.dead && p.HasBuff(ModContent.BuffType<GearshiftBuff>()) && p.HasBuff(ModContent.BuffType<TopGearBuff>()))
+                {
+                    IsTimeStopped = true;
+                    break;
                 }
             }
         }

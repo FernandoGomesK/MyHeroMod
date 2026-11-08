@@ -1058,6 +1058,16 @@ Buffs: {
 		DisplayName: Concentrating Buff
 		Description: Mods.MyHeroMod.Buffs.ConcentratingBuff.Description
 	}
+
+	TopGearBuff: {
+		DisplayName: Top Gear Buff
+		Description: Mods.MyHeroMod.Buffs.TopGearBuff.Description
+	}
+
+	ChangedGearBuff: {
+		DisplayName: Changed Gear Buff
+		Description: Mods.MyHeroMod.Buffs.ChangedGearBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own body with 100% power!"
@@ -1265,6 +1275,7 @@ Projectiles: {
 	DashChainProj.DisplayName: Dash Chain Proj
 	BlueflameMassiveExplosion.DisplayName: Blueflame Massive Explosion
 	SmokePointProj.DisplayName: Smoke Point Proj
+	ChangeGearProj.DisplayName: Change Gear Proj
 }
 
 NPCs: {

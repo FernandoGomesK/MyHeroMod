@@ -1,8 +1,8 @@
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-
 using KhacesCore.Content.System.BaseProjectiles;
+using MyHeroMod.content.Buffs.Gearshift;
 
 namespace MyHeroMod.content.System
 {
@@ -18,7 +18,12 @@ namespace MyHeroMod.content.System
                 {
                     return base.PreAI(projectile);
                 }
-                               
+
+                if (owner.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.Gearshift) && owner.HasBuff(ModContent.BuffType<TopGearBuff>()))
+                {
+                    return base.PreAI(projectile);
+                }
+
                 projectile.velocity = Vector2.Zero;
                 projectile.frameCounter = 0; 
                 

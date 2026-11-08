@@ -1,6 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.Gearshift;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.Gearshift;
@@ -34,18 +35,28 @@ public class TopGearSkill : QuirkBaseSkill
     public override string Category => "Gearshift";
     public override int BaseCooldown => 600;
     public override QuirkType RequiredQuirk => QuirkType.Gearshift;
-    public override QuirkStage RequiredStage => QuirkStage.Initial;
-    public override QuirkStage RequiredOfaStage => QuirkStage.Advanced;
+    public override QuirkStage RequiredStage => QuirkStage.Advanced;
+    public override QuirkStage RequiredOfaStage => QuirkStage.Final;
     public override bool IsDefaultSkill => false;
     
 
     public override void OnUse(Player player)
     {
         var gearshiftPlayer = player.GetModPlayer<GearshiftPlayer>();
+        var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+        int buffTime = transPlayer.CurrentStage switch
+        {
+            QuirkStage.Intermediate => 300,
+            QuirkStage.Advanced => 400,
+            QuirkStage.Final => 500,
+            _ => 300
+        };
 
         if (player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
         {
-
+            
+            player.AddBuff(ModContent.BuffType<TopGearBuff>(), buffTime);
         }
         else
         {
