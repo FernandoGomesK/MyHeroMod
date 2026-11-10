@@ -1,11 +1,13 @@
-using Terraria;
-using Terraria.ModLoader;
-using MyHeroMod.content.Buffs;
-using MyHeroMod.content.System;
-using MyHeroMod.content;
-using MyHeroMod.content.Quirks.Gearshift;
 using Microsoft.Xna.Framework;
+using MyHeroMod.content;
+using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Quirks.Gearshift;
+using MyHeroMod.content.Quirks.GearShift.Projectiles;
+using MyHeroMod.content.System;
+using Terraria;
 using Terraria.Audio;
+using Terraria.ModLoader;
 
 
 
@@ -39,9 +41,24 @@ public class ChangeGearSkill : QuirkBaseSkill
     public override bool IsDefaultSkill => false;
     
 
-    public override void OnUse(Player player)
+ 
+
+        public override void OnUse(Player player)
     {
-        
+        Vector2 Velocity = Main.MouseWorld - player.Center;
+        Velocity.Normalize();
+        Velocity *= 15f;
+
+        Projectile.NewProjectile(
+            player.GetSource_FromThis(),
+            player.Center,
+            Velocity,
+            ModContent.ProjectileType<ChangeGearProj>(),
+            15,
+            2f,
+            player.whoAmI);
     }
+
 }
+
 

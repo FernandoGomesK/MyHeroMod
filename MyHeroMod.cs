@@ -115,6 +115,8 @@ namespace MyHeroMod
         /// </summary>
         public override void HandlePacket(BinaryReader reader, int whoAmI)
         {
+            
+            long start = reader.BaseStream.Position;
             MessageType msgType = (MessageType)reader.ReadByte();
 
             try
@@ -169,6 +171,11 @@ namespace MyHeroMod
             {
                 Logger.Warn($"[MyHeroMod] Failed handling packet '{msgType}' from player {whoAmI}: {e}");
             }
+            //finally
+            //{
+            //    long consumed = reader.BaseStream.Position - start;
+            //    Logger.Info($"[Net] {msgType} de {whoAmI} | bytes lidos: {consumed}");
+            //}
         }
 
         /// <summary>
