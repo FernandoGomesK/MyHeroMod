@@ -6,9 +6,9 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.ZeroGravity;
 using MyHeroMod.content.Quirks.OFA9th;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.OFA8th;
 using KhacesCore.Content.System;
+using MyHeroMod.content.Buffs.Gearshift;
 
 namespace MyHeroMod.content.UI.FullCowlUI
 {

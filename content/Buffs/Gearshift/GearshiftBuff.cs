@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.Quirks.Gearshift;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.Gearshift
 {
     public class GearshiftBuff : ModBuff
     {
@@ -23,6 +23,7 @@ namespace MyHeroMod.content.Buffs
             player.jumpSpeedBoost += 2.0f;
             player.GetAttackSpeed(DamageClass.Generic) += 0.4f;
             player.GetAttackSpeed(DamageClass.Ranged) += 0.8f;
+            player.GetDamage(DamageClass.Ranged) += 0.5f;
             player.noFallDmg = true;
 
             if (Main.rand.NextBool(2))

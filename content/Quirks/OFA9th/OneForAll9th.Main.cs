@@ -22,6 +22,7 @@ using MyHeroMod.content.System.Interfaces;
 using System;
 using MyHeroMod.content.Quirks.AllForOne;
 using Humanizer;
+using MyHeroMod.content.Buffs.Gearshift;
 
 
 

@@ -9,7 +9,7 @@ using KhacesCore.Content.System;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.OFA8th;
 using MyHeroMod.content.Projectiles;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.Gearshift;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Skills 
 {

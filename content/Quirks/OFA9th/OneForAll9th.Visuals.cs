@@ -9,6 +9,7 @@ using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System.Interfaces;
 using MyHeroMod.content.System.Interfaces;
+using MyHeroMod.content.Buffs.Gearshift;
 
 
 namespace MyHeroMod.content.Quirks.OFA9th

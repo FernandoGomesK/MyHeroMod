@@ -1,6 +1,5 @@
 using Terraria;
 using Terraria.ModLoader;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Buffs.Gearshift;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
@@ -35,7 +34,7 @@ public class TopGearSkill : QuirkBaseSkill
     public override string Category => "Gearshift";
     public override int BaseCooldown => 600;
     public override QuirkType RequiredQuirk => QuirkType.Gearshift;
-    public override QuirkStage RequiredStage => QuirkStage.Advanced;
+    public override QuirkStage RequiredStage => QuirkStage.Intermediate;
     public override QuirkStage RequiredOfaStage => QuirkStage.Final;
     public override bool IsDefaultSkill => false;
     

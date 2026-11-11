@@ -1,12 +1,11 @@
 using Terraria;
 using Terraria.ModLoader;
-
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.GearShift.Projectiles;
 using Terraria.Audio;
+using MyHeroMod.content.Buffs.Gearshift;
 
 public class GearShiftStrikeSkill : QuirkBaseSkill
 {
@@ -28,7 +27,7 @@ public class GearShiftStrikeSkill : QuirkBaseSkill
                     return "MyHeroMod/Assets/SkillIcons/Gearshift/OFAGearStrikeIcon"; 
                 }
                 else
-                {
+                {  
                     return "MyHeroMod/Assets/SkillIcons/Gearshift/GearStrikeIcon"; 
                 }
             }
@@ -37,7 +36,7 @@ public class GearShiftStrikeSkill : QuirkBaseSkill
 
     public override int BaseCooldown => 300;
     public override QuirkType RequiredQuirk => QuirkType.Gearshift;
-    public override QuirkStage RequiredStage => QuirkStage.Initial;
+    public override QuirkStage RequiredStage => QuirkStage.Adequation;
     public override QuirkStage RequiredOfaStage => QuirkStage.Final;
     public override bool IsDefaultSkill => false;
     

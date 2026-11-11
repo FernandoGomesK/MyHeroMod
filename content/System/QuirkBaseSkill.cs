@@ -19,7 +19,6 @@ namespace MyHeroMod.content.System
 
         public override bool CheckUnlock(TransformationPlayer player)
         {
-           
             if (IsDefaultSkill) return true;
 
             if (IsItemSkill && !CheckItemSkill(player.Player))
@@ -28,7 +27,12 @@ namespace MyHeroMod.content.System
             if (IsItemSkill && RequiredQuirk == QuirkType.Quirkless)
                 return true;
 
-           
+
+            bool unlockedNatively = player.HasActiveQuirk(RequiredQuirk) && player.CurrentStage >= RequiredStage;
+
+            if (unlockedNatively)
+                return true;
+
             if (player.HasActiveQuirk(QuirkType.OneForAll9th))
             {
                 var ofaPlayer = player.Player.GetModPlayer<OneForAll9thPlayer>();
@@ -43,7 +47,7 @@ namespace MyHeroMod.content.System
                     return player.CurrentStage >= RequiredStage;
             }
 
-            return player.HasActiveQuirk(RequiredQuirk) && player.CurrentStage >= RequiredStage;
+            return false;
         }
     }
 }

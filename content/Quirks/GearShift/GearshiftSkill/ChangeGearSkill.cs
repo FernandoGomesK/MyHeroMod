@@ -13,7 +13,7 @@ using Terraria.ModLoader;
 
 public class ChangeGearSkill : QuirkBaseSkill
 {
-    public override string Name => "Gearshift";
+    public override string Name => "Change Gear";
     public override string Description => "Change the Gear of Whoever you touch";
 
     public override string IconPath

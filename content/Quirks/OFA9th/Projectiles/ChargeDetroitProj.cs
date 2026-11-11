@@ -11,6 +11,7 @@ using MyHeroMod.content.Quirks.OFA8th;
 using MyHeroMod.content.Quirks.AllForOne;
 using KhacesCore.Content.System.BaseProjectiles;
 using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Buffs.Gearshift;
 
 
 namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
