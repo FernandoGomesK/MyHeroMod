@@ -761,6 +761,16 @@ Items: {
 		DisplayName: Fourth Dabi Leggings
 		Tooltip: ""
 	}
+
+	CristopherLeggings: {
+		DisplayName: Cristopher Leggings
+		Tooltip: ""
+	}
+
+	CristopherGlasses: {
+		DisplayName: Cristopher Glasses
+		Tooltip: ""
+	}
 }
 
 Buffs: {
