@@ -731,6 +731,46 @@ Items: {
 		DisplayName: All Might Shirt
 		Tooltip: ""
 	}
+
+	SecondDabiBreastplate: {
+		DisplayName: Second Dabi Breastplate
+		Tooltip: ""
+	}
+
+	SecondDabiLeggings: {
+		DisplayName: Second Dabi Leggings
+		Tooltip: ""
+	}
+
+	ThirdDabiBreastplate: {
+		DisplayName: Third Dabi Breastplate
+		Tooltip: ""
+	}
+
+	ThirdDabiLeggings: {
+		DisplayName: Third Dabi Leggings
+		Tooltip: ""
+	}
+
+	FourthDabiBreastplate: {
+		DisplayName: Fourth Dabi Breastplate
+		Tooltip: ""
+	}
+
+	FourthDabiLeggings: {
+		DisplayName: Fourth Dabi Leggings
+		Tooltip: ""
+	}
+
+	CristopherLeggings: {
+		DisplayName: Cristopher Leggings
+		Tooltip: ""
+	}
+
+	CristopherGlasses: {
+		DisplayName: Cristopher Glasses
+		Tooltip: ""
+	}
 }
 
 Buffs: {

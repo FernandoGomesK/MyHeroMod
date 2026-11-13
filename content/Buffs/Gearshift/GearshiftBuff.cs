@@ -23,6 +23,7 @@ namespace MyHeroMod.content.Buffs.Gearshift
             player.jumpSpeedBoost += 2.0f;
             player.GetAttackSpeed(DamageClass.Generic) += 0.4f;
             player.GetAttackSpeed(DamageClass.Ranged) += 0.8f;
+            player.GetDamage(DamageClass.Ranged) += 0.5f;
             player.noFallDmg = true;
 
             if (Main.rand.NextBool(2))

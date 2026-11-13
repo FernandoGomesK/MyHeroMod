@@ -8,7 +8,6 @@ using KhacesCore.Content.System.Interfaces;
 using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.System.Interfaces;
-using Steamworks;
 using MyHeroMod.content.Buffs.Gearshift;
 
 namespace MyHeroMod.content.Quirks.Gearshift
@@ -21,11 +20,11 @@ namespace MyHeroMod.content.Quirks.Gearshift
     {
         #region Tuning
 
-        /// <summary>Run speed bonus while Gearshift is active and the player has One For All 9th.</summary>
-        public const float RunSpeedBoostOneForAll = 5.0f;
+        /// <summary>Run speed bonus while Gearshift is active and powered up.</summary>
+        public const float RunSpeedBoostPoweredUp = 5.0f;
 
-        /// <summary>Run speed bonus while Gearshift is active without One For All 9th.</summary>
-        public const float RunSpeedBoostDefault = 2.0f;
+        /// <summary>Run speed bonus while Gearshift is active in its normal state.</summary>
+        public const float RunSpeedBoostNormal = 2.0f;
 
         /// <summary>Multiplier applied to the velocity of every projectile shot while Gearshift is active.</summary>
         public const float ProjectileVelocityMultiplier = 2.5f;
@@ -42,14 +41,39 @@ namespace MyHeroMod.content.Quirks.Gearshift
         /// <summary>Number of dust particles spawned in the burst when the charge-up finishes.</summary>
         public const int ActivationBurstDustCount = 20;
 
+        /// <summary>Normal (not powered up) buff duration for the non-toggle stages: 30 seconds.</summary>
+        public const int NormalDuration = 60 * 30;
+
+        /// <summary>Duration used for toggle mode: effectively infinite (1 hour). The skill removes the buff on the second use.</summary>
+        public const int ToggleDuration = 60 * 60 * 60;
+
         /// <summary>Offset from the player's center where the onomatopoeia projectile spawns.</summary>
         private static readonly Vector2 OnomatopoeiaOffset = new(0f, -60f);
 
         /// <summary>Color shared by every Gearshift dust effect.</summary>
         private static readonly Color DustColor = Color.Cyan;
 
-        /// <summary>Gets the Gearshift buff duration (in ticks) for the given stage.</summary>
-        public static int GetBuffDuration(QuirkStage stage) => stage switch
+        /// <summary>
+        /// True if the buff has no timer for this stage: the normal (not powered up) state
+        /// becomes a toggle from the Intermediate stage on.
+        /// </summary>
+        public static bool IsToggleMode(QuirkStage stage, bool poweredUp)
+        {
+            return !poweredUp
+                && (stage is QuirkStage.Intermediate or QuirkStage.Advanced or QuirkStage.Final);
+        }
+
+        /// <summary>Gets the Gearshift buff duration (in ticks) for the given stage and state.</summary>
+        public static int GetBuffDuration(QuirkStage stage, bool poweredUp)
+        {
+            if (IsToggleMode(stage, poweredUp))
+                return ToggleDuration;
+
+            return poweredUp ? GetPoweredUpDuration(stage) : NormalDuration;
+        }
+
+        /// <summary>Powered up (Overdrive) duration per stage: ~6.3 s, ~9.8 s, 12.5 s, 30 s, ~58.3 s.</summary>
+        private static int GetPoweredUpDuration(QuirkStage stage) => stage switch
         {
             QuirkStage.Initial => 380,
             QuirkStage.Adequation => 590,
@@ -77,6 +101,7 @@ namespace MyHeroMod.content.Quirks.Gearshift
         /// <summary>True on every tick in which the Gearshift buff is active. Reset each tick in <see cref="ResetEffects"/>.</summary>
         public bool isGearshiftBuffActive = false;
 
+        /// <summary>True on every tick in which Top Gear is active. Set by the Top Gear buff, reset each tick.</summary>
         public bool isTopGearActive = false;
 
         /// <summary>Value of <see cref="isGearshiftBuffActive"/> on the previous tick.</summary>
@@ -90,6 +115,12 @@ namespace MyHeroMod.content.Quirks.Gearshift
 
         /// <summary>Ticks the activation charge-up lasts before the buff is applied.</summary>
         public int ActivationMaxTime = 40;
+
+        /// <summary>
+        /// True if Gearshift is powered up by an external or internal source (currently One For All 9th).
+        /// Computed on demand, so it never goes stale. Add new power sources here.
+        /// </summary>
+        public bool IsPoweredUp => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th);
 
         /// <summary>True if this ModPlayer belongs to the client's own player.</summary>
         private bool IsLocalPlayer => Player.whoAmI == Main.myPlayer;
@@ -109,7 +140,7 @@ namespace MyHeroMod.content.Quirks.Gearshift
             ResetGearshiftState();
         }
 
-        /// <summary>Clears the buff and cancels any activation in progress.</summary>
+        /// <summary>Clears the buffs and cancels any activation in progress.</summary>
         private void ResetGearshiftState()
         {
             isGearshiftBuffActive = false;
@@ -131,7 +162,7 @@ namespace MyHeroMod.content.Quirks.Gearshift
         #region Movement and combat
 
         /// <summary>
-        /// Applies the run speed bonus. Runs after accessories 
+        /// Applies the run speed bonus. Runs after accessories
         /// so the bonus is not overwritten.
         /// </summary>
         public override void PostUpdateRunSpeeds()
@@ -139,8 +170,7 @@ namespace MyHeroMod.content.Quirks.Gearshift
             if (!isGearshiftBuffActive)
                 return;
 
-            bool hasOneForAll = Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th);
-            float speedBoost = hasOneForAll ? RunSpeedBoostOneForAll : RunSpeedBoostDefault;
+            float speedBoost = IsPoweredUp ? RunSpeedBoostPoweredUp : RunSpeedBoostNormal;
 
             Player.maxRunSpeed += speedBoost;
             Player.accRunSpeed += speedBoost;
@@ -202,7 +232,8 @@ namespace MyHeroMod.content.Quirks.Gearshift
                 return;
 
             var transformPlayer = Player.GetModPlayer<TransformationPlayer>();
-            Player.AddBuff(ModContent.BuffType<GearshiftBuff>(), GetBuffDuration(transformPlayer.CurrentStage));
+            int duration = GetBuffDuration(transformPlayer.CurrentStage, IsPoweredUp);
+            Player.AddBuff(ModContent.BuffType<GearshiftBuff>(), duration);
 
             Projectile.NewProjectile(
                 Player.GetSource_FromThis(),
@@ -230,36 +261,31 @@ namespace MyHeroMod.content.Quirks.Gearshift
         #region Recoil
 
         /// <summary>
-        /// Applies the recoil debuff on the tick the Gearshift buff ends.
-        /// Only the owner applies it; other clients receive the debuff through vanilla buff sync.
+        /// On the tick the Gearshift buff ends: removes Top Gear (it requires Gearshift) and,
+        /// when powered up, applies the recoil debuff. Only the owner does this;
+        /// other clients receive the buffs through vanilla buff sync.
         /// </summary>
         public override void PostUpdateBuffs()
         {
             if (!IsLocalPlayer)
                 return;
 
-            if (wasGearshiftBuffActive && !isGearshiftBuffActive)
-            {
+            if (!wasGearshiftBuffActive || isGearshiftBuffActive)
+                return;
 
-                var transformPlayer = Player.GetModPlayer<TransformationPlayer>();
+            Player.ClearBuff(ModContent.BuffType<TopGearBuff>());
 
-                Player.ClearBuff(ModContent.BuffType<TopGearBuff>());
-                if (transformPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
-                {
+            if (!IsPoweredUp)
+                return;
 
-                    Player.ClearBuff(ModContent.BuffType<TopGearBuff>());
-                    int recoilDuration = GetRecoilDuration(transformPlayer.CurrentStage);
+            var transformPlayer = Player.GetModPlayer<TransformationPlayer>();
+            int recoilDuration = GetRecoilDuration(transformPlayer.CurrentStage);
 
-                    if (transformPlayer.Nature == NatureType.ResistantBody)
-                    {
-                      
-                        recoilDuration = (int)(recoilDuration * ResistantBodyRecoilMultiplier);
-                    }
+            if (transformPlayer.Nature == NatureType.ResistantBody)
+                recoilDuration = (int)(recoilDuration * ResistantBodyRecoilMultiplier);
 
-                    if (recoilDuration > 0)
-                        Player.AddBuff(ModContent.BuffType<GearshiftRecoil>(), recoilDuration);
-                }
-            }
+            if (recoilDuration > 0)
+                Player.AddBuff(ModContent.BuffType<GearshiftRecoil>(), recoilDuration);
         }
 
         #endregion

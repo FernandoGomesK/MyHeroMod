@@ -400,9 +400,11 @@ namespace MyHeroMod.content
                 packet.Write((int)quirk);
             }
 
+            packet.Write((int)CurrentStage);   
             packet.Write((int)CurrentVariant);
             packet.Write((int)Nature);
 
+            packet.Send(toWho, fromWho);
             packet.Send(toWho, fromWho);
         }
 
@@ -429,6 +431,7 @@ namespace MyHeroMod.content
             }
 
             if (quirksChanged ||
+                CurrentStage != clone.CurrentStage ||
                 CurrentVariant != clone.CurrentVariant ||
                 Nature != clone.Nature)
             {
@@ -447,6 +450,7 @@ namespace MyHeroMod.content
                     packet.Write((int)quirk);
                 }
 
+                packet.Write((int)CurrentStage);
                 packet.Write((int)CurrentVariant);
                 packet.Write((int)Nature);
 

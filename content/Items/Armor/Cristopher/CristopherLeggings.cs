@@ -1,0 +1,35 @@
+﻿using Terraria;
+using Terraria.ModLoader;
+using Terraria.ID;
+using MyHeroMod.content.Items.Armor.Deku.AlphaArmor;
+
+namespace MyHeroMod.content.Items.Armor.Cristopher
+{
+    [AutoloadEquip(EquipType.Legs)]
+    public class CristopherLeggings : ModItem
+    {
+
+        public override void SetDefaults()
+        {
+            Item.width = 18;
+            Item.height = 18;
+            Item.value = 10000;
+            Item.rare = ItemRarityID.Green;
+            Item.defense = 6;
+        }
+        public override void UpdateEquip(Player player)
+        {
+            player.moveSpeed += 0.10f;
+        }
+
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ModContent.ItemType<AlphaLeggings>(), 1)
+                .AddIngredient(ItemID.HellstoneBar, 10)
+                .AddIngredient(ItemID.Bone, 5)
+                .AddTile(TileID.Anvils)
+                .Register();
+        }
+    }
+}
