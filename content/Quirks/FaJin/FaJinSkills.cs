@@ -2,11 +2,11 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
-using MyHeroMod.content.Buffs;
 using KhacesCore.Content.System.Interfaces;
 using Terraria.Audio;
 using KhacesCore.Content.System.BaseProjectiles;
 using Terraria.ID;
+using MyHeroMod.content.Buffs.Fajin;
 
 
 namespace MyHeroMod.content.Quirks.FaJin

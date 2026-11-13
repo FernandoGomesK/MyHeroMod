@@ -1,12 +1,12 @@
 using Terraria;
 using Terraria.ModLoader;
 using System.Collections.Generic;
-using MyHeroMod.content.Buffs;
 using Terraria.Audio;
 using MyHeroMod.content.System;
 using Terraria.GameContent.Bestiary;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.System.Interfaces;
+using MyHeroMod.content.Buffs.Dangersense;
 
 
 namespace MyHeroMod.content.Quirks.DangerSense;

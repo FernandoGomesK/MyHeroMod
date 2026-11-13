@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.DarkShadow;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.Darkshadow
 {
     public class AutomaticDarkShadowBuff : ModBuff
     {

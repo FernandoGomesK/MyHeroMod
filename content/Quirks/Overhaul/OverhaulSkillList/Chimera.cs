@@ -1,6 +1,5 @@
 using Terraria;
 using Terraria.ModLoader;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.Gearshift;
@@ -9,6 +8,7 @@ using Terraria.ID;
 
 using Terraria.Audio;
 using MyHeroMod.content.Quirks.Overhaul;
+using MyHeroMod.content.Buffs.Overhaul;
 
 
 

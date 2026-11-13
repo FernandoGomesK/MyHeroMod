@@ -22,6 +22,9 @@ using MyHeroMod.content.System.Interfaces;
 using System;
 using MyHeroMod.content.Quirks.AllForOne;
 using Humanizer;
+using MyHeroMod.content.Buffs.Gearshift;
+using MyHeroMod.content.Buffs.Dangersense;
+using MyHeroMod.content.Buffs.Fajin;
 
 
 

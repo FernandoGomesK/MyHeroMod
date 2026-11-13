@@ -2,10 +2,10 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
-using MyHeroMod.content.Quirks.FaJin; 
+using MyHeroMod.content.Quirks.FaJin;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.Fajin
 {
     public class FaJinBuff : ModBuff
     {

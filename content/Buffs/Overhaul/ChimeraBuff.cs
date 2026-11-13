@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Overhaul;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.Overhaul
 {
     public class ChimeraBuff : ModBuff
     {

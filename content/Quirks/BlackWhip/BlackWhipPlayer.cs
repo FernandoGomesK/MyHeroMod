@@ -2,6 +2,7 @@ using KhacesCore.Content.System;
 using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.Blackwhip;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhipStun;
 using MyHeroMod.content.System;

@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria.Audio;
 using Terraria.Graphics;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.Explosion;
 
 namespace MyHeroMod.content.Quirks.Explosion.Projectiles.ApShot
 {

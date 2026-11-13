@@ -3,7 +3,6 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.DangerSense;
-using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
@@ -11,6 +10,7 @@ using MyHeroMod.content.Quirks.Explosion;
 using Terraria.DataStructures;
 using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.FullPower;
+using MyHeroMod.content.Buffs.Explosion;
 
 public class FullPowerBlastSkill : QuirkBaseSkill
 {

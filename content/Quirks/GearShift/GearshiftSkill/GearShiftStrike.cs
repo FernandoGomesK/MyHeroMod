@@ -1,12 +1,11 @@
 using Terraria;
 using Terraria.ModLoader;
-
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.GearShift.Projectiles;
 using Terraria.Audio;
+using MyHeroMod.content.Buffs.Gearshift;
 
 public class GearShiftStrikeSkill : QuirkBaseSkill
 {

@@ -3,10 +3,11 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.DarkShadow;
 using Terraria.ID;
+using MyHeroMod.content.Quirks.BlackWhip;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.Blackwhip
 {
-    public class CBOArmsBuff : ModBuff
+    public class AutomaticWhipBuff : ModBuff
     {
         
         public override void SetStaticDefaults()
@@ -18,13 +19,14 @@ namespace MyHeroMod.content.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             var transformPlayer = player.GetModPlayer<TransformationPlayer>();
-            var darkShadow = player.GetModPlayer<DarkShadowPlayer>();
+            var whipPlayer = player.GetModPlayer<BlackWhipPlayer>();
 
-
-
-            darkShadow.isCBOArmsOn = true;
             
-                
+            whipPlayer.isAutomaticWhipActive = true;
+
+           
+
+               
             
-        }
+}
     }}

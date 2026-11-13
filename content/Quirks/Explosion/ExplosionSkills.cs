@@ -9,10 +9,10 @@ using MyHeroMod.content.System;
 using Terraria.Audio;
 using System.Collections.Generic;
 using MyHeroMod.content.Dusts;
-using MyHeroMod.content.Buffs;
 using KhacesCore.Content.System.Interfaces;
 using MyHeroMod.content.Projectiles;
 using System;
+using MyHeroMod.content.Buffs.Explosion;
 
 namespace MyHeroMod.content.Quirks.Explosion
 {

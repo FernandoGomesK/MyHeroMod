@@ -1,9 +1,8 @@
 using Terraria;
 using Terraria.ModLoader;
-
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
+using MyHeroMod.content.Buffs.Engine;
 
 public class ToggleEngineSkill : QuirkBaseSkill
 {

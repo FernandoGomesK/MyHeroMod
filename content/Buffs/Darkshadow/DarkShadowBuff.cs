@@ -2,12 +2,12 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
-using MyHeroMod.content.Quirks.FaJin; 
+using MyHeroMod.content.Quirks.FaJin;
 using Terraria.ID;
 using MyHeroMod.content.Quirks.Erasure;
 using MyHeroMod.content.Quirks.DarkShadow;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.Darkshadow
 {
     public class DarkShadowBuff : ModBuff
     {

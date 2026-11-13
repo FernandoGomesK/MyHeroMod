@@ -3,11 +3,11 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.DangerSense;
-using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA9th;
+using MyHeroMod.content.Buffs.Dangersense;
 
 public class ToggleDangerSenseSkill : QuirkBaseSkill
 {

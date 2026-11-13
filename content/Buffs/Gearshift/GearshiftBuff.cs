@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.Quirks.Gearshift;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.Gearshift
 {
     public class GearshiftBuff : ModBuff
     {

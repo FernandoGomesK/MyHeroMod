@@ -1,9 +1,9 @@
 using Terraria;
 using Terraria.ModLoader;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.GeneralSkills;
 using Terraria.Audio;
 using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Buffs.Fajin;
 
 namespace MyHeroMod.content.Quirks.FaJin.Skills
 {

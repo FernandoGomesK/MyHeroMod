@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Buffs;
 using KhacesCore.Content.System.Interfaces;
 
 using Terraria.Audio;
@@ -10,6 +9,7 @@ using Terraria.Audio;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.System.Interfaces;
+using MyHeroMod.content.Buffs.Fajin;
 
 
 namespace MyHeroMod.content.Quirks.FaJin

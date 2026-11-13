@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.DarkShadow.Projectiles; 
+using MyHeroMod.content.Quirks.DarkShadow.Projectiles;
 
 namespace MyHeroMod.content.Quirks.DarkShadow
 {
@@ -49,7 +49,7 @@ namespace MyHeroMod.content.Quirks.DarkShadow
 
         public override void FrameEffects()
         {
-            if (Player.HasBuff(ModContent.BuffType<Buffs.BlackAbyssBuff>()))
+            if (Player.HasBuff(ModContent.BuffType<content.Buffs.Darkshadow.BlackAbyssBuff>()))
             {
                 Player.head = EquipLoader.GetEquipSlot(Mod, "AbyssHead", EquipType.Head);
                 Player.handon = EquipLoader.GetEquipSlot(Mod, "AbyssArms", EquipType.HandsOn);
@@ -63,8 +63,8 @@ namespace MyHeroMod.content.Quirks.DarkShadow
             if (!transPlayer.HasActiveQuirk(QuirkType.DarkShadow))  
                 return;
 
-            bool hasFormBuff = Player.HasBuff(ModContent.BuffType<Buffs.BlackAbyssBuff>()) || 
-                               Player.HasBuff(ModContent.BuffType<Buffs.DarkShadowBuff>());
+            bool hasFormBuff = Player.HasBuff(ModContent.BuffType<content.Buffs.Darkshadow.BlackAbyssBuff>()) || 
+                               Player.HasBuff(ModContent.BuffType<content.Buffs.Darkshadow.DarkShadowBuff>());
 
             if (transPlayer.CurrentStage >= QuirkStage.Intermediate && hasFormBuff)
             {

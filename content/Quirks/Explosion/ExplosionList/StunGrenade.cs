@@ -5,7 +5,6 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.DangerSense;
-using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
@@ -16,6 +15,7 @@ using System.Diagnostics;
 using MyHeroMod.content.Quirks.Explosion.Projectiles.StunGrenade;
 using MyHeroMod.content.Projectiles;
 using Terraria.Graphics.CameraModifiers;
+using MyHeroMod.content.Buffs.Explosion;
 
 
 

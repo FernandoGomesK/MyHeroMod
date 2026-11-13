@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.Overhaul;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -24,7 +24,7 @@ namespace MyHeroMod.content.Quirks.Overhaul
         public override void FrameEffects()
         {
             
-            if (Player.HasBuff(ModContent.BuffType<Buffs.ChimeraBuff>()))
+            if (Player.HasBuff(ModContent.BuffType<content.Buffs.Overhaul.ChimeraBuff>()))
             {
                 // Forçamos o ID do braço da frente para ser o nosso Acessório Fantasma
                 Player.handon = EquipLoader.GetEquipSlot(Mod, "ChimeraArms", EquipType.HandsOn);

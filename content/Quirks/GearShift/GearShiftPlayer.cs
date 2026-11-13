@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System;
 using KhacesCore.Content.System.Interfaces;

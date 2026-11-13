@@ -3,10 +3,10 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhipStun;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackChain;
-using MyHeroMod.content.Quirks.FaJin; 
+using MyHeroMod.content.Quirks.FaJin;
+using MyHeroMod.content.Buffs.Fajin;
 
 public class BlackWhipStunSkill : QuirkBaseSkill
 {

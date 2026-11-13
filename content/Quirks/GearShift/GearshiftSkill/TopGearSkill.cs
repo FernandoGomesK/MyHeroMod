@@ -1,6 +1,5 @@
 using Terraria;
 using Terraria.ModLoader;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Buffs.Gearshift;
 using MyHeroMod.content.System;
 using MyHeroMod.content;

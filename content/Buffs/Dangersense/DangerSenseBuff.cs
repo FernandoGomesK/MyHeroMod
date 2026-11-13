@@ -1,10 +1,9 @@
 using Terraria;
 using Terraria.ModLoader;
-using MyHeroMod.content;
 using MyHeroMod.content.Quirks.DangerSense;
 
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.Dangersense
 {
     public class DangerSenseBuff : ModBuff
     {

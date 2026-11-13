@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.FaJin;
+using MyHeroMod.content.Buffs.Gearshift;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Skills
 {

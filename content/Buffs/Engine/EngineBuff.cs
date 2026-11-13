@@ -4,7 +4,7 @@ using MyHeroMod.content.Quirks.SlideAndGlide;
 using MyHeroMod.content.Quirks.Engine;
 using MyHeroMod.content.System;
 
-namespace MyHeroMod.content.Buffs 
+namespace MyHeroMod.content.Buffs.Engine 
 {
     public class EngineBuff : ModBuff
     {

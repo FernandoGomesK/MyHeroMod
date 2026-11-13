@@ -4,11 +4,11 @@ using Terraria.ModLoader;
 using Terraria.DataStructures;
 using Terraria.ID;
 using Terraria.Audio;
-
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using KhacesCore.Content.System.Interfaces;
 using MyHeroMod.content.System.Interfaces;
+using MyHeroMod.content.Buffs.Gearshift;
+using MyHeroMod.content.Buffs.Fajin;
 
 
 namespace MyHeroMod.content.Quirks.OFA9th
