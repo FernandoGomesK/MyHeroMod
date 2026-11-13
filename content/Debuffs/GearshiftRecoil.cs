@@ -1,7 +1,7 @@
 using Terraria;
 using Terraria.ModLoader;
 using Terraria.ID;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.Blackwhip;
 
 namespace MyHeroMod.content.Debuffs 
 {

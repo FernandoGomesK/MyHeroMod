@@ -4,7 +4,7 @@ using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MyHeroMod.content;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.OFA8;
 using MyHeroMod.content.Quirks;
 using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.Quirks.OFA8th.Projectiles;

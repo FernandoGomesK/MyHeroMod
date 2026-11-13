@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Dusts;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.OFA9
 {
     public class FullCowlingBuff : ModBuff
     {

@@ -4,7 +4,7 @@ using Terraria;
 using Microsoft.Xna.Framework;
 using Terraria.ID;
 
-namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
+namespace MyHeroMod.content.Buffs.Smokescreen // Ajuste o namespace se necessário
 {
     public class SmokescreenBuff : ModBuff
     {

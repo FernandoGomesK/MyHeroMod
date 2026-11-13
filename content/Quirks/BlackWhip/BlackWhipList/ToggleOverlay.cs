@@ -1,6 +1,5 @@
 using Terraria;
 using Terraria.ModLoader;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using Microsoft.Xna.Framework;
@@ -10,6 +9,7 @@ using Terraria.Audio;
 using MyHeroMod.content.Quirks.Overclock;
 using MyHeroMod.content.Quirks.DarkShadow;
 using MyHeroMod.content.Quirks.BlackWhip;
+using MyHeroMod.content.Buffs.Blackwhip;
 
 
 

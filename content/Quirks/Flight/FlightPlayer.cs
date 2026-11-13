@@ -1,5 +1,4 @@
 using System;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using Terraria;
 using Terraria.ID;
@@ -8,6 +7,7 @@ using KhacesCore.Content.System.GeneralSkills;
 using KhacesCore.Content.Buffs;
 using KhacesCore.Content.System.Interfaces;
 using MyHeroMod.content.System.Interfaces;
+using MyHeroMod.content.Buffs.Flight;
 
 namespace MyHeroMod.content.Quirks.Flight
 {

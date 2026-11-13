@@ -5,7 +5,7 @@ using Terraria.ID;
 using MyHeroMod.content.Quirks.OFA8th;
 using System;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.OFA8
 {
     public class StockPileBuff : ModBuff
     {

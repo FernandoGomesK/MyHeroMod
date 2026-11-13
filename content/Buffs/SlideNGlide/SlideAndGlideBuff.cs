@@ -4,7 +4,7 @@ using Terraria;
 using MyHeroMod.content.Quirks.Flight;
 using MyHeroMod.content.Quirks.SlideAndGlide;
 
-namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
+namespace MyHeroMod.content.Buffs.SlideNGlide // Ajuste o namespace se necessário
 {
     public class SlideAndGlideBuff : ModBuff
     {

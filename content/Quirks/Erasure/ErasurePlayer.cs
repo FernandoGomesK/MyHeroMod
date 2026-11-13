@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Buffs;
 
 using Terraria.Audio;
 
@@ -11,6 +10,7 @@ using MyHeroMod.content.Quirks.OFA9th;
 using Humanizer;
 using MyHeroMod.content.Quirks.Erasure.Projectiles;
 using MyHeroMod.content.System.Interfaces;
+using MyHeroMod.content.Buffs.Erasure;
 
 
 namespace MyHeroMod.content.Quirks.Erasure;

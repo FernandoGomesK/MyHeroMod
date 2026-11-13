@@ -2,7 +2,7 @@ using Terraria.ModLoader;
 using MyHeroMod.content.Quirks.Float;
 using Terraria;
 
-namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
+namespace MyHeroMod.content.Buffs.Float // Ajuste o namespace se necessário
 {
     public class FloatBuff : ModBuff
     {

@@ -1,9 +1,9 @@
 using KhacesCore.Content.System;
 using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Buffs.Fajin;
 using MyHeroMod.content.Buffs.Gearshift;
+using MyHeroMod.content.Buffs.OFA9;
 using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.Quirks.BlackWhip.Projectiles.BlackWhip;
 using MyHeroMod.content.Quirks.FaJin;

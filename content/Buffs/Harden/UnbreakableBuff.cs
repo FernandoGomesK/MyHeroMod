@@ -2,7 +2,7 @@ using Terraria.ModLoader;
 using Terraria;
 using MyHeroMod.content.Quirks.Hardening;
 
-namespace MyHeroMod.content.Buffs 
+namespace MyHeroMod.content.Buffs.Harden 
 {
     public class UnbreakableBuff : ModBuff
     {

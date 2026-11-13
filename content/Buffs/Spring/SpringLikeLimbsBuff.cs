@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 using Terraria.ID;
 using MyHeroMod.content.Quirks.SpringLikeLimbs;
 
-namespace MyHeroMod.content.Buffs 
+namespace MyHeroMod.content.Buffs.Spring 
 {
     public class SpringLikeLimbsBuff : ModBuff
     {

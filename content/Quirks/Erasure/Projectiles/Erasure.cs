@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.Erasure;
 
 namespace MyHeroMod.content.Quirks.Erasure.Projectiles
 {

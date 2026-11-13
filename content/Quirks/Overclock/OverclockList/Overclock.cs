@@ -1,6 +1,5 @@
 using Terraria;
 using Terraria.ModLoader;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.Gearshift;
@@ -10,6 +9,7 @@ using MyHeroMod.content.Dusts;
 
 using Terraria.Audio;
 using MyHeroMod.content.Quirks.Overclock;
+using MyHeroMod.content.Buffs.Overclock;
 
 namespace MyHeroMod.content.Quirks.Overclock.OverclockList
 {

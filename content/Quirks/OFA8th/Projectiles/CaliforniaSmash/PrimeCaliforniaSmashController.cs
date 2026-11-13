@@ -3,7 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.OFA8;
 
 
 

@@ -1,8 +1,8 @@
 using Terraria;
 using Terraria.ModLoader;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.GeneralSkills;
+using MyHeroMod.content.Buffs.Smokescreen;
 
 
 public class SmokescreenSkill : BaseToggleSkill

@@ -6,6 +6,7 @@ using MyHeroMod.content.Quirks.Gearshift;
 using Microsoft.Xna.Framework;
 using Terraria.Audio;
 using MyHeroMod.content.Buffs.Gearshift;
+using MyHeroMod.content.Debuffs;
 
 
 
@@ -38,10 +39,11 @@ public class GearShiftSkill : QuirkBaseSkill
         {
             Player player = Main.LocalPlayer;
             var transPlayer = player.GetModPlayer<TransformationPlayer>();
+            var gearshiftPlayer = player.GetModPlayer<GearshiftPlayer>();
 
-            if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
+            if (gearshiftPlayer.IsPoweredUp)
             {
-                return 600;
+                return 300;
             }
             else
             {
@@ -59,6 +61,11 @@ public class GearShiftSkill : QuirkBaseSkill
     public override void OnUse(Player player)
     {
         var gearshiftPlayer = player.GetModPlayer<GearshiftPlayer>();
+
+        if (player.HasBuff<GearshiftRecoil>())
+        {
+            return;
+        }
 
         if (player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
             {

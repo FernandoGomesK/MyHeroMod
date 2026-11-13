@@ -5,7 +5,7 @@ using MyHeroMod.content.Quirks.IceAndFireQuirks.HalfColdHalfHot;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.Blueflame;
 using MyHeroMod.content.Quirks.DarkShadow;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.Darkshadow
 {
     public class RagnarokBuff : ModBuff
     {

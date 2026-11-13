@@ -1,11 +1,10 @@
 using Terraria;
 using Terraria.ModLoader;
-
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.GeneralSkills;
 using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Buffs.Float;
 
 public class FloatSkill : BaseToggleSkill
 {

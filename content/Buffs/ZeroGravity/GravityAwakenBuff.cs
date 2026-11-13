@@ -5,9 +5,9 @@ using MyHeroMod.content.Quirks.DarkShadow;
 using Terraria.ID;
 using MyHeroMod.content.Quirks.BlackWhip;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.ZeroGravity
 {
-    public class OverlayBuff : ModBuff
+    public class GravityAwakenBuff : ModBuff
     {
         
         public override void SetStaticDefaults()
@@ -19,12 +19,12 @@ namespace MyHeroMod.content.Buffs
         public override void Update(Player player, ref int buffIndex)
         {
             var transformPlayer = player.GetModPlayer<TransformationPlayer>();
-            var whipPlayer = player.GetModPlayer<BlackWhipPlayer>();
+            // var whipPlayer = player.GetModPlayer<BlackWhipPlayer>();
 
             
 
 
-            whipPlayer.isOverlayActive = true;
+            // whipPlayer.isOverlayActive = true;
             
                 player.moveSpeed += 1.5f; 
                 player.statDefense += 2;    
@@ -33,7 +33,11 @@ namespace MyHeroMod.content.Buffs
 
                 for (int i = 0; i < 5; i++) 
                     {
-                        int dustIndex = Dust.NewDust(player.position, player.width, player.height, DustID.Shadowflame, 0f, 0f, 100, Color.Green, 1.0f);
+                        Vector2 spawnOffset = Main.rand.NextVector2CircularEdge(35f, 45f); 
+                        Vector2 dustSpawnPos = player.Center + spawnOffset;
+                        
+
+                        int dustIndex = Dust.NewDust(dustSpawnPos, player.width, player.height, DustID.PinkFairy, 0f, 0f, 100, default, 1.0f);
                         if (dustIndex >= 0)
                         {
                             Dust dust = Main.dust[dustIndex];

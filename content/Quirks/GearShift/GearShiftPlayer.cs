@@ -9,6 +9,7 @@ using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.Debuffs;
 using MyHeroMod.content.System.Interfaces;
 using MyHeroMod.content.Buffs.Gearshift;
+using MyHeroMod.content.Buffs.Trigger;
 
 namespace MyHeroMod.content.Quirks.Gearshift
 {
@@ -117,11 +118,11 @@ namespace MyHeroMod.content.Quirks.Gearshift
         public int ActivationMaxTime = 40;
 
         /// <summary>
-        /// True if Gearshift is powered up by an external or internal source (currently One For All 9th).
+        /// True if Gearshift is powered up by an external or internal source .
         /// Computed on demand, so it never goes stale. Add new power sources here.
         /// </summary>
-        public bool IsPoweredUp => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th);
-
+        public bool IsPoweredUp => Player.GetModPlayer<TransformationPlayer>().HasActiveQuirk(QuirkType.OneForAll9th) 
+            || Player.HasBuff<IdeoTriggerBuff>() || Player.HasBuff<TriggerBuff>();
         /// <summary>True if this ModPlayer belongs to the client's own player.</summary>
         private bool IsLocalPlayer => Player.whoAmI == Main.myPlayer;
 

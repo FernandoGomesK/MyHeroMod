@@ -1,7 +1,7 @@
 using KhacesCore.Content.Buffs;
 using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.SlideNGlide;
 using MyHeroMod.content.System;
 using MyHeroMod.content.System.Interfaces;
 using System;

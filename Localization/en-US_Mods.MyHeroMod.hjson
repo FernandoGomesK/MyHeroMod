@@ -771,6 +771,16 @@ Items: {
 		DisplayName: Cristopher Glasses
 		Tooltip: ""
 	}
+
+	IdeoTriggerVial: {
+		DisplayName: Ideo Trigger Vial
+		Tooltip: ""
+	}
+
+	TriggerVial: {
+		DisplayName: Trigger Vial
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -1107,6 +1117,16 @@ Buffs: {
 	ChangedGearBuff: {
 		DisplayName: Changed Gear Buff
 		Description: Mods.MyHeroMod.Buffs.ChangedGearBuff.Description
+	}
+
+	IdeoTriggerBuff: {
+		DisplayName: Ideo Trigger Buff
+		Description: Mods.MyHeroMod.Buffs.IdeoTriggerBuff.Description
+	}
+
+	TriggerBuff: {
+		DisplayName: Trigger Buff
+		Description: Mods.MyHeroMod.Buffs.TriggerBuff.Description
 	}
 }
 

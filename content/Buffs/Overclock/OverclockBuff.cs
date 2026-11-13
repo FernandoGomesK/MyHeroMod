@@ -6,7 +6,7 @@ using MyHeroMod.content.Quirks.Gearshift;
 using MyHeroMod.content.Quirks.Overclock;
 using MyHeroMod.content.Dusts;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.Overclock
 {
     public class OverclockBuff : ModBuff
     {

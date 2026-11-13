@@ -25,6 +25,10 @@ using Humanizer;
 using MyHeroMod.content.Buffs.Gearshift;
 using MyHeroMod.content.Buffs.Dangersense;
 using MyHeroMod.content.Buffs.Fajin;
+using MyHeroMod.content.Buffs.Float;
+using MyHeroMod.content.Buffs.OFA9;
+using MyHeroMod.content.Buffs.Blackwhip;
+using MyHeroMod.content.Buffs.Smokescreen;
 
 
 

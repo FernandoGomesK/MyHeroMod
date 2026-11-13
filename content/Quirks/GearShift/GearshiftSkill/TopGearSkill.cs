@@ -52,6 +52,11 @@ public class TopGearSkill : QuirkBaseSkill
             _ => 300
         };
 
+        if (!gearshiftPlayer.IsPoweredUp)
+        {
+            CombatText.NewText(player.getRect(), Color.Red, "Gearshift needs to be powered up!");
+            return;
+        }
         if (player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
         {
             

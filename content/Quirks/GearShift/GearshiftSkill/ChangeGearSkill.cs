@@ -43,22 +43,32 @@ public class ChangeGearSkill : QuirkBaseSkill
 
  
 
-        public override void OnUse(Player player)
+    public override void OnUse(Player player)
     {
-        Vector2 Velocity = Main.MouseWorld - player.Center;
-        Velocity.Normalize();
-        Velocity *= 15f;
+    var gearshiftPlayer = player.GetModPlayer<GearshiftPlayer>();
 
-        Projectile.NewProjectile(
-            player.GetSource_FromThis(),
-            player.Center,
-            Velocity,
-            ModContent.ProjectileType<ChangeGearProj>(),
-            15,
-            2f,
-            player.whoAmI);
+        if (!gearshiftPlayer.IsPoweredUp)
+        {
+            CombatText.NewText(player.getRect(), Color.Red, "Gearshift needs to be powered up!");
+            return;
+        }
+        else
+        {
+            Vector2 Velocity = Main.MouseWorld - player.Center;
+            Velocity.Normalize();
+            Velocity *= 15f;
+
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                player.Center,
+                Velocity,
+                ModContent.ProjectileType<ChangeGearProj>(),
+                15,
+                2f,
+                player.whoAmI);
+        }
+
     }
-
 }
 
 

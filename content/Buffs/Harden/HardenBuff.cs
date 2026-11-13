@@ -1,12 +1,12 @@
 using Terraria.ModLoader;
-using MyHeroMod.content.Quirks.Float;
 using Terraria;
-using MyHeroMod.content.Quirks.Flight;
+using MyHeroMod.content.Quirks.Hardening;
 
-namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
+namespace MyHeroMod.content.Buffs.Harden 
 {
-    public class FlightShieldBuff : ModBuff
+    public class HardenBuff : ModBuff
     {
+        
         
         public override void SetStaticDefaults()
         {
@@ -17,9 +17,9 @@ namespace MyHeroMod.content.Buffs // Ajuste o namespace se necessário
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<FlightPlayer>().isFlightShieldOn = true;
-
-            
+            player.GetModPlayer<HardeningPlayer>().isHardeningOn = true;
+            player.statDefense += 15;
+            player.GetDamage(DamageClass.Melee) += 0.10f;
         }
     }
 }

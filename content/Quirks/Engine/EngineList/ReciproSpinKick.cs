@@ -2,12 +2,12 @@ using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
-using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Engine.Projectiles;
 using MyHeroMod.content.Quirks.Engine;
+using MyHeroMod.content.Buffs.Engine;
 
 public class ReciproSpinSkill : QuirkBaseSkill
 {

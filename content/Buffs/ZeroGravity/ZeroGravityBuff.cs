@@ -1,10 +1,9 @@
 using Terraria.ModLoader;
 using Terraria;
-using MyHeroMod.content.Quirks.Hardening;
 
-namespace MyHeroMod.content.Buffs 
+namespace MyHeroMod.content.Buffs.ZeroGravity
 {
-    public class HardenBuff : ModBuff
+    public class ZeroGravityBuff : ModBuff
     {
         
         
@@ -17,9 +16,7 @@ namespace MyHeroMod.content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            player.GetModPlayer<HardeningPlayer>().isHardeningOn = true;
-            player.statDefense += 15;
-            player.GetDamage(DamageClass.Melee) += 0.10f;
+            player.GetModPlayer<Quirks.ZeroGravity.ZeroGravityPlayer>().isZeroGravityActive = true; 
         }
     }
 }

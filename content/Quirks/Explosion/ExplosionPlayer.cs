@@ -3,7 +3,6 @@ using KhacesCore.Content.System.Interfaces;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MyHeroMod.content;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Buffs.Explosion;
 using MyHeroMod.content.Dusts;
 using MyHeroMod.content.Projectiles;

@@ -2,7 +2,6 @@ using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
-using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
@@ -11,6 +10,7 @@ using MyHeroMod.content.Quirks.OFA9th;
 using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.OFA8th.Projectiles.TexasSmash;
 using MyHeroMod.content.Quirks.OFA8th;
+using MyHeroMod.content.Buffs.OFA8;
 
 
 public class TexasSmashSkill : QuirkBaseSkill

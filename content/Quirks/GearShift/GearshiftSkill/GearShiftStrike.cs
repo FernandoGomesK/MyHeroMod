@@ -1,11 +1,12 @@
-using Terraria;
-using Terraria.ModLoader;
-using MyHeroMod.content.System;
-using MyHeroMod.content;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.GearShift.Projectiles;
-using Terraria.Audio;
+using MyHeroMod.content;
 using MyHeroMod.content.Buffs.Gearshift;
+using MyHeroMod.content.Quirks.Gearshift;
+using MyHeroMod.content.Quirks.GearShift.Projectiles;
+using MyHeroMod.content.System;
+using Terraria;
+using Terraria.Audio;
+using Terraria.ModLoader;
 
 public class GearShiftStrikeSkill : QuirkBaseSkill
 {
@@ -44,6 +45,13 @@ public class GearShiftStrikeSkill : QuirkBaseSkill
 
     public override void OnUse(Player player)
     {
+        var gearshiftPlayer = player.GetModPlayer<GearshiftPlayer>();
+
+        if (!gearshiftPlayer.IsPoweredUp)
+        {
+            CombatText.NewText(player.getRect(), Color.Red, "Gearshift needs to be powered up!");
+            return;
+        }
         if (player.HasBuff<GearshiftBuff>())
         {
             var transPlayer = player.GetModPlayer<TransformationPlayer>();

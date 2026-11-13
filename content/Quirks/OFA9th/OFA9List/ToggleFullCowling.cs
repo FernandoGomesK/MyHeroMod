@@ -3,7 +3,6 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using MyHeroMod.content.Quirks.OFA9th;
-using MyHeroMod.content.Buffs;
 using Terraria.ID;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
@@ -11,6 +10,7 @@ using System.Collections.Generic;
 using Terraria.Graphics.Renderers;
 using Steamworks;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
+using MyHeroMod.content.Buffs.OFA9;
 
 public abstract class FullCowlingBase : QuirkBaseSkill
 {

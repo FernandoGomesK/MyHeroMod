@@ -1,4 +1,3 @@
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using Terraria;
 using Terraria.ID;
@@ -6,6 +5,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 
 using Terraria.DataStructures;
+using MyHeroMod.content.Buffs.SlideNGlide;
 
 
 namespace MyHeroMod.content.Quirks.SlideAndGlide

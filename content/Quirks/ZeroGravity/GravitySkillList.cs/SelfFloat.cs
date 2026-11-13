@@ -1,12 +1,11 @@
 using Terraria;
 using Terraria.ModLoader;
-
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.ZeroGravity;
+using MyHeroMod.content.Buffs.ZeroGravity;
 
 public class SelfFloatSkill : QuirkBaseSkill
 {

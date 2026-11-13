@@ -14,7 +14,13 @@ using MyHeroMod.content.Quirks.Smokescreen;
 using MyHeroMod.content.Quirks.Float;
 using MyHeroMod.content.Quirks.Erasure;
 using MyHeroMod.content.Buffs.Gearshift;
+using MyHeroMod.content.Buffs.Float;
+using MyHeroMod.content.Buffs.Overclock;
+using MyHeroMod.content.Buffs.OFA8;
+using MyHeroMod.content.Buffs.OFA9;
 using MyHeroMod.content.Buffs.Explosion;
+using MyHeroMod.content.Buffs.Erasure;
+using MyHeroMod.content.Buffs.Smokescreen;
 
 
 namespace MyHeroMod.content.Debuffs 

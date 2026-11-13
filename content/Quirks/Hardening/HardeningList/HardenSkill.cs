@@ -1,5 +1,5 @@
 using MyHeroMod.content;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.Harden;
 using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.Quirks.GeneralSkills;
 using MyHeroMod.content.System;

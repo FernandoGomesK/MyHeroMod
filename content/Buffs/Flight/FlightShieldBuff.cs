@@ -1,11 +1,12 @@
 using Terraria.ModLoader;
+using MyHeroMod.content.Quirks.Float;
 using Terraria;
+using MyHeroMod.content.Quirks.Flight;
 
-namespace MyHeroMod.content.Buffs 
+namespace MyHeroMod.content.Buffs.Flight // Ajuste o namespace se necessário
 {
-    public class ZeroGravityBuff : ModBuff
+    public class FlightShieldBuff : ModBuff
     {
-        
         
         public override void SetStaticDefaults()
         {
@@ -16,8 +17,9 @@ namespace MyHeroMod.content.Buffs
 
         public override void Update(Player player, ref int buffIndex)
         {
-            // O Buff agora só serve para avisar o Player que a Quirk está ligada!
-            player.GetModPlayer<Quirks.ZeroGravity.ZeroGravityPlayer>().isZeroGravityActive = true; 
+            player.GetModPlayer<FlightPlayer>().isFlightShieldOn = true;
+
+            
         }
     }
 }

@@ -4,7 +4,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using Terraria;
 using MyHeroMod.content.Quirks.OFA8th;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.OFA8;
 
 
 namespace MyHeroMod.content.Quirks.OFA8th

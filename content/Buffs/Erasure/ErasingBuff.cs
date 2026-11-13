@@ -2,11 +2,11 @@ using Terraria;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
-using MyHeroMod.content.Quirks.FaJin; 
+using MyHeroMod.content.Quirks.FaJin;
 using Terraria.ID;
 using MyHeroMod.content.Quirks.Erasure;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.Erasure
 {
     public class ErasingBuff : ModBuff
     {

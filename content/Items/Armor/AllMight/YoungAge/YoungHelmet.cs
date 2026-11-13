@@ -1,5 +1,5 @@
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.OFA8;
 using MyHeroMod.content.Quirks.OFA8th;
 // AJUSTE: namespace real do OneForAll8thPlayer
 using MyHeroMod.content.System;

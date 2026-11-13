@@ -5,10 +5,10 @@ using Microsoft.Xna.Framework;
 
 using MyHeroMod.content.System;
 using MyHeroMod.content.Debuffs;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.ZeroGravity.Projectiles.GravityBubble;
 using KhacesCore.Content.System.Interfaces;
 using MyHeroMod.content.System.Interfaces;
+using MyHeroMod.content.Buffs.ZeroGravity;
 
 namespace MyHeroMod.content.Quirks.ZeroGravity
 {
@@ -124,7 +124,7 @@ namespace MyHeroMod.content.Quirks.ZeroGravity
                 if (Nausea >= NauseaMax)
                 {
                     
-                    Player.ClearBuff(ModContent.BuffType<Buffs.ZeroGravityBuff>());
+                    Player.ClearBuff(ModContent.BuffType<content.Buffs.ZeroGravity.ZeroGravityBuff>());
                     isZeroGravityActive = false;
                     
                 

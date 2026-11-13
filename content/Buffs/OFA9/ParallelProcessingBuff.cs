@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using MyHeroMod.content.Quirks.OFA9th;
 
-namespace MyHeroMod.content.Buffs
+namespace MyHeroMod.content.Buffs.OFA9
 {
     public class ParallelProcessingBuff : ModBuff
     {

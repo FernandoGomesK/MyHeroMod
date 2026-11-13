@@ -1,6 +1,6 @@
 ﻿using KhacesCore.Content.System.BaseProjectiles;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.Harden;
 using MyHeroMod.content.Quirks.FaJin;
 using Terraria;
 using Terraria.Audio;

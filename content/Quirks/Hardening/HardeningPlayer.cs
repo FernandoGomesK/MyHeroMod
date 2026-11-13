@@ -1,5 +1,5 @@
 using KhacesCore.Content.Buffs;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.Harden;
 using MyHeroMod.content.Quirks.Flight;
 using MyHeroMod.content.System;
 using MyHeroMod.content.System.Interfaces;
@@ -38,14 +38,14 @@ namespace MyHeroMod.content.Quirks.Hardening
 
         public override void FrameEffects()
         {
-            if (Player.HasBuff(ModContent.BuffType<Buffs.UnbreakableBuff>()))
+            if (Player.HasBuff(ModContent.BuffType<content.Buffs.Harden.UnbreakableBuff>()))
             {
                 Player.head = EquipLoader.GetEquipSlot(Mod, "UHardeningHead", EquipType.Head);
                 Player.front = EquipLoader.GetEquipSlot(Mod, "UHardeningBody", EquipType.Front);
                 Player.handon = EquipLoader.GetEquipSlot(Mod, "UHardeningArms", EquipType.HandsOn);
                 Player.handoff = EquipLoader.GetEquipSlot(Mod, "UHardeningArms", EquipType.HandsOff);
             }
-            else if (Player.HasBuff(ModContent.BuffType<Buffs.HardenBuff>()))
+            else if (Player.HasBuff(ModContent.BuffType<content.Buffs.Harden.HardenBuff>()))
             {
                 Player.head = EquipLoader.GetEquipSlot(Mod, "HardeningHead", EquipType.Head);
                 Player.front = EquipLoader.GetEquipSlot(Mod, "HardeningBody", EquipType.Front);

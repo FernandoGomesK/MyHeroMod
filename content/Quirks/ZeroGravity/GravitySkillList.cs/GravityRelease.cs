@@ -4,9 +4,9 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.ZeroGravity;
-using MyHeroMod.content.Debuffs; 
-using MyHeroMod.content.Buffs;
-using MyHeroMod.content;   
+using MyHeroMod.content.Debuffs;
+using MyHeroMod.content;
+using MyHeroMod.content.Buffs.ZeroGravity;
 
 public class GravityReleaseSkill : QuirkBaseSkill
 {

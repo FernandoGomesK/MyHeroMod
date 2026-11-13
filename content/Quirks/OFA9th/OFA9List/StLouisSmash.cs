@@ -2,13 +2,13 @@ using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
-using MyHeroMod.content.Buffs;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.FaJin;
 using MyHeroMod.content.Buffs.Gearshift;
+using MyHeroMod.content.Buffs.OFA9;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Skills 
 {

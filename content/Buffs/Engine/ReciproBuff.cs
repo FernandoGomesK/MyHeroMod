@@ -4,7 +4,7 @@ using Terraria;
 using MyHeroMod.content.Quirks.SlideAndGlide;
 using MyHeroMod.content.Quirks.Engine;
 
-namespace MyHeroMod.content.Buffs 
+namespace MyHeroMod.content.Buffs.Engine 
 {
     public class ReciproBuff : ModBuff
     {

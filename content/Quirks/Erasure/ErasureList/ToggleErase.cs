@@ -6,7 +6,7 @@ using Terraria.ID;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content.Quirks.Erasure.Projectiles;
 using MyHeroMod.content.Quirks.FaJin;
-using MyHeroMod.content.Buffs; // Garanta que a pasta do Controller esteja correta
+using MyHeroMod.content.Buffs.Erasure; // Garanta que a pasta do Controller esteja correta
 
 namespace MyHeroMod.content.Quirks.Erasure.ErasureList
 {

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.ModLoader;
-using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Buffs.SlideNGlide;
 
 namespace MyHeroMod.content.Quirks.SlideAndGlide.Visuals
 {

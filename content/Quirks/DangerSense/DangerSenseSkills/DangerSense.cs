@@ -2,9 +2,9 @@ using Terraria;
 using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content.Quirks.DangerSense;
-using MyHeroMod.content.Buffs;
 using Microsoft.Xna.Framework;
 using MyHeroMod.content;
+using MyHeroMod.content.Buffs.Dangersense;
 
 namespace MyHeroMod.content.Quirks.DangerSense.DangerSenseSkills
 {

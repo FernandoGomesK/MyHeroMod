@@ -5,7 +5,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 using MyHeroMod.content.Quirks.Explosion;
 
-namespace MyHeroMod.content.Buffs;
+namespace MyHeroMod.content.Buffs.Explosion;
 
 public class SweatBuff : ModBuff
 {

@@ -3,15 +3,15 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using Terraria.Graphics.CameraModifiers; 
+using Terraria.Graphics.CameraModifiers;
 using Terraria.DataStructures;
-using MyHeroMod.content.Buffs;
 using MyHeroMod.content.Quirks.FaJin;
 using MyHeroMod.content.Quirks.OFA8th;
 using MyHeroMod.content.Quirks.AllForOne;
 using KhacesCore.Content.System.BaseProjectiles;
 using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.Buffs.Gearshift;
+using MyHeroMod.content.Buffs.OFA9;
 
 
 namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
