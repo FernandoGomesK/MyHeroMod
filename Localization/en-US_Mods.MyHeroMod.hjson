@@ -1128,6 +1128,11 @@ Buffs: {
 		DisplayName: Trigger Buff
 		Description: Mods.MyHeroMod.Buffs.TriggerBuff.Description
 	}
+
+	MuscleAugmentBuff: {
+		DisplayName: Muscle Augment Buff
+		Description: Mods.MyHeroMod.Buffs.MuscleAugmentBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own body with 100% power!"
@@ -1336,6 +1341,7 @@ Projectiles: {
 	BlueflameMassiveExplosion.DisplayName: Blueflame Massive Explosion
 	SmokePointProj.DisplayName: Smoke Point Proj
 	ChangeGearProj.DisplayName: Change Gear Proj
+	BaseBodyProj.DisplayName: Base Body Proj
 }
 
 NPCs: {

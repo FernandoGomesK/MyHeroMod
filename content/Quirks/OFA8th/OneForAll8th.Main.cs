@@ -127,6 +127,7 @@ namespace MyHeroMod.content.Quirks.OFA8th
             if (form == 1)
             {
                 strainDrain = 10;
+
             }
             else if (form == 2)
             {

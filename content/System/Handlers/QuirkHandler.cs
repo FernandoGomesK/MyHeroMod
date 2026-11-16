@@ -96,6 +96,7 @@ namespace MyHeroMod.content.System.Handlers
                 QuirkType.FierceWings => "Grow wings that allow for flight and enhanced mobility.",
                 QuirkType.SlideAndGlide => "Slide across surfaces and glide through the air with ease.",
                 QuirkType.Flight => "Surround yourself with a powerful shield that allows for flight and defense.",
+                QuirkType.MuscleAugmentation => "Enhance your muscles to increase strength and agility.",
                 _ => "A unique superhuman ability."
             };
 

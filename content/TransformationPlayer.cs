@@ -28,7 +28,7 @@ namespace MyHeroMod.content
         Float, Flight, Gearshift, FaJin, SmokeScreen, DangerSense,
         BlackWhip, Tape, Overclock, Erasure, SuperRegeneration, SlideAndGlide,
         Decay, Rivet, SpringLikeLimbs, Rabbit, DarkShadow, Overhaul,
-        ZeroGravity, FierceWings, OpticBlast, Hardening, Jet
+        ZeroGravity, FierceWings, OpticBlast, Hardening, Jet, MuscleAugmentation
     }
 
     /// <summary>
