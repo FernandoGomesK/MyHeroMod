@@ -8,6 +8,7 @@
 		
 	</PropertyGroup>
 	<ItemGroup>
+	  <Compile Remove="content\System\HairFixSystem.cs" />
 	  <Compile Remove="content\UI\EngineUI\DraggableEngineGearUI.cs" />
 	</ItemGroup>
 
@@ -16,6 +17,10 @@
 	<ItemGroup>
         <ProjectReference Include="..\KhacesCore\KhacesCore.csproj" />
     </ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="content\Hairs\AllMightHair\" />
+	</ItemGroup>
 
 
 </Project>

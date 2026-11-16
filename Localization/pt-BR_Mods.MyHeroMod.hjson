@@ -785,6 +785,31 @@ Items: {
 		// DisplayName: Trigger Vial
 		// Tooltip: ""
 	}
+
+	AntiAFOPants: {
+		// DisplayName: Anti A F O Pants
+		// Tooltip: ""
+	}
+
+	BruceChestCostume: {
+		// DisplayName: Bruce Chest Costume
+		// Tooltip: ""
+	}
+
+	KudoChestCostume: {
+		// DisplayName: Kudo Chest Costume
+		// Tooltip: ""
+	}
+
+	ShootingGauntlets: {
+		// DisplayName: Shooting Gauntlets
+		// Tooltip: ""
+	}
+
+	BruceHeadband: {
+		// DisplayName: Bruce Headband
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
