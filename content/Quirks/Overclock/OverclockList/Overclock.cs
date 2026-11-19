@@ -42,13 +42,14 @@ namespace MyHeroMod.content.Quirks.Overclock.OverclockList
             else
             {
 
-                //var transformPlayer = player.GetModPlayer<TransformationPlayer>();
+                var transformPlayer = player.GetModPlayer<TransformationPlayer>();
 
 
                 player.AddBuff(ModContent.BuffType<OverclockBuff>(), 360000);
                 Main.NewText("Overclock!", Color.Yellow);
 
                 var ElectricityDust = ModContent.DustType<ElectricityDust>();
+                
 
                 for (int i = 0; i < 20; i++)
                 {
@@ -56,6 +57,13 @@ namespace MyHeroMod.content.Quirks.Overclock.OverclockList
                     Dust.NewDust(player.position, player.width, player.height, ElectricityDust, speed.X, speed.Y, 0, Color.Yellow, 2f);
                 }
 
+                if (player.HasBuff(ModContent.BuffType<ChromeSpineBuff>()) || transformPlayer.CurrentVariant == QuirkVariant.Variant1)
+                {
+                    ImpactFrameSystem.Trigger(Color.White, false, "MyHeroMod/Assets/Effects/Overclock/Chrome8",
+                   "MyHeroMod/Assets/Effects/Overclock/Chrome9");
+                }
+
+               
 
             }
         }
