@@ -5,6 +5,7 @@ using Terraria.GameContent.Personalities;
 using System.Collections.Generic;
 using MyHeroMod.content.Items.Support;
 using MyHeroMod.content.Items.Support.UrarakaSupport.ZeroBetaBoots;
+using MyHeroMod.content.Items.Support.ChromeSpine;
 
 namespace MyHeroMod.content.Npcs.Mei_Hatsume
 {
@@ -97,6 +98,7 @@ namespace MyHeroMod.content.Npcs.Mei_Hatsume
             npcShop.Add(ModContent.ItemType<ZeroBetaBoots>()); 
             npcShop.Add(ModContent.ItemType<RubyGlasses>());
             npcShop.Add(ModContent.ItemType<SurgeArmGauntlets>());
+            npcShop.Add(ModContent.ItemType<ChromeSpine>());
             npcShop.Register();
         }
 

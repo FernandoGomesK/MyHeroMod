@@ -810,6 +810,11 @@ Items: {
 		// DisplayName: Bruce Headband
 		// Tooltip: ""
 	}
+
+	ChromeSpine: {
+		// DisplayName: Chrome Spine
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -1161,6 +1166,11 @@ Buffs: {
 	MuscleAugmentBuff: {
 		// DisplayName: Muscle Augment Buff
 		// Description: Mods.MyHeroMod.Buffs.MuscleAugmentBuff.Description
+	}
+
+	ChromeSpineBuff: {
+		// DisplayName: Chrome Spine Buff
+		// Description: Mods.MyHeroMod.Buffs.ChromeSpineBuff.Description
 	}
 }
 

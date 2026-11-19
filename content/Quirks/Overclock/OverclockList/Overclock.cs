@@ -20,6 +20,9 @@ namespace MyHeroMod.content.Quirks.Overclock.OverclockList
         public override string Description => "Speed up your brain for a limited time.";
         public override string IconPath => "MyHeroMod/Assets/SkillIcons/Overclock/OverclockIcon";
         public override string Category => "Overclock";
+
+        public override bool IsAccessibleWithBuff => true;
+        public override int AccessibleWithBuffId => ModContent.BuffType<ChromeSpineBuff>();
         public override int BaseCooldown => 60;
         public override QuirkType RequiredQuirk => QuirkType.Overclock;
         public override QuirkStage RequiredStage => QuirkStage.Initial;

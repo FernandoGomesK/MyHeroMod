@@ -19,14 +19,14 @@ namespace MyHeroMod.content.System
 
         public override bool CheckUnlock(TransformationPlayer player)
         {
-            if (IsDefaultSkill) return true;
+            if (IsDefaultSkill || CheckAccessItemSkill(player.Player))
+                return true;
 
             if (IsItemSkill && !CheckItemSkill(player.Player))
                 return false;
 
             if (IsItemSkill && RequiredQuirk == QuirkType.Quirkless)
                 return true;
-
 
             bool unlockedNatively = player.HasActiveQuirk(RequiredQuirk) && player.CurrentStage >= RequiredStage;
 

@@ -15,24 +15,22 @@ namespace MyHeroMod.content.Quirks.Overclock
     
     public partial class OverclockPlayer : ModPlayer, IDashModifier, IQuirkResetter, IPunchModifier
     {
+        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash,
+            ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
+        {
+            var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
+          
+            if (!HasOverclockAccess(transPlayer))
+                return;
 
-        public void ModifyDash(ref float speed, ref bool isEnhanced, ref bool hideNormalDash, 
-        ref Color explosionColor, ref int dustType, ref int onomatopoeiaType)
-{
-    var transPlayer = Player.GetModPlayer<TransformationPlayer>();
-
-    if (!transPlayer.HasActiveQuirk(QuirkType.Overclock))
-        return;
-
-        
-    if (Player.HasBuff(ModContent.BuffType<OverclockBuff>()))
-    {
-        hideNormalDash = true;
-        explosionColor = Color.Yellow; 
-        dustType = DustID.YellowTorch; 
-    }
-    }
+            if (Player.HasBuff(ModContent.BuffType<OverclockBuff>()))
+            {
+                hideNormalDash = true;
+                explosionColor = Color.Yellow;
+                dustType = DustID.YellowTorch;
+            }
+        }
 
         public void ModifyPunch(ref float projSpeed, ref int baseDamage, ref int numberOfPunches, ref int mainProjType, ref int extraProjType)
         {
@@ -41,7 +39,7 @@ namespace MyHeroMod.content.Quirks.Overclock
             if (Player.HasBuff(ModContent.BuffType<OverclockBuff>()))
             
     {
-       projSpeed = 30;
+       projSpeed = 30;  
             baseDamage = 20;
         
 

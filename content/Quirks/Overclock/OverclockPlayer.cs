@@ -11,6 +11,14 @@ namespace MyHeroMod.content.Quirks.Overclock
 {
     public partial class OverclockPlayer : ModPlayer, IDashModifier, IQuirkResetter
     {
+        
+        public bool HasOverclockAccess(TransformationPlayer transPlayer) =>
+            transPlayer.HasActiveQuirk(QuirkType.Overclock) || Player.HasBuff(ModContent.BuffType<ChromeSpineBuff>());
+
+        public bool IsChromeVariant(TransformationPlayer transPlayer) =>
+            transPlayer.CurrentVariant == QuirkVariant.Variant1 || Player.HasBuff(ModContent.BuffType<ChromeSpineBuff>());
+
+
         public int form = 0;
         public bool isOverclockBuffActive = false;
 
@@ -102,11 +110,11 @@ namespace MyHeroMod.content.Quirks.Overclock
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();
 
-            if (!transPlayer.HasActiveQuirk(QuirkType.Overclock)) return;
+            if (!HasOverclockAccess(transPlayer)) return;
 
             if (Player.HasBuff(ModContent.BuffType<OverclockBuff>()))
             {
-                isOverclockBuffActive = true; 
+                isOverclockBuffActive = true;
                 currentBreath -= breathDrainRate;
 
                 if (currentBreath <= 0)
@@ -114,8 +122,8 @@ namespace MyHeroMod.content.Quirks.Overclock
                     currentBreath = 0;
                     isOverclockBuffActive = false;
                     Player.ClearBuff(ModContent.BuffType<OverclockBuff>());
-                    
-                    if (transPlayer.CurrentVariant == QuirkVariant.Variant1)
+
+                    if (IsChromeVariant(transPlayer))
                     {
                         CombatText.NewText(Player.getRect(), Color.Red, "STOP!");
                     }
@@ -123,7 +131,6 @@ namespace MyHeroMod.content.Quirks.Overclock
                     {
                         CombatText.NewText(Player.getRect(), Color.Red, "BREATH!");
                     }
-                    
                 }
             }
             else
