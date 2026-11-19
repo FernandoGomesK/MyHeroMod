@@ -19,7 +19,7 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.StunGrenade
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.DamageType = DamageClass.Generic;
+            Projectile.DamageType = DamageClass.Magic;
             Projectile.penetrate = 1;
             Projectile.timeLeft = 10;
             Projectile.light = 0.5f;
@@ -109,7 +109,15 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.StunGrenade
 
         }
 
-        
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            target.AddBuff(BuffID.Slow, 120);
+            target.AddBuff(BuffID.Confused, 120);
+        }
+
+
+
+
     }
 
     

@@ -77,7 +77,7 @@ namespace MyHeroMod.content.System.Handlers
             {
                 QuirkType.OneForAll9th => "Stockpile immense power and access the Quirks of past predecessors.",
                 QuirkType.OneForAll8th => "Bring forth the Stockpiled power of your predecessors, enhancing your body.",
-                QuirkType.Explosion => "Use normal Skills to build up sweat, light it up powering up your moves.",
+                QuirkType.Explosion => "Use explosive Skills to build up sweat, light it up powering up your moves.",
                 QuirkType.SuperRegeneration => "Rapidly heal physical damage, though it places heavy strain on your body.",
                 QuirkType.HalfColdHalfHot => "use powerfull Ice Skills, ignite yourself to use devastating fire moves.",
                 QuirkType.AllForOne => "Steal Quirks from others and make them your own, or pass them on.",

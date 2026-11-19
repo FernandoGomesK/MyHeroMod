@@ -23,7 +23,7 @@ public class StunGrenadeSkill : QuirkBaseSkill
 {
    
     public override string Name => "Stun Grenade";
-    public override string Description => "Shoot a concentrated penetrating Projectile";
+    public override string Description => "Shoot a shot range projectile that stuns enemies";
     public override string IconPath => "MyHeroMod/Assets/SkillIcons/Explosion/StunGrenadeIcon";
 
     public override string Category => "Explosion";

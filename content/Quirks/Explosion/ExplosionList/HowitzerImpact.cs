@@ -44,7 +44,7 @@ public class HowitzerImpactSkill : QuirkBaseSkill
 
             switch(transPlayer.CurrentStage){
                 case QuirkStage.Initial:
-                BaseDamage = 1500;
+                BaseDamage = 150;
                 break;
             
                 case QuirkStage.Adequation:

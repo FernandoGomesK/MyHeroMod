@@ -22,7 +22,8 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles
             Projectile.hostile = false;
             Projectile.tileCollide = true; 
             Projectile.penetrate = 1; 
-            Projectile.timeLeft = 120; 
+            Projectile.timeLeft = 120;
+            Projectile.DamageType = DamageClass.Magic;
             Projectile.alpha = 255; 
         }
 

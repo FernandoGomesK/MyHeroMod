@@ -19,7 +19,7 @@ namespace MyHeroMod.content.Quirks.Explosion.Projectiles.FullPower
             Projectile.aiStyle = 0;
             Projectile.friendly = true;
             Projectile.hostile = false;
-            Projectile.DamageType = DamageClass.Generic;
+            Projectile.DamageType = DamageClass.Magic;
             Projectile.penetrate = 1;
             Projectile.timeLeft = 10;
             Projectile.ignoreWater = false;

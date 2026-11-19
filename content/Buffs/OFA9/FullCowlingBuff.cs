@@ -26,6 +26,8 @@ namespace MyHeroMod.content.Buffs.OFA9
                 player.jumpSpeedBoost += 6f;
                 player.statDefense += 30;  
                 player.GetDamage(DamageClass.Melee) += 0.40f;
+                player.GetDamage(DamageClass.Magic) += 0.40f;
+                player.GetDamage(DamageClass.Ranged) += 0.40f;
                 player.GetAttackSpeed(DamageClass.Melee) += 0.40f;
                 player.noFallDmg = true;
                 ofaPlayer.isFullCowlingBuffActive = true;
@@ -37,6 +39,8 @@ namespace MyHeroMod.content.Buffs.OFA9
                 player.jumpSpeedBoost += 5f;
                 player.statDefense += 22;  
                 player.GetDamage(DamageClass.Melee) += 0.25f;
+                player.GetDamage(DamageClass.Magic) += 0.25f;
+                player.GetDamage(DamageClass.Ranged) += 0.25f;
                 player.GetAttackSpeed(DamageClass.Melee) += 0.25f;
                 player.noFallDmg = true;
                 ofaPlayer.isFullCowlingBuffActive = true;
@@ -46,7 +50,9 @@ namespace MyHeroMod.content.Buffs.OFA9
                 player.moveSpeed += 2.5f; 
                 player.jumpSpeedBoost += 4f; 
                 player.statDefense += 14;    
-                player.GetDamage(DamageClass.Melee) += 0.15f; 
+                player.GetDamage(DamageClass.Melee) += 0.15f;
+                player.GetDamage(DamageClass.Magic) += 0.15f;
+                player.GetDamage(DamageClass.Ranged) += 0.15f;
                 player.GetAttackSpeed(DamageClass.Melee) += 0.15f; 
                 player.noFallDmg = true;
                 ofaPlayer.isFullCowlingBuffActive = true;
@@ -56,7 +62,9 @@ namespace MyHeroMod.content.Buffs.OFA9
                 player.moveSpeed += 2f; 
                 player.jumpSpeedBoost += 3f; 
                 player.statDefense += 8;    
-                player.GetDamage(DamageClass.Melee) += 0.10f; 
+                player.GetDamage(DamageClass.Melee) += 0.10f;
+                player.GetDamage(DamageClass.Magic) += 0.10f;
+                player.GetDamage(DamageClass.Ranged) += 0.10f;
                 player.GetAttackSpeed(DamageClass.Melee) += 0.10f; 
                 player.noFallDmg = true;
                 ofaPlayer.isFullCowlingBuffActive = true;
@@ -67,6 +75,8 @@ namespace MyHeroMod.content.Buffs.OFA9
                 player.jumpSpeedBoost += 2.0f;
                 player.statDefense += 4;    
                 player.GetDamage(DamageClass.Melee) += 0.05f; 
+                player.GetDamage(DamageClass.Magic) += 0.05f;
+                player.GetDamage(DamageClass.Ranged) += 0.05f;
                 player.GetAttackSpeed(DamageClass.Melee) += 0.05f; 
                 player.noFallDmg = true;
                 ofaPlayer.isFullCowlingBuffActive = true;
