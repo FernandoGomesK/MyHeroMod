@@ -7,7 +7,6 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.UI;
-using MyHeroMod.content.UI;
 
 namespace MyHeroMod.content.UI
 {
@@ -17,12 +16,8 @@ namespace MyHeroMod.content.UI
         public UIList quirkList;
         public UIScrollbar scrollbar;
 
-
         public override void OnInitialize()
         {
-            
-
-
             MainPanel = new UIPanel();
             MainPanel.Width.Set(400f, 0f);
             MainPanel.Height.Set(300f, 0f);
@@ -53,7 +48,8 @@ namespace MyHeroMod.content.UI
             quirkList.SetScrollbar(scrollbar);
 
             CreateButton("One For All 9th", QuirkType.OneForAll9th, Color.LimeGreen);
-            CreateButton("Engine", QuirkType.Engine, Color.Black);
+            CreateButton("Engine (Tenya)", QuirkType.Engine, Color.Black, QuirkVariant.Default);
+            CreateButton("Engine (Tensei)", QuirkType.Engine, Color.DarkSlateGray, QuirkVariant.Variant1);
             CreateButton("All For One", QuirkType.AllForOne, Color.Black);
             CreateButton("Explosion", QuirkType.Explosion, Color.OrangeRed);
             CreateButton("One For All 8th", QuirkType.OneForAll8th, Color.YellowGreen);
@@ -61,7 +57,7 @@ namespace MyHeroMod.content.UI
             CreateButton("Blue Flames", QuirkType.Blueflame, Color.CornflowerBlue);
             CreateButton("Super Regeneration", QuirkType.SuperRegeneration, Color.White);
             CreateButton("Half Cold Half Hot", QuirkType.HalfColdHalfHot, Color.LightBlue);
-            CreateButton("Erasure" , QuirkType.Erasure, Color.Purple);
+            CreateButton("Erasure", QuirkType.Erasure, Color.Purple);
             CreateButton("Float", QuirkType.Float, Color.LightSkyBlue);
             CreateButton("Gearshift", QuirkType.Gearshift, Color.Blue);
             CreateButton("Fa Jin", QuirkType.FaJin, Color.MediumPurple);
@@ -69,7 +65,8 @@ namespace MyHeroMod.content.UI
             CreateButton("Danger Sense", QuirkType.DangerSense, Color.Red);
             CreateButton("Black Whip", QuirkType.BlackWhip, Color.Black);
             CreateButton("Tape", QuirkType.Tape, Color.White);
-            CreateButton("Overclock", QuirkType.Overclock, Color.Yellow);
+            CreateButton("Overclock", QuirkType.Overclock, Color.Yellow, QuirkVariant.Default);
+            CreateButton("Overclock (Chrome)", QuirkType.Overclock, Color.Gold, QuirkVariant.Variant1);
             CreateButton("Flight", QuirkType.Flight, Color.White);
             CreateButton("Slide And Glide", QuirkType.SlideAndGlide, Color.Green);
             CreateButton("Decay", QuirkType.Decay, Color.Black);
@@ -78,35 +75,35 @@ namespace MyHeroMod.content.UI
             CreateButton("Overhaul", QuirkType.Overhaul, Color.LightPink);
             CreateButton("Zero Gravity", QuirkType.ZeroGravity, Color.Pink);
             CreateButton("Fierce Wings", QuirkType.FierceWings, Color.Red);
-            CreateButton("Optic Blast", QuirkType.OpticBlast, Color.Red);
-            // CreateButton("Speed Force", QuirkType.SpeedForce, Color.Yellow);
+            CreateButton("Optic Blast", QuirkType.OpticBlast, Color.Red, QuirkVariant.Default);
+            CreateButton("Optic Blast (Beams)", QuirkType.OpticBlast, Color.HotPink, QuirkVariant.Variant1);
             CreateButton("DarkShadow", QuirkType.DarkShadow, Color.Black);
             CreateButton("Rabbit", QuirkType.Rabbit, Color.White);
             CreateButton("Hardening", QuirkType.Hardening, Color.Red);
             CreateButton("Jet", QuirkType.Jet, Color.LightBlue);
             CreateButton("Muscle Augmentation", QuirkType.MuscleAugmentation, Color.Red);
+            CreateButton("Grasshoper", QuirkType.Grasshoper, Color.Green, QuirkVariant.Default);
+            CreateButton("Shin", QuirkType.Grasshoper, Color.LimeGreen, QuirkVariant.Variant1);
+            CreateButton("Grasshoper (Variant 2)", QuirkType.Grasshoper, Color.YellowGreen, QuirkVariant.Variant2);
 
-
-
-            // red X to close
-            UIText closeButton = new UIText("X", 1.2f); 
-            closeButton.HAlign = 0.98f; 
+            // Red X to close
+            UIText closeButton = new UIText("X", 1.2f);
+            closeButton.HAlign = 0.98f;
             closeButton.Top.Set(10f, 0f);
             closeButton.TextColor = Color.LightGray;
-            
-            
+
             closeButton.OnMouseOver += (evt, elem) => closeButton.TextColor = Color.Red;
             closeButton.OnMouseOut += (evt, elem) => closeButton.TextColor = Color.LightGray;
-            
-            
-            closeButton.OnLeftClick += (evt, elem) => {
+
+            closeButton.OnLeftClick += (evt, elem) =>
+            {
                 SoundEngine.PlaySound(SoundID.MenuClose);
                 UISystem.HideUI();
             };
             MainPanel.Append(closeButton);
-
         }
-        private void CreateButton(string text, QuirkType quirk, Color color)
+
+        private void CreateButton(string text, QuirkType quirk, Color color, QuirkVariant? forcedVariant = null)
         {
             UIPanel button = new UIPanel();
             button.Width.Set(0f, 1f);
@@ -115,7 +112,6 @@ namespace MyHeroMod.content.UI
 
             button.OnLeftClick += (evt, element) =>
             {
-
                 Player player = Main.LocalPlayer;
                 var transPlayer = player.GetModPlayer<TransformationPlayer>();
                 var corePlayer = player.GetModPlayer<CorePlayer>();
@@ -126,52 +122,29 @@ namespace MyHeroMod.content.UI
                 transPlayer.ActiveQuirks.Clear();
                 transPlayer.ActiveQuirks.Add(quirk);
 
-                if (quirk == QuirkType.OpticBlast)
+                if (forcedVariant.HasValue)
                 {
-                    
-                    if (Main.rand.Next(100) < 80)
-                    {
-                        transPlayer.CurrentVariant = QuirkVariant.Variant1;
-                        Main.NewText("Your awakened: Beams from your eyes!", Color.HotPink);
-                    }
-                    else
-                    {
-                        transPlayer.CurrentVariant = QuirkVariant.Default;
-                    }
+                    transPlayer.CurrentVariant = forcedVariant.Value;
                 }
-                else if (quirk == QuirkType.Engine)
+                else
                 {
-                    
-                    if (Main.rand.Next(100) < 48)
-                    {
-                        transPlayer.CurrentVariant = QuirkVariant.Variant1;
-                        Main.NewText("Engine Tensei", Color.White);
-                    }
+          
+                    if (quirk == QuirkType.OpticBlast)
+                        transPlayer.CurrentVariant = Main.rand.Next(100) < 80 ? QuirkVariant.Variant1 : QuirkVariant.Default;
+                    else if (quirk == QuirkType.Engine)
+                        transPlayer.CurrentVariant = Main.rand.Next(100) < 48 ? QuirkVariant.Variant1 : QuirkVariant.Default;
                     else
-                    {
                         transPlayer.CurrentVariant = QuirkVariant.Default;
-                    }
-                }
-                else 
-                {
-                    
-                    transPlayer.CurrentVariant = QuirkVariant.Default;
                 }
 
                 transPlayer.UpdateUnlockedSkills();
 
-                if (Main.netMode == NetmodeID.MultiplayerClient) 
+                if (Main.netMode == NetmodeID.MultiplayerClient)
                 {
-                    transPlayer.SendClientChanges(transPlayer);
+                    transPlayer.SyncPlayer(-1, Main.myPlayer, false);
                 }
 
-
-
-if (quirk == QuirkType.HellFlames || quirk == QuirkType.HalfColdHalfHot )
-                {
-                    // Código de dar item do fogo (comentado)
-                }
-                else if (quirk == QuirkType.OneForAll9th)
+                if (quirk == QuirkType.OneForAll9th)
                 {
                     if (!player.HasItem(ModContent.ItemType<content.Items.Weapons.PunchAttack>()))
                     {
@@ -183,13 +156,12 @@ if (quirk == QuirkType.HellFlames || quirk == QuirkType.HalfColdHalfHot )
                 SoundEngine.PlaySound(SoundID.Item4, player.position);
                 UISystem.HideUI();
             };
+
             UIText btnText = new UIText(text);
             btnText.HAlign = 0.5f;
             btnText.VAlign = 0.5f;
             button.Append(btnText);
             quirkList.Add(button);
         }
-
-       
     }
 }

@@ -45,6 +45,7 @@ namespace MyHeroMod.content.System
 
             // C-Tier (Cost 1) - Common (~11% chance each)
             // Weight: 40
+            {QuirkType.Grasshoper, 40 },
             { QuirkType.Tape, 40 },
             { QuirkType.FaJin, 40 },
             { QuirkType.Float, 40 },
@@ -79,7 +80,7 @@ namespace MyHeroMod.content.System
                 return;
             }
 
-            // 3. Roll a random number against the remaining total weight
+          
             int randomRoll = Main.rand.Next(totalWeight);
             QuirkType quirkType = QuirkType.Quirkless;
 
@@ -140,6 +141,29 @@ namespace MyHeroMod.content.System
                 {
                     transPlayer.CurrentVariant = QuirkVariant.Default;
                     Main.NewText("You awakened: Engine(Tenya)", Color.White);
+                }
+            }
+            else if (quirkType == QuirkType.Grasshoper)
+            {
+                int variantRoll = Main.rand.Next(100); 
+
+                if (variantRoll < 25) 
+                {
+                    if (Main.rand.NextBool()) 
+                    {
+                        transPlayer.CurrentVariant = QuirkVariant.Variant1;
+                        Main.NewText("You awakened: Grasshopper (Variant 1)!", Color.LimeGreen);
+                    }
+                    else
+                    {
+                        transPlayer.CurrentVariant = QuirkVariant.Variant2;
+                        Main.NewText("You awakened: Grasshopper (Variant 2)!", Color.YellowGreen);
+                    }
+                }
+                else 
+                {
+                    transPlayer.CurrentVariant = QuirkVariant.Default;
+                    Main.NewText("You awakened: Grasshopper!", Color.White);
                 }
             }
             else 

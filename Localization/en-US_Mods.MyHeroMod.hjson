@@ -811,6 +811,51 @@ Items: {
 		DisplayName: Chrome Spine
 		Tooltip: ""
 	}
+
+	GrasshoperBody: {
+		DisplayName: Grasshoper Body
+		Tooltip: ""
+	}
+
+	GrasshoperHelmet: {
+		DisplayName: Grasshoper Helmet
+		Tooltip: ""
+	}
+
+	GrasshoperLegs: {
+		DisplayName: Grasshoper Legs
+		Tooltip: ""
+	}
+
+	IchigoBody: {
+		DisplayName: Ichigo Body
+		Tooltip: ""
+	}
+
+	IchigoHelmet: {
+		DisplayName: Ichigo Helmet
+		Tooltip: ""
+	}
+
+	IchigoLeggings: {
+		DisplayName: Ichigo Leggings
+		Tooltip: ""
+	}
+
+	ShinBody: {
+		DisplayName: Shin Body
+		Tooltip: ""
+	}
+
+	ShinHelmet: {
+		DisplayName: Shin Helmet
+		Tooltip: ""
+	}
+
+	ShinLeggings: {
+		DisplayName: Shin Leggings
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -1168,6 +1213,11 @@ Buffs: {
 		DisplayName: Chrome Spine Buff
 		Description: Mods.MyHeroMod.Buffs.ChromeSpineBuff.Description
 	}
+
+	GrasshoperBuff: {
+		DisplayName: Grasshoper Buff
+		Description: Mods.MyHeroMod.Buffs.GrasshoperBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own body with 100% power!"
@@ -1377,6 +1427,7 @@ Projectiles: {
 	SmokePointProj.DisplayName: Smoke Point Proj
 	ChangeGearProj.DisplayName: Change Gear Proj
 	BaseBodyProj.DisplayName: Base Body Proj
+	HenshinOnomatopoeia.DisplayName: Henshin Onomatopoeia
 }
 
 NPCs: {

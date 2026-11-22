@@ -66,7 +66,9 @@ namespace MyHeroMod.content.System.Handlers
                 (QuirkType.Overclock, QuirkVariant.Variant1) => "Neural Upgrade",
                 (QuirkType.Engine, QuirkVariant.Variant1) => "Tensei Exhaust",
                 (QuirkType.OpticBlast, QuirkVariant.Variant1) => "Red Optic Blast",
-                _ => variant.ToString()
+                (QuirkType.Grasshoper, QuirkVariant.Variant1) => "Shin",
+                (QuirkType.Grasshoper, QuirkVariant.Variant2) => "Ichigo",
+                 _ => variant.ToString()
             };
         }
 
