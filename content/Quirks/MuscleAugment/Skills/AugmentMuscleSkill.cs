@@ -28,21 +28,19 @@ namespace MyHeroMod.content.Quirks.MuscleAugment.Skills
 
         public override void OnUse(Player player)
         {
-            if (player.HasBuff(ModContent.BuffType<MuscleAugmentBuff>()))
+            int buff = ModContent.BuffType<MuscleAugmentBuff>();
+
+            if (player.HasBuff(buff))
             {
-                player.ClearBuff(ModContent.BuffType<MuscleAugmentBuff>());
-
-
+                player.ClearBuff(buff);   
+                return;
             }
-            else
-            {
 
-                var transformPlayer = player.GetModPlayer<TransformationPlayer>();
+            int type = ModContent.ProjectileType<Projectiles.AugmentBodyTransformProj>();
+            if (player.ownedProjectileCounts[type] > 0)
+                return;
 
-                player.AddBuff(ModContent.BuffType<MuscleAugmentBuff>(), 360000);
-
-
-            }
+            Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, Vector2.Zero, type, 0, 0f, player.whoAmI);
         }
     }
 }

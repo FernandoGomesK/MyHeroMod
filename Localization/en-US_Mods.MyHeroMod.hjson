@@ -856,6 +856,11 @@ Items: {
 		DisplayName: Shin Leggings
 		Tooltip: ""
 	}
+
+	MuscularBody: {
+		DisplayName: Muscular Body
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -1428,6 +1433,7 @@ Projectiles: {
 	ChangeGearProj.DisplayName: Change Gear Proj
 	BaseBodyProj.DisplayName: Base Body Proj
 	HenshinOnomatopoeia.DisplayName: Henshin Onomatopoeia
+	AugmentBodyTransformProj.DisplayName: Augment Body Transform Proj
 }
 
 NPCs: {

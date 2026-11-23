@@ -29,11 +29,13 @@ namespace MyHeroMod.content.Buffs.MuscleAugment
 
             muscleAugmentPlayer.isMuscleAugmentActive = true;
 
-            
-            
+            player.moveSpeed += 2.0f;
+            player.jumpSpeedBoost += 3.0f;
+            player.statDefense += 12;
+            player.GetDamage(DamageClass.Melee) += 0.15f;
+            player.GetAttackSpeed(DamageClass.Melee) += 0.15f;
 
-            
-            
+
         }
 
         
