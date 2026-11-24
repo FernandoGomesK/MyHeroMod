@@ -13,13 +13,13 @@ namespace MyHeroMod.content.System
 
         public static IReadOnlyDictionary<QuirkType, int> QuirkWeights { get; } = new Dictionary<QuirkType, int>
         {   
-            // S-Tier (Cost 4) - Very Rare (~1% chance each)
-            // Weight: 2
-            { QuirkType.OneForAll9th, 2 },
-            { QuirkType.OneForAll8th, 2 },
-            { QuirkType.AllForOne, 2 },
+            // S-Tier (Cost 4) - Very Rare (~0.9% chance each, ~2.7% total)
+            // Weight: 6
+            { QuirkType.OneForAll9th, 6 },
+            { QuirkType.OneForAll8th, 6 },
+            { QuirkType.AllForOne, 6 },
 
-            // A-Tier (Cost 3) - Rare (~3-4% chance each)
+            // A-Tier (Cost 3) - Rare (~1.5% chance each)
             // Weight: 10
             { QuirkType.Overhaul, 10 },
             { QuirkType.Decay, 10 },
@@ -27,33 +27,36 @@ namespace MyHeroMod.content.System
             { QuirkType.Explosion, 10 },
             { QuirkType.Blueflame, 10 },
             { QuirkType.HellFlames, 10 },
-            { QuirkType.Engine, 10 },
-            { QuirkType.OpticBlast, 10 },
             { QuirkType.Overclock, 10 },
             { QuirkType.SuperRegeneration, 10 },
             { QuirkType.FierceWings, 10 },
             { QuirkType.DarkShadow, 10 },
+            { QuirkType.Gearshift, 10 },
 
-            // B-Tier (Cost 2) - Uncommon (~7% chance each)
+            // B-Tier (Cost 2) - Uncommon (~3.8% chance each)
             // Weight: 25
+            { QuirkType.MuscleAugmentation, 25 },
             { QuirkType.Erasure, 25 },
-            // { QuirkType.Hardening, 25 },
+            { QuirkType.Hardening, 25 },
             { QuirkType.Rabbit, 25 },
             { QuirkType.SlideAndGlide, 25 },
             { QuirkType.ZeroGravity, 25 },
             { QuirkType.SpringLikeLimbs, 25 },
+            { QuirkType.Engine, 25 },
+            { QuirkType.OpticBlast, 25 },
+            { QuirkType.FaJin, 25 },
+            { QuirkType.Jet, 25 },
 
-            // C-Tier (Cost 1) - Common (~11% chance each)
+            // C-Tier (Cost 1) - Common (~6.1% chance each)
             // Weight: 40
-            {QuirkType.Grasshoper, 40 },
+            { QuirkType.Grasshoper, 40 },
             { QuirkType.Tape, 40 },
-            { QuirkType.FaJin, 40 },
             { QuirkType.Float, 40 },
             { QuirkType.DangerSense, 40 },
             { QuirkType.BlackWhip, 40 },
-            { QuirkType.Gearshift, 40 },
             { QuirkType.Flight, 40 },
-            { QuirkType.Rivet, 40 }
+            { QuirkType.Rivet, 40 },
+            { QuirkType.SmokeScreen, 40 }
         };
 
         public static void SelectRandomQuirk()
