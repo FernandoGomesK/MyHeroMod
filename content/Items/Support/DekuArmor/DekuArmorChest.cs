@@ -49,15 +49,15 @@ namespace MyHeroMod.content.Items.Support.DekuArmor
             player.GetAttackSpeed(DamageClass.Melee) += 0.20f;
         }
 
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<DeltaBreastplate>(), 1)
-                .AddIngredient(ItemID.BeetleHusk, 10)
-                .AddIngredient(ItemID.Ectoplasm, 5)
-                .AddTile(TileID.Anvils)
-                .Register();
-        }
+        //public override void AddRecipes()
+        //{
+        //    CreateRecipe()
+        //        .AddIngredient(ModContent.ItemType<DeltaBreastplate>(), 1)
+        //        .AddIngredient(ItemID.BeetleHusk, 10)
+        //        .AddIngredient(ItemID.Ectoplasm, 5)
+        //        .AddTile(TileID.Anvils)
+        //        .Register();
+        //}
 
     }
 }

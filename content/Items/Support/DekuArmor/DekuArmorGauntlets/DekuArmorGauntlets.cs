@@ -36,15 +36,15 @@ namespace MyHeroMod.content.Items.Support.DekuArmor.DekuArmorGauntlets
 
         }
 
-        public override void AddRecipes()
-        {
-            CreateRecipe()
-                .AddIngredient(ModContent.ItemType<MidGauntlets>(), 1)
-                .AddIngredient(ModContent.ItemType<AirForce>(), 1)
-                .AddTile(TileID.TinkerersWorkbench)
-                .AddIngredient(ItemID.SoulofFlight, 5)
-                .Register();
-        }
+        //public override void AddRecipes()
+        //{
+        //    CreateRecipe()
+        //        .AddIngredient(ModContent.ItemType<MidGauntlets>(), 1)
+        //        .AddIngredient(ModContent.ItemType<AirForce>(), 1)
+        //        .AddTile(TileID.TinkerersWorkbench)
+        //        .AddIngredient(ItemID.SoulofFlight, 5)
+        //        .Register();
+        //}
 
 
     }
