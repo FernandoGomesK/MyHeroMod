@@ -16,7 +16,30 @@ public class GrasshoperKickSkill : QuirkBaseSkill
 {
     public override string Name => "Grasshoper Kick";
     public override string Description => "Jump into the air while doing a diving kick";
-    public override string IconPath => "MyHeroMod/Assets/Skills/LunaFall";
+    public override string IconPath
+    {
+        get
+        {
+            Player player = Main.LocalPlayer;
+            var transPlayer = player.GetModPlayer<TransformationPlayer>();
+
+            if (transPlayer.CurrentVariant == QuirkVariant.Variant1)
+            {
+                return "MyHeroMod/Assets/SkillIcons/Grasshoper/ShinKickIcon";
+            }
+            if (transPlayer.CurrentVariant == QuirkVariant.Variant2)
+            {
+                return "MyHeroMod/Assets/SkillIcons/Grasshoper/IchigoKickIcon";
+            }
+            else
+            {
+                return "MyHeroMod/Assets/SkillIcons/Grasshoper/GrasshoperKickIcon";
+            }
+
+        }
+    }
+   
+        
     public override string Category => "Grasshoper";
 
     public override int BaseCooldown => 120;

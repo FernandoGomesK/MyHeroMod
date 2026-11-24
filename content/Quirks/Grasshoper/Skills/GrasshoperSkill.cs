@@ -13,7 +13,7 @@ public class GrasshoperSkill : BaseToggleSkill
 {
     public override string Name => "Grasshoper";
     public override string Description => "Turn into a Grasshoper! Henshin!";
-    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Float/Float";
+    public override string IconPath => "MyHeroMod/Assets/SkillIcons/Grasshoper/HenshinIcon";
     public override string Category => "Grasshoper";
     public override int OnomatopoeiaProjType => ModContent.ProjectileType<HenshinOnomatopoeia>();
 

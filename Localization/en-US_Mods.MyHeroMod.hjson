@@ -861,6 +861,11 @@ Items: {
 		DisplayName: Muscular Body
 		Tooltip: ""
 	}
+
+	MuscularBodyArm: {
+		DisplayName: Muscular Body Arm
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -1223,6 +1228,11 @@ Buffs: {
 		DisplayName: Grasshoper Buff
 		Description: Mods.MyHeroMod.Buffs.GrasshoperBuff.Description
 	}
+
+	PartialAugmentBuff: {
+		DisplayName: Partial Augment Buff
+		Description: Mods.MyHeroMod.Buffs.PartialAugmentBuff.Description
+	}
 }
 
 DeathMessage: "{0} destroyed their own body with 100% power!"
@@ -1434,6 +1444,7 @@ Projectiles: {
 	BaseBodyProj.DisplayName: Base Body Proj
 	HenshinOnomatopoeia.DisplayName: Henshin Onomatopoeia
 	AugmentBodyTransformProj.DisplayName: Augment Body Transform Proj
+	MusclePunchThroughProj.DisplayName: Muscle Punch Through Proj
 }
 
 NPCs: {

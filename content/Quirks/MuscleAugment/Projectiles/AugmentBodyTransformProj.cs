@@ -53,7 +53,8 @@ namespace MyHeroMod.content.Quirks.MuscleAugment.Projectiles
             animTimer++;
 
             if (animTimer == 1)
-                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound"), player.position);
+                SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/FullCowlingActivationSound") with { Volume = 0.2f}, player.position);
+                
 
             // Even 5-tick pacing per frame across the 40-tick channel
             Projectile.frame = Math.Clamp((animTimer - 1) * 8 / ChannelTime, 0, 7);
@@ -98,6 +99,7 @@ namespace MyHeroMod.content.Quirks.MuscleAugment.Projectiles
         public override void OnChargeComplete(Player player)
         {
             player.AddBuff(ModContent.BuffType<MuscleAugmentBuff>(), 360000);
+            player.ClearBuff(ModContent.BuffType<PartialAugmentBuff>());
 
             SoundEngine.PlaySound(SoundID.Item74, player.Center);
 

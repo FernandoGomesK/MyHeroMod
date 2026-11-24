@@ -1,17 +1,18 @@
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria.Audio;
-using Terraria.Graphics.CameraModifiers;
-using Terraria.DataStructures;
-using MyHeroMod.content.Quirks.FaJin;
-using MyHeroMod.content.Quirks.OFA8th;
-using MyHeroMod.content.Quirks.AllForOne;
 using KhacesCore.Content.System.BaseProjectiles;
-using MyHeroMod.content.Projectiles;
+using Microsoft.Xna.Framework;
 using MyHeroMod.content.Buffs.Gearshift;
 using MyHeroMod.content.Buffs.OFA9;
+using MyHeroMod.content.Projectiles;
+using MyHeroMod.content.Quirks.AllForOne;
+using MyHeroMod.content.Quirks.FaJin;
+using MyHeroMod.content.Quirks.Hardening.Projectiles;
+using MyHeroMod.content.Quirks.OFA8th;
+using Terraria;
+using Terraria.Audio;
+using Terraria.DataStructures;
+using Terraria.Graphics.CameraModifiers;
+using Terraria.ID;
+using Terraria.ModLoader;
 
 
 namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
@@ -20,7 +21,8 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
     {
         public override string Texture => "MyHeroMod/content/Quirks/Explosion/Projectiles/HowitzerImpact/HowitzerImpactProj";
 
-        protected override int ChannelTime => 40; 
+        protected override int ChannelTime => 40;
+        protected override int TapThresholdTicks => 10;
 
         public override void AI()
         {
@@ -48,6 +50,22 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             }
         }
 
+        public override void OnTapRelease(Player player)
+        {
+            Vector2 Velocity = Main.MouseWorld - player.Center;
+            Velocity.Normalize();
+            Velocity *= 15f;
+
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                player.Center,
+                Velocity,
+                ModContent.ProjectileType<RedGauntletProj>(),
+                10,
+                2f,
+                player.whoAmI
+            );
+        }
         public override void OnChargeCancelled(Player player)
         {
             // CombatText.NewText(player.getRect(), Color.Red, "Smash Cancelled!");

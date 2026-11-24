@@ -34,6 +34,7 @@ namespace MyHeroMod.content.Buffs.MuscleAugment
             player.statDefense += 12;
             player.GetDamage(DamageClass.Melee) += 0.15f;
             player.GetAttackSpeed(DamageClass.Melee) += 0.15f;
+            player.noFallDmg = true;
 
 
         }
