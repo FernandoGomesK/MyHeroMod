@@ -1449,6 +1449,8 @@ Projectiles: {
 	// HenshinOnomatopoeia.DisplayName: Henshin Onomatopoeia
 	// AugmentBodyTransformProj.DisplayName: Augment Body Transform Proj
 	// MusclePunchThroughProj.DisplayName: Muscle Punch Through Proj
+	// DetroitSmashAnimProj.DisplayName: Detroit Smash Anim Proj
+	// DetroitSmashMeleeProj.DisplayName: Detroit Smash Melee Proj
 }
 
 NPCs: {

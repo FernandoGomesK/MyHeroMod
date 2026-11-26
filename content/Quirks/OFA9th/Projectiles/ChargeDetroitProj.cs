@@ -1,5 +1,6 @@
 using KhacesCore.Content.System.BaseProjectiles;
 using Microsoft.Xna.Framework;
+using MyHeroMod.content.Buffs.Fajin;
 using MyHeroMod.content.Buffs.Gearshift;
 using MyHeroMod.content.Buffs.OFA9;
 using MyHeroMod.content.Projectiles;
@@ -21,7 +22,20 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
     {
         public override string Texture => "MyHeroMod/content/Quirks/Explosion/Projectiles/HowitzerImpact/HowitzerImpactProj";
 
-        protected override int ChannelTime => 40;
+        protected override int ChannelTime
+        {
+            get
+            {
+                if (Projectile.owner >= 0 && Projectile.owner < Main.maxPlayers)
+                {
+                    Player player = Main.player[Projectile.owner];
+                    if (player.active && player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
+                        return 20;
+                }
+                return 60;
+            }
+        }
+
         protected override int TapThresholdTicks => 10;
 
         public override void AI()
@@ -52,17 +66,16 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 
         public override void OnTapRelease(Player player)
         {
-            Vector2 Velocity = Main.MouseWorld - player.Center;
-            Velocity.Normalize();
-            Velocity *= 15f;
+            Vector2 direction = player.DirectionTo(Main.MouseWorld);
+            Vector2 velocity = direction * 15f;
 
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
-                Velocity,
-                ModContent.ProjectileType<RedGauntletProj>(),
-                10,
-                2f,
+                velocity,
+                ModContent.ProjectileType<DetroitSmashMeleeProj>(),
+                1,
+                0f,
                 player.whoAmI
             );
         }
@@ -70,78 +83,104 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
         {
             // CombatText.NewText(player.getRect(), Color.Red, "Smash Cancelled!");
         }
-
-        public override void OnChargeComplete(Player player)
+        public static void TriggerDetroitSmash(Player player, Vector2 direction, float damageScale = 1f, bool singleTarget = false, NPC directTarget = null)
         {
             var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
-            var transPlayer = player.GetModPlayer<TransformationPlayer>();
-            var FaJinPlayer = player.GetModPlayer<FajinPlayer>();
-     
+
             bool hurtPlayer = false;
-            
-                int MaxDamage = ofaPlayer.CalculateStageDamage(150, 400, 600, 1100, 2500);
+            int maxDamage = ofaPlayer.CalculateStageDamage(150, 400, 600, 1100, 2500);
 
-        
-                float DamageMultiplier = 1f;
-                if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()))
-                {
-                    DamageMultiplier = ofaPlayer.GetFullCowlingMultiplier(); 
-                }
-                else
-                {
-                    hurtPlayer = true; 
-                }
+            float damageMultiplier = 1f;
+            if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()))
+            {
+                damageMultiplier = ofaPlayer.GetFullCowlingMultiplier();
+            }
+            else
+            {
+                hurtPlayer = true;
+            }
 
-            DamageMultiplier += ofaPlayer.ConsumeFaJin(out bool usedFaJin);
+            damageMultiplier += ofaPlayer.ConsumeFaJin(out bool usedFaJin);
 
-            
-            float rawFinalDamage = MaxDamage * DamageMultiplier;
-
-            
-            int FinalDamage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(rawFinalDamage);
+            float rawFinalDamage = maxDamage * damageMultiplier * damageScale;
+            int finalDamage = (int)player.GetTotalDamage(DamageClass.Melee).ApplyTo(rawFinalDamage);
 
             string attackName = usedFaJin ? "Faux " : "";
-
             if (usedFaJin || !hurtPlayer)
-                attackName += (DamageMultiplier * 100).ToString("0") + "% Detroit Smash";
+                attackName += (damageMultiplier * 100).ToString("0") + "% Detroit Smash";
             else
                 attackName += "Detroit Smash";
 
+            if (singleTarget)
+                attackName += " (Rush)";
+
             attackName += player.HasBuff(ModContent.BuffType<GearshiftBuff>()) ? ": Quintuple" : "!";
-                
             CombatText.NewText(player.getRect(), Color.LimeGreen, attackName);
 
-                
-            Vector2 Direction = Main.MouseWorld - player.Center;
-            Direction.Normalize();
-            Vector2 Velocity = Direction * 15f;
-            Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
+            float projSpeedModifier = ofaPlayer.percentage switch
+            {
+                5 => 20f,
+                10 => 25f,
+                20 => 35f,
+                45 => 50f,
+                100 => 65f,
+                _ => 65f
+            };
 
-            int numberOfPunches = player.HasBuff(ModContent.BuffType<GearshiftBuff>()) ? 5 : 1; 
+            float finalProjSpeed = projSpeedModifier + (usedFaJin ? 20f : 0f);
+            Vector2 velocity = direction * finalProjSpeed;
+
+            Vector2 baseSpawnLocation = singleTarget && directTarget != null
+                ? directTarget.Center
+                : player.Center + (direction * 90f);
+
+            int numberOfPunches = player.HasBuff(ModContent.BuffType<GearshiftBuff>()) ? 5 : 1;
 
             for (int i = 0; i < numberOfPunches; i++)
             {
-                Vector2 spacing = Direction * (25f * i);
-                Vector2 currentSpawn = BaseSpawnLocation - spacing;
-                    
-                Projectile.NewProjectile(player.GetSource_FromThis(), currentSpawn, Velocity, ModContent.ProjectileType<DetroitSmashProj>(), FinalDamage, 2f, player.whoAmI);
-                Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<PunchAttackProj>(), 0, 0f, player.whoAmI);
+                Vector2 spacing = direction * (25f * i);
+                Vector2 currentSpawn = baseSpawnLocation - spacing;
+
+                int projIndex = Projectile.NewProjectile(
+                    player.GetSource_FromThis(),
+                    currentSpawn,
+                    velocity,
+                    ModContent.ProjectileType<DetroitSmashAnimProj>(),
+                    finalDamage,
+                    2f,
+                    player.whoAmI
+                );
+
+                if (singleTarget && projIndex >= 0 && projIndex < Main.maxProjectiles)
+                {
+                    Main.projectile[projIndex].penetrate = 1;
+                }
+
+                Projectile.NewProjectile(player.GetSource_FromThis(), baseSpawnLocation, velocity, ModContent.ProjectileType<PunchAttackProj>(), 0, 0f, player.whoAmI);
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
             }
-                
-            var projectileType = player.HasBuff(ModContent.BuffType<GearshiftBuff>()) ? ModContent.ProjectileType<GearDekuDetroitSmashOnomatopoeia>() : ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>();
-            Vector2 textPosition = player.Center + new Vector2(0, -30f);
-            Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, projectileType, 0, 0f, player.whoAmI);
 
-            
+            int onomatopoeiaType = player.HasBuff(ModContent.BuffType<GearshiftBuff>())
+                ? ModContent.ProjectileType<GearDekuDetroitSmashOnomatopoeia>()
+                : ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>();
+
+            Projectile.NewProjectile(player.GetSource_FromThis(), player.Center + new Vector2(0, -30f), Vector2.Zero, onomatopoeiaType, 0, 0f, player.whoAmI);
+
             if (hurtPlayer)
             {
-                ofaPlayer.ApplyRecoilDamage(0.25f); 
+                ofaPlayer.ApplyRecoilDamage(0.25f);
             }
-    
-            
-            PunchCameraModifier shake = new PunchCameraModifier(player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), 10f, 15f, 20, 1000f, "FullCowlingShake");
-            Main.instance.CameraModifiers.Add(shake);
+
+            float shakeIntensity = singleTarget ? 7f : 10f;
+            Main.instance.CameraModifiers.Add(new PunchCameraModifier(
+                player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), shakeIntensity, 15f, 20, 1000f, "FullCowlingShake"));
+        }
+
+
+        public override void OnChargeComplete(Player player)
+        {
+            Vector2 direction = player.DirectionTo(Main.MouseWorld);
+            TriggerDetroitSmash(player, direction);
         }
     }
 }

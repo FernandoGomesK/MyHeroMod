@@ -88,7 +88,7 @@ namespace MyHeroMod.content.Quirks.OFA8th.Projectiles
 
             int FinalDamage = (int)(MaxDamage * DamageMultiplier);
             
-            Projectile.NewProjectile(player.GetSource_FromThis(), currentSpawn, Velocity, ModContent.ProjectileType<DetroitSmashProj>(), FinalDamage, 2f, player.whoAmI);
+            Projectile.NewProjectile(player.GetSource_FromThis(), currentSpawn, Velocity, ModContent.ProjectileType<DetroitSmashAnimProj>(), FinalDamage, 2f, player.whoAmI);
             Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<OFA9th.Projectiles.PunchAttackProj>(), 0, 0f, player.whoAmI);
             Vector2 textPosition = player.Center + new Vector2(0, -30f);
             Projectile.NewProjectile(player.GetSource_FromThis(), textPosition, Vector2.Zero, ModContent.ProjectileType<DetroitSmashOnomatopoeia>(), 0, 0f, player.whoAmI);

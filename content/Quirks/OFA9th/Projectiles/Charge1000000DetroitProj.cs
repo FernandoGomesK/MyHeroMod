@@ -97,7 +97,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             Vector2 Velocity = Direction * 15f;
             Vector2 BaseSpawnLocation = player.Center + (Direction * 90f);
 
-            Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<DetroitSmashProj>(), maxDamage, 15f, player.whoAmI);
+            Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<DetroitSmashAnimProj>(), maxDamage, 15f, player.whoAmI);
             
            
             Projectile.NewProjectile(player.GetSource_FromThis(), BaseSpawnLocation, Velocity, ModContent.ProjectileType<PunchAttackProj>(), maxDamage / 2, 0f, player.whoAmI);

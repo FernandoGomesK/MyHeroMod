@@ -156,7 +156,7 @@ namespace MyHeroMod.content.Quirks.MuscleAugment.Projectiles
             Vector2 baseSpawnLocation = player.Center + (direction * 90f);
             Vector2 currentSpawn = baseSpawnLocation - (direction * 25f);
 
-            Projectile.NewProjectile(player.GetSource_FromThis(), currentSpawn, velocity, ModContent.ProjectileType<DetroitSmashProj>(), finalDamage, 2f, player.whoAmI);
+            Projectile.NewProjectile(player.GetSource_FromThis(), currentSpawn, velocity, ModContent.ProjectileType<DetroitSmashAnimProj>(), finalDamage, 2f, player.whoAmI);
             Projectile.NewProjectile(player.GetSource_FromThis(), baseSpawnLocation, velocity, ModContent.ProjectileType<KhacesCore.Content.System.BaseProjectiles.PunchAttackProj>(), 0, 0f, player.whoAmI);
 
             SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.1f }, player.position);
