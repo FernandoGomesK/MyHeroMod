@@ -4,7 +4,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using KhacesCore.Content.System.BaseProjectiles;
 
-namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
+namespace MyHeroMod.content.Quirks.OFA9th.Projectiles.StLouisSmash
 {
     
     public class STLouisSmashController : BaseJumpKickProj

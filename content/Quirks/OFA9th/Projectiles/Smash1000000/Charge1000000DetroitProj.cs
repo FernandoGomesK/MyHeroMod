@@ -3,14 +3,15 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
-using Terraria.Graphics.CameraModifiers; 
+using Terraria.Graphics.CameraModifiers;
 using Terraria.DataStructures;
 using MyHeroMod.content.Buffs;
 using KhacesCore.Content.System.BaseProjectiles;
 using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.System;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles.DetroitSmash;
 
-namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
+namespace MyHeroMod.content.Quirks.OFA9th.Projectiles.Smash1000000
 { 
     public class Charge1000000DetroitProj : BaseChannelingProj
     {

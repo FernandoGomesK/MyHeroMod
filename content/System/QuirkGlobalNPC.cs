@@ -3,7 +3,6 @@ using Terraria.ModLoader;
 using Terraria.ID;
 using Microsoft.Xna.Framework;
 using Terraria.DataStructures;
-using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.OFA8th.Projectiles.TexasSmash;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -17,6 +16,7 @@ using System.IO;
 using System;
 using MyHeroMod.content.Npcs.Enemies.Nomu;
 using MyHeroMod.content.Items.QuirkItems.QuirkGenes;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles.DelawareSmash;
 
 namespace MyHeroMod.content.System
 {

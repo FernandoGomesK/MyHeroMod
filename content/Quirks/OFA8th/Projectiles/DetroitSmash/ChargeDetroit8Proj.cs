@@ -8,8 +8,8 @@ using Terraria.DataStructures;
 using MyHeroMod.content.Quirks.OFA8th;
 using KhacesCore.Content.System.BaseProjectiles;
 using MyHeroMod.content.Projectiles;
-using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Buffs.OFA8;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles.DetroitSmash;
 
 namespace MyHeroMod.content.Quirks.OFA8th.Projectiles
 { 

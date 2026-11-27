@@ -1,7 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using MyHeroMod.content.Dusts;
 using MyHeroMod.content.Quirks.IceAndFireQuirks.BaseIAFProjectiles;
 using MyHeroMod.content.Quirks.OFA9th;
-using MyHeroMod.content.Quirks.OFA9th.Projectiles;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles.DetroitSmash;
 using Terraria;
 using Terraria.ID;
 using Terraria.Map;
@@ -12,31 +13,21 @@ namespace MyHeroMod.content.Quirks.Hardening.Projectiles
     public class DetroitSmashMeleeProj : BaseDashProj
     {
 
-        protected override float DashSpeed 
+        protected override float DashSpeed
         {
             get
             {
                 if (Projectile.owner >= 0 && Projectile.owner < Main.maxPlayers)
                 {
                     Player player = Main.player[Projectile.owner];
-                    var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
-                    var projSpeedModifier = ofaPlayer.percentage switch
-                    {
-                        5 => 20f,
-                        10 => 25f,
-                        20 => 35,
-                        45 => 50f,
-                        100 => 65f,
-                        _ => 65f
-                    };
-                    return projSpeedModifier;
+                    if (player.active)
+                        return player.GetModPlayer<OneForAll9thPlayer>().GetOfaDashSpeed();
                 }
                 return 40f;
             }
         }
 
 
-       
 
         protected override int DashDuration => 20;
         protected override float HitboxThickness => 90f;
@@ -63,13 +54,15 @@ namespace MyHeroMod.content.Quirks.Hardening.Projectiles
 
         public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
         {
-            // Nullify the dash's own contact damage so only the spawned smash deals damage
+      
             modifiers.FinalDamage *= 0f;
             modifiers.DisableCrit();
         }
 
         protected override void SpawnDashVisuals(Player player)
         {
+
+            int dustType = ModContent.DustType<ElectricityDust>();
 
             int trailDust = Dust.NewDust(player.position, player.width, player.height, DustID.Ash, 0f, 0f, 100, default, 1.5f);
             Main.dust[trailDust].noGravity = true;
@@ -80,7 +73,7 @@ namespace MyHeroMod.content.Quirks.Hardening.Projectiles
             {
                 for (int i = 0; i < 20; i++)
                 {
-                    int d = Dust.NewDust(player.position, player.width, player.height, DustID.Stone, 0, 0, 100, default, 2f);
+                    int d = Dust.NewDust(player.position, player.width, player.height, dustType, 0, 0, 100, default, 2f);
                     Main.dust[d].noGravity = true;
                     Main.dust[d].velocity *= 3f;
                 }
@@ -95,13 +88,15 @@ namespace MyHeroMod.content.Quirks.Hardening.Projectiles
                 Player player = Main.player[Projectile.owner];
                 Vector2 direction = Projectile.velocity.SafeNormalize(Vector2.UnitX * player.direction);
 
-                // Stop the player's dash momentum on impact so you don't overshoot through the boss
-                player.velocity *= 0.25f;
+                
+                player.velocity *= 0.5f;
+
+                float damageScale = Projectile.ai[1] > 0f ? Projectile.ai[1] : 0.6f;
 
                 ChargeDetroitProj.TriggerDetroitSmash(
                     player,
                     direction,
-                    damageScale: 0.6f,
+                    damageScale: damageScale,
                     singleTarget: true,
                     directTarget: target
                 );

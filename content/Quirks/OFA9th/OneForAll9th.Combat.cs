@@ -155,6 +155,17 @@ namespace MyHeroMod.content.Quirks.OFA9th
             };
         }
 
+       
+        public float GetOfaDashSpeed() => percentage switch
+        {
+            5 => 20f,
+            10 => 30f,
+            20 => 45f,
+            45 => 50f,
+            100 => 65f,
+            _ => 65f
+        };
+
         public void ApplyRecoilDamage(float healthPercent)
         {
             var transPlayer = Player.GetModPlayer<TransformationPlayer>();

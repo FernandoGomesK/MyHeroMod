@@ -3,13 +3,13 @@ using Terraria.ModLoader;
 using MyHeroMod.content.System;
 using MyHeroMod.content;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.AllForOne;
 using KhacesCore.Content.System;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.OFA8th;
 using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.Buffs.Gearshift;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles.DetroitSmash;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Skills 
 {
@@ -38,52 +38,42 @@ public class DetroitSmashSkill : QuirkBaseSkill
                 return false;
             }
         }
-   
 
-    public override void OnUse(Player player)
-    {
-        
-        var transPlayer = player.GetModPlayer<TransformationPlayer>();
-        
-        
-        int onomatopoeiaType = ModContent.ProjectileType<DetroitOnomatopoeia>();
 
-        
-        if (transPlayer.HasActiveQuirk(QuirkType.OneForAll9th))
+        public override void OnUse(Player player)
         {
-            if (player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
+            int type = ModContent.ProjectileType<ChargeDetroitProj>();
+            if (player.ownedProjectileCounts[type] > 0)
+                return;
+
+            Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                player.Center,
+                Vector2.Zero,
+                type,
+                0,
+                0f,
+                player.whoAmI
+            );
+
+            int onomatopoeiaType = player.HasBuff(ModContent.BuffType<GearshiftBuff>())
+            ? ModContent.ProjectileType<GearDekuDetroitOnomatopoeia>()
+            : ModContent.ProjectileType<DekuDetroitOnomatopoeia>();
+
+            int textIdx = Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                player.Center + new Vector2(0, -160f),
+                Vector2.Zero,
+                onomatopoeiaType,
+                0,
+                0f,
+                player.whoAmI
+            );
+
+            if (textIdx >= 0 && textIdx < Main.maxProjectiles)
             {
-                onomatopoeiaType = ModContent.ProjectileType<GearDekuDetroitOnomatopoeia>();
+                Main.projectile[textIdx].scale = 2.5f;
             }
-            else
-            {
-                onomatopoeiaType = ModContent.ProjectileType<DekuDetroitOnomatopoeia>();
-            }
-            
         }
-
-        
-        Vector2 textPosition = player.Center + new Vector2(0, -30f);
-        Projectile.NewProjectile(
-            player.GetSource_FromThis(),
-            textPosition,
-            Vector2.Zero, 
-            onomatopoeiaType, 
-            0, 
-            0f, 
-            player.whoAmI
-        );
-
-        
-        Projectile.NewProjectile(
-            player.GetSource_FromThis(), 
-            player.Center, 
-            Vector2.Zero, 
-            ModContent.ProjectileType<ChargeDetroitProj>(), 
-            0, 
-            0f, 
-            player.whoAmI
-        );
     }
-}
 }

@@ -20,6 +20,7 @@
 
 	<ItemGroup>
 	  <Folder Include="content\Hairs\AllMightHair\" />
+	  <Folder Include="content\Quirks\OFA9th\Projectiles\SmashBarrage\" />
 	</ItemGroup>
 
 

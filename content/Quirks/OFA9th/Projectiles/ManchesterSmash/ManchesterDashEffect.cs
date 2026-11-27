@@ -2,7 +2,7 @@
 using Terraria;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
+namespace MyHeroMod.content.Quirks.OFA9th.Projectiles.ManchesterSmash
 {
     public class ManchesterDashEffect : ModProjectile
     {

@@ -10,6 +10,7 @@ using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.OFA8th;
 using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.Buffs;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles.Smash1000000;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Skills 
 {

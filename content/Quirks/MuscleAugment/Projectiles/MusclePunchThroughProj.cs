@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MyHeroMod.content.Buffs.MuscleAugment;
 using MyHeroMod.content.Quirks.Hardening.Projectiles;
-using MyHeroMod.content.Quirks.OFA9th.Projectiles;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles.DetroitSmash;
 using System;
 using System.Collections.Generic;
 using Terraria;

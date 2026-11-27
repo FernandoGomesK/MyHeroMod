@@ -4,11 +4,11 @@ using MyHeroMod.content.System;
 using MyHeroMod.content;
 using Terraria.Audio;
 using Microsoft.Xna.Framework;
-using MyHeroMod.content.Quirks.OFA9th.Projectiles;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.FaJin;
 using MyHeroMod.content.Buffs.Gearshift;
 using MyHeroMod.content.Buffs.OFA9;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles.ManchesterSmash;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Skills
 {

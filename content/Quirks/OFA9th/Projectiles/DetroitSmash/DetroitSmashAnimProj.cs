@@ -1,11 +1,12 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
+namespace MyHeroMod.content.Quirks.OFA9th.Projectiles.DetroitSmash
 {
     public class DetroitSmashAnimProj : ModProjectile
     {
@@ -31,8 +32,8 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             Projectile.light = 0.5f;
             Projectile.ignoreWater = true;
             Projectile.tileCollide = false;
-            Projectile.alpha = 0;
-            Projectile.scale = 2.0f;
+            Projectile.alpha = 80;
+            Projectile.scale = 4.0f;
         }
 
         public override void OnKill(int timeLeft)
@@ -47,7 +48,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
 
-            // Cycle through the 3 frames (change '5' to adjust animation speed, or clamp to 2 if it shouldn't loop)
+            
             if (++Projectile.frameCounter >= 5)
             {
                 Projectile.frameCounter = 0;
@@ -57,12 +58,13 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
                 }
             }
 
+            Projectile.alpha = Math.Min(255, Projectile.alpha + 25);
             if (Main.rand.NextBool(2))
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Cloud, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.5f);
             }
 
-            if (Projectile.scale < 3.0f)
+            if (Projectile.scale < 6.0f)
             {
                 Projectile.scale += 0.05f;
                 Vector2 oldCenter = Projectile.Center;

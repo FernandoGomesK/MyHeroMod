@@ -3,7 +3,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using KhacesCore.Content.System.BaseProjectiles;
 
-namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
+namespace MyHeroMod.content.Quirks.OFA9th.Projectiles.DelawareSmash
 {
     public class DelawareSmashProj : BaseSimpleProj
     {
@@ -12,7 +12,6 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
             base.SetDefaults();
             Projectile.DamageType = DamageClass.Melee;
         }
-        public override string Texture => "MyHeroMod/Assets/Projectiles/DelawareSmashProj";
 
         public override void OnKill(int timeLeft)
         {
@@ -24,12 +23,30 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 
         public override void AI()
         {
-            base.AI(); 
-            
+            base.AI();
+
             if (Main.rand.NextBool(2))
             {
                 Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Cloud, Projectile.velocity.X * 0.2f, Projectile.velocity.Y * 0.2f, 100, default, 1.5f);
             }
+        }
+    }
+
+    public class PreciseDelawareSmashProj : DelawareSmashProj
+    {
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Projectile.extraUpdates = 1;
+        }
+    }
+
+    public class ChargedDelawareSmashProj : DelawareSmashProj
+    {
+        public override void SetDefaults()
+        {
+            base.SetDefaults();
+            Projectile.penetrate = 3;
         }
     }
 }

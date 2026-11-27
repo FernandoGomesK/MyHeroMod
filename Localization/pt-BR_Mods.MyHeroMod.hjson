@@ -1451,6 +1451,10 @@ Projectiles: {
 	// MusclePunchThroughProj.DisplayName: Muscle Punch Through Proj
 	// DetroitSmashAnimProj.DisplayName: Detroit Smash Anim Proj
 	// DetroitSmashMeleeProj.DisplayName: Detroit Smash Melee Proj
+	// AirRingShotProj.DisplayName: Air Ring Shot Proj
+	// ChargeDelawareProj.DisplayName: Charge Delaware Proj
+	// ChargedDelawareSmashProj.DisplayName: Charged Delaware Smash Proj
+	// PreciseDelawareSmashProj.DisplayName: Precise Delaware Smash Proj
 }
 
 NPCs: {

@@ -7,6 +7,7 @@ using MyHeroMod.content.Projectiles;
 using MyHeroMod.content.Quirks.AllForOne;
 using MyHeroMod.content.Quirks.FaJin;
 using MyHeroMod.content.Quirks.Hardening.Projectiles;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles.AirRingExplosion;
 using MyHeroMod.content.Quirks.OFA8th;
 using Terraria;
 using Terraria.Audio;
@@ -16,7 +17,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 
-namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
+namespace MyHeroMod.content.Quirks.OFA9th.Projectiles.DetroitSmash
 { 
     public class ChargeDetroitProj : BaseChannelingProj
     {
@@ -32,11 +33,12 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
                     if (player.active && player.HasBuff(ModContent.BuffType<GearshiftBuff>()))
                         return 20;
                 }
-                return 60;
+                return 80;
             }
         }
 
         protected override int TapThresholdTicks => 10;
+        protected override float TapCooldownRefundPercent => 0.4f;
 
         public override void AI()
         {
@@ -67,18 +69,20 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
         public override void OnTapRelease(Player player)
         {
             Vector2 direction = player.DirectionTo(Main.MouseWorld);
-            Vector2 velocity = direction * 15f;
+            float dashSpeed = player.GetModPlayer<OneForAll9thPlayer>().GetOfaDashSpeed();
 
             Projectile.NewProjectile(
                 player.GetSource_FromThis(),
                 player.Center,
-                velocity,
+                direction * dashSpeed,
                 ModContent.ProjectileType<DetroitSmashMeleeProj>(),
                 1,
                 0f,
                 player.whoAmI
             );
         }
+
+
         public override void OnChargeCancelled(Player player)
         {
             // CombatText.NewText(player.getRect(), Color.Red, "Smash Cancelled!");
@@ -129,6 +133,7 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
 
             float finalProjSpeed = projSpeedModifier + (usedFaJin ? 20f : 0f);
             Vector2 velocity = direction * finalProjSpeed;
+            Vector2 effectVelocity = direction * 1f;
 
             Vector2 baseSpawnLocation = singleTarget && directTarget != null
                 ? directTarget.Center
@@ -157,15 +162,29 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
                 }
 
                 Projectile.NewProjectile(player.GetSource_FromThis(), baseSpawnLocation, velocity, ModContent.ProjectileType<PunchAttackProj>(), 0, 0f, player.whoAmI);
+                Projectile.NewProjectile(player.GetSource_FromThis(), baseSpawnLocation, effectVelocity, ModContent.ProjectileType<AirRingShotProj>(), 0, 0f, player.whoAmI);
                 SoundEngine.PlaySound(new SoundStyle("MyHeroMod/Assets/Sounds/smash2") with { Volume = 0.5f }, player.position);
             }
 
             int onomatopoeiaType = player.HasBuff(ModContent.BuffType<GearshiftBuff>())
-                ? ModContent.ProjectileType<GearDekuDetroitSmashOnomatopoeia>()
-                : ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>();
+            ? ModContent.ProjectileType<GearDekuDetroitSmashOnomatopoeia>()
+            : ModContent.ProjectileType<DekuDetroitSmashOnomatopoeia>();
 
-            Projectile.NewProjectile(player.GetSource_FromThis(), player.Center + new Vector2(0, -30f), Vector2.Zero, onomatopoeiaType, 0, 0f, player.whoAmI);
+            int textIdx = Projectile.NewProjectile(
+                player.GetSource_FromThis(),
+                player.Center + new Vector2(0, -80f),
+                Vector2.Zero,
+                onomatopoeiaType,
+                0,
+                0f,
+                player.whoAmI
+            );
 
+            if (textIdx >= 0 && textIdx < Main.maxProjectiles)
+            {
+                Main.projectile[textIdx].scale = 2.5f; 
+            }
+            
             if (hurtPlayer)
             {
                 ofaPlayer.ApplyRecoilDamage(0.25f);
@@ -176,10 +195,26 @@ namespace MyHeroMod.content.Quirks.OFA9th.Projectiles
                 player.Center, Main.rand.NextVector2CircularEdge(1f, 1f), shakeIntensity, 15f, 20, 1000f, "FullCowlingShake"));
         }
 
-
         public override void OnChargeComplete(Player player)
         {
+            var ofaPlayer = player.GetModPlayer<OneForAll9thPlayer>();
             Vector2 direction = player.DirectionTo(Main.MouseWorld);
+
+            if (player.HasBuff(ModContent.BuffType<FullCowlingBuff>()) && ofaPlayer.percentage <= 20)
+            {
+                Projectile.NewProjectile(
+                    player.GetSource_FromThis(),
+                    player.Center,
+                    direction * 15f,
+                    ModContent.ProjectileType<DetroitSmashMeleeProj>(),
+                    1,
+                    0f,
+                    player.whoAmI,
+                    ai1: 1f 
+                );
+                return;
+            }
+
             TriggerDetroitSmash(player, direction);
         }
     }

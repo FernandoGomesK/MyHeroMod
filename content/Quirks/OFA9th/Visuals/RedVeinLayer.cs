@@ -7,6 +7,7 @@ using MyHeroMod.content;
 using MyHeroMod.content.Quirks.OFA9th;
 using MyHeroMod.content.Quirks.OFA9th.Projectiles; 
 using MyHeroMod.content.System;
+using MyHeroMod.content.Quirks.OFA9th.Projectiles.Smash1000000;
 
 namespace MyHeroMod.content.Quirks.OFA9th.Visuals
 {
